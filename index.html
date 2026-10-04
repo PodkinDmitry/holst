@@ -1,0 +1,3065 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" data-app>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" data-app>
+<meta name="color-scheme" content="light" data-app>
+<meta name="theme-color" content="#1c1d21" data-app>
+<link rel="manifest" href="manifest.webmanifest" data-app>
+<title data-app>Холст</title>
+<link rel="icon" data-app href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231c1d21'/%3E%3Cpath d='M8 8h16v10l-6 6H8z' fill='%23ffd84d'/%3E%3C/svg%3E">
+<style data-app>
+:root{
+  --canvas:#f4f5f7; --dot:#c6cad3; --ink:#1c1d21; --panel:#ffffff; --line:#e3e5ea; --muted:#6b7080; --hover:#f1f2f5;
+  --accent:#3355ff; --accent-soft:#e8ecff; --mark:#ffd84d; --danger:#e5484d; --night:#121317;
+  --shadow:0 1px 2px rgba(28,29,33,.06),0 10px 28px -8px rgba(28,29,33,.18);
+  --font:"SF Pro Text","Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --st:env(safe-area-inset-top,0px); --sb:env(safe-area-inset-bottom,0px); --sl:env(safe-area-inset-left,0px); --sr:env(safe-area-inset-right,0px);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--canvas);color:var(--ink);font:14px/1.4 var(--font);-webkit-font-smoothing:antialiased;overscroll-behavior:none}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+
+/* ---------- canvas ---------- */
+#viewport{position:fixed;inset:0;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;background-color:var(--canvas);background-image:radial-gradient(circle at center,var(--dot) 1.1px,transparent 1.5px)}
+#viewport.nogrid{background-image:none}
+#viewport.tool-hand,#viewport.space{cursor:grab}
+#viewport.panning{cursor:grabbing}
+#viewport.tool-sticky,#viewport.tool-shape,#viewport.tool-frame,#viewport.tool-connector,#viewport.tool-pen{cursor:crosshair}
+#viewport.tool-text{cursor:text}
+#viewport.tool-eraser{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Ccircle cx='11' cy='11' r='8' fill='white' fill-opacity='.6' stroke='%231c1d21' stroke-width='1.5'/%3E%3C/svg%3E") 11 11,crosshair}
+#viewport.focusing{background:var(--night);background-image:none;cursor:zoom-out}
+#viewport.focusing #world>:not(.focused){visibility:hidden}
+#world{position:absolute;left:0;top:0;width:0;height:0;transform-origin:0 0}
+.it{position:absolute;left:0;top:0}
+.it .tw{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.text .tw{position:relative;inset:auto;display:block;overflow:visible}
+.txt{width:100%;outline:none;white-space:pre-wrap;overflow-wrap:break-word;line-height:1.3;min-height:1.3em}
+.it.editing .txt,.it.editing .ftitle,.it.editing .et{cursor:text;user-select:text;-webkit-user-select:text}
+.it.editing .txt:empty::before{content:attr(data-ph);opacity:.4}
+.sticky{border-radius:2px;box-shadow:0 1px 1px rgba(0,0,0,.05),0 12px 18px -12px rgba(30,30,0,.45)}
+.sticky .tw{padding:12px}
+.shape>svg{position:absolute;left:0;top:0;overflow:visible}
+.frame{pointer-events:none;border-radius:6px;box-shadow:0 0 0 1px #d9dce3,0 3px 14px -6px rgba(28,29,33,.12)}
+.ftitle{position:absolute;left:0;bottom:100%;margin-bottom:calc(6px * var(--iz,1));padding:0 calc(3px * var(--iz,1));font-size:calc(13px * var(--iz,1));line-height:1.35;font-weight:600;color:var(--muted);white-space:pre;pointer-events:auto;border-radius:calc(4px * var(--iz,1));outline:none;min-width:calc(24px * var(--iz,1))}
+.frame.editing .ftitle{background:#fff;color:var(--ink);box-shadow:0 0 0 calc(1.5px * var(--iz,1)) var(--accent)}
+.image img{display:block;width:100%;height:100%;pointer-events:none;-webkit-user-drag:none}
+.pen{pointer-events:none}
+.pen>svg{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+.conn{position:absolute;overflow:visible;pointer-events:none}
+.hit,.halo,.ln{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.hit{stroke:transparent;pointer-events:stroke}
+.halo{stroke:transparent}
+.it.sel .halo{stroke:rgba(51,85,255,.28)}
+
+/* ---------- embeds ---------- */
+.embed{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 0 0 1px #d9dce3,0 10px 26px -14px rgba(28,29,33,.4)}
+.embed.e-active{box-shadow:0 0 0 2px var(--accent),0 10px 26px -14px rgba(28,29,33,.4)}
+.eh{position:absolute;left:0;top:0;right:0;height:34px;display:flex;align-items:center;gap:8px;padding:0 5px 0 9px;background:#fff;border-bottom:1px solid #eceef2}
+.ei{flex:none;width:18px;height:18px;border-radius:5px;display:grid;place-items:center;font:800 9px/1 var(--font);color:#fff;background:var(--pc,#6b7080)}
+.ei.dk{color:var(--ink)}
+.ei svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.et{flex:1;min-width:0;font:600 13px/1.25 var(--font);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;outline:none;border-radius:4px;padding:1px 2px}
+.embed.editing .et{overflow:visible;text-overflow:clip;box-shadow:0 0 0 1.5px var(--accent)}
+.eb2{flex:none;width:26px;height:26px;padding:0;border:0;border-radius:6px;background:transparent;display:grid;place-items:center;color:var(--muted);cursor:pointer}
+.eb2:hover{background:var(--hover);color:var(--ink)}
+.eb2 svg.i{width:16px;height:16px}
+.ebody{position:absolute;left:0;top:34px;right:0;bottom:0;background:#eef0f3;overflow:hidden}
+.ebody iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff;display:block}
+.eshield{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:16px}
+.embed.e-active .eshield{display:none}
+.poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.play{position:relative;width:72px;height:50px;border:0;border-radius:14px;background:rgba(28,29,33,.88);color:#fff;display:grid;place-items:center;cursor:pointer;padding:0}
+.play:hover{background:#ff0033}
+.play svg.i{width:26px;height:26px}
+.emsg{max-width:420px;color:var(--muted);font-size:13px;line-height:1.45;background:rgba(255,255,255,.92);padding:12px 14px;border-radius:10px}
+.emsg b{display:block;color:var(--ink);font-size:14px;margin-bottom:3px}
+.ehint{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);padding:6px 10px;border-radius:8px;background:rgba(28,29,33,.85);color:#fff;font-size:12px;white-space:nowrap;opacity:0;transition:opacity .15s;pointer-events:none}
+.embed:hover .ehint,.embed.sel .ehint{opacity:1}
+.ehint .h2,.embed.sel .ehint .h1{display:none}
+.embed.sel .ehint .h2{display:inline}
+.embed.focused{border-radius:10px;box-shadow:0 30px 80px -20px rgba(0,0,0,.7)}
+.embed.focused .eh{display:none}
+
+/* ---------- selection overlay ---------- */
+#overlay{position:absolute;inset:0;pointer-events:none;z-index:1}
+#overlay>div{position:absolute}
+.ov-sel{border:1.5px solid var(--accent);border-radius:2px}
+.ov-item{border:1px solid rgba(51,85,255,.55)}
+.ov-hover{border:2px solid var(--accent);border-radius:4px;background:rgba(51,85,255,.06)}
+.ov-marquee{border:1px solid var(--accent);background:rgba(51,85,255,.07)}
+.ov-ghost{border:1.5px dashed var(--accent);background:rgba(51,85,255,.04);border-radius:3px}
+.ov-h{width:11px;height:11px;margin:-5.5px 0 0 -5.5px;background:#fff;border:1.5px solid var(--accent);border-radius:3px;pointer-events:auto}
+.ov-h[data-handle=nw],.ov-h[data-handle=se]{cursor:nwse-resize}
+.ov-h[data-handle=ne],.ov-h[data-handle=sw]{cursor:nesw-resize}
+.ov-h[data-handle=n],.ov-h[data-handle=s]{cursor:ns-resize}
+.ov-h[data-handle=e],.ov-h[data-handle=w]{cursor:ew-resize}
+.ov-ep{width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;border:2px solid var(--accent);pointer-events:auto;cursor:move}
+
+/* ---------- panels ---------- */
+.panel{position:fixed;z-index:10;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+.ib{position:relative;flex:none;display:inline-grid;place-items:center;width:36px;height:36px;padding:0;border:0;border-radius:8px;background:transparent;cursor:pointer;color:var(--ink)}
+.ib:hover{background:var(--hover)}
+.ib.on{background:var(--accent-soft);color:var(--accent)}
+.ib:disabled{opacity:.32;cursor:default;background:transparent}
+.ib.wide{width:auto;min-width:40px;padding:0 9px;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+.ib.danger:hover{background:#fdecec;color:var(--danger)}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.vsep{width:1px;height:22px;background:var(--line);margin:0 4px;flex:none}
+
+#topbar{top:calc(12px + var(--st));left:calc(12px + var(--sl));height:48px;display:flex;align-items:center;gap:2px;padding:0 6px}
+.brand{width:32px;height:32px;margin:0 4px 0 2px;border-radius:9px;background:var(--ink);display:grid;place-items:center;flex:none}
+#boardName{width:210px;padding:6px 8px;border:1px solid transparent;border-radius:8px;background:transparent;font:600 15px/1.2 var(--font);color:var(--ink);outline:none;text-overflow:ellipsis}
+#boardName:hover{background:var(--hover)}
+#boardName:focus{background:#fff;border-color:var(--accent)}
+
+#status{top:calc(12px + var(--st));right:calc(12px + var(--sr));height:48px;display:flex;align-items:center;gap:6px;padding:0 6px 0 14px}
+#status .dot{width:8px;height:8px;border-radius:50%;background:#2fa36b;flex:none}
+#status[data-s=saving] .dot,#status[data-s=loading] .dot{background:#e0a800}
+#status[data-s=error] .dot,#status[data-s=mem] .dot,#status[data-s=full] .dot{background:var(--danger)}
+#statusText{font-size:13px;color:var(--muted);white-space:nowrap;margin-right:4px}
+
+#toolbar{left:calc(12px + var(--sl));top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:2px;padding:6px;background:var(--ink);border-color:var(--ink)}
+#toolbar .ib{width:40px;height:40px;color:#c4c8d2}
+#toolbar .ib:hover{background:#2d2f36;color:#fff}
+#toolbar .ib.on{background:var(--mark);color:var(--ink)}
+.tsep{height:1px;background:#33363e;margin:4px 6px}
+#toolbar .ib::after{content:attr(data-tip);position:absolute;left:calc(100% + 12px);top:50%;transform:translateY(-50%);padding:5px 9px;border-radius:7px;background:var(--ink);color:#fff;font-size:12.5px;white-space:nowrap;pointer-events:none;opacity:0;visibility:hidden}
+#toolbar .ib:hover::after{opacity:1;visibility:visible;transition:opacity .12s .35s,visibility 0s .35s}
+
+#flyout{display:grid;gap:2px;padding:6px;z-index:11}
+#flyout[data-cols="2"]{grid-template-columns:repeat(2,36px)}
+#flyout .swb{width:36px;height:36px;border-radius:8px}
+.fsep{grid-column:1/-1;height:1px;background:var(--line);margin:3px 2px}
+
+.sw{display:block;width:20px;height:20px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.14)}
+.sw.sq{border-radius:5px}
+.sw.ring{background:#fff;box-shadow:inset 0 0 0 4.5px var(--c),inset 0 0 0 5.5px rgba(0,0,0,.1)}
+.sw.tr{background:linear-gradient(135deg,transparent 44%,var(--danger) 44%,var(--danger) 56%,transparent 56%),#fff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.14)}
+.swb{display:grid;place-items:center;width:30px;height:30px;padding:0;border:0;border-radius:50%;background:transparent;cursor:pointer}
+.swb:hover{background:var(--hover)}
+.swb.on{box-shadow:inset 0 0 0 2px var(--accent)}
+.swb .sw{width:22px;height:22px}
+.wdot{display:block;width:var(--s);height:var(--s);border-radius:50%;background:var(--ink)}
+.tc{font-weight:700;font-size:15px;line-height:1;padding:0 3px 2px;border-bottom:3px solid var(--c)}
+.lc{display:block;width:20px;height:4px;border-radius:2px;background:var(--c);transform:rotate(-35deg);box-shadow:0 0 0 .5px rgba(0,0,0,.15)}
+
+#ctx{display:flex;align-items:center;gap:2px;padding:4px;border-radius:11px;z-index:12}
+#ctx .ib{width:34px;height:34px}
+#ctx .ib.wide{width:auto}
+
+#hist{left:calc(12px + var(--sl));bottom:calc(12px + var(--sb));display:flex;padding:4px;gap:2px}
+#zoombar{right:calc(12px + var(--sr));bottom:calc(12px + var(--sb));display:flex;align-items:center;padding:4px;gap:2px}
+#zoomLbl{min-width:58px}
+
+#pop{z-index:30;padding:6px;border-radius:12px}
+#pop .grid{display:grid;gap:4px}
+#pop .row{display:flex;gap:2px}
+#pop .ob{min-width:36px;height:34px;padding:0 9px;border:0;border-radius:8px;background:transparent;cursor:pointer;display:grid;place-items:center;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+#pop .ob:hover{background:var(--hover)}
+#pop .ob.on{background:var(--accent-soft);color:var(--accent)}
+.menu{display:flex;flex-direction:column;min-width:270px}
+.mi{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;border:0;border-radius:8px;background:transparent;cursor:pointer;text-align:left;white-space:nowrap}
+.mi:hover{background:var(--hover)}
+.mi .k{margin-left:auto;padding-left:18px;color:var(--muted);font-size:12.5px}
+.mi.danger{color:var(--danger)}
+.msep{height:1px;background:var(--line);margin:4px 6px}
+
+#drawer{top:calc(68px + var(--st));left:calc(12px + var(--sl));width:340px;max-width:calc(100% - 24px);max-height:calc(100% - 150px);display:flex;flex-direction:column;padding:8px;z-index:20}
+.dh{display:flex;align-items:center;justify-content:space-between;padding:4px 4px 8px 8px}
+.dh b{font-size:15px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 14px;border:0;border-radius:9px;background:var(--ink);color:#fff;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap}
+.btn:hover{background:#34363e}
+.btn.ghost{background:var(--hover);color:var(--ink)}
+.btn.ghost:hover{background:#e6e8ed}
+.btn svg.i{width:17px;height:17px}
+#blist{overflow:auto;display:flex;flex-direction:column;gap:2px}
+.brow{display:flex;align-items:center;gap:10px;padding:8px;border-radius:9px;cursor:pointer}
+.brow:hover{background:var(--hover)}
+.brow.cur{background:var(--accent-soft)}
+.bicon{width:34px;height:34px;border-radius:6px;display:grid;place-items:center;font-weight:700;background:var(--bc);flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.binfo{min-width:0;flex:1}
+.bname{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{font-size:12px;color:var(--muted)}
+.brow .acts{display:flex;opacity:0}
+.brow:hover .acts,.brow.cur .acts{opacity:1}
+.ib.sm{width:28px;height:28px}
+.ib.sm svg.i{width:17px;height:17px}
+.dfoot{border-top:1px solid var(--line);margin-top:8px;padding:10px 6px 4px;display:flex;flex-direction:column;gap:10px;font-size:12.5px;line-height:1.45;color:var(--muted)}
+
+/* ---------- dialogs ---------- */
+.dlg{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:rgba(28,29,33,.38);padding:16px}
+.card{position:relative;width:min(780px,100%);max-height:100%;overflow:auto;background:#fff;border-radius:16px;padding:24px 28px 22px;box-shadow:0 30px 80px -20px rgba(0,0,0,.4)}
+.card.narrow{width:min(580px,100%)}
+.card h2{margin:0 0 4px;font-size:20px}
+.card .sub{color:var(--muted);margin:0 0 6px}
+.card .close{position:absolute;top:14px;right:14px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 32px}
+.card h3{font-size:13px;color:var(--muted);font-weight:600;margin:16px 0 4px}
+.kr{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:5px 0;border-bottom:1px solid #f0f1f4;font-size:13.5px}
+.kr>span:last-child{text-align:right;color:#3d4049}
+kbd{font:600 12px/1 var(--font);padding:3px 6px;border-radius:5px;background:var(--hover);border:1px solid var(--line);white-space:nowrap}
+.note{margin-top:16px;padding:12px 14px;border-radius:10px;background:#fff6cc;font-size:13px;line-height:1.5}
+.note:empty{display:none}
+.note b{display:block;margin-bottom:2px}
+.erow{display:flex;gap:8px;margin-top:16px}
+.inp{flex:1;min-width:0;height:40px;padding:0 12px;border:1px solid var(--line);border-radius:9px;font:inherit;color:var(--ink);outline:none;background:#fff}
+.inp:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.epv{display:flex;align-items:center;gap:8px;min-height:28px;margin-top:8px;font-size:13px;color:var(--muted)}
+.epv.ok{color:var(--ink)}
+.eor{display:flex;align-items:center;gap:12px;margin:14px 0;color:var(--muted);font-size:12.5px}
+.eor::before,.eor::after{content:"";flex:1;height:1px;background:var(--line)}
+.efile{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.efile span{color:var(--muted);font-size:13px}
+.card details{margin-top:14px;font-size:13px;color:#3d4049}
+.card summary{cursor:pointer;color:var(--muted)}
+.card details p{margin:8px 0 0;line-height:1.55}
+
+/* ---------- focus mode ---------- */
+body.focusing #topbar,body.focusing #toolbar,body.focusing #flyout,body.focusing #ctx,body.focusing #hist,body.focusing #zoombar,body.focusing #status,body.focusing #drawer,body.focusing #empty{display:none!important}
+#fbar{position:fixed;left:0;right:0;top:0;height:52px;z-index:46;display:flex;align-items:center;gap:8px;padding:0 10px 0 18px;background:var(--night);color:#fff}
+#fTitle{flex:1;min-width:0;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fbtn{height:34px;padding:0 12px;border:0;border-radius:8px;background:#2a2c33;color:#fff;font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.fbtn:hover{background:#3a3d46}
+.fbtn svg.i{width:17px;height:17px}
+.fbtn.primary{background:#fff;color:var(--night)}
+.fbtn.primary:hover{background:#e8e9ec}
+#fview{position:fixed;left:0;right:0;top:52px;bottom:0;z-index:45;background:var(--night);display:grid;place-items:center;padding:16px 16px 24px;overflow:auto}
+.fimg{max-width:100%;max-height:calc(100vh - 92px);object-fit:contain;border-radius:6px;background:#fff}
+.fdoc{width:min(860px,100%);min-height:min(70vh,100%);max-height:100%;overflow:auto;border-radius:10px;padding:48px 56px;box-shadow:0 30px 80px -20px rgba(0,0,0,.6)}
+.fdoc-txt{outline:none;white-space:pre-wrap;overflow-wrap:break-word;font-size:21px;line-height:1.55;min-height:40vh;cursor:text}
+.fdoc-txt:empty::before{content:"Текст";opacity:.35}
+
+#toast{position:fixed;left:50%;bottom:calc(76px + var(--sb));z-index:60;max-width:calc(100% - 32px);padding:9px 14px;border-radius:10px;background:var(--ink);color:#fff;font-size:13px;transform:translate(-50%,8px);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#empty{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;max-width:min(460px,calc(100% - 140px));text-align:center;color:var(--muted);font-size:15px;line-height:1.55;pointer-events:none}
+#empty b{display:block;color:var(--ink);font-size:17px;margin-bottom:4px}
+#drop{position:fixed;inset:12px;z-index:40;display:grid;place-items:center;border:2px dashed var(--accent);border-radius:18px;background:rgba(51,85,255,.06);color:var(--accent);font-weight:600;font-size:16px;pointer-events:none}
+
+#btnCloud{color:var(--muted)}
+#btnCloud[data-d=ok]{color:#2fa36b}
+#btnCloud[data-d=syncing],#btnCloud[data-d=auth],#btnCloud[data-d=offline]{color:#d99a00}
+#btnCloud[data-d=error]{color:var(--danger)}
+#statusText.act{cursor:pointer;text-decoration:underline;text-decoration-color:rgba(107,112,128,.45);text-underline-offset:3px}
+.steps{margin:14px 0 0;padding-left:22px;line-height:1.55;font-size:13.5px;color:#3d4049}
+.steps li{margin:0 0 9px}
+.steps a{color:var(--accent)}
+.code{display:inline-flex;align-items:center;gap:8px;max-width:100%;margin-top:5px;padding:3px 4px 3px 9px;border-radius:7px;background:var(--hover);border:1px solid var(--line);font:600 12.5px/1.35 ui-monospace,Consolas,Menlo,monospace;color:var(--ink);word-break:break-all}
+.code button{flex:none;border:0;background:#fff;border-radius:5px;padding:4px 9px;font:600 12px var(--font);cursor:pointer;color:var(--ink);box-shadow:0 0 0 1px var(--line)}
+.dstat{display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--hover);font-size:13.5px}
+.dstat .dot{width:9px;height:9px;border-radius:50%;flex:none;background:var(--muted)}
+.dstat[data-d=ok] .dot{background:#2fa36b}
+.dstat[data-d=error] .dot{background:var(--danger)}
+.dstat[data-d=auth] .dot,.dstat[data-d=syncing] .dot,.dstat[data-d=offline] .dot{background:#e0a800}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.linkbtn{display:block;border:0;background:none;padding:0;margin-top:16px;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:12.5px}
+@media (max-width:700px){#statusText{display:none}#statusText.act{display:block;max-width:132px;white-space:normal;font-size:11.5px;line-height:1.25}#status{padding-left:12px}#boardName{width:120px}.fbtn span{display:none}.fdoc{padding:28px 24px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="viewport" class="tool-select" data-app>
+  <div id="world"></div>
+  <div id="overlay"></div>
+</div>
+
+<header id="topbar" class="panel" data-app>
+  <div class="brand" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M2 2h14v9l-5 5H2z" fill="#ffd84d"/><path d="M11 16v-5h5z" fill="#d9b02b"/></svg></div>
+  <input id="boardName" aria-label="Название доски" spellcheck="false" maxlength="80">
+  <div class="vsep"></div>
+  <button class="ib" id="btnBoards" title="Все доски" aria-label="Все доски"></button>
+  <button class="ib" id="btnMenu" title="Меню" aria-label="Меню"></button>
+</header>
+
+<div id="status" class="panel" data-s="loading" data-app><span class="dot"></span><span id="statusText">Загрузка…</span><button class="ib" id="btnCloud" hidden aria-label="Google Диск"></button><button class="ib" id="btnHelp" title="Горячие клавиши (?)" aria-label="Горячие клавиши"></button></div>
+
+<nav id="toolbar" class="panel" aria-label="Инструменты" data-app></nav>
+<div id="flyout" class="panel" hidden data-app></div>
+<div id="ctx" class="panel" hidden data-app></div>
+
+<div id="hist" class="panel" data-app>
+  <button class="ib" id="btnUndo" aria-label="Отменить"></button>
+  <button class="ib" id="btnRedo" aria-label="Повторить"></button>
+</div>
+<div id="zoombar" class="panel" data-app>
+  <button class="ib" id="btnZoomOut" title="Отдалить (−)" aria-label="Отдалить"></button>
+  <button class="ib wide" id="zoomLbl" title="Масштаб 100%">100%</button>
+  <button class="ib" id="btnZoomIn" title="Приблизить (+)" aria-label="Приблизить"></button>
+  <button class="ib" id="btnFit" title="Показать всё (Shift+1)" aria-label="Показать всё"></button>
+</div>
+
+<div id="pop" class="panel" hidden data-app></div>
+
+<aside id="drawer" class="panel" hidden data-app>
+  <div class="dh"><b>Доски</b><button class="btn" id="btnNewBoard">+ Новая доска</button></div>
+  <div id="blist"></div>
+  <div class="dfoot"><div id="storeNote"></div><button class="btn ghost" id="btnOffline"></button></div>
+</aside>
+
+<div id="fbar" hidden data-app>
+  <div id="fTitle"></div>
+  <button class="fbtn" data-fa="open"></button>
+  <button class="fbtn" data-fa="reload"></button>
+  <button class="fbtn" data-fa="full"></button>
+  <button class="fbtn primary" data-fa="close"></button>
+</div>
+<div id="fview" hidden data-app></div>
+
+<div id="modal" class="dlg" hidden data-app>
+  <div class="card" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+    <button class="ib close" data-close aria-label="Закрыть"></button>
+    <h2 id="helpTitle">Горячие клавиши</h2>
+    <p class="sub">Всё, что умеет доска, и как до этого быстро дотянуться.</p>
+    <div id="helpBody"></div>
+  </div>
+</div>
+
+<div id="embedDlg" class="dlg" hidden data-app>
+  <div class="card narrow" role="dialog" aria-modal="true" aria-labelledby="embedTitle">
+    <button class="ib close" data-close aria-label="Закрыть"></button>
+    <h2 id="embedTitle">Встроить на доску</h2>
+    <p class="sub">Видео, сайт, документ или свой HTML-инструмент.</p>
+    <div class="erow"><input id="embedInput" class="inp" placeholder="Ссылка или код &lt;iframe&gt;" spellcheck="false" autocomplete="off"><button class="btn" id="embedGo">Встроить</button></div>
+    <div class="epv" id="embedPv"></div>
+    <div class="eor">или</div>
+    <div class="efile"><button class="btn ghost" id="embedFile"></button><span>свой инструмент из одного .html-файла</span></div>
+    <div class="note" id="embedNote"></div>
+    <details><summary>Что распознаётся автоматически</summary><p>YouTube (видео, Shorts, плейлисты, ссылки со временем), Vimeo, RuTube, VK Видео, Loom, Google Документы, Таблицы, Презентации, Формы и файлы с Диска, Figma, Miro, Whimsical, Spotify, Яндекс Музыка, SoundCloud, CodePen. Любой другой сайт встраивается как есть, если он сам разрешает показ внутри других страниц. Если сервис даёт код встраивания &lt;iframe&gt;, вставьте его целиком: он сработает всегда, когда работает у самого сервиса.</p></details>
+  </div>
+</div>
+
+<div id="driveDlg" class="dlg" hidden data-app>
+  <div class="card narrow" role="dialog" aria-modal="true" aria-labelledby="driveTitle">
+    <button class="ib close" data-close aria-label="Закрыть"></button>
+    <h2 id="driveTitle">Google Диск</h2>
+    <div id="driveBody"></div>
+  </div>
+</div>
+
+<div id="empty" hidden data-app><b>Доска пустая</b>Нажмите <kbd>N</kbd> и щёлкните, чтобы добавить стикер, или вставьте ссылку на видео или сайт</div>
+<div id="toast" role="status" aria-live="polite" data-app></div>
+<div id="drop" hidden data-app>Отпустите, чтобы добавить на доску</div>
+<input type="file" id="fileImg" accept="image/*" multiple hidden data-app>
+<input type="file" id="fileBoard" accept=".json,.html,application/json,text/html" hidden data-app>
+<input type="file" id="fileHtml" accept=".html,.htm,text/html" hidden data-app>
+
+<script data-app>
+(() => {
+'use strict';
+
+/* The page's own source, captured before anything changes the DOM:
+   used by "Download offline version". */
+const SOURCE = (() => {
+  const pick = root => [...root.children].filter(e => e.hasAttribute('data-app')).map(e => e.outerHTML).join('\n');
+  return '<!DOCTYPE html>\n<html lang="ru">\n<head>\n' + pick(document.head) + '\n</head>\n<body>\n' + pick(document.body) + '\n</body>\n</html>\n';
+})();
+
+/* =========================================================
+   Helpers & constants
+   ========================================================= */
+const $ = (s, r = document) => r.querySelector(s);
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const px = n => n + 'px';
+const r1 = n => Math.round(n * 10) / 10;
+const uid = () => Math.random().toString(36).slice(2, 9) + (Date.now() % 1e7).toString(36);
+const clone = o => JSON.parse(JSON.stringify(o));
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+const norm = (x, y) => { const l = Math.hypot(x, y); return l < 1e-9 ? { x: 1, y: 0 } : { x: x / l, y: y / l }; };
+const IS_MAC = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+const IS_FILE = location.protocol === 'file:';
+const MOD = IS_MAC ? '⌘' : 'Ctrl';
+const FONT = getComputedStyle(document.documentElement).getPropertyValue('--font').trim() || 'system-ui, sans-serif';
+const CLIP = 'HOLST-CLIP:';
+const ZMIN = 0.05, ZMAX = 5, EH = 34;
+const INK = '#1c1d21';
+const LS = {
+  get(k) { try { const v = localStorage.getItem('holst:' + k); return v == null ? null : JSON.parse(v); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem('holst:' + k, JSON.stringify(v)); } catch (e) { /* ignore */ } },
+};
+
+const STICKY = ['#fff3a0', '#ffd6a5', '#ffc6d3', '#e2d1ff', '#c4e0ff', '#c8efc1', '#b5ebdf', '#e9eaee'];
+const FILLS = ['transparent', '#ffffff', '#eef0f3', '#fff3a0', '#ffd6a5', '#ffc6d3', '#e2d1ff', '#c4e0ff', '#c8efc1', '#b5ebdf', '#3355ff', INK];
+const INKS = [INK, '#6b7080', '#b9bdc7', '#ffffff', '#e5484d', '#f76b15', '#d9a300', '#2fa36b', '#0b8fa8', '#3355ff', '#8e4ec6', '#d6409f'];
+const PEN_COLORS = [INK, '#e5484d', '#f76b15', '#d9a300', '#2fa36b', '#0b8fa8', '#3355ff', '#8e4ec6'];
+const FRAME_FILLS = ['#ffffff', '#f6f7f9', '#fffbe0', '#fff1e6', '#fdeef2', '#f3edff', '#ebf3ff', '#ebf7e9'];
+const SHAPES = ['rect', 'round', 'ellipse', 'diamond', 'triangle', 'parallelogram'];
+const SHAPE_NAMES = { rect: 'Прямоугольник', round: 'Скруглённый', ellipse: 'Эллипс', diamond: 'Ромб', triangle: 'Треугольник', parallelogram: 'Параллелограмм' };
+const SHAPE_ICON = {
+  rect: 'M4 6.5h16v11H4z',
+  round: 'M7.5 6.5h9a3.5 3.5 0 0 1 3.5 3.5v4a3.5 3.5 0 0 1-3.5 3.5h-9A3.5 3.5 0 0 1 4 14v-4a3.5 3.5 0 0 1 3.5-3.5z',
+  ellipse: 'M12 6.5c4.4 0 8 2.5 8 5.5s-3.6 5.5-8 5.5-8-2.5-8-5.5 3.6-5.5 8-5.5z',
+  diamond: 'M12 4l8 8-8 8-8-8z',
+  triangle: 'M12 5l8.5 14h-17z',
+  parallelogram: 'M8 6.5h12l-4 11H4z',
+};
+const CONN_NAMES = { straight: 'Прямая', elbow: 'Ломаная', curve: 'Кривая' };
+
+const ICON = {
+  select: '<path d="M6 3.5l12.5 7.2-5.6 1.4-2.6 5.4z"/>',
+  hand: '<path d="M8 12.5V6a1.5 1.5 0 0 1 3 0v5"/><path d="M11 10.5V4.5a1.5 1.5 0 0 1 3 0v6"/><path d="M14 10.5V6.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.6a5.5 5.5 0 0 1-4.5-2.4L3.6 14a1.5 1.5 0 0 1 2.5-1.7L8 14.5"/>',
+  sticky: '<path d="M4.5 4.5h15v9.5l-5.5 5.5H4.5z"/><path d="M14 19.5V14h5.5"/>',
+  text: '<path d="M5 7V5h14v2"/><path d="M12 5v14"/><path d="M9 19h6"/>',
+  shape: '<rect x="3.5" y="3.5" width="10" height="10" rx="1.5"/><circle cx="15.5" cy="15.5" r="5"/>',
+  connector: '<path d="M5 19L18 6"/><path d="M11 5.5h7.5V13"/>',
+  pen: '<path d="M4.5 19.5l1-4.2L16 4.8a2 2 0 0 1 2.8 0l.4.4a2 2 0 0 1 0 2.8L8.7 18.5z"/><path d="M14 6.8l3.2 3.2"/>',
+  eraser: '<path d="M9 20h11"/><path d="M5.2 15.8l9.3-9.3a2 2 0 0 1 2.8 0l2 2a2 2 0 0 1 0 2.8L12 18.6H8z"/><path d="M9.5 11.5l5 5"/>',
+  frame: '<path d="M7.5 3v18M16.5 3v18M3 7.5h18M3 16.5h18"/>',
+  image: '<rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M20.5 16l-5-5-9 8.5"/>',
+  embed: '<path d="M8.5 8l-4 4 4 4M15.5 8l4 4-4 4"/><path d="M13.5 5.5l-3 13"/>',
+  undo: '<path d="M9 14.5L4 9.5l5-5"/><path d="M4 9.5h10.5a5.5 5.5 0 0 1 0 11H11"/>',
+  redo: '<path d="M15 14.5l5-5-5-5"/><path d="M20 9.5H9.5a5.5 5.5 0 0 0 0 11H13"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  minus: '<path d="M5 12h14"/>',
+  fit: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
+  expand: '<path d="M14 4.5h5.5V10M10 19.5H4.5V14M19.5 4.5l-6 6M4.5 19.5l6-6"/>',
+  ext: '<path d="M13.5 4.5h6v6"/><path d="M19.5 4.5l-8 8"/><path d="M18 14v4.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 4 18.5v-11A1.5 1.5 0 0 1 5.5 6H10"/>',
+  reload: '<path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.5 4.5v4.5H15"/>',
+  link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  playf: '<path d="M8.5 5.5v13l10.5-6.5z" fill="currentColor" stroke="none"/>',
+  globe: '<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.6 3.4 5.4 3.4 8.5s-1 5.9-3.4 8.5c-2.4-2.6-3.4-5.4-3.4-8.5s1-5.9 3.4-8.5z"/>',
+  offline: '<path d="M12 3.5v10.5"/><path d="M7.5 9.5l4.5 4.5 4.5-4.5"/><rect x="4" y="17" width="16" height="3.5" rx="1"/>',
+  boards: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
+  dots: '<circle cx="5.5" cy="12" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="18.5" cy="12" r="1.3" fill="currentColor"/>',
+  help: '<circle cx="12" cy="12" r="8.5"/><path d="M9.7 9.6a2.4 2.4 0 1 1 3.3 2.2c-.6.3-1 .8-1 1.5v.4"/><circle cx="12" cy="16.6" r=".7" fill="currentColor"/>',
+  trash: '<path d="M4.5 7h15"/><path d="M9.5 7V4.5h5V7"/><path d="M6.5 7l.9 12.5h9.2L17.5 7"/><path d="M10.2 11v5M13.8 11v5"/>',
+  dup: '<rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/>',
+  front: '<rect x="4.5" y="4.5" width="10" height="10" rx="1.5" stroke-dasharray="2 2.2"/><rect x="9.5" y="9.5" width="10" height="10" rx="1.5" fill="currentColor"/>',
+  back: '<rect x="9.5" y="9.5" width="10" height="10" rx="1.5" fill="currentColor" opacity=".3"/><rect x="4.5" y="4.5" width="10" height="10" rx="1.5" fill="#fff"/>',
+  bold: '<path d="M7.5 5h5.2a3.4 3.4 0 0 1 0 6.8H7.5zM7.5 11.8h6.2a3.6 3.6 0 0 1 0 7.2H7.5z" stroke-width="2.1"/>',
+  al_left: '<path d="M4.5 6.5h15M4.5 10.5h9M4.5 14.5h15M4.5 18.5h9"/>',
+  al_center: '<path d="M4.5 6.5h15M7.5 10.5h9M4.5 14.5h15M7.5 18.5h9"/>',
+  al_right: '<path d="M4.5 6.5h15M10.5 10.5h9M4.5 14.5h15M10.5 18.5h9"/>',
+  st_straight: '<path d="M5 19L19 5"/>',
+  st_elbow: '<path d="M5 19h7V5h7"/>',
+  st_curve: '<path d="M5 19c8 0 6-14 14-14"/>',
+  arrS: '<path d="M20 12H5"/><path d="M10 7l-5 5 5 5"/>',
+  arrE: '<path d="M4 12h15"/><path d="M14 7l5 5-5 5"/>',
+  dash: '<path d="M3.5 12h3.5M10.2 12h3.6M17 12h3.5"/>',
+  download: '<path d="M12 4.5v10.5"/><path d="M7.5 10.5l4.5 4.5 4.5-4.5"/><path d="M5 19.5h14"/>',
+  folder: '<path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/>',
+  grid: '<circle cx="6" cy="6" r="1" fill="currentColor"/><circle cx="12" cy="6" r="1" fill="currentColor"/><circle cx="18" cy="6" r="1" fill="currentColor"/><circle cx="6" cy="12" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="18" cy="12" r="1" fill="currentColor"/><circle cx="6" cy="18" r="1" fill="currentColor"/><circle cx="12" cy="18" r="1" fill="currentColor"/><circle cx="18" cy="18" r="1" fill="currentColor"/>',
+  close: '<path d="M6 6l12 12M18 6L6 18"/>',
+  cloud: '<path d="M7.2 18.5h10.3a4 4 0 0 0 .7-7.94A6 6 0 0 0 6.6 9.7a4.4 4.4 0 0 0 .6 8.8z"/>',
+  install: '<rect x="3.5" y="4.5" width="17" height="12" rx="2"/><path d="M12 7.5v6M9.5 11l2.5 2.5 2.5-2.5M8 20h8"/>',
+};
+const ic = n => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${ICON[n] || ''}</svg>`;
+const shapeIcon = k => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="${SHAPE_ICON[k] || SHAPE_ICON.rect}"/></svg>`;
+const plural = (n, one, few, many) => { const a = n % 10, b = n % 100; return a === 1 && b !== 11 ? one : a >= 2 && a <= 4 && (b < 12 || b > 14) ? few : many; };
+const fmtDate = t => { try { return new Date(t).toLocaleString('ru-RU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } };
+const safeName = s => (String(s || '').replace(/[\\/:*?"<>|]+/g, '_').trim().slice(0, 60)) || 'board';
+
+/* ---------- embed providers ---------- */
+const PROV = {
+  youtube: { name: 'YouTube', c: '#ff0033', g: '▶' }, vimeo: { name: 'Vimeo', c: '#17a9e1', g: 'V' }, rutube: { name: 'RuTube', c: '#100943', g: 'R' },
+  vk: { name: 'VK Видео', c: '#0077ff', g: 'VK' }, loom: { name: 'Loom', c: '#625df5', g: 'L' },
+  gdoc: { name: 'Google Документ', c: '#4285f4', g: 'D' }, gsheet: { name: 'Google Таблица', c: '#0f9d58', g: 'T' }, gslides: { name: 'Google Презентация', c: '#f4b400', g: 'P' },
+  gform: { name: 'Google Форма', c: '#7248b9', g: 'F' }, gdrive: { name: 'Google Диск', c: '#1fa463', g: 'G' },
+  figma: { name: 'Figma', c: '#a259ff', g: 'F' }, miro: { name: 'Miro', c: '#ffd02f', g: 'M', dk: 1 }, whimsical: { name: 'Whimsical', c: '#7b61ff', g: 'W' },
+  spotify: { name: 'Spotify', c: '#1db954', g: '♪' }, yandex: { name: 'Яндекс Музыка', c: '#ffcc00', g: 'Я', dk: 1 }, soundcloud: { name: 'SoundCloud', c: '#ff5500', g: '♪' },
+  codepen: { name: 'CodePen', c: INK, g: 'CP' }, file: { name: 'Видеофайл', c: '#4b4f5a', g: '▶' },
+  web: { name: 'Сайт', c: '#6b7080', svg: 'globe' }, html: { name: 'HTML-инструмент', c: INK, svg: 'embed' },
+};
+const KIND_NAMES = { video: 'видео', web: 'сайт или документ', audio: 'музыка', html: 'свой инструмент' };
+function badge(p) {
+  const P = PROV[p] || PROV.web;
+  return `<span class="ei ${P.dk ? 'dk' : ''}" style="--pc:${P.c}">${P.svg ? `<svg viewBox="0 0 24 24">${ICON[P.svg]}</svg>` : esc(P.g)}</span>`;
+}
+const htmlTitle = s => { const m = String(s).match(/<title[^>]*>([\s\S]*?)<\/title>/i); return m ? m[1].replace(/\s+/g, ' ').trim().slice(0, 120) : ''; };
+function parseTime(t) {
+  if (!t) return 0;
+  if (/^\d+$/.test(t)) return +t;
+  const m = String(t).match(/^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?$/);
+  return m ? (+m[1] || 0) * 3600 + (+m[2] || 0) * 60 + (+m[3] || 0) : 0;
+}
+function parseEmbed(raw) {
+  let s = String(raw || '').trim();
+  if (!s) return null;
+  const ifr = s.match(/<iframe[^>]*?\ssrc\s*=\s*["']([^"']+)["']/i);
+  if (ifr) s = ifr[1].replace(/&amp;/g, '&');
+  else if (/^<(!doctype|html|head|body|div|svg|script|style|main|section|canvas|table)\b/i.test(s)) return { kind: 'html', provider: 'html', html: s, title: htmlTitle(s) || 'HTML-инструмент' };
+  if (/^\/\//.test(s)) s = 'https:' + s;
+  if (!/^[a-z][a-z0-9+.-]*:/i.test(s)) { if (/^[\w-]+(\.[\w-]+)+(\/|$|\?)/.test(s)) s = 'https://' + s; else return null; }
+  let u; try { u = new URL(s); } catch (e) { return null; }
+  if (!/^https?:$/.test(u.protocol)) return null;
+  const host = u.hostname.replace(/^(www|m)\./, ''), p = u.pathname, q = u.searchParams, seg = p.split('/').filter(Boolean);
+  const R = (provider, kind, src, x = {}) => ({ provider, kind, url: u.href, src, title: x.title || PROV[provider].name, thumb: x.thumb || '', w: x.w, h: x.h });
+  if (host === 'youtu.be' || /(^|\.)youtube(-nocookie)?\.com$/.test(host)) {
+    let id = host === 'youtu.be' ? seg[0] : (q.get('v') || (['embed', 'shorts', 'live', 'v'].includes(seg[0]) ? seg[1] : null));
+    if (id === 'videoseries') id = null;
+    const list = q.get('list'), start = parseTime(q.get('t') || q.get('start') || '');
+    if (id || list) {
+      const prm = new URLSearchParams({ rel: '0', playsinline: '1' });
+      if (start) prm.set('start', String(start));
+      if (list) prm.set('list', list);
+      const shorts = seg[0] === 'shorts';
+      return R('youtube', 'video', `https://www.youtube.com/embed/${id || 'videoseries'}?${prm}`, { thumb: id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : '', title: shorts ? 'YouTube Shorts' : list && !id ? 'Плейлист YouTube' : 'YouTube', w: shorts ? 360 : undefined, h: shorts ? 640 + EH : undefined });
+    }
+  }
+  if (host === 'vimeo.com' && /^\d+$/.test(seg[0] || '')) return R('vimeo', 'video', `https://player.vimeo.com/video/${seg[0]}` + (/^[0-9a-f]{6,}$/.test(seg[1] || '') ? `?h=${seg[1]}` : ''));
+  if (host === 'player.vimeo.com') return R('vimeo', 'video', u.href);
+  if (host === 'rutube.ru') { const id = seg[0] === 'video' ? seg[1] : seg[0] === 'play' && seg[1] === 'embed' ? seg[2] : null; if (id) return R('rutube', 'video', `https://rutube.ru/play/embed/${id}`); }
+  if (/^(vk\.com|vk\.ru|vkvideo\.ru)$/.test(host)) { const m = (p + u.search).match(/video(-?\d+)_(\d+)/); if (m) return R('vk', 'video', `https://vkvideo.ru/video_ext.php?oid=${m[1]}&id=${m[2]}&hd=2`); }
+  if (host === 'loom.com' && seg[0] === 'share' && seg[1]) return R('loom', 'video', `https://www.loom.com/embed/${seg[1]}`);
+  if (host === 'docs.google.com') {
+    const t = seg[0], id = seg[1] === 'd' && seg[2] !== 'e' ? seg[2] : null;
+    const map = { document: ['gdoc', 'preview', 820, 900], spreadsheets: ['gsheet', 'preview', 960, 600], presentation: ['gslides', 'embed', 960, 540 + EH], forms: ['gform', 'viewform?embedded=true', 720, 900] };
+    if (map[t] && id) { const [pv, tail, w, h] = map[t]; return R(pv, 'web', `https://docs.google.com/${t}/d/${id}/${tail}`, { w, h }); }
+    if (map[t]) return R(map[t][0], 'web', u.href, { w: map[t][2], h: map[t][3] });
+  }
+  if (host === 'drive.google.com') { const id = seg[0] === 'file' && seg[1] === 'd' ? seg[2] : q.get('id'); if (id) return R('gdrive', 'web', `https://drive.google.com/file/d/${id}/preview`, { w: 800, h: 600 }); }
+  if (host === 'figma.com' && /^(file|design|proto|board|slides)$/.test(seg[0] || '')) return R('figma', 'web', `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(u.href)}`, { w: 960, h: 620 });
+  if (host === 'miro.com' && seg[0] === 'app' && seg[1] === 'board' && seg[2]) return R('miro', 'web', `https://miro.com/app/live-embed/${seg[2]}/`, { w: 960, h: 620 });
+  if (host === 'whimsical.com' && seg.length) { const slug = seg[0] === 'embed' ? seg[1] : seg[seg.length - 1]; const id = (slug || '').split('-').pop(); if (id) return R('whimsical', 'web', `https://whimsical.com/embed/${id}`, { w: 960, h: 620 }); }
+  if (host === 'open.spotify.com') { const i = /^intl-/.test(seg[0] || '') ? 1 : 0; const typ = seg[i], id = seg[i + 1]; if (typ && id && typ !== 'embed') return R('spotify', 'audio', `https://open.spotify.com/embed/${typ}/${id}`, { w: 440, h: (typ === 'track' || typ === 'episode' ? 152 : 380) + EH }); }
+  if (/^music\.yandex\.(ru|com|by|kz)$/.test(host)) {
+    if (seg[0] === 'iframe') return R('yandex', 'audio', u.href, { w: 440, h: 450 + EH });
+    const ai = seg.indexOf('album'), ti = seg.indexOf('track'), ui = seg.indexOf('users'), pi = seg.indexOf('playlists');
+    if (ti >= 0 && seg[ti + 1]) return R('yandex', 'audio', `https://music.yandex.ru/iframe/track/${seg[ti + 1]}/${ai >= 0 ? seg[ai + 1] : ''}`, { w: 440, h: 180 + EH });
+    if (ai >= 0 && seg[ai + 1]) return R('yandex', 'audio', `https://music.yandex.ru/iframe/album/${seg[ai + 1]}`, { w: 440, h: 450 + EH });
+    if (ui >= 0 && pi >= 0) return R('yandex', 'audio', `https://music.yandex.ru/iframe/playlist/${seg[ui + 1]}/${seg[pi + 1]}`, { w: 440, h: 450 + EH });
+  }
+  if (host === 'soundcloud.com' && seg.length >= 2) return R('soundcloud', 'audio', `https://w.soundcloud.com/player/?url=${encodeURIComponent(u.href)}&visual=true`, { w: 560, h: 300 + EH });
+  if (host === 'codepen.io' && seg[1] === 'pen' && seg[2]) return R('codepen', 'web', `https://codepen.io/${seg[0]}/embed/${seg[2]}?default-tab=result`, { w: 820, h: 520 });
+  if (/\.(mp4|webm|ogv|mov)$/i.test(p)) return R('file', 'video', u.href, { title: decodeURIComponent(seg[seg.length - 1] || 'Видео') });
+  const shortPath = p.length > 1 ? decodeURIComponent(p.replace(/\/$/, '')).slice(0, 48) : '';
+  return R('web', 'web', u.href, { title: host + shortPath, w: 960, h: 620 });
+}
+const embedOrigin = it => { try { return new URL(it.src).origin; } catch (e) { return ''; } };
+
+/* Example HTML tool for the welcome board */
+const METRONOME_HTML = '<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><title>Метроном</title><style>' +
+  'body{margin:0;height:100vh;display:grid;place-items:center;font-family:system-ui,sans-serif;background:#fffdf5;color:#1c1d21}.w{text-align:center}' +
+  '.bpm{font-size:64px;font-weight:800;line-height:1}.l{color:#6b7080;font-size:13px;margin:4px 0 14px}input[type=range]{width:240px}' +
+  '.dots{display:flex;gap:10px;justify-content:center;margin:16px 0}.d{width:16px;height:16px;border-radius:50%;background:#e3e5ea}.d.on{background:#3355ff}.d.a.on{background:#e5484d}' +
+  'button{font:600 15px system-ui;padding:10px 18px;border-radius:10px;border:0;background:#1c1d21;color:#fff;cursor:pointer;margin:0 4px}button.g{background:#eef0f3;color:#1c1d21}select{font:inherit;padding:4px 6px;border-radius:8px}' +
+  '</style></head><body><div class="w"><div class="bpm" id="b">90</div><div class="l">ударов в минуту</div><input type="range" id="r" min="30" max="240" value="90">' +
+  '<div class="dots" id="dots"></div><button id="s">Старт</button><button class="g" id="t">Тап</button>' +
+  '<div class="l" style="margin-top:14px">Размер <select id="m"><option>2</option><option>3</option><option selected>4</option><option>6</option></select></div></div><script>' +
+  'let ac,timer,beat=0,next=0,bpm=90,per=4,taps=[];const $=i=>document.getElementById(i);' +
+  'function dots(){$("dots").innerHTML="";for(let i=0;i<per;i++){const d=document.createElement("div");d.className="d"+(i===0?" a":"");$("dots").appendChild(d)}}' +
+  'function click(t,acc){const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=acc?1500:1000;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.6,t+.002);g.gain.exponentialRampToValueAtTime(.0001,t+.06);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+.07)}' +
+  'function show(i){[...$("dots").children].forEach((d,k)=>d.classList.toggle("on",k===i))}' +
+  'function tick(){while(next<ac.currentTime+.1){const i=beat%per;click(next,i===0);setTimeout(()=>show(i),Math.max(0,(next-ac.currentTime)*1000));next+=60/bpm;beat++}}' +
+  'function setB(v){bpm=Math.max(30,Math.min(240,Math.round(v)));$("b").textContent=bpm;$("r").value=bpm}' +
+  '$("r").oninput=e=>setB(+e.target.value);$("m").onchange=e=>{per=+e.target.value;beat=0;dots()};' +
+  '$("s").onclick=()=>{if(timer){clearInterval(timer);timer=null;$("s").textContent="Старт";show(-1);return}ac=ac||new AudioContext();ac.resume();beat=0;next=ac.currentTime+.05;timer=setInterval(tick,25);$("s").textContent="Стоп"};' +
+  '$("t").onclick=()=>{const n=performance.now();taps=taps.filter(x=>n-x<3000);taps.push(n);if(taps.length>1)setB(60000/((taps[taps.length-1]-taps[0])/(taps.length-1)))};dots();' +
+  '<\/script></body></html>';
+
+/* =========================================================
+   Storage
+   Local: IndexedDB → localStorage → memory (offline file, or Claude without db)
+   Db:    Claude's artifact database (synced, readable by Claude in chat)
+   ========================================================= */
+const Store = {
+  mode: 'mem', db: null, mem: {},
+  async init() {
+    try {
+      if (!window.indexedDB) throw new Error('no idb');
+      this.db = await new Promise((res, rej) => {
+        const t = setTimeout(() => rej(new Error('idb timeout')), 2500);
+        const r = indexedDB.open('holst-whiteboard', 1);
+        r.onupgradeneeded = () => r.result.createObjectStore('kv');
+        r.onsuccess = () => { clearTimeout(t); res(r.result); };
+        r.onerror = () => { clearTimeout(t); rej(r.error); };
+      });
+      await this._tx('readwrite', s => s.put(1, '__probe'));
+      this.mode = 'idb'; return;
+    } catch (e) { this.db = null; }
+    try { localStorage.setItem('holst:__probe', '1'); localStorage.removeItem('holst:__probe'); this.mode = 'ls'; }
+    catch (e) { this.mode = 'mem'; }
+  },
+  _tx(mode, fn) {
+    return new Promise((res, rej) => {
+      const tx = this.db.transaction('kv', mode), rq = fn(tx.objectStore('kv'));
+      tx.oncomplete = () => res(rq ? rq.result : undefined);
+      tx.onerror = () => rej(tx.error); tx.onabort = () => rej(tx.error);
+    });
+  },
+  async get(k) {
+    if (this.mode === 'idb') return this._tx('readonly', s => s.get(k));
+    if (this.mode === 'ls') { const v = localStorage.getItem('holst:' + k); return v == null ? undefined : JSON.parse(v); }
+    return this.mem[k] === undefined ? undefined : JSON.parse(this.mem[k]);
+  },
+  async set(k, v) {
+    if (this.mode === 'idb') return this._tx('readwrite', s => s.put(v, k));
+    if (this.mode === 'ls') { localStorage.setItem('holst:' + k, JSON.stringify(v)); return; }
+    this.mem[k] = JSON.stringify(v);
+  },
+  async del(k) {
+    if (this.mode === 'idb') return this._tx('readwrite', s => s.delete(k));
+    if (this.mode === 'ls') { localStorage.removeItem('holst:' + k); return; }
+    delete this.mem[k];
+  },
+};
+const safeGet = async k => { try { return await Store.get(k); } catch (e) { return undefined; } };
+const assetIdsOf = list => [...new Set(list.filter(i => i && i.asset).map(i => i.asset))];
+
+const Local = {
+  kind: 'local',
+  async listBoards() { return (await safeGet('index')) || []; },
+  async loadBoard(id) { return (await safeGet('board:' + id)) || null; },
+  async saveBoard(b) { await Store.set('board:' + b.id, b); upsertIndex(b); await Store.set('index', S.index); Drive.noteSave(b); },
+  async deleteBoard(id) { try { await Store.del('board:' + id); } catch (e) { /* ignore */ } S.index = S.index.filter(x => x.id !== id); await Store.set('index', S.index).catch(() => {}); Drive.forget(id); },
+  async getLast() { return safeGet('last'); },
+  async setLast(id) { try { await Store.set('last', id); } catch (e) { /* ignore */ } },
+  saveView() { scheduleSave(true); },
+  subscribe() {}, unsubscribe() {},
+};
+
+function chunkItems(items) {
+  const enc = new TextEncoder(), LIMIT = 190000, out = [[]];
+  let size = 2;
+  for (const it of items) {
+    const s = enc.encode(JSON.stringify(it)).length + 1;
+    if (size + s > LIMIT && out[out.length - 1].length) { out.push([]); size = 2; }
+    out[out.length - 1].push(it); size += s;
+  }
+  return out;
+}
+const Db = {
+  kind: 'db', db: null, boards: null, parts: null, assets: null,
+  lastParts: new Map(), lastName: new Map(), uploaded: new Set(), cache: new Map(),
+  unsub: null, watch: null, onRemote: null, busy: false, lastWrite: 0, rt: 0,
+  init(db, uid) {
+    this.db = db;
+    const root = db.doc('data/users/' + uid + '/holst');
+    this.boards = root.collection('boards'); this.parts = root.collection('parts'); this.assets = root.collection('assets');
+  },
+  async listBoards() {
+    const qs = await this.boards.get();
+    return qs.docs.map(d => { const x = d.data() || {}; return { id: d.id, name: x.name || 'Без названия', updatedAt: x.updatedAt || 0, count: x.count || 0 }; });
+  },
+  async readParts(bid, meta) {
+    const qs = await this.parts.where('board', '==', bid).get();
+    const lim = meta && Number.isFinite(meta.parts) ? meta.parts : Infinity;
+    return qs.docs.map(d => d.data()).filter(d => d && (d.n || 0) < lim).sort((a, b) => (a.n || 0) - (b.n || 0));
+  },
+  async loadBoard(bid) {
+    const m = await this.boards.doc(bid).get();
+    if (!m.exists) return null;
+    const meta = m.data() || {};
+    const parts = await this.readParts(bid, meta);
+    this.lastParts.set(bid, parts.map(d => JSON.stringify(d.items || [])));
+    this.lastName.set(bid, meta.name);
+    const items = parts.flatMap(d => clone(d.items || []));
+    const assets = {};
+    await Promise.all(assetIdsOf(items).map(async a => { const s = await this.loadAsset(a); if (s != null) assets[a] = s; }));
+    return { id: bid, name: meta.name || 'Без названия', items, assets, updatedAt: meta.updatedAt || 0, view: LS.get('view:' + bid) };
+  },
+  async loadAsset(aid) {
+    if (this.cache.has(aid)) return this.cache.get(aid);
+    try {
+      const f = await this.assets.doc(aid + '_0').get();
+      if (!f.exists) return null;
+      const first = f.data() || {}, n = first.parts || 1;
+      let chunks = [first.data || ''];
+      if (n > 1) {
+        const rest = await Promise.all(Array.from({ length: n - 1 }, (_, i) => this.assets.doc(aid + '_' + (i + 1)).get()));
+        chunks = chunks.concat(rest.map(r => (r.exists ? (r.data() || {}).data || '' : '')));
+      }
+      const s = chunks.join('');
+      this.cache.set(aid, s); this.uploaded.add(aid);
+      return s;
+    } catch (e) { return null; }
+  },
+  async putAsset(aid, data) {
+    const ascii = /^[\x00-\x7f]*$/.test(data), size = ascii ? 190000 : 60000, n = Math.max(1, Math.ceil(data.length / size));
+    for (let i = 0; i < n; i++) { await this.assets.doc(aid + '_' + i).set({ kind: 'asset', aid, n: i, parts: n, data: data.slice(i * size, (i + 1) * size) }); this.lastWrite = Date.now(); }
+    this.uploaded.add(aid); this.cache.set(aid, data);
+  },
+  async saveBoard(b) {
+    this.busy = true;
+    try {
+      for (const a of assetIdsOf(b.items)) if (!this.uploaded.has(a) && b.assets[a] != null) await this.putAsset(a, b.assets[a]);
+      const chunks = chunkItems(b.items), strs = chunks.map(c => JSON.stringify(c));
+      const cur = (this.lastParts.get(b.id) || []).slice(), oldLen = cur.length;
+      let changed = false;
+      for (let n = 0; n < strs.length; n++) {
+        if (strs[n] === cur[n]) continue;
+        await this.parts.doc(b.id + '_' + n).set({ kind: 'part', board: b.id, n, items: chunks[n] });
+        cur[n] = strs[n]; this.lastParts.set(b.id, cur.slice()); this.lastWrite = Date.now(); changed = true;
+      }
+      if (changed || oldLen !== strs.length || this.lastName.get(b.id) !== b.name) {
+        await this.boards.doc(b.id).set({ kind: 'board', name: b.name, updatedAt: b.updatedAt, count: b.items.length, parts: strs.length });
+        this.lastName.set(b.id, b.name); this.lastWrite = Date.now();
+      }
+      for (let n = strs.length; n < oldLen; n++) { await this.parts.doc(b.id + '_' + n).delete(); this.lastWrite = Date.now(); }
+      this.lastParts.set(b.id, strs);
+      upsertIndex(b);
+    } finally { this.busy = false; }
+  },
+  async deleteBoard(bid) {
+    if (this.watch === bid) this.unsubscribe();
+    const all = await this.parts.get();
+    const mine = [], mineA = new Set(), otherA = new Set();
+    for (const d of all.docs) {
+      const x = d.data() || {}, ids = assetIdsOf(x.items || []);
+      if (x.board === bid) { mine.push(d.id); ids.forEach(a => mineA.add(a)); } else ids.forEach(a => otherA.add(a));
+    }
+    await this.boards.doc(bid).delete();
+    for (const id of mine) await this.parts.doc(id).delete();
+    for (const a of mineA) {
+      if (otherA.has(a)) continue;
+      const f = await this.assets.doc(a + '_0').get();
+      const n = f.exists ? ((f.data() || {}).parts || 1) : 0;
+      for (let i = 0; i < n; i++) await this.assets.doc(a + '_' + i).delete();
+      this.uploaded.delete(a); this.cache.delete(a);
+    }
+    this.lastParts.delete(bid);
+    S.index = S.index.filter(x => x.id !== bid);
+  },
+  async getLast() { return LS.get('dblast'); },
+  async setLast(id) { LS.set('dblast', id); },
+  saveView(b) { LS.set('view:' + b.id, b.view); },
+  subscribe(bid, onRemote) {
+    this.unsubscribe();
+    this.watch = bid; this.onRemote = onRemote;
+    try { this.unsub = this.parts.where('board', '==', bid).onSnapshot(() => this.recheckSoon(), () => {}); } catch (e) { this.unsub = null; }
+  },
+  unsubscribe() { if (this.unsub) { try { this.unsub(); } catch (e) { /* ignore */ } } this.unsub = null; this.watch = null; clearTimeout(this.rt); },
+  recheckSoon() { clearTimeout(this.rt); this.rt = setTimeout(() => this.recheck(), 1200); },
+  async recheck() {
+    const bid = this.watch; if (!bid) return;
+    if (this.busy || Date.now() - this.lastWrite < 1500) { this.recheckSoon(); return; }
+    try {
+      const m = await this.boards.doc(bid).get();
+      if (!m.exists) return;
+      const meta = m.data() || {}, parts = await this.readParts(bid, meta);
+      if (this.busy || bid !== this.watch || Date.now() - this.lastWrite < 1500) { this.recheckSoon(); return; }
+      const strs = parts.map(d => JSON.stringify(d.items || [])), prev = this.lastParts.get(bid) || [];
+      if (strs.length === prev.length && strs.every((s, i) => s === prev[i]) && this.lastName.get(bid) === meta.name) return;
+      this.lastParts.set(bid, strs); this.lastName.set(bid, meta.name);
+      if (this.onRemote) this.onRemote(bid, parts.flatMap(d => clone(d.items || [])), meta.name);
+    } catch (e) { /* ignore */ }
+  },
+};
+let Backend = Local;
+
+/* =========================================================
+   Google Drive sync (when the board runs at its own web address).
+   Local-first: every change is saved on the device at once and sent
+   to the «Холст» folder on Google Drive whenever there is a connection.
+   ========================================================= */
+const GSCOPE = 'https://www.googleapis.com/auth/drive.file';
+const GAPI = 'https://www.googleapis.com/drive/v3/';
+const GUP = 'https://www.googleapis.com/upload/drive/v3/files';
+const FOLDER_MIME = 'application/vnd.google-apps.folder';
+const DEVICE = /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent) ? 'телефона' : 'компьютера';
+function cyrb53(str) {
+  let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+  for (let i = 0, ch; i < str.length; i++) { ch = str.charCodeAt(i); h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507); h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507); h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36) + ':' + str.length;
+}
+/* Text heights are measured by each device's fonts, so they stay out of the comparison. */
+function boardHash(b) {
+  return cyrb53((b.name || '') + '\u0001' + JSON.stringify((b.items || []).map(it => (it.type === 'text' ? Object.assign({}, it, { h: 0 }) : it))));
+}
+async function removeBoardLocally(bid) {
+  try { await Store.del('board:' + bid); } catch (e) { /* ignore */ }
+  S.index = S.index.filter(x => x.id !== bid);
+  await Store.set('index', S.index).catch(() => {});
+  if (S.board && S.board.id === bid) {
+    const next = [...S.index].sort((a, b) => b.updatedAt - a.updatedAt)[0];
+    const nb = next ? await Local.loadBoard(next.id) : null;
+    S.board = null; dirty = false;
+    loadBoard(nb || newBoard('Новая доска'));
+    if (nb) fitAll(); else await saveNow();
+  }
+  renderDrawer();
+}
+
+const Drive = {
+  cid: '', token: null, exp: 0, client: null, clientFor: '', gis: null,
+  state: 'off', pending: false, running: false, again: false, timer: 0, lastSync: 0,
+  st: { folder: null, assets: null, meta: {}, assetMap: {}, deleted: [] },
+  available() { return !S.hosted && !IS_FILE && (location.protocol === 'https:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname)); },
+  active() { return this.available() && !!this.cid; },
+  tokenOk() { return !!this.token && Date.now() < this.exp - 60000; },
+  async init() {
+    if (!this.available()) return;
+    const m = location.hash.match(/[#&]cid=([^&]+)/);
+    if (m) { LS.set('gcid', decodeURIComponent(m[1])); history.replaceState(null, '', location.pathname + location.search); setTimeout(() => toast('Google Диск настроен: нажмите на статус вверху, чтобы войти'), 400); }
+    this.cid = LS.get('gcid') || '';
+    const t = LS.get('gtok'); if (t && t.e > Date.now() + 60000) { this.token = t.t; this.exp = t.e; }
+    this.lastSync = LS.get('glast') || 0;
+    const st = await safeGet('drive'); if (st) Object.assign(this.st, st);
+    if (!this.active()) { this.state = 'off'; renderStatus(); return; }
+    this.state = this.tokenOk() ? 'ok' : 'auth';
+    renderStatus();
+    if (navigator.onLine) this.loadGIS().catch(() => {});
+    this.schedule(600);
+    setInterval(() => { if (document.visibilityState === 'visible') this.schedule(0); }, 60000);
+  },
+  persist() { return Store.set('drive', this.st).catch(() => {}); },
+  setState(s) { this.state = s; renderStatus(); renderDriveDlg(); },
+  schedule(ms) { if (!this.active()) return; clearTimeout(this.timer); this.timer = setTimeout(() => this.sync(), ms); },
+  touched() { if (!this.active()) return; this.pending = true; renderStatus(); this.schedule(2500); },
+  noteSave(b) { if (!this.active()) return; const m = this.st.meta[b.id]; if (!m || boardHash(b) !== m.hash) this.touched(); },
+  forget(bid) { const m = this.st.meta[bid]; if (m && m.fileId) this.st.deleted.push(m.fileId); delete this.st.meta[bid]; this.persist(); this.touched(); },
+  setClient(v) { this.cid = v; LS.set('gcid', v); this.client = null; this.state = this.tokenOk() ? 'ok' : 'auth'; renderStatus(); },
+  disconnect() { this.cid = ''; this.token = null; this.client = null; LS.set('gcid', ''); LS.set('gtok', null); this.state = 'off'; clearTimeout(this.timer); renderStatus(); renderDriveDlg(); },
+  loadGIS() {
+    if (window.google && google.accounts && google.accounts.oauth2) return Promise.resolve();
+    if (!this.gis) this.gis = new Promise((res, rej) => {
+      const s = document.createElement('script');
+      s.src = 'https://accounts.google.com/gsi/client'; s.async = true;
+      s.onload = () => res(); s.onerror = () => { this.gis = null; rej(new Error('gis')); };
+      document.head.appendChild(s);
+    });
+    return this.gis;
+  },
+  async connect() {
+    if (!this.cid) { openDriveDlg(); return; }
+    if (!navigator.onLine) { toast('Нет подключения к интернету'); return; }
+    try { await this.loadGIS(); } catch (e) { toast('Не загрузился вход Google. Проверьте интернет'); return; }
+    try {
+      if (!this.client || this.clientFor !== this.cid) {
+        this.client = google.accounts.oauth2.initTokenClient({ client_id: this.cid, scope: GSCOPE, callback: r => this.onToken(r), error_callback: e => this.onTokenError(e) });
+        this.clientFor = this.cid;
+      }
+      this.client.requestAccessToken({ prompt: LS.get('gconsent') ? '' : 'consent' });
+    } catch (e) { toast('Google не принял Client ID. Проверьте его в окне «Google Диск»'); }
+  },
+  onToken(r) {
+    if (!r || !r.access_token) { this.setState('auth'); toast('Вход в Google не завершён'); return; }
+    const ok = !google.accounts.oauth2.hasGrantedAllScopes || google.accounts.oauth2.hasGrantedAllScopes(r, GSCOPE);
+    if (!ok) { this.setState('auth'); toast('Нужно разрешить доступ к Google Диску'); return; }
+    this.token = r.access_token; this.exp = Date.now() + (+r.expires_in || 3600) * 1000;
+    LS.set('gtok', { t: this.token, e: this.exp }); LS.set('gconsent', 1);
+    this.setState('syncing'); this.sync();
+  },
+  onTokenError(e) {
+    this.setState('auth');
+    toast(e && e.type === 'popup_failed_to_open' ? 'Браузер заблокировал окно входа Google: разрешите всплывающие окна' : 'Вход в Google отменён');
+  },
+  err(r, what) { const e = new Error(what + ' ' + r.status); e.status = r.status; return e; },
+  async api(method, path, body) {
+    const r = await fetch(GAPI + path, { method, headers: Object.assign({ Authorization: 'Bearer ' + this.token }, body ? { 'Content-Type': 'application/json' } : {}), body: body ? JSON.stringify(body) : undefined });
+    if (!r.ok) throw this.err(r, 'drive');
+    return r.status === 204 ? null : r.json();
+  },
+  async raw(id) {
+    const r = await fetch(GAPI + 'files/' + id + '?alt=media', { headers: { Authorization: 'Bearer ' + this.token } });
+    if (!r.ok) throw this.err(r, 'drive get');
+    return r;
+  },
+  async upload(method, fileId, meta, data, mime, keep) {
+    const bd = 'holst' + uid();
+    const body = new Blob([`--${bd}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(meta)}\r\n--${bd}\r\nContent-Type: ${mime}\r\n\r\n`, data, `\r\n--${bd}--`]);
+    const url = GUP + (fileId ? '/' + fileId : '') + '?uploadType=multipart&fields=id,version,modifiedTime' + (keep ? '&keepRevisionForever=true' : '');
+    const r = await fetch(url, { method, headers: { Authorization: 'Bearer ' + this.token, 'Content-Type': 'multipart/related; boundary=' + bd }, body });
+    if (!r.ok) throw this.err(r, 'drive upload');
+    return r.json();
+  },
+  async list(q, fields) {
+    let out = [], page = '';
+    do {
+      const r = await this.api('GET', `files?q=${encodeURIComponent(q)}&fields=nextPageToken,files(${fields || 'id,name'})&pageSize=1000&spaces=drive${page ? '&pageToken=' + page : ''}`);
+      out = out.concat(r.files || []); page = r.nextPageToken;
+    } while (page);
+    return out;
+  },
+  async ensureFolders() {
+    const st = this.st;
+    if (st.folder) {
+      let gone = false;
+      try { const f = await this.api('GET', `files/${st.folder}?fields=id,trashed`); gone = !!f.trashed; }
+      catch (e) { if (e.status === 404) gone = true; else throw e; }
+      if (gone) { Object.assign(st, { folder: null, assets: null, meta: {}, assetMap: {}, deleted: [] }); toast('Папка «Холст» в Диске удалена. Создаю новую из копий на этом устройстве'); }
+    }
+    if (!st.folder) {
+      const found = await this.list(`appProperties has { key='holst' and value='root' } and trashed=false and mimeType='${FOLDER_MIME}'`);
+      st.folder = found.length ? found[0].id : (await this.api('POST', 'files?fields=id', { name: 'Холст', mimeType: FOLDER_MIME, appProperties: { holst: 'root' } })).id;
+      st.assets = null;
+    }
+    if (!st.assets) {
+      const found = await this.list(`'${st.folder}' in parents and appProperties has { key='holst' and value='assets' } and trashed=false`);
+      st.assets = found.length ? found[0].id : (await this.api('POST', 'files?fields=id', { name: 'Файлы досок', mimeType: FOLDER_MIME, parents: [st.folder], appProperties: { holst: 'assets' } })).id;
+    }
+    await this.persist();
+  },
+  async fileStatus(id) {
+    try { const f = await this.api('GET', `files/${id}?fields=id,trashed`); return f.trashed ? 'trashed' : 'ok'; }
+    catch (e) { if (e.status === 404) return 'gone'; throw e; }
+  },
+  async download(id) { return (await this.raw(id)).json(); },
+  async downloadAsset(id) {
+    const blob = await (await this.raw(id)).blob();
+    if (/^image\//.test(blob.type)) return new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = () => rej(fr.error); fr.readAsDataURL(blob); });
+    return blob.text();
+  },
+  async uploadAsset(aid, data) {
+    let blob, ext;
+    if (/^data:/.test(data)) { blob = await (await fetch(data)).blob(); ext = '.' + ((blob.type.split('/')[1] || 'bin').replace('jpeg', 'jpg').replace('svg+xml', 'svg')); }
+    else { blob = new Blob([data], { type: 'text/html' }); ext = '.html'; }
+    const res = await this.upload('POST', null, { name: aid + ext, parents: [this.st.assets], appProperties: { holst: 'asset', aid } }, blob, blob.type || 'application/octet-stream', false);
+    return res.id;
+  },
+  async push(b, h, f) {
+    const assetFiles = {};
+    for (const a of assetIdsOf(b.items)) {
+      let fid = this.st.assetMap[a];
+      if (!fid && b.assets && b.assets[a] != null) { fid = await this.uploadAsset(a, b.assets[a]); this.st.assetMap[a] = fid; await this.persist(); }
+      if (fid) assetFiles[a] = fid;
+    }
+    const body = JSON.stringify({ format: 'holst-board', version: 3, board: { id: b.id, name: b.name, items: b.items, assetFiles, updatedAt: b.updatedAt } });
+    const name = safeName(b.name) + '.holst.json';
+    const m = this.st.meta[b.id] || {};
+    const today = new Date().toISOString().slice(0, 10);
+    let res;
+    if (f) {
+      try { res = await this.upload('PATCH', f.id, { name }, body, 'application/json', m.day !== today); }
+      catch (e) { if (e.status === 403 && m.day !== today) res = await this.upload('PATCH', f.id, { name }, body, 'application/json', false); else throw e; }
+    } else {
+      res = await this.upload('POST', null, { name, parents: [this.st.folder], mimeType: 'application/json', appProperties: { holst: 'board', bid: b.id } }, body, 'application/json', false);
+    }
+    this.st.meta[b.id] = { fileId: res.id, version: res.version, hash: h, day: today, u: b.updatedAt };
+    await this.persist();
+  },
+  async pull(f, force, data) {
+    const bid = f.appProperties.bid;
+    const open = S.board && S.board.id === bid;
+    if (open && !force && (dirty || saving || S.editing || S.drag || S.focus)) return false;
+    data = data || await this.download(f.id);
+    const src = (data && data.board) || data || {};
+    const local = await Local.loadBoard(bid);
+    const b = local || { id: bid, createdAt: Date.now() };
+    b.id = bid; b.name = src.name || f.name.replace(/\.holst\.json$/, '');
+    b.items = Array.isArray(src.items) ? src.items : [];
+    b.updatedAt = src.updatedAt || Date.parse(f.modifiedTime) || Date.now();
+    b.assets = b.assets || {};
+    for (const [a, fid] of Object.entries(src.assetFiles || {})) {
+      this.st.assetMap[a] = fid;
+      if (b.assets[a] == null) { try { b.assets[a] = await this.downloadAsset(fid); } catch (e) { /* retried next time */ } }
+    }
+    delete b.welcome;
+    normalizeBoard(b, false);
+    if (open && S.board && S.board.id === bid) {
+      pushHist();
+      S.board.name = b.name; S.board.items = b.items; Object.assign(S.board.assets, b.assets); delete S.board.welcome;
+      $('#boardName').value = b.name; document.title = b.name + ' — Холст';
+      S.sel = new Set([...S.sel].filter(id => byId(id)));
+      render(); toast('Доска обновилась с другого устройства');
+      b.view = S.board.view;
+    }
+    await Store.set('board:' + bid, b); upsertIndex(b); await Store.set('index', S.index);
+    this.st.meta[bid] = { fileId: f.id, version: f.version, hash: boardHash(b), day: (this.st.meta[bid] || {}).day, u: b.updatedAt };
+    await this.persist();
+    return true;
+  },
+  async conflict(lb, f, data) {
+    const copy = clone(lb);
+    copy.id = 'b' + uid(); delete copy.welcome;
+    copy.name = `${lb.name} (версия с ${DEVICE}, ${fmtDate(Date.now())})`;
+    copy.createdAt = copy.updatedAt = Date.now();
+    await Store.set('board:' + copy.id, copy); upsertIndex(copy); await Store.set('index', S.index);
+    await this.pull(f, true, data);
+    toast(`«${lb.name}» меняли на двух устройствах. Ваша версия сохранена отдельной доской`);
+  },
+  async sync() {
+    if (!this.active()) return;
+    if (this.running) { this.again = true; return; }
+    if (!navigator.onLine) { this.setState('offline'); return; }
+    if (!this.tokenOk()) { this.setState('auth'); return; }
+    this.running = true; this.setState('syncing');
+    let changed = false;
+    try {
+      if (dirty && S.board) await saveNow();
+      await this.ensureFolders();
+      for (const id of [...this.st.deleted]) {
+        try { await this.api('PATCH', `files/${id}?fields=id`, { trashed: true }); } catch (e) { if (e.status !== 404) throw e; }
+        this.st.deleted = this.st.deleted.filter(x => x !== id); await this.persist();
+      }
+      const remote = (await this.list(`'${this.st.folder}' in parents and appProperties has { key='holst' and value='board' } and trashed=false`, 'id,name,version,modifiedTime,appProperties'))
+        .filter(f => f.appProperties && f.appProperties.bid);
+      const byBid = new Map(remote.map(f => [f.appProperties.bid, f]));
+      // Drive → device
+      for (const f of remote) {
+        const bid = f.appProperties.bid, m = this.st.meta[bid];
+        if (m && m.version === f.version) continue;
+        const lb = await Local.loadBoard(bid);
+        if (!lb) { await this.pull(f); changed = true; continue; }
+        const h = boardHash(lb);
+        if (m && h === m.hash) { if (await this.pull(f)) changed = true; continue; }
+        const data = await this.download(f.id), src = (data && data.board) || {};
+        const tmp = normalizeBoard({ name: src.name, items: clone(src.items || []) }, false);
+        if (boardHash(tmp) === h) { this.st.meta[bid] = { fileId: f.id, version: f.version, hash: h, day: m && m.day, u: lb.updatedAt }; await this.persist(); continue; }
+        await this.conflict(lb, f, data); changed = true;
+      }
+      // device → Drive
+      let removed = 0;
+      for (const e of [...S.index]) {
+        const bid = e.id, f = byBid.get(bid), m = this.st.meta[bid];
+        if (f && m && m.version !== f.version) continue;
+        const lb = await Local.loadBoard(bid); if (!lb) continue;
+        const h = m && m.u === lb.updatedAt && m.hash ? m.hash : boardHash(lb);
+        if (lb.welcome && remote.length && !f && !(m && m.fileId) && h === LS.get('welcome:' + bid)) { await removeBoardLocally(bid); changed = true; continue; }
+        if (f) { if (!m || h !== m.hash) await this.push(lb, h, f); else if (m.u !== lb.updatedAt) { m.u = lb.updatedAt; } continue; }
+        if (m && m.fileId) {
+          const s = await this.fileStatus(m.fileId);
+          if (s !== 'ok' && h === m.hash && removed < 2) { removed++; delete this.st.meta[bid]; await this.persist(); await removeBoardLocally(bid); changed = true; continue; }
+          if (s === 'ok') { await this.push(lb, h, { id: m.fileId }); continue; }
+          delete this.st.meta[bid];
+        }
+        await this.push(lb, h, null);
+      }
+      this.pending = false; this.lastSync = Date.now(); LS.set('glast', this.lastSync);
+      await this.persist();
+      this.running = false;
+      this.setState('ok');
+    } catch (e) {
+      this.running = false;
+      if (e && e.status === 401) { this.token = null; LS.set('gtok', null); this.setState('auth'); }
+      else if (!navigator.onLine) this.setState('offline');
+      else { console.warn('Drive sync', e); this.setState('error'); this.schedule(30000); }
+    } finally {
+      this.running = false;
+      if (changed) renderDrawer();
+      if (this.again) { this.again = false; this.schedule(300); }
+    }
+  },
+};
+
+/* =========================================================
+   State
+   ========================================================= */
+const S = {
+  board: null, index: [], tool: 'select', sel: new Set(),
+  editing: null, editSnap: null, editOrig: '', editNew: false,
+  hover: null, hist: [], fut: [], clip: null, drag: null, pinch: null,
+  space: false, pointers: new Map(), mouse: { x: innerWidth / 2, y: innerHeight / 2 }, mouseIn: false,
+  nudgeT: 0, raf: 0,
+  active: null, loaded: new Set(), focus: null, focusSnap: null, focusOrig: '',
+  blocked: new Set(), cspSeen: false, hosted: !!(window.claude && typeof window.claude.use === 'function'),
+  pendingRemote: null, embedEdit: null, htmlTarget: null,
+  settings: { grid: true },
+  opts: { sticky: STICKY[0], shape: 'rect', pen: INK, penW: 3, conn: 'straight' },
+};
+
+const vp = $('#viewport'), world = $('#world'), ov = $('#overlay'), ctxBar = $('#ctx'), pop = $('#pop'),
+  fly = $('#flyout'), drawer = $('#drawer'), modal = $('#modal'), embedDlg = $('#embedDlg'), driveDlg = $('#driveDlg'), fview = $('#fview'), fbar = $('#fbar');
+const els = new Map();
+const mctx = document.createElement('canvas').getContext('2d');
+
+/* =========================================================
+   Model
+   ========================================================= */
+const TEXT_TYPES = new Set(['sticky', 'shape', 'text']);
+const hasText = it => !!it && TEXT_TYPES.has(it.type);
+const titled = it => !!it && (it.type === 'frame' || it.type === 'embed');
+const editable = it => hasText(it) || titled(it);
+const FIELD = it => (titled(it) ? 'title' : 'text');
+const connectable = it => it.type !== 'connector' && it.type !== 'pen';
+const canFocus = it => !!it && ['embed', 'image', 'sticky', 'text', 'shape', 'frame'].includes(it.type);
+const items = () => S.board.items;
+function byId(id) { if (!id) return null; const a = S.board.items; for (let i = 0; i < a.length; i++) if (a[i].id === id) return a[i]; return null; }
+const selItems = () => [...S.sel].map(byId).filter(Boolean);
+const renderOrder = () => { const a = items(); return a.filter(i => i.type === 'frame').concat(a.filter(i => i.type !== 'frame')); };
+const center = t => ({ x: t.x + t.w / 2, y: t.y + t.h / 2 });
+
+function newBoard(name) {
+  const t = Date.now();
+  return { id: 'b' + uid(), name: name || 'Без названия', items: [], assets: {}, view: { x: Math.round(innerWidth / 2), y: Math.round(innerHeight / 2), z: 1 }, createdAt: t, updatedAt: t };
+}
+function normalizeItem(it) {
+  if (it.type === 'connector') { it.from = it.from || { x: 0, y: 0 }; it.to = it.to || { x: 0, y: 0 }; it.width = it.width || 2; it.color = it.color || INK; return; }
+  it.x = +it.x || 0; it.y = +it.y || 0; it.w = Math.max(1, +it.w || 100); it.h = Math.max(1, +it.h || 40);
+  if (it.type === 'pen' && !Array.isArray(it.pts)) it.pts = [[0, 0]];
+  if (hasText(it) && typeof it.text !== 'string') it.text = String(it.text || '');
+  if (it.type === 'embed') {
+    if (!it.kind) it.kind = it.asset ? 'html' : 'web';
+    if (it.kind !== 'html' && !it.src && it.url) { const sp = parseEmbed(it.url); if (sp) Object.assign(it, { src: sp.src, provider: it.provider || sp.provider, kind: sp.kind, thumb: it.thumb || sp.thumb }); }
+    it.provider = it.provider || (it.kind === 'html' ? 'html' : 'web');
+    it.title = it.title || (PROV[it.provider] || PROV.web).name;
+  }
+}
+function normalizeBoard(b, gc = true) {
+  b.items = Array.isArray(b.items) ? b.items.filter(i => i && i.id && i.type) : [];
+  b.assets = b.assets && typeof b.assets === 'object' ? b.assets : {};
+  const v = b.view || {};
+  b.view = { x: Number.isFinite(+v.x) ? +v.x : innerWidth / 2, y: Number.isFinite(+v.y) ? +v.y : innerHeight / 2, z: clamp(+v.z || 1, ZMIN, ZMAX) };
+  b.name = String(b.name || 'Без названия');
+  b.items.forEach(normalizeItem);
+  if (gc) { const used = new Set(assetIdsOf(b.items)); for (const k of Object.keys(b.assets)) if (!used.has(k)) delete b.assets[k]; }
+  return b;
+}
+
+function mkSticky(x, y) { return { id: uid(), type: 'sticky', x: r1(x - 100), y: r1(y - 100), w: 200, h: 200, color: S.opts.sticky, text: '', fs: 'auto', align: 'center', bold: false, textColor: INK }; }
+function mkText(x, y) { return { id: uid(), type: 'text', x: r1(x), y: r1(y - 14), w: 280, h: 30, text: '', fs: 20, align: 'left', bold: false, textColor: INK }; }
+function mkShape(r) { return { id: uid(), type: 'shape', shape: S.opts.shape, x: r1(r.x), y: r1(r.y), w: r1(r.w), h: r1(r.h), fill: '#ffffff', stroke: INK, sw: 2, text: '', fs: 16, align: 'center', bold: false, textColor: INK }; }
+function mkFrame(r) { const n = items().filter(i => i.type === 'frame').length + 1; return { id: uid(), type: 'frame', x: r1(r.x), y: r1(r.y), w: r1(r.w), h: r1(r.h), title: 'Рамка ' + n, fill: '#ffffff' }; }
+function mkConn(from, to) { return { id: uid(), type: 'connector', from, to, color: INK, width: 2, style: S.opts.conn, start: false, end: true, dash: false }; }
+
+/* ---------- geometry ---------- */
+function rectFrom(a, b) { return { x: Math.min(a.x, b.x), y: Math.min(a.y, b.y), w: Math.abs(a.x - b.x), h: Math.abs(a.y - b.y) }; }
+function unionB(list) {
+  let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity;
+  for (const b of list) { if (!b) continue; x1 = Math.min(x1, b.x); y1 = Math.min(y1, b.y); x2 = Math.max(x2, b.x + b.w); y2 = Math.max(y2, b.y + b.h); }
+  return Number.isFinite(x1) ? { x: x1, y: y1, w: x2 - x1, h: y2 - y1 } : null;
+}
+const inside = (a, b) => a.x >= b.x && a.y >= b.y && a.x + a.w <= b.x + b.w && a.y + a.h <= b.y + b.h;
+const intersects = (a, b) => a.x <= b.x + b.w && a.x + a.w >= b.x && a.y <= b.y + b.h && a.y + a.h >= b.y;
+const padR = (b, p) => ({ x: b.x - p, y: b.y - p, w: b.w + 2 * p, h: b.h + 2 * p });
+function bounds(it) { return it.type === 'connector' ? connGeom(it).tight : { x: it.x, y: it.y, w: it.w, h: it.h }; }
+
+function shapePath(k, w, h) {
+  switch (k) {
+    case 'round': { const r = Math.min(18, w / 4, h / 4); return `M${r} 0H${w - r}A${r} ${r} 0 0 1 ${w} ${r}V${h - r}A${r} ${r} 0 0 1 ${w - r} ${h}H${r}A${r} ${r} 0 0 1 0 ${h - r}V${r}A${r} ${r} 0 0 1 ${r} 0Z`; }
+    case 'ellipse': return `M0 ${h / 2}A${w / 2} ${h / 2} 0 1 0 ${w} ${h / 2}A${w / 2} ${h / 2} 0 1 0 0 ${h / 2}Z`;
+    case 'diamond': return `M${w / 2} 0L${w} ${h / 2}L${w / 2} ${h}L0 ${h / 2}Z`;
+    case 'triangle': return `M${w / 2} 0L${w} ${h}H0Z`;
+    case 'parallelogram': { const k2 = Math.min(w * 0.2, h * 0.6); return `M${k2} 0H${w}L${w - k2} ${h}H0Z`; }
+    default: return `M0 0H${w}V${h}H0Z`;
+  }
+}
+const INS = { rect: [0, 0, 0, 12], round: [0, 0, 0, 12], parallelogram: [0.16, 0, 0, 8], ellipse: [0.15, 0.15, 0.15, 6], diamond: [0.2, 0.22, 0.22, 4], triangle: [0.2, 0.42, 0.04, 4] };
+function shapeIns(it) { const [fx, ft, fb, c] = INS[it.shape] || INS.rect; return { l: it.w * fx + c, r: it.w * fx + c, t: it.h * ft + c, b: it.h * fb + c, ft, fb, c }; }
+
+function penPath(pts) {
+  if (!pts || !pts.length) return '';
+  const f = p => r1(p[0]) + ' ' + r1(p[1]);
+  if (pts.length === 1) return `M${f(pts[0])}L${r1(pts[0][0] + 0.1)} ${r1(pts[0][1])}`;
+  let d = 'M' + f(pts[0]);
+  for (let i = 1; i < pts.length - 1; i++) { const a = pts[i], b = pts[i + 1]; d += `Q${f(a)} ${r1((a[0] + b[0]) / 2)} ${r1((a[1] + b[1]) / 2)}`; }
+  return d + 'L' + f(pts[pts.length - 1]);
+}
+
+const GAP = 4;
+function edgePoint(t, p) {
+  const c = center(t), dx = p.x - c.x, dy = p.y - c.y, hw = t.w / 2 + GAP, hh = t.h / 2 + GAP;
+  if (Math.abs(dx) < 1e-6 && Math.abs(dy) < 1e-6) return c;
+  const k = t.type === 'shape' ? t.shape : 'rect';
+  let s;
+  if (k === 'ellipse') s = 1 / Math.sqrt((dx * dx) / (hw * hw) + (dy * dy) / (hh * hh));
+  else if (k === 'diamond') s = 1 / (Math.abs(dx) / hw + Math.abs(dy) / hh);
+  else s = Math.min(hw / Math.max(Math.abs(dx), 1e-9), hh / Math.max(Math.abs(dy), 1e-9));
+  return { x: c.x + dx * s, y: c.y + dy * s };
+}
+function sidePoint(t, d) { const c = center(t); return { x: c.x + d.x * (t.w / 2 + GAP), y: c.y + d.y * (t.h / 2 + GAP) }; }
+function connGeom(c) {
+  const A = c.from || {}, B = c.to || {};
+  const ta = A.id ? byId(A.id) : null, tb = B.id ? byId(B.id) : null;
+  const ca = ta ? center(ta) : { x: A.x || 0, y: A.y || 0 }, cb = tb ? center(tb) : { x: B.x || 0, y: B.y || 0 };
+  const style = c.style || 'straight';
+  let pts;
+  if (style === 'straight') pts = [ta ? edgePoint(ta, cb) : ca, tb ? edgePoint(tb, ca) : cb];
+  else {
+    const dx = cb.x - ca.x, dy = cb.y - ca.y, hz = Math.abs(dx) >= Math.abs(dy);
+    const da = hz ? { x: Math.sign(dx) || 1, y: 0 } : { x: 0, y: Math.sign(dy) || 1 };
+    const a = ta ? sidePoint(ta, da) : ca, b = tb ? sidePoint(tb, { x: -da.x, y: -da.y }) : cb;
+    if (style === 'elbow') {
+      if (hz) { const mx = (a.x + b.x) / 2; pts = [a, { x: mx, y: a.y }, { x: mx, y: b.y }, b]; }
+      else { const my = (a.y + b.y) / 2; pts = [a, { x: a.x, y: my }, { x: b.x, y: my }, b]; }
+    } else {
+      const k = Math.max(40, Math.hypot(b.x - a.x, b.y - a.y) * 0.45);
+      pts = [a, { x: a.x + da.x * k, y: a.y + da.y * k }, { x: b.x - da.x * k, y: b.y - da.y * k }, b];
+    }
+  }
+  const a = pts[0], b = pts[pts.length - 1];
+  const prevDistinct = arr => { const l = arr[arr.length - 1]; for (let i = arr.length - 2; i >= 0; i--) if (Math.hypot(arr[i].x - l.x, arr[i].y - l.y) > 0.5) return arr[i]; return { x: l.x - 1, y: l.y }; };
+  const pe = prevDistinct(pts), ps = prevDistinct([...pts].reverse());
+  const de = norm(b.x - pe.x, b.y - pe.y), ds = norm(a.x - ps.x, a.y - ps.y);
+  const w = c.width || 2, hs = 8 + w * 2.2;
+  const head = (p, d) => `M${r1(p.x)} ${r1(p.y)}L${r1(p.x - d.x * hs - d.y * hs * 0.55)} ${r1(p.y - d.y * hs + d.x * hs * 0.55)}L${r1(p.x - d.x * hs + d.y * hs * 0.55)} ${r1(p.y - d.y * hs - d.x * hs * 0.55)}Z`;
+  const lp = pts.map(p => ({ x: p.x, y: p.y }));
+  if (c.end) lp[lp.length - 1] = { x: b.x - de.x * hs * 0.7, y: b.y - de.y * hs * 0.7 };
+  if (c.start) lp[0] = { x: a.x - ds.x * hs * 0.7, y: a.y - ds.y * hs * 0.7 };
+  const f = p => r1(p.x) + ' ' + r1(p.y);
+  const d = style === 'curve' ? `M${f(lp[0])}C${f(lp[1])} ${f(lp[2])} ${f(lp[3])}` : 'M' + lp.map(f).join('L');
+  const heads = (c.end ? head(b, de) : '') + (c.start ? head(a, ds) : '');
+  let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity;
+  for (const p of pts) { x1 = Math.min(x1, p.x); y1 = Math.min(y1, p.y); x2 = Math.max(x2, p.x); y2 = Math.max(y2, p.y); }
+  const pad = hs + 14;
+  return { a, b, d, heads, bbox: { x: x1 - pad, y: y1 - pad, w: x2 - x1 + pad * 2, h: y2 - y1 + pad * 2 }, tight: { x: x1, y: y1, w: Math.max(1, x2 - x1), h: Math.max(1, y2 - y1) } };
+}
+
+/* =========================================================
+   View (pan / zoom)
+   ========================================================= */
+const V = () => S.board.view;
+const toWorld = (cx, cy) => { const v = V(); return { x: (cx - v.x) / v.z, y: (cy - v.y) / v.z }; };
+const toScreen = (x, y) => { const v = V(); return { x: x * v.z + v.x, y: y * v.z + v.y }; };
+const screenRect = b => { const v = V(); return { x: b.x * v.z + v.x, y: b.y * v.z + v.y, w: b.w * v.z, h: b.h * v.z }; };
+const focusRect = () => ({ x: 16, y: 64, w: Math.max(100, innerWidth - 32), h: Math.max(100, innerHeight - 80) });
+
+let viewTimer = 0;
+function applyView() {
+  const v = V();
+  world.style.transform = `translate(${v.x}px,${v.y}px) scale(${v.z})`;
+  world.style.setProperty('--iz', String(1 / v.z));
+  let step = 24; while (step * v.z < 12) step *= 4; while (step * v.z > 96) step /= 4;
+  const gs = step * v.z;
+  vp.style.backgroundSize = `${gs}px ${gs}px`;
+  vp.style.backgroundPosition = `${v.x - gs / 2}px ${v.y - gs / 2}px`;
+  $('#zoomLbl').textContent = Math.round(v.z * 100) + '%';
+  renderOverlay(); positionCtx();
+  clearTimeout(viewTimer);
+  viewTimer = setTimeout(() => { if (S.board) Backend.saveView(S.board); }, 700);
+}
+function zoomAt(cx, cy, nz) {
+  const v = V(); nz = clamp(nz, ZMIN, ZMAX);
+  const wx = (cx - v.x) / v.z, wy = (cy - v.y) / v.z;
+  v.z = nz; v.x = cx - wx * nz; v.y = cy - wy * nz; applyView();
+}
+const zoomStep = f => zoomAt(innerWidth / 2, innerHeight / 2, V().z * f);
+function fitAll(list) {
+  list = list || items();
+  const v = V();
+  if (!list.length) { v.z = 1; v.x = innerWidth / 2; v.y = innerHeight / 2; applyView(); return; }
+  const b = unionB(list.map(i => (i.type === 'frame' ? { x: i.x, y: i.y - 30, w: i.w, h: i.h + 30 } : bounds(i))));
+  const small = innerWidth < 700, aw = Math.max(100, innerWidth - (small ? 90 : 200)), ah = Math.max(100, innerHeight - (small ? 220 : 180));
+  const z = clamp(Math.min(aw / Math.max(b.w, 1), ah / Math.max(b.h, 1)), 0.1, 1.5);
+  v.z = z; v.x = innerWidth / 2 + (small ? 30 : 20) - (b.x + b.w / 2) * z; v.y = innerHeight / 2 - (b.y + b.h / 2) * z;
+  applyView();
+}
+
+/* =========================================================
+   Rendering
+   ========================================================= */
+const requestRender = () => { if (!S.raf) S.raf = requestAnimationFrame(() => { S.raf = 0; render(); }); };
+
+function attachTextEvents(t, id) {
+  t.addEventListener('input', () => onTextInput(id));
+  t.addEventListener('paste', onTxtPaste);
+  t.addEventListener('keydown', e => onTxtKey(e, id));
+  t.addEventListener('blur', () => setTimeout(() => {
+    const cur = els.get(id);
+    if (S.editing === id && document.hasFocus() && !(cur && cur.contains(document.activeElement))) finishEdit();
+  }, 0));
+}
+function createEl(it) {
+  let el;
+  if (it.type === 'connector') {
+    el = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    el.setAttribute('class', 'it conn');
+    el.innerHTML = '<g><path class="hit"/><path class="halo"/><path class="ln"/><path class="hd"/></g>';
+  } else {
+    el = document.createElement('div');
+    el.className = 'it ' + it.type;
+    if (it.type === 'sticky' || it.type === 'text') el.innerHTML = '<div class="tw"><div class="txt"></div></div>';
+    else if (it.type === 'shape') el.innerHTML = '<svg><path/></svg><div class="tw"><div class="txt"></div></div>';
+    else if (it.type === 'frame') el.innerHTML = '<div class="ftitle"></div>';
+    else if (it.type === 'image') el.innerHTML = '<img alt="" draggable="false">';
+    else if (it.type === 'pen') el.innerHTML = '<svg><path class="hit"/><path class="halo"/><path class="ln"/></svg>';
+    else if (it.type === 'embed') el.innerHTML = `<div class="eh"><span class="ebd"></span><span class="et"></span><button class="eb2" data-ea="open" title="Открыть отдельно" aria-label="Открыть отдельно">${ic('ext')}</button><button class="eb2" data-ea="focus" title="Развернуть на весь экран" aria-label="Развернуть">${ic('expand')}</button></div><div class="ebody"><div class="eshield"></div></div>`;
+  }
+  el.dataset.id = it.id;
+  el._type = it.type;
+  const t = el.querySelector('.txt, .ftitle, .et');
+  if (t) attachTextEvents(t, it.id);
+  return el;
+}
+
+function setBox(el, it) { const s = el.style; s.left = px(it.x); s.top = px(it.y); s.width = px(it.w); s.height = px(it.h); }
+function setText(t, it) { if (S.editing === it.id) return; const v = it[FIELD(it)] || ''; if (t._v !== v) { t.textContent = v; t._v = v; } }
+function applyTextStyle(t, it) {
+  const s = t.style;
+  if (typeof it.fs === 'number') s.fontSize = px(it.fs);
+  s.fontWeight = it.bold ? '700' : '400';
+  s.textAlign = it.align || 'center';
+  s.color = it.textColor || INK;
+}
+function textW(s, fs, bold) { mctx.font = `${bold ? 700 : 400} ${fs}px ${FONT}`; return mctx.measureText(s).width; }
+function fitSticky(el, t, it) {
+  if (it.fs !== 'auto') { const f = +it.fs || 20; t.style.fontSize = px(f); el._fs = f; el._fit = ''; return; }
+  const key = it.w + '|' + it.h + '|' + (it.bold ? 1 : 0) + '|' + (it.text || '');
+  if (el._fit === key) return;
+  el._fit = key;
+  const aw = Math.max(10, it.w - 24), ah = Math.max(10, it.h - 24), text = it.text || '';
+  let best;
+  if (!text.trim()) best = clamp(Math.round(ah / 6), 12, 28);
+  else {
+    const longest = text.split(/\s+/).reduce((a, b) => (b.length > a.length ? b : a), '');
+    let lo = 6, hi = clamp(ah / 1.3, 6, 64); best = lo;
+    for (let i = 0; i < 9; i++) {
+      const mid = (lo + hi) / 2;
+      t.style.fontSize = px(mid);
+      if (t.offsetHeight <= ah && textW(longest, mid, it.bold) <= aw) { best = mid; lo = mid; } else hi = mid;
+    }
+  }
+  best = Math.max(6, Math.floor(best));
+  t.style.fontSize = px(best); el._fs = best;
+}
+
+/* ---------- embeds ---------- */
+function embedState(it, fr) {
+  if (it.kind === 'html') return S.board.assets[it.asset] == null ? 'loading' : 'live';
+  if (S.blocked.has(embedOrigin(it))) return 'blocked';
+  if (it.kind === 'video' && !S.loaded.has(it.id) && S.focus !== it.id) return 'poster';
+  if (!fr && !navigator.onLine) return 'offline';
+  return 'live';
+}
+function blockedText() {
+  return S.hosted
+    ? '<b>Внутри Claude этот адрес не откроется</b>Защита Claude не даёт доске загружать чужие сайты и видео. Откройте ссылку кнопкой ↗ вверху карточки или пользуйтесь скачанной версией доски (меню ⋯ → «Скачать офлайн-версию»).'
+    : '<b>Сайт не загрузился</b>Откройте его кнопкой ↗ вверху карточки.';
+}
+function updateEmbed(el, it) {
+  const eh = el.firstChild, body = eh.nextSibling, shield = body.lastChild;
+  if (S.focus === it.id) {
+    const v = V(), R = focusRect();
+    const s = el.style; s.left = px((R.x - v.x) / v.z); s.top = px((R.y - v.y) / v.z); s.width = px(R.w / v.z); s.height = px(R.h / v.z);
+    body.setAttribute('style', `top:0;right:auto;bottom:auto;width:${R.w}px;height:${R.h}px;transform:scale(${1 / v.z});transform-origin:0 0`);
+  } else { setBox(el, it); body.removeAttribute('style'); }
+  const bd = eh.firstChild;
+  if (bd._p !== it.provider) { bd._p = it.provider; bd.innerHTML = badge(it.provider); }
+  setText(eh.children[1], it);
+  let fr = body.querySelector('iframe');
+  const state = embedState(it, fr);
+  if (state === 'live') {
+    const key = it.kind === 'html' ? 'h:' + it.asset : 'u:' + it.src + (S.loaded.has(it.id) && it.kind === 'video' ? '&autoplay=1' : '');
+    if (!fr) {
+      fr = document.createElement('iframe');
+      fr.setAttribute('title', it.title || 'Встраивание');
+      if (it.kind === 'html') {
+        fr.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-downloads');
+        fr.setAttribute('allow', 'fullscreen; clipboard-write; autoplay');
+      } else {
+        fr.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; encrypted-media; clipboard-write');
+        fr.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      }
+      body.insertBefore(fr, shield);
+    }
+    if (fr._key !== key) {
+      fr._key = key;
+      if (it.kind === 'html') { fr.removeAttribute('src'); fr.srcdoc = S.board.assets[it.asset]; }
+      else { fr.removeAttribute('srcdoc'); fr.src = it.src + (key.endsWith('&autoplay=1') ? (it.src.includes('?') ? '&' : '?') + 'autoplay=1' : ''); }
+    }
+  } else if (fr && state !== 'offline') { fr.remove(); fr = null; }
+  const active = S.active === it.id || S.focus === it.id;
+  el.classList.toggle('e-active', active && state === 'live');
+  const sig = state + '|' + (it.thumb || '') + '|' + S.hosted;
+  if (shield._sig !== sig) {
+    shield._sig = sig;
+    if (state === 'poster') {
+      shield.innerHTML = (it.thumb ? '<img class="poster" alt="">' : '') + `<button class="play" data-ea="play" aria-label="Смотреть">${ic('playf')}</button>`;
+      const img = shield.querySelector('img');
+      if (img) { img.addEventListener('error', () => img.remove()); img.src = it.thumb; }
+    } else if (state === 'blocked') shield.innerHTML = `<div class="emsg">${blockedText()}</div>`;
+    else if (state === 'offline') shield.innerHTML = '<div class="emsg"><b>Нет подключения к интернету</b>Содержимое появится, когда сеть вернётся.</div>';
+    else if (state === 'loading') shield.innerHTML = '<div class="emsg">Загружаю инструмент…</div>';
+    else shield.innerHTML = '<div class="ehint"><span class="h1">Двойной щелчок — работать внутри</span><span class="h2">Щёлкните ещё раз, чтобы работать внутри</span></div>';
+  }
+}
+function activateEmbed(id) {
+  const it = byId(id); if (!it || it.type !== 'embed') return;
+  if (it.kind === 'video') S.loaded.add(id);
+  S.active = id; S.sel = new Set([id]); render();
+}
+function reloadEmbed(id) {
+  const el = els.get(id); if (!el) return;
+  const fr = el.querySelector('iframe'); if (fr) fr.remove();
+  const it = byId(id); if (it && it.kind === 'video') S.loaded.add(id);
+  render();
+}
+function openEmbed(it) {
+  if (!it) return;
+  let w = null;
+  try {
+    if (it.kind === 'html') {
+      const data = S.board.assets[it.asset]; if (data == null) return;
+      w = window.open(URL.createObjectURL(new Blob([data], { type: 'text/html' })), '_blank');
+    } else w = window.open(it.url || it.src, '_blank');
+  } catch (e) { w = null; }
+  if (w) { try { w.opener = null; } catch (e) { /* ignore */ } }
+  else toast(it.kind === 'html' ? 'Браузер не дал открыть отдельное окно' : 'Окно заблокировано. Ссылка: ' + (it.url || it.src));
+}
+
+function updateEl(el, it) {
+  el.classList.toggle('sel', S.sel.has(it.id));
+  el.classList.toggle('focused', S.focus === it.id);
+  switch (it.type) {
+    case 'sticky': {
+      setBox(el, it); el.style.background = it.color;
+      const t = el.firstChild.firstChild;
+      setText(t, it); applyTextStyle(t, it); fitSticky(el, t, it);
+      break;
+    }
+    case 'text': {
+      const s = el.style; s.left = px(it.x); s.top = px(it.y); s.width = px(it.w); s.height = '';
+      const t = el.firstChild.firstChild;
+      setText(t, it); applyTextStyle(t, it); t.style.fontSize = px(+it.fs || 20);
+      const h = el.offsetHeight; if (h && Math.abs(h - it.h) > 0.5) it.h = h;
+      break;
+    }
+    case 'shape': {
+      const svg = el.firstChild, path = svg.firstChild, tw = svg.nextSibling, t = tw.firstChild;
+      setText(t, it); applyTextStyle(t, it);
+      el.style.width = px(it.w);
+      let ins = shapeIns(it);
+      tw.style.padding = `${ins.t}px ${ins.r}px ${ins.b}px ${ins.l}px`;
+      if (S.editing === it.id ? t.textContent : it.text) {
+        const need = Math.ceil((t.offsetHeight + 2 * ins.c) / Math.max(0.2, 1 - ins.ft - ins.fb));
+        if (need > it.h + 0.5) { it.h = need; ins = shapeIns(it); tw.style.padding = `${ins.t}px ${ins.r}px ${ins.b}px ${ins.l}px`; }
+      }
+      setBox(el, it);
+      svg.setAttribute('width', it.w); svg.setAttribute('height', it.h);
+      path.setAttribute('d', shapePath(it.shape, it.w, it.h));
+      path.setAttribute('fill', it.fill || 'transparent');
+      path.setAttribute('stroke', it.sw > 0 ? (it.stroke || INK) : 'none');
+      path.setAttribute('stroke-width', it.sw || 0);
+      path.setAttribute('stroke-linejoin', 'round');
+      break;
+    }
+    case 'frame': setBox(el, it); el.style.background = it.fill || '#fff'; setText(el.firstChild, it); break;
+    case 'image': {
+      setBox(el, it);
+      const img = el.firstChild, d = S.board.assets[it.asset];
+      if (img._d !== d) { img._d = d; img.src = d || ''; }
+      break;
+    }
+    case 'pen': {
+      setBox(el, it);
+      const svg = el.firstChild, [hit, halo, ln] = svg.children;
+      svg.setAttribute('width', Math.max(1, it.w)); svg.setAttribute('height', Math.max(1, it.h));
+      if (el._pts !== it.pts) { el._pts = it.pts; const d = penPath(it.pts); hit.setAttribute('d', d); halo.setAttribute('d', d); ln.setAttribute('d', d); }
+      hit.setAttribute('stroke-width', Math.max(14, it.width + 10));
+      halo.setAttribute('stroke-width', it.width + 8);
+      ln.setAttribute('stroke', it.color); ln.setAttribute('stroke-width', it.width);
+      break;
+    }
+    case 'embed': updateEmbed(el, it); break;
+  }
+}
+function updateConn(el, it) {
+  el.classList.toggle('sel', S.sel.has(it.id));
+  const g = connGeom(it), b = g.bbox;
+  el.style.left = px(b.x); el.style.top = px(b.y); el.style.width = px(b.w); el.style.height = px(b.h);
+  el.setAttribute('width', b.w); el.setAttribute('height', b.h);
+  const gg = el.firstChild, [hit, halo, ln, hd] = gg.children, w = it.width || 2;
+  gg.setAttribute('transform', `translate(${-b.x} ${-b.y})`);
+  hit.setAttribute('d', g.d); hit.setAttribute('stroke-width', Math.max(14, w + 10));
+  halo.setAttribute('d', g.d); halo.setAttribute('stroke-width', w + 8);
+  ln.setAttribute('d', g.d); ln.setAttribute('stroke', it.color || INK); ln.setAttribute('stroke-width', w);
+  ln.setAttribute('stroke-dasharray', it.dash ? `${w * 2.5} ${w * 3}` : 'none');
+  hd.setAttribute('d', g.heads); hd.setAttribute('fill', it.color || INK);
+}
+
+/* Stacking uses z-index instead of moving DOM nodes, so embedded pages never reload. */
+function render() {
+  if (S.raf) { cancelAnimationFrame(S.raf); S.raf = 0; }
+  if (!S.board) return;
+  const order = renderOrder(), seen = new Set(), conns = [];
+  order.forEach((it, i) => {
+    let el = els.get(it.id);
+    if (!el || el._type !== it.type) { if (el) el.remove(); el = createEl(it); els.set(it.id, el); world.appendChild(el); }
+    const z = S.focus === it.id ? '100000' : String(i + 1);
+    if (el.style.zIndex !== z) el.style.zIndex = z;
+    seen.add(it.id);
+    if (it.type === 'connector') conns.push([el, it]); else updateEl(el, it);
+  });
+  for (const [id, el] of els) if (!seen.has(id)) { el.remove(); els.delete(id); }
+  for (const [el, it] of conns) updateConn(el, it);
+  $('#empty').hidden = order.length > 0;
+  renderOverlay(); renderCtx();
+}
+
+function renderOverlay() {
+  if (!S.board) return;
+  if (S.focus) { ov.innerHTML = ''; return; }
+  const box = (r, cls) => `<div class="${cls}" style="left:${r.x}px;top:${r.y}px;width:${Math.max(0, r.w)}px;height:${Math.max(0, r.h)}px"></div>`;
+  const d = S.drag;
+  let h = '';
+  if (S.hover) { const it = byId(S.hover); if (it) h += box(screenRect(padR(bounds(it), 4 / V().z)), 'ov-hover'); }
+  if (d && d.type === 'marquee' && d.active) h += box(screenRect(rectFrom(d.start, d.cur)), 'ov-marquee');
+  if (d && d.type === 'create' && d.active) h += box(screenRect(rectFrom(d.start, d.cur)), 'ov-ghost');
+  const sel = selItems();
+  const busy = !!d && ['move', 'resize', 'pen', 'erase', 'connect', 'cend', 'marquee'].includes(d.type);
+  if (sel.length && !(d && d.type === 'pen')) {
+    if (sel.length === 1 && sel[0].type === 'connector') {
+      if (!busy) {
+        const g = connGeom(sel[0]);
+        for (const [p, k] of [[g.a, 'cfrom'], [g.b, 'cto']]) { const s = toScreen(p.x, p.y); h += `<div class="ov-ep" data-handle="${k}" style="left:${s.x}px;top:${s.y}px"></div>`; }
+      }
+    } else {
+      const solids = sel.filter(i => i.type !== 'connector');
+      if (sel.length > 1) for (const it of sel) h += box(screenRect(bounds(it)), 'ov-item');
+      const gb = unionB(solids.map(bounds));
+      if (gb) {
+        const r = screenRect(gb);
+        h += box(r, 'ov-sel');
+        if (!busy && !S.editing) {
+          const hs = solids.length === 1 && solids[0].type === 'text' ? ['w', 'e'] : solids.length === 1 ? ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'] : ['nw', 'ne', 'se', 'sw'];
+          for (const k of hs) {
+            const x = r.x + (k.includes('w') ? 0 : k.includes('e') ? r.w : r.w / 2);
+            const y = r.y + (k.includes('n') ? 0 : k.includes('s') ? r.h : r.h / 2);
+            h += `<div class="ov-h" data-handle="${k}" style="left:${x}px;top:${y}px"></div>`;
+          }
+        }
+      }
+    }
+  }
+  ov.innerHTML = h;
+}
+
+/* ---------- context toolbar ---------- */
+let ctxSig = '';
+const cbtn = (act, inner, title, extra = '') => `<button class="ib ${extra}" data-act="${act}" title="${esc(title)}" aria-label="${esc(title)}">${inner}</button>`;
+const cswatch = (act, c, title, kind = '') => cbtn(act, `<span class="sw ${c === 'transparent' ? 'tr' : ''} ${kind}" style="--c:${c}"></span>`, title);
+
+function buildCtx(sel) {
+  const of = t => sel.filter(i => i.type === t);
+  const st = of('sticky'), sh = of('shape'), fr = of('frame'), cn = of('connector'), pn = of('pen'), em = of('embed');
+  const tx = sel.filter(hasText), ln = [...cn, ...pn], single = sel.length === 1 ? sel[0] : null;
+  const groups = [], g = [];
+  if (st.length) g.push(cswatch('stickyColor', st[0].color, 'Цвет стикера', 'sq'));
+  if (sh.length) g.push(cbtn('shapeKind', shapeIcon(sh[0].shape), 'Вид фигуры'), cswatch('fill', sh[0].fill, 'Заливка'), cswatch('stroke', sh[0].sw > 0 ? sh[0].stroke : 'transparent', 'Контур', 'ring'), cbtn('sw', String(sh[0].sw), 'Толщина контура', 'wide'));
+  if (fr.length) g.push(cswatch('frameFill', fr[0].fill, 'Фон рамки', 'sq'));
+  if (g.length) groups.push(g.join(''));
+  if (em.length === 1 && single) {
+    const html = single.kind === 'html';
+    groups.push(cbtn('eOpen', ic('ext'), 'Открыть отдельно') + cbtn('eReload', ic('reload'), 'Перезагрузить') + cbtn('eEdit', ic(html ? 'folder' : 'link'), html ? 'Заменить HTML-файл' : 'Изменить ссылку'));
+  }
+  if (tx.length) {
+    const t = tx[0];
+    groups.push(cbtn('fs', t.fs === 'auto' ? 'Авто' : String(t.fs), 'Размер текста', 'wide') + cbtn('bold', ic('bold'), 'Жирный', t.bold ? 'on' : '') + cbtn('align', ic('al_' + (t.align || 'center')), 'Выравнивание') + cbtn('textColor', `<span class="tc" style="--c:${t.textColor || INK}">А</span>`, 'Цвет текста'));
+  }
+  if (ln.length) {
+    const l = ln[0];
+    let s = cbtn('lineColor', `<span class="lc" style="--c:${l.color}"></span>`, 'Цвет линии') + cbtn('lineWidth', String(l.width), 'Толщина линии', 'wide');
+    if (cn.length) { const c = cn[0]; s += cbtn('connStyle', ic('st_' + (c.style || 'straight')), 'Тип линии') + cbtn('arrowStart', ic('arrS'), 'Стрелка в начале', c.start ? 'on' : '') + cbtn('arrowEnd', ic('arrE'), 'Стрелка в конце', c.end ? 'on' : '') + cbtn('dash', ic('dash'), 'Пунктир', c.dash ? 'on' : ''); }
+    groups.push(s);
+  }
+  const focusBtn = single && canFocus(single) ? cbtn('focus', ic(single.type === 'frame' ? 'fit' : 'expand'), single.type === 'frame' ? 'Показать рамку целиком' : 'Развернуть на весь экран (Shift+Enter)') : '';
+  groups.push(focusBtn + cbtn('front', ic('front'), 'На передний план ( ] )') + cbtn('back', ic('back'), 'На задний план ( [ )') + cbtn('dup', ic('dup'), `Дублировать (${MOD}+D)`) + cbtn('del', ic('trash'), 'Удалить (Delete)', 'danger'));
+  return groups.join('<div class="vsep"></div>');
+}
+function renderCtx() {
+  const sel = S.board ? selItems() : [];
+  const d = S.drag;
+  if (!sel.length || S.pinch || S.focus || (d && !['pan', 'move-pending'].includes(d.type))) { ctxBar.hidden = true; ctxSig = ''; return; }
+  const sig = JSON.stringify(sel.map(i => [i.id, i.type, i.color, i.fill, i.stroke, i.sw, i.textColor, i.fs, i.bold, i.align, i.width, i.style, i.start, i.end, i.dash, i.shape, i.kind]));
+  if (sig !== ctxSig) { ctxSig = sig; ctxBar.innerHTML = buildCtx(sel); }
+  ctxBar.hidden = false;
+  positionCtx(sel);
+}
+function positionCtx(sel) {
+  if (ctxBar.hidden || !S.board) return;
+  sel = sel || selItems();
+  const gb = unionB(sel.map(bounds)); if (!gb) return;
+  const r = screenRect(gb), bw = ctxBar.offsetWidth, bh = ctxBar.offsetHeight;
+  const x = clamp(r.x + r.w / 2 - bw / 2, 8, Math.max(8, innerWidth - bw - 8));
+  let y = r.y - bh - 16;
+  if (y < 72) y = r.y + r.h + 16;
+  if (y + bh > innerHeight - 64) y = clamp(r.y - bh - 16, 72, innerHeight - bh - 64);
+  ctxBar.style.left = px(x); ctxBar.style.top = px(y);
+}
+
+/* =========================================================
+   History & persistence
+   ========================================================= */
+const snapshot = () => JSON.stringify(S.board.items);
+function pushHist(snap) { S.hist.push(snap || snapshot()); if (S.hist.length > 120) S.hist.shift(); S.fut.length = 0; updateHistBtns(); }
+function restore(str) { S.board.items = JSON.parse(str); S.sel = new Set([...S.sel].filter(id => byId(id))); S.hover = null; changed(); }
+function undo() { finishEdit(); if (!S.hist.length) return; S.fut.push(snapshot()); restore(S.hist.pop()); updateHistBtns(); }
+function redo() { finishEdit(); if (!S.fut.length) return; S.hist.push(snapshot()); restore(S.fut.pop()); updateHistBtns(); }
+function updateHistBtns() { $('#btnUndo').disabled = !S.hist.length; $('#btnRedo').disabled = !S.fut.length; }
+function changed() { requestRender(); scheduleSave(); }
+
+let saveTimer = 0, dirty = false, saving = false, saveAgain = false;
+function setStatus(kind) { S.localStatus = kind; renderStatus(); }
+function renderStatus() {
+  const el = $('#status'), L = S.localStatus || 'loading';
+  const base = { loading: 'Загрузка…', saving: 'Сохранение…', mem: 'Браузер не даёт хранить данные — сохраните в файл', full: 'Хранилище Claude заполнено — удалите лишнее', error: 'Не удалось сохранить — сохраните в файл' };
+  let k = L === 'saved' && Backend === Local && Store.mode === 'mem' ? 'mem' : L, text = base[k] || '', act = false;
+  if (k === 'saved') {
+    if (Backend === Db) text = 'Сохранено в Claude';
+    else if (Drive.active()) {
+      const d = Drive.state;
+      if (d === 'ok' && !Drive.pending) text = 'Сохранено в Google Диске';
+      else if (d === 'ok' || d === 'syncing') { k = 'saving'; text = 'Сохранено, отправляю в Диск…'; }
+      else if (d === 'auth') { k = 'saving'; act = true; text = Drive.pending ? 'Сохранено на устройстве. Нажмите, чтобы отправить в Диск' : 'Нажмите, чтобы обновить связь с Диском'; }
+      else if (d === 'offline') { k = 'saving'; text = 'Сохранено на устройстве, в Диск отправлю, когда будет сеть'; }
+      else if (d === 'error') { k = 'error'; act = true; text = 'Сохранено на устройстве, Диск пока не отвечает'; }
+      else text = 'Сохранено на устройстве';
+    } else text = 'Сохранено в браузере';
+  }
+  el.dataset.s = k;
+  const t = $('#statusText'); t.textContent = text; t.classList.toggle('act', act);
+  const c = $('#btnCloud');
+  if (c) { c.hidden = !Drive.available(); c.dataset.d = Drive.active() ? Drive.state : 'off'; c.title = Drive.active() ? 'Google Диск' : 'Подключить Google Диск'; }
+}
+function scheduleSave(quiet) {
+  if (!S.board) return;
+  dirty = true;
+  if (!quiet) setStatus('saving');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveNow, quiet ? 900 : Backend === Db ? 800 : 450);
+}
+function upsertIndex(b) {
+  const e = { id: b.id, name: b.name, updatedAt: b.updatedAt, count: b.items.length };
+  const i = S.index.findIndex(x => x.id === b.id);
+  if (i < 0) S.index.push(e); else S.index[i] = e;
+}
+async function saveNow() {
+  clearTimeout(saveTimer);
+  const b = S.board; if (!b) return;
+  if (saving) { saveAgain = true; return; }
+  saving = true; dirty = false;
+  b.updatedAt = Date.now();
+  try { await Backend.saveBoard(b); await Backend.setLast(b.id); setStatus('saved'); }
+  catch (err) { console.error(err); dirty = true; setStatus(err && err.code === 'quota_exceeded' ? 'full' : 'error'); }
+  saving = false;
+  if (saveAgain) { saveAgain = false; saveNow(); }
+  renderDrawer();
+}
+const saveSettings = () => LS.set('settings', { grid: S.settings.grid, opts: S.opts });
+
+/* Changes that arrive from outside (Claude in chat, another device) */
+async function onRemoteItems(bid, list, name) {
+  S.pendingRemote = { bid, list, name };
+  applyRemote();
+}
+async function applyRemote() {
+  const p = S.pendingRemote;
+  if (!p || !S.board || S.board.id !== p.bid) { S.pendingRemote = null; return; }
+  if (S.editing || S.drag || S.focus || saving) { setTimeout(applyRemote, 700); return; }
+  S.pendingRemote = null;
+  pushHist();
+  S.board.items = p.list.filter(i => i && i.id && i.type);
+  S.board.items.forEach(normalizeItem);
+  if (p.name && p.name !== S.board.name) { S.board.name = p.name; $('#boardName').value = p.name; }
+  await ensureAssets(S.board.items);
+  S.sel = new Set([...S.sel].filter(id => byId(id)));
+  dirty = false; render();
+  toast('Доска обновилась');
+}
+async function ensureAssets(list) {
+  if (!Backend.loadAsset) return;
+  const need = assetIdsOf(list).filter(a => S.board.assets[a] == null);
+  await Promise.all(need.map(async a => { const d = await Backend.loadAsset(a); if (d != null) S.board.assets[a] = d; }));
+}
+
+/* =========================================================
+   Editing text
+   ========================================================= */
+function setEditable(t, on) {
+  if (on) {
+    try { t.contentEditable = 'plaintext-only'; } catch (e) { /* unsupported */ }
+    if (t.contentEditable !== 'plaintext-only') t.contentEditable = 'true';
+  } else t.removeAttribute('contenteditable');
+}
+function readText(t) {
+  let s = (t.innerText || '').replace(/\u00a0/g, ' ');
+  if (t.lastChild && t.lastChild.nodeName === 'BR') s = s.replace(/\n$/, '');
+  return s;
+}
+function startEdit(id, cx, cy, isNew) {
+  const it = byId(id);
+  if (!editable(it) || S.editing === id) return;
+  finishEdit();
+  S.sel = new Set([id]);
+  render();
+  const el = els.get(id); if (!el) return;
+  const t = el.querySelector('.txt, .ftitle, .et');
+  S.editing = id; S.editSnap = snapshot(); S.editOrig = it[FIELD(it)] || ''; S.editNew = !!isNew;
+  el.classList.add('editing');
+  t.dataset.ph = it.type === 'text' ? 'Текст' : 'Введите текст';
+  setEditable(t, true);
+  t.focus({ preventScroll: true });
+  const s = window.getSelection();
+  let range = null;
+  if (cx != null && !titled(it)) {
+    try {
+      if (document.caretRangeFromPoint) range = document.caretRangeFromPoint(cx, cy);
+      else if (document.caretPositionFromPoint) { const p = document.caretPositionFromPoint(cx, cy); if (p) { range = document.createRange(); range.setStart(p.offsetNode, p.offset); range.collapse(true); } }
+    } catch (e) { range = null; }
+    if (range && !t.contains(range.startContainer)) range = null;
+  }
+  if (!range) { range = document.createRange(); range.selectNodeContents(t); if (!titled(it)) range.collapse(false); }
+  s.removeAllRanges(); s.addRange(range);
+  renderOverlay(); renderCtx();
+}
+function finishEdit() {
+  if (!S.editing) return;
+  const id = S.editing; S.editing = null;
+  const it = byId(id), el = els.get(id);
+  if (el) {
+    const t = el.querySelector('.txt, .ftitle, .et');
+    if (it) {
+      let v = readText(t);
+      if (titled(it)) v = v.replace(/\s*\n\s*/g, ' ').trim() || (it.type === 'frame' ? 'Рамка' : 'Встраивание');
+      it[FIELD(it)] = v;
+      t._v = null;
+    }
+    setEditable(t, false);
+    el.classList.remove('editing');
+    if (el.contains(document.activeElement)) document.activeElement.blur();
+  }
+  const s = window.getSelection(); if (s) s.removeAllRanges();
+  if (it) {
+    if (it.type === 'text' && !it.text.trim()) {
+      S.board.items = items().filter(i => i !== it); S.sel.delete(id);
+      if (S.editNew) { if (S.hist.length) S.hist.pop(); } else pushHist(S.editSnap);
+    } else if ((it[FIELD(it)] || '') !== S.editOrig) pushHist(S.editSnap);
+  }
+  S.editSnap = null; S.editNew = false;
+  updateHistBtns(); changed();
+}
+function editCheckpoint() {
+  if (!S.editing) return;
+  const it = byId(S.editing); if (!it) return;
+  if ((it[FIELD(it)] || '') !== S.editOrig) { pushHist(S.editSnap); S.editOrig = it[FIELD(it)] || ''; S.editNew = false; }
+}
+function onTextInput(id) {
+  if (S.editing !== id) return;
+  const it = byId(id), el = els.get(id); if (!it || !el) return;
+  it[FIELD(it)] = readText(el.querySelector('.txt, .ftitle, .et'));
+  render();
+}
+function onTxtPaste(e) {
+  e.preventDefault();
+  const text = (e.clipboardData || window.clipboardData).getData('text/plain') || '';
+  if (text.startsWith(CLIP)) return;
+  document.execCommand('insertText', false, text);
+}
+function onTxtKey(e, id) {
+  const it = byId(id);
+  if (titled(it) && e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); finishEdit(); }
+  if (e.key === 'Tab') e.preventDefault();
+}
+
+/* =========================================================
+   Item operations
+   ========================================================= */
+function withFrameContents(list) {
+  const ids = new Set(list.map(i => i.id)), out = [...list];
+  for (const f of list) if (f.type === 'frame') {
+    const fb = bounds(f);
+    for (const it of items()) if (!ids.has(it.id) && inside(bounds(it), fb)) { ids.add(it.id); out.push(it); }
+  }
+  const pos = new Map(items().map((it, i) => [it.id, i]));
+  return out.sort((a, b) => (pos.get(a.id) || 0) - (pos.get(b.id) || 0));
+}
+function prepare(list) {
+  const ids = new Set(list.map(i => i.id));
+  return list.map(it => {
+    const c = clone(it);
+    if (c.type === 'connector') {
+      const g = connGeom(it);
+      for (const [k, p] of [['from', g.a], ['to', g.b]]) if (c[k].id && !ids.has(c[k].id)) c[k] = { x: r1(p.x), y: r1(p.y) };
+    }
+    return c;
+  });
+}
+function cloneItems(src, dx, dy) {
+  const map = new Map(src.map(it => [it.id, uid()]));
+  return src.map(it => {
+    const c = clone(it);
+    c.id = map.get(it.id);
+    if (c.type === 'connector') {
+      for (const k of ['from', 'to']) {
+        const e = c[k];
+        if (e.id) { if (map.has(e.id)) e.id = map.get(e.id); else delete e.id; }
+        e.x = r1((e.x || 0) + dx); e.y = r1((e.y || 0) + dy);
+      }
+    } else { c.x = r1(c.x + dx); c.y = r1(c.y + dy); }
+    return c;
+  });
+}
+function collectAssets(list) { const out = {}; for (const a of assetIdsOf(list)) if (S.board.assets[a] != null) out[a] = S.board.assets[a]; return out; }
+function payloadBounds(list) {
+  return unionB(list.map(it => {
+    if (it.type !== 'connector') return { x: it.x, y: it.y, w: it.w, h: it.h };
+    const pts = [it.from, it.to].filter(e => !e.id);
+    return pts.length ? unionB(pts.map(p => ({ x: p.x, y: p.y, w: 0, h: 0 }))) : null;
+  }));
+}
+function deleteSel() {
+  const ids = new Set(S.sel); if (!ids.size) return;
+  finishEdit(); pushHist();
+  S.board.items = items().filter(i => !ids.has(i.id) && !(i.type === 'connector' && ((i.from.id && ids.has(i.from.id)) || (i.to.id && ids.has(i.to.id)))));
+  if (ids.has(S.active)) S.active = null;
+  S.sel.clear(); changed();
+}
+function duplicateSel() {
+  const list = withFrameContents(selItems()); if (!list.length) return;
+  finishEdit();
+  const copies = cloneItems(prepare(list), 24, 24);
+  pushHist(); S.board.items.push(...copies);
+  S.sel = new Set(copies.map(c => c.id)); changed();
+}
+function toFront() { const ids = S.sel; if (!ids.size) return; pushHist(); const a = items(); S.board.items = a.filter(i => !ids.has(i.id)).concat(a.filter(i => ids.has(i.id))); changed(); }
+function toBack() { const ids = S.sel; if (!ids.size) return; pushHist(); const a = items(); S.board.items = a.filter(i => ids.has(i.id)).concat(a.filter(i => !ids.has(i.id))); changed(); }
+function selectAll() { finishEdit(); S.sel = new Set(items().map(i => i.id)); render(); }
+function nudge(dx, dy) {
+  const sel = selItems(); if (!sel.length) return;
+  const now = Date.now(); if (now - S.nudgeT > 700) pushHist(); S.nudgeT = now;
+  for (const it of withFrameContents(sel)) {
+    if (it.type === 'connector') { for (const k of ['from', 'to']) if (!it[k].id) { it[k].x += dx; it[k].y += dy; } }
+    else { it.x += dx; it.y += dy; }
+  }
+  changed();
+}
+function setProp(pred, patch) {
+  const list = selItems().filter(pred); if (!list.length) return;
+  editCheckpoint(); pushHist();
+  for (const it of list) { Object.assign(it, typeof patch === 'function' ? patch(it) : patch); const el = els.get(it.id); if (el) el._fit = ''; }
+  if (S.editing) S.editSnap = snapshot();
+  render(); scheduleSave();
+}
+const viewCenter = () => toWorld(innerWidth / 2, innerHeight / 2);
+function pastePoint() { return S.mouseIn ? toWorld(S.mouse.x, S.mouse.y) : viewCenter(); }
+function pastePayload(p) {
+  if (!p || !Array.isArray(p.items) || !p.items.length) return;
+  for (const [k, v] of Object.entries(p.assets || {})) if (S.board.assets[k] == null) S.board.assets[k] = v;
+  const bb = payloadBounds(p.items), at = pastePoint();
+  const dx = bb ? at.x - (bb.x + bb.w / 2) : 24, dy = bb ? at.y - (bb.y + bb.h / 2) : 24;
+  const copies = cloneItems(p.items, dx, dy);
+  pushHist(); S.board.items.push(...copies);
+  S.sel = new Set(copies.map(c => c.id)); changed();
+}
+
+/* ---------- embeds: create ---------- */
+function createEmbed(spec, at, replaceId) {
+  if (!spec) return;
+  finishEdit();
+  let asset = '';
+  if (spec.kind === 'html') { asset = 'h' + uid(); S.board.assets[asset] = spec.html; }
+  const w = spec.w || (spec.kind === 'video' ? 640 : spec.kind === 'html' ? 760 : 900);
+  const h = spec.h || (spec.kind === 'video' ? 360 + EH : spec.kind === 'html' ? 560 : 620);
+  const fields = { kind: spec.kind, provider: spec.provider, url: spec.url || '', src: spec.src || '', title: spec.title, thumb: spec.thumb || '', asset };
+  pushHist();
+  let it = replaceId && byId(replaceId);
+  if (it) { Object.assign(it, fields); S.loaded.delete(it.id); const el = els.get(it.id); if (el) { const fr = el.querySelector('iframe'); if (fr) fr.remove(); } }
+  else { it = { id: uid(), type: 'embed', ...fields, x: r1(at.x - w / 2), y: r1(at.y - h / 2), w, h }; S.board.items.push(it); }
+  setTool('select');
+  S.sel = new Set([it.id]); changed();
+  return it;
+}
+async function embedHtmlFile(file, at, replaceId) {
+  try {
+    const html = await file.text();
+    createEmbed({ kind: 'html', provider: 'html', html, title: htmlTitle(html) || file.name.replace(/\.html?$/i, '') }, at, replaceId);
+  } catch (e) { toast('Не получилось прочитать HTML-файл'); }
+}
+
+/* ---------- images ---------- */
+function loadImage(src) { return new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = src; }); }
+const assetCache = new Map();
+function assetImage(aid) { if (!assetCache.has(aid)) assetCache.set(aid, loadImage(S.board.assets[aid] || '')); return assetCache.get(aid); }
+async function fileToAsset(file) {
+  const url = await new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = () => rej(r.error); r.readAsDataURL(file); });
+  const img = await loadImage(url); if (!img) return null;
+  let w = img.naturalWidth || 400, h = img.naturalHeight || 300;
+  const MAX = 2200;
+  if ((w > MAX || h > MAX) && !/gif|svg/.test(file.type)) {
+    const k = MAX / Math.max(w, h), cv = document.createElement('canvas');
+    cv.width = Math.round(w * k); cv.height = Math.round(h * k);
+    cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+    return { url: cv.toDataURL(file.type === 'image/png' ? 'image/png' : 'image/jpeg', 0.88), w: cv.width, h: cv.height };
+  }
+  return { url, w, h };
+}
+async function insertImages(files, at) {
+  finishEdit();
+  let off = 0; const added = [];
+  for (const f of files) {
+    try {
+      const a = await fileToAsset(f); if (!a) continue;
+      let { w, h } = a; const MAXD = 640;
+      if (w > MAXD) { h = h * MAXD / w; w = MAXD; }
+      if (h > MAXD) { w = w * MAXD / h; h = MAXD; }
+      const aid = 'a' + uid(); S.board.assets[aid] = a.url;
+      if (!added.length) pushHist();
+      const it = { id: uid(), type: 'image', x: r1(at.x - w / 2 + off), y: r1(at.y - h / 2 + off), w: r1(w), h: r1(h), asset: aid };
+      S.board.items.push(it); added.push(it.id); off += 28;
+    } catch (e) { console.error(e); }
+  }
+  if (added.length) { setTool('select'); S.sel = new Set(added); changed(); }
+  else toast('Не получилось прочитать изображение');
+}
+
+/* =========================================================
+   Focus mode: any element on the whole screen
+   ========================================================= */
+function enterFocus(id) {
+  const it = byId(id); if (!canFocus(it)) return;
+  finishEdit(); closePop(); drawer.hidden = true;
+  if (it.type === 'frame') { fitAll(withFrameContents([it])); return; }
+  S.focus = id; S.sel = new Set([id]); S.drag = null;
+  document.body.classList.add('focusing');
+  fbar.hidden = false;
+  $('#fTitle').textContent = it.type === 'embed' ? (it.title || 'Встраивание') : it.type === 'image' ? 'Изображение' : ((it.text || '').split('\n')[0].slice(0, 80) || (it.type === 'sticky' ? 'Стикер' : 'Текст'));
+  const show = (a, on) => { fbar.querySelector(`[data-fa="${a}"]`).hidden = !on; };
+  show('open', it.type === 'embed'); show('reload', it.type === 'embed'); show('full', it.type !== 'sticky' && it.type !== 'text' && it.type !== 'shape');
+  if (it.type === 'embed') {
+    if (it.kind === 'video') S.loaded.add(id);
+    S.active = id; fview.hidden = true;
+  } else {
+    S.focusSnap = snapshot(); S.focusOrig = it.text || '';
+    fview.hidden = false;
+    if (it.type === 'image') {
+      fview.innerHTML = '<img class="fimg" alt="">';
+      fview.firstChild.src = S.board.assets[it.asset] || '';
+    } else {
+      fview.innerHTML = '<div class="fdoc"><div class="fdoc-txt"></div></div>';
+      const card = fview.firstChild, t = card.firstChild;
+      card.style.background = it.type === 'sticky' ? it.color : it.type === 'shape' && it.fill && it.fill !== 'transparent' ? it.fill : '#fff';
+      t.style.color = it.textColor || INK; t.style.fontWeight = it.bold ? '700' : '400';
+      t.textContent = it.text || '';
+      setEditable(t, true);
+      t.addEventListener('input', () => { const cur = byId(id); if (cur) { cur.text = readText(t); const el = els.get(id); if (el) el._fit = ''; requestRender(); } });
+      t.addEventListener('paste', onTxtPaste);
+      t.focus({ preventScroll: true });
+      const r = document.createRange(); r.selectNodeContents(t); r.collapse(false);
+      const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    }
+  }
+  updateCursor(); render();
+}
+function exitFocus() {
+  const id = S.focus; if (!id) return;
+  S.focus = null;
+  document.body.classList.remove('focusing');
+  fbar.hidden = true; fview.hidden = true; fview.innerHTML = '';
+  if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+  const it = byId(id);
+  if (it && hasText(it) && (it.text || '') !== S.focusOrig) { pushHist(S.focusSnap); scheduleSave(); }
+  S.focusSnap = null;
+  if (S.active === id) S.active = null;
+  updateCursor(); render();
+}
+function focusFullscreen() {
+  const it = byId(S.focus); if (!it) return;
+  const target = it.type === 'embed' ? (els.get(it.id) || {}).querySelector && els.get(it.id).querySelector('iframe') : fview.firstChild;
+  const el = target || document.documentElement;
+  const fn = el.requestFullscreen || el.webkitRequestFullscreen;
+  if (!fn) { toast('Браузер не поддерживает полноэкранный режим'); return; }
+  try { const p = fn.call(el); if (p && p.catch) p.catch(() => toast('Здесь браузер не разрешил полноэкранный режим')); }
+  catch (e) { toast('Здесь браузер не разрешил полноэкранный режим'); }
+}
+
+/* =========================================================
+   Pointer interaction
+   ========================================================= */
+function hitItemAt(w, exclude) {
+  const o = renderOrder(), tol = 6 / V().z;
+  for (let i = o.length - 1; i >= 0; i--) {
+    const it = o[i];
+    if (it.id === exclude || !connectable(it)) continue;
+    const b = bounds(it);
+    if (w.x >= b.x - tol && w.x <= b.x + b.w + tol && w.y >= b.y - tol && w.y <= b.y + b.h + tol) return it.id;
+  }
+  return null;
+}
+function updateCursor() {
+  const d = S.drag;
+  vp.className = 'tool-' + S.tool + (S.space ? ' space' : '') + (d && d.type === 'pan' ? ' panning' : '') + (S.settings.grid ? '' : ' nogrid') + (S.focus ? ' focusing' : '');
+}
+function startPan(e) { const v = V(); S.drag = { type: 'pan', sx: e.clientX, sy: e.clientY, vx: v.x, vy: v.y }; updateCursor(); renderCtx(); }
+function embedAction(a, id) {
+  const it = byId(id); if (!it) return;
+  if (a === 'play') activateEmbed(id);
+  else if (a === 'open') openEmbed(it);
+  else if (a === 'focus') enterFocus(id);
+}
+
+function onDown(e) {
+  if (!S.board) return;
+  if (S.focus) { const el = els.get(S.focus); if (!(el && el.contains(e.target))) exitFocus(); return; }
+  closePop(); drawer.hidden = true;
+  if (S.editing) {
+    const el = els.get(S.editing);
+    if (el && el.contains(e.target) && e.target.closest('.txt, .ftitle, .et')) return;
+    finishEdit();
+  }
+  if (S.active) { const ael = els.get(S.active); if (!(ael && ael.contains(e.target))) { S.active = null; requestRender(); } }
+  const ea = e.button === 0 && e.target.closest && e.target.closest('[data-ea]');
+  if (ea && world.contains(ea)) { const host = ea.closest('[data-id]'); if (host) embedAction(ea.dataset.ea, host.dataset.id); return; }
+  S.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  try { vp.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+  if (S.pointers.size === 2) { startPinch(); return; }
+  if (S.pointers.size > 2 || S.pinch) return;
+  const w = toWorld(e.clientX, e.clientY);
+  if (e.button === 1 || e.button === 2 || S.space || S.tool === 'hand') { e.preventDefault(); startPan(e); return; }
+  if (e.button !== 0) return;
+  const hEl = e.target.closest && e.target.closest('[data-handle]');
+  if (hEl) { startHandle(hEl.dataset.handle, e); return; }
+  const iEl = e.target.closest && e.target.closest('[data-id]');
+  const hit = iEl && world.contains(iEl) ? byId(iEl.dataset.id) : null;
+  switch (S.tool) {
+    case 'select':
+      if (!hit && e.pointerType === 'touch') { startPan(e); return; }
+      if (hit) {
+        if (e.shiftKey) { if (S.sel.has(hit.id)) S.sel.delete(hit.id); else S.sel.add(hit.id); S.drag = null; render(); return; }
+        const wasOnly = S.sel.size === 1 && S.sel.has(hit.id);
+        if (!S.sel.has(hit.id)) S.sel = new Set([hit.id]);
+        S.drag = { type: 'move-pending', start: w, sx: e.clientX, sy: e.clientY, wasOnly, hitId: hit.id, onTitle: !!e.target.closest('.ftitle, .et') };
+      } else {
+        S.drag = { type: 'marquee', start: w, cur: w, sx: e.clientX, sy: e.clientY, base: e.shiftKey ? new Set(S.sel) : new Set(), active: false };
+        if (!e.shiftKey) S.sel.clear();
+      }
+      render();
+      break;
+    case 'sticky': case 'text':
+      S.drag = { type: 'place', tool: S.tool, w }; break;
+    case 'shape': case 'frame':
+      S.drag = { type: 'create', kind: S.tool, start: w, cur: w, sx: e.clientX, sy: e.clientY, active: false }; break;
+    case 'connector':
+      S.drag = { type: 'connect', from: hit && connectable(hit) ? { id: hit.id, x: r1(w.x), y: r1(w.y) } : { x: r1(w.x), y: r1(w.y) }, sx: e.clientX, sy: e.clientY, id: null };
+      break;
+    case 'pen': {
+      const snap = snapshot();
+      const it = { id: uid(), type: 'pen', x: r1(w.x), y: r1(w.y), w: 1, h: 1, pts: [[0, 0]], color: S.opts.pen, width: S.opts.penW };
+      S.board.items.push(it); S.sel.clear();
+      S.drag = { type: 'pen', id: it.id, abs: [[w.x, w.y]], snap };
+      render(); break;
+    }
+    case 'eraser':
+      S.drag = { type: 'erase', snap: snapshot(), erased: false, lx: e.clientX, ly: e.clientY };
+      eraseAt(e.clientX, e.clientY); break;
+  }
+}
+
+function onMove(e) {
+  S.mouse = { x: e.clientX, y: e.clientY }; S.mouseIn = true;
+  if (!S.board || S.focus) return;
+  if (S.pointers.has(e.pointerId)) S.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (S.pinch) { updatePinch(); return; }
+  const d = S.drag, w = toWorld(e.clientX, e.clientY);
+  if (!d) {
+    if (S.tool === 'connector') { const h = hitItemAt(w); if (h !== S.hover) { S.hover = h; renderOverlay(); } }
+    return;
+  }
+  const moved = d.sx != null && Math.hypot(e.clientX - d.sx, e.clientY - d.sy) > 4;
+  switch (d.type) {
+    case 'pan': { const v = V(); v.x = d.vx + e.clientX - d.sx; v.y = d.vy + e.clientY - d.sy; applyView(); break; }
+    case 'move-pending': if (!moved) break; beginMove(d, e.altKey); moveTo(d, w); break;
+    case 'move': moveTo(d, w); break;
+    case 'marquee': {
+      if (!d.active && !moved) break;
+      d.active = true; d.cur = w;
+      const r = rectFrom(d.start, d.cur), s = new Set(d.base);
+      for (const it of items()) { const b = bounds(it); if (it.type === 'frame' ? inside(b, r) : intersects(b, r)) s.add(it.id); }
+      S.sel = s; requestRender(); break;
+    }
+    case 'create': if (!d.active && !moved) break; d.active = true; d.cur = w; renderOverlay(); break;
+    case 'connect': {
+      if (!d.id) {
+        if (!moved) break;
+        d.snap = snapshot();
+        const it = mkConn(d.from, { x: r1(w.x), y: r1(w.y) });
+        S.board.items.push(it); d.id = it.id; S.sel.clear();
+      }
+      const it = byId(d.id); if (!it) break;
+      const h = hitItemAt(w, d.from.id); S.hover = h;
+      it.to = h ? { id: h, x: r1(w.x), y: r1(w.y) } : { x: r1(w.x), y: r1(w.y) };
+      requestRender(); break;
+    }
+    case 'pen': {
+      const last = d.abs[d.abs.length - 1];
+      if (Math.hypot(w.x - last[0], w.y - last[1]) < 1.5 / V().z || d.abs.length > 6000) break;
+      d.abs.push([w.x, w.y]);
+      const it = byId(d.id); if (!it) break;
+      let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity;
+      for (const [x, y] of d.abs) { x1 = Math.min(x1, x); y1 = Math.min(y1, y); x2 = Math.max(x2, x); y2 = Math.max(y2, y); }
+      it.x = r1(x1); it.y = r1(y1); it.w = Math.max(1, r1(x2 - x1)); it.h = Math.max(1, r1(y2 - y1));
+      it.pts = d.abs.map(([x, y]) => [r1(x - it.x), r1(y - it.y)]);
+      requestRender(); break;
+    }
+    case 'erase': {
+      const steps = Math.max(1, Math.ceil(Math.hypot(e.clientX - d.lx, e.clientY - d.ly) / 6));
+      for (let i = 1; i <= steps; i++) eraseAt(d.lx + (e.clientX - d.lx) * i / steps, d.ly + (e.clientY - d.ly) * i / steps);
+      d.lx = e.clientX; d.ly = e.clientY; break;
+    }
+    case 'resize': resizeTo(d, w, e.shiftKey, moved); break;
+    case 'cend': {
+      if (!d.started) { if (!moved) break; pushHist(); d.started = true; }
+      const c = byId(d.id); if (!c) break;
+      const other = d.end === 'from' ? c.to : c.from;
+      const h = hitItemAt(w, other.id); S.hover = h;
+      c[d.end] = h ? { id: h, x: r1(w.x), y: r1(w.y) } : { x: r1(w.x), y: r1(w.y) };
+      requestRender(); break;
+    }
+  }
+}
+
+function beginMove(d, alt) {
+  pushHist();
+  d.type = 'move';
+  if (alt) {
+    const copies = cloneItems(prepare(withFrameContents(selItems())), 0, 0);
+    S.board.items.push(...copies); S.sel = new Set(copies.map(c => c.id));
+  }
+  d.list = withFrameContents(selItems()).map(it => (it.type === 'connector' ? { it, f: { ...it.from }, t: { ...it.to } } : { it, x: it.x, y: it.y }));
+  render();
+}
+function moveTo(d, w) {
+  const dx = w.x - d.start.x, dy = w.y - d.start.y;
+  for (const m of d.list) {
+    const it = m.it;
+    if (it.type === 'connector') {
+      if (!it.from.id) { it.from.x = r1(m.f.x + dx); it.from.y = r1(m.f.y + dy); }
+      if (!it.to.id) { it.to.x = r1(m.t.x + dx); it.to.y = r1(m.t.y + dy); }
+    } else { it.x = r1(m.x + dx); it.y = r1(m.y + dy); }
+  }
+  requestRender();
+}
+function startHandle(h, e) {
+  const sel = selItems();
+  if (h === 'cfrom' || h === 'cto') { S.drag = { type: 'cend', id: sel[0].id, end: h === 'cfrom' ? 'from' : 'to', started: false, sx: e.clientX, sy: e.clientY }; return; }
+  const solids = sel.filter(i => i.type !== 'connector');
+  const box = unionB(solids.map(bounds)); if (!box) return;
+  S.drag = {
+    type: 'resize', h, box, started: false, sx: e.clientX, sy: e.clientY,
+    keep: solids.length > 1 || (solids.length === 1 && solids[0].type === 'image'),
+    orig: solids.map(it => ({ it, x: it.x, y: it.y, w: it.w, h: it.h, pts: it.pts ? it.pts.map(p => p.slice()) : null })),
+    conns: sel.filter(i => i.type === 'connector').map(c => ({ c, f: { ...c.from }, t: { ...c.to } })),
+  };
+}
+function resizeTo(d, w, shift, moved) {
+  if (!d.started) { if (!moved) return; pushHist(); d.started = true; }
+  const b = d.box, h = d.h, MIN = 16;
+  let x1 = b.x, y1 = b.y, x2 = b.x + b.w, y2 = b.y + b.h;
+  if (h.includes('w')) x1 = Math.min(w.x, x2 - MIN);
+  if (h.includes('e')) x2 = Math.max(w.x, x1 + MIN);
+  if (h.includes('n')) y1 = Math.min(w.y, y2 - MIN);
+  if (h.includes('s')) y2 = Math.max(w.y, y1 + MIN);
+  if (h.length === 2 && (d.keep ? !shift : shift)) {
+    const s = Math.max((x2 - x1) / b.w, (y2 - y1) / b.h), nw = b.w * s, nh = b.h * s;
+    if (h.includes('w')) x1 = x2 - nw; else x2 = x1 + nw;
+    if (h.includes('n')) y1 = y2 - nh; else y2 = y1 + nh;
+  }
+  const sx = (x2 - x1) / (b.w || 1), sy = (y2 - y1) / (b.h || 1);
+  for (const o of d.orig) {
+    const it = o.it;
+    const minW = it.type === 'text' ? 40 : it.type === 'embed' ? 160 : 8, minH = it.type === 'embed' ? EH + 60 : 8;
+    it.x = r1(x1 + (o.x - b.x) * sx);
+    it.y = r1(y1 + (o.y - b.y) * sy);
+    it.w = Math.max(minW, r1(o.w * sx));
+    if (it.type !== 'text') it.h = Math.max(minH, r1(o.h * sy));
+    if (o.pts) { const fx = o.w ? it.w / o.w : 1, fy = o.h ? it.h / o.h : 1; it.pts = o.pts.map(([a, c]) => [r1(a * fx), r1(c * fy)]); }
+    const el = els.get(it.id); if (el) el._fit = '';
+  }
+  for (const m of d.conns) {
+    for (const [k, o] of [['from', m.f], ['to', m.t]]) if (!m.c[k].id) { m.c[k].x = r1(x1 + (o.x - b.x) * sx); m.c[k].y = r1(y1 + (o.y - b.y) * sy); }
+  }
+  requestRender();
+}
+function eraseAt(cx, cy) {
+  const el = document.elementFromPoint(cx, cy);
+  const ie = el && el.closest && el.closest('[data-id]');
+  if (!ie || !world.contains(ie)) return;
+  const it = byId(ie.dataset.id);
+  if (it && it.type === 'pen') { S.board.items = items().filter(i => i !== it); S.sel.delete(it.id); if (S.drag) S.drag.erased = true; requestRender(); }
+}
+
+function onUp(e) {
+  S.pointers.delete(e.pointerId);
+  if (!S.board) return;
+  if (S.pinch) { if (S.pointers.size < 2) { S.pinch = null; S.drag = null; renderCtx(); } return; }
+  const d = S.drag; if (!d) return;
+  S.drag = null;
+  const w = toWorld(e.clientX, e.clientY);
+  switch (d.type) {
+    case 'pan': updateCursor(); break;
+    case 'move-pending': {
+      const it = byId(d.hitId);
+      if (d.wasOnly && it && !e.shiftKey) {
+        if (hasText(it)) { startEdit(it.id, e.clientX, e.clientY); return; }
+        if (titled(it) && d.onTitle) { startEdit(it.id); return; }
+        if (it.type === 'embed') { activateEmbed(it.id); return; }
+        if (it.type === 'image') { enterFocus(it.id); return; }
+      }
+      break;
+    }
+    case 'move': scheduleSave(); break;
+    case 'place': {
+      pushHist();
+      const it = d.tool === 'sticky' ? mkSticky(d.w.x, d.w.y) : mkText(d.w.x, d.w.y);
+      S.board.items.push(it);
+      setTool('select');
+      startEdit(it.id, null, null, true);
+      scheduleSave(); return;
+    }
+    case 'create': {
+      let r = d.active ? rectFrom(d.start, w) : null;
+      if (!r || r.w < 10 || r.h < 10) { const [dw, dh] = d.kind === 'frame' ? [720, 440] : [180, 110]; r = { x: d.start.x - dw / 2, y: d.start.y - dh / 2, w: dw, h: dh }; }
+      pushHist();
+      const it = d.kind === 'frame' ? mkFrame(r) : mkShape(r);
+      if (it.type === 'frame') S.board.items.unshift(it); else S.board.items.push(it);
+      setTool('select'); S.sel = new Set([it.id]); changed(); return;
+    }
+    case 'connect': {
+      if (d.id) {
+        const it = byId(d.id), g = it && connGeom(it);
+        if (!it || (dist(g.a, g.b) < 8 && !it.to.id)) S.board.items = items().filter(i => i.id !== d.id);
+        else { pushHist(d.snap); setTool('select'); S.sel = new Set([d.id]); }
+      }
+      S.hover = null; changed(); return;
+    }
+    case 'pen': pushHist(d.snap); changed(); break;
+    case 'erase': if (d.erased) pushHist(d.snap); changed(); break;
+    case 'resize': case 'cend': S.hover = null; changed(); break;
+  }
+  render();
+}
+
+/* ---------- pinch & wheel ---------- */
+function startPinch() {
+  const d = S.drag;
+  if (d && (d.type === 'pen' || (d.type === 'connect' && d.id))) { const id = d.id; S.board.items = items().filter(i => i.id !== id); }
+  S.drag = null;
+  const [p1, p2] = [...S.pointers.values()];
+  S.pinch = { d0: Math.max(10, dist(p1, p2)), c0: { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 }, v0: { ...V() } };
+  render();
+}
+function updatePinch() {
+  const [p1, p2] = [...S.pointers.values()]; if (!p2) return;
+  const p = S.pinch, v = V(), c = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
+  const z = clamp(p.v0.z * dist(p1, p2) / p.d0, ZMIN, ZMAX);
+  const wx = (p.c0.x - p.v0.x) / p.v0.z, wy = (p.c0.y - p.v0.y) / p.v0.z;
+  v.z = z; v.x = c.x - wx * z; v.y = c.y - wy * z; applyView();
+}
+function onWheel(e) {
+  e.preventDefault();
+  if (!S.board || S.focus) return;
+  const v = V();
+  const k = e.deltaMode === 1 ? 33 : e.deltaMode === 2 ? innerHeight : 1;
+  const dy = e.deltaY * k, dx = e.deltaX * k;
+  const mouseWheel = e.deltaMode !== 0 || (e.deltaX === 0 && Math.abs(e.deltaY) >= 50 && Number.isInteger(e.deltaY));
+  if (e.ctrlKey || e.metaKey || mouseWheel) zoomAt(e.clientX, e.clientY, v.z * Math.exp(-dy * (e.ctrlKey && !mouseWheel ? 0.012 : 0.0016)));
+  else { if (e.shiftKey && !dx) v.x -= dy; else { v.x -= dx; v.y -= dy; } applyView(); }
+}
+
+/* =========================================================
+   Tools UI
+   ========================================================= */
+const TOOLS = [
+  ['select', 'Выделение', 'V'], ['hand', 'Рука', 'H'], null,
+  ['sticky', 'Стикер', 'N'], ['text', 'Текст', 'T'], ['shape', 'Фигура', 'S'], ['connector', 'Линия со стрелкой', 'L'],
+  ['pen', 'Перо', 'P'], ['eraser', 'Ластик', 'E'], ['frame', 'Рамка', 'F'], null,
+  ['image', 'Изображение', 'I'], ['embed', 'Встроить видео, сайт или HTML', 'K'],
+];
+function buildToolbar() {
+  $('#toolbar').innerHTML = TOOLS.map(t => {
+    if (!t) return '<div class="tsep"></div>';
+    const [id, tip, key] = t;
+    const attr = id === 'image' || id === 'embed' ? `data-act="${id}"` : `data-tool="${id}"`;
+    return `<button class="ib" ${attr} data-tip="${tip} (${key})" aria-label="${tip}">${id === 'shape' ? shapeIcon(S.opts.shape) : ic(id)}</button>`;
+  }).join('');
+}
+function setTool(t) {
+  finishEdit();
+  S.tool = t; S.hover = null;
+  if (t !== 'select' && t !== 'hand') S.sel.clear();
+  document.querySelectorAll('#toolbar [data-tool]').forEach(b => b.classList.toggle('on', b.dataset.tool === t));
+  updateCursor(); renderFlyout(); render();
+}
+function renderFlyout() {
+  const t = S.tool; let h = '', cols = '1';
+  const swb = (o, v, on, inner, title) => `<button class="swb ${on ? 'on' : ''}" data-o="${o}" data-v="${v}" title="${esc(title || '')}">${inner}</button>`;
+  if (t === 'sticky') { cols = '2'; h = STICKY.map(c => swb('sticky', c, c === S.opts.sticky, `<span class="sw sq" style="--c:${c}"></span>`, 'Цвет стикера')).join(''); }
+  else if (t === 'shape') h = SHAPES.map(k => `<button class="ib ${k === S.opts.shape ? 'on' : ''}" data-o="shape" data-v="${k}" title="${SHAPE_NAMES[k]}">${shapeIcon(k)}</button>`).join('');
+  else if (t === 'connector') h = ['straight', 'elbow', 'curve'].map(k => `<button class="ib ${k === S.opts.conn ? 'on' : ''}" data-o="conn" data-v="${k}" title="${CONN_NAMES[k]}">${ic('st_' + k)}</button>`).join('');
+  else if (t === 'pen') { cols = '2'; h = PEN_COLORS.map(c => swb('pen', c, c === S.opts.pen, `<span class="sw" style="--c:${c}"></span>`, 'Цвет')).join('') + '<div class="fsep"></div>' + [2, 4, 8, 14].map(n => swb('penW', n, n === S.opts.penW, `<span class="wdot" style="--s:${Math.min(16, n + 2)}px"></span>`, n + ' px')).join(''); }
+  const shapeBtn = $('#toolbar [data-tool="shape"]'); if (shapeBtn) shapeBtn.innerHTML = shapeIcon(S.opts.shape);
+  if (!h) { fly.hidden = true; return; }
+  fly.innerHTML = h; fly.dataset.cols = cols; fly.hidden = false;
+  const btn = $(`#toolbar [data-tool="${t}"]`), tb = $('#toolbar').getBoundingClientRect(), r = btn.getBoundingClientRect();
+  fly.style.left = px(tb.right + 8);
+  fly.style.top = px(clamp(r.top + r.height / 2 - fly.offsetHeight / 2, 8, innerHeight - fly.offsetHeight - 8));
+}
+
+/* ---------- popovers ---------- */
+function openPop(anchor, html, onPick) {
+  pop.innerHTML = html; pop.hidden = false; pop._pick = onPick; pop._anchor = anchor;
+  const r = anchor.getBoundingClientRect(), pw = pop.offsetWidth, ph = pop.offsetHeight;
+  const x = clamp(r.left + r.width / 2 - pw / 2, 8, Math.max(8, innerWidth - pw - 8));
+  let y = r.bottom + 8; if (y + ph > innerHeight - 8) y = Math.max(8, r.top - ph - 8);
+  pop.style.left = px(x); pop.style.top = px(y);
+}
+function closePop() { pop.hidden = true; pop._pick = null; pop._anchor = null; }
+function colorPop(anchor, colors, cur, onPick, kind = '') {
+  const cols = Math.min(6, colors.length);
+  openPop(anchor, `<div class="grid" style="grid-template-columns:repeat(${cols},30px)">` + colors.map(c => `<button class="swb ${c === cur ? 'on' : ''}" data-v="${c}" title="${c === 'transparent' ? 'Без цвета' : c}"><span class="sw ${kind} ${c === 'transparent' ? 'tr' : ''}" style="--c:${c}"></span></button>`).join('') + '</div>', onPick);
+}
+function optPop(anchor, opts, cur, onPick) {
+  openPop(anchor, '<div class="row">' + opts.map(([v, label]) => `<button class="ob ${String(v) === String(cur) ? 'on' : ''}" data-v="${v}">${label}</button>`).join('') + '</div>', onPick);
+}
+const mi = (v, icon, label, key = '', cls = '') => `<button class="mi ${cls}" data-v="${v}">${ic(icon)}<span>${label}</span>${key ? `<span class="k">${key}</span>` : ''}</button>`;
+function openMenu(btn) {
+  openPop(btn, '<div class="menu">' +
+    mi('new', 'plus', 'Новая доска') +
+    mi('embed', 'embed', 'Встроить видео, сайт или HTML…', 'K') +
+    '<div class="msep"></div>' +
+    mi('save', 'download', 'Сохранить доску в файл', MOD + '+S') +
+    mi('open', 'folder', 'Открыть файл доски…', MOD + '+O') +
+    mi('png', 'image', 'Экспорт в PNG') +
+    mi('offline', 'offline', 'Скачать офлайн-версию') +
+    (Drive.available() ? mi('drive', 'cloud', 'Google Диск…') : '') +
+    (installPrompt ? mi('install', 'install', 'Установить как приложение') : '') +
+    '<div class="msep"></div>' +
+    mi('grid', 'grid', 'Сетка', S.settings.grid ? 'вкл' : 'выкл') +
+    mi('fit', 'fit', 'Показать всё', 'Shift+1') +
+    mi('help', 'help', 'Горячие клавиши', '?') +
+    '<div class="msep"></div>' +
+    mi('clear', 'trash', 'Очистить доску', '', 'danger') +
+    '</div>', menuAction);
+}
+function menuAction(v) {
+  switch (v) {
+    case 'new': createBoard(); break;
+    case 'embed': openEmbedDlg(); break;
+    case 'save': exportBoardFile(); break;
+    case 'open': $('#fileBoard').click(); break;
+    case 'png': exportPNG(); break;
+    case 'offline': downloadOffline(); break;
+    case 'drive': openDriveDlg(); break;
+    case 'install': if (installPrompt) { installPrompt.prompt(); installPrompt.userChoice.finally(() => { installPrompt = null; }); } break;
+    case 'grid': S.settings.grid = !S.settings.grid; updateCursor(); saveSettings(); break;
+    case 'fit': fitAll(); break;
+    case 'help': openHelp(); break;
+    case 'clear':
+      if (!items().length) { toast('Доска уже пустая'); break; }
+      if (confirm(`Удалить всё содержимое доски «${S.board.name}»? Это можно отменить через ${MOD}+Z.`)) { finishEdit(); pushHist(); S.board.items = []; S.sel.clear(); S.active = null; changed(); }
+      break;
+  }
+}
+
+/* ---------- embed dialog ---------- */
+function envNote() {
+  if (S.hosted) return S.cspSeen
+    ? '<b>Внутри Claude видео и чужие сайты не загружаются</b>Его защита не даёт доске открывать сторонние адреса, поэтому они встают карточками со ссылкой ↗. Свои HTML-инструменты работают полностью. Чтобы видео и сайты работали прямо на доске, скачайте офлайн-версию (меню ⋯).'
+    : '<b>Внутри Claude видео и чужие сайты могут не загрузиться</b>Его защита ограничивает сторонние адреса; тогда встраивание останется карточкой со ссылкой ↗. Свои HTML-инструменты работают полностью. В скачанной версии доски (меню ⋯) сайты и видео встраиваются.';
+  if (IS_FILE) return '<b>Доска открыта как файл с диска</b>Сайтам и видео нужен интернет. YouTube на страницах, открытых прямо с диска, иногда отказывается играть (ошибка 153); тогда откройте видео кнопкой ↗ на карточке.';
+  return '';
+}
+function updateEmbedPv() {
+  const pv = $('#embedPv'), v = $('#embedInput').value.trim();
+  if (!v) { pv.className = 'epv'; pv.innerHTML = 'Вставьте ссылку из адресной строки или код встраивания'; return; }
+  const sp = parseEmbed(v);
+  if (!sp) { pv.className = 'epv'; pv.textContent = 'Не похоже на ссылку'; return; }
+  pv.className = 'epv ok';
+  pv.innerHTML = badge(sp.provider) + `<span>${esc((PROV[sp.provider] || PROV.web).name)}, ${KIND_NAMES[sp.kind]}</span>`;
+}
+function openEmbedDlg(editId) {
+  closePop(); finishEdit();
+  S.embedEdit = editId || null;
+  const it = editId && byId(editId);
+  $('#embedTitle').textContent = it ? 'Изменить встраивание' : 'Встроить на доску';
+  $('#embedInput').value = it && it.kind !== 'html' ? it.url || it.src || '' : '';
+  $('#embedNote').innerHTML = envNote();
+  updateEmbedPv();
+  embedDlg.hidden = false;
+  setTimeout(() => { $('#embedInput').focus(); $('#embedInput').select(); }, 0);
+}
+function closeEmbedDlg() { embedDlg.hidden = true; }
+function embedGo() {
+  const sp = parseEmbed($('#embedInput').value);
+  if (!sp) { $('#embedPv').textContent = 'Нужна ссылка вида https://… или код <iframe>'; $('#embedInput').focus(); return; }
+  closeEmbedDlg();
+  createEmbed(sp, viewCenter(), S.embedEdit);
+}
+function pickHtmlFile(replaceId, at) { S.htmlTarget = { replaceId: replaceId || null, at: at || viewCenter() }; $('#fileHtml').click(); }
+
+/* ---------- toast & help ---------- */
+let toastT = 0;
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2600); }
+function buildHelp() {
+  const K = (...ks) => ks.map(k => `<kbd>${k}</kbd>`).join(' ');
+  const rows = (title, list) => `<h3>${title}</h3>` + list.map(([a, b]) => `<div class="kr"><span>${a}</span><span>${b}</span></div>`).join('');
+  $('#helpBody').innerHTML = '<div class="cols"><div>' +
+    rows('Инструменты', [['Выделение', K('V')], ['Рука', K('H')], ['Стикер', K('N')], ['Текст', K('T')], ['Фигура', K('S')], ['Прямоугольник, эллипс', K('R') + ' ' + K('O')], ['Линия со стрелкой', K('L')], ['Перо, ластик', K('P') + ' ' + K('E')], ['Рамка', K('F')], ['Изображение', K('I')], ['Встроить видео, сайт, HTML', K('K')]]) +
+    rows('Навигация', [['Масштаб', 'колесо мыши'], ['Перемещение по доске', K('Пробел') + ' + мышь, правая кнопка'], ['Тачпад', 'два пальца, щипок'], ['Показать всё', K('Shift', '1')], ['Масштаб 100%', K('Shift', '0')], ['Приблизить, отдалить', K('+') + ' ' + K('−')]]) +
+    rows('Встраивания', [['Встроить по ссылке', 'вставить ссылку на доску'], ['Работать внутри', 'двойной щелчок'], ['Вернуться к доске', 'щелчок мимо'], ['Переименовать', 'щелчок по заголовку выделенного']]) +
+    '</div><div>' +
+    rows('Правка', [['Изменить текст', 'двойной щелчок, ' + K('Enter')], ['Закончить ввод', K('Esc')], ['Развернуть на весь экран', K('Shift', 'Enter')], ['Отменить', K(MOD, 'Z')], ['Повторить', K(MOD, 'Shift', 'Z')], ['Копировать, вставить', K(MOD, 'C') + ' ' + K(MOD, 'V')], ['Дублировать', K(MOD, 'D') + ' или Alt + перетаскивание'], ['Удалить', K('Delete')], ['Сдвинуть', 'стрелки, с ' + K('Shift') + ' на 10'], ['Вперёд, назад', K(']') + ' ' + K('[')], ['Добавить к выделению', K('Shift') + ' + щелчок'], ['Сохранить пропорции', K('Shift') + ' при изменении размера']]) +
+    rows('Файлы', [['Сохранить доску в файл', K(MOD, 'S')], ['Открыть файл доски', K(MOD, 'O')], ['Вставить картинку', K(MOD, 'V') + ' или перетащить'], ['Свой HTML-инструмент', 'перетащить .html на доску']]) +
+    '</div></div><div class="note" id="helpNote"></div>';
+}
+function openHelp() { closePop(); $('#helpNote').innerHTML = storeNote(); modal.hidden = false; modal.querySelector('[data-close]').focus(); }
+function closeHelp() { modal.hidden = true; }
+function storeNote() {
+  if (Backend === Db) return '<b>Доски хранятся в вашем аккаунте Claude</b>Они открываются на любом устройстве, и Claude в чате может их прочитать и дополнить. Для работы без интернета скачайте офлайн-версию (меню ⋯): она заберёт все доски с собой.';
+  if (Drive.active()) return '<b>Доски хранятся на этом устройстве и в папке «Холст» на Google Диске</b>Каждое изменение сразу сохраняется здесь и уходит в Диск, когда есть сеть. Те же доски открываются на телефоне и компьютере, а Claude может прочитать их через коннектор Google Диска.';
+  if (S.hosted) return '<b>Доски хранятся в этом браузере</b>Хранилище Claude здесь недоступно. Делайте резервные копии: меню ⋯ → «Сохранить доску в файл».';
+  return `<b>Доски хранятся в этом браузере на этом компьютере</b>Если очистить данные браузера, они пропадут, поэтому время от времени сохраняйте важные доски в файл (${MOD}+S). Такой файл открывается и здесь, и в версии внутри Claude.`;
+}
+
+/* =========================================================
+   Boards
+   ========================================================= */
+function loadBoard(b) {
+  normalizeBoard(b);
+  S.board = b; S.sel.clear(); S.hist = []; S.fut = []; S.hover = null; S.editing = null; S.drag = null;
+  S.active = null; S.loaded.clear(); S.focus = null;
+  for (const el of els.values()) el.remove();
+  els.clear(); world.innerHTML = ''; assetCache.clear();
+  $('#boardName').value = b.name;
+  document.title = b.name + ' — Холст';
+  Backend.subscribe(b.id, onRemoteItems);
+  applyView(); render(); updateHistBtns(); renderDrawer();
+}
+async function openBoard(id) {
+  if (S.board && S.board.id === id) { drawer.hidden = true; return; }
+  finishEdit();
+  if (S.board && dirty) await saveNow();
+  setStatus('loading');
+  let b = null;
+  try { b = await Backend.loadBoard(id); } catch (e) { b = null; }
+  if (!b) { toast('Доска не найдена'); setStatus('saved'); return; }
+  loadBoard(b); await Backend.setLast(id); setStatus('saved');
+}
+async function createBoard() {
+  finishEdit();
+  if (S.board && dirty) await saveNow();
+  loadBoard(newBoard('Доска ' + (S.index.length + 1)));
+  await saveNow();
+  drawer.hidden = true;
+  $('#boardName').focus(); $('#boardName').select();
+}
+async function duplicateBoard(id) {
+  if (S.board && S.board.id === id && dirty) await saveNow();
+  const src = S.board && S.board.id === id ? S.board : await Backend.loadBoard(id);
+  if (!src) return;
+  const b = clone(src);
+  b.id = 'b' + uid(); b.name = src.name + ' (копия)'; b.createdAt = b.updatedAt = Date.now();
+  try { await Backend.saveBoard(b); toast('Копия создана'); } catch (e) { toast('Не удалось создать копию'); }
+  renderDrawer();
+}
+async function deleteBoard(id) {
+  const e = S.index.find(x => x.id === id);
+  if (!confirm(`Удалить доску «${e ? e.name : ''}» насовсем? Отменить это будет нельзя.`)) return;
+  try { await Backend.deleteBoard(id); } catch (err) { toast('Не удалось удалить доску'); return; }
+  if (S.board && S.board.id === id) {
+    S.board = null;
+    const next = [...S.index].sort((a, b) => b.updatedAt - a.updatedAt)[0];
+    const nb = next ? await Backend.loadBoard(next.id).catch(() => null) : null;
+    loadBoard(nb || newBoard('Новая доска'));
+    if (!nb) await saveNow();
+  }
+  renderDrawer();
+}
+function renderDrawer() {
+  if (drawer.hidden || !S.board) return;
+  const list = [...S.index].sort((a, b) => b.updatedAt - a.updatedAt);
+  const hash = s => { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h; };
+  $('#blist').innerHTML = list.map(x => {
+    const n = x.count || 0;
+    return `<div class="brow ${x.id === S.board.id ? 'cur' : ''}" data-id="${esc(x.id)}">
+      <div class="bicon" style="--bc:${STICKY[hash(x.id) % 7]}">${esc((x.name || '?').trim().charAt(0).toUpperCase() || '?')}</div>
+      <div class="binfo"><div class="bname">${esc(x.name)}</div><div class="meta">${n} ${plural(n, 'объект', 'объекта', 'объектов')}, ${esc(fmtDate(x.updatedAt))}</div></div>
+      <div class="acts"><button class="ib sm" data-a="dup" title="Дублировать доску" aria-label="Дублировать доску">${ic('dup')}</button><button class="ib sm danger" data-a="del" title="Удалить доску" aria-label="Удалить доску">${ic('trash')}</button></div>
+    </div>`;
+  }).join('') || '<div class="meta" style="padding:8px">Досок пока нет</div>';
+  $('#storeNote').innerHTML = storeNote();
+}
+
+/* ---------- files ---------- */
+let downloadsNs;
+function getDownloads() { if (!S.hosted) return Promise.resolve(null); if (!downloadsNs) downloadsNs = window.claude.use('downloads').catch(() => null); return downloadsNs; }
+function download(blob, name) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 2000);
+}
+async function saveFile(data, filename, mime) {
+  const blob = data instanceof Blob ? data : new Blob([data], { type: mime });
+  const d = await getDownloads();
+  if (d) {
+    try { await d.save({ filename, data: blob }); return true; }
+    catch (e) { if (e && e.code === 'declined') return false; if (e && e.code === 'rate_limited') { toast('Подождите секунду и повторите'); return false; } }
+  }
+  download(blob, filename); return true;
+}
+async function exportBoardFile() {
+  finishEdit();
+  const b = S.board;
+  const data = { format: 'holst-board', version: 2, exportedAt: new Date().toISOString(), board: { id: b.id, name: b.name, items: b.items, assets: collectAssets(items()), view: b.view } };
+  if (await saveFile(JSON.stringify(data), safeName(b.name) + '.holst.json', 'application/json')) toast('Доска сохранена в файл');
+}
+async function importBoardFile(file) {
+  try {
+    const txt = await file.text();
+    let boards;
+    if (/\.html?$/i.test(file.name) || /^\s*</.test(txt)) {
+      const tag = '<script type="application/json" id="holst-seed">', i = txt.lastIndexOf(tag);
+      if (i < 0) throw new Error('no seed');
+      const j = txt.indexOf('</scr' + 'ipt>', i);
+      boards = (JSON.parse(txt.slice(i + tag.length, j < 0 ? undefined : j)).boards || []);
+    } else {
+      const data = JSON.parse(txt);
+      const src = data && data.board ? data.board : data;
+      if (!src || !Array.isArray(src.items)) throw new Error('format');
+      boards = [Object.assign({}, src, { name: src.name || file.name.replace(/(\.holst)?\.json$/i, '') })];
+    }
+    if (!boards.length) throw new Error('empty');
+    finishEdit();
+    if (S.board && dirty) await saveNow();
+    let first = null;
+    for (const src of boards) {
+      const b = newBoard(src.name || 'Доска');
+      b.items = Array.isArray(src.items) ? src.items : []; b.assets = src.assets || {}; if (src.view) b.view = src.view;
+      if (S.index.some(x => x.name === b.name)) b.name += ' (из файла)';
+      normalizeBoard(b);
+      await Backend.saveBoard(b);
+      first = first || b;
+    }
+    loadBoard(first); fitAll(); await saveNow();
+    toast(boards.length > 1 ? `Добавлено досок: ${boards.length}` : 'Доска открыта из файла');
+  } catch (e) { console.error(e); toast('Это не файл доски Холста'); }
+}
+async function downloadOffline() {
+  finishEdit(); toast('Собираю доски…');
+  if (dirty) await saveNow();
+  const boards = [];
+  for (const e of [...S.index].sort((a, b) => b.updatedAt - a.updatedAt)) {
+    try {
+      const b = e.id === S.board.id ? S.board : await Backend.loadBoard(e.id);
+      if (b) boards.push({ id: b.id, name: b.name, items: b.items, assets: collectAssetsOf(b), updatedAt: b.updatedAt || e.updatedAt, view: b.view });
+    } catch (err) { /* skip */ }
+  }
+  if (!boards.some(b => b.id === S.board.id)) boards.unshift({ id: S.board.id, name: S.board.name, items: S.board.items, assets: collectAssetsOf(S.board), updatedAt: S.board.updatedAt, view: S.board.view });
+  const seed = { format: 'holst-seed', seedId: uid(), createdAt: Date.now(), boards };
+  const json = JSON.stringify(seed).replace(/</g, '\\u003c');
+  const at = SOURCE.lastIndexOf('</body>');
+  const html = SOURCE.slice(0, at) + '<script type="application/json" id="holst-seed">' + json + '</scr' + 'ipt>\n' + SOURCE.slice(at);
+  if (await saveFile(html, 'Холст.html', 'text/html')) toast(`Офлайн-версия скачана: ${boards.length} ${plural(boards.length, 'доска', 'доски', 'досок')}`);
+}
+function collectAssetsOf(b) { const out = {}; for (const a of assetIdsOf(b.items || [])) if (b.assets && b.assets[a] != null) out[a] = b.assets[a]; return out; }
+async function importSeed() {
+  const el = document.getElementById('holst-seed'); if (!el) return null;
+  let seed; try { seed = JSON.parse(el.textContent); } catch (e) { return null; }
+  if (!seed || !Array.isArray(seed.boards) || !seed.seedId) return null;
+  const key = 'seed:' + seed.seedId;
+  if (await safeGet(key)) return null;
+  let first = null;
+  for (const sb of seed.boards) {
+    const b = clone(sb);
+    const exists = S.index.find(x => x.id === sb.id);
+    if (exists) {
+      const local = await safeGet('board:' + sb.id);
+      if (local && JSON.stringify(local.items) === JSON.stringify(sb.items)) { first = first || sb.id; continue; }
+      b.id = 'b' + uid(); b.name = sb.name + ' (из Claude)';
+    }
+    normalizeBoard(b);
+    try { await Store.set('board:' + b.id, b); upsertIndex(b); first = first || b.id; } catch (e) { /* skip */ }
+  }
+  try { await Store.set('index', S.index); await Store.set(key, 1); } catch (e) { /* ignore */ }
+  return first;
+}
+
+/* ---------- PNG export ---------- */
+function wrapLines(g, text, maxW) {
+  const out = [], fits = s => g.measureText(s).width <= maxW;
+  for (const para of String(text).split('\n')) {
+    let line = '';
+    for (let w of para.split(/ +/)) {
+      const cand = line ? line + ' ' + w : w;
+      if (fits(cand)) { line = cand; continue; }
+      if (line) { out.push(line); line = ''; }
+      while (w && !fits(w)) { let n = 1; while (n < w.length && fits(w.slice(0, n + 1))) n++; out.push(w.slice(0, n)); w = w.slice(n); }
+      line = w;
+    }
+    out.push(line);
+  }
+  return out;
+}
+function drawText(g, it, box, fs, vcenter) {
+  const text = it.text || ''; if (!text) return;
+  g.font = `${it.bold ? 700 : 400} ${fs}px ${FONT}`;
+  g.fillStyle = it.textColor || INK; g.textBaseline = 'middle';
+  const lines = wrapLines(g, text, Math.max(4, box.w)), lh = fs * 1.3;
+  let y = vcenter ? box.y + (box.h - lines.length * lh) / 2 : box.y;
+  const al = it.align || 'center';
+  g.textAlign = al;
+  const x = al === 'left' ? box.x : al === 'right' ? box.x + box.w : box.x + box.w / 2;
+  for (const ln of lines) { g.fillText(ln, x, y + lh / 2); y += lh; }
+}
+function roundRectPath(g, x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+async function drawItem(g, it) {
+  g.save();
+  switch (it.type) {
+    case 'frame':
+      g.fillStyle = it.fill || '#fff'; g.strokeStyle = '#d9dce3'; g.lineWidth = 1;
+      roundRectPath(g, it.x, it.y, it.w, it.h, 6); g.fill(); g.stroke();
+      g.fillStyle = '#6b7080'; g.font = `600 14px ${FONT}`; g.textBaseline = 'bottom'; g.textAlign = 'left';
+      g.fillText(it.title || '', it.x + 3, it.y - 7);
+      break;
+    case 'sticky': {
+      g.shadowColor = 'rgba(60,50,0,.22)'; g.shadowBlur = 14; g.shadowOffsetY = 5;
+      g.fillStyle = it.color; g.fillRect(it.x, it.y, it.w, it.h);
+      g.shadowColor = 'transparent';
+      const el = els.get(it.id);
+      drawText(g, it, { x: it.x + 12, y: it.y + 12, w: it.w - 24, h: it.h - 24 }, (el && el._fs) || (typeof it.fs === 'number' ? it.fs : 20), true);
+      break;
+    }
+    case 'shape': {
+      g.translate(it.x, it.y);
+      const p = new Path2D(shapePath(it.shape, it.w, it.h));
+      if (it.fill && it.fill !== 'transparent') { g.fillStyle = it.fill; g.fill(p); }
+      if (it.sw > 0) { g.strokeStyle = it.stroke || INK; g.lineWidth = it.sw; g.lineJoin = 'round'; g.stroke(p); }
+      g.translate(-it.x, -it.y);
+      const ins = shapeIns(it);
+      drawText(g, it, { x: it.x + ins.l, y: it.y + ins.t, w: it.w - ins.l - ins.r, h: it.h - ins.t - ins.b }, +it.fs || 16, true);
+      break;
+    }
+    case 'text': drawText(g, it, { x: it.x, y: it.y, w: it.w, h: it.h }, +it.fs || 20, false); break;
+    case 'image': { const img = await assetImage(it.asset); if (img) g.drawImage(img, it.x, it.y, it.w, it.h); break; }
+    case 'pen':
+      g.translate(it.x, it.y); g.strokeStyle = it.color; g.lineWidth = it.width; g.lineCap = 'round'; g.lineJoin = 'round';
+      g.stroke(new Path2D(penPath(it.pts)));
+      break;
+    case 'connector': {
+      const cg = connGeom(it), w = it.width || 2;
+      g.strokeStyle = g.fillStyle = it.color || INK; g.lineWidth = w; g.lineCap = 'round'; g.lineJoin = 'round';
+      if (it.dash) g.setLineDash([w * 2.5, w * 3]);
+      g.stroke(new Path2D(cg.d)); g.setLineDash([]);
+      if (cg.heads) g.fill(new Path2D(cg.heads));
+      break;
+    }
+    case 'embed': {
+      roundRectPath(g, it.x, it.y, it.w, it.h, 8); g.fillStyle = '#eef0f3'; g.fill(); g.strokeStyle = '#d9dce3'; g.lineWidth = 1; g.stroke();
+      g.fillStyle = '#fff'; g.fillRect(it.x + 0.5, it.y + 0.5, it.w - 1, EH);
+      g.fillStyle = INK; g.font = `600 13px ${FONT}`; g.textBaseline = 'middle'; g.textAlign = 'left';
+      g.fillText((it.title || '').slice(0, 80), it.x + 12, it.y + EH / 2);
+      g.fillStyle = '#6b7080'; g.font = `400 14px ${FONT}`; g.textAlign = 'center';
+      g.fillText((PROV[it.provider] || PROV.web).name, it.x + it.w / 2, it.y + EH + (it.h - EH) / 2 - 10);
+      if (it.url) g.fillText(it.url.slice(0, 70), it.x + it.w / 2, it.y + EH + (it.h - EH) / 2 + 12);
+      break;
+    }
+  }
+  g.restore();
+}
+async function exportPNG() {
+  finishEdit(); render();
+  const list = S.sel.size ? withFrameContents(selItems()) : items().slice();
+  if (!list.length) { toast('На доске пока ничего нет'); return; }
+  const ids = new Set(list.map(i => i.id));
+  const order = renderOrder().filter(i => ids.has(i.id));
+  const bb = unionB(order.map(i => (i.type === 'frame' ? { x: i.x, y: i.y - 30, w: i.w, h: i.h + 30 } : i.type === 'connector' ? connGeom(i).bbox : bounds(i))));
+  const pad = 40; bb.x -= pad; bb.y -= pad; bb.w += pad * 2; bb.h += pad * 2;
+  const sc = Math.min(2, 8000 / bb.w, 8000 / bb.h, Math.sqrt(40e6 / (bb.w * bb.h)));
+  const cv = document.createElement('canvas');
+  cv.width = Math.max(1, Math.round(bb.w * sc)); cv.height = Math.max(1, Math.round(bb.h * sc));
+  const g = cv.getContext('2d');
+  g.fillStyle = '#ffffff'; g.fillRect(0, 0, cv.width, cv.height);
+  g.setTransform(sc, 0, 0, sc, -bb.x * sc, -bb.y * sc);
+  for (const it of order) await drawItem(g, it);
+  const blob = await new Promise(res => cv.toBlob(res, 'image/png'));
+  if (!blob) { toast('Не удалось создать PNG'); return; }
+  if (await saveFile(blob, safeName(S.board.name) + '.png', 'image/png')) toast(S.sel.size ? 'Выделенное сохранено в PNG' : 'Доска сохранена в PNG');
+}
+
+/* =========================================================
+   Keyboard & clipboard
+   ========================================================= */
+const isTyping = () => { const a = document.activeElement; return !!S.editing || (a && (a.tagName === 'INPUT' || a.tagName === 'TEXTAREA' || a.isContentEditable)); };
+function onKeyDown(e) {
+  if (!S.board) return;
+  if (S.focus) { if (e.key === 'Escape') { e.preventDefault(); exitFocus(); } return; }
+  if (S.editing) {
+    if (e.key === 'Escape') { e.preventDefault(); const id = S.editing; finishEdit(); if (byId(id)) S.sel = new Set([id]); render(); }
+    return;
+  }
+  if (!modal.hidden) { if (e.key === 'Escape') closeHelp(); return; }
+  if (!embedDlg.hidden) { if (e.key === 'Escape') closeEmbedDlg(); return; }
+  if (!driveDlg.hidden) { if (e.key === 'Escape') closeDriveDlg(); return; }
+  const tg = e.target;
+  if (tg && (tg.tagName === 'INPUT' || tg.tagName === 'TEXTAREA' || tg.isContentEditable)) return;
+  const mod = e.ctrlKey || e.metaKey, c = e.code;
+  if (mod) {
+    if (c === 'KeyZ') { e.preventDefault(); if (e.shiftKey) redo(); else undo(); }
+    else if (c === 'KeyY') { e.preventDefault(); redo(); }
+    else if (c === 'KeyD') { e.preventDefault(); duplicateSel(); }
+    else if (c === 'KeyA') { e.preventDefault(); selectAll(); }
+    else if (c === 'KeyS') { e.preventDefault(); exportBoardFile(); }
+    else if (c === 'KeyO') { e.preventDefault(); $('#fileBoard').click(); }
+    else if (c === 'Equal' || c === 'NumpadAdd') { e.preventDefault(); zoomStep(1.25); }
+    else if (c === 'Minus' || c === 'NumpadSubtract') { e.preventDefault(); zoomStep(0.8); }
+    else if (c === 'Digit0' || c === 'Numpad0') { e.preventDefault(); zoomAt(innerWidth / 2, innerHeight / 2, 1); }
+    return;
+  }
+  if (e.altKey) return;
+  if (tg && tg.tagName === 'BUTTON' && (c === 'Space' || c === 'Enter')) return;
+  const step = e.shiftKey ? 10 : 1;
+  switch (c) {
+    case 'Space': e.preventDefault(); if (!S.space) { S.space = true; updateCursor(); } return;
+    case 'Delete': case 'Backspace': if (S.sel.size) { e.preventDefault(); deleteSel(); } return;
+    case 'Escape': closePop(); drawer.hidden = true; S.active = null; S.sel.clear(); setTool('select'); return;
+    case 'Enter': case 'NumpadEnter': case 'F2': {
+      const s = selItems(); if (s.length !== 1) return;
+      e.preventDefault();
+      if (e.shiftKey && c !== 'F2') { enterFocus(s[0].id); return; }
+      if (s[0].type === 'embed') activateEmbed(s[0].id); else if (editable(s[0])) startEdit(s[0].id);
+      return;
+    }
+    case 'ArrowLeft': if (S.sel.size) { e.preventDefault(); nudge(-step, 0); } return;
+    case 'ArrowRight': if (S.sel.size) { e.preventDefault(); nudge(step, 0); } return;
+    case 'ArrowUp': if (S.sel.size) { e.preventDefault(); nudge(0, -step); } return;
+    case 'ArrowDown': if (S.sel.size) { e.preventDefault(); nudge(0, step); } return;
+    case 'BracketRight': toFront(); return;
+    case 'BracketLeft': toBack(); return;
+    case 'Digit1': if (e.shiftKey) { e.preventDefault(); fitAll(); } return;
+    case 'Digit0': if (e.shiftKey) { e.preventDefault(); zoomAt(innerWidth / 2, innerHeight / 2, 1); } return;
+    case 'Equal': case 'NumpadAdd': zoomStep(1.25); return;
+    case 'Minus': case 'NumpadSubtract': zoomStep(0.8); return;
+    case 'Slash': if (e.shiftKey) { e.preventDefault(); openHelp(); } return;
+  }
+  const map = { KeyV: 'select', KeyH: 'hand', KeyN: 'sticky', KeyT: 'text', KeyS: 'shape', KeyL: 'connector', KeyA: 'connector', KeyP: 'pen', KeyE: 'eraser', KeyF: 'frame' };
+  if (c === 'KeyR' || c === 'KeyO') { S.opts.shape = c === 'KeyR' ? 'rect' : 'ellipse'; saveSettings(); setTool('shape'); return; }
+  if (c === 'KeyI') { $('#fileImg').click(); return; }
+  if (c === 'KeyK') { e.preventDefault(); openEmbedDlg(); return; }
+  if (map[c]) setTool(map[c]);
+}
+function onKeyUp(e) { if (e.code === 'Space' && S.space) { S.space = false; updateCursor(); } }
+
+function onCopy(e, cut) {
+  if (isTyping() || !S.board || S.focus) return;
+  const list = withFrameContents(selItems()); if (!list.length) return;
+  const payload = { items: prepare(list), assets: collectAssets(list) };
+  S.clip = payload;
+  try { e.clipboardData.setData('text/plain', CLIP + JSON.stringify(payload)); e.preventDefault(); } catch (err) { /* ignore */ }
+  if (cut) deleteSel(); else toast(list.length === 1 ? 'Скопировано' : `Скопировано: ${list.length}`);
+}
+function onPaste(e) {
+  if (isTyping() || !S.board || S.focus || !embedDlg.hidden) return;
+  const dt = e.clipboardData;
+  const files = dt ? [...dt.files].filter(f => f.type.startsWith('image/')) : [];
+  if (files.length) { e.preventDefault(); insertImages(files, pastePoint()); return; }
+  const txt = dt ? dt.getData('text/plain') || '' : '';
+  let payload = null;
+  if (txt.startsWith(CLIP)) { try { payload = JSON.parse(txt.slice(CLIP.length)); } catch (err) { payload = null; } }
+  else if (!txt && S.clip) payload = S.clip;
+  if (payload) { e.preventDefault(); pastePayload(payload); return; }
+  const one = txt.trim();
+  if ((!/\s/.test(one) && /^(https?:\/\/|www\.)/i.test(one)) || /^<iframe\b/i.test(one)) {
+    const sp = parseEmbed(one);
+    if (sp) { e.preventDefault(); createEmbed(sp, pastePoint()); return; }
+  }
+  if (one) {
+    e.preventDefault();
+    const p = pastePoint(), it = mkText(p.x, p.y);
+    it.text = txt.slice(0, 20000);
+    pushHist(); S.board.items.push(it); S.sel = new Set([it.id]); changed();
+  }
+}
+
+/* ---------- Google Drive dialog ---------- */
+function openDriveDlg() { closePop(); finishEdit(); driveDlg.hidden = false; renderDriveDlg(); }
+function closeDriveDlg() { driveDlg.hidden = true; }
+function copyText(t) {
+  const fallback = () => { window.prompt('Скопируйте:', t); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(() => toast('Скопировано'), fallback); else fallback();
+}
+function renderDriveDlg() {
+  if (driveDlg.hidden) return;
+  const body = $('#driveBody');
+  if (!Drive.available()) {
+    body.innerHTML = `<p class="sub">Синхронизация с Google Диском работает, когда доска открыта по своему адресу в интернете${S.hosted ? '. Внутри Claude доски хранятся в его хранилище.' : ', а не файлом с диска.'}</p>`;
+    return;
+  }
+  if (!Drive.cid) {
+    const origin = location.origin;
+    body.innerHTML = `<p class="sub">Доски будут храниться в папке «Холст» на вашем Google Диске и совпадать на компьютере и телефоне. Настройка разовая, минут на десять.</p>
+      <ol class="steps">
+        <li>Откройте <a href="https://console.cloud.google.com/projectcreate" target="_blank" rel="noopener">Google Cloud</a> под своим аккаунтом Google и создайте проект «Холст».</li>
+        <li>Включите <a href="https://console.cloud.google.com/apis/library/drive.googleapis.com" target="_blank" rel="noopener">Google Drive API</a> кнопкой «Enable» («Включить»).</li>
+        <li>Откройте <a href="https://console.cloud.google.com/auth/overview" target="_blank" rel="noopener">Google Auth Platform</a> и нажмите «Get started»: название «Холст», ваш email, аудитория «External».</li>
+        <li>В разделе <a href="https://console.cloud.google.com/auth/audience" target="_blank" rel="noopener">Audience</a> нажмите «Publish app». Проверка Google не нужна: доска получает доступ только к файлам, которые создаёт сама.</li>
+        <li>В разделе <a href="https://console.cloud.google.com/auth/clients" target="_blank" rel="noopener">Clients</a> нажмите «Create client», тип «Web application». В «Authorized JavaScript origins» добавьте адрес доски:<br><span class="code">${esc(origin)}<button data-copy="${esc(origin)}">Копировать</button></span></li>
+        <li>Нажмите «Create», скопируйте Client ID (он заканчивается на .apps.googleusercontent.com) и вставьте сюда:</li>
+      </ol>
+      <div class="erow"><input id="cidInput" class="inp" placeholder="1234567890-abc….apps.googleusercontent.com" spellcheck="false" autocomplete="off"><button class="btn" id="cidGo">Подключить</button></div>`;
+    const inp = $('#cidInput');
+    inp.addEventListener('input', () => { if (navigator.onLine) Drive.loadGIS().catch(() => {}); });
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') $('#cidGo').click(); });
+    $('#cidGo').addEventListener('click', () => {
+      const v = inp.value.trim();
+      if (!/\.apps\.googleusercontent\.com$/.test(v)) { toast('Client ID заканчивается на .apps.googleusercontent.com'); inp.focus(); return; }
+      Drive.setClient(v); renderDriveDlg(); Drive.connect();
+    });
+    return;
+  }
+  const st = Drive.state;
+  const labels = { ok: 'Подключено', syncing: 'Синхронизация…', auth: 'Нужно войти в Google, чтобы продолжить синхронизацию', offline: 'Нет сети: изменения сохраняются на устройстве', error: 'Диск сейчас не отвечает, попробую ещё раз', off: 'Не подключено' };
+  const last = st === 'ok' && Drive.lastSync ? `, последняя синхронизация ${fmtDate(Drive.lastSync)}` : '';
+  const phone = location.origin + location.pathname + '#cid=' + encodeURIComponent(Drive.cid);
+  body.innerHTML = `<div class="dstat" data-d="${st}"><span class="dot"></span><span>${esc((labels[st] || '') + last)}</span></div>
+    <div class="btnrow"><button class="btn" id="dSync">${Drive.tokenOk() ? 'Синхронизировать сейчас' : 'Войти в Google'}</button>${Drive.st.folder ? '<button class="btn ghost" id="dOpen">Открыть папку в Диске</button>' : ''}</div>
+    <h3>Телефон</h3>
+    <p class="sub">Откройте эту ссылку на телефоне в Chrome, и доска сама подключит Диск. Удобно переслать себе в Telegram.</p>
+    <span class="code">${esc(phone)}<button data-copy="${esc(phone)}">Копировать</button></span>
+    <div class="note"><b>Как это устроено</b>Каждое изменение сразу сохраняется на устройстве и уходит в папку «Холст» на Диске, как только есть сеть. Диск хранит прошлые версии файлов, а первая версия каждого дня закрепляется навсегда: её можно восстановить через «Управление версиями» в Диске. Если одну доску меняли на двух устройствах без сети, сохранятся обе версии. Вход Google действует около часа; когда он истечёт, статус вверху попросит одно нажатие.</div>
+    <button class="linkbtn" id="dOff">Отключить Диск на этом устройстве</button>`;
+  $('#dSync').addEventListener('click', () => { if (Drive.tokenOk()) Drive.sync(); else Drive.connect(); });
+  const o = $('#dOpen'); if (o) o.addEventListener('click', () => window.open('https://drive.google.com/drive/folders/' + Drive.st.folder, '_blank'));
+  $('#dOff').addEventListener('click', () => { if (confirm('Отключить синхронизацию на этом устройстве? Доски останутся здесь и в Диске.')) Drive.disconnect(); });
+}
+
+/* ---------- installable app ---------- */
+let installPrompt = null;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installPrompt = e; });
+window.addEventListener('appinstalled', () => { installPrompt = null; toast('Холст установлен как приложение'); });
+function registerPWA() {
+  if (S.hosted || IS_FILE || !('serviceWorker' in navigator)) return;
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+}
+
+/* =========================================================
+   Welcome board (offline file only; the Claude version gets its
+   starting content from Claude)
+   ========================================================= */
+function welcomeBoard() {
+  const b = newBoard('Моя первая доска');
+  const st = (x, y, color, text) => ({ id: uid(), type: 'sticky', x, y, w: 230, h: 230, color, text, fs: 'auto', align: 'center', bold: false, textColor: INK });
+  const sh = (x, y, shape, fill, text) => ({ id: uid(), type: 'shape', shape, x, y, w: 210, h: 110, fill, stroke: INK, sw: 2, text, fs: 18, align: 'center', bold: false, textColor: INK });
+  const s1 = sh(70, 470, 'round', '#e2d1ff', 'Идея'), s2 = sh(400, 455, 'diamond', '#ffffff', 'Проверить?'), s3 = sh(760, 470, 'ellipse', '#c8efc1', 'Готово');
+  s2.w = 230; s2.h = 140;
+  b.assets.hmetronome = METRONOME_HTML;
+  b.welcome = true;
+  b.items = [
+    { id: uid(), type: 'frame', x: 0, y: 0, w: 1560, h: 660, title: 'Добро пожаловать', fill: '#ffffff' },
+    { id: uid(), type: 'text', x: 70, y: 56, w: 980, h: 40, text: 'Холст: доска для идей, которая работает без интернета', fs: 26, bold: true, align: 'left', textColor: INK },
+    st(70, 150, '#fff3a0', 'Щёлкните по стикеру дважды, чтобы изменить текст'),
+    st(330, 150, '#c4e0ff', 'Колесо мыши меняет масштаб. Пробел или правая кнопка мыши двигают доску'),
+    st(590, 150, '#c8efc1', 'Встраивание: кнопка </> слева или просто вставьте ссылку на видео, сайт или Google Документ'),
+    st(850, 150, '#ffc6d3', 'Кнопка ⤢ разворачивает элемент на весь экран, Esc сворачивает обратно'),
+    { id: uid(), type: 'embed', kind: 'html', provider: 'html', title: 'Метроном (свой HTML-инструмент)', asset: 'hmetronome', url: '', src: '', thumb: '', x: 1120, y: 150, w: 380, h: 440 },
+    s1, s2, s3,
+    { id: uid(), type: 'connector', from: { id: s1.id, x: 0, y: 0 }, to: { id: s2.id, x: 0, y: 0 }, color: INK, width: 2, style: 'straight', start: false, end: true, dash: false },
+    { id: uid(), type: 'connector', from: { id: s2.id, x: 0, y: 0 }, to: { id: s3.id, x: 0, y: 0 }, color: INK, width: 2, style: 'straight', start: false, end: true, dash: false },
+  ];
+  return b;
+}
+
+/* =========================================================
+   Wiring
+   ========================================================= */
+function wire() {
+  $('#btnBoards').innerHTML = ic('boards'); $('#btnMenu').innerHTML = ic('dots'); $('#btnHelp').innerHTML = ic('help');
+  $('#btnUndo').innerHTML = ic('undo'); $('#btnRedo').innerHTML = ic('redo');
+  $('#btnUndo').title = `Отменить (${MOD}+Z)`; $('#btnRedo').title = `Повторить (${MOD}+Shift+Z)`;
+  $('#btnZoomOut').innerHTML = ic('minus'); $('#btnZoomIn').innerHTML = ic('plus'); $('#btnFit').innerHTML = ic('fit');
+  document.querySelectorAll('[data-close]').forEach(b => { b.innerHTML = ic('close'); });
+  $('#embedFile').innerHTML = ic('folder') + 'Загрузить HTML-файл';
+  $('#btnOffline').innerHTML = ic('offline') + 'Скачать офлайн-версию со всеми досками';
+  fbar.querySelector('[data-fa="open"]').innerHTML = ic('ext') + '<span>Открыть отдельно</span>';
+  fbar.querySelector('[data-fa="reload"]').innerHTML = ic('reload') + '<span>Перезагрузить</span>';
+  fbar.querySelector('[data-fa="full"]').innerHTML = ic('fit') + '<span>На весь монитор</span>';
+  fbar.querySelector('[data-fa="close"]').innerHTML = ic('close') + '<span>Свернуть (Esc)</span>';
+  buildToolbar(); buildHelp();
+
+  vp.addEventListener('pointerdown', onDown);
+  vp.addEventListener('pointermove', onMove);
+  vp.addEventListener('pointerup', onUp);
+  vp.addEventListener('pointercancel', onUp);
+  vp.addEventListener('pointerleave', () => { S.mouseIn = false; });
+  vp.addEventListener('wheel', onWheel, { passive: false });
+  vp.addEventListener('contextmenu', e => e.preventDefault());
+  vp.addEventListener('scroll', () => { vp.scrollTop = 0; vp.scrollLeft = 0; });
+  let gz = 1;
+  document.addEventListener('gesturestart', e => { e.preventDefault(); gz = S.board ? V().z : 1; });
+  document.addEventListener('gesturechange', e => { e.preventDefault(); if (S.board && !S.focus) zoomAt(e.clientX, e.clientY, gz * e.scale); });
+
+  for (const p of ['#toolbar', '#topbar', '#hist', '#zoombar', '#status', '#flyout']) $(p).addEventListener('pointerdown', () => finishEdit());
+  $('#toolbar').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.act === 'image') { $('#fileImg').click(); return; }
+    if (b.dataset.act === 'embed') { openEmbedDlg(); return; }
+    if (b.dataset.tool) setTool(b.dataset.tool);
+  });
+  fly.addEventListener('click', e => {
+    const b = e.target.closest('[data-o]'); if (!b) return;
+    const o = b.dataset.o; S.opts[o] = o === 'penW' ? +b.dataset.v : b.dataset.v;
+    renderFlyout(); saveSettings();
+  });
+
+  ctxBar.addEventListener('pointerdown', e => e.preventDefault());
+  ctxBar.addEventListener('click', e => {
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    if (!pop.hidden && pop._anchor === b) { closePop(); return; }
+    const sel = selItems(); if (!sel.length) return;
+    const first = t => sel.find(i => i.type === t);
+    const isLine = i => i.type === 'connector' || i.type === 'pen';
+    const isShape = i => i.type === 'shape', isConn = i => i.type === 'connector';
+    const tx = sel.filter(hasText);
+    switch (b.dataset.act) {
+      case 'stickyColor': colorPop(b, STICKY, first('sticky').color, v => setProp(i => i.type === 'sticky', { color: v }), 'sq'); break;
+      case 'fill': colorPop(b, FILLS, first('shape').fill, v => setProp(isShape, { fill: v })); break;
+      case 'stroke': colorPop(b, ['transparent', ...INKS], first('shape').sw > 0 ? first('shape').stroke : 'transparent', v => setProp(isShape, v === 'transparent' ? { sw: 0 } : it => ({ stroke: v, sw: it.sw || 2 }))); break;
+      case 'sw': optPop(b, [0, 1, 2, 3, 4, 6, 8].map(n => [n, n ? String(n) : 'Нет']), first('shape').sw, v => setProp(isShape, { sw: +v })); break;
+      case 'frameFill': colorPop(b, FRAME_FILLS, first('frame').fill, v => setProp(i => i.type === 'frame', { fill: v }), 'sq'); break;
+      case 'shapeKind': optPop(b, SHAPES.map(k => [k, shapeIcon(k)]), first('shape').shape, v => { setProp(isShape, { shape: v }); S.opts.shape = v; saveSettings(); renderFlyout(); }); break;
+      case 'fs': {
+        const sizes = [['auto', 'Авто'], ...[12, 14, 16, 20, 24, 32, 48, 64].map(n => [n, String(n)])];
+        optPop(b, tx.some(i => i.type === 'sticky') ? sizes : sizes.slice(1), tx[0].fs, v => setProp(i => hasText(i) && (v !== 'auto' || i.type === 'sticky'), { fs: v === 'auto' ? 'auto' : +v }));
+        break;
+      }
+      case 'bold': { const nv = !tx[0].bold; setProp(hasText, { bold: nv }); break; }
+      case 'align': { const o = ['left', 'center', 'right']; const nv = o[(o.indexOf(tx[0].align || 'center') + 1) % 3]; setProp(hasText, { align: nv }); break; }
+      case 'textColor': colorPop(b, INKS, tx[0].textColor, v => setProp(hasText, { textColor: v })); break;
+      case 'lineColor': colorPop(b, INKS, sel.find(isLine).color, v => setProp(isLine, { color: v })); break;
+      case 'lineWidth': optPop(b, [1, 2, 3, 4, 6, 8, 12].map(n => [n, String(n)]), sel.find(isLine).width, v => setProp(isLine, { width: +v })); break;
+      case 'connStyle': optPop(b, ['straight', 'elbow', 'curve'].map(s => [s, ic('st_' + s)]), first('connector').style || 'straight', v => setProp(isConn, { style: v })); break;
+      case 'arrowStart': { const nv = !first('connector').start; setProp(isConn, { start: nv }); break; }
+      case 'arrowEnd': { const nv = !first('connector').end; setProp(isConn, { end: nv }); break; }
+      case 'dash': { const nv = !first('connector').dash; setProp(isConn, { dash: nv }); break; }
+      case 'eOpen': openEmbed(sel[0]); break;
+      case 'eReload': reloadEmbed(sel[0].id); break;
+      case 'eEdit': if (sel[0].kind === 'html') pickHtmlFile(sel[0].id); else openEmbedDlg(sel[0].id); break;
+      case 'focus': enterFocus(sel[0].id); break;
+      case 'front': toFront(); break;
+      case 'back': toBack(); break;
+      case 'dup': duplicateSel(); break;
+      case 'del': deleteSel(); break;
+    }
+  });
+
+  pop.addEventListener('pointerdown', e => e.preventDefault());
+  pop.addEventListener('click', e => { const b = e.target.closest('[data-v]'); if (!b) return; const f = pop._pick; closePop(); if (f) f(b.dataset.v); });
+  document.addEventListener('pointerdown', e => { if (!pop.hidden && !pop.contains(e.target) && !(pop._anchor && pop._anchor.contains(e.target))) closePop(); }, true);
+
+  $('#btnMenu').addEventListener('click', e => { const b = e.currentTarget; if (!pop.hidden && pop._anchor === b) closePop(); else openMenu(b); });
+  $('#btnBoards').addEventListener('click', async () => {
+    closePop(); drawer.hidden = !drawer.hidden;
+    if (!drawer.hidden) { renderDrawer(); try { const list = await Backend.listBoards(); if (list.length) { S.index = list; if (S.board) upsertIndex(S.board); renderDrawer(); } } catch (e) { /* ignore */ } }
+  });
+  $('#btnNewBoard').addEventListener('click', createBoard);
+  $('#btnOffline').addEventListener('click', () => { drawer.hidden = true; downloadOffline(); });
+  $('#blist').addEventListener('click', e => {
+    const row = e.target.closest('.brow'); if (!row) return;
+    const a = e.target.closest('[data-a]');
+    if (a && a.dataset.a === 'dup') duplicateBoard(row.dataset.id);
+    else if (a && a.dataset.a === 'del') deleteBoard(row.dataset.id);
+    else { drawer.hidden = true; openBoard(row.dataset.id); }
+  });
+  $('#btnHelp').addEventListener('click', openHelp);
+  $('#btnCloud').innerHTML = ic('cloud');
+  $('#btnCloud').addEventListener('click', () => { if (Drive.active() && !Drive.tokenOk() && navigator.onLine) Drive.connect(); else openDriveDlg(); });
+  $('#statusText').addEventListener('click', () => { if (Drive.active() && (Drive.state === 'auth' || Drive.state === 'error')) { if (Drive.tokenOk()) Drive.sync(); else Drive.connect(); } });
+  driveDlg.querySelector('[data-close]').addEventListener('click', closeDriveDlg);
+  driveDlg.addEventListener('pointerdown', e => { if (e.target === driveDlg) closeDriveDlg(); });
+  driveDlg.addEventListener('click', e => { const b = e.target.closest('[data-copy]'); if (b) copyText(b.dataset.copy); });
+  modal.querySelector('[data-close]').addEventListener('click', closeHelp);
+  modal.addEventListener('pointerdown', e => { if (e.target === modal) closeHelp(); });
+  embedDlg.querySelector('[data-close]').addEventListener('click', closeEmbedDlg);
+  embedDlg.addEventListener('pointerdown', e => { if (e.target === embedDlg) closeEmbedDlg(); });
+  $('#embedInput').addEventListener('input', updateEmbedPv);
+  $('#embedInput').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); embedGo(); } });
+  $('#embedGo').addEventListener('click', embedGo);
+  $('#embedFile').addEventListener('click', () => { const id = S.embedEdit; closeEmbedDlg(); pickHtmlFile(id); });
+  $('#btnUndo').addEventListener('click', undo);
+  $('#btnRedo').addEventListener('click', redo);
+  $('#btnZoomIn').addEventListener('click', () => zoomStep(1.25));
+  $('#btnZoomOut').addEventListener('click', () => zoomStep(0.8));
+  $('#zoomLbl').addEventListener('click', () => zoomAt(innerWidth / 2, innerHeight / 2, 1));
+  $('#btnFit').addEventListener('click', () => fitAll());
+
+  fbar.addEventListener('click', e => {
+    const b = e.target.closest('[data-fa]'); if (!b) return;
+    const it = byId(S.focus);
+    if (b.dataset.fa === 'close') exitFocus();
+    else if (b.dataset.fa === 'open') openEmbed(it);
+    else if (b.dataset.fa === 'reload' && it) reloadEmbed(it.id);
+    else if (b.dataset.fa === 'full') focusFullscreen();
+  });
+  fview.addEventListener('pointerdown', e => { if (e.target === fview) exitFocus(); });
+
+  const name = $('#boardName');
+  name.addEventListener('input', () => { S.board.name = name.value; document.title = (name.value || 'Без названия') + ' — Холст'; scheduleSave(); });
+  name.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === 'Escape') { e.preventDefault(); name.blur(); } });
+  name.addEventListener('blur', () => { if (!name.value.trim()) { name.value = 'Без названия'; S.board.name = name.value; scheduleSave(); } });
+
+  $('#fileImg').addEventListener('change', e => { const f = [...e.target.files]; e.target.value = ''; if (f.length) insertImages(f, viewCenter()); });
+  $('#fileBoard').addEventListener('change', e => { const f = e.target.files[0]; e.target.value = ''; if (f) importBoardFile(f); });
+  $('#fileHtml').addEventListener('change', e => {
+    const f = e.target.files[0]; e.target.value = '';
+    const t = S.htmlTarget || { at: viewCenter() }; S.htmlTarget = null;
+    if (f) embedHtmlFile(f, t.at, t.replaceId);
+  });
+
+  const drop = $('#drop');
+  const dragKind = e => { const t = [...((e.dataTransfer && e.dataTransfer.types) || [])]; return t.includes('Files') || t.includes('text/uri-list'); };
+  window.addEventListener('dragover', e => { if (dragKind(e) && !S.focus) { e.preventDefault(); drop.hidden = false; } });
+  window.addEventListener('dragleave', e => { if (!e.relatedTarget) drop.hidden = true; });
+  window.addEventListener('drop', e => {
+    e.preventDefault(); drop.hidden = true;
+    if (!S.board || S.focus) return;
+    const at = toWorld(e.clientX, e.clientY), dt = e.dataTransfer;
+    const files = [...(dt ? dt.files : [])];
+    const imgs = files.filter(f => f.type.startsWith('image/'));
+    const html = files.find(f => /\.html?$/i.test(f.name) || f.type === 'text/html');
+    const js = files.find(f => /\.json$/i.test(f.name));
+    if (imgs.length) insertImages(imgs, at);
+    else if (html) embedHtmlFile(html, at);
+    else if (js) importBoardFile(js);
+    else if (dt) { const u = (dt.getData('text/uri-list') || dt.getData('text/plain') || '').split('\n').find(l => l && !l.startsWith('#')); const sp = u && parseEmbed(u.trim()); if (sp) createEmbed(sp, at); }
+  });
+
+  document.addEventListener('securitypolicyviolation', e => {
+    const dir = e.effectiveDirective || e.violatedDirective || '';
+    if (!/^(frame-src|child-src)/.test(dir)) return;
+    let o = ''; try { o = new URL(e.blockedURI).origin; } catch (err) { o = ''; }
+    if (!o || o === 'null') return;
+    S.blocked.add(o); S.cspSeen = true;
+    if (!embedDlg.hidden) $('#embedNote').innerHTML = envNote();
+    requestRender();
+  });
+  window.addEventListener('online', () => { requestRender(); Drive.schedule(500); });
+  window.addEventListener('focus', () => Drive.schedule(400));
+  window.addEventListener('offline', () => requestRender());
+
+  document.addEventListener('keydown', onKeyDown);
+  document.addEventListener('keyup', onKeyUp);
+  document.addEventListener('copy', e => onCopy(e, false));
+  document.addEventListener('cut', e => onCopy(e, true));
+  document.addEventListener('paste', onPaste);
+  window.addEventListener('blur', () => { if (S.space) { S.space = false; updateCursor(); } });
+  window.addEventListener('resize', () => { if (S.focus) render(); renderOverlay(); positionCtx(); renderFlyout(); });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden' && dirty) saveNow(); if (document.visibilityState === 'visible') Drive.schedule(400); });
+  window.addEventListener('beforeunload', e => {
+    if (dirty) saveNow();
+    if (Backend === Local && Store.mode === 'mem' && S.board && S.board.items.length) { e.preventDefault(); e.returnValue = ''; }
+  });
+}
+
+async function chooseBackend() {
+  if (S.hosted) {
+    try {
+      const [db, user] = await Promise.all([window.claude.use('db'), window.claude.use('user')]);
+      const id = user ? await user.id() : null;
+      if (db && id) { Db.init(db, id); await Db.listBoards(); return Db; }
+    } catch (e) { /* fall back */ }
+  }
+  await Store.init();
+  return Local;
+}
+async function init() {
+  wire();
+  const st = LS.get('settings');
+  if (st) { S.settings.grid = st.grid !== false; Object.assign(S.opts, st.opts || {}); }
+  buildToolbar();
+  Backend = await chooseBackend();
+  try { if (Backend === Local && navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch (e) { /* ignore */ }
+  try { S.index = (await Backend.listBoards()) || []; } catch (e) { S.index = []; }
+  let firstId = Backend === Local ? await importSeed() : null;
+  let b = null;
+  const last = firstId || await Backend.getLast();
+  if (last) b = await Backend.loadBoard(last).catch(() => null);
+  if (!b && S.index.length) { const top = [...S.index].sort((x, y) => y.updatedAt - x.updatedAt)[0]; b = await Backend.loadBoard(top.id).catch(() => null); }
+  let fresh = false;
+  if (!b) { fresh = true; b = Backend === Local ? welcomeBoard() : newBoard('Моя доска'); }
+  loadBoard(b);
+  setTool('select');
+  if (fresh && Backend === Local) { fitAll(); await saveNow(); LS.set('welcome:' + S.board.id, boardHash(S.board)); }
+  else if (fresh || firstId) fitAll();
+  setStatus('saved'); dirty = false;
+  if (Backend === Local) await Drive.init();
+  registerPWA();
+}
+init();
+})();
+</script>
+</body>
+</html>
