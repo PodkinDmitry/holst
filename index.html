@@ -418,6 +418,23 @@ body.pane #status{display:none}
 .frow+.frow .ftab{font-size:calc(11.5px * var(--iz,1))}
 .mindmap.wsty .mmnode{box-sizing:border-box;padding:0 5px;line-height:1.55}
 .mindmap.wsty .mmnode .mmt{max-width:none}
+
+#statusText{display:none}
+#status .dot{cursor:pointer;margin:0 4px}
+#status .dot.act{animation:holstPulse 1.1s ease-in-out infinite}
+@keyframes holstPulse{0%,100%{box-shadow:0 0 0 0 rgba(229,72,77,.55)}50%{box-shadow:0 0 0 6px rgba(229,72,77,0)}}
+#btnBackup[data-b=ok]{color:#2fa36b}
+#btnBackup[data-b=saving]{color:#d99a00}
+#btnBackup[data-b=auth]{color:var(--danger);animation:holstPulse 1.1s ease-in-out infinite;border-radius:50%}
+#btnBackup[data-b=error]{color:var(--danger)}
+#btnBackup[data-b=off]{color:var(--muted)}
+.ov-guide{position:absolute;background:#e5484d;pointer-events:none}
+.ov-lock{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:6px;background:var(--ink);color:#fff;display:grid;place-items:center;pointer-events:none}
+.ov-lock svg.i{width:13px;height:13px}
+.ib2{padding:4px 6px}
+.ib2 svg.i{width:18px;height:18px}
+.zlv{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--muted);margin-top:8px}
+.kwh label.zck{flex-direction:row;align-items:center;gap:8px}
 @media (max-width:700px){#statusText{display:none}#statusText.act{display:block;max-width:132px;white-space:normal;font-size:11.5px;line-height:1.25}#status{padding-left:12px}#boardName{width:120px}.fbtn span{display:none}.fdoc{padding:28px 24px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -437,7 +454,7 @@ body.pane #status{display:none}
   <button class="ib" id="btnMenu" title="Меню" aria-label="Меню"></button>
 </header>
 
-<div id="status" class="panel" data-s="loading" data-app><span class="dot"></span><span id="statusText">Загрузка…</span><button class="ib" id="btnCloud" hidden aria-label="Google Диск"></button><button class="ib" id="btnHelp" title="Горячие клавиши (?)" aria-label="Горячие клавиши"></button></div>
+<div id="status" class="panel" data-s="loading" data-app><span class="dot"></span><span id="statusText">Загрузка…</span><button class="ib" id="btnBackup" hidden aria-label="Резервная копия в папку"></button><button class="ib" id="btnCloud" hidden aria-label="Google Диск"></button><button class="ib" id="btnHelp" title="Горячие клавиши (?)" aria-label="Горячие клавиши"></button></div>
 
 <nav id="toolbar" class="panel" aria-label="Инструменты" data-app></nav>
 <div id="flyout" class="panel" hidden data-app></div>
@@ -548,8 +565,8 @@ function zMin() {
   if (!S.board) return ZMIN;
   if (S._zminFor === S.board.items) return S._zmin;
   const list = items().filter(i => i.type !== 'connector');
-  let z = ZMIN;
-  if (list.length) { let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity; for (const i of list) { x1 = Math.min(x1, i.x); y1 = Math.min(y1, i.y); x2 = Math.max(x2, i.x + (i.w || 0)); y2 = Math.max(y2, i.y + (i.h || 0)); } z = Math.min(ZMIN, 0.8 * Math.min(innerWidth / Math.max(1, x2 - x1), innerHeight / Math.max(1, y2 - y1))); }
+  let z = zoomCfg().min / 100;
+  if (list.length) { let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity; for (const i of list) { x1 = Math.min(x1, i.x); y1 = Math.min(y1, i.y); x2 = Math.max(x2, i.x + (i.w || 0)); y2 = Math.max(y2, i.y + (i.h || 0)); } z = Math.min(zoomCfg().min / 100, 0.8 * Math.min(innerWidth / Math.max(1, x2 - x1), innerHeight / Math.max(1, y2 - y1))); }
   S._zmin = Math.max(z, 0.0005); S._zminFor = S.board.items; return S._zmin;
 }
 const INK = '#1c1d21';
@@ -625,6 +642,19 @@ const ICON = {
   doc: '<path d="M6.5 3.5h8l3.5 3.5v13.5h-11.5z"/><path d="M14.5 3.5V7H18"/><path d="M9 11h6M9 14h6M9 17h4"/>',
   table: '<rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M3.5 10h17M3.5 14.5h17M9.5 5v14M15 5v14"/>',
   split: '<rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M12 4.5v15"/>',
+  lock: '<rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/>',
+  folder: '<path d="M3.5 6.5a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v9.5a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1z"/>',
+  hist: '<path d="M4 12a8 8 0 1 0 2.3-5.6L4 8.5"/><path d="M4 4v4.5h4.5M12 8v4.5l3 2"/>',
+  alL: '<path d="M4 3v18"/><rect x="7" y="6" width="10" height="4" rx="1"/><rect x="7" y="14" width="6" height="4" rx="1"/>',
+  alC: '<path d="M12 3v18"/><rect x="6" y="6" width="12" height="4" rx="1"/><rect x="8" y="14" width="8" height="4" rx="1"/>',
+  alR: '<path d="M20 3v18"/><rect x="7" y="6" width="10" height="4" rx="1"/><rect x="11" y="14" width="6" height="4" rx="1"/>',
+  alT: '<path d="M3 4h18"/><rect x="6" y="7" width="4" height="10" rx="1"/><rect x="14" y="7" width="4" height="6" rx="1"/>',
+  alM: '<path d="M3 12h18"/><rect x="6" y="6" width="4" height="12" rx="1"/><rect x="14" y="8" width="4" height="8" rx="1"/>',
+  alB: '<path d="M3 20h18"/><rect x="6" y="7" width="4" height="10" rx="1"/><rect x="14" y="11" width="4" height="6" rx="1"/>',
+  disH: '<path d="M4 4v16M20 4v16"/><rect x="9" y="8" width="6" height="8" rx="1"/>',
+  disV: '<path d="M4 4h16M4 20h16"/><rect x="8" y="9" width="8" height="6" rx="1"/>',
+  sameW: '<path d="M4 12h16M7 9l-3 3 3 3M17 9l3 3-3 3"/>',
+  sameH: '<path d="M12 4v16M9 7l3-3 3 3M9 17l3 3 3-3"/>',
   kbd: '<rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6.5 10h.01M10 10h.01M13.5 10h.01M17 10h.01M7.5 14h9"/>',
   cam: '<path d="M4 8h3l1.5-2.5h7L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
   imp: '<path d="M12 3.5v11M7.5 10l4.5 4.5 4.5-4.5"/><path d="M4.5 15.5v4h15v-4"/>',
@@ -790,7 +820,7 @@ const Local = {
   async listBoards() { return (await safeGet('index')) || []; },
   async loadBoard(id) { return (await safeGet('board:' + id)) || null; },
   async saveBoardRaw(b) { await Store.set('board:' + b.id, b); upsertIndex(b); await Store.set('index', S.index); bcPost({ t: 'saved', bid: b.id }); },
-  async saveBoard(b) { await this.saveBoardRaw(b); Drive.noteSave(b); },
+  async saveBoard(b) { await this.saveBoardRaw(b); Drive.noteSave(b); Backup.mark(b.id); },
   async deleteBoard(id) { try { await Store.del('board:' + id); } catch (e) { /* ignore */ } S.index = S.index.filter(x => x.id !== id); await Store.set('index', S.index).catch(() => {}); },
   async getLast() { return safeGet('last'); },
   async setLast(id) { if (PANE) return; try { await Store.set('last', id); } catch (e) { /* ignore */ } },
@@ -860,7 +890,7 @@ const Db = {
     for (let i = 0; i < n; i++) { await this.assets.doc(aid + '_' + i).set({ kind: 'asset', aid, n: i, parts: n, data: data.slice(i * size, (i + 1) * size) }); this.lastWrite = Date.now(); }
     this.uploaded.add(aid); this.cache.set(aid, data);
   },
-  async saveBoard(b) { await this.saveBoardRaw(b); Drive.noteSave(b); },
+  async saveBoard(b) { await this.saveBoardRaw(b); Drive.noteSave(b); Backup.mark(b.id); },
   async saveBoardRaw(b) {
     this.busy = true;
     try {
@@ -1405,7 +1435,7 @@ function normalizeBoard(b, gc = true) {
   b.items = Array.isArray(b.items) ? b.items.filter(i => i && i.id && i.type) : [];
   b.assets = b.assets && typeof b.assets === 'object' ? b.assets : {};
   const v = b.view || {};
-  b.view = { x: Number.isFinite(+v.x) ? +v.x : innerWidth / 2, y: Number.isFinite(+v.y) ? +v.y : innerHeight / 2, z: clamp(+v.z || 1, 0.0005, ZMAX) };
+  b.view = { x: Number.isFinite(+v.x) ? +v.x : innerWidth / 2, y: Number.isFinite(+v.y) ? +v.y : innerHeight / 2, z: clamp(+v.z || 1, 0.0005, 50) };
   b.name = String(b.name || 'Без названия');
   b.items.forEach(normalizeItem);
   if (gc) { const used = new Set(assetIdsOf(b.items)); for (const k of Object.keys(b.assets)) if (!used.has(k)) delete b.assets[k]; }
@@ -1543,11 +1573,11 @@ function applyView() {
   viewTimer = setTimeout(() => { if (S.board) Backend.saveView(S.board); }, 700);
 }
 function zoomAt(cx, cy, nz) {
-  const v = V(); nz = clamp(nz, zMin(), ZMAX);
+  const v = V(); nz = clamp(nz, zMin(), zMax());
   const wx = (cx - v.x) / v.z, wy = (cy - v.y) / v.z;
   v.z = nz; v.x = cx - wx * nz; v.y = cy - wy * nz; applyView();
 }
-const zoomStep = f => zoomAt(innerWidth / 2, innerHeight / 2, V().z * f);
+const zoomStep = f => zoomAt(innerWidth / 2, innerHeight / 2, zoomCfg().step ? levelZoom(V().z, f > 1 ? 1 : -1) : V().z * f);
 function fitAll(list) {
   list = list || items();
   const v = V();
@@ -1602,6 +1632,7 @@ function setText(t, it) {
 function applyTextStyle(t, it) {
   const s = t.style;
   if (typeof it.fs === 'number') s.fontSize = px(it.fs);
+  if (it.fitbox && it.type === 'text' && !it.html) { const k = it.text + '|' + it.w + '|' + it.bh + '|' + it.bold; if (t._fk !== k) { t._fk = k; t._ffs = fitFont(it.text, it.w, it.bh || it.h, it.bold); } s.fontSize = px(t._ffs); }
   s.fontWeight = it.bold ? '700' : '400';
   s.textAlign = it.align || 'center';
   s.color = it.textColor || INK;
@@ -1851,6 +1882,7 @@ function renderOverlay() {
   if (S.hover) { const it = byId(S.hover); if (it) h += box(screenRect(padR(bounds(it), 4 / V().z)), 'ov-hover'); }
   if (d && d.type === 'marquee' && d.active) h += box(screenRect(rectFrom(d.start, d.cur)), 'ov-marquee');
   if (d && d.type === 'create' && d.active) h += box(screenRect(rectFrom(d.start, d.cur)), 'ov-ghost');
+  if (S.guides && d && (d.type === 'move' || d.type === 'resize')) for (const q of S.guides) { const a = toScreen(q.x1, q.y1), b2 = toScreen(q.x2, q.y2); h += `<div class="ov-guide" style="left:${Math.min(a.x, b2.x) - (a.x === b2.x ? 0.5 : 0)}px;top:${Math.min(a.y, b2.y) - (a.y === b2.y ? 0.5 : 0)}px;width:${Math.max(1, Math.abs(b2.x - a.x))}px;height:${Math.max(1, Math.abs(b2.y - a.y))}px"></div>`; }
   if (d && d.type === 'move' && d.pinDrop) { const q = d.pinDrop; h += box(q.r, 'ov-hover') + `<div class="pindrop" style="left:${q.x}px;top:${q.y}px">+</div>`; }
   const sel = selItems();
   const busy = !!d && ['move', 'resize', 'pen', 'erase', 'connect', 'cend', 'marquee'].includes(d.type);
@@ -1869,7 +1901,8 @@ function renderOverlay() {
         h += box(r, 'ov-sel');
         if (!busy && !S.editing) {
           const one = solids.length === 1 ? solids[0] : null;
-          const hs = one && one.type === 'mindmap' ? [] : one && (one.type === 'text' || one.type === 'table') ? ['w', 'e'] : one ? ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'] : ['nw', 'ne', 'se', 'sw'];
+          if (one && one.locked) h += `<div class="ov-lock" style="left:${r.x + r.w}px;top:${r.y}px">${ic('lock')}</div>`;
+          const hs = solids.some(i => i.locked) || (one && one.type === 'mindmap') ? [] : one && (one.type === 'text' || one.type === 'table') ? ['w', 'e'] : one ? ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'] : ['nw', 'ne', 'se', 'sw'];
           for (const k of hs) {
             const x = r.x + (k.includes('w') ? 0 : k.includes('e') ? r.w : r.w / 2);
             const y = r.y + (k.includes('n') ? 0 : k.includes('s') ? r.h : r.h / 2);
@@ -1949,7 +1982,7 @@ function restore(str) { S.board.items = JSON.parse(str); S.sel = new Set([...S.s
 function undo() { finishEdit(); if (!S.hist.length) return; S.fut.push(snapshot()); restore(S.hist.pop()); updateHistBtns(); }
 function redo() { finishEdit(); if (!S.fut.length) return; S.hist.push(snapshot()); restore(S.fut.pop()); updateHistBtns(); }
 function updateHistBtns() { $('#btnUndo').disabled = !S.hist.length; $('#btnRedo').disabled = !S.fut.length; }
-function changed() { assignTabs(); requestRender(); scheduleSave(); }
+function changed() { assignTabs(); if (S.isol && S.fstack && S.fstack[S.fstack.length - 1] === '#sel') for (const id of S.sel) S.isol.add(id); requestRender(); scheduleSave(); }
 
 let saveTimer = 0, dirty = false, saving = false, saveAgain = false;
 function setStatus(kind) { S.localStatus = kind; renderStatus(); }
@@ -1980,7 +2013,11 @@ function renderStatus() {
   const t = $('#statusText'); t.textContent = text; t.classList.toggle('act', act);
   const c = $('#btnCloud');
   if (c) { c.hidden = !Drive.available(); c.dataset.d = Drive.active() ? Drive.state : 'off'; c.title = Drive.active() ? 'Google Диск' : 'Подключить Google Диск'; }
-  el.title = Drive.note || '';
+  el.querySelector('.dot').classList.toggle('act', act);
+  el.querySelector('.dot').title = text + (act ? ' (нажмите)' : '');
+  const bk = $('#btnBackup');
+  if (bk) { bk.hidden = !Backup.ok(); bk.dataset.b = Backup.dir ? Backup.state : 'off'; bk.title = !Backup.dir ? 'Резервная копия в папку: не настроена' : Backup.state === 'auth' ? 'Нажмите, чтобы разрешить запись в папку «' + Backup.name + '»' : Backup.state === 'error' ? 'Не удалось записать копию в папку' : 'Копия в папке «' + Backup.name + '»' + (Backup.last ? ', ' + fmtDate(Backup.last) : ''); }
+  el.title = '';
 }
 function scheduleSave(quiet) {
   if (!S.board) return;
@@ -2071,6 +2108,7 @@ function setEditable(t, on, rich) {
 function startEdit(id, cx, cy, isNew, sub) {
   const it = byId(id); if (!it) return;
   sub = sub == null ? null : String(sub);
+  if (it.locked) { toast('Объект закреплён: снимите замок, чтобы изменить'); return; }
   if (sub == null && !editable(it)) return;
   if (S.editing === id && S.editSub === sub) return;
   finishEdit();
@@ -2179,6 +2217,8 @@ function ctxExtra(sel, single) {
   if (it && it.type === 'frame') g.push(cbtn('fr:style', it.fstyle === 'section' ? 'Секция' : 'Рамка', 'Вид: рамка или секция', 'wide') + (Array.isArray(it.tabs) && it.tabs.length ? '' : cbtn('fr:tabs', 'Вкладки', 'Разбить рамку на вкладки', 'wide')));
   if (it && it.type !== 'connector' && it.type !== 'pen' && !S.editing) g.push(cbtn('k:fixed', 'Не масштабировать', 'Размер на экране не меняется при зуме', 'wide' + (it.fixed ? ' on' : '')));
   if (it && it.pin && !S.editing) g.push(cbtn('k:unpin', 'Отцепить', 'Отцепить от элемента', 'wide'));
+  if (sel.length && !S.editing) g.push(cbtn('k:lock', ic('lock'), `${sel.some(i => !i.locked) ? 'Закрепить' : 'Открепить'} (${keyOf('lock')})`, sel.every(i => i.locked) ? 'on' : ''));
+  if (sel.length > 1 && !S.editing) g.push(cbtn('k:align', 'Выровнять', `Выровнять и распределить (${keyOf('align')})`, 'wide') + cbtn('k:isol', ic('expand'), 'Открыть выделенное отдельно, как доску'));
   if (sel.length && !S.editing) g.push(cbtn('k:snap', ic('cam'), `Снимок: PNG, JPG, WebP, с обрезкой (${S.keys ? keyOf('snap') : ''})`));
   if (it && it.type === 'connector') g.push(cbtn('c:label', 'Подпись', 'Подпись на линии', 'wide') + cbtn('c:shead', headIcon(it.start ? it.shead || 'arrow' : 'none', true), 'Вид начала') + cbtn('c:ehead', headIcon(it.end ? it.ehead || 'arrow' : 'none'), 'Вид конца'));
   if (it && it.type === 'embed') g.push(cbtn('e:view', VIEW_NAMES[viewOf(it)], 'Как показывать ссылку', 'wide') + cbtn('e:cap', 'Подпись', 'Название и подпись', 'wide'));
@@ -2207,7 +2247,7 @@ function ctxExtraAct(b, sel) {
     return true;
   }
   if (k === 'fr' && v === 'tabs') { tabsInit(it); return true; }
-  if (k === 'k') { if (v === 'fixed') { const on = !it.fixed; pushHist(); for (const x of sel) { if (x.type === 'connector' || x.type === 'pen') continue; if (on) { x.fixed = true; x.fz = V().z; } else { delete x.fixed; delete x.fz; } } changed(); } else if (v === 'unpin') { pushHist(); for (const x of sel) delete x.pin; changed(); } else openSnap(); return true; }
+  if (k === 'k') { if (v === 'fixed') { const on = !it.fixed; pushHist(); for (const x of sel) { if (x.type === 'connector' || x.type === 'pen') continue; if (on) { x.fixed = true; x.fz = V().z; } else { delete x.fixed; delete x.fz; } } changed(); } else if (v === 'lock') toggleLock(); else if (v === 'align') alignPop(b); else if (v === 'isol') enterIsolation(); else if (v === 'unpin') { pushHist(); for (const x of sel) delete x.pin; changed(); } else openSnap(); return true; }
   if (k === 'fr') { const sec = it.fstyle === 'section'; setProp(i => i.type === 'frame', { fstyle: sec ? '' : 'section', fill: sec ? '#ffffff' : '#eef2fb' }); return true; }
   if (k === 'c') {
     if (v === 'label') {
@@ -2275,7 +2315,7 @@ function payloadBounds(list) {
   }));
 }
 function deleteSel() {
-  const ids = new Set(S.sel); if (!ids.size) return;
+  const ids = new Set([...S.sel].filter(id => !(byId(id) || {}).locked)); if (!ids.size) { if (S.sel.size) toast('Закреплённые объекты не удаляются: сначала снимите замок'); return; }
   for (const i of items()) if (i.pin && ids.has(i.pin.to)) ids.add(i.id);
   finishEdit(); pushHist();
   S.board.items = items().filter(i => !ids.has(i.id) && !(i.type === 'connector' && ((i.from.id && ids.has(i.from.id)) || (i.to.id && ids.has(i.to.id)))));
@@ -2295,7 +2335,7 @@ function selectAll() { finishEdit(); S.sel = new Set(items().filter(i => !isHid(
 function nudge(dx, dy) {
   const sel = selItems(); if (!sel.length) return;
   const now = Date.now(); if (now - S.nudgeT > 700) pushHist(); S.nudgeT = now;
-  for (const it of withFrameContents(sel)) {
+  for (const it of withFrameContents(sel.filter(i => !i.locked))) {
     if (it.type === 'connector') { for (const k of ['from', 'to']) if (!it[k].id) { it[k].x += dx; it[k].y += dy; } }
     else { it.x += dx; it.y += dy; if (it.type === 'mindmap') { it.rx += dx; it.ry += dy; } }
   }
@@ -2616,7 +2656,8 @@ function updateMindmap(el, it) {
     seen.add(a.n.id);
     d.classList.toggle('root', a.depth === 0);
     d.firstChild.style.maxWidth = a.n.mw ? px(a.n.mw) : '';
-    d.style.width = a.n.w ? px(a.n.w) : ''; d.style.minHeight = a.n.h ? px(a.n.h) : ''; d.style.fontSize = a.n.fs ? px(a.n.fs) : '';
+    d.style.width = a.n.w ? px(a.n.w) : ''; d.style.minHeight = a.n.h ? px(a.n.h) : '';
+    if (it.fixedLayout && a.n.w && a.n.h && !a.n.html) { const k = a.n.text + '|' + a.n.w + '|' + a.n.h; if (d._fk !== k) { d._fk = k; d._ffs = Math.min(a.depth === 0 ? 22 : 15, fitFont(a.n.text, a.n.w - 10, a.n.h, a.depth === 0)); } d.style.fontSize = px(d._ffs); } else d.style.fontSize = a.n.fs ? px(a.n.fs) : '';
     d.classList.toggle('mmsel', !!(S.mm && S.mm.id === it.id && S.mm.nid === a.n.id && S.sel.has(it.id)));
     d.style.setProperty('--mc', a.color);
     const t = d.firstChild;
@@ -2874,7 +2915,7 @@ function closePane(i) {
 function splitPop(anchor) {
   openPop(anchor, '<div class="menu">' + Object.entries(SPLITS).map(([k, L]) => `<button class="mi" data-v="${k}"><span class="spic">${'▮'.repeat(L.cells.length)}</span><span>${L.name}</span></button>`).join('') + '</div>', v => enterSplit(v));
 }
-if (QS.has('debug')) setTimeout(() => { window.__h = { applyView, V, whimImport2, tabDeeper, findTab, openCatalog, openVersions, enterFrame, exitFrame, tabsInit, tabSwitch, addPin, fillPins, openSnap, openKeys, whimImport, parseWhim, runAction, S, byId, items: () => items(), setView, setDefaultView, enterSplit, exitSplit, viewOf, groupSel, shapePath, render, mdToHtml, sanitizeHTML, saveNow }; }, 0);
+if (QS.has('debug')) setTimeout(() => { window.__h = { alignSel, toggleLock, enterIsolation, levelZoom, zoomCfg, openHistory, openBackup, Backup, applyView, V, whimImport2, tabDeeper, findTab, openCatalog, openVersions, enterFrame, exitFrame, tabsInit, tabSwitch, addPin, fillPins, openSnap, openKeys, whimImport, parseWhim, runAction, S, byId, items: () => items(), setView, setDefaultView, enterSplit, exitSplit, viewOf, groupSel, shapePath, render, mdToHtml, sanitizeHTML, saveNow }; }, 0);
 function wireSplit() {
   const grid = $('#splitGrid');
   $('#split').addEventListener('click', e => {
@@ -2912,11 +2953,11 @@ function wireSplit() {
    ========================================================= */
 const ACTIONS = [
   ['Инструменты', [['tool:select', 'Выделение'], ['tool:hand', 'Рука'], ['tool:sticky', 'Стикер'], ['tool:text', 'Текст'], ['tool:shape', 'Фигура'], ['shape:rect', 'Прямоугольник'], ['shape:ellipse', 'Эллипс'], ['tool:connector', 'Линия со стрелкой'], ['tool:pen', 'Перо'], ['tool:eraser', 'Ластик'], ['tool:frame', 'Рамка'], ['tool:mindmap', 'Майнд-карта'], ['tool:doc', 'Документ'], ['tool:table', 'Таблица'], ['act:image', 'Изображение'], ['act:embed', 'Встроить ссылку или HTML']]],
-  ['Правка', [['undo', 'Отменить'], ['redo', 'Повторить'], ['redo2', 'Повторить, второе сочетание'], ['dup', 'Дублировать'], ['selectAll', 'Выделить всё'], ['del', 'Удалить'], ['del2', 'Удалить, второе сочетание'], ['group', 'Сгруппировать'], ['ungroup', 'Разгруппировать'], ['front', 'На передний план'], ['back', 'На задний план'], ['snap', 'Снимок выделенного']]],
+  ['Правка', [['lock', 'Закрепить или открепить'], ['align', 'Выровнять выделенное'], ['undo', 'Отменить'], ['redo', 'Повторить'], ['redo2', 'Повторить, второе сочетание'], ['dup', 'Дублировать'], ['selectAll', 'Выделить всё'], ['del', 'Удалить'], ['del2', 'Удалить, второе сочетание'], ['group', 'Сгруппировать'], ['ungroup', 'Разгруппировать'], ['front', 'На передний план'], ['back', 'На задний план'], ['snap', 'Снимок выделенного']]],
   ['Вид', [['zoomIn', 'Приблизить'], ['zoomOut', 'Отдалить'], ['zoom100', 'Масштаб 100%'], ['fit', 'Показать всё'], ['zoomSel', 'Показать выделенное'], ['grid', 'Сетка вкл/выкл'], ['focus', 'Развернуть на весь экран, открыть рамку'], ['help', 'Справка по клавишам']]],
   ['Файл', [['save', 'Сохранить файл доски'], ['open', 'Открыть файл доски']]],
 ];
-const BASE_KEYS = { 'tool:select': 'V', 'tool:hand': 'H', 'tool:sticky': 'N', 'tool:text': 'T', 'tool:shape': 'S', 'shape:rect': 'R', 'shape:ellipse': 'O', 'tool:connector': 'L', 'tool:pen': 'P', 'tool:eraser': 'E', 'tool:frame': 'F', 'tool:mindmap': 'M', 'tool:doc': 'D', 'tool:table': 'G', 'act:image': 'I', 'act:embed': 'K', undo: 'Mod+Z', redo: 'Mod+Shift+Z', redo2: 'Mod+Y', dup: 'Mod+D', selectAll: 'Mod+A', del: 'Delete', del2: 'Backspace', group: 'Mod+G', ungroup: 'Mod+Shift+G', front: ']', back: '[', snap: 'Mod+Shift+S', zoomIn: 'Mod+=', zoomOut: 'Mod+-', zoom100: 'Shift+0', fit: 'Shift+1', zoomSel: 'Shift+2', grid: "Mod+'", focus: 'Shift+Enter', help: 'Shift+/', save: 'Mod+S', open: 'Mod+O' };
+const BASE_KEYS = { lock: 'Mod+Shift+L', align: 'Mod+Shift+A', 'tool:select': 'V', 'tool:hand': 'H', 'tool:sticky': 'N', 'tool:text': 'T', 'tool:shape': 'S', 'shape:rect': 'R', 'shape:ellipse': 'O', 'tool:connector': 'L', 'tool:pen': 'P', 'tool:eraser': 'E', 'tool:frame': 'F', 'tool:mindmap': 'M', 'tool:doc': 'D', 'tool:table': 'G', 'act:image': 'I', 'act:embed': 'K', undo: 'Mod+Z', redo: 'Mod+Shift+Z', redo2: 'Mod+Y', dup: 'Mod+D', selectAll: 'Mod+A', del: 'Delete', del2: 'Backspace', group: 'Mod+G', ungroup: 'Mod+Shift+G', front: ']', back: '[', snap: 'Mod+Shift+S', zoomIn: 'Mod+=', zoomOut: 'Mod+-', zoom100: 'Shift+0', fit: 'Shift+1', zoomSel: 'Shift+2', grid: "Mod+'", focus: 'Shift+Enter', help: 'Shift+/', save: 'Mod+S', open: 'Mod+O' };
 const PRESETS = {
   holst: { name: 'Холст', keys: {}, wheel: { plain: 'zoom', shift: 'panX', ctrl: 'panY' } },
   miro: { name: 'Miro', keys: { 'tool:mindmap': '', 'tool:doc': '', 'tool:table': '', front: 'PageUp', back: 'PageDown', zoom100: 'Mod+0', fit: 'Mod+1', zoomSel: 'Mod+2', grid: 'G', help: 'F1' }, wheel: { plain: 'zoom', shift: 'panX', ctrl: 'zoom' } },
@@ -2951,6 +2992,8 @@ function runAction(a) {
     case 'shape:rect': case 'shape:ellipse': S.opts.shape = a === 'shape:rect' ? 'rect' : 'ellipse'; saveSettings(); setTool('shape'); return true;
     case 'act:image': $('#fileImg').click(); return true;
     case 'act:embed': openEmbedDlg(); return true;
+    case 'lock': toggleLock(); return true;
+    case 'align': if (S.sel.size < 2) return false; alignPop($('#ctx')); return true;
     case 'undo': undo(); return true;
     case 'redo': case 'redo2': redo(); return true;
     case 'dup': duplicateSel(); return true;
@@ -2993,6 +3036,7 @@ function openKeys() {
     ${PRESETS[S.keyPreset].approx ? '<p class="sub">Яндекс Доски не публикуют полный список клавиш, поэтому этот набор повторяет их привычные сочетания по образцу Miro. Поправьте под себя, если что-то отличается.</p>' : ''}
     <h3>Колесо мыши</h3><div class="kwh"><label>Колесо ${sel('plain')}</label><label>Shift + колесо ${sel('shift')}</label><label>${MOD} + колесо ${sel('ctrl')}</label></div>
     <p class="sub">Тачпад работает как обычно: щипок меняет масштаб, два пальца двигают доску.</p>
+    <h3>Масштаб</h3><div class="kwh"><label>Минимум, %<input class="inp" data-z="min" value="${zoomCfg().min}"></label><label>Максимум, %<input class="inp" data-z="max" value="${zoomCfg().max}"></label><label class="zck"><input type="checkbox" data-z="step"${zoomCfg().step ? ' checked' : ''}> Колесо и кнопки прыгают по уровням</label></div><label class="zlv">Уровни, %, через запятую<input class="inp" data-z="levels" value="${zoomCfg().levels.join(', ')}"></label><label class="zlv zck"><span><input type="checkbox" data-z="snap"${zoomCfg().snap === false ? '' : ' checked'}> Умные направляющие при перемещении (Alt временно отключает)</span></label><p class="sub">Ниже минимума масштаб опускается, только когда иначе доска не помещается на экран.</p>
     <p class="sub">Щёлкните по сочетанию и нажмите новое. Esc отменяет. Если сочетание уже занято, оно перейдёт сюда.</p>${rows}`, true);
   d.addEventListener('click', e => {
     const b = e.target.closest('[data-kp],[data-ka],[data-kc]'); if (!b) return;
@@ -3000,7 +3044,15 @@ function openKeys() {
     else if (b.dataset.kc) { S.keys[b.dataset.kc] = ''; saveKeys(); refreshKeysDlg(); }
     else { refreshKeysDlg(); S.capture = b.dataset.ka; b.classList.add('wait'); b.textContent = 'Нажмите сочетание…'; }
   });
-  d.addEventListener('change', e => { const s = e.target.closest('[data-w]'); if (s) { S.wheel[s.dataset.w] = s.value; saveKeys(); } });
+  d.addEventListener('change', e => {
+    const s = e.target.closest('[data-w]'); if (s) { S.wheel[s.dataset.w] = s.value; saveKeys(); return; }
+    const z = e.target.closest('[data-z]'); if (!z) return;
+    const c = Object.assign({}, zoomCfg()), k = z.dataset.z;
+    if (k === 'step' || k === 'snap') c[k] = z.checked;
+    else if (k === 'levels') { const L = z.value.split(/[,;\s]+/).map(x => parseFloat(x.replace(',', '.'))).filter(x => x > 0 && x <= 5000); if (L.length) c.levels = [...new Set(L)].sort((a, b) => a - b); z.value = c.levels.join(', '); }
+    else { const n = parseFloat(z.value.replace(',', '.')); if (n > 0) c[k] = n; z.value = c[k]; }
+    S.zoomCfg = c; LS.set('zoomcfg', c); S._zminFor = null; toast('Настройки масштаба сохранены');
+  });
 }
 function refreshKeysDlg() { if (S.xdlg) S.xdlg.querySelectorAll('[data-ka]').forEach(b => { b.textContent = keyOf(b.dataset.ka); b.classList.remove('wait'); }); }
 function handleCapture(e) {
@@ -3027,9 +3079,10 @@ function computeHidden() {
     const th = (it, d) => { if (!it || !it.ftab || d > 30) return false; if (memo.has(it.id)) return memo.get(it.id); const f = owner.get(it.ftab); const r = !!f && (!ap(f).has(it.ftab) || th(f, d + 1)); memo.set(it.id, r); return r; };
     for (const it of list) if (th(it, 0)) hid.add(it.id);
   }
-  const fv = S.fstack && S.fstack.length ? byId(S.fstack[S.fstack.length - 1]) : null;
+  const topV = S.fstack && S.fstack.length ? S.fstack[S.fstack.length - 1] : null, fv = topV && topV !== '#sel' ? byId(topV) : null;
+  if (topV === '#sel' && S.isol) for (const it of list) if (it.type !== 'connector' && !S.isol.has(it.id) && !(it.pin && S.isol.has(it.pin.to))) hid.add(it.id);
   if (fv) { const inside = new Set(withFrameContents([fv]).map(i => i.id)); for (const it of list) if (it.type !== 'connector' && !inside.has(it.id) && !(it.pin && inside.has(it.pin.to))) hid.add(it.id); }
-  for (const c of list) if (c.type === 'connector') { const a = c.from && c.from.id, b = c.to && c.to.id; if ((a && hid.has(a)) || (b && hid.has(b)) || (fv && !a && !b)) hid.add(c.id); }
+  for (const c of list) if (c.type === 'connector') { const a = c.from && c.from.id, b = c.to && c.to.id; if ((a && hid.has(a)) || (b && hid.has(b)) || (fv && !a && !b) || (topV === '#sel' && !a && !b && !S.isol.has(c.id))) hid.add(c.id); }
   for (const it of list) if (it.pin && hid.has(it.pin.to)) hid.add(it.id);
   S.hid = hid;
   for (const id of hid) S.sel.delete(id);
@@ -3087,14 +3140,14 @@ function enterFrame(id) {
 }
 function exitFrame(n) {
   S.fstack = (S.fstack || []).slice(0, n); S.sel.clear(); renderCrumbs(); render();
-  const top = S.fstack.length ? byId(S.fstack[S.fstack.length - 1]) : null;
-  if (top) fitAll([top]); else fitAll();
+  const tk = S.fstack.length ? S.fstack[S.fstack.length - 1] : null, top = tk && tk !== '#sel' ? byId(tk) : null;
+  if (tk === '#sel' && S.isol) fitAll(items().filter(i => S.isol.has(i.id))); else if (top) fitAll([top]); else fitAll();
 }
 function renderCrumbs() {
   const c = $('#crumbs'), st = S.fstack || [];
   if (!st.length || !S.board) { c.hidden = true; return; }
   c.hidden = false;
-  c.innerHTML = `<button data-cr="0">${esc(S.board.name)}</button>` + st.map((id, i) => { const f = byId(id); return `<span class="csep">›</span><button data-cr="${i + 1}"${i === st.length - 1 ? ' class="on"' : ''}>${esc((f && f.title) || 'Рамка')}</button>`; }).join('') + `<button class="cx" data-cr="${st.length - 1}" title="На уровень выше (Esc)">${ic('close')}</button>`;
+  c.innerHTML = `<button data-cr="0">${esc(S.board.name)}</button>` + st.map((id, i) => { const f = byId(id); return `<span class="csep">›</span><button data-cr="${i + 1}"${i === st.length - 1 ? ' class="on"' : ''}>${esc(id === '#sel' ? `Выделенное (${S.isol ? S.isol.size : 0})` : (f && f.title) || 'Рамка')}</button>`; }).join('') + `<button class="cx" data-cr="${st.length - 1}" title="На уровень выше (Esc)">${ic('close')}</button>`;
 }
 
 /* =========================================================
@@ -3319,7 +3372,7 @@ async function whimImport(link, log) {
   log('Собираю элементы…');
   for (const r of objs.values()) {
     let it = null;
-    if (r.type === 'text') { const text = clean(r.text), bold = /[A-ZА-ЯЁ]/.test(text) && text === text.toUpperCase(); it = { id: uid(), type: 'text', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, text, fs: fitFont(text, r.w, r.h, bold), align: 'left', bold, textColor: r.color && r.color !== 'White' ? C(r.color) : INK }; }
+    if (r.type === 'text') { const text = clean(r.text), bold = /[A-ZА-ЯЁ]/.test(text) && text === text.toUpperCase(); it = { id: uid(), type: 'text', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, bh: r.h, fitbox: 1, text, fs: fitFont(text, r.w, r.h, bold), align: 'left', bold, textColor: r.color && r.color !== 'White' ? C(r.color) : INK }; }
     else if (r.type === 'note') it = { id: uid(), type: 'sticky', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, color: tint(C(r.color || 'Yellow'), 0.35), text: clean(r.text), fs: 'auto', align: 'center', bold: false, textColor: INK };
     else if (r.type === 'shape' || r.type === 'task') it = { id: uid(), type: 'shape', shape: 'round', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, fill: tint(C(r.color || 'Slate'), 0.12), stroke: C(r.color || 'Slate'), sw: 2, text: clean(r.text), fs: 16, align: 'center', bold: false, textColor: INK };
     else if (r.type === 'icon') it = { id: uid(), type: 'text', x: X(r.x), y: Y(r.y), w: Math.max(40, r.w), h: r.h, text: '★', fs: Math.max(16, Math.round(r.h * 0.7)), align: 'center', bold: false, textColor: C(r.color || 'Slate') };
@@ -3404,8 +3457,9 @@ function installHelp() {
    v1.7: versions, feature catalog, tiny-object markers, pin zones, re-attach,
    nested frame tabs, Whimsical import that reads the whole board by sections
    ========================================================= */
-const APP_VERSION = '1.8';
+const APP_VERSION = '1.9';
 const CHANGELOG = [
+  ['1.9', '6 октября 2026', ['Масштаб от 0,5%, свой диапазон и уровни: колесо и кнопки прыгают по уровням (Горячие клавиши → Масштаб)', 'Замок: закреплённый объект не двигается, не меняется и не удаляется', 'Выравнивание, равные промежутки, одинаковый размер и одинаковая длина линий для выделенного', 'Умные направляющие: при перемещении и растягивании объект прилипает к краям и центрам соседей (Alt отключает)', 'Выделенное можно открыть отдельно, как доску, с хлебными крошками', 'Резервная копия в папку на компьютере, в том числе в папку Яндекс Диска, с недельным архивом', 'История версий доски с поиском по дате: копии на устройстве и версии из Google Диска', 'Компактная панель статуса: цветные индикаторы, мигающий значит нужно ваше действие', 'Контуры при сильном отдалении: только у внешних объектов, нейтральным серым, точно по размеру', 'Импорт из Whimsical: секции как в оригинале, блок-схемы и прямоугольники, шрифт подбирается под каждое устройство']],
   ['1.8', '6 октября 2026', ['Импорт из Whimsical: майнд-карты снова переносятся, сбойные запросы повторяются, а не пропускаются', 'Картинки из Whimsical переносятся как картинки', 'Ссылки из Whimsical становятся текстом-ссылкой, а не пустой карточкой', 'Размер шрифта в перенесённых заголовках подбирается по настоящему шрифту, слова больше не рвутся', 'При сильном отдалении (1% и меньше) подсвечиваются контуры объектов вместо пятен', 'Копирование в другие приложения: обычный текст с форматированием, без служебного кода', 'Приложение само проверяет, есть ли на сайте новая версия, и предлагает обновиться']],
   ['1.7', '6 октября 2026', ['Импорт из Whimsical читает доску целиком, по секциям, без лимита в 200 объектов', 'Майнд-карты из Whimsical переносятся с точным расположением и размерами веток', 'Повторный импорт той же доски обновляет её, а не создаёт копию', 'Минимальный масштаб всегда вмещает всю доску, мелкие объекты видны как цветные метки', 'Версия приложения, история изменений и картотека функций с отметками «проверено»', '«Не масштабировать» при выключении возвращает исходный размер, текст не прыгает', 'Плюсики у углов появляются только при наведении', 'Зона вокруг элемента с прилипшими объектами; прилипшие переносятся на новую строку и не наезжают друг на друга', 'Любой объект можно прицепить к другому: перетащите его на место плюсика', 'Вкладки рамок: над рамкой, в своей зоне, сжимаются как в браузере, вложенные уровни']],
   ['1.6', '5 октября 2026', ['Горячие клавиши и колесо мыши, наборы как в Miro, Whimsical и Яндекс Досках', 'Вкладки в рамках, рамка как отдельная доска с хлебными крошками', 'Элементы на углах с шаблонами', 'Снимки с обрезкой в PNG, JPG, WebP', 'Импорт из Whimsical', 'Папка «Холст» на Диске внутри LIFE OS']],
@@ -3421,12 +3475,12 @@ function openVersions() {
     CHANGELOG.map(([v, d, list]) => `<h3>Версия ${v} · ${d}</h3><ul class="clog">${list.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`).join(''));
 }
 const FEATURES = [
-  ['Основа', [['pan', 'Двигать доску', 'Пробел + перетаскивание, правая кнопка мыши или два пальца на тачпаде'], ['zoom', 'Масштаб', 'Колесо мыши, кнопки внизу справа; минимальный масштаб вмещает всю доску', '1.7'], ['wheel', 'Прокрутка колесом', 'Shift + колесо по горизонтали, Ctrl + колесо по вертикали (меняется в «Горячих клавишах»)', '1.6'], ['tiny', 'Контуры при сильном отдалении', 'На масштабе 1% и меньше объекты обводятся контуром, чтобы их было видно', '1.8'], ['undo', 'Отмена и повтор', 'Ctrl+Z, Ctrl+Shift+Z'], ['boards', 'Несколько досок', 'Кнопка с квадратиками рядом с названием']]],
+  ['Основа', [['zlev', 'Уровни масштаба', 'Горячие клавиши → Масштаб: минимум, максимум и список уровней', '1.9'], ['lock', 'Замок', 'Кнопка с замком или Ctrl+Shift+L', '1.9'], ['align', 'Выравнивание и распределение', 'Выделите несколько объектов → кнопка «Выровнять»', '1.9'], ['guides', 'Умные направляющие', 'Тащите объект: он прилипает к краям и центрам соседей; Alt отключает', '1.9'], ['isol', 'Выделенное отдельно', 'Выделите несколько объектов → кнопка со стрелками', '1.9'], ['pan', 'Двигать доску', 'Пробел + перетаскивание, правая кнопка мыши или два пальца на тачпаде'], ['zoom', 'Масштаб', 'Колесо мыши, кнопки внизу справа; минимальный масштаб вмещает всю доску', '1.7'], ['wheel', 'Прокрутка колесом', 'Shift + колесо по горизонтали, Ctrl + колесо по вертикали (меняется в «Горячих клавишах»)', '1.6'], ['tiny', 'Контуры при сильном отдалении', 'На масштабе 1% и меньше объекты обводятся контуром, чтобы их было видно', '1.8'], ['undo', 'Отмена и повтор', 'Ctrl+Z, Ctrl+Shift+Z'], ['boards', 'Несколько досок', 'Кнопка с квадратиками рядом с названием']]],
   ['Элементы', [['sticky', 'Стикеры', 'N, шрифт подбирается сам'], ['text', 'Текст', 'T'], ['shapes', 'Фигуры, 21 вид', 'S, выбор вида в выпадающем списке'], ['conn', 'Линии со стрелками', 'L; подпись, вид концов, пунктир и точки в панели'], ['pen', 'Перо и ластик', 'P и E'], ['frame', 'Рамки и секции', 'F; вид «Рамка» или «Секция» в панели'], ['mm', 'Майнд-карты', 'M; Tab ветка, Enter соседняя, цвета веток, сворачивание'], ['doc', 'Документы', 'D; заголовки, списки, Shift+Enter на весь экран'], ['table', 'Таблицы', 'G; Tab между ячейками, строки и столбцы в панели'], ['img', 'Картинки', 'I, вставка из буфера или перетаскивание']]],
   ['Текст', [['rich', 'Форматирование части текста', 'Выделите слова при редактировании: жирный, курсив, цвет, списки, заголовки'], ['hl', 'Выделение цветом', 'Ctrl+Shift+H или кнопка A на жёлтом фоне'], ['size', 'Размер части текста', 'Кнопка Aa при редактировании']]],
   ['Структура', [['grp', 'Группы', 'Ctrl+G и Ctrl+Shift+G'], ['tabs', 'Вкладки в рамках', 'Кнопка «Вкладки» у рамки; щелчок по активной вкладке: имя, удаление, уровень глубже', '1.7'], ['fview', 'Рамка как отдельная доска', 'Кнопка развёртывания у рамки, хлебные крошки сверху, Esc выше', '1.6'], ['pins', 'Элементы на углах', 'Наведите на угол выделенного элемента, щёлкните плюс; правая кнопка: выбор и шаблоны', '1.7'], ['repin', 'Прицепить объект к другому', 'Перетащите объект на место плюсика другого объекта', '1.7'], ['fixed', 'Не масштабировать', 'Кнопка в панели: размер на экране не меняется при зуме', '1.7'], ['split', 'Разделение экрана', 'Меню ⋯ → Разделить экран (в приложении, не в Claude)']]],
   ['Встраивания', [['embed', 'Видео, сайты, документы', 'K или просто вставьте ссылку на доску'], ['views', 'Вид ссылки', 'Содержимое, карточка, строка, обложка; вид по умолчанию для каждого типа'], ['claude', 'Карточки чатов Claude', 'Вставьте ссылку на чат, название и проект через «Подпись»'], ['html', 'Свои HTML-инструменты', 'Перетащите .html файл на доску'], ['focus', 'Во весь экран', 'Shift+Enter']]],
-  ['Файлы и синхронизация', [['drive', 'Google Диск', 'Облако вверху справа; доски совпадают на компьютере, телефоне и в Claude'], ['snap', 'Снимки', 'Ctrl+Shift+S: PNG, JPG, WebP, обрезка мышью', '1.6'], ['wimp', 'Импорт из Whimsical', 'Меню ⋯ в версии внутри Claude; повторный импорт обновляет доску', '1.8'], ['keys', 'Горячие клавиши', 'Меню ⋯ → Горячие клавиши, наборы Miro, Whimsical, Яндекс Доски', '1.6'], ['ver', 'Версии и картотека', 'Меню ⋯ → номер версии и «Картотека функций»', '1.7'], ['upd', 'Проверка обновлений', 'Если на сайте новее, внизу появится кнопка «Обновить»', '1.8'], ['copy', 'Копирование в другие приложения', 'Ctrl+C на выделенном: в Notion, Telegram, чат вставится текст с форматированием', '1.8']]],
+  ['Файлы и синхронизация', [['drive', 'Google Диск', 'Облако вверху справа; доски совпадают на компьютере, телефоне и в Claude'], ['snap', 'Снимки', 'Ctrl+Shift+S: PNG, JPG, WebP, обрезка мышью', '1.6'], ['wimp', 'Импорт из Whimsical', 'Меню ⋯ в версии внутри Claude; повторный импорт обновляет доску', '1.8'], ['keys', 'Горячие клавиши', 'Меню ⋯ → Горячие клавиши, наборы Miro, Whimsical, Яндекс Доски', '1.6'], ['ver', 'Версии и картотека', 'Меню ⋯ → номер версии и «Картотека функций»', '1.7'], ['upd', 'Проверка обновлений', 'Если на сайте новее, внизу появится кнопка «Обновить»', '1.8'], ['copy', 'Копирование в другие приложения', 'Ctrl+C на выделенном: в Notion, Telegram, чат вставится текст с форматированием', '1.8'], ['backup', 'Копия в папку на компьютере', 'Значок папки вверху справа: выбрать или сменить папку, недельный архив, Яндекс Диск', '1.9'], ['hist', 'История версий', 'Меню ⋯ → История версий, поиск по дате, версия открывается отдельной доской', '1.9']]],
 ];
 function openCatalog(filter) {
   const ck = LS.get('checked') || {}; filter = filter || 'all';
@@ -3466,13 +3520,15 @@ function drawDots() {
   if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
   const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
   const v = V(); if (v.z > 0.0101 || S.focus) return;
-  g.lineWidth = 1;
-  for (const it of items()) {
-    if (it.type === 'connector' || it.type === 'pen' || isHid(it)) continue;
-    const b = bounds(it), x = v.x + b.x * v.z, y = v.y + b.y * v.z, w = Math.max(3, b.w * v.z), h = Math.max(3, b.h * v.z);
-    if (x > W || y > H || x + w < 0 || y + h < 0) continue;
-    g.strokeStyle = it.type === 'frame' ? 'rgba(51,85,255,.35)' : 'rgba(51,85,255,.9)';
-    g.strokeRect(Math.round(x) + 0.5, Math.round(y) + 0.5, Math.round(w), Math.round(h));
+  const rects = [];
+  for (const it of items()) { if (it.type === 'connector' || it.type === 'pen' || isHid(it)) continue; const b = bounds(it); rects.push([b.x * v.z + v.x, b.y * v.z + v.y, b.w * v.z, b.h * v.z]); }
+  rects.sort((a, b) => b[2] * b[3] - a[2] * a[3]);
+  const drawn = []; g.lineWidth = 1; g.strokeStyle = 'rgba(70,74,84,.55)';
+  for (const r of rects) {
+    if (r[2] < 1.5 && r[3] < 1.5) continue;
+    if (r[0] > W || r[1] > H || r[0] + r[2] < 0 || r[1] + r[3] < 0) continue;
+    if (drawn.some(o => r[0] >= o[0] - 0.5 && r[1] >= o[1] - 0.5 && r[0] + r[2] <= o[0] + o[2] + 0.5 && r[1] + r[3] <= o[1] + o[3] + 0.5)) continue;
+    drawn.push(r); g.strokeRect(Math.round(r[0]) + 0.5, Math.round(r[1]) + 0.5, Math.max(1, Math.round(r[2])), Math.max(1, Math.round(r[3])));
   }
 }
 
@@ -3566,7 +3622,7 @@ async function whimImport2(link, log) {
   const take = rows => {
     for (const r of rows) {
       if (r.type === 'section') sections.add(r.id);
-      if (['section', 'frame', 'group', 'stack'].includes(r.type)) { if (!cont.has(r.id)) cont.set(r.id, r); else if (r.type === 'section') cont.get(r.id).type = 'section'; }
+      if (['section', 'frame', 'group', 'stack', 'flowchart', 'sequence', 'wireframe'].includes(r.type)) { if (!cont.has(r.id)) cont.set(r.id, r); else if (r.type === 'section') cont.get(r.id).type = 'section'; }
       else if (r.type === 'mindmap') mmIds.add(r.id);
       else if (!objs.has(r.id)) objs.set(r.id, r);
     }
@@ -3580,7 +3636,7 @@ async function whimImport2(link, log) {
       try {
         const r = await whimFetchR({ id: fileId, scope: id, detail: 'detailed', limit: 200 });
         const p = parseWhim(r.text); p.conns.forEach(c => conns.set(c.id, c)); Object.assign(pal, p.pal);
-        for (const x of p.rows) if (['section', 'frame', 'group', 'stack'].includes(x.type) && !seen.has(x.id)) queue.push(x.id);
+        for (const x of p.rows) if (['section', 'frame', 'group', 'stack', 'flowchart', 'sequence', 'wireframe'].includes(x.type) && !seen.has(x.id)) queue.push(x.id);
         take(p.rows);
         if (p.rows.length >= 200) warn.push('в одной секции больше 200 объектов');
       } catch (e) { if (WHIM_STOP.includes(e && e.code)) throw e; failed++; }
@@ -3609,20 +3665,22 @@ async function whimImport2(link, log) {
   const ox = Math.min(...all.map(r => r.x)), oy = Math.min(...all.map(r => r.y));
   const X = v => r1(v - ox), Y = v => r1(v - oy);
   const out = [], idMap = new Map(), nodeMap = new Map();
-  const boxes = [...cont.values()].filter(r => r.type !== 'group' && r.type !== 'stack').sort((a, b) => b.w * b.h - a.w * a.h);
+  const boxes = [...cont.values()].filter(r => !['group', 'stack', 'flowchart', 'sequence', 'wireframe'].includes(r.type)).sort((a, b) => b.w * b.h - a.w * a.h);
   for (const r of boxes) {
     const c = r.color || 'White', sec = sections.has(r.id) || r.type === 'section', plain = c === 'White' || c === 'Smoke';
-    const it = { id: uid(), type: 'frame', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, title: clean(r.text), fstyle: 'section', fill: c === 'White' ? '#ffffff' : c === 'Smoke' ? '#f3f4f7' : tint(C(c), sec ? 0.08 : 0.42) };
-    if (!plain && sec) it.bcol = tint(C(c), 0.6);
+    const it = { id: uid(), type: 'frame', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, title: clean(r.text), fstyle: 'section', fill: sec || plain ? (c === 'Smoke' ? '#f3f4f7' : '#f8f9fb') : tint(C(c), 0.42) };
+    it.bcol = plain ? '#dcdfe5' : sec ? tint(C(c), 0.65) : '';
+    if (c === 'White') it.fill = '#ffffff';
     out.push(it); idMap.set(r.id, it.id);
   }
   const assets = {}, skipped = {}; let imgN = 0;
   for (const r of objs.values()) {
     let it = null;
-    if (!['text', 'note', 'shape', 'task', 'icon', 'link', 'image', 'attachment', 'table'].includes(r.type)) { skipped[r.type] = (skipped[r.type] || 0) + 1; continue; }
-    if (r.type === 'text') { const text = clean(r.text), bold = /[A-ZА-ЯЁ]/.test(text) && text === text.toUpperCase(); it = { id: uid(), type: 'text', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, text, fs: fitFont(text, r.w, r.h, bold), align: 'left', bold, textColor: r.color && r.color !== 'White' ? C(r.color) : INK }; }
+    const shp = /^shape(:|$)/.test(r.type) ? (r.type.split(':')[1] || 'rect') : null;
+    if (!shp && !['text', 'note', 'task', 'icon', 'link', 'image', 'attachment', 'table'].includes(r.type)) { skipped[r.type] = (skipped[r.type] || 0) + 1; continue; }
+    if (r.type === 'text') { const text = clean(r.text), bold = /[A-ZА-ЯЁ]/.test(text) && text === text.toUpperCase(); it = { id: uid(), type: 'text', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, bh: r.h, fitbox: 1, text, fs: fitFont(text, r.w, r.h, bold), align: 'left', bold, textColor: r.color && r.color !== 'White' ? C(r.color) : INK }; }
     else if (r.type === 'note') it = { id: uid(), type: 'sticky', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, color: tint(C(r.color || 'Yellow'), 0.35), text: clean(r.text), fs: 'auto', align: 'center', bold: false, textColor: INK };
-    else if (r.type === 'shape' || r.type === 'task') it = { id: uid(), type: 'shape', shape: 'round', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, fill: tint(C(r.color || 'Slate'), 0.12), stroke: C(r.color || 'Slate'), sw: 2, text: clean(r.text), fs: Math.min(18, fitFont(clean(r.text), r.w - 16, r.h - 8, false)), align: 'center', bold: false, textColor: INK };
+    else if (shp || r.type === 'task') it = { id: uid(), type: 'shape', shape: { rect: 'rect', rectangle: 'rect', 'rounded-rect': 'round', roundrect: 'round', rounded: 'round', ellipse: 'ellipse', circle: 'ellipse', oval: 'ellipse', diamond: 'diamond', rhombus: 'diamond', parallelogram: 'parallelogram', triangle: 'triangle', hexagon: 'hexagon', octagon: 'octagon', cylinder: 'cylinder', database: 'cylinder', document: 'document', cloud: 'cloud', star: 'star', pill: 'pill', trapezoid: 'trapezoid' }[shp] || 'round', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, fill: tint(C(r.color || 'Slate'), 0.12), stroke: C(r.color || 'Slate'), sw: 2, text: clean(r.text), fs: Math.min(18, fitFont(clean(r.text), r.w - 16, r.h - 8, false)), align: 'center', bold: false, textColor: INK };
     else if (r.type === 'icon') it = { id: uid(), type: 'text', x: X(r.x), y: Y(r.y), w: Math.max(40, r.w), h: r.h, text: '★', fs: Math.max(12, Math.round(r.h * 0.7)), align: 'center', bold: false, textColor: C(r.color || 'Slate') };
     else if (r.type === 'link') { const sp = parseEmbed(r.text); if (sp) it = { id: uid(), type: 'embed', ...sp, x: X(r.x), y: Y(r.y), w: Math.max(200, r.w), h: Math.max(56, r.h), view: 'compact', vs: 'compact' }; else { const text = '🔗 ' + clean(r.text || 'Ссылка'); it = { id: uid(), type: 'text', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, text, fs: fitFont(text, r.w, r.h, false), align: 'left', bold: false, textColor: '#3355ff' }; } }
     else if (r.type === 'image' || r.type === 'attachment') {
@@ -3664,6 +3722,210 @@ async function whimImport2(link, log) {
   map[fileId] = b.id; LS.set('whimsrc', map);
   S.board = null; loadBoard(b); fitAll(); renderDrawer();
   return { count: out.length, warn, updated: !!prevId };
+}
+
+
+/* =========================================================
+   v1.9: zoom levels, lock, align and distribute, smart guides, selection as a board,
+   backup folder on the computer, version history, compact status
+   ========================================================= */
+const ZOOM_DEF = { min: 0.5, max: 500, levels: [0.5, 1, 2, 3, 5, 10, 15, 25, 33, 50, 67, 75, 100, 125, 150, 200, 300, 400, 500], step: true };
+function zoomCfg() { return S.zoomCfg || (S.zoomCfg = Object.assign({}, ZOOM_DEF, LS.get('zoomcfg') || {})); }
+const zMax = () => clamp((+zoomCfg().max || 500) / 100, 0.1, 50);
+function levelZoom(z, dir) {
+  const lo = zMin(), hi = zMax(), L = zoomCfg().levels.map(x => x / 100).filter(x => x >= lo - 1e-9 && x <= hi + 1e-9).sort((a, b) => a - b);
+  if (dir > 0) { for (const x of L) if (x > z * 1.001) return x; return hi; }
+  for (let i = L.length - 1; i >= 0; i--) if (L[i] < z * 0.999) return L[i];
+  return lo;
+}
+
+/* ---------- lock ---------- */
+function toggleLock() {
+  const sel = selItems(); if (!sel.length) return;
+  const on = sel.some(i => !i.locked); pushHist();
+  for (const i of sel) { if (on) i.locked = true; else delete i.locked; }
+  changed(); toast(on ? 'Закреплено: не двигается и не меняется' : 'Замок снят');
+}
+
+/* ---------- align, distribute, same size, same length ---------- */
+function shiftItem(it, dx, dy, skip) {
+  for (const x of withFrameContents([it])) {
+    if (skip && skip.has(x.id) && x !== it) continue;
+    if (x.type === 'connector') { for (const k of ['from', 'to']) if (!x[k].id) { x[k].x = r1(x[k].x + dx); x[k].y = r1(x[k].y + dy); } continue; }
+    x.x = r1(x.x + dx); x.y = r1(x.y + dy); if (x.type === 'mindmap') { x.rx = r1(x.rx + dx); x.ry = r1(x.ry + dy); }
+  }
+}
+function alignSel(mode) {
+  const all = selItems().filter(i => !i.locked && !i.pin);
+  if (mode === 'len') {
+    const cs = all.filter(i => i.type === 'connector' && !i.from.id && !i.to.id); if (cs.length < 2) { toast('Выделите хотя бы две свободные линии'); return; }
+    pushHist(); const L = Math.hypot(cs[0].to.x - cs[0].from.x, cs[0].to.y - cs[0].from.y);
+    for (const c of cs.slice(1)) { const a = Math.atan2(c.to.y - c.from.y, c.to.x - c.from.x); c.to.x = r1(c.from.x + Math.cos(a) * L); c.to.y = r1(c.from.y + Math.sin(a) * L); }
+    changed(); return;
+  }
+  const list = all.filter(i => i.type !== 'connector' && i.type !== 'pen'); if (list.length < 2) return;
+  pushHist();
+  const ids = new Set(list.map(i => i.id)), bs = list.map(i => [i, bounds(i)]), u = unionB(bs.map(x => x[1]));
+  if ('lcrtmb'.includes(mode) && mode.length === 1) {
+    for (const [it, b] of bs) {
+      const dx = mode === 'l' ? u.x - b.x : mode === 'r' ? u.x + u.w - b.x - b.w : mode === 'c' ? u.x + u.w / 2 - b.x - b.w / 2 : 0;
+      const dy = mode === 't' ? u.y - b.y : mode === 'b' ? u.y + u.h - b.y - b.h : mode === 'm' ? u.y + u.h / 2 - b.y - b.h / 2 : 0;
+      shiftItem(it, dx, dy, ids);
+    }
+  } else if (mode === 'dh' || mode === 'dv') {
+    const hz = mode === 'dh', s = [...bs].sort((a, b) => (hz ? a[1].x - b[1].x : a[1].y - b[1].y));
+    const total = s.reduce((a, [, b]) => a + (hz ? b.w : b.h), 0), gap = ((hz ? u.w : u.h) - total) / (s.length - 1);
+    let p = hz ? u.x : u.y;
+    for (const [it, b] of s) { shiftItem(it, hz ? p - b.x : 0, hz ? 0 : p - b.y, ids); p += (hz ? b.w : b.h) + gap; }
+  } else if (mode === 'sw' || mode === 'sh') {
+    const ref = list[0];
+    for (const it of list.slice(1)) { if (it.type === 'mindmap' || it.fixed) continue; if (mode === 'sw') it.w = ref.w; else if (it.type !== 'text' && it.type !== 'table') it.h = ref.h; }
+  }
+  changed();
+}
+function alignPop(anchor) {
+  const b = (v, i, t) => `<button class="ob ib2" data-v="${v}" title="${t}">${ic(i)}</button>`;
+  openPop(anchor, `<div class="vp"><div class="vp-h">Выровнять</div><div class="row">${b('l', 'alL', 'По левому краю')}${b('c', 'alC', 'По центру')}${b('r', 'alR', 'По правому краю')}${b('t', 'alT', 'По верху')}${b('m', 'alM', 'По середине')}${b('b', 'alB', 'По низу')}</div><div class="vp-h">Распределить и размер</div><div class="row">${b('dh', 'disH', 'Равные промежутки по горизонтали')}${b('dv', 'disV', 'Равные промежутки по вертикали')}${b('sw', 'sameW', 'Одинаковая ширина, как у первого')}${b('sh', 'sameH', 'Одинаковая высота, как у первого')}<button class="ob" data-v="len" title="Свободные линии станут длиной как первая">Длина линий</button></div></div>`, v => alignSel(v));
+}
+
+/* ---------- smart guides while moving and resizing ---------- */
+function snapCands(d, moving) {
+  if (d.snapC) return d.snapC;
+  const v = V(), view = { x: -v.x / v.z, y: -v.y / v.z, w: innerWidth / v.z, h: innerHeight / v.z }, xs = [], ys = [];
+  for (const it of items()) {
+    if (moving.has(it.id) || it.type === 'connector' || it.type === 'pen' || isHid(it)) continue;
+    const b = bounds(it); if (!intersects(b, view)) continue;
+    xs.push([b.x, b], [b.x + b.w / 2, b], [b.x + b.w, b]); ys.push([b.y, b], [b.y + b.h / 2, b], [b.y + b.h, b]);
+    if (xs.length > 2400) break;
+  }
+  return (d.snapC = { xs, ys });
+}
+function snapAxis(vals, cands, tol) { let best = null; for (const val of vals) for (const [c, b] of cands) { const dd = c - val; if (Math.abs(dd) <= tol && (!best || Math.abs(dd) < Math.abs(best.d))) best = { d: dd, at: c, b }; } return best; }
+function snapMove(d, dx, dy) {
+  S.guides = null;
+  if (S.alt || zoomCfg().snap === false || !d.list || !d.list.length) return [dx, dy];
+  if (!d.box0) { const bs = d.list.filter(m => m.it.type !== 'connector').map(m => bounds(m.it)); d.box0 = bs.length ? unionB(bs) : null; }
+  if (!d.box0) return [dx, dy];
+  const C = snapCands(d, new Set(d.list.map(m => m.it.id))), tol = 6 / V().z, b = d.box0;
+  const mb = { x: b.x + dx, y: b.y + dy, w: b.w, h: b.h };
+  const sx = snapAxis([mb.x, mb.x + mb.w / 2, mb.x + mb.w], C.xs, tol), sy = snapAxis([mb.y, mb.y + mb.h / 2, mb.y + mb.h], C.ys, tol);
+  const g = [];
+  if (sx) { dx += sx.d; mb.x += sx.d; g.push({ x1: sx.at, y1: Math.min(mb.y, sx.b.y), x2: sx.at, y2: Math.max(mb.y + mb.h, sx.b.y + sx.b.h) }); }
+  if (sy) { dy += sy.d; mb.y += sy.d; g.push({ x1: Math.min(mb.x, sy.b.x), y1: sy.at, x2: Math.max(mb.x + mb.w, sy.b.x + sy.b.w), y2: sy.at }); }
+  S.guides = g.length ? g : null;
+  return [dx, dy];
+}
+function snapResize(d, w) {
+  S.guides = null;
+  if (S.alt || zoomCfg().snap === false || !d.orig) return w;
+  const C = snapCands(d, new Set(d.orig.map(o => o.it.id))), tol = 6 / V().z, out = { x: w.x, y: w.y }, g = [];
+  if (/[we]/.test(d.h)) { const s = snapAxis([w.x], C.xs, tol); if (s) { out.x = s.at; g.push({ x1: s.at, y1: Math.min(w.y, s.b.y), x2: s.at, y2: Math.max(w.y, s.b.y + s.b.h) }); } }
+  if (/[ns]/.test(d.h)) { const s = snapAxis([w.y], C.ys, tol); if (s) { out.y = s.at; g.push({ x1: Math.min(w.x, s.b.x), y1: s.at, x2: Math.max(w.x, s.b.x + s.b.w), y2: s.at }); } }
+  S.guides = g.length ? g : null;
+  return out;
+}
+
+/* ---------- selection opened as its own board ---------- */
+function enterIsolation() {
+  const list = withFrameContents(selItems()); if (!list.length) return;
+  finishEdit(); closePop();
+  S.isol = new Set(list.map(i => i.id));
+  S.fstack = (S.fstack || []).filter(x => x !== '#sel').concat('#sel'); S.sel.clear();
+  renderCrumbs(); render(); fitAll(list);
+}
+
+/* ---------- backup folder on the computer (works with a Yandex Disk folder too) ---------- */
+async function fsWrite(dir, name, text) { const fh = await dir.getFileHandle(name, { create: true }); const w = await fh.createWritable(); await w.write(text); await w.close(); }
+const Backup = {
+  dir: null, name: '', state: 'off', last: 0, timer: 0, dirty: new Set(), all: false,
+  ok() { return 'showDirectoryPicker' in window && !S.hosted && !PANE && Backend === Local; },
+  async init() {
+    if (!this.ok()) return;
+    try { const h = await Store.get('backupDir'); if (h && h.kind === 'directory') { this.dir = h; this.name = h.name; this.last = LS.get('blast') || 0; this.state = (await h.queryPermission({ mode: 'readwrite' })) === 'granted' ? 'ok' : 'auth'; if (this.state === 'ok') { this.all = true; this.touched(3000); } } } catch (e) { /* no stored folder */ }
+    renderStatus();
+  },
+  async choose() {
+    try {
+      const h = await window.showDirectoryPicker({ id: 'holst-backup', mode: 'readwrite' });
+      this.dir = h; this.name = h.name; await Store.set('backupDir', h); this.state = 'ok'; this.all = true;
+      await this.run(); toast(`Резервные копии сохраняются в папку «${h.name}»`);
+    } catch (e) { if (e && e.name !== 'AbortError') toast('Не удалось выбрать папку'); }
+    renderStatus(); if (S.xdlg) openBackup();
+  },
+  async grant() {
+    if (!this.dir) return this.choose();
+    try { this.state = (await this.dir.requestPermission({ mode: 'readwrite' })) === 'granted' ? 'ok' : 'auth'; } catch (e) { this.state = 'auth'; }
+    if (this.state === 'ok') { this.all = true; await this.run(); }
+    renderStatus();
+  },
+  mark(bid) { if (!this.ok() || !this.dir) return; this.dirty.add(bid); this.touched(); },
+  touched(ms) { if (this.state !== 'ok') return; clearTimeout(this.timer); this.timer = setTimeout(() => this.run(), ms || 5000); },
+  async run() {
+    if (!this.dir || this.state === 'auth' || this.state === 'off') return;
+    try {
+      const ids = this.all ? S.index.map(e => e.id) : [...this.dirty]; this.all = false; this.dirty.clear();
+      const files = []; for await (const [n] of this.dir.entries()) files.push(n);
+      const wk = (() => { const d = new Date(); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d.toISOString().slice(0, 10); })();
+      let arch = null;
+      for (const id of ids) {
+        const b = await Local.loadBoard(id); if (!b) continue;
+        const json = JSON.stringify({ format: 'holst-board', version: 2, exportedAt: new Date().toISOString(), board: { id: b.id, name: b.name, items: b.items, assets: b.assets || {}, view: b.view } });
+        const name = `${safeName(b.name)} [${b.id}].holst.json`;
+        await fsWrite(this.dir, name, json);
+        for (const f of files) if (f !== name && f.endsWith(`[${b.id}].holst.json`)) await this.dir.removeEntry(f).catch(() => {});
+        if (LS.get('barch:' + b.id) !== wk) { arch = arch || await this.dir.getDirectoryHandle('Архив по неделям', { create: true }); await fsWrite(arch, `${wk} ${name}`, json); LS.set('barch:' + b.id, wk); }
+      }
+      this.last = Date.now(); LS.set('blast', this.last); this.state = 'ok';
+    } catch (e) { this.state = e && (e.name === 'NotAllowedError' || e.name === 'SecurityError') ? 'auth' : 'error'; }
+    renderStatus();
+  },
+};
+function openBackup() {
+  const B = Backup;
+  if (!B.ok()) { xdlg('Резервная копия в папку', '<p class="sub">Копия в папку на компьютере работает в приложении на компьютере в Chrome, Comet или Edge. В версии внутри Claude и на телефоне доски защищены Google Диском.</p>'); return; }
+  const d = xdlg('Резервная копия в папку', `<p class="sub">Холст сам кладёт копию каждой доски в выбранную папку при каждом изменении, а раз в неделю ещё и в подпапку «Архив по неделям». Копии открываются через меню ⋯ → «Открыть файл доски».</p>
+    <div class="dstat" data-d="${B.state === 'ok' ? 'ok' : B.state === 'auth' ? 'auth' : B.state === 'error' ? 'error' : 'off'}"><span class="dot"></span><span>${B.dir ? `Папка «${esc(B.name)}»` : 'Папка не выбрана'}${B.state === 'auth' ? ': браузер просит заново разрешить запись' : ''}${B.last ? `, последняя копия ${fmtDate(B.last)}` : ''}</span></div>
+    <div class="btnrow"><button class="btn" data-b="choose">${B.dir ? 'Сменить папку' : 'Выбрать папку'}</button>${B.dir && B.state === 'auth' ? '<button class="btn" data-b="grant">Разрешить запись</button>' : ''}${B.dir && B.state !== 'auth' ? '<button class="btn ghost" data-b="now">Сделать копию сейчас</button>' : ''}</div>
+    <div class="note"><b>Яндекс Диск</b>Установите на компьютер программу «Яндекс Диск» и выберите здесь папку внутри её папки. Холст будет класть копии туда, а программа сама отправит их в Яндекс Диск. Отдельно настраивать ничего не нужно: если программа Яндекс Диска у вас работает, работает и это.</div>`);
+  d.addEventListener('click', async e => { const b = e.target.closest('[data-b]'); if (!b) return; if (b.dataset.b === 'choose') await B.choose(); else if (b.dataset.b === 'grant') { await B.grant(); openBackup(); } else { B.all = true; await B.run(); toast('Копия сохранена'); openBackup(); } });
+}
+
+/* ---------- version history of the current board ---------- */
+const dayStr = (t = Date.now()) => new Date(t).toISOString().slice(0, 10);
+async function snapOnLoad(b) {
+  if (Backend !== Local || PANE || !b || !b.items || !b.items.length) return;
+  const today = dayStr(), idx = LS.get('snaps:' + b.id) || [];
+  if (idx.some(x => x.d === today)) return;
+  try { await Store.set(`snap:${b.id}:${today}`, clone(b)); } catch (e) { return; }
+  idx.push({ d: today, n: b.items.length });
+  const weekly = x => new Date(x.d).getDay() === 1, keep = [], daily = idx.filter(x => !weekly(x)).slice(-14).map(x => x.d), weeks = idx.filter(weekly).slice(-26).map(x => x.d);
+  for (const x of idx) { if (daily.includes(x.d) || weeks.includes(x.d) || x.d === today) keep.push(x); else Store.del(`snap:${b.id}:${x.d}`).catch(() => {}); }
+  LS.set('snaps:' + b.id, keep);
+}
+async function openHistory() {
+  const b = S.board; if (!b) return;
+  const rows = (LS.get('snaps:' + b.id) || []).map(x => ({ t: Date.parse(x.d + 'T00:00:00'), src: 'local', key: `snap:${b.id}:${x.d}`, label: `Начало дня, ${x.n} объектов`, where: 'на этом устройстве' }));
+  const m = Drive.st && Drive.st.meta && Drive.st.meta[b.id];
+  if (Drive.mode === 'rest' && Drive.tokenOk() && m && m.fileId) {
+    try { const r = await Drive.rest('GET', `files/${m.fileId}/revisions?fields=revisions(id,modifiedTime,keepForever,size)&pageSize=200`); for (const v of r.revisions || []) rows.push({ t: Date.parse(v.modifiedTime), src: 'drive', rev: v.id, fid: m.fileId, label: (v.keepForever ? 'Закреплена навсегда' : 'Хранится Диском около месяца') + (v.size ? `, ${Math.round(v.size / 1024)} КБ` : ''), where: 'Google Диск' }); } catch (e) { /* no revisions */ }
+  }
+  rows.sort((a, b2) => b2.t - a.t);
+  const list = q => rows.filter(r => !q || fmtDate(r.t).toLowerCase().includes(q) || new Date(r.t).toLocaleDateString('ru-RU').includes(q)).map((r, i) => `<div class="krow"><span><b>${esc(fmtDate(r.t))}</b> · ${esc(r.where)}<br><small class="sub">${esc(r.label)}</small></span><button class="kbtn" data-h="${rows.indexOf(r)}">Открыть копию</button></div>`).join('') || '<p class="sub">Версий пока нет. Холст сохраняет состояние доски один раз в день при открытии; с подключённым Google Диском здесь видны и версии из Диска.</p>';
+  const d = xdlg('История версий: ' + b.name, `<p class="sub">Версия открывается отдельной доской, текущая не меняется. Хранятся последние 14 дней и по одной версии в неделю за полгода.${Backend === Db ? ' В версии внутри Claude история ведётся в приложении на компьютере.' : ''}</p><input class="inp" id="hq" placeholder="Поиск по дате, например 05.10 или окт"><div id="hlist">${list('')}</div>`, true);
+  d.querySelector('#hq').addEventListener('input', e => { $('#hlist').innerHTML = list(e.target.value.trim().toLowerCase()); });
+  d.addEventListener('click', async e => {
+    const btn = e.target.closest('[data-h]'); if (!btn) return;
+    const r = rows[+btn.dataset.h]; btn.disabled = true; btn.textContent = 'Открываю…';
+    try {
+      let src;
+      if (r.src === 'local') src = await Store.get(r.key);
+      else { const res = await fetch(`${GAPI}files/${r.fid}/revisions/${r.rev}?alt=media`, { headers: { Authorization: 'Bearer ' + Drive.token } }); const j = await res.json(); src = j.board || j; }
+      if (!src) throw new Error('empty');
+      const nb = newBoard(`${b.name} (версия от ${fmtDate(r.t)})`);
+      nb.items = clone(src.items || []); nb.assets = Object.assign({}, b.assets, src.assets || {});
+      await Backend.saveBoard(nb); closeXdlg(); S.board = null; loadBoard(nb); fitAll(); renderDrawer(); toast('Версия открыта отдельной доской');
+    } catch (err) { btn.textContent = 'Не удалось открыть'; }
+  });
 }
 
 /* =========================================================
@@ -3760,7 +4022,7 @@ function onDown(e) {
 }
 
 function onMove(e) {
-  S.mouse = { x: e.clientX, y: e.clientY }; S.mouseIn = true;
+  S.mouse = { x: e.clientX, y: e.clientY }; S.mouseIn = true; S.alt = e.altKey;
   if (!S.board || S.focus) return;
   if (S.pointers.has(e.pointerId)) S.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
   if (S.pinch) { updatePinch(); return; }
@@ -3811,7 +4073,7 @@ function onMove(e) {
       for (let i = 1; i <= steps; i++) eraseAt(d.lx + (e.clientX - d.lx) * i / steps, d.ly + (e.clientY - d.ly) * i / steps);
       d.lx = e.clientX; d.ly = e.clientY; break;
     }
-    case 'resize': resizeTo(d, w, e.shiftKey, moved); break;
+    case 'resize': resizeTo(d, d.started || moved ? snapResize(d, w) : w, e.shiftKey, moved); break;
     case 'cend': {
       if (!d.started) { if (!moved) break; pushHist(); d.started = true; }
       const c = byId(d.id); if (!c) break;
@@ -3830,12 +4092,13 @@ function beginMove(d, alt) {
     const copies = cloneItems(prepare(withFrameContents(selItems())), 0, 0);
     S.board.items.push(...copies); S.sel = new Set(copies.map(c => c.id));
   }
-  d.list = withFrameContents(selItems()).map(it => (it.type === 'connector' ? { it, f: { ...it.from }, t: { ...it.to } } : { it, x: it.x, y: it.y, rx: it.rx, ry: it.ry }));
+  d.list = withFrameContents(selItems().filter(i => !i.locked)).map(it => (it.type === 'connector' ? { it, f: { ...it.from }, t: { ...it.to } } : { it, x: it.x, y: it.y, rx: it.rx, ry: it.ry }));
   { const ids = new Set(d.list.map(m => m.it.id)); for (const m of d.list) if (m.it.pin && !ids.has(m.it.pin.to)) delete m.it.pin; }
   render();
 }
 function moveTo(d, w) {
-  const dx = w.x - d.start.x, dy = w.y - d.start.y;
+  let dx = w.x - d.start.x, dy = w.y - d.start.y;
+  [dx, dy] = snapMove(d, dx, dy);
   for (const m of d.list) {
     const it = m.it;
     if (it.type === 'connector') {
@@ -3896,6 +4159,7 @@ function eraseAt(cx, cy) {
 }
 
 function onUp(e) {
+  S.guides = null;
   S.pointers.delete(e.pointerId);
   if (!S.board) return;
   if (S.pinch) { if (S.pointers.size < 2) { S.pinch = null; S.drag = null; renderCtx(); } return; }
@@ -3963,7 +4227,7 @@ function startPinch() {
 function updatePinch() {
   const [p1, p2] = [...S.pointers.values()]; if (!p2) return;
   const p = S.pinch, v = V(), c = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
-  const z = clamp(p.v0.z * dist(p1, p2) / p.d0, zMin(), ZMAX);
+  const z = clamp(p.v0.z * dist(p1, p2) / p.d0, zMin(), zMax());
   const wx = (p.c0.x - p.v0.x) / p.v0.z, wy = (p.c0.y - p.v0.y) / p.v0.z;
   v.z = z; v.x = c.x - wx * z; v.y = c.y - wy * z; applyView();
 }
@@ -3979,7 +4243,7 @@ function onWheel(e) {
     return;
   }
   const W = S.wheel || PRESETS.holst.wheel, mode = (e.ctrlKey || e.metaKey) ? W.ctrl : e.shiftKey ? W.shift : W.plain;
-  if (mode === 'zoom') zoomAt(e.clientX, e.clientY, v.z * Math.exp(-one * 0.0016));
+  if (mode === 'zoom') zoomAt(e.clientX, e.clientY, zoomCfg().step ? levelZoom(v.z, one < 0 ? 1 : -1) : v.z * Math.exp(-one * 0.0016));
   else if (mode === 'panX') { v.x -= one; applyView(); }
   else { v.y -= one; applyView(); }
 }
@@ -4056,6 +4320,8 @@ function openMenu(btn) {
     (Drive.mcp ? mi('wimport', 'imp', 'Импорт из Whimsical…') : '') +
     mi('keys', 'kbd', 'Горячие клавиши…') +
     mi('catalog', 'help', 'Картотека функций…') +
+    mi('history', 'hist', 'История версий…') +
+    (Backup.ok() ? mi('backup', 'folder', 'Резервная копия в папку…') : '') +
     '<div class="msep"></div>' +
     mi('grid', 'grid', 'Сетка', S.settings.grid ? 'вкл' : 'выкл') +
     mi('fit', 'fit', 'Показать всё', keyOf('fit')) +
@@ -4077,6 +4343,8 @@ function menuAction(v) {
     case 'split': splitPop($('#btnMenu')); break;
     case 'keys': openKeys(); break;
     case 'catalog': openCatalog(); break;
+    case 'history': openHistory(); break;
+    case 'backup': openBackup(); break;
     case 'versions': openVersions(); break;
     case 'wimport': openWhimImport(); break;
     case 'installHow': installHelp(); break;
@@ -4155,6 +4423,7 @@ function storeNote() {
    Boards
    ========================================================= */
 function loadBoard(b) {
+  snapOnLoad(b);
   S.fstack = []; $('#crumbs').hidden = true;
   normalizeBoard(b);
   if (PANE && window.parent !== window) { try { parent.postMessage({ holst: 'pane', i: +QS.get('i'), bid: b.id }, '*'); } catch (e) { /* ignore */ } }
@@ -4751,6 +5020,9 @@ function wire() {
   $('#btnHelp').addEventListener('click', openHelp);
   $('#btnCloud').innerHTML = ic('cloud');
   $('#btnCloud').addEventListener('click', () => { if (Drive.mode === 'rest' && Drive.active() && !Drive.tokenOk() && navigator.onLine) Drive.connect(); else openDriveDlg(); });
+  $('#status .dot').addEventListener('click', () => $('#statusText').click());
+  $('#btnBackup').innerHTML = ic('folder');
+  $('#btnBackup').addEventListener('click', () => { if (Backup.dir && Backup.state === 'auth') Backup.grant(); else openBackup(); });
   $('#statusText').addEventListener('click', () => { if (Drive.active() && (Drive.state === 'auth' || Drive.state === 'error')) { if (Drive.mode === 'mcp' || Drive.tokenOk()) Drive.sync(true); else Drive.connect(); } });
   driveDlg.querySelector('[data-close]').addEventListener('click', closeDriveDlg);
   driveDlg.addEventListener('pointerdown', e => { if (e.target === driveDlg) closeDriveDlg(); });
@@ -4875,7 +5147,7 @@ async function init() {
   else if (fresh || firstId) fitAll();
   setStatus('saved'); dirty = false;
   await Drive.init();
-  if (!PANE) { registerPWA(); checkVersion(); }
+  if (!PANE) { registerPWA(); checkVersion(); Backup.init(); }
   const sp = LS.get('split'); if (sp && SPLITS[sp.layout] && splitOk()) { S.split = sp; showSplit(); }
 }
 init();
