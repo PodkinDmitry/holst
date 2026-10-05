@@ -255,6 +255,103 @@ body.focusing #topbar,body.focusing #toolbar,body.focusing #flyout,body.focusing
 .dstat[data-d=auth] .dot,.dstat[data-d=syncing] .dot,.dstat[data-d=offline] .dot{background:#e0a800}
 .btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .linkbtn{display:block;border:0;background:none;padding:0;margin-top:16px;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:12.5px}
+
+/* rich text, documents, tables, mind maps, sections */
+.txt mark,.dtxt mark,.cell mark,.mmt mark,.fdoc-txt mark{background:#fff09a;color:inherit;border-radius:2px;padding:0 .08em}
+.txt a,.dtxt a,.cell a,.mmt a,.fdoc-txt a{color:#3355ff}
+.txt ul,.txt ol,.dtxt ul,.dtxt ol,.cell ul,.cell ol,.fdoc-txt ul,.fdoc-txt ol{margin:.15em 0 .45em;padding-left:1.35em;text-align:left}
+.txt p,.cell p,.mmt p{margin:0}
+.dtxt p,.fdoc-txt p{margin:0 0 .55em}
+.txt h1,.dtxt h1,.fdoc-txt h1{font-size:1.55em;line-height:1.2;margin:.15em 0 .45em}
+.txt h2,.dtxt h2,.fdoc-txt h2{font-size:1.25em;line-height:1.25;margin:.6em 0 .35em}
+.txt h3,.dtxt h3,.fdoc-txt h3{font-size:1.08em;margin:.5em 0 .3em}
+.txt code,.dtxt code,.fdoc-txt code{font-family:ui-monospace,Consolas,monospace;font-size:.9em;background:rgba(0,0,0,.06);padding:0 .25em;border-radius:4px}
+.doc{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 0 0 1px #dfe2e8,0 10px 26px -14px rgba(28,29,33,.35)}
+.doc .dtxt{position:absolute;inset:0;padding:26px 30px;overflow:hidden;line-height:1.5;outline:none;white-space:normal;overflow-wrap:break-word}
+.doc::after{content:"";position:absolute;left:0;right:0;bottom:0;height:46px;background:linear-gradient(rgba(255,255,255,0),#fff);pointer-events:none}
+.doc.editing .dtxt{overflow:auto;cursor:text;user-select:text;-webkit-user-select:text}
+.doc.editing::after{display:none}
+.doc .dtxt:empty::before{content:"Документ: заголовок и текст";opacity:.4}
+.table{background:#fff}
+.tbl{width:100%;border-collapse:collapse;table-layout:fixed;font-size:14px;line-height:1.35}
+.tbl td{border:1px solid #d9dce3;vertical-align:top;padding:0}
+.tbl tr.th td{background:var(--hf,#eef0f3);font-weight:700}
+.tbl .cell{min-height:1.35em;padding:8px 10px;outline:none;overflow-wrap:break-word;white-space:pre-wrap}
+.tbl .cell.ed{cursor:text;user-select:text;-webkit-user-select:text;box-shadow:inset 0 0 0 2px var(--accent)}
+.mindmap .mml{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+.mindmap .mml path{fill:none;stroke-width:2;stroke-linecap:round}
+.mmn{position:absolute;inset:0}
+.mmnode{position:absolute;width:max-content;max-width:340px;padding:4px 8px 5px;font-size:15px;line-height:1.35;border-bottom:2px solid var(--mc);white-space:nowrap}
+.mmnode .mmt{display:inline-block;max-width:320px;white-space:pre-wrap;overflow-wrap:break-word;outline:none;min-width:12px;vertical-align:top}
+.mmnode.root{padding:10px 16px;font-size:17px;font-weight:700;border:2px solid var(--mc);border-radius:12px;background:#fff}
+.mmnode.mmsel{background:rgba(51,85,255,.09);border-radius:6px 6px 0 0}
+.mmnode.root.mmsel{border-radius:12px}
+.mmt.ed{cursor:text;user-select:text;-webkit-user-select:text}
+.mmt:empty::before{content:"Тема";opacity:.4}
+.mmc{position:absolute;right:-22px;bottom:-9px;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--mc);background:#fff;color:var(--mc);font:700 10px/1 var(--font);display:grid;place-items:center;padding:0;cursor:pointer;opacity:0}
+.mmnode:hover .mmc,.mmc.col{opacity:1}
+.mmnode.root .mmc{bottom:auto;top:50%;margin-top:-9px}
+.frame.section{border-radius:14px;box-shadow:none}
+.frame.section .ftitle{bottom:auto;top:16px;left:18px;margin:0;font-size:22px;padding:0 4px;color:#2b2e36}
+/* link display modes */
+.ecard{position:absolute;inset:0;display:none}
+.embed[data-view]:not([data-view=live]) .eh,.embed[data-view]:not([data-view=live]) .ebody{display:none}
+.embed[data-view]:not([data-view=live]) .ecard{display:block}
+.ecardv{position:absolute;inset:0;display:flex;flex-direction:column;background:#fff}
+.ecv-th{position:relative;flex:1 1 auto;min-height:0;background:#111;overflow:hidden}
+.ecv-th .play,.ecover .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.ecv-band{height:10px;background:var(--pc);flex:none}
+.ecv-body{flex:none;padding:14px 18px 16px;display:flex;flex-direction:column;gap:5px}
+.ecv-top{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--muted)}
+.ecv-title{font-size:20px;font-weight:700;line-height:1.25;color:var(--ink);overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.ecv-sub{font-size:14px;color:#3d4049}
+.ecv-dom{font-size:12px;color:var(--muted)}
+.ecompact{position:absolute;inset:0;display:flex;align-items:center;gap:12px;padding:0 14px;background:#fff}
+.ecompact .ei,.ecv-ic .ei{width:30px;height:30px;border-radius:8px;font-size:12px}
+.ec-t{flex:1;min-width:0}
+.ec-title{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ec-dom{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ecompact>svg.i{color:var(--muted);width:18px;height:18px}
+.ecover{position:absolute;inset:0;background:var(--pc);overflow:hidden}
+.ecv-ic{position:absolute;inset:0;display:grid;place-items:center}
+.ecv-ic .ei{width:76px;height:76px;border-radius:20px;font-size:26px}
+.ecv-ic .ei svg{width:40px;height:40px}
+.ecv-cap{position:absolute;left:0;right:0;bottom:0;padding:40px 18px 14px;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.72));color:#fff;display:flex;flex-direction:column;gap:2px}
+.ecv-cap b{font-size:18px;line-height:1.25}
+.ecv-cap span{font-size:13px;opacity:.85}
+.capf{display:flex;flex-direction:column;gap:10px;padding:6px;width:320px}
+.capf label{display:flex;flex-direction:column;gap:5px;font-size:12.5px;color:var(--muted)}
+.vp{display:flex;flex-direction:column;gap:6px;padding:4px}
+.vp-h{font-size:12px;color:var(--muted);font-weight:600;padding:2px 4px}
+.vp-n{max-width:360px;font-size:12px;color:var(--muted);padding:2px 4px;line-height:1.4}
+.hl{background:#fff09a;padding:0 4px;border-radius:3px;font-weight:700}
+.spic{color:var(--accent);min-width:42px;letter-spacing:-1px}
+#pop{z-index:70}
+.ffmt{display:flex;gap:2px}
+.ffmt button{width:34px;height:34px;border:0;border-radius:8px;background:#2a2c33;color:#fff;font:600 14px var(--font);cursor:pointer}
+.ffmt button:hover{background:#3a3d46}
+#toolbar{max-height:calc(100% - 150px);overflow-y:auto;scrollbar-width:none}
+#toolbar .ib{width:38px;height:38px}
+#flyout[data-cols="3"]{grid-template-columns:repeat(3,36px)}
+/* split screen */
+#split{position:fixed;inset:0;z-index:48;background:#c9ccd4}
+#splitGrid{position:absolute;inset:0}
+.scell{position:absolute;background:#fff;overflow:hidden;z-index:1}
+.scell iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.stools{position:absolute;top:10px;right:10px;display:flex;gap:4px;padding:3px;border-radius:9px;background:rgba(28,29,33,.78);opacity:.55;transition:opacity .15s}
+.scell:hover .stools{opacity:1}
+.stools button{width:28px;height:28px;border:0;border-radius:6px;background:transparent;color:#fff;display:grid;place-items:center;cursor:pointer;padding:0}
+.stools button:hover{background:rgba(255,255,255,.18)}
+.stools svg.i{width:16px;height:16px}
+.sgut{position:absolute;z-index:0}
+.sgut.v{top:0;bottom:0;width:6px;cursor:col-resize}
+.sgut.h{left:0;right:0;height:6px;cursor:row-resize}
+#split.dragging iframe{pointer-events:none}
+#splitBar{position:absolute;left:50%;bottom:calc(14px + var(--sb));transform:translateX(-50%);z-index:3;display:flex;align-items:center;gap:4px;padding:4px 4px 4px 12px;border-radius:12px;background:var(--ink);color:#fff;font-size:12.5px;font-weight:600;box-shadow:var(--shadow);white-space:nowrap}
+#splitBar button{height:30px;padding:0 10px;border:0;border-radius:8px;background:#2d2f36;color:#fff;font:600 12.5px var(--font);cursor:pointer}
+#splitBar button:hover{background:#3a3d46}
+body.splitting #viewport,body.splitting .panel:not(#pop),body.splitting #empty{display:none!important}
+body.pane #status{display:none}
 @media (max-width:700px){#statusText{display:none}#statusText.act{display:block;max-width:132px;white-space:normal;font-size:11.5px;line-height:1.25}#status{padding-left:12px}#boardName{width:120px}.fbtn span{display:none}.fdoc{padding:28px 24px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -301,6 +398,7 @@ body.focusing #topbar,body.focusing #toolbar,body.focusing #flyout,body.focusing
 
 <div id="fbar" hidden data-app>
   <div id="fTitle"></div>
+  <span id="fFmt" class="ffmt"></span>
   <button class="fbtn" data-fa="open"></button>
   <button class="fbtn" data-fa="reload"></button>
   <button class="fbtn" data-fa="full"></button>
@@ -338,6 +436,8 @@ body.focusing #topbar,body.focusing #toolbar,body.focusing #flyout,body.focusing
     <div id="driveBody"></div>
   </div>
 </div>
+
+<div id="split" hidden data-app><div id="splitGrid"></div><div id="splitBar"><span>Разделённый экран</span><button data-sa="layout">Раскладка</button><button data-sa="exit">Выйти</button></div></div>
 
 <div id="empty" hidden data-app><b>Доска пустая</b>Нажмите <kbd>N</kbd> и щёлкните, чтобы добавить стикер, или вставьте ссылку на видео или сайт</div>
 <div id="toast" role="status" aria-live="polite" data-app></div>
@@ -386,8 +486,8 @@ const FILLS = ['transparent', '#ffffff', '#eef0f3', '#fff3a0', '#ffd6a5', '#ffc6
 const INKS = [INK, '#6b7080', '#b9bdc7', '#ffffff', '#e5484d', '#f76b15', '#d9a300', '#2fa36b', '#0b8fa8', '#3355ff', '#8e4ec6', '#d6409f'];
 const PEN_COLORS = [INK, '#e5484d', '#f76b15', '#d9a300', '#2fa36b', '#0b8fa8', '#3355ff', '#8e4ec6'];
 const FRAME_FILLS = ['#ffffff', '#f6f7f9', '#fffbe0', '#fff1e6', '#fdeef2', '#f3edff', '#ebf3ff', '#ebf7e9'];
-const SHAPES = ['rect', 'round', 'ellipse', 'diamond', 'triangle', 'parallelogram'];
-const SHAPE_NAMES = { rect: 'Прямоугольник', round: 'Скруглённый', ellipse: 'Эллипс', diamond: 'Ромб', triangle: 'Треугольник', parallelogram: 'Параллелограмм' };
+const SHAPES = ['rect', 'round', 'pill', 'ellipse', 'diamond', 'triangle', 'parallelogram', 'trapezoid', 'pentagon', 'hexagon', 'octagon', 'star', 'cloud', 'cylinder', 'document', 'callout', 'arrow', 'chevron', 'cross', 'braceL', 'braceR'];
+const SHAPE_NAMES = { rect: 'Прямоугольник', round: 'Скруглённый', pill: 'Капсула', ellipse: 'Эллипс', diamond: 'Ромб', triangle: 'Треугольник', parallelogram: 'Параллелограмм', trapezoid: 'Трапеция', pentagon: 'Пятиугольник', hexagon: 'Шестиугольник', octagon: 'Восьмиугольник', star: 'Звезда', cloud: 'Облако', cylinder: 'Цилиндр (база данных)', document: 'Документ', callout: 'Выноска', arrow: 'Стрелка-блок', chevron: 'Шеврон', cross: 'Крест', braceL: 'Скобка слева', braceR: 'Скобка справа' };
 const SHAPE_ICON = {
   rect: 'M4 6.5h16v11H4z',
   round: 'M7.5 6.5h9a3.5 3.5 0 0 1 3.5 3.5v4a3.5 3.5 0 0 1-3.5 3.5h-9A3.5 3.5 0 0 1 4 14v-4a3.5 3.5 0 0 1 3.5-3.5z',
@@ -443,11 +543,16 @@ const ICON = {
   folder: '<path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/>',
   grid: '<circle cx="6" cy="6" r="1" fill="currentColor"/><circle cx="12" cy="6" r="1" fill="currentColor"/><circle cx="18" cy="6" r="1" fill="currentColor"/><circle cx="6" cy="12" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="18" cy="12" r="1" fill="currentColor"/><circle cx="6" cy="18" r="1" fill="currentColor"/><circle cx="12" cy="18" r="1" fill="currentColor"/><circle cx="18" cy="18" r="1" fill="currentColor"/>',
   close: '<path d="M6 6l12 12M18 6L6 18"/>',
+  chat: '<path d="M5 5.5h14a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5H10l-4.5 3.5V16.5H5A1.5 1.5 0 0 1 3.5 15V7A1.5 1.5 0 0 1 5 5.5z"/>',
+  mindmap: '<rect x="2.5" y="9.5" width="7" height="5" rx="2"/><path d="M9.5 12h2.5M12 12c2 0 2-5 4.5-5h4M12 12c2 0 2 5 4.5 5h4"/>',
+  doc: '<path d="M6.5 3.5h8l3.5 3.5v13.5h-11.5z"/><path d="M14.5 3.5V7H18"/><path d="M9 11h6M9 14h6M9 17h4"/>',
+  table: '<rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M3.5 10h17M3.5 14.5h17M9.5 5v14M15 5v14"/>',
+  split: '<rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M12 4.5v15"/>',
   cloud: '<path d="M7.2 18.5h10.3a4 4 0 0 0 .7-7.94A6 6 0 0 0 6.6 9.7a4.4 4.4 0 0 0 .6 8.8z"/>',
   install: '<rect x="3.5" y="4.5" width="17" height="12" rx="2"/><path d="M12 7.5v6M9.5 11l2.5 2.5 2.5-2.5M8 20h8"/>',
 };
 const ic = n => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${ICON[n] || ''}</svg>`;
-const shapeIcon = k => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="${SHAPE_ICON[k] || SHAPE_ICON.rect}"/></svg>`;
+const shapeIcon = k => SHAPE_ICON[k] ? `<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="${SHAPE_ICON[k]}"/></svg>` : `<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path transform="translate(3 5)" d="${shapePath(k, 18, 14)}"/></svg>`;
 const plural = (n, one, few, many) => { const a = n % 10, b = n % 100; return a === 1 && b !== 11 ? one : a >= 2 && a <= 4 && (b < 12 || b > 14) ? few : many; };
 const fmtDate = t => { try { return new Date(t).toLocaleString('ru-RU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } };
 const safeName = s => (String(s || '').replace(/[\\/:*?"<>|]+/g, '_').trim().slice(0, 60)) || 'board';
@@ -460,7 +565,7 @@ const PROV = {
   gform: { name: 'Google Форма', c: '#7248b9', g: 'F' }, gdrive: { name: 'Google Диск', c: '#1fa463', g: 'G' },
   figma: { name: 'Figma', c: '#a259ff', g: 'F' }, miro: { name: 'Miro', c: '#ffd02f', g: 'M', dk: 1 }, whimsical: { name: 'Whimsical', c: '#7b61ff', g: 'W' },
   spotify: { name: 'Spotify', c: '#1db954', g: '♪' }, yandex: { name: 'Яндекс Музыка', c: '#ffcc00', g: 'Я', dk: 1 }, soundcloud: { name: 'SoundCloud', c: '#ff5500', g: '♪' },
-  codepen: { name: 'CodePen', c: INK, g: 'CP' }, file: { name: 'Видеофайл', c: '#4b4f5a', g: '▶' },
+  codepen: { name: 'CodePen', c: INK, g: 'CP' }, claude: { name: 'Claude', c: '#d97757', svg: 'chat', noframe: true }, file: { name: 'Видеофайл', c: '#4b4f5a', g: '▶' },
   web: { name: 'Сайт', c: '#6b7080', svg: 'globe' }, html: { name: 'HTML-инструмент', c: INK, svg: 'embed' },
 };
 const KIND_NAMES = { video: 'видео', web: 'сайт или документ', audio: 'музыка', html: 'свой инструмент' };
@@ -524,6 +629,7 @@ function parseEmbed(raw) {
   }
   if (host === 'soundcloud.com' && seg.length >= 2) return R('soundcloud', 'audio', `https://w.soundcloud.com/player/?url=${encodeURIComponent(u.href)}&visual=true`, { w: 560, h: 300 + EH });
   if (host === 'codepen.io' && seg[1] === 'pen' && seg[2]) return R('codepen', 'web', `https://codepen.io/${seg[0]}/embed/${seg[2]}?default-tab=result`, { w: 820, h: 520 });
+  if (host === 'claude.ai') return R('claude', 'web', u.href, { title: seg[0] === 'project' ? 'Проект Claude' : seg[0] === 'chat' ? 'Чат Claude' : 'Claude', w: 440, h: 220 });
   if (/\.(mp4|webm|ogv|mov)$/i.test(p)) return R('file', 'video', u.href, { title: decodeURIComponent(seg[seg.length - 1] || 'Видео') });
   const shortPath = p.length > 1 ? decodeURIComponent(p.replace(/\/$/, '')).slice(0, 48) : '';
   return R('web', 'web', u.href, { title: host + shortPath, w: 960, h: 620 });
@@ -603,10 +709,11 @@ const Local = {
   kind: 'local',
   async listBoards() { return (await safeGet('index')) || []; },
   async loadBoard(id) { return (await safeGet('board:' + id)) || null; },
-  async saveBoard(b) { await Store.set('board:' + b.id, b); upsertIndex(b); await Store.set('index', S.index); Drive.noteSave(b); },
-  async deleteBoard(id) { try { await Store.del('board:' + id); } catch (e) { /* ignore */ } S.index = S.index.filter(x => x.id !== id); await Store.set('index', S.index).catch(() => {}); Drive.forget(id); },
+  async saveBoardRaw(b) { await Store.set('board:' + b.id, b); upsertIndex(b); await Store.set('index', S.index); bcPost({ t: 'saved', bid: b.id }); },
+  async saveBoard(b) { await this.saveBoardRaw(b); Drive.noteSave(b); },
+  async deleteBoard(id) { try { await Store.del('board:' + id); } catch (e) { /* ignore */ } S.index = S.index.filter(x => x.id !== id); await Store.set('index', S.index).catch(() => {}); },
   async getLast() { return safeGet('last'); },
-  async setLast(id) { try { await Store.set('last', id); } catch (e) { /* ignore */ } },
+  async setLast(id) { if (PANE) return; try { await Store.set('last', id); } catch (e) { /* ignore */ } },
   saveView() { scheduleSave(true); },
   subscribe() {}, unsubscribe() {},
 };
@@ -629,6 +736,7 @@ const Db = {
     this.db = db;
     const root = db.doc('data/users/' + uid + '/holst');
     this.boards = root.collection('boards'); this.parts = root.collection('parts'); this.assets = root.collection('assets');
+    this.syncDoc = root.collection('sync').doc('drive');
   },
   async listBoards() {
     const qs = await this.boards.get();
@@ -672,7 +780,8 @@ const Db = {
     for (let i = 0; i < n; i++) { await this.assets.doc(aid + '_' + i).set({ kind: 'asset', aid, n: i, parts: n, data: data.slice(i * size, (i + 1) * size) }); this.lastWrite = Date.now(); }
     this.uploaded.add(aid); this.cache.set(aid, data);
   },
-  async saveBoard(b) {
+  async saveBoard(b) { await this.saveBoardRaw(b); Drive.noteSave(b); },
+  async saveBoardRaw(b) {
     this.busy = true;
     try {
       for (const a of assetIdsOf(b.items)) if (!this.uploaded.has(a) && b.assets[a] != null) await this.putAsset(a, b.assets[a]);
@@ -741,15 +850,21 @@ const Db = {
 let Backend = Local;
 
 /* =========================================================
-   Google Drive sync (when the board runs at its own web address).
-   Local-first: every change is saved on the device at once and sent
-   to the «Холст» folder on Google Drive whenever there is a connection.
+   Google Drive sync. One folder «Холст» (with subfolder «Файлы досок»)
+   is the meeting point for every copy of the board:
+   - the web app talks to Drive directly (REST, in-place updates);
+   - the version inside Claude goes through the Google Drive connector
+     (it cannot rewrite a file, so it writes a new one and trashes the old).
+   Board files are named «Name [boardId].holst.json»; a board's revision is
+   fileId@modifiedTime, so both sides notice each other's changes.
    ========================================================= */
-const GSCOPE = 'https://www.googleapis.com/auth/drive.file';
+const GSCOPE = 'https://www.googleapis.com/auth/drive';
 const GAPI = 'https://www.googleapis.com/drive/v3/';
 const GUP = 'https://www.googleapis.com/upload/drive/v3/files';
 const FOLDER_MIME = 'application/vnd.google-apps.folder';
-const DEVICE = /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent) ? 'телефона' : 'компьютера';
+const ROOT_NAME = 'Холст', ASSETS_NAME = 'Файлы досок', GDRIVE = 'Google Drive';
+const DEVICE = S_HOSTED_LABEL();
+function S_HOSTED_LABEL() { return (window.claude && typeof window.claude.use === 'function') ? 'Claude' : /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent) ? 'телефона' : 'компьютера'; }
 function cyrb53(str) {
   let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
   for (let i = 0, ch; i < str.length; i++) { ch = str.charCodeAt(i); h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); }
@@ -759,52 +874,75 @@ function cyrb53(str) {
 }
 /* Text heights are measured by each device's fonts, so they stay out of the comparison. */
 function boardHash(b) {
-  return cyrb53((b.name || '') + '\u0001' + JSON.stringify((b.items || []).map(it => (it.type === 'text' ? Object.assign({}, it, { h: 0 }) : it))));
+  return cyrb53((b.name || '') + '\u0001' + JSON.stringify((b.items || []).map(it => (it.type === 'text' || it.type === 'table' ? Object.assign({}, it, { h: 0 }) : it.type === 'mindmap' ? Object.assign({}, it, { x: 0, y: 0, w: 0, h: 0 }) : it))));
 }
+const b64ToBytes = b64 => { const s = atob(String(b64 || '').replace(/\s/g, '')); const u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u; };
 async function removeBoardLocally(bid) {
-  try { await Store.del('board:' + bid); } catch (e) { /* ignore */ }
+  await Backend.deleteBoard(bid).catch(() => {});
   S.index = S.index.filter(x => x.id !== bid);
-  await Store.set('index', S.index).catch(() => {});
   if (S.board && S.board.id === bid) {
     const next = [...S.index].sort((a, b) => b.updatedAt - a.updatedAt)[0];
-    const nb = next ? await Local.loadBoard(next.id) : null;
+    const nb = next ? await Backend.loadBoard(next.id).catch(() => null) : null;
     S.board = null; dirty = false;
     loadBoard(nb || newBoard('Новая доска'));
     if (nb) fitAll(); else await saveNow();
   }
   renderDrawer();
 }
+const driveErr = (status, code, msg) => { const e = new Error(msg || code || ('drive ' + status)); e.status = status; e.code = code; return e; };
 
 const Drive = {
-  cid: '', token: null, exp: 0, client: null, clientFor: '', gis: null,
-  state: 'off', pending: false, running: false, again: false, timer: 0, lastSync: 0,
-  st: { folder: null, assets: null, meta: {}, assetMap: {}, deleted: [] },
-  available() { return !S.hosted && !IS_FILE && (location.protocol === 'https:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname)); },
-  active() { return this.available() && !!this.cid; },
+  mode: null,            // 'rest' (web app) | 'mcp' (inside Claude) | null
+  cid: '', token: null, exp: 0, client: null, clientFor: '', gis: null, mcp: null,
+  state: 'off', note: '', pending: false, running: false, again: false, timer: 0, lastSync: 0,
+  writeBlocked: false, halted: '',
+  st: { root: null, assets: null, meta: {}, assetMap: {}, deleted: [], bidOf: {} },
+  webHost() { return !S.hosted && !IS_FILE && (location.protocol === 'https:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname)); },
+  available() { return this.mode === 'rest' || this.mode === 'mcp'; },
+  active() { return this.mode === 'mcp' ? !!this.mcp : this.mode === 'rest' && !!this.cid; },
   tokenOk() { return !!this.token && Date.now() < this.exp - 60000; },
+  ready() { return this.mode === 'mcp' ? !!this.mcp : this.tokenOk(); },
+
   async init() {
-    if (!this.available()) return;
-    const m = location.hash.match(/[#&]cid=([^&]+)/);
-    if (m) { LS.set('gcid', decodeURIComponent(m[1])); history.replaceState(null, '', location.pathname + location.search); setTimeout(() => toast('Google Диск настроен: нажмите на статус вверху, чтобы войти'), 400); }
-    this.cid = LS.get('gcid') || '';
-    const t = LS.get('gtok'); if (t && t.e > Date.now() + 60000) { this.token = t.t; this.exp = t.e; }
+    if (PANE) { renderStatus(); return; }
+    if (Backend === Db) {
+      try { this.mcp = await window.claude.use('mcp'); } catch (e) { this.mcp = null; }
+      this.mode = this.mcp ? 'mcp' : null;
+    } else if (Backend === Local && this.webHost()) {
+      this.mode = 'rest';
+      const m = location.hash.match(/[#&]cid=([^&]+)/);
+      if (m) { LS.set('gcid', decodeURIComponent(m[1])); history.replaceState(null, '', location.pathname + location.search); setTimeout(() => toast('Google Диск настроен: нажмите на облако вверху, чтобы войти'), 400); }
+      this.cid = LS.get('gcid') || '';
+      const t = LS.get('gtok'); if (t && t.e > Date.now() + 60000) { this.token = t.t; this.exp = t.e; }
+    }
+    if (!this.mode) { renderStatus(); return; }
     this.lastSync = LS.get('glast') || 0;
-    const st = await safeGet('drive'); if (st) Object.assign(this.st, st);
+    const st = await this.loadState(); if (st) Object.assign(this.st, st);
+    this.st.meta = this.st.meta || {}; this.st.assetMap = this.st.assetMap || {}; this.st.deleted = this.st.deleted || []; this.st.bidOf = this.st.bidOf || {};
     if (!this.active()) { this.state = 'off'; renderStatus(); return; }
-    this.state = this.tokenOk() ? 'ok' : 'auth';
+    this.state = this.ready() ? 'ok' : 'auth';
     renderStatus();
-    if (navigator.onLine) this.loadGIS().catch(() => {});
-    this.schedule(600);
+    if (this.mode === 'rest' && navigator.onLine) this.loadGIS().catch(() => {});
+    this.schedule(this.mode === 'mcp' ? 1500 : 600);
     setInterval(() => { if (document.visibilityState === 'visible') this.schedule(0); }, 60000);
   },
-  persist() { return Store.set('drive', this.st).catch(() => {}); },
-  setState(s) { this.state = s; renderStatus(); renderDriveDlg(); },
+  async loadState() {
+    if (this.mode === 'mcp') { try { const d = await Db.syncDoc.get(); return d.exists ? clone(d.data()) : null; } catch (e) { return null; } }
+    return safeGet('drive');
+  },
+  persist() {
+    if (this.mode === 'mcp') return Db.syncDoc.set(clone(this.st)).catch(() => {});
+    return Store.set('drive', this.st).catch(() => {});
+  },
+  setState(s, note) { this.state = s; this.note = note || ''; renderStatus(); renderDriveDlg(); },
   schedule(ms) { if (!this.active()) return; clearTimeout(this.timer); this.timer = setTimeout(() => this.sync(), ms); },
-  touched() { if (!this.active()) return; this.pending = true; renderStatus(); this.schedule(2500); },
-  noteSave(b) { if (!this.active()) return; const m = this.st.meta[b.id]; if (!m || boardHash(b) !== m.hash) this.touched(); },
-  forget(bid) { const m = this.st.meta[bid]; if (m && m.fileId) this.st.deleted.push(m.fileId); delete this.st.meta[bid]; this.persist(); this.touched(); },
+  touched() { if (!this.active()) return; this.pending = true; renderStatus(); this.schedule(this.mode === 'mcp' ? 4000 : 2500); },
+  noteSave(b) { if (!this.active() || !b) return; const m = this.st.meta[b.id]; if (!m || boardHash(b) !== m.hash) this.touched(); },
+  forget(bid) { const m = this.st.meta[bid]; if (m && m.fileId) this.st.deleted.push(m.fileId); delete this.st.meta[bid]; if (this.active()) { this.persist(); this.touched(); } },
   setClient(v) { this.cid = v; LS.set('gcid', v); this.client = null; this.state = this.tokenOk() ? 'ok' : 'auth'; renderStatus(); },
   disconnect() { this.cid = ''; this.token = null; this.client = null; LS.set('gcid', ''); LS.set('gtok', null); this.state = 'off'; clearTimeout(this.timer); renderStatus(); renderDriveDlg(); },
+
+  /* ---------- sign-in (web app) ---------- */
   loadGIS() {
     if (window.google && google.accounts && google.accounts.oauth2) return Promise.resolve();
     if (!this.gis) this.gis = new Promise((res, rej) => {
@@ -816,6 +954,7 @@ const Drive = {
     return this.gis;
   },
   async connect() {
+    if (this.mode === 'mcp') { this.halted = ''; this.writeBlocked = false; this.sync(true); return; }
     if (!this.cid) { openDriveDlg(); return; }
     if (!navigator.onLine) { toast('Нет подключения к интернету'); return; }
     try { await this.loadGIS(); } catch (e) { toast('Не загрузился вход Google. Проверьте интернет'); return; }
@@ -824,7 +963,7 @@ const Drive = {
         this.client = google.accounts.oauth2.initTokenClient({ client_id: this.cid, scope: GSCOPE, callback: r => this.onToken(r), error_callback: e => this.onTokenError(e) });
         this.clientFor = this.cid;
       }
-      this.client.requestAccessToken({ prompt: LS.get('gconsent') ? '' : 'consent' });
+      this.client.requestAccessToken({ prompt: LS.get('gconsent2') ? '' : 'consent' });
     } catch (e) { toast('Google не принял Client ID. Проверьте его в окне «Google Диск»'); }
   },
   onToken(r) {
@@ -832,112 +971,202 @@ const Drive = {
     const ok = !google.accounts.oauth2.hasGrantedAllScopes || google.accounts.oauth2.hasGrantedAllScopes(r, GSCOPE);
     if (!ok) { this.setState('auth'); toast('Нужно разрешить доступ к Google Диску'); return; }
     this.token = r.access_token; this.exp = Date.now() + (+r.expires_in || 3600) * 1000;
-    LS.set('gtok', { t: this.token, e: this.exp }); LS.set('gconsent', 1);
-    this.setState('syncing'); this.sync();
+    LS.set('gtok', { t: this.token, e: this.exp }); LS.set('gconsent2', 1);
+    this.setState('syncing'); this.sync(true);
   },
   onTokenError(e) {
     this.setState('auth');
     toast(e && e.type === 'popup_failed_to_open' ? 'Браузер заблокировал окно входа Google: разрешите всплывающие окна' : 'Вход в Google отменён');
   },
-  err(r, what) { const e = new Error(what + ' ' + r.status); e.status = r.status; return e; },
-  async api(method, path, body) {
+
+  /* ---------- transport: REST (web app) ---------- */
+  async rest(method, path, body) {
     const r = await fetch(GAPI + path, { method, headers: Object.assign({ Authorization: 'Bearer ' + this.token }, body ? { 'Content-Type': 'application/json' } : {}), body: body ? JSON.stringify(body) : undefined });
-    if (!r.ok) throw this.err(r, 'drive');
+    if (!r.ok) throw driveErr(r.status);
     return r.status === 204 ? null : r.json();
   },
-  async raw(id) {
+  async restMedia(id) {
     const r = await fetch(GAPI + 'files/' + id + '?alt=media', { headers: { Authorization: 'Bearer ' + this.token } });
-    if (!r.ok) throw this.err(r, 'drive get');
+    if (!r.ok) throw driveErr(r.status);
     return r;
   },
-  async upload(method, fileId, meta, data, mime, keep) {
+  async restUpload(method, fileId, meta, data, mime, keep) {
     const bd = 'holst' + uid();
     const body = new Blob([`--${bd}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(meta)}\r\n--${bd}\r\nContent-Type: ${mime}\r\n\r\n`, data, `\r\n--${bd}--`]);
-    const url = GUP + (fileId ? '/' + fileId : '') + '?uploadType=multipart&fields=id,version,modifiedTime' + (keep ? '&keepRevisionForever=true' : '');
+    const url = GUP + (fileId ? '/' + fileId : '') + '?uploadType=multipart&fields=id,name,modifiedTime' + (keep ? '&keepRevisionForever=true' : '');
     const r = await fetch(url, { method, headers: { Authorization: 'Bearer ' + this.token, 'Content-Type': 'multipart/related; boundary=' + bd }, body });
-    if (!r.ok) throw this.err(r, 'drive upload');
-    return r.json();
+    if (!r.ok) throw driveErr(r.status);
+    const j = await r.json();
+    return { id: j.id, mtime: j.modifiedTime };
   },
-  async list(q, fields) {
+  async restList(q) {
     let out = [], page = '';
     do {
-      const r = await this.api('GET', `files?q=${encodeURIComponent(q)}&fields=nextPageToken,files(${fields || 'id,name'})&pageSize=1000&spaces=drive${page ? '&pageToken=' + page : ''}`);
-      out = out.concat(r.files || []); page = r.nextPageToken;
+      const r = await this.rest('GET', `files?q=${encodeURIComponent(q)}&fields=nextPageToken,files(id,name,mimeType,modifiedTime,createdTime)&pageSize=1000&spaces=drive${page ? '&pageToken=' + page : ''}`);
+      out = out.concat((r.files || []).map(f => ({ id: f.id, title: f.name, mime: f.mimeType, mtime: f.modifiedTime, ctime: f.createdTime })));
+      page = r.nextPageToken;
     } while (page);
     return out;
   },
-  async ensureFolders() {
-    const st = this.st;
-    if (st.folder) {
-      let gone = false;
-      try { const f = await this.api('GET', `files/${st.folder}?fields=id,trashed`); gone = !!f.trashed; }
-      catch (e) { if (e.status === 404) gone = true; else throw e; }
-      if (gone) { Object.assign(st, { folder: null, assets: null, meta: {}, assetMap: {}, deleted: [] }); toast('Папка «Холст» в Диске удалена. Создаю новую из копий на этом устройстве'); }
+
+  /* ---------- transport: Google Drive connector (inside Claude) ---------- */
+  async tool(name, input) {
+    try { const r = await this.mcp.callTool(GDRIVE, name, input); return r ? r.payload : null; }
+    catch (e) {
+      const code = e && e.code;
+      if (code === 'tool_error' && /not found/i.test(String(e.message || ''))) throw driveErr(404, 'not_found');
+      throw driveErr(0, code || 'upstream_error', e && e.message);
     }
-    if (!st.folder) {
-      const found = await this.list(`appProperties has { key='holst' and value='root' } and trashed=false and mimeType='${FOLDER_MIME}'`);
-      st.folder = found.length ? found[0].id : (await this.api('POST', 'files?fields=id', { name: 'Холст', mimeType: FOLDER_MIME, appProperties: { holst: 'root' } })).id;
-      st.assets = null;
-    }
-    if (!st.assets) {
-      const found = await this.list(`'${st.folder}' in parents and appProperties has { key='holst' and value='assets' } and trashed=false`);
-      st.assets = found.length ? found[0].id : (await this.api('POST', 'files?fields=id', { name: 'Файлы досок', mimeType: FOLDER_MIME, parents: [st.folder], appProperties: { holst: 'assets' } })).id;
-    }
-    await this.persist();
   },
-  async fileStatus(id) {
-    try { const f = await this.api('GET', `files/${id}?fields=id,trashed`); return f.trashed ? 'trashed' : 'ok'; }
-    catch (e) { if (e.status === 404) return 'gone'; throw e; }
+  async mcpList(query) {
+    let out = [], page = '';
+    for (let i = 0; i < 25; i++) {
+      const p = await this.tool('search_files', Object.assign({ query, pageSize: 100, excludeContentSnippets: true }, page ? { pageToken: page } : {}));
+      const files = (p && p.files) || [];
+      out = out.concat(files.map(f => ({ id: f.id, title: f.title, mime: f.mimeType, mtime: f.modifiedTime, ctime: f.createdTime, parent: f.parentId })));
+      page = p && p.nextPageToken;
+      if (!page || !files.length) break;
+    }
+    return out;
   },
-  async download(id) { return (await this.raw(id)).json(); },
-  async downloadAsset(id) {
-    const blob = await (await this.raw(id)).blob();
+
+  /* ---------- operations used by the sync, for both transports ---------- */
+  async listFolder(id) {
+    return this.mode === 'mcp' ? (await this.mcpList(`parentId = '${id}'`)).filter(f => f.parent === id || !f.parent)
+      : this.restList(`'${id}' in parents and trashed=false`);
+  },
+  async findFolders(name, parent) {
+    const list = this.mode === 'mcp' ? await this.mcpList(`title = '${name}' and mimeType = '${FOLDER_MIME}' and parentId = '${parent}'`)
+      : await this.restList(`name='${name}' and mimeType='${FOLDER_MIME}' and '${parent}' in parents and trashed=false`);
+    return list.filter(f => f.title === name && (!f.mime || f.mime === FOLDER_MIME)).sort((a, b) => String(a.ctime).localeCompare(String(b.ctime)));
+  },
+  async makeFolder(name, parent) {
+    if (this.mode === 'mcp') { const p = await this.tool('create_file', Object.assign({ title: name, contentMimeType: FOLDER_MIME }, parent && parent !== 'root' ? { parentId: parent } : {})); return p.id; }
+    return (await this.rest('POST', 'files?fields=id', { name, mimeType: FOLDER_MIME, parents: [parent] })).id;
+  },
+  async status(id) {
+    try {
+      if (this.mode === 'mcp') { const p = await this.tool('get_file_metadata', { fileId: id, excludeContentSnippets: true }); return { st: 'ok', mtime: p && p.modifiedTime }; }
+      const f = await this.rest('GET', `files/${id}?fields=id,trashed,modifiedTime`);
+      return { st: f.trashed ? 'gone' : 'ok', mtime: f.modifiedTime };
+    } catch (e) { if (e.status === 404) return { st: 'gone' }; throw e; }
+  },
+  async fetchJSON(id) {
+    if (this.mode === 'mcp') { const p = await this.tool('download_file_content', { fileId: id }); return JSON.parse(new TextDecoder().decode(b64ToBytes(p.content))); }
+    return (await this.restMedia(id)).json();
+  },
+  async fetchAsset(id) {
+    if (this.mode === 'mcp') {
+      const p = await this.tool('download_file_content', { fileId: id });
+      if (/^image\//.test(p.mimeType || '')) return `data:${p.mimeType};base64,${String(p.content).replace(/\s/g, '')}`;
+      return new TextDecoder().decode(b64ToBytes(p.content));
+    }
+    const blob = await (await this.restMedia(id)).blob();
     if (/^image\//.test(blob.type)) return new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = () => rej(fr.error); fr.readAsDataURL(blob); });
     return blob.text();
   },
+  async create(parent, title, mime, text, base64) {
+    if (this.mode === 'mcp') {
+      const p = await this.tool('create_file', Object.assign({ title, parentId: parent, contentMimeType: mime, disableConversionToGoogleType: true }, base64 != null ? { base64Content: base64 } : { textContent: text }));
+      return { id: p.id, mtime: p.modifiedTime };
+    }
+    const data = base64 != null ? new Blob([b64ToBytes(base64)], { type: mime }) : text;
+    return this.restUpload('POST', null, { name: title, parents: [parent], mimeType: mime }, data, mime, false);
+  },
+  async trash(id) {
+    if (this.mode === 'mcp') { try { await this.tool('trash_file', { fileId: id }); } catch (e) { if (e.status !== 404) throw e; } return; }
+    try { await this.rest('PATCH', `files/${id}?fields=id`, { trashed: true }); } catch (e) { if (e.status !== 404) throw e; }
+  },
+  /* A failed write through the connector is ambiguous (it may have run), so
+     writes pause until the person taps «Синхронизировать». */
+  async write(fn) {
+    if (this.writeBlocked) throw driveErr(0, 'write_paused');
+    try { return await fn(); }
+    catch (e) { if (this.mode === 'mcp' && e.status !== 404) this.writeBlocked = true; throw e; }
+  },
+
+  async ensureRoot() {
+    const st = this.st;
+    if (st.root) {
+      const s = await this.status(st.root);
+      if (s.st !== 'ok') { Object.assign(st, { root: null, assets: null, meta: {}, assetMap: {}, deleted: [], bidOf: {} }); toast('Папка «Холст» в Диске удалена. Создаю новую из копий на этом устройстве'); }
+    }
+    if (!st.root) {
+      const roots = await this.findFolders(ROOT_NAME, 'root');
+      for (const r of roots) { const a = await this.findFolders(ASSETS_NAME, r.id); if (a.length) { st.root = r.id; st.assets = a[0].id; break; } }
+      if (!st.root) {
+        st.root = await this.write(() => this.makeFolder(ROOT_NAME, 'root'));
+        st.assets = await this.write(() => this.makeFolder(ASSETS_NAME, st.root));
+      }
+    }
+    if (!st.assets) { const a = await this.findFolders(ASSETS_NAME, st.root); st.assets = a.length ? a[0].id : await this.write(() => this.makeFolder(ASSETS_NAME, st.root)); }
+  },
+  async remoteBoards() {
+    const files = await this.listFolder(this.st.root), groups = new Map();
+    for (const f of files) {
+      if (!/\.holst\.json$/i.test(f.title || '')) continue;
+      let bid = ((f.title.match(/\[([A-Za-z0-9_-]+)\]\.holst\.json$/i) || [])[1]) || this.st.bidOf[f.id];
+      if (!bid) {
+        try { f.data = await this.fetchJSON(f.id); bid = f.data && f.data.board && f.data.board.id; } catch (e) { /* unreadable */ }
+        if (!bid) continue;
+        this.st.bidOf[f.id] = bid;
+      }
+      f.bid = bid; f.rev = f.id + '@' + f.mtime;
+      if (!groups.has(bid)) groups.set(bid, []);
+      groups.get(bid).push(f);
+    }
+    const out = new Map();
+    for (const [bid, list] of groups) { list.sort((a, b) => String(b.mtime).localeCompare(String(a.mtime))); const cur = list[0]; cur.stale = list.slice(1); out.set(bid, cur); }
+    return out;
+  },
+  boardFile(b, assetFiles) {
+    return JSON.stringify({ format: 'holst-board', version: 4, board: { id: b.id, name: b.name, items: b.items, assetFiles, updatedAt: b.updatedAt } });
+  },
   async uploadAsset(aid, data) {
-    let blob, ext;
-    if (/^data:/.test(data)) { blob = await (await fetch(data)).blob(); ext = '.' + ((blob.type.split('/')[1] || 'bin').replace('jpeg', 'jpg').replace('svg+xml', 'svg')); }
-    else { blob = new Blob([data], { type: 'text/html' }); ext = '.html'; }
-    const res = await this.upload('POST', null, { name: aid + ext, parents: [this.st.assets], appProperties: { holst: 'asset', aid } }, blob, blob.type || 'application/octet-stream', false);
-    return res.id;
+    let mime, ext, b64 = null, text = null;
+    if (/^data:/.test(data)) { const m = data.match(/^data:([^;,]+)(;base64)?,(.*)$/); mime = m ? m[1] : 'application/octet-stream'; b64 = m && m[2] ? m[3] : btoa(unescape(encodeURIComponent(decodeURIComponent(m ? m[3] : '')))); ext = '.' + (mime.split('/')[1] || 'bin').replace('jpeg', 'jpg').replace('svg+xml', 'svg'); }
+    else { mime = 'text/html'; ext = '.html'; text = data; }
+    const r = await this.write(() => this.create(this.st.assets, aid + ext, mime, text, b64));
+    return r.id;
   },
   async push(b, h, f) {
     const assetFiles = {};
     for (const a of assetIdsOf(b.items)) {
       let fid = this.st.assetMap[a];
-      if (!fid && b.assets && b.assets[a] != null) { fid = await this.uploadAsset(a, b.assets[a]); this.st.assetMap[a] = fid; await this.persist(); }
+      if (!fid && b.assets && b.assets[a] != null) { fid = await this.uploadAsset(a, b.assets[a]); this.st.assetMap[a] = fid; }
       if (fid) assetFiles[a] = fid;
     }
-    const body = JSON.stringify({ format: 'holst-board', version: 3, board: { id: b.id, name: b.name, items: b.items, assetFiles, updatedAt: b.updatedAt } });
-    const name = safeName(b.name) + '.holst.json';
-    const m = this.st.meta[b.id] || {};
-    const today = new Date().toISOString().slice(0, 10);
+    const body = this.boardFile(b, assetFiles), title = `${safeName(b.name)} [${b.id}].holst.json`;
+    const m = this.st.meta[b.id] || {}, today = new Date().toISOString().slice(0, 10);
     let res;
-    if (f) {
-      try { res = await this.upload('PATCH', f.id, { name }, body, 'application/json', m.day !== today); }
-      catch (e) { if (e.status === 403 && m.day !== today) res = await this.upload('PATCH', f.id, { name }, body, 'application/json', false); else throw e; }
+    if (this.mode === 'rest' && f) {
+      try { res = await this.restUpload('PATCH', f.id, { name: title }, body, 'application/json', m.day !== today); }
+      catch (e) { if (e.status === 403 && m.day !== today) res = await this.restUpload('PATCH', f.id, { name: title }, body, 'application/json', false); else throw e; }
     } else {
-      res = await this.upload('POST', null, { name, parents: [this.st.folder], mimeType: 'application/json', appProperties: { holst: 'board', bid: b.id } }, body, 'application/json', false);
+      if (f) { m.pendingTrash = f.rev; this.st.meta[b.id] = m; }
+      res = await this.write(() => this.create(this.st.root, title, 'application/json', body, null));
+      if (f) {
+        const s = await this.status(f.id);
+        if (s.st === 'ok' && f.id + '@' + s.mtime === f.rev) await this.write(() => this.trash(f.id));
+        delete m.pendingTrash;
+      }
     }
-    this.st.meta[b.id] = { fileId: res.id, version: res.version, hash: h, day: today, u: b.updatedAt };
-    await this.persist();
+    this.st.meta[b.id] = { fileId: res.id, rev: res.id + '@' + res.mtime, hash: h, day: today, u: b.updatedAt };
   },
   async pull(f, force, data) {
-    const bid = f.appProperties.bid;
-    const open = S.board && S.board.id === bid;
+    const bid = f.bid, open = S.board && S.board.id === bid;
     if (open && !force && (dirty || saving || S.editing || S.drag || S.focus)) return false;
-    data = data || await this.download(f.id);
+    data = data || f.data || await this.fetchJSON(f.id);
     const src = (data && data.board) || data || {};
-    const local = await Local.loadBoard(bid);
-    const b = local || { id: bid, createdAt: Date.now() };
-    b.id = bid; b.name = src.name || f.name.replace(/\.holst\.json$/, '');
+    const local = await Backend.loadBoard(bid).catch(() => null);
+    const b = local || newBoard(src.name);
+    b.id = bid; b.name = src.name || (f.title || '').replace(/\s*\[[^\]]*\]\.holst\.json$/i, '');
     b.items = Array.isArray(src.items) ? src.items : [];
-    b.updatedAt = src.updatedAt || Date.parse(f.modifiedTime) || Date.now();
+    b.updatedAt = src.updatedAt || Date.parse(f.mtime) || Date.now();
     b.assets = b.assets || {};
     for (const [a, fid] of Object.entries(src.assetFiles || {})) {
       this.st.assetMap[a] = fid;
-      if (b.assets[a] == null) { try { b.assets[a] = await this.downloadAsset(fid); } catch (e) { /* retried next time */ } }
+      if (b.assets[a] == null) { try { b.assets[a] = await this.fetchAsset(fid); } catch (e) { /* retried next time */ } }
     }
     delete b.welcome;
     normalizeBoard(b, false);
@@ -949,9 +1178,8 @@ const Drive = {
       render(); toast('Доска обновилась с другого устройства');
       b.view = S.board.view;
     }
-    await Store.set('board:' + bid, b); upsertIndex(b); await Store.set('index', S.index);
-    this.st.meta[bid] = { fileId: f.id, version: f.version, hash: boardHash(b), day: (this.st.meta[bid] || {}).day, u: b.updatedAt };
-    await this.persist();
+    await Backend.saveBoardRaw(b);
+    this.st.meta[bid] = { fileId: f.id, rev: f.rev, hash: boardHash(b), day: (this.st.meta[bid] || {}).day, u: b.updatedAt };
     return true;
   },
   async conflict(lb, f, data) {
@@ -959,68 +1187,75 @@ const Drive = {
     copy.id = 'b' + uid(); delete copy.welcome;
     copy.name = `${lb.name} (версия с ${DEVICE}, ${fmtDate(Date.now())})`;
     copy.createdAt = copy.updatedAt = Date.now();
-    await Store.set('board:' + copy.id, copy); upsertIndex(copy); await Store.set('index', S.index);
+    await Backend.saveBoardRaw(copy);
     await this.pull(f, true, data);
-    toast(`«${lb.name}» меняли на двух устройствах. Ваша версия сохранена отдельной доской`);
+    toast(`«${lb.name}» меняли в двух местах. Ваша версия сохранена отдельной доской`);
   },
-  async sync() {
+  async sync(gesture) {
     if (!this.active()) return;
     if (this.running) { this.again = true; return; }
+    if (gesture) { this.writeBlocked = false; this.halted = ''; }
+    if (this.halted) return;
     if (!navigator.onLine) { this.setState('offline'); return; }
-    if (!this.tokenOk()) { this.setState('auth'); return; }
+    if (!this.ready()) { this.setState('auth'); return; }
     this.running = true; this.setState('syncing');
     let changed = false;
     try {
       if (dirty && S.board) await saveNow();
-      await this.ensureFolders();
-      for (const id of [...this.st.deleted]) {
-        try { await this.api('PATCH', `files/${id}?fields=id`, { trashed: true }); } catch (e) { if (e.status !== 404) throw e; }
-        this.st.deleted = this.st.deleted.filter(x => x !== id); await this.persist();
-      }
-      const remote = (await this.list(`'${this.st.folder}' in parents and appProperties has { key='holst' and value='board' } and trashed=false`, 'id,name,version,modifiedTime,appProperties'))
-        .filter(f => f.appProperties && f.appProperties.bid);
-      const byBid = new Map(remote.map(f => [f.appProperties.bid, f]));
-      // Drive → device
-      for (const f of remote) {
-        const bid = f.appProperties.bid, m = this.st.meta[bid];
-        if (m && m.version === f.version) continue;
-        const lb = await Local.loadBoard(bid);
+      await this.ensureRoot();
+      for (const id of [...this.st.deleted]) { await this.write(() => this.trash(id)); this.st.deleted = this.st.deleted.filter(x => x !== id); }
+      const remote = await this.remoteBoards();
+      // Drive → this copy
+      for (const [bid, f] of remote) {
+        const m = this.st.meta[bid];
+        if (m && m.rev === f.rev) continue;
+        const lb = await Backend.loadBoard(bid).catch(() => null);
         if (!lb) { await this.pull(f); changed = true; continue; }
         const h = boardHash(lb);
         if (m && h === m.hash) { if (await this.pull(f)) changed = true; continue; }
-        const data = await this.download(f.id), src = (data && data.board) || {};
+        const data = f.data || await this.fetchJSON(f.id), src = (data && data.board) || {};
         const tmp = normalizeBoard({ name: src.name, items: clone(src.items || []) }, false);
-        if (boardHash(tmp) === h) { this.st.meta[bid] = { fileId: f.id, version: f.version, hash: h, day: m && m.day, u: lb.updatedAt }; await this.persist(); continue; }
+        if (boardHash(tmp) === h) { this.st.meta[bid] = Object.assign({}, m, { fileId: f.id, rev: f.rev, hash: h, u: lb.updatedAt }); continue; }
         await this.conflict(lb, f, data); changed = true;
       }
-      // device → Drive
+      // this copy → Drive
       let removed = 0;
       for (const e of [...S.index]) {
-        const bid = e.id, f = byBid.get(bid), m = this.st.meta[bid];
-        if (f && m && m.version !== f.version) continue;
-        const lb = await Local.loadBoard(bid); if (!lb) continue;
+        const bid = e.id, f = remote.get(bid), m = this.st.meta[bid];
+        if (f && m && m.rev !== f.rev) continue;
+        if (f && m && m.u === e.updatedAt && !(m.pendingTrash && f.stale.length)) continue;
+        const lb = await Backend.loadBoard(bid).catch(() => null); if (!lb) continue;
         const h = m && m.u === lb.updatedAt && m.hash ? m.hash : boardHash(lb);
-        if (lb.welcome && remote.length && !f && !(m && m.fileId) && h === LS.get('welcome:' + bid)) { await removeBoardLocally(bid); changed = true; continue; }
-        if (f) { if (!m || h !== m.hash) await this.push(lb, h, f); else if (m.u !== lb.updatedAt) { m.u = lb.updatedAt; } continue; }
+        if (lb.welcome && h === LS.get('welcome:' + bid)) { if (remote.size) { await removeBoardLocally(bid); changed = true; } continue; }
+        if (f) {
+          if (m && m.pendingTrash) { const old = f.stale.find(x => x.rev === m.pendingTrash); if (old) await this.write(() => this.trash(old.id)); delete m.pendingTrash; }
+          if (!m || h !== m.hash) await this.push(lb, h, f); else m.u = lb.updatedAt;
+          continue;
+        }
         if (m && m.fileId) {
-          const s = await this.fileStatus(m.fileId);
-          if (s !== 'ok' && h === m.hash && removed < 2) { removed++; delete this.st.meta[bid]; await this.persist(); await removeBoardLocally(bid); changed = true; continue; }
-          if (s === 'ok') { await this.push(lb, h, { id: m.fileId }); continue; }
+          const s = await this.status(m.fileId);
+          if (s.st === 'gone' && h === m.hash && removed < 2) { removed++; delete this.st.meta[bid]; await removeBoardLocally(bid); changed = true; continue; }
           delete this.st.meta[bid];
         }
         await this.push(lb, h, null);
       }
       this.pending = false; this.lastSync = Date.now(); LS.set('glast', this.lastSync);
-      await this.persist();
       this.running = false;
       this.setState('ok');
     } catch (e) {
       this.running = false;
+      const c = e && e.code;
       if (e && e.status === 401) { this.token = null; LS.set('gtok', null); this.setState('auth'); }
+      else if (c === 'needs_reauth') { this.halted = c; this.setState('auth', 'Переподключите Google Диск в настройках Claude: Настройки → Коннекторы'); }
+      else if (c === 'server_not_connected' || c === 'server_not_found') { this.halted = c; this.setState('error', 'Добавьте коннектор Google Диск в настройках Claude: Настройки → Коннекторы'); }
+      else if (c === 'not_in_manifest' || c === 'consent_required' || c === 'not_granted' || c === 'capability_disabled' || c === 'blocked_by_policy') { this.halted = c; this.setState('error', 'Доступ этой страницы к Google Диску не разрешён. Нажмите «Синхронизировать», чтобы спросить снова'); }
+      else if (c === 'selection_required') { this.halted = c; this.setState('error', 'Выберите, какой коннектор Google Диска использовать, в окне Claude'); }
+      else if (c === 'write_paused') this.setState('error', 'Запись в Диск приостановлена после сбоя. Нажмите «Синхронизировать», чтобы продолжить');
       else if (!navigator.onLine) this.setState('offline');
-      else { console.warn('Drive sync', e); this.setState('error'); this.schedule(30000); }
+      else { console.warn('Drive sync', e); this.setState('error', this.writeBlocked ? 'Запись в Диск не подтвердилась. Нажмите «Синхронизировать», чтобы продолжить' : ''); if (!this.writeBlocked) this.schedule(30000); }
     } finally {
       this.running = false;
+      await this.persist();
       if (changed) renderDrawer();
       if (this.again) { this.again = false; this.schedule(300); }
     }
@@ -1051,13 +1286,13 @@ const mctx = document.createElement('canvas').getContext('2d');
 /* =========================================================
    Model
    ========================================================= */
-const TEXT_TYPES = new Set(['sticky', 'shape', 'text']);
+const TEXT_TYPES = new Set(['sticky', 'shape', 'text', 'doc']);
 const hasText = it => !!it && TEXT_TYPES.has(it.type);
 const titled = it => !!it && (it.type === 'frame' || it.type === 'embed');
 const editable = it => hasText(it) || titled(it);
 const FIELD = it => (titled(it) ? 'title' : 'text');
 const connectable = it => it.type !== 'connector' && it.type !== 'pen';
-const canFocus = it => !!it && ['embed', 'image', 'sticky', 'text', 'shape', 'frame'].includes(it.type);
+const canFocus = it => !!it && ['embed', 'image', 'sticky', 'text', 'shape', 'frame', 'doc'].includes(it.type);
 const items = () => S.board.items;
 function byId(id) { if (!id) return null; const a = S.board.items; for (let i = 0; i < a.length; i++) if (a[i].id === id) return a[i]; return null; }
 const selItems = () => [...S.sel].map(byId).filter(Boolean);
@@ -1078,7 +1313,13 @@ function normalizeItem(it) {
     if (it.kind !== 'html' && !it.src && it.url) { const sp = parseEmbed(it.url); if (sp) Object.assign(it, { src: sp.src, provider: it.provider || sp.provider, kind: sp.kind, thumb: it.thumb || sp.thumb }); }
     it.provider = it.provider || (it.kind === 'html' ? 'html' : 'web');
     it.title = it.title || (PROV[it.provider] || PROV.web).name;
+    if (it.provider !== 'claude' && /^https:\/\/claude\.ai\//.test(it.url || '')) { const sp = parseEmbed(it.url); if (sp && sp.provider === 'claude') { it.provider = 'claude'; if (!it.title || /^claude\.ai/.test(it.title)) it.title = sp.title; } }
+    if (!it.vs) it.vs = 'live';
+    const ev = viewOf(it); if (it.vs !== ev) switchSize(it, it.vs, ev);
   }
+  if (it.html) it.html = sanitizeHTML(it.html);
+  if (it.type === 'table') { it.cols = Array.isArray(it.cols) && it.cols.length ? it.cols.map(n => +n || 160) : [180, 180, 180]; it.rows = (Array.isArray(it.rows) && it.rows.length ? it.rows : [['', '', '']]).map(r => it.cols.map((_, c) => sanitizeHTML(((r || [])[c]) || ''))); }
+  if (it.type === 'mindmap') { if (!it.root) it.root = { id: 'n' + uid(), text: '', children: [] }; mmNorm(it.root); if (!Number.isFinite(+it.rx)) it.rx = it.x; if (!Number.isFinite(+it.ry)) it.ry = it.y; it.layout = it.layout || 'both'; }
 }
 function normalizeBoard(b, gc = true) {
   b.items = Array.isArray(b.items) ? b.items.filter(i => i && i.id && i.type) : [];
@@ -1116,10 +1357,25 @@ function shapePath(k, w, h) {
     case 'diamond': return `M${w / 2} 0L${w} ${h / 2}L${w / 2} ${h}L0 ${h / 2}Z`;
     case 'triangle': return `M${w / 2} 0L${w} ${h}H0Z`;
     case 'parallelogram': { const k2 = Math.min(w * 0.2, h * 0.6); return `M${k2} 0H${w}L${w - k2} ${h}H0Z`; }
+    case 'pill': { const r = Math.min(w, h) / 2; return `M${r} 0H${w - r}A${r} ${r} 0 0 1 ${w - r} ${h}H${r}A${r} ${r} 0 0 1 ${r} 0Z`; }
+    case 'trapezoid': return `M${w * 0.2} 0H${w * 0.8}L${w} ${h}H0Z`;
+    case 'pentagon': return `M${w / 2} 0L${w} ${h * 0.38}L${w * 0.81} ${h}H${w * 0.19}L0 ${h * 0.38}Z`;
+    case 'hexagon': return `M${w * 0.25} 0H${w * 0.75}L${w} ${h / 2}L${w * 0.75} ${h}H${w * 0.25}L0 ${h / 2}Z`;
+    case 'octagon': { const k3 = Math.min(w, h) * 0.29; return `M${k3} 0H${w - k3}L${w} ${k3}V${h - k3}L${w - k3} ${h}H${k3}L0 ${h - k3}V${k3}Z`; }
+    case 'star': { let d = ''; for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? 0.4 : 1; d += (i ? 'L' : 'M') + r1(w / 2 + Math.cos(a) * w / 2 * rr) + ' ' + r1(h * 0.53 + Math.sin(a) * h * 0.53 * rr); } return d + 'Z'; }
+    case 'cloud': return `M${w * 0.25} ${h * 0.86}A${w * 0.18} ${h * 0.22} 0 0 1 ${w * 0.17} ${h * 0.44}A${w * 0.2} ${h * 0.26} 0 0 1 ${w * 0.47} ${h * 0.18}A${w * 0.21} ${h * 0.26} 0 0 1 ${w * 0.83} ${h * 0.38}A${w * 0.17} ${h * 0.24} 0 0 1 ${w * 0.79} ${h * 0.86}Z`;
+    case 'cylinder': { const e = Math.min(h * 0.15, 30); return `M0 ${e}A${w / 2} ${e} 0 0 1 ${w} ${e}V${h - e}A${w / 2} ${e} 0 0 1 0 ${h - e}ZM0 ${e}A${w / 2} ${e} 0 0 0 ${w} ${e}`; }
+    case 'document': return `M0 0H${w}V${h * 0.84}C${w * 0.75} ${h * 0.68} ${w * 0.25} ${h * 1.04} 0 ${h * 0.88}Z`;
+    case 'callout': return `M0 0H${w}V${h * 0.78}H${w * 0.36}L${w * 0.18} ${h}L${w * 0.2} ${h * 0.78}H0Z`;
+    case 'arrow': return `M0 ${h * 0.28}H${w * 0.62}V0L${w} ${h / 2}L${w * 0.62} ${h}V${h * 0.72}H0Z`;
+    case 'chevron': return `M0 0H${w * 0.75}L${w} ${h / 2}L${w * 0.75} ${h}H0L${w * 0.25} ${h / 2}Z`;
+    case 'cross': return `M${w / 3} 0H${w * 2 / 3}V${h / 3}H${w}V${h * 2 / 3}H${w * 2 / 3}V${h}H${w / 3}V${h * 2 / 3}H0V${h / 3}H${w / 3}Z`;
+    case 'braceL': return `M${w} 0C${w * 0.35} 0 ${w * 0.6} ${h * 0.46} 0 ${h / 2}C${w * 0.6} ${h * 0.54} ${w * 0.35} ${h} ${w} ${h}`;
+    case 'braceR': return `M0 0C${w * 0.65} 0 ${w * 0.4} ${h * 0.46} ${w} ${h / 2}C${w * 0.4} ${h * 0.54} ${w * 0.65} ${h} 0 ${h}`;
     default: return `M0 0H${w}V${h}H0Z`;
   }
 }
-const INS = { rect: [0, 0, 0, 12], round: [0, 0, 0, 12], parallelogram: [0.16, 0, 0, 8], ellipse: [0.15, 0.15, 0.15, 6], diamond: [0.2, 0.22, 0.22, 4], triangle: [0.2, 0.42, 0.04, 4] };
+const INS = { rect: [0, 0, 0, 12], round: [0, 0, 0, 12], pill: [0.08, 0, 0, 10], parallelogram: [0.16, 0, 0, 8], ellipse: [0.15, 0.15, 0.15, 6], diamond: [0.2, 0.22, 0.22, 4], triangle: [0.2, 0.42, 0.04, 4], trapezoid: [0.18, 0, 0, 8], pentagon: [0.16, 0.3, 0.04, 6], hexagon: [0.2, 0, 0, 8], octagon: [0.1, 0.1, 0.1, 8], star: [0.3, 0.38, 0.22, 2], cloud: [0.2, 0.25, 0.14, 4], cylinder: [0.04, 0.22, 0.08, 8], document: [0.04, 0.04, 0.2, 8], callout: [0.04, 0.02, 0.24, 8], arrow: [0.06, 0.26, 0.26, 4], chevron: [0.26, 0, 0, 6], cross: [0.3, 0.3, 0.3, 2], braceL: [0.3, 0, 0, 4], braceR: [0, 0, 0, 4] };
 function shapeIns(it) { const [fx, ft, fb, c] = INS[it.shape] || INS.rect; return { l: it.w * fx + c, r: it.w * fx + c, t: it.h * ft + c, b: it.h * fb + c, ft, fb, c }; }
 
 function penPath(pts) {
@@ -1173,11 +1429,12 @@ function connGeom(c) {
   if (c.start) lp[0] = { x: a.x - ds.x * hs * 0.7, y: a.y - ds.y * hs * 0.7 };
   const f = p => r1(p.x) + ' ' + r1(p.y);
   const d = style === 'curve' ? `M${f(lp[0])}C${f(lp[1])} ${f(lp[2])} ${f(lp[3])}` : 'M' + lp.map(f).join('L');
-  const heads = (c.end ? head(b, de) : '') + (c.start ? head(a, ds) : '');
+  const heads = (c.end ? headOf(c.ehead, b, de, hs) : '') + (c.start ? headOf(c.shead, a, ds, hs) : '');
+  const mid = style === 'curve' ? { x: (pts[0].x + 3 * pts[1].x + 3 * pts[2].x + pts[3].x) / 8, y: (pts[0].y + 3 * pts[1].y + 3 * pts[2].y + pts[3].y) / 8 } : style === 'elbow' ? { x: (pts[1].x + pts[2].x) / 2, y: (pts[1].y + pts[2].y) / 2 } : { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
   let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity;
   for (const p of pts) { x1 = Math.min(x1, p.x); y1 = Math.min(y1, p.y); x2 = Math.max(x2, p.x); y2 = Math.max(y2, p.y); }
-  const pad = hs + 14;
-  return { a, b, d, heads, bbox: { x: x1 - pad, y: y1 - pad, w: x2 - x1 + pad * 2, h: y2 - y1 + pad * 2 }, tight: { x: x1, y: y1, w: Math.max(1, x2 - x1), h: Math.max(1, y2 - y1) } };
+  const pad = hs + 14 + (c.label ? 80 : 0);
+  return { mid, a, b, d, heads, bbox: { x: x1 - pad, y: y1 - pad, w: x2 - x1 + pad * 2, h: y2 - y1 + pad * 2 }, tight: { x: x1, y: y1, w: Math.max(1, x2 - x1), h: Math.max(1, y2 - y1) } };
 }
 
 /* =========================================================
@@ -1225,15 +1482,8 @@ function fitAll(list) {
    ========================================================= */
 const requestRender = () => { if (!S.raf) S.raf = requestAnimationFrame(() => { S.raf = 0; render(); }); };
 
-function attachTextEvents(t, id) {
-  t.addEventListener('input', () => onTextInput(id));
-  t.addEventListener('paste', onTxtPaste);
-  t.addEventListener('keydown', e => onTxtKey(e, id));
-  t.addEventListener('blur', () => setTimeout(() => {
-    const cur = els.get(id);
-    if (S.editing === id && document.hasFocus() && !(cur && cur.contains(document.activeElement))) finishEdit();
-  }, 0));
-}
+function attachTextEvents() { /* editing events are handled once, at document level */ }
+
 function createEl(it) {
   let el;
   if (it.type === 'connector') {
@@ -1248,7 +1498,10 @@ function createEl(it) {
     else if (it.type === 'frame') el.innerHTML = '<div class="ftitle"></div>';
     else if (it.type === 'image') el.innerHTML = '<img alt="" draggable="false">';
     else if (it.type === 'pen') el.innerHTML = '<svg><path class="hit"/><path class="halo"/><path class="ln"/></svg>';
-    else if (it.type === 'embed') el.innerHTML = `<div class="eh"><span class="ebd"></span><span class="et"></span><button class="eb2" data-ea="open" title="Открыть отдельно" aria-label="Открыть отдельно">${ic('ext')}</button><button class="eb2" data-ea="focus" title="Развернуть на весь экран" aria-label="Развернуть">${ic('expand')}</button></div><div class="ebody"><div class="eshield"></div></div>`;
+    else if (it.type === 'doc') el.innerHTML = '<div class="dtxt"></div>';
+    else if (it.type === 'table') el.innerHTML = '<table class="tbl"><colgroup></colgroup><tbody></tbody></table>';
+    else if (it.type === 'mindmap') el.innerHTML = '<svg class="mml"></svg><div class="mmn"></div>';
+    else if (it.type === 'embed') el.innerHTML = `<div class="eh"><span class="ebd"></span><span class="et"></span><button class="eb2" data-ea="open" title="Открыть отдельно" aria-label="Открыть отдельно">${ic('ext')}</button><button class="eb2" data-ea="focus" title="Развернуть на весь экран" aria-label="Развернуть">${ic('expand')}</button></div><div class="ebody"><div class="eshield"></div></div><div class="ecard"></div>`;
   }
   el.dataset.id = it.id;
   el._type = it.type;
@@ -1258,7 +1511,12 @@ function createEl(it) {
 }
 
 function setBox(el, it) { const s = el.style; s.left = px(it.x); s.top = px(it.y); s.width = px(it.w); s.height = px(it.h); }
-function setText(t, it) { if (S.editing === it.id) return; const v = it[FIELD(it)] || ''; if (t._v !== v) { t.textContent = v; t._v = v; } }
+function setText(t, it) {
+  if (S.editing === it.id && S.editSub == null) return;
+  const html = !titled(it) && it.html ? it.html : '', v = html ? 'h' + html : 't' + (it[FIELD(it)] || '');
+  if (t._v !== v) { if (html) t.innerHTML = html; else t.textContent = it[FIELD(it)] || ''; t._v = v; }
+}
+
 function applyTextStyle(t, it) {
   const s = t.style;
   if (typeof it.fs === 'number') s.fontSize = px(it.fs);
@@ -1308,6 +1566,15 @@ function updateEmbed(el, it) {
     const s = el.style; s.left = px((R.x - v.x) / v.z); s.top = px((R.y - v.y) / v.z); s.width = px(R.w / v.z); s.height = px(R.h / v.z);
     body.setAttribute('style', `top:0;right:auto;bottom:auto;width:${R.w}px;height:${R.h}px;transform:scale(${1 / v.z});transform-origin:0 0`);
   } else { setBox(el, it); body.removeAttribute('style'); }
+  const vw = S.focus === it.id ? 'live' : (viewOf(it) !== 'compact' && it.kind === 'video' && S.loaded.has(it.id) ? 'live' : viewOf(it));
+  el.dataset.view = vw;
+  if (vw !== 'live') {
+    const fr0 = body.querySelector('iframe'); if (fr0) fr0.remove();
+    el.classList.remove('e-active');
+    const card = el.lastChild, csig = vw + '|' + it.title + '|' + (it.sub || '') + '|' + (it.thumb || '') + '|' + it.provider;
+    if (card._sig !== csig) { card._sig = csig; card.innerHTML = cardHTML(it, vw); const img = card.querySelector('img.poster'); if (img) { img.addEventListener('error', () => img.remove()); img.src = it.thumb; } }
+    return;
+  }
   const bd = eh.firstChild;
   if (bd._p !== it.provider) { bd._p = it.provider; bd.innerHTML = badge(it.provider); }
   setText(eh.children[1], it);
@@ -1426,6 +1693,9 @@ function updateEl(el, it) {
       break;
     }
     case 'embed': updateEmbed(el, it); break;
+    case 'doc': { setBox(el, it); const t = el.firstChild; setText(t, it); applyTextStyle(t, it); t.style.fontSize = px(+it.fs || 15); el.style.background = it.fill || '#fff'; break; }
+    case 'table': updateTable(el, it); break;
+    case 'mindmap': updateMindmap(el, it); break;
   }
 }
 function updateConn(el, it) {
@@ -1438,7 +1708,14 @@ function updateConn(el, it) {
   hit.setAttribute('d', g.d); hit.setAttribute('stroke-width', Math.max(14, w + 10));
   halo.setAttribute('d', g.d); halo.setAttribute('stroke-width', w + 8);
   ln.setAttribute('d', g.d); ln.setAttribute('stroke', it.color || INK); ln.setAttribute('stroke-width', w);
-  ln.setAttribute('stroke-dasharray', it.dash ? `${w * 2.5} ${w * 3}` : 'none');
+  let lb = gg.querySelector('.lbl');
+  if (it.label) {
+    if (!lb) { lb = document.createElementNS('http://www.w3.org/2000/svg', 'g'); lb.setAttribute('class', 'lbl'); lb.innerHTML = '<rect rx="6" fill="#fff" stroke="#e3e5ea"/><text text-anchor="middle" font-size="13"/>'; gg.appendChild(lb); }
+    const tw = textW(it.label, 13, false), [rc, tx] = lb.children;
+    rc.setAttribute('x', r1(g.mid.x - tw / 2 - 7)); rc.setAttribute('y', r1(g.mid.y - 11)); rc.setAttribute('width', r1(tw + 14)); rc.setAttribute('height', 22);
+    tx.setAttribute('x', r1(g.mid.x)); tx.setAttribute('y', r1(g.mid.y + 4.5)); tx.setAttribute('fill', it.color || INK); tx.textContent = it.label;
+  } else if (lb) lb.remove();
+  ln.setAttribute('stroke-dasharray', it.dash === 'dot' ? `0.1 ${w * 2.6}` : it.dash ? `${w * 2.5} ${w * 3}` : 'none');
   hd.setAttribute('d', g.heads); hd.setAttribute('fill', it.color || INK);
 }
 
@@ -1486,7 +1763,8 @@ function renderOverlay() {
         const r = screenRect(gb);
         h += box(r, 'ov-sel');
         if (!busy && !S.editing) {
-          const hs = solids.length === 1 && solids[0].type === 'text' ? ['w', 'e'] : solids.length === 1 ? ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'] : ['nw', 'ne', 'se', 'sw'];
+          const one = solids.length === 1 ? solids[0] : null;
+          const hs = one && one.type === 'mindmap' ? [] : one && (one.type === 'text' || one.type === 'table') ? ['w', 'e'] : one ? ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'] : ['nw', 'ne', 'se', 'sw'];
           for (const k of hs) {
             const x = r.x + (k.includes('w') ? 0 : k.includes('e') ? r.w : r.w / 2);
             const y = r.y + (k.includes('n') ? 0 : k.includes('s') ? r.h : r.h / 2);
@@ -1508,7 +1786,7 @@ function buildCtx(sel) {
   const of = t => sel.filter(i => i.type === t);
   const st = of('sticky'), sh = of('shape'), fr = of('frame'), cn = of('connector'), pn = of('pen'), em = of('embed');
   const tx = sel.filter(hasText), ln = [...cn, ...pn], single = sel.length === 1 ? sel[0] : null;
-  const groups = [], g = [];
+  const groups = ctxExtra(sel, single), g = [];
   if (st.length) g.push(cswatch('stickyColor', st[0].color, 'Цвет стикера', 'sq'));
   if (sh.length) g.push(cbtn('shapeKind', shapeIcon(sh[0].shape), 'Вид фигуры'), cswatch('fill', sh[0].fill, 'Заливка'), cswatch('stroke', sh[0].sw > 0 ? sh[0].stroke : 'transparent', 'Контур', 'ring'), cbtn('sw', String(sh[0].sw), 'Толщина контура', 'wide'));
   if (fr.length) g.push(cswatch('frameFill', fr[0].fill, 'Фон рамки', 'sq'));
@@ -1535,7 +1813,7 @@ function renderCtx() {
   const sel = S.board ? selItems() : [];
   const d = S.drag;
   if (!sel.length || S.pinch || S.focus || (d && !['pan', 'move-pending'].includes(d.type))) { ctxBar.hidden = true; ctxSig = ''; return; }
-  const sig = JSON.stringify(sel.map(i => [i.id, i.type, i.color, i.fill, i.stroke, i.sw, i.textColor, i.fs, i.bold, i.align, i.width, i.style, i.start, i.end, i.dash, i.shape, i.kind]));
+  const sig = JSON.stringify(sel.map(i => [i.id, i.type, i.color, i.fill, i.stroke, i.sw, i.textColor, i.fs, i.bold, i.align, i.width, i.style, i.start, i.end, i.dash, i.shape, i.kind, i.view, i.fstyle, i.label, i.ehead, i.shead, i.layout, i.grp, i.header, i.hfill, i.sub, i.title]).concat([[S.editing, S.editSub, S.mm && S.mm.nid]]));
   if (sig !== ctxSig) { ctxSig = sig; ctxBar.innerHTML = buildCtx(sel); }
   ctxBar.hidden = false;
   positionCtx(sel);
@@ -1570,7 +1848,14 @@ function renderStatus() {
   const base = { loading: 'Загрузка…', saving: 'Сохранение…', mem: 'Браузер не даёт хранить данные — сохраните в файл', full: 'Хранилище Claude заполнено — удалите лишнее', error: 'Не удалось сохранить — сохраните в файл' };
   let k = L === 'saved' && Backend === Local && Store.mode === 'mem' ? 'mem' : L, text = base[k] || '', act = false;
   if (k === 'saved') {
-    if (Backend === Db) text = 'Сохранено в Claude';
+    if (Backend === Db && !Drive.active()) text = 'Сохранено в Claude';
+    else if (Drive.mode === 'mcp') {
+      const d = Drive.state;
+      if (d === 'ok' && !Drive.pending) text = 'Сохранено в Claude и Google Диске';
+      else if (d === 'ok' || d === 'syncing') { k = 'saving'; text = 'Сохранено в Claude, отправляю в Диск…'; }
+      else if (d === 'offline') { k = 'saving'; text = 'Сохранено в Claude, в Диск отправлю, когда будет сеть'; }
+      else { k = 'error'; act = true; text = 'Сохранено в Claude. Диск: ' + (Drive.note || 'нажмите, чтобы повторить'); }
+    }
     else if (Drive.active()) {
       const d = Drive.state;
       if (d === 'ok' && !Drive.pending) text = 'Сохранено в Google Диске';
@@ -1585,6 +1870,7 @@ function renderStatus() {
   const t = $('#statusText'); t.textContent = text; t.classList.toggle('act', act);
   const c = $('#btnCloud');
   if (c) { c.hidden = !Drive.available(); c.dataset.d = Drive.active() ? Drive.state : 'off'; c.title = Drive.active() ? 'Google Диск' : 'Подключить Google Диск'; }
+  el.title = Drive.note || '';
 }
 function scheduleSave(quiet) {
   if (!S.board) return;
@@ -1610,7 +1896,7 @@ async function saveNow() {
   if (saveAgain) { saveAgain = false; saveNow(); }
   renderDrawer();
 }
-const saveSettings = () => LS.set('settings', { grid: S.settings.grid, opts: S.opts });
+const saveSettings = () => LS.set('settings', { grid: S.settings.grid, opts: S.opts, views: S.settings.views || {} });
 
 /* Changes that arrive from outside (Claude in chat, another device) */
 async function onRemoteItems(bid, list, name) {
@@ -1630,6 +1916,7 @@ async function applyRemote() {
   S.sel = new Set([...S.sel].filter(id => byId(id)));
   dirty = false; render();
   toast('Доска обновилась');
+  Drive.noteSave(S.board);
 }
 async function ensureAssets(list) {
   if (!Backend.loadAsset) return;
@@ -1640,65 +1927,87 @@ async function ensureAssets(list) {
 /* =========================================================
    Editing text
    ========================================================= */
-function setEditable(t, on) {
-  if (on) {
-    try { t.contentEditable = 'plaintext-only'; } catch (e) { /* unsupported */ }
-    if (t.contentEditable !== 'plaintext-only') t.contentEditable = 'true';
-  } else t.removeAttribute('contenteditable');
-}
+
+
 function readText(t) {
   let s = (t.innerText || '').replace(/\u00a0/g, ' ');
   if (t.lastChild && t.lastChild.nodeName === 'BR') s = s.replace(/\n$/, '');
   return s;
 }
-function startEdit(id, cx, cy, isNew) {
+
+
+
+
+
+
+
+
+
+
+function onTxtKey(e, id) {
   const it = byId(id);
-  if (!editable(it) || S.editing === id) return;
+  if (titled(it) && e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); finishEdit(); }
+  if (e.key === 'Tab') e.preventDefault();
+}
+
+
+/* ---------- editing (main text, titles, table cells, mind map nodes) ---------- */
+function setEditable(t, on, rich) {
+  if (!on) { t.removeAttribute('contenteditable'); return; }
+  if (rich) { t.contentEditable = 'true'; return; }
+  try { t.contentEditable = 'plaintext-only'; } catch (e) { /* unsupported */ }
+  if (t.contentEditable !== 'plaintext-only') t.contentEditable = 'true';
+}
+function startEdit(id, cx, cy, isNew, sub) {
+  const it = byId(id); if (!it) return;
+  sub = sub == null ? null : String(sub);
+  if (sub == null && !editable(it)) return;
+  if (S.editing === id && S.editSub === sub) return;
   finishEdit();
   S.sel = new Set([id]);
+  S.editing = id; S.editSub = sub;
   render();
-  const el = els.get(id); if (!el) return;
-  const t = el.querySelector('.txt, .ftitle, .et');
-  S.editing = id; S.editSnap = snapshot(); S.editOrig = it[FIELD(it)] || ''; S.editNew = !!isNew;
-  el.classList.add('editing');
+  const el = els.get(id), t = el && editTarget(el, it, sub);
+  if (!t) { S.editing = null; S.editSub = null; return; }
+  const v = getVal(it, sub), rich = richTarget(it, sub);
+  S.editSnap = snapshot(); S.editOrig = valKey(v); S.editNew = !!isNew;
+  el.classList.add('editing'); t.classList.add('ed');
   t.dataset.ph = it.type === 'text' ? 'Текст' : 'Введите текст';
-  setEditable(t, true);
+  if (rich && !v.html) t.innerHTML = v.text ? textToHtml(v.text) : '';
+  setEditable(t, true, rich);
   t.focus({ preventScroll: true });
+  if (rich) { try { document.execCommand('styleWithCSS', false, true); } catch (e) { /* ignore */ } }
   const s = window.getSelection();
   let range = null;
-  if (cx != null && !titled(it)) {
+  if (cx != null && rich) {
     try {
       if (document.caretRangeFromPoint) range = document.caretRangeFromPoint(cx, cy);
       else if (document.caretPositionFromPoint) { const p = document.caretPositionFromPoint(cx, cy); if (p) { range = document.createRange(); range.setStart(p.offsetNode, p.offset); range.collapse(true); } }
     } catch (e) { range = null; }
     if (range && !t.contains(range.startContainer)) range = null;
   }
-  if (!range) { range = document.createRange(); range.selectNodeContents(t); if (!titled(it)) range.collapse(false); }
+  if (!range) { range = document.createRange(); range.selectNodeContents(t); if (rich) range.collapse(false); }
   s.removeAllRanges(); s.addRange(range);
   renderOverlay(); renderCtx();
 }
 function finishEdit() {
   if (!S.editing) return;
-  const id = S.editing; S.editing = null;
-  const it = byId(id), el = els.get(id);
-  if (el) {
-    const t = el.querySelector('.txt, .ftitle, .et');
-    if (it) {
-      let v = readText(t);
-      if (titled(it)) v = v.replace(/\s*\n\s*/g, ' ').trim() || (it.type === 'frame' ? 'Рамка' : 'Встраивание');
-      it[FIELD(it)] = v;
-      t._v = null;
-    }
-    setEditable(t, false);
-    el.classList.remove('editing');
-    if (el.contains(document.activeElement)) document.activeElement.blur();
+  const id = S.editing, sub = S.editSub; S.editing = null; S.editSub = null;
+  const it = byId(id), el = els.get(id), t = el && it ? editTarget(el, it, sub) : null;
+  if (t && it) {
+    if (richTarget(it, sub)) { const html = sanitizeHTML(t.innerHTML), text = htmlToText(html); setVal(it, sub, text, isPlainHtml(html) ? '' : html); }
+    else setVal(it, sub, readText(t).replace(/\s*\n\s*/g, ' ').trim() || (it.type === 'frame' ? 'Рамка' : 'Встраивание'), '');
+    t._v = null; setEditable(t, false); t.classList.remove('ed');
   }
+  if (el) { el.classList.remove('editing'); if (el.contains(document.activeElement)) document.activeElement.blur(); }
   const s = window.getSelection(); if (s) s.removeAllRanges();
   if (it) {
-    if (it.type === 'text' && !it.text.trim()) {
-      S.board.items = items().filter(i => i !== it); S.sel.delete(id);
+    const emptyNode = it.type === 'mindmap' && sub && sub !== it.root.id && !getVal(it, sub).text.trim();
+    if ((it.type === 'text' && sub == null && !it.text.trim()) || emptyNode) {
+      if (emptyNode) { mmRemove(it, sub); S.mm = { id: it.id, nid: it.root.id }; }
+      else { S.board.items = items().filter(i => i !== it); S.sel.delete(id); }
       if (S.editNew) { if (S.hist.length) S.hist.pop(); } else pushHist(S.editSnap);
-    } else if ((it[FIELD(it)] || '') !== S.editOrig) pushHist(S.editSnap);
+    } else if (!S.editNew && valKey(getVal(it, sub)) !== S.editOrig) pushHist(S.editSnap);
   }
   S.editSnap = null; S.editNew = false;
   updateHistBtns(); changed();
@@ -1706,25 +2015,101 @@ function finishEdit() {
 function editCheckpoint() {
   if (!S.editing) return;
   const it = byId(S.editing); if (!it) return;
-  if ((it[FIELD(it)] || '') !== S.editOrig) { pushHist(S.editSnap); S.editOrig = it[FIELD(it)] || ''; S.editNew = false; }
+  const k = valKey(getVal(it, S.editSub));
+  if (k !== S.editOrig) { if (!S.editNew) pushHist(S.editSnap); S.editOrig = k; S.editNew = false; }
 }
-function onTextInput(id) {
-  if (S.editing !== id) return;
+function onTextInput() {
+  const id = S.editing; if (!id) return;
   const it = byId(id), el = els.get(id); if (!it || !el) return;
-  it[FIELD(it)] = readText(el.querySelector('.txt, .ftitle, .et'));
+  const t = editTarget(el, it, S.editSub); if (!t) return;
+  if (richTarget(it, S.editSub)) setVal(it, S.editSub, htmlToText(t.innerHTML), t.innerHTML);
+  else setVal(it, S.editSub, readText(t), '');
   render();
 }
 function onTxtPaste(e) {
+  const dt = e.clipboardData || window.clipboardData; if (!dt) return;
   e.preventDefault();
-  const text = (e.clipboardData || window.clipboardData).getData('text/plain') || '';
+  const text = dt.getData('text/plain') || '';
   if (text.startsWith(CLIP)) return;
-  document.execCommand('insertText', false, text);
+  const a = document.activeElement, rich = !!(a && a.isContentEditable && a.contentEditable === 'true');
+  const html = rich ? dt.getData('text/html') : '';
+  if (html) document.execCommand('insertHTML', false, sanitizeHTML(html.replace(/<!--[\s\S]*?-->/g, '')));
+  else document.execCommand('insertText', false, text);
 }
-function onTxtKey(e, id) {
-  const it = byId(id);
-  if (titled(it) && e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); finishEdit(); }
+function editKey(e) {
+  const it = byId(S.editing); if (!it) return;
+  const mod = e.ctrlKey || e.metaKey, sub = S.editSub;
+  if (!richTarget(it, sub) && e.key === 'Enter') { e.preventDefault(); finishEdit(); return; }
+  if (mod && e.shiftKey && e.code === 'KeyH') { e.preventDefault(); fmt('hilite', '#fff09a'); return; }
+  if (mod && e.code === 'KeyK') { e.preventDefault(); fmt('link'); return; }
+  if (it.type === 'mindmap' && sub) {
+    if (e.key === 'Tab') { e.preventDefault(); finishEdit(); mmAdd(it.id, sub, 'child'); return; }
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); finishEdit(); if (byId(it.id) && findNode(it.root, sub)) mmAdd(it.id, sub, 'sibling'); return; }
+  }
+  if (it.type === 'table' && sub && e.key === 'Tab') { e.preventDefault(); tableNext(it, sub, e.shiftKey ? -1 : 1); return; }
   if (e.key === 'Tab') e.preventDefault();
 }
+
+/* ---------- context bar additions ---------- */
+const MM_COLORS = ['#3355ff', '#7b61ff', '#d6409f', '#e5484d', '#f76b15', '#d9a300', '#2fa36b', '#0b8fa8', '#6b7080', INK];
+const HEADS = ['arrow', 'circle', 'diamond', 'none'];
+const headIcon = (h, start) => ({ arrow: start ? '◀' : '▶', circle: '●', diamond: '◆', none: '—' }[h] || '▶');
+function ctxExtra(sel, single) {
+  const g = [], it = single;
+  if (S.editing && it && richTarget(it, S.editSub)) {
+    g.push(cbtn('f:bold', '<b>Ж</b>', `Жирный (${MOD}+B)`) + cbtn('f:italic', '<i>К</i>', `Курсив (${MOD}+I)`) + cbtn('f:underline', '<u>Ч</u>', `Подчёркнутый (${MOD}+U)`) + cbtn('f:strikeThrough', '<s>З</s>', 'Зачёркнутый') +
+      cbtn('f:hilite', '<span class="hl">A</span>', `Выделить цветом (${MOD}+Shift+H)`) + cbtn('f:color', `<span class="tc" style="--c:#e5484d">А</span>`, 'Цвет текста') +
+      cbtn('f:insertUnorderedList', '•', 'Список') + cbtn('f:insertOrderedList', '1.', 'Нумерованный список') + cbtn('f:block', 'H', 'Заголовок') + cbtn('f:link', ic('link'), `Ссылка (${MOD}+K)`) + cbtn('f:removeFormat', ic('close'), 'Убрать оформление'));
+  }
+  if (it && it.type === 'table') g.push(cbtn('t:row+', '+ строка', 'Добавить строку', 'wide') + cbtn('t:col+', '+ столбец', 'Добавить столбец', 'wide') + cbtn('t:row-', '− строка', 'Удалить строку', 'wide') + cbtn('t:col-', '− столбец', 'Удалить столбец', 'wide') + cbtn('t:head', 'Шапка', 'Выделять первую строку', 'wide' + (it.header ? ' on' : '')) + cswatch('t:hfill', it.hfill || '#eef0f3', 'Цвет шапки', 'sq'));
+  if (it && it.type === 'mindmap') {
+    const n = S.mm && S.mm.id === it.id ? findNode(it.root, S.mm.nid) : it.root;
+    g.push(cbtn('m:child', '+ ветка', 'Добавить ветку (Tab)', 'wide') + cbtn('m:sib', '+ соседняя', 'Добавить соседнюю (Enter)', 'wide') + cswatch('m:color', (n && n.color) || it.root.color || '#3355ff', 'Цвет ветки') + cbtn('m:layout', it.layout === 'both' ? 'В обе стороны' : 'Вправо', 'Раскладка карты', 'wide'));
+  }
+  if (it && it.type === 'frame') g.push(cbtn('fr:style', it.fstyle === 'section' ? 'Секция' : 'Рамка', 'Вид: рамка или секция', 'wide'));
+  if (it && it.type === 'connector') g.push(cbtn('c:label', 'Подпись', 'Подпись на линии', 'wide') + cbtn('c:shead', headIcon(it.start ? it.shead || 'arrow' : 'none', true), 'Вид начала') + cbtn('c:ehead', headIcon(it.end ? it.ehead || 'arrow' : 'none'), 'Вид конца'));
+  if (it && it.type === 'embed') g.push(cbtn('e:view', VIEW_NAMES[viewOf(it)], 'Как показывать ссылку', 'wide') + cbtn('e:cap', 'Подпись', 'Название и подпись', 'wide'));
+  if (sel.length > 1) { const same = sel[0].grp && sel.every(i => i.grp === sel[0].grp); g.push(same ? cbtn('g:un', 'Разгруппировать', `Разгруппировать (${MOD}+Shift+G)`, 'wide') : cbtn('g:do', 'Сгруппировать', `Сгруппировать (${MOD}+G)`, 'wide')); }
+  return g;
+}
+function ctxExtraAct(b, sel) {
+  const a = b.dataset.act || '', it = sel[0];
+  if (a.indexOf(':') < 0) return false;
+  const [k, v] = a.split(':');
+  if (k === 'f') {
+    if (v === 'hilite') colorPop(b, HILITES, '', c => fmt('hilite', c));
+    else if (v === 'color') colorPop(b, INKS, '', c => fmt('color', c));
+    else if (v === 'block') optPop(b, [['H1', 'Заголовок 1'], ['H2', 'Заголовок 2'], ['H3', 'Заголовок 3'], ['P', 'Обычный']], '', c => fmt('block', c));
+    else fmt(v);
+    return true;
+  }
+  if (k === 't') { if (v === 'hfill') colorPop(b, FILLS.filter(c => c !== 'transparent'), it.hfill, c => setProp(i => i.type === 'table', { hfill: c }), 'sq'); else tableOp(it, v); return true; }
+  if (k === 'm') {
+    const nid = S.mm && S.mm.id === it.id ? S.mm.nid : it.root.id;
+    if (v === 'child') mmAdd(it.id, nid, 'child');
+    else if (v === 'sib') mmAdd(it.id, nid, 'sibling');
+    else if (v === 'layout') setProp(i => i.type === 'mindmap', { layout: it.layout === 'both' ? 'right' : 'both' });
+    else if (v === 'color') colorPop(b, MM_COLORS, '', c => { pushHist(); const n = findNode(it.root, nid); if (n) n.color = c; changed(); });
+    return true;
+  }
+  if (k === 'fr') { const sec = it.fstyle === 'section'; setProp(i => i.type === 'frame', { fstyle: sec ? '' : 'section', fill: sec ? '#ffffff' : '#eef2fb' }); return true; }
+  if (k === 'c') {
+    if (v === 'label') {
+      openPop(b, `<div class="capf"><label>Подпись на линии<input class="inp" id="capT" value="${esc(it.label || '')}"></label><button class="btn" data-v="save">Сохранить</button></div>`, () => { const t = $('#capT').value.trim(); pushHist(); if (t) it.label = t; else delete it.label; changed(); });
+      setTimeout(() => { const i = $('#capT'); if (i) i.focus(); }, 0);
+    } else optPop(b, HEADS.map(h => [h, headIcon(h, v === 'shead')]), (v === 'shead' ? (it.start ? it.shead || 'arrow' : 'none') : (it.end ? it.ehead || 'arrow' : 'none')), h => setProp(i => i.type === 'connector', v === 'shead' ? { shead: h, start: h !== 'none' } : { ehead: h, end: h !== 'none' }));
+    return true;
+  }
+  if (k === 'e') { if (v === 'view') viewPop(b, it); else capPop(b, it); return true; }
+  if (k === 'g') { if (v === 'do') groupSel(); else ungroupSel(); return true; }
+  return false;
+}
+function headOf(t, p, d, s) {
+  if (t === 'circle') { const r = s * 0.36, cx = p.x - d.x * r, cy = p.y - d.y * r; return `M${r1(cx - r)} ${r1(cy)}a${r1(r)} ${r1(r)} 0 1 0 ${r1(2 * r)} 0a${r1(r)} ${r1(r)} 0 1 0 ${r1(-2 * r)} 0Z`; }
+  if (t === 'diamond') { const m = { x: p.x - d.x * s * 0.5, y: p.y - d.y * s * 0.5 }, q = s * 0.32; return `M${r1(p.x)} ${r1(p.y)}L${r1(m.x - d.y * q)} ${r1(m.y + d.x * q)}L${r1(p.x - d.x * s)} ${r1(p.y - d.y * s)}L${r1(m.x + d.y * q)} ${r1(m.y - d.x * q)}Z`; }
+  return `M${r1(p.x)} ${r1(p.y)}L${r1(p.x - d.x * s - d.y * s * 0.55)} ${r1(p.y - d.y * s + d.x * s * 0.55)}L${r1(p.x - d.x * s + d.y * s * 0.55)} ${r1(p.y - d.y * s - d.x * s * 0.55)}Z`;
+}
+const FFMT_HTML = [['bold', '<b>Ж</b>'], ['italic', '<i>К</i>'], ['underline', '<u>Ч</u>'], ['strikeThrough', '<s>З</s>'], ['hilite', '<span class="hl">A</span>'], ['insertUnorderedList', '•'], ['insertOrderedList', '1.'], ['h2', 'H']].map(([v, l]) => `<button data-ff="${v}">${l}</button>`).join('');
 
 /* =========================================================
    Item operations
@@ -1760,7 +2145,7 @@ function cloneItems(src, dx, dy) {
         if (e.id) { if (map.has(e.id)) e.id = map.get(e.id); else delete e.id; }
         e.x = r1((e.x || 0) + dx); e.y = r1((e.y || 0) + dy);
       }
-    } else { c.x = r1(c.x + dx); c.y = r1(c.y + dy); }
+    } else { c.x = r1(c.x + dx); c.y = r1(c.y + dy); if (c.type === 'mindmap') { c.rx = r1((c.rx || 0) + dx); c.ry = r1((c.ry || 0) + dy); } }
     return c;
   });
 }
@@ -1794,7 +2179,7 @@ function nudge(dx, dy) {
   const now = Date.now(); if (now - S.nudgeT > 700) pushHist(); S.nudgeT = now;
   for (const it of withFrameContents(sel)) {
     if (it.type === 'connector') { for (const k of ['from', 'to']) if (!it[k].id) { it[k].x += dx; it[k].y += dy; } }
-    else { it.x += dx; it.y += dy; }
+    else { it.x += dx; it.y += dy; if (it.type === 'mindmap') { it.rx += dx; it.ry += dy; } }
   }
   changed();
 }
@@ -1829,7 +2214,7 @@ function createEmbed(spec, at, replaceId) {
   pushHist();
   let it = replaceId && byId(replaceId);
   if (it) { Object.assign(it, fields); S.loaded.delete(it.id); const el = els.get(it.id); if (el) { const fr = el.querySelector('iframe'); if (fr) fr.remove(); } }
-  else { it = { id: uid(), type: 'embed', ...fields, x: r1(at.x - w / 2), y: r1(at.y - h / 2), w, h }; S.board.items.push(it); }
+  else { const v0 = viewOf(fields), [vw, vh] = v0 === 'live' ? [w, h] : viewSize(fields, v0); it = { id: uid(), type: 'embed', ...fields, vs: v0, x: r1(at.x - vw / 2), y: r1(at.y - vh / 2), w: vw, h: vh }; S.board.items.push(it); setTimeout(() => fetchMeta(it.id), 0); }
   setTool('select');
   S.sel = new Set([it.id]); changed();
   return it;
@@ -1894,7 +2279,7 @@ function enterFocus(id) {
     if (it.kind === 'video') S.loaded.add(id);
     S.active = id; fview.hidden = true;
   } else {
-    S.focusSnap = snapshot(); S.focusOrig = it.text || '';
+    S.focusSnap = snapshot(); S.focusOrig = valKey(getVal(it));
     fview.hidden = false;
     if (it.type === 'image') {
       fview.innerHTML = '<img class="fimg" alt="">';
@@ -1904,9 +2289,10 @@ function enterFocus(id) {
       const card = fview.firstChild, t = card.firstChild;
       card.style.background = it.type === 'sticky' ? it.color : it.type === 'shape' && it.fill && it.fill !== 'transparent' ? it.fill : '#fff';
       t.style.color = it.textColor || INK; t.style.fontWeight = it.bold ? '700' : '400';
-      t.textContent = it.text || '';
-      setEditable(t, true);
-      t.addEventListener('input', () => { const cur = byId(id); if (cur) { cur.text = readText(t); const el = els.get(id); if (el) el._fit = ''; requestRender(); } });
+      t.innerHTML = it.html || textToHtml(it.text || '');
+      setEditable(t, true, true);
+      $('#fFmt').innerHTML = FFMT_HTML;
+      t.addEventListener('input', () => { const cur = byId(id); if (cur) { cur.html = t.innerHTML; cur.text = htmlToText(t.innerHTML); const el = els.get(id); if (el) el._fit = ''; requestRender(); } });
       t.addEventListener('paste', onTxtPaste);
       t.focus({ preventScroll: true });
       const r = document.createRange(); r.selectNodeContents(t); r.collapse(false);
@@ -1922,7 +2308,8 @@ function exitFocus() {
   fbar.hidden = true; fview.hidden = true; fview.innerHTML = '';
   if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
   const it = byId(id);
-  if (it && hasText(it) && (it.text || '') !== S.focusOrig) { pushHist(S.focusSnap); scheduleSave(); }
+  $('#fFmt').innerHTML = '';
+  if (it && hasText(it)) { if (it.html != null) { const h = sanitizeHTML(it.html); if (isPlainHtml(h)) delete it.html; else it.html = h; it.text = htmlToText(h); } if (valKey(getVal(it)) !== S.focusOrig) { pushHist(S.focusSnap); scheduleSave(); } }
   S.focusSnap = null;
   if (S.active === id) S.active = null;
   updateCursor(); render();
@@ -1935,6 +2322,449 @@ function focusFullscreen() {
   if (!fn) { toast('Браузер не поддерживает полноэкранный режим'); return; }
   try { const p = fn.call(el); if (p && p.catch) p.catch(() => toast('Здесь браузер не разрешил полноэкранный режим')); }
   catch (e) { toast('Здесь браузер не разрешил полноэкранный режим'); }
+}
+
+
+/* =========================================================
+   Rich text: formatting and highlighting inside any text
+   ========================================================= */
+const RT_ALLOWED = new Set(['B', 'STRONG', 'I', 'EM', 'U', 'S', 'STRIKE', 'DEL', 'MARK', 'SPAN', 'A', 'BR', 'DIV', 'P', 'UL', 'OL', 'LI', 'H1', 'H2', 'H3', 'CODE', 'BLOCKQUOTE']);
+const safeCss = v => /^(#[0-9a-f]{3,8}|rgba?\([\d\s.,%]+\)|hsla?\([\d\s.,%a-z]+\)|oklch\([\d\s.,%]+\)|[a-z]+)$/i.test(String(v).trim());
+const unwrap = n => { const f = document.createDocumentFragment(); while (n.firstChild) f.appendChild(n.firstChild); n.replaceWith(f); };
+function sanitizeHTML(html) {
+  const tpl = document.createElement('template');
+  tpl.innerHTML = String(html || '');
+  const clean = el => {
+    for (const ch of [...el.childNodes]) {
+      if (ch.nodeType === 3) continue;
+      if (ch.nodeType !== 1 || /^(SCRIPT|STYLE|IFRAME|OBJECT|EMBED|TEMPLATE|META|LINK|TITLE|SVG|MATH|FORM|INPUT|BUTTON)$/i.test(ch.tagName)) { ch.remove(); continue; }
+      let n = ch;
+      if (n.tagName === 'FONT') { const sp = document.createElement('span'); const c = n.getAttribute('color'); if (c) sp.setAttribute('style', 'color:' + c); while (n.firstChild) sp.appendChild(n.firstChild); n.replaceWith(sp); n = sp; }
+      if (!RT_ALLOWED.has(n.tagName)) { clean(n); unwrap(n); continue; }
+      const href = n.tagName === 'A' ? n.getAttribute('href') || '' : '';
+      const st = n.getAttribute('style') || '';
+      const color = (st.match(/(?:^|;)\s*color\s*:\s*([^;]+)/i) || [])[1];
+      const bg = (st.match(/background(?:-color)?\s*:\s*([^;]+)/i) || [])[1];
+      const fw = /font-weight\s*:\s*(bold|[6-9]00)/i.test(st), fi = /font-style\s*:\s*italic/i.test(st), td = (st.match(/text-decoration[^:]*:\s*([^;]+)/i) || [])[1] || '';
+      for (const a of [...n.attributes]) n.removeAttribute(a.name);
+      if (href && /^(https?:|mailto:)/i.test(href)) { n.setAttribute('href', href); n.setAttribute('target', '_blank'); n.setAttribute('rel', 'noopener'); }
+      const css = [];
+      if (color && safeCss(color)) css.push('color:' + color.trim());
+      if (bg && safeCss(bg) && !/^(transparent|initial|inherit|none|rgba\(0,\s*0,\s*0,\s*0\))$/i.test(bg.trim())) css.push('background-color:' + bg.trim());
+      if (n.tagName === 'SPAN') { if (fw) css.push('font-weight:700'); if (fi) css.push('font-style:italic'); if (/underline/i.test(td)) css.push('text-decoration:underline'); else if (/line-through/i.test(td)) css.push('text-decoration:line-through'); }
+      if (css.length) n.setAttribute('style', css.join(';'));
+      clean(n);
+      if (n.tagName === 'SPAN' && !n.attributes.length) unwrap(n);
+    }
+  };
+  clean(tpl.content);
+  return tpl.innerHTML;
+}
+function htmlToText(html) {
+  const s = String(html || '')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<li[^>]*>/gi, '\n• ')
+    .replace(/<(p|div|h[1-6]|tr|blockquote)[^>]*>/gi, '\n')
+    .replace(/<[^>]+>/g, '');
+  const ta = document.createElement('textarea'); ta.innerHTML = s;
+  return ta.value.replace(/^\n+/, '').replace(/\n{3,}/g, '\n\n').replace(/\n+$/, '');
+}
+const textToHtml = t => esc(t || '').replace(/\n/g, '<br>');
+const isPlainHtml = h => !/<(?!br\b|\/?div\b)[a-z]/i.test(h) && !/style=/i.test(h);
+function mdToHtml(md) {
+  const inline = s => esc(s).replace(/\\([\\`*_{}[\]()#+\-.!&])/g, '$1')
+    .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/(^|[^*])\*(?!\s)(.+?)\*/g, '$1<i>$2</i>')
+    .replace(/==(.+?)==/g, '<mark>$1</mark>').replace(/~~(.+?)~~/g, '<s>$1</s>').replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  const out = []; let list = null;
+  const close = () => { if (list) { out.push(`</${list}>`); list = null; } };
+  for (const raw of String(md || '').split('\n')) {
+    const line = raw.replace(/\s+$/, ''); let m;
+    if ((m = line.match(/^(#{1,3})\s+(.*)$/))) { close(); out.push(`<h${m[1].length}>${inline(m[2])}</h${m[1].length}>`); }
+    else if ((m = line.match(/^\s*[-*+]\s+(.*)$/))) { if (list !== 'ul') { close(); out.push('<ul>'); list = 'ul'; } out.push(`<li>${inline(m[1])}</li>`); }
+    else if ((m = line.match(/^\s*\d+[.)]\s+(.*)$/))) { if (list !== 'ol') { close(); out.push('<ol>'); list = 'ol'; } out.push(`<li>${inline(m[1])}</li>`); }
+    else if (!line.trim()) close();
+    else { close(); out.push(`<p>${inline(line)}</p>`); }
+  }
+  close();
+  return out.join('');
+}
+const HILITES = ['#fff09a', '#ffd6a5', '#ffc6d3', '#e2d1ff', '#c4e0ff', '#c8efc1', 'transparent'];
+function fmt(cmd, val) {
+  try { document.execCommand('styleWithCSS', false, true); } catch (e) { /* ignore */ }
+  if (cmd === 'hilite') document.execCommand('hiliteColor', false, val || '#fff09a');
+  else if (cmd === 'color') document.execCommand('foreColor', false, val);
+  else if (cmd === 'block') document.execCommand('formatBlock', false, val);
+  else if (cmd === 'link') {
+    const sel = window.getSelection(), u = window.prompt('Адрес ссылки', 'https://');
+    if (u && /^https?:\/\/\S+/i.test(u)) { if (sel && sel.isCollapsed) document.execCommand('insertHTML', false, `<a href="${esc(u)}">${esc(u)}</a>`); else document.execCommand('createLink', false, u); }
+  } else document.execCommand(cmd);
+}
+
+/* ---------- editing targets: main text, frame/embed titles, table cells, mind map nodes ---------- */
+function findNode(n, id) { if (!n) return null; if (n.id === id) return n; for (const c of n.children || []) { const r = findNode(c, id); if (r) return r; } return null; }
+function mmParent(n, id) { for (const c of n.children || []) { if (c.id === id) return n; const r = mmParent(c, id); if (r) return r; } return null; }
+function getVal(it, sub) {
+  if (it.type === 'table') { const [r, c] = String(sub).split(',').map(Number); const v = (it.rows[r] || [])[c] || ''; return { html: v, text: htmlToText(v) }; }
+  if (it.type === 'mindmap') { const n = findNode(it.root, sub) || {}; return { html: n.html || '', text: n.text || '' }; }
+  if (titled(it)) return { text: it.title || '', html: '' };
+  return { text: it.text || '', html: it.html || '' };
+}
+function setVal(it, sub, text, html) {
+  if (it.type === 'table') { const [r, c] = String(sub).split(',').map(Number); if (it.rows[r]) it.rows[r][c] = html || textToHtml(text); return; }
+  if (it.type === 'mindmap') { const n = findNode(it.root, sub); if (n) { n.text = text; if (html) n.html = html; else delete n.html; } return; }
+  if (titled(it)) { it.title = text; return; }
+  it.text = text; if (html) it.html = html; else delete it.html;
+}
+const valKey = v => (v.html || '') + '\u0001' + (v.text || '');
+const richTarget = (it, sub) => sub != null || !titled(it);
+function editTarget(el, it, sub) {
+  if (sub != null) return el.querySelector(`[data-sub="${CSS.escape(String(sub))}"]`);
+  return el.querySelector('.txt, .ftitle, .et, .dtxt');
+}
+
+/* =========================================================
+   Documents (Miro docs), tables, mind maps (Whimsical)
+   ========================================================= */
+function mkDoc(x, y) { return { id: uid(), type: 'doc', x: r1(x - 320), y: r1(y - 60), w: 640, h: 760, text: '', fs: 15, align: 'left', bold: false, textColor: INK }; }
+function mkTable(x, y) { return { id: uid(), type: 'table', x: r1(x - 270), y: r1(y - 60), w: 540, h: 120, cols: [180, 180, 180], rows: [['', '', ''], ['', '', ''], ['', '', '']], header: true }; }
+function mkMindmap(x, y) { const root = { id: 'n' + uid(), text: '', color: '#3355ff', children: [] }; return { id: uid(), type: 'mindmap', rx: r1(x - 70), ry: r1(y - 20), x: r1(x - 70), y: r1(y - 20), w: 140, h: 40, layout: 'both', root }; }
+function mmNorm(n) {
+  n.id = n.id || 'n' + uid(); n.children = Array.isArray(n.children) ? n.children : [];
+  if (typeof n.text !== 'string') n.text = String(n.text || '');
+  if (n.html) n.html = sanitizeHTML(n.html);
+  n.children.forEach(mmNorm);
+}
+
+function updateTable(el, it) {
+  const s = el.style; s.left = px(it.x); s.top = px(it.y); s.width = px(it.w); s.height = '';
+  const tbl = el.firstChild, cg = tbl.firstChild, tb = tbl.lastChild;
+  const sig = it.rows.length + 'x' + it.cols.length + '|' + it.cols.join(',') + '|' + (it.header ? 1 : 0);
+  if (tbl._sig !== sig) {
+    tbl._sig = sig;
+    const tw = it.cols.reduce((a, b) => a + b, 0) || 1;
+    cg.innerHTML = it.cols.map(w => `<col style="width:${(w / tw * 100).toFixed(3)}%">`).join('');
+    tb.innerHTML = it.rows.map((row, r) => `<tr class="${r === 0 && it.header ? 'th' : ''}">` + it.cols.map((_, c) => `<td><div class="cell" data-sub="${r},${c}"></div></td>`).join('') + '</tr>').join('');
+  }
+  tbl.style.setProperty('--hf', it.hfill || '#eef0f3');
+  for (const cell of tb.querySelectorAll('.cell')) {
+    const key = cell.dataset.sub;
+    if (S.editing === it.id && S.editSub === key) continue;
+    const [r, c] = key.split(',').map(Number), v = (it.rows[r] || [])[c] || '';
+    if (cell._v !== v) { cell.innerHTML = v; cell._v = v; }
+  }
+  const h = el.offsetHeight; if (h && Math.abs(h - it.h) > 0.5) it.h = h;
+}
+function tableOp(it, op) {
+  finishEdit(); pushHist();
+  const sum = it.cols.reduce((a, b) => a + b, 0) || 1, scale = it.w / sum;
+  const cur = S.lastCell && S.lastCell.id === it.id ? String(S.lastCell.sub).split(',').map(Number) : [it.rows.length - 1, it.cols.length - 1];
+  const r = Math.min(cur[0], it.rows.length - 1), c = Math.min(cur[1], it.cols.length - 1);
+  if (op === 'row+') it.rows.splice(r + 1, 0, it.cols.map(() => ''));
+  else if (op === 'col+') { const cw = it.cols[c] || 160; it.cols.splice(c + 1, 0, cw); it.rows.forEach(row => row.splice(c + 1, 0, '')); }
+  else if (op === 'row-' && it.rows.length > 1) it.rows.splice(r, 1);
+  else if (op === 'col-' && it.cols.length > 1) { it.cols.splice(c, 1); it.rows.forEach(row => row.splice(c, 1)); }
+  else if (op === 'head') it.header = !it.header;
+  it.w = r1(it.cols.reduce((a, b) => a + b, 0) * scale);
+  S.lastCell = null; changed();
+}
+function tableNext(it, sub, dir) {
+  let [r, c] = String(sub).split(',').map(Number);
+  c += dir;
+  if (c >= it.cols.length) { c = 0; r++; } else if (c < 0) { c = it.cols.length - 1; r--; }
+  if (r < 0) return;
+  finishEdit();
+  if (r >= it.rows.length) { pushHist(); it.rows.push(it.cols.map(() => '')); render(); }
+  S.lastCell = { id: it.id, sub: r + ',' + c };
+  startEdit(it.id, null, null, false, r + ',' + c);
+}
+
+const MM_GX = 52, MM_GY = 12;
+function mmKids(n) { return n.collapsed ? [] : (n.children || []); }
+function updateMindmap(el, it) {
+  const svg = el.firstChild, box = el.lastChild, nodes = el._nodes || (el._nodes = new Map());
+  const all = [];
+  (function walk(n, depth, color) { const c = n.color || color; all.push({ n, depth, color: c }); for (const k of mmKids(n)) walk(k, depth + 1, c); })(it.root, 0, it.root.color || '#3355ff');
+  const seen = new Set();
+  for (const a of all) {
+    let d = nodes.get(a.n.id);
+    if (!d) { d = document.createElement('div'); d.className = 'mmnode'; d.innerHTML = `<div class="mmt" data-sub="${a.n.id}"></div><button class="mmc" data-mmc="${a.n.id}"></button>`; box.appendChild(d); nodes.set(a.n.id, d); }
+    seen.add(a.n.id);
+    d.classList.toggle('root', a.depth === 0);
+    d.classList.toggle('mmsel', !!(S.mm && S.mm.id === it.id && S.mm.nid === a.n.id && S.sel.has(it.id)));
+    d.style.setProperty('--mc', a.color);
+    const t = d.firstChild;
+    if (!(S.editing === it.id && S.editSub === a.n.id)) { const v = a.n.html ? 'h' + a.n.html : 't' + a.n.text; if (t._v !== v) { if (a.n.html) t.innerHTML = a.n.html; else t.textContent = a.n.text; t._v = v; } }
+    const nk = (a.n.children || []).length, btn = d.lastChild;
+    btn.hidden = !nk; btn.textContent = a.n.collapsed ? String(nk) : '−'; btn.classList.toggle('col', !!a.n.collapsed);
+  }
+  for (const [id, d] of nodes) if (!seen.has(id)) { d.remove(); nodes.delete(id); }
+  const size = new Map();
+  for (const a of all) { const d = nodes.get(a.n.id); size.set(a.n.id, { w: Math.max(24, d.offsetWidth), h: Math.max(20, d.offsetHeight) }); }
+  const sh = new Map();
+  const subH = n => { const kids = mmKids(n), s = size.get(n.id); const sum = kids.reduce((acc, k) => acc + subH(k), 0) + MM_GY * Math.max(0, kids.length - 1); const v = Math.max(s.h, sum); sh.set(n.id, v); return v; };
+  const pos = new Map();
+  const place = (n, x, top, dir) => {
+    const s = size.get(n.id), H = sh.get(n.id);
+    pos.set(n.id, { x: dir === 1 ? x : x - s.w, y: top + H / 2 - s.h / 2, w: s.w, h: s.h, dir });
+    const kids = mmKids(n); const sum = kids.reduce((a, k) => a + sh.get(k.id), 0) + MM_GY * Math.max(0, kids.length - 1);
+    let cy = top + (H - sum) / 2;
+    for (const k of kids) { place(k, dir === 1 ? x + s.w + MM_GX : x - s.w - MM_GX, cy, dir); cy += sh.get(k.id) + MM_GY; }
+  };
+  const root = it.root, rs = size.get(root.id);
+  pos.set(root.id, { x: 0, y: 0, w: rs.w, h: rs.h, dir: 0 });
+  const kids = mmKids(root), half = it.layout === 'both' ? Math.ceil(kids.length / 2) : kids.length;
+  const sides = [[kids.slice(0, half), 1], [kids.slice(half), -1]];
+  for (const [list, dir] of sides) {
+    list.forEach(subH);
+    const total = list.reduce((a, k) => a + sh.get(k.id), 0) + MM_GY * Math.max(0, list.length - 1);
+    let cy = rs.h / 2 - total / 2;
+    for (const k of list) { place(k, dir === 1 ? rs.w + MM_GX : -MM_GX, cy, dir); cy += sh.get(k.id) + MM_GY; }
+  }
+  let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity;
+  for (const p of pos.values()) { x1 = Math.min(x1, p.x); y1 = Math.min(y1, p.y); x2 = Math.max(x2, p.x + p.w); y2 = Math.max(y2, p.y + p.h); }
+  x1 -= 6; y1 -= 6; x2 += 6; y2 += 6;
+  it.x = r1(it.rx + x1); it.y = r1(it.ry + y1); it.w = r1(x2 - x1); it.h = r1(y2 - y1);
+  setBox(el, it);
+  const paths = [], layout = [];
+  for (const a of all) {
+    const p = pos.get(a.n.id), d = nodes.get(a.n.id);
+    d.style.left = px(p.x - x1); d.style.top = px(p.y - y1);
+    layout.push({ x: p.x - x1, y: p.y - y1, w: p.w, h: p.h, root: a.depth === 0, color: a.color, text: a.n.text });
+    for (const k of mmKids(a.n)) {
+      const q = pos.get(k.id); if (!q) continue;
+      const kc = k.color || a.color, dir = q.dir;
+      const sx = dir === 1 ? p.x + p.w : p.x, sy = a.depth === 0 ? p.y + p.h / 2 : p.y + p.h;
+      const ex = dir === 1 ? q.x : q.x + q.w, ey = q.y + q.h;
+      const mx = (sx + ex) / 2;
+      paths.push({ d: `M${r1(sx - x1)} ${r1(sy - y1)}C${r1(mx - x1)} ${r1(sy - y1)} ${r1(mx - x1)} ${r1(ey - y1)} ${r1(ex - x1)} ${r1(ey - y1)}`, color: kc });
+    }
+  }
+  svg.setAttribute('width', it.w); svg.setAttribute('height', it.h);
+  svg.innerHTML = paths.map(p => `<path d="${p.d}" stroke="${esc(p.color)}"/>`).join('');
+  el._mm = { layout, paths };
+}
+function mmAdd(iid, nid, mode) {
+  const it = byId(iid); if (!it || it.type !== 'mindmap') return;
+  pushHist();
+  let parent = findNode(it.root, nid) || it.root;
+  if (mode === 'sibling' && parent !== it.root) parent = mmParent(it.root, nid) || it.root;
+  parent.collapsed = false;
+  const n = { id: 'n' + uid(), text: '', children: [] };
+  const idx = mode === 'sibling' ? parent.children.findIndex(c => c.id === nid) : -1;
+  if (idx >= 0) parent.children.splice(idx + 1, 0, n); else parent.children.push(n);
+  S.mm = { id: iid, nid: n.id }; S.sel = new Set([iid]);
+  render(); startEdit(iid, null, null, true, n.id);
+}
+function mmRemove(it, nid) { const p = mmParent(it.root, nid); if (p) p.children = p.children.filter(c => c.id !== nid); }
+
+/* ---------- groups ---------- */
+const groupOf = it => (it && it.grp ? items().filter(i => i.grp === it.grp) : null);
+function expandGroups(set) { const out = new Set(set); for (const id of set) { const g = groupOf(byId(id)); if (g) g.forEach(i => out.add(i.id)); } return out; }
+function groupSel() { const sel = selItems(); if (sel.length < 2) return; pushHist(); const g = 'g' + uid(); sel.forEach(i => { i.grp = g; }); changed(); toast('Сгруппировано'); }
+function ungroupSel() { const sel = selItems().filter(i => i.grp); if (!sel.length) return; pushHist(); sel.forEach(i => { delete i.grp; }); changed(); toast('Группа разобрана'); }
+
+/* =========================================================
+   Link display modes: content, card, line, cover
+   ========================================================= */
+const VIEW_NAMES = { live: 'Содержимое', card: 'Карточка', compact: 'Строка', cover: 'Обложка' };
+const VIEW_DEF = { video: 'live', web: 'card', claude: 'card', html: 'live' };
+const KIND_LABEL = { video: 'видео', web: 'сайтов и документов', claude: 'чатов и проектов Claude', html: 'своих инструментов' };
+const viewKind = it => (it.provider === 'claude' ? 'claude' : it.kind === 'video' ? 'video' : it.kind === 'html' ? 'html' : 'web');
+const noFrame = it => !!(PROV[it.provider] || {}).noframe;
+function viewOf(it) {
+  let v = it.view || (S.settings.views || {})[viewKind(it)] || VIEW_DEF[viewKind(it)];
+  if (v === 'live' && noFrame(it)) v = 'card';
+  if (v === 'cover' && it.kind === 'html') v = 'card';
+  return v;
+}
+function viewSize(it, v) {
+  if (it.sizes && it.sizes[v]) return it.sizes[v];
+  if (v === 'compact') return [400, 64];
+  if (v === 'cover') return [520, 292];
+  if (v === 'card') return [440, it.thumb ? 380 : 220];
+  return it.kind === 'video' ? [640, 360 + EH] : it.kind === 'html' ? [760, 560] : [900, 620];
+}
+function switchSize(it, from, to) {
+  if (from === to) return;
+  it.sizes = it.sizes || {};
+  if (from) it.sizes[from] = [it.w, it.h];
+  const [w, h] = viewSize(it, to); it.w = w; it.h = h; it.vs = to;
+}
+function setView(id, v) {
+  const it = byId(id); if (!it) return;
+  pushHist(); switchSize(it, viewOf(it), v); it.view = v; S.loaded.delete(id);
+  const el = els.get(id); if (el) { const fr = el.querySelector('iframe'); if (fr && v !== 'live') fr.remove(); }
+  changed();
+}
+function setDefaultView(k, v) {
+  pushHist();
+  const before = new Map(items().filter(i => i.type === 'embed' && !i.view && viewKind(i) === k).map(i => [i.id, viewOf(i)]));
+  S.settings.views = Object.assign({}, S.settings.views, { [k]: v }); saveSettings();
+  for (const [id, old] of before) { const it = byId(id); switchSize(it, old, viewOf(it)); }
+  changed(); toast(`Теперь для ${KIND_LABEL[k]} по умолчанию: ${VIEW_NAMES[v].toLowerCase()}`);
+}
+function domainOf(it) {
+  if (it.kind === 'html') return 'Свой HTML-инструмент';
+  try { return new URL(it.url || it.src).hostname.replace(/^www\./, ''); } catch (e) { return ''; }
+}
+function cardHTML(it, v) {
+  const P = PROV[it.provider] || PROV.web, title = esc(it.title || P.name), sub = esc(it.sub || ''), dom = esc(domainOf(it));
+  if (v === 'compact') return `<div class="ecompact">${badge(it.provider)}<div class="ec-t"><div class="ec-title">${title}</div><div class="ec-dom">${sub || dom}</div></div>${ic('ext')}</div>`;
+  if (v === 'cover') return `<div class="ecover" style="--pc:${P.c}">${it.thumb ? '<img class="poster" alt="">' : `<div class="ecv-ic">${badge(it.provider)}</div>`}<div class="ecv-cap"><b>${title}</b>${sub ? `<span>${sub}</span>` : ''}</div>${it.kind === 'video' ? `<button class="play" data-ea="play" aria-label="Смотреть">${ic('playf')}</button>` : ''}</div>`;
+  return `<div class="ecardv" style="--pc:${P.c}">${it.thumb ? '<div class="ecv-th"><img class="poster" alt="">' + (it.kind === 'video' ? `<button class="play" data-ea="play" aria-label="Смотреть">${ic('playf')}</button>` : '') + '</div>' : '<div class="ecv-band"></div>'}<div class="ecv-body"><div class="ecv-top">${badge(it.provider)}<span>${esc(P.name)}</span></div><div class="ecv-title">${title}</div>${sub ? `<div class="ecv-sub">${sub}</div>` : ''}<div class="ecv-dom">${dom}</div></div></div>`;
+}
+function viewPop(anchor, it) {
+  const k = viewKind(it), opts = ['live', 'card', 'compact', 'cover'].filter(v => !(v === 'live' && noFrame(it)) && !(v === 'cover' && it.kind === 'html'));
+  const cur = viewOf(it), def = (S.settings.views || {})[k] || VIEW_DEF[k];
+  const row = (p, sel) => '<div class="row">' + opts.map(v => `<button class="ob ${v === sel ? 'on' : ''}" data-v="${p}:${v}">${VIEW_NAMES[v]}</button>`).join('') + '</div>';
+  openPop(anchor, `<div class="vp"><div class="vp-h">Эта ссылка</div>${row('it', cur)}<div class="vp-h">По умолчанию для ${KIND_LABEL[k]}</div>${row('def', def)}${noFrame(it) ? '<div class="vp-n">Этот сайт запрещает показывать себя внутри других страниц, поэтому «Содержимое» недоступно.</div>' : ''}</div>`,
+    v => { const [a, b] = v.split(':'); if (a === 'it') setView(it.id, b); else setDefaultView(k, b); });
+}
+function capPop(anchor, it) {
+  openPop(anchor, `<div class="capf"><label>Название<input class="inp" id="capT" value="${esc(it.title || '')}"></label><label>Подпись: проект, автор, описание<input class="inp" id="capS" value="${esc(it.sub || '')}"></label><button class="btn" data-v="save">Сохранить</button></div>`, () => {
+    const t = $('#capT').value.trim(), s = $('#capS').value.trim();
+    pushHist(); it.title = t || (PROV[it.provider] || PROV.web).name; if (s) it.sub = s; else delete it.sub; changed();
+  });
+  setTimeout(() => { const i = $('#capT'); if (i) { i.focus(); i.select(); } }, 0);
+}
+async function fetchMeta(id) {
+  const it0 = byId(id);
+  if (S.hosted || !navigator.onLine || !it0 || !it0.url || it0.kind === 'html' || it0.provider === 'claude') return;
+  try {
+    const ctl = new AbortController(); setTimeout(() => ctl.abort(), 7000);
+    const r = await fetch('https://noembed.com/embed?url=' + encodeURIComponent(it0.url), { signal: ctl.signal });
+    const j = await r.json(); const it = byId(id);
+    if (!it || !j || j.error) return;
+    let ch = false;
+    if (j.title && (!it.title || it.title === (PROV[it.provider] || PROV.web).name)) { it.title = String(j.title).slice(0, 200); ch = true; }
+    if (j.author_name && !it.sub) { it.sub = String(j.author_name).slice(0, 120); ch = true; }
+    if (j.thumbnail_url && !it.thumb && /^https:/.test(j.thumbnail_url)) { it.thumb = j.thumbnail_url; ch = true; }
+    if (ch) changed();
+  } catch (e) { /* offline or blocked: keep what we have */ }
+}
+
+/* =========================================================
+   Split screen: 2–4 boards side by side (each pane is a full board)
+   ========================================================= */
+const QS = new URLSearchParams(location.search);
+const PANE = QS.get('pane') === '1';
+const INSTANCE = uid();
+const BC = 'BroadcastChannel' in window ? new BroadcastChannel('holst') : null;
+function bcPost(msg) { if (BC) { try { BC.postMessage(Object.assign({ from: INSTANCE }, msg)); } catch (e) { /* ignore */ } } }
+if (BC) BC.onmessage = async ev => {
+  const m = ev.data || {};
+  if (m.from === INSTANCE || m.t !== 'saved' || Backend !== Local) return;
+  if (Drive.active()) Drive.touched();
+  try { const list = await Local.listBoards(); if (list.length) S.index = list; } catch (e) { /* ignore */ }
+  if (S.board && S.board.id === m.bid && !dirty && !saving && !S.editing && !S.drag && !S.focus) {
+    const b = await Local.loadBoard(m.bid);
+    if (b && boardHash(b) !== boardHash(S.board)) {
+      S.board.name = b.name; S.board.items = b.items; Object.assign(S.board.assets, b.assets || {});
+      $('#boardName').value = b.name; S.sel = new Set([...S.sel].filter(id => byId(id))); render();
+    }
+  }
+  renderDrawer();
+};
+const SPLITS = {
+  '2v': { name: 'Две рядом', cols: 2, rows: 1, cells: [[0, 0, 1, 1], [1, 0, 1, 1]] },
+  '2h': { name: 'Две друг над другом', cols: 1, rows: 2, cells: [[0, 0, 1, 1], [0, 1, 1, 1]] },
+  '3v': { name: 'Три колонки', cols: 3, rows: 1, cells: [[0, 0, 1, 1], [1, 0, 1, 1], [2, 0, 1, 1]] },
+  '3l': { name: 'Одна большая и две', cols: 2, rows: 2, cells: [[0, 0, 1, 2], [1, 0, 1, 1], [1, 1, 1, 1]] },
+  '4': { name: 'Четыре', cols: 2, rows: 2, cells: [[0, 0, 1, 1], [1, 0, 1, 1], [0, 1, 1, 1], [1, 1, 1, 1]] },
+};
+const splitOk = () => !S.hosted && !PANE && Backend === Local;
+async function enterSplit(layout) {
+  const L = SPLITS[layout]; if (!L || !splitOk()) return;
+  finishEdit(); closePop(); drawer.hidden = true;
+  if (dirty) await saveNow();
+  const ids = [S.board.id, ...[...S.index].sort((a, b) => b.updatedAt - a.updatedAt).map(x => x.id).filter(id => id !== S.board.id)];
+  const old = S.split && S.split.boards || [];
+  const boards = L.cells.map((_, i) => old[i] || ids[i] || S.board.id);
+  if (old.length) boards[0] = old[0];
+  S.split = { layout, boards, cols: Array(L.cols).fill(1), rows: Array(L.rows).fill(1) };
+  LS.set('split', S.split);
+  showSplit();
+}
+function showSplit() {
+  document.body.classList.add('splitting');
+  $('#split').hidden = false;
+  renderSplit();
+}
+function renderSplit() {
+  const sp = S.split; if (!sp) return;
+  const L = SPLITS[sp.layout], grid = $('#splitGrid'), G = 6;
+  const W = innerWidth, H = innerHeight;
+  const tracks = (fr, total) => { const sum = fr.reduce((a, b) => a + b, 0), avail = total - G * (fr.length - 1); let p = 0; return fr.map(f => { const s = p, w = avail * f / sum; p += w + G; return [s, w]; }); };
+  const cx = tracks(sp.cols, W), cy = tracks(sp.rows, H);
+  const cells = grid._cells || (grid._cells = []);
+  L.cells.forEach(([c, r, cs, rs], i) => {
+    let cell = cells[i];
+    const src = location.pathname + '?pane=1&i=' + i + '&board=' + encodeURIComponent(sp.boards[i] || '');
+    if (!cell) {
+      cell = document.createElement('div'); cell.className = 'scell';
+      cell.innerHTML = `<iframe title="Доска"></iframe><div class="stools"><button data-sa="max" data-i="${i}" title="Открыть эту доску на весь экран">${ic('expand')}</button><button data-sa="close" data-i="${i}" title="Закрыть панель">${ic('close')}</button></div>`;
+      grid.appendChild(cell); cells[i] = cell;
+    }
+    const fr = cell.firstChild;
+    if (fr._src !== src) { fr._src = src; fr.src = src; }
+    const x = cx[c][0], w = cx[c + cs - 1][0] + cx[c + cs - 1][1] - x, y = cy[r][0], h = cy[r + rs - 1][0] + cy[r + rs - 1][1] - y;
+    Object.assign(cell.style, { left: px(x), top: px(y), width: px(w), height: px(h) });
+  });
+  while (cells.length > L.cells.length) cells.pop().remove();
+  grid.querySelectorAll('.sgut').forEach(g => g.remove());
+  cx.slice(0, -1).forEach(([s, w], i) => { const g = document.createElement('div'); g.className = 'sgut v'; g.dataset.k = 'c' + i; g.style.left = px(s + w); grid.appendChild(g); });
+  cy.slice(0, -1).forEach(([s, w], i) => { const g = document.createElement('div'); g.className = 'sgut h'; g.dataset.k = 'r' + i; g.style.top = px(s + w); grid.appendChild(g); });
+}
+function exitSplit(bid) {
+  const sp = S.split; S.split = null; LS.set('split', null);
+  const grid = $('#splitGrid'); grid.innerHTML = ''; grid._cells = [];
+  $('#split').hidden = true; document.body.classList.remove('splitting');
+  const target = bid || (sp && sp.boards[0]) || (S.board && S.board.id);
+  (async () => { const b = target ? await Local.loadBoard(target) : null; if (b) { S.board = null; loadBoard(b); } })();
+}
+function closePane(i) {
+  const sp = S.split; if (!sp) return;
+  const boards = sp.boards.filter((_, k) => k !== i);
+  if (boards.length < 2) { exitSplit(boards[0]); return; }
+  const layout = boards.length === 3 ? '3v' : '2v';
+  const grid = $('#splitGrid'); grid.innerHTML = ''; grid._cells = [];
+  S.split = { layout, boards, cols: Array(SPLITS[layout].cols).fill(1), rows: Array(SPLITS[layout].rows).fill(1) };
+  LS.set('split', S.split); renderSplit();
+}
+function splitPop(anchor) {
+  openPop(anchor, '<div class="menu">' + Object.entries(SPLITS).map(([k, L]) => `<button class="mi" data-v="${k}"><span class="spic">${'▮'.repeat(L.cells.length)}</span><span>${L.name}</span></button>`).join('') + '</div>', v => enterSplit(v));
+}
+if (QS.has('debug')) setTimeout(() => { window.__h = { S, byId, items: () => items(), setView, setDefaultView, enterSplit, exitSplit, viewOf, groupSel, shapePath, render, mdToHtml, sanitizeHTML, saveNow }; }, 0);
+function wireSplit() {
+  const grid = $('#splitGrid');
+  $('#split').addEventListener('click', e => {
+    const b = e.target.closest('[data-sa]'); if (!b) return;
+    const i = +b.dataset.i;
+    if (b.dataset.sa === 'max') exitSplit(S.split.boards[i]);
+    else if (b.dataset.sa === 'close') closePane(i);
+    else if (b.dataset.sa === 'exit') exitSplit();
+    else if (b.dataset.sa === 'layout') splitPop(b);
+  });
+  grid.addEventListener('pointerdown', e => {
+    const g = e.target.closest('.sgut'); if (!g) return;
+    e.preventDefault(); g.setPointerCapture(e.pointerId); $('#split').classList.add('dragging');
+    const kind = g.dataset.k[0], idx = +g.dataset.k.slice(1), arr = kind === 'c' ? S.split.cols : S.split.rows;
+    const total = kind === 'c' ? innerWidth : innerHeight, sum = arr.reduce((a, b) => a + b, 0), start = kind === 'c' ? e.clientX : e.clientY, a0 = arr[idx], b0 = arr[idx + 1];
+    const move = ev => {
+      const d = ((kind === 'c' ? ev.clientX : ev.clientY) - start) / total * sum;
+      const lim = sum * 0.12;
+      arr[idx] = Math.max(lim, a0 + d); arr[idx + 1] = Math.max(lim, b0 - (arr[idx] - a0));
+      renderSplit();
+    };
+    const up = () => { g.removeEventListener('pointermove', move); g.removeEventListener('pointerup', up); $('#split').classList.remove('dragging'); LS.set('split', S.split); };
+    g.addEventListener('pointermove', move); g.addEventListener('pointerup', up);
+  });
+  window.addEventListener('message', e => {
+    const m = e.data || {};
+    if (m && m.holst === 'pane' && S.split && Number.isInteger(m.i) && m.bid) { S.split.boards[m.i] = m.bid; LS.set('split', S.split); const c = (grid._cells || [])[m.i]; if (c) c.firstChild._src = location.pathname + '?pane=1&i=' + m.i + '&board=' + encodeURIComponent(m.bid); }
+  });
+  window.addEventListener('resize', () => { if (S.split) renderSplit(); });
 }
 
 /* =========================================================
@@ -1972,6 +2802,8 @@ function onDown(e) {
     finishEdit();
   }
   if (S.active) { const ael = els.get(S.active); if (!(ael && ael.contains(e.target))) { S.active = null; requestRender(); } }
+  const mmc = e.button === 0 && e.target.closest && e.target.closest('[data-mmc]');
+  if (mmc && world.contains(mmc)) { const host = mmc.closest('[data-id]'), mit = host && byId(host.dataset.id), n = mit && findNode(mit.root, mmc.dataset.mmc); if (n) { pushHist(); n.collapsed = !n.collapsed; changed(); } return; }
   const ea = e.button === 0 && e.target.closest && e.target.closest('[data-ea]');
   if (ea && world.contains(ea)) { const host = ea.closest('[data-id]'); if (host) embedAction(ea.dataset.ea, host.dataset.id); return; }
   S.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
@@ -1989,17 +2821,22 @@ function onDown(e) {
     case 'select':
       if (!hit && e.pointerType === 'touch') { startPan(e); return; }
       if (hit) {
-        if (e.shiftKey) { if (S.sel.has(hit.id)) S.sel.delete(hit.id); else S.sel.add(hit.id); S.drag = null; render(); return; }
+        const grp = !e.altKey && groupOf(hit);
+        if (e.shiftKey) { const on = S.sel.has(hit.id); (grp ? grp.map(i => i.id) : [hit.id]).forEach(id => { if (on) S.sel.delete(id); else S.sel.add(id); }); S.drag = null; render(); return; }
         const wasOnly = S.sel.size === 1 && S.sel.has(hit.id);
-        if (!S.sel.has(hit.id)) S.sel = new Set([hit.id]);
-        S.drag = { type: 'move-pending', start: w, sx: e.clientX, sy: e.clientY, wasOnly, hitId: hit.id, onTitle: !!e.target.closest('.ftitle, .et') };
+        if (!S.sel.has(hit.id)) S.sel = new Set(grp ? grp.map(i => i.id) : [hit.id]);
+        const cellEl = e.target.closest('.cell'), nodeEl = e.target.closest('.mmnode');
+        const mmNode = hit.type === 'mindmap' && nodeEl ? nodeEl.querySelector('.mmt').dataset.sub : null;
+        const mmWas = !!(mmNode && wasOnly && S.mm && S.mm.id === hit.id && S.mm.nid === mmNode);
+        if (hit.type === 'mindmap') S.mm = { id: hit.id, nid: mmNode || (S.mm && S.mm.id === hit.id ? S.mm.nid : hit.root.id) };
+        S.drag = { type: 'move-pending', start: w, sx: e.clientX, sy: e.clientY, wasOnly, hitId: hit.id, onTitle: !!e.target.closest('.ftitle, .et'), cell: cellEl ? cellEl.dataset.sub : null, mmNode, mmWas };
       } else {
         S.drag = { type: 'marquee', start: w, cur: w, sx: e.clientX, sy: e.clientY, base: e.shiftKey ? new Set(S.sel) : new Set(), active: false };
         if (!e.shiftKey) S.sel.clear();
       }
       render();
       break;
-    case 'sticky': case 'text':
+    case 'sticky': case 'text': case 'doc': case 'table': case 'mindmap':
       S.drag = { type: 'place', tool: S.tool, w }; break;
     case 'shape': case 'frame':
       S.drag = { type: 'create', kind: S.tool, start: w, cur: w, sx: e.clientX, sy: e.clientY, active: false }; break;
@@ -2039,7 +2876,7 @@ function onMove(e) {
       d.active = true; d.cur = w;
       const r = rectFrom(d.start, d.cur), s = new Set(d.base);
       for (const it of items()) { const b = bounds(it); if (it.type === 'frame' ? inside(b, r) : intersects(b, r)) s.add(it.id); }
-      S.sel = s; requestRender(); break;
+      S.sel = expandGroups(s); requestRender(); break;
     }
     case 'create': if (!d.active && !moved) break; d.active = true; d.cur = w; renderOverlay(); break;
     case 'connect': {
@@ -2089,7 +2926,7 @@ function beginMove(d, alt) {
     const copies = cloneItems(prepare(withFrameContents(selItems())), 0, 0);
     S.board.items.push(...copies); S.sel = new Set(copies.map(c => c.id));
   }
-  d.list = withFrameContents(selItems()).map(it => (it.type === 'connector' ? { it, f: { ...it.from }, t: { ...it.to } } : { it, x: it.x, y: it.y }));
+  d.list = withFrameContents(selItems()).map(it => (it.type === 'connector' ? { it, f: { ...it.from }, t: { ...it.to } } : { it, x: it.x, y: it.y, rx: it.rx, ry: it.ry }));
   render();
 }
 function moveTo(d, w) {
@@ -2099,7 +2936,7 @@ function moveTo(d, w) {
     if (it.type === 'connector') {
       if (!it.from.id) { it.from.x = r1(m.f.x + dx); it.from.y = r1(m.f.y + dy); }
       if (!it.to.id) { it.to.x = r1(m.t.x + dx); it.to.y = r1(m.t.y + dy); }
-    } else { it.x = r1(m.x + dx); it.y = r1(m.y + dy); }
+    } else { it.x = r1(m.x + dx); it.y = r1(m.y + dy); if (it.type === 'mindmap') { it.rx = r1(m.rx + dx); it.ry = r1(m.ry + dy); } }
   }
   requestRender();
 }
@@ -2111,7 +2948,7 @@ function startHandle(h, e) {
   S.drag = {
     type: 'resize', h, box, started: false, sx: e.clientX, sy: e.clientY,
     keep: solids.length > 1 || (solids.length === 1 && solids[0].type === 'image'),
-    orig: solids.map(it => ({ it, x: it.x, y: it.y, w: it.w, h: it.h, pts: it.pts ? it.pts.map(p => p.slice()) : null })),
+    orig: solids.map(it => ({ it, x: it.x, y: it.y, w: it.w, h: it.h, rx: it.rx, ry: it.ry, pts: it.pts ? it.pts.map(p => p.slice()) : null })),
     conns: sel.filter(i => i.type === 'connector').map(c => ({ c, f: { ...c.from }, t: { ...c.to } })),
   };
 }
@@ -2134,8 +2971,9 @@ function resizeTo(d, w, shift, moved) {
     const minW = it.type === 'text' ? 40 : it.type === 'embed' ? 160 : 8, minH = it.type === 'embed' ? EH + 60 : 8;
     it.x = r1(x1 + (o.x - b.x) * sx);
     it.y = r1(y1 + (o.y - b.y) * sy);
+    if (it.type === 'mindmap') { it.rx = r1(o.rx + it.x - o.x); it.ry = r1(o.ry + it.y - o.y); it.w = o.w; it.h = o.h; continue; }
     it.w = Math.max(minW, r1(o.w * sx));
-    if (it.type !== 'text') it.h = Math.max(minH, r1(o.h * sy));
+    if (it.type !== 'text' && it.type !== 'table') it.h = Math.max(minH, r1(o.h * sy));
     if (o.pts) { const fx = o.w ? it.w / o.w : 1, fy = o.h ? it.h / o.h : 1; it.pts = o.pts.map(([a, c]) => [r1(a * fx), r1(c * fy)]); }
     const el = els.get(it.id); if (el) el._fit = '';
   }
@@ -2163,7 +3001,10 @@ function onUp(e) {
     case 'pan': updateCursor(); break;
     case 'move-pending': {
       const it = byId(d.hitId);
+      if (it && it.type === 'mindmap' && d.mmNode && d.mmWas && !e.shiftKey) { startEdit(it.id, e.clientX, e.clientY, false, d.mmNode); return; }
       if (d.wasOnly && it && !e.shiftKey) {
+        if (it.type === 'table' && d.cell) { S.lastCell = { id: it.id, sub: d.cell }; startEdit(it.id, e.clientX, e.clientY, false, d.cell); return; }
+        if (it.type === 'embed' && viewOf(it) !== 'live' && !(it.kind === 'video' && S.loaded.has(it.id))) { if (it.kind === 'video' && viewOf(it) !== 'compact') activateEmbed(it.id); else openEmbed(it); return; }
         if (hasText(it)) { startEdit(it.id, e.clientX, e.clientY); return; }
         if (titled(it) && d.onTitle) { startEdit(it.id); return; }
         if (it.type === 'embed') { activateEmbed(it.id); return; }
@@ -2174,10 +3015,12 @@ function onUp(e) {
     case 'move': scheduleSave(); break;
     case 'place': {
       pushHist();
-      const it = d.tool === 'sticky' ? mkSticky(d.w.x, d.w.y) : mkText(d.w.x, d.w.y);
+      const it = d.tool === 'sticky' ? mkSticky(d.w.x, d.w.y) : d.tool === 'text' ? mkText(d.w.x, d.w.y) : d.tool === 'doc' ? mkDoc(d.w.x, d.w.y) : d.tool === 'table' ? mkTable(d.w.x, d.w.y) : mkMindmap(d.w.x, d.w.y);
       S.board.items.push(it);
       setTool('select');
-      startEdit(it.id, null, null, true);
+      if (it.type === 'table') { S.lastCell = { id: it.id, sub: '0,0' }; startEdit(it.id, null, null, false, '0,0'); }
+      else if (it.type === 'mindmap') { S.mm = { id: it.id, nid: it.root.id }; startEdit(it.id, null, null, false, it.root.id); }
+      else startEdit(it.id, null, null, true);
       scheduleSave(); return;
     }
     case 'create': {
@@ -2236,7 +3079,7 @@ function onWheel(e) {
 const TOOLS = [
   ['select', 'Выделение', 'V'], ['hand', 'Рука', 'H'], null,
   ['sticky', 'Стикер', 'N'], ['text', 'Текст', 'T'], ['shape', 'Фигура', 'S'], ['connector', 'Линия со стрелкой', 'L'],
-  ['pen', 'Перо', 'P'], ['eraser', 'Ластик', 'E'], ['frame', 'Рамка', 'F'], null,
+  ['pen', 'Перо', 'P'], ['eraser', 'Ластик', 'E'], ['frame', 'Рамка', 'F'], ['mindmap', 'Майнд-карта', 'M'], ['doc', 'Документ', 'D'], ['table', 'Таблица', 'G'], null,
   ['image', 'Изображение', 'I'], ['embed', 'Встроить видео, сайт или HTML', 'K'],
 ];
 function buildToolbar() {
@@ -2258,7 +3101,7 @@ function renderFlyout() {
   const t = S.tool; let h = '', cols = '1';
   const swb = (o, v, on, inner, title) => `<button class="swb ${on ? 'on' : ''}" data-o="${o}" data-v="${v}" title="${esc(title || '')}">${inner}</button>`;
   if (t === 'sticky') { cols = '2'; h = STICKY.map(c => swb('sticky', c, c === S.opts.sticky, `<span class="sw sq" style="--c:${c}"></span>`, 'Цвет стикера')).join(''); }
-  else if (t === 'shape') h = SHAPES.map(k => `<button class="ib ${k === S.opts.shape ? 'on' : ''}" data-o="shape" data-v="${k}" title="${SHAPE_NAMES[k]}">${shapeIcon(k)}</button>`).join('');
+  else if (t === 'shape' && (cols = '3')) h = SHAPES.map(k => `<button class="ib ${k === S.opts.shape ? 'on' : ''}" data-o="shape" data-v="${k}" title="${SHAPE_NAMES[k]}">${shapeIcon(k)}</button>`).join('');
   else if (t === 'connector') h = ['straight', 'elbow', 'curve'].map(k => `<button class="ib ${k === S.opts.conn ? 'on' : ''}" data-o="conn" data-v="${k}" title="${CONN_NAMES[k]}">${ic('st_' + k)}</button>`).join('');
   else if (t === 'pen') { cols = '2'; h = PEN_COLORS.map(c => swb('pen', c, c === S.opts.pen, `<span class="sw" style="--c:${c}"></span>`, 'Цвет')).join('') + '<div class="fsep"></div>' + [2, 4, 8, 14].map(n => swb('penW', n, n === S.opts.penW, `<span class="wdot" style="--s:${Math.min(16, n + 2)}px"></span>`, n + ' px')).join(''); }
   const shapeBtn = $('#toolbar [data-tool="shape"]'); if (shapeBtn) shapeBtn.innerHTML = shapeIcon(S.opts.shape);
@@ -2294,6 +3137,7 @@ function openMenu(btn) {
     mi('save', 'download', 'Сохранить доску в файл', MOD + '+S') +
     mi('open', 'folder', 'Открыть файл доски…', MOD + '+O') +
     mi('png', 'image', 'Экспорт в PNG') +
+    (splitOk() ? mi('split', 'split', 'Разделить экран…') : '') +
     mi('offline', 'offline', 'Скачать офлайн-версию') +
     (Drive.available() ? mi('drive', 'cloud', 'Google Диск…') : '') +
     (installPrompt ? mi('install', 'install', 'Установить как приложение') : '') +
@@ -2313,6 +3157,7 @@ function menuAction(v) {
     case 'open': $('#fileBoard').click(); break;
     case 'png': exportPNG(); break;
     case 'offline': downloadOffline(); break;
+    case 'split': splitPop($('#btnMenu')); break;
     case 'drive': openDriveDlg(); break;
     case 'install': if (installPrompt) { installPrompt.prompt(); installPrompt.userChoice.finally(() => { installPrompt = null; }); } break;
     case 'grid': S.settings.grid = !S.settings.grid; updateCursor(); saveSettings(); break;
@@ -2368,17 +3213,18 @@ function buildHelp() {
   const K = (...ks) => ks.map(k => `<kbd>${k}</kbd>`).join(' ');
   const rows = (title, list) => `<h3>${title}</h3>` + list.map(([a, b]) => `<div class="kr"><span>${a}</span><span>${b}</span></div>`).join('');
   $('#helpBody').innerHTML = '<div class="cols"><div>' +
-    rows('Инструменты', [['Выделение', K('V')], ['Рука', K('H')], ['Стикер', K('N')], ['Текст', K('T')], ['Фигура', K('S')], ['Прямоугольник, эллипс', K('R') + ' ' + K('O')], ['Линия со стрелкой', K('L')], ['Перо, ластик', K('P') + ' ' + K('E')], ['Рамка', K('F')], ['Изображение', K('I')], ['Встроить видео, сайт, HTML', K('K')]]) +
+    rows('Инструменты', [['Выделение', K('V')], ['Рука', K('H')], ['Стикер', K('N')], ['Текст', K('T')], ['Фигура', K('S')], ['Прямоугольник, эллипс', K('R') + ' ' + K('O')], ['Линия со стрелкой', K('L')], ['Перо, ластик', K('P') + ' ' + K('E')], ['Рамка', K('F')], ['Майнд-карта', K('M')], ['Документ', K('D')], ['Таблица', K('G')], ['Изображение', K('I')], ['Встроить видео, сайт, HTML', K('K')]]) +
     rows('Навигация', [['Масштаб', 'колесо мыши'], ['Перемещение по доске', K('Пробел') + ' + мышь, правая кнопка'], ['Тачпад', 'два пальца, щипок'], ['Показать всё', K('Shift', '1')], ['Масштаб 100%', K('Shift', '0')], ['Приблизить, отдалить', K('+') + ' ' + K('−')]]) +
     rows('Встраивания', [['Встроить по ссылке', 'вставить ссылку на доску'], ['Работать внутри', 'двойной щелчок'], ['Вернуться к доске', 'щелчок мимо'], ['Переименовать', 'щелчок по заголовку выделенного']]) +
     '</div><div>' +
-    rows('Правка', [['Изменить текст', 'двойной щелчок, ' + K('Enter')], ['Закончить ввод', K('Esc')], ['Развернуть на весь экран', K('Shift', 'Enter')], ['Отменить', K(MOD, 'Z')], ['Повторить', K(MOD, 'Shift', 'Z')], ['Копировать, вставить', K(MOD, 'C') + ' ' + K(MOD, 'V')], ['Дублировать', K(MOD, 'D') + ' или Alt + перетаскивание'], ['Удалить', K('Delete')], ['Сдвинуть', 'стрелки, с ' + K('Shift') + ' на 10'], ['Вперёд, назад', K(']') + ' ' + K('[')], ['Добавить к выделению', K('Shift') + ' + щелчок'], ['Сохранить пропорции', K('Shift') + ' при изменении размера']]) +
+    rows('Правка', [['Изменить текст', 'двойной щелчок, ' + K('Enter')], ['Закончить ввод', K('Esc')], ['Развернуть на весь экран', K('Shift', 'Enter')], ['Отменить', K(MOD, 'Z')], ['Повторить', K(MOD, 'Shift', 'Z')], ['Копировать, вставить', K(MOD, 'C') + ' ' + K(MOD, 'V')], ['Дублировать', K(MOD, 'D') + ' или Alt + перетаскивание'], ['Удалить', K('Delete')], ['Жирный, курсив, подчёркнутый', K(MOD, 'B') + ' ' + K(MOD, 'I') + ' ' + K(MOD, 'U')], ['Выделить текст цветом', K(MOD, 'Shift', 'H')], ['Ссылка в тексте', K(MOD, 'K')], ['Сгруппировать, разгруппировать', K(MOD, 'G') + ' ' + K(MOD, 'Shift', 'G')], ['Майнд-карта: ветка, соседняя', K('Tab') + ' ' + K('Enter')], ['Таблица: следующая ячейка', K('Tab')], ['Сдвинуть', 'стрелки, с ' + K('Shift') + ' на 10'], ['Вперёд, назад', K(']') + ' ' + K('[')], ['Добавить к выделению', K('Shift') + ' + щелчок'], ['Сохранить пропорции', K('Shift') + ' при изменении размера']]) +
     rows('Файлы', [['Сохранить доску в файл', K(MOD, 'S')], ['Открыть файл доски', K(MOD, 'O')], ['Вставить картинку', K(MOD, 'V') + ' или перетащить'], ['Свой HTML-инструмент', 'перетащить .html на доску']]) +
     '</div></div><div class="note" id="helpNote"></div>';
 }
 function openHelp() { closePop(); $('#helpNote').innerHTML = storeNote(); modal.hidden = false; modal.querySelector('[data-close]').focus(); }
 function closeHelp() { modal.hidden = true; }
 function storeNote() {
+  if (Backend === Db && Drive.active()) return '<b>Доски хранятся в Claude и в папке «Холст» на Google Диске</b>Пока эта страница открыта, она обменивается изменениями с Диском через ваш коннектор Google Диска, поэтому доски совпадают с приложением на компьютере и телефоне. Claude в чате тоже может их читать и дополнять.';
   if (Backend === Db) return '<b>Доски хранятся в вашем аккаунте Claude</b>Они открываются на любом устройстве, и Claude в чате может их прочитать и дополнить. Для работы без интернета скачайте офлайн-версию (меню ⋯): она заберёт все доски с собой.';
   if (Drive.active()) return '<b>Доски хранятся на этом устройстве и в папке «Холст» на Google Диске</b>Каждое изменение сразу сохраняется здесь и уходит в Диск, когда есть сеть. Те же доски открываются на телефоне и компьютере, а Claude может прочитать их через коннектор Google Диска.';
   if (S.hosted) return '<b>Доски хранятся в этом браузере</b>Хранилище Claude здесь недоступно. Делайте резервные копии: меню ⋯ → «Сохранить доску в файл».';
@@ -2390,6 +3236,7 @@ function storeNote() {
    ========================================================= */
 function loadBoard(b) {
   normalizeBoard(b);
+  if (PANE && window.parent !== window) { try { parent.postMessage({ holst: 'pane', i: +QS.get('i'), bid: b.id }, '*'); } catch (e) { /* ignore */ } }
   S.board = b; S.sel.clear(); S.hist = []; S.fut = []; S.hover = null; S.editing = null; S.drag = null;
   S.active = null; S.loaded.clear(); S.focus = null;
   for (const el of els.values()) el.remove();
@@ -2430,6 +3277,7 @@ async function deleteBoard(id) {
   const e = S.index.find(x => x.id === id);
   if (!confirm(`Удалить доску «${e ? e.name : ''}» насовсем? Отменить это будет нельзя.`)) return;
   try { await Backend.deleteBoard(id); } catch (err) { toast('Не удалось удалить доску'); return; }
+  Drive.forget(id);
   if (S.board && S.board.id === id) {
     S.board = null;
     const next = [...S.index].sort((a, b) => b.updatedAt - a.updatedAt)[0];
@@ -2613,9 +3461,32 @@ async function drawItem(g, it) {
     case 'connector': {
       const cg = connGeom(it), w = it.width || 2;
       g.strokeStyle = g.fillStyle = it.color || INK; g.lineWidth = w; g.lineCap = 'round'; g.lineJoin = 'round';
-      if (it.dash) g.setLineDash([w * 2.5, w * 3]);
+      if (it.dash === 'dot') g.setLineDash([0.1, w * 2.6]); else if (it.dash) g.setLineDash([w * 2.5, w * 3]);
       g.stroke(new Path2D(cg.d)); g.setLineDash([]);
       if (cg.heads) g.fill(new Path2D(cg.heads));
+      break;
+    }
+    case 'doc': { g.fillStyle = it.fill || '#fff'; roundRectPath(g, it.x, it.y, it.w, it.h, 10); g.fill(); g.strokeStyle = '#dfe2e8'; g.lineWidth = 1; g.stroke(); g.beginPath(); g.rect(it.x, it.y, it.w, it.h); g.clip(); drawText(g, Object.assign({}, it, { align: 'left' }), { x: it.x + 30, y: it.y + 26, w: it.w - 60, h: it.h - 52 }, +it.fs || 15, false); break; }
+    case 'table': {
+      const el = els.get(it.id); if (!el) break;
+      const o = el.getBoundingClientRect(), z = V().z;
+      for (const cell of el.querySelectorAll('.cell')) {
+        const td = cell.parentNode, r = td.getBoundingClientRect(), head = td.parentNode.classList.contains('th');
+        const x = it.x + (r.left - o.left) / z, y = it.y + (r.top - o.top) / z, w = r.width / z, h = r.height / z;
+        g.fillStyle = head ? (it.hfill || '#eef0f3') : '#fff'; g.fillRect(x, y, w, h); g.strokeStyle = '#d9dce3'; g.lineWidth = 1; g.strokeRect(x, y, w, h);
+        drawText(g, { text: htmlToText(cell.innerHTML), align: 'left', bold: head, textColor: INK }, { x: x + 10, y: y + 8, w: w - 20, h: h - 16 }, 14, false);
+      }
+      break;
+    }
+    case 'mindmap': {
+      const el = els.get(it.id), mm = el && el._mm; if (!mm) break;
+      g.translate(it.x, it.y); g.lineWidth = 2; g.lineCap = 'round';
+      for (const p of mm.paths) { g.strokeStyle = p.color; g.stroke(new Path2D(p.d)); }
+      for (const n of mm.layout) {
+        if (n.root) { g.fillStyle = '#fff'; roundRectPath(g, n.x, n.y, n.w, n.h, 12); g.fill(); g.strokeStyle = n.color; g.lineWidth = 2; g.stroke(); }
+        else { g.strokeStyle = n.color; g.lineWidth = 2; g.beginPath(); g.moveTo(n.x, n.y + n.h); g.lineTo(n.x + n.w, n.y + n.h); g.stroke(); }
+        drawText(g, { text: n.text, align: 'left', bold: n.root, textColor: INK }, { x: n.x + (n.root ? 16 : 8), y: n.y + (n.root ? 10 : 4), w: n.w - 20, h: n.h - 10 }, n.root ? 17 : 15, false);
+      }
       break;
     }
     case 'embed': {
@@ -2660,6 +3531,7 @@ function onKeyDown(e) {
   if (S.focus) { if (e.key === 'Escape') { e.preventDefault(); exitFocus(); } return; }
   if (S.editing) {
     if (e.key === 'Escape') { e.preventDefault(); const id = S.editing; finishEdit(); if (byId(id)) S.sel = new Set([id]); render(); }
+    else editKey(e);
     return;
   }
   if (!modal.hidden) { if (e.key === 'Escape') closeHelp(); return; }
@@ -2672,6 +3544,7 @@ function onKeyDown(e) {
     if (c === 'KeyZ') { e.preventDefault(); if (e.shiftKey) redo(); else undo(); }
     else if (c === 'KeyY') { e.preventDefault(); redo(); }
     else if (c === 'KeyD') { e.preventDefault(); duplicateSel(); }
+    else if (c === 'KeyG') { e.preventDefault(); if (e.shiftKey) ungroupSel(); else groupSel(); }
     else if (c === 'KeyA') { e.preventDefault(); selectAll(); }
     else if (c === 'KeyS') { e.preventDefault(); exportBoardFile(); }
     else if (c === 'KeyO') { e.preventDefault(); $('#fileBoard').click(); }
@@ -2682,6 +3555,13 @@ function onKeyDown(e) {
   }
   if (e.altKey) return;
   if (tg && tg.tagName === 'BUTTON' && (c === 'Space' || c === 'Enter')) return;
+  const mmSel = S.mm && S.sel.size === 1 && S.sel.has(S.mm.id) ? byId(S.mm.id) : null;
+  if (mmSel && mmSel.type === 'mindmap') {
+    if (c === 'Tab') { e.preventDefault(); mmAdd(mmSel.id, S.mm.nid, 'child'); return; }
+    if ((c === 'Enter' || c === 'NumpadEnter') && !e.shiftKey) { e.preventDefault(); mmAdd(mmSel.id, S.mm.nid, 'sibling'); return; }
+    if ((c === 'Delete' || c === 'Backspace') && S.mm.nid !== mmSel.root.id) { e.preventDefault(); pushHist(); mmRemove(mmSel, S.mm.nid); S.mm = { id: mmSel.id, nid: mmSel.root.id }; changed(); return; }
+    if (c === 'F2') { e.preventDefault(); startEdit(mmSel.id, null, null, false, S.mm.nid); return; }
+  }
   const step = e.shiftKey ? 10 : 1;
   switch (c) {
     case 'Space': e.preventDefault(); if (!S.space) { S.space = true; updateCursor(); } return;
@@ -2706,7 +3586,7 @@ function onKeyDown(e) {
     case 'Minus': case 'NumpadSubtract': zoomStep(0.8); return;
     case 'Slash': if (e.shiftKey) { e.preventDefault(); openHelp(); } return;
   }
-  const map = { KeyV: 'select', KeyH: 'hand', KeyN: 'sticky', KeyT: 'text', KeyS: 'shape', KeyL: 'connector', KeyA: 'connector', KeyP: 'pen', KeyE: 'eraser', KeyF: 'frame' };
+  const map = { KeyM: 'mindmap', KeyD: 'doc', KeyG: 'table', KeyV: 'select', KeyH: 'hand', KeyN: 'sticky', KeyT: 'text', KeyS: 'shape', KeyL: 'connector', KeyA: 'connector', KeyP: 'pen', KeyE: 'eraser', KeyF: 'frame' };
   if (c === 'KeyR' || c === 'KeyO') { S.opts.shape = c === 'KeyR' ? 'rect' : 'ellipse'; saveSettings(); setTool('shape'); return; }
   if (c === 'KeyI') { $('#fileImg').click(); return; }
   if (c === 'KeyK') { e.preventDefault(); openEmbedDlg(); return; }
@@ -2723,6 +3603,7 @@ function onCopy(e, cut) {
   if (cut) deleteSel(); else toast(list.length === 1 ? 'Скопировано' : `Скопировано: ${list.length}`);
 }
 function onPaste(e) {
+  if (S.editing && world.contains(document.activeElement)) { onTxtPaste(e); return; }
   if (isTyping() || !S.board || S.focus || !embedDlg.hidden) return;
   const dt = e.clipboardData;
   const files = dt ? [...dt.files].filter(f => f.type.startsWith('image/')) : [];
@@ -2755,22 +3636,31 @@ function copyText(t) {
 function renderDriveDlg() {
   if (driveDlg.hidden) return;
   const body = $('#driveBody');
+  const labels = { ok: 'Подключено', syncing: 'Синхронизация…', auth: 'Нужно войти в Google, чтобы продолжить синхронизацию', offline: 'Нет сети: изменения сохраняются здесь', error: 'Диск сейчас не отвечает, попробую ещё раз', off: 'Не подключено' };
+  const statusLine = () => {
+    const st = Drive.state, last = st === 'ok' && Drive.lastSync ? `, последняя синхронизация ${fmtDate(Drive.lastSync)}` : '';
+    return `<div class="dstat" data-d="${st}"><span class="dot"></span><span>${esc((Drive.note || labels[st] || '') + last)}</span></div>`;
+  };
   if (!Drive.available()) {
-    body.innerHTML = `<p class="sub">Синхронизация с Google Диском работает, когда доска открыта по своему адресу в интернете${S.hosted ? '. Внутри Claude доски хранятся в его хранилище.' : ', а не файлом с диска.'}</p>`;
+    body.innerHTML = `<p class="sub">Синхронизация с Google Диском работает, когда доска открыта по своему адресу в интернете или внутри Claude с подключённым коннектором Google Диска${IS_FILE ? ', а не файлом с диска' : ''}.</p>`;
     return;
   }
-  if (!Drive.cid) {
+  if (Drive.mode === 'mcp') {
+    body.innerHTML = statusLine() + `<div class="btnrow"><button class="btn" id="dSync">Синхронизировать сейчас</button>${Drive.st.root ? '<button class="btn ghost" id="dOpen">Открыть папку в Диске</button>' : ''}</div>
+      <div class="note"><b>Как это устроено</b>Эта версия хранит доски в Claude и, пока страница открыта, обменивается изменениями с папкой «Холст» на вашем Google Диске через коннектор Google Диска. Те же доски открываются в приложении на компьютере и телефоне. Если одну доску меняли в двух местах одновременно, сохранятся обе версии.</div>`;
+  } else if (!Drive.cid) {
     const origin = location.origin;
-    body.innerHTML = `<p class="sub">Доски будут храниться в папке «Холст» на вашем Google Диске и совпадать на компьютере и телефоне. Настройка разовая, минут на десять.</p>
+    body.innerHTML = `<p class="sub">Доски будут храниться в папке «Холст» на вашем Google Диске и совпадать на компьютере, телефоне и в версии внутри Claude. Настройка разовая, минут на десять.</p>
       <ol class="steps">
         <li>Откройте <a href="https://console.cloud.google.com/projectcreate" target="_blank" rel="noopener">Google Cloud</a> под своим аккаунтом Google и создайте проект «Холст».</li>
         <li>Включите <a href="https://console.cloud.google.com/apis/library/drive.googleapis.com" target="_blank" rel="noopener">Google Drive API</a> кнопкой «Enable» («Включить»).</li>
         <li>Откройте <a href="https://console.cloud.google.com/auth/overview" target="_blank" rel="noopener">Google Auth Platform</a> и нажмите «Get started»: название «Холст», ваш email, аудитория «External».</li>
-        <li>В разделе <a href="https://console.cloud.google.com/auth/audience" target="_blank" rel="noopener">Audience</a> нажмите «Publish app». Проверка Google не нужна: доска получает доступ только к файлам, которые создаёт сама.</li>
+        <li>В разделе <a href="https://console.cloud.google.com/auth/audience" target="_blank" rel="noopener">Audience</a> в блоке «Test users» нажмите «Add users» и добавьте свой адрес Google.</li>
         <li>В разделе <a href="https://console.cloud.google.com/auth/clients" target="_blank" rel="noopener">Clients</a> нажмите «Create client», тип «Web application». В «Authorized JavaScript origins» добавьте адрес доски:<br><span class="code">${esc(origin)}<button data-copy="${esc(origin)}">Копировать</button></span></li>
         <li>Нажмите «Create», скопируйте Client ID (он заканчивается на .apps.googleusercontent.com) и вставьте сюда:</li>
       </ol>
-      <div class="erow"><input id="cidInput" class="inp" placeholder="1234567890-abc….apps.googleusercontent.com" spellcheck="false" autocomplete="off"><button class="btn" id="cidGo">Подключить</button></div>`;
+      <div class="erow"><input id="cidInput" class="inp" placeholder="1234567890-abc….apps.googleusercontent.com" spellcheck="false" autocomplete="off"><button class="btn" id="cidGo">Подключить</button></div>
+      <div class="note"><b>При входе Google предупредит, что приложение не проверено</b>Это ваше собственное приложение, проверка Google для личного пользования не нужна. Нажмите «Дополнительно» и «Перейти на страницу Холст». Доска просит доступ ко всему Диску, чтобы видеть доски, которые записывает версия внутри Claude.</div>`;
     const inp = $('#cidInput');
     inp.addEventListener('input', () => { if (navigator.onLine) Drive.loadGIS().catch(() => {}); });
     inp.addEventListener('keydown', e => { if (e.key === 'Enter') $('#cidGo').click(); });
@@ -2780,21 +3670,18 @@ function renderDriveDlg() {
       Drive.setClient(v); renderDriveDlg(); Drive.connect();
     });
     return;
+  } else {
+    const phone = location.origin + location.pathname + '#cid=' + encodeURIComponent(Drive.cid);
+    body.innerHTML = statusLine() + `<div class="btnrow"><button class="btn" id="dSync">${Drive.tokenOk() ? 'Синхронизировать сейчас' : 'Войти в Google'}</button>${Drive.st.root ? '<button class="btn ghost" id="dOpen">Открыть папку в Диске</button>' : ''}</div>
+      <h3>Телефон</h3>
+      <p class="sub">Откройте эту ссылку на телефоне в Chrome, и доска сама подключит Диск. Удобно переслать себе в Telegram.</p>
+      <span class="code">${esc(phone)}<button data-copy="${esc(phone)}">Копировать</button></span>
+      <div class="note"><b>Как это устроено</b>Каждое изменение сразу сохраняется на устройстве и уходит в папку «Холст» на Диске, как только есть сеть. Там же синхронизируется версия внутри Claude. Диск хранит прошлые версии файлов, а первая версия каждого дня закрепляется навсегда: её можно восстановить через «Управление версиями» в Диске. Если одну доску меняли в двух местах без связи, сохранятся обе версии. Вход Google действует около часа; когда он истечёт, облако вверху попросит одно нажатие.</div>
+      <button class="linkbtn" id="dOff">Отключить Диск на этом устройстве</button>`;
+    $('#dOff').addEventListener('click', () => { if (confirm('Отключить синхронизацию на этом устройстве? Доски останутся здесь и в Диске.')) Drive.disconnect(); });
   }
-  const st = Drive.state;
-  const labels = { ok: 'Подключено', syncing: 'Синхронизация…', auth: 'Нужно войти в Google, чтобы продолжить синхронизацию', offline: 'Нет сети: изменения сохраняются на устройстве', error: 'Диск сейчас не отвечает, попробую ещё раз', off: 'Не подключено' };
-  const last = st === 'ok' && Drive.lastSync ? `, последняя синхронизация ${fmtDate(Drive.lastSync)}` : '';
-  const phone = location.origin + location.pathname + '#cid=' + encodeURIComponent(Drive.cid);
-  body.innerHTML = `<div class="dstat" data-d="${st}"><span class="dot"></span><span>${esc((labels[st] || '') + last)}</span></div>
-    <div class="btnrow"><button class="btn" id="dSync">${Drive.tokenOk() ? 'Синхронизировать сейчас' : 'Войти в Google'}</button>${Drive.st.folder ? '<button class="btn ghost" id="dOpen">Открыть папку в Диске</button>' : ''}</div>
-    <h3>Телефон</h3>
-    <p class="sub">Откройте эту ссылку на телефоне в Chrome, и доска сама подключит Диск. Удобно переслать себе в Telegram.</p>
-    <span class="code">${esc(phone)}<button data-copy="${esc(phone)}">Копировать</button></span>
-    <div class="note"><b>Как это устроено</b>Каждое изменение сразу сохраняется на устройстве и уходит в папку «Холст» на Диске, как только есть сеть. Диск хранит прошлые версии файлов, а первая версия каждого дня закрепляется навсегда: её можно восстановить через «Управление версиями» в Диске. Если одну доску меняли на двух устройствах без сети, сохранятся обе версии. Вход Google действует около часа; когда он истечёт, статус вверху попросит одно нажатие.</div>
-    <button class="linkbtn" id="dOff">Отключить Диск на этом устройстве</button>`;
-  $('#dSync').addEventListener('click', () => { if (Drive.tokenOk()) Drive.sync(); else Drive.connect(); });
-  const o = $('#dOpen'); if (o) o.addEventListener('click', () => window.open('https://drive.google.com/drive/folders/' + Drive.st.folder, '_blank'));
-  $('#dOff').addEventListener('click', () => { if (confirm('Отключить синхронизацию на этом устройстве? Доски останутся здесь и в Диске.')) Drive.disconnect(); });
+  $('#dSync').addEventListener('click', () => { if (Drive.mode === 'mcp' || Drive.tokenOk()) Drive.sync(true); else Drive.connect(); });
+  const o = $('#dOpen'); if (o) o.addEventListener('click', () => window.open('https://drive.google.com/drive/folders/' + Drive.st.root, '_blank'));
 }
 
 /* ---------- installable app ---------- */
@@ -2880,6 +3767,7 @@ function wire() {
     const b = e.target.closest('[data-act]'); if (!b) return;
     if (!pop.hidden && pop._anchor === b) { closePop(); return; }
     const sel = selItems(); if (!sel.length) return;
+    if (ctxExtraAct(b, sel)) return;
     const first = t => sel.find(i => i.type === t);
     const isLine = i => i.type === 'connector' || i.type === 'pen';
     const isShape = i => i.type === 'shape', isConn = i => i.type === 'connector';
@@ -2904,7 +3792,7 @@ function wire() {
       case 'connStyle': optPop(b, ['straight', 'elbow', 'curve'].map(s => [s, ic('st_' + s)]), first('connector').style || 'straight', v => setProp(isConn, { style: v })); break;
       case 'arrowStart': { const nv = !first('connector').start; setProp(isConn, { start: nv }); break; }
       case 'arrowEnd': { const nv = !first('connector').end; setProp(isConn, { end: nv }); break; }
-      case 'dash': { const nv = !first('connector').dash; setProp(isConn, { dash: nv }); break; }
+      case 'dash': { const cd = first('connector').dash, nv = !cd ? true : cd === true ? 'dot' : false; setProp(isConn, { dash: nv }); break; }
       case 'eOpen': openEmbed(sel[0]); break;
       case 'eReload': reloadEmbed(sel[0].id); break;
       case 'eEdit': if (sel[0].kind === 'html') pickHtmlFile(sel[0].id); else openEmbedDlg(sel[0].id); break;
@@ -2916,7 +3804,11 @@ function wire() {
     }
   });
 
-  pop.addEventListener('pointerdown', e => e.preventDefault());
+  pop.addEventListener('pointerdown', e => { if (!e.target.closest('input, textarea, label')) e.preventDefault(); });
+  pop.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.matches('input')) { e.preventDefault(); const b = pop.querySelector('[data-v="save"]'); if (b) b.click(); } });
+  document.addEventListener('input', e => { if (S.editing && world.contains(e.target)) onTextInput(); });
+  document.addEventListener('focusout', e => { if (!S.editing || !world.contains(e.target)) return; const id = S.editing, sub = S.editSub; setTimeout(() => { const cur = els.get(id); if (S.editing === id && S.editSub === sub && document.hasFocus() && !(cur && cur.contains(document.activeElement))) finishEdit(); }, 0); });
+  wireSplit();
   pop.addEventListener('click', e => { const b = e.target.closest('[data-v]'); if (!b) return; const f = pop._pick; closePop(); if (f) f(b.dataset.v); });
   document.addEventListener('pointerdown', e => { if (!pop.hidden && !pop.contains(e.target) && !(pop._anchor && pop._anchor.contains(e.target))) closePop(); }, true);
 
@@ -2936,8 +3828,8 @@ function wire() {
   });
   $('#btnHelp').addEventListener('click', openHelp);
   $('#btnCloud').innerHTML = ic('cloud');
-  $('#btnCloud').addEventListener('click', () => { if (Drive.active() && !Drive.tokenOk() && navigator.onLine) Drive.connect(); else openDriveDlg(); });
-  $('#statusText').addEventListener('click', () => { if (Drive.active() && (Drive.state === 'auth' || Drive.state === 'error')) { if (Drive.tokenOk()) Drive.sync(); else Drive.connect(); } });
+  $('#btnCloud').addEventListener('click', () => { if (Drive.mode === 'rest' && Drive.active() && !Drive.tokenOk() && navigator.onLine) Drive.connect(); else openDriveDlg(); });
+  $('#statusText').addEventListener('click', () => { if (Drive.active() && (Drive.state === 'auth' || Drive.state === 'error')) { if (Drive.mode === 'mcp' || Drive.tokenOk()) Drive.sync(true); else Drive.connect(); } });
   driveDlg.querySelector('[data-close]').addEventListener('click', closeDriveDlg);
   driveDlg.addEventListener('pointerdown', e => { if (e.target === driveDlg) closeDriveDlg(); });
   driveDlg.addEventListener('click', e => { const b = e.target.closest('[data-copy]'); if (b) copyText(b.dataset.copy); });
@@ -2956,7 +3848,10 @@ function wire() {
   $('#zoomLbl').addEventListener('click', () => zoomAt(innerWidth / 2, innerHeight / 2, 1));
   $('#btnFit').addEventListener('click', () => fitAll());
 
+  fbar.addEventListener('pointerdown', e => { if (e.target.closest('[data-ff]')) e.preventDefault(); });
   fbar.addEventListener('click', e => {
+    const ff = e.target.closest('[data-ff]');
+    if (ff) { const v = ff.dataset.ff; if (v === 'hilite') fmt('hilite', '#fff09a'); else if (v === 'h2') fmt('block', 'H2'); else fmt(v); return; }
     const b = e.target.closest('[data-fa]'); if (!b) return;
     const it = byId(S.focus);
     if (b.dataset.fa === 'close') exitFocus();
@@ -3038,14 +3933,15 @@ async function chooseBackend() {
 async function init() {
   wire();
   const st = LS.get('settings');
-  if (st) { S.settings.grid = st.grid !== false; Object.assign(S.opts, st.opts || {}); }
+  if (st) { S.settings.grid = st.grid !== false; Object.assign(S.opts, st.opts || {}); S.settings.views = st.views || {}; }
+  if (PANE) document.body.classList.add('pane');
   buildToolbar();
   Backend = await chooseBackend();
   try { if (Backend === Local && navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch (e) { /* ignore */ }
   try { S.index = (await Backend.listBoards()) || []; } catch (e) { S.index = []; }
   let firstId = Backend === Local ? await importSeed() : null;
   let b = null;
-  const last = firstId || await Backend.getLast();
+  const last = (PANE && QS.get('board')) || firstId || await Backend.getLast();
   if (last) b = await Backend.loadBoard(last).catch(() => null);
   if (!b && S.index.length) { const top = [...S.index].sort((x, y) => y.updatedAt - x.updatedAt)[0]; b = await Backend.loadBoard(top.id).catch(() => null); }
   let fresh = false;
@@ -3055,8 +3951,9 @@ async function init() {
   if (fresh && Backend === Local) { fitAll(); await saveNow(); LS.set('welcome:' + S.board.id, boardHash(S.board)); }
   else if (fresh || firstId) fitAll();
   setStatus('saved'); dirty = false;
-  if (Backend === Local) await Drive.init();
-  registerPWA();
+  await Drive.init();
+  if (!PANE) registerPWA();
+  const sp = LS.get('split'); if (sp && SPLITS[sp.layout] && splitOk()) { S.split = sp; showSplit(); }
 }
 init();
 })();
