@@ -362,7 +362,7 @@ body.pane #status{display:none}
 .fhead.section .ftabs{top:54px;left:18px;gap:4px}
 .fhead.section .ftab{font-size:13px;padding:6px 10px;border-radius:7px}
 .ftitle.ed{background:#fff;color:var(--ink);box-shadow:0 0 0 calc(1.5px * var(--iz,1)) var(--accent)}
-.it.fixed{transform:scale(var(--iz,1));transform-origin:0 0}
+.it.fixed{transform:scale(calc(var(--iz,1) * var(--fz,1)));transform-origin:0 0}
 .mindmap.wsty .mmnode.root{border:0;border-bottom:2px solid var(--mc);border-radius:0;background:transparent;padding:4px 8px 5px;font-size:16px}
 #crumbs{position:fixed;top:12px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:2px;padding:4px;z-index:21;max-width:calc(100vw - 760px)}
 #crumbs button{border:0;background:transparent;font:600 13px var(--font);color:var(--muted);padding:7px 9px;border-radius:8px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px}
@@ -398,6 +398,25 @@ body.pane #status{display:none}
 @media (max-width:700px){.snapwrap{grid-template-columns:1fr}.kwh{grid-template-columns:1fr}}
 .wlog{margin-top:12px;font-size:13px;color:var(--muted);max-height:220px;overflow:auto;display:flex;flex-direction:column;gap:3px}
 #helpKeys{margin-bottom:10px}
+
+.clog{margin:4px 0 8px;padding-left:20px;font-size:14px;line-height:1.5}
+.fcat{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid #f0f1f4;cursor:pointer}
+.fcat input{margin-top:3px;width:16px;height:16px;flex:none}
+.fcat small{color:var(--muted);font-size:12.5px}
+.newb{font-style:normal;font-size:11px;font-weight:700;color:#fff;background:var(--accent);border-radius:6px;padding:1px 6px;margin-left:6px}
+.mver{font-size:12px;color:var(--muted);padding:6px 12px 2px}
+.pzone{position:absolute;border-radius:16px;background:rgba(51,85,255,.035);border:1.5px dashed rgba(51,85,255,.3);pointer-events:none}
+.pindrop{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font:700 16px/1 var(--font);box-shadow:0 0 0 6px rgba(51,85,255,.2);pointer-events:none}
+#dots{position:absolute;inset:0;pointer-events:none}
+.fhead .ftop{position:absolute;left:0;bottom:calc(6px * var(--iz,1));width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:calc(4px * var(--iz,1));pointer-events:none}
+.fhead .ftop .ftitle{position:static;margin:0;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.ftabzone{width:100%;box-sizing:border-box;padding:calc(4px * var(--iz,1));border-radius:calc(9px * var(--iz,1)) calc(9px * var(--iz,1)) 0 0;background:rgba(28,29,33,.045);border:1px dashed rgba(28,29,33,.2);border-bottom:0;display:flex;flex-direction:column;gap:calc(3px * var(--iz,1));pointer-events:auto}
+.ftabzone:empty{display:none}
+.frow{display:flex;gap:calc(3px * var(--iz,1));width:100%;min-width:0}
+.ftab{flex:0 1 auto;min-width:calc(22px * var(--iz,1));max-width:calc(220px * var(--iz,1));overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.frow+.frow .ftab{font-size:calc(11.5px * var(--iz,1))}
+.mindmap.wsty .mmnode{box-sizing:border-box;padding:0 5px;line-height:1.55}
+.mindmap.wsty .mmnode .mmt{max-width:none}
 @media (max-width:700px){#statusText{display:none}#statusText.act{display:block;max-width:132px;white-space:normal;font-size:11.5px;line-height:1.25}#status{padding-left:12px}#boardName{width:120px}.fbtn span{display:none}.fdoc{padding:28px 24px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -523,6 +542,15 @@ const MOD = IS_MAC ? '⌘' : 'Ctrl';
 const FONT = getComputedStyle(document.documentElement).getPropertyValue('--font').trim() || 'system-ui, sans-serif';
 const CLIP = 'HOLST-CLIP:';
 const ZMIN = 0.05, ZMAX = 5, EH = 34;
+/* The lowest zoom always fits the whole board, even when it is larger than the usual limit. */
+function zMin() {
+  if (!S.board) return ZMIN;
+  if (S._zminFor === S.board.items) return S._zmin;
+  const list = items().filter(i => i.type !== 'connector');
+  let z = ZMIN;
+  if (list.length) { let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity; for (const i of list) { x1 = Math.min(x1, i.x); y1 = Math.min(y1, i.y); x2 = Math.max(x2, i.x + (i.w || 0)); y2 = Math.max(y2, i.y + (i.h || 0)); } z = Math.min(ZMIN, 0.8 * Math.min(innerWidth / Math.max(1, x2 - x1), innerHeight / Math.max(1, y2 - y1))); }
+  S._zmin = Math.max(z, 0.0005); S._zminFor = S.board.items; return S._zmin;
+}
 const INK = '#1c1d21';
 const LS = {
   get(k) { try { const v = localStorage.getItem('holst:' + k); return v == null ? null : JSON.parse(v); } catch (e) { return null; } },
@@ -1376,7 +1404,7 @@ function normalizeBoard(b, gc = true) {
   b.items = Array.isArray(b.items) ? b.items.filter(i => i && i.id && i.type) : [];
   b.assets = b.assets && typeof b.assets === 'object' ? b.assets : {};
   const v = b.view || {};
-  b.view = { x: Number.isFinite(+v.x) ? +v.x : innerWidth / 2, y: Number.isFinite(+v.y) ? +v.y : innerHeight / 2, z: clamp(+v.z || 1, ZMIN, ZMAX) };
+  b.view = { x: Number.isFinite(+v.x) ? +v.x : innerWidth / 2, y: Number.isFinite(+v.y) ? +v.y : innerHeight / 2, z: clamp(+v.z || 1, 0.0005, ZMAX) };
   b.name = String(b.name || 'Без названия');
   b.items.forEach(normalizeItem);
   if (gc) { const used = new Set(assetIdsOf(b.items)); for (const k of Object.keys(b.assets)) if (!used.has(k)) delete b.assets[k]; }
@@ -1399,7 +1427,7 @@ function unionB(list) {
 const inside = (a, b) => a.x >= b.x && a.y >= b.y && a.x + a.w <= b.x + b.w && a.y + a.h <= b.y + b.h;
 const intersects = (a, b) => a.x <= b.x + b.w && a.x + a.w >= b.x && a.y <= b.y + b.h && a.y + a.h >= b.y;
 const padR = (b, p) => ({ x: b.x - p, y: b.y - p, w: b.w + 2 * p, h: b.h + 2 * p });
-function bounds(it) { if (it.type === 'connector') return connGeom(it).tight; if (it.fixed) { const z = V().z; return { x: it.x, y: it.y, w: it.w / z, h: it.h / z }; } return { x: it.x, y: it.y, w: it.w, h: it.h }; }
+function bounds(it) { if (it.type === 'connector') return connGeom(it).tight; if (it.fixed) { const k = (+it.fz || 1) / V().z; return { x: it.x, y: it.y, w: it.w * k, h: it.h * k }; } return { x: it.x, y: it.y, w: it.w, h: it.h }; }
 
 function shapePath(k, w, h) {
   switch (k) {
@@ -1506,14 +1534,15 @@ function applyView() {
   const gs = step * v.z;
   vp.style.backgroundSize = `${gs}px ${gs}px`;
   vp.style.backgroundPosition = `${v.x - gs / 2}px ${v.y - gs / 2}px`;
-  $('#zoomLbl').textContent = Math.round(v.z * 100) + '%';
+  $('#zoomLbl').textContent = (v.z * 100 < 1 ? (v.z * 100).toFixed(1) : Math.round(v.z * 100)) + '%';
   renderOverlay(); positionCtx();
   if (S.board && items().some(i => i.fixed)) requestRender();
+  drawDots();
   clearTimeout(viewTimer);
   viewTimer = setTimeout(() => { if (S.board) Backend.saveView(S.board); }, 700);
 }
 function zoomAt(cx, cy, nz) {
-  const v = V(); nz = clamp(nz, ZMIN, ZMAX);
+  const v = V(); nz = clamp(nz, zMin(), ZMAX);
   const wx = (cx - v.x) / v.z, wy = (cy - v.y) / v.z;
   v.z = nz; v.x = cx - wx * nz; v.y = cy - wy * nz; applyView();
 }
@@ -1524,7 +1553,7 @@ function fitAll(list) {
   if (!list.length) { v.z = 1; v.x = innerWidth / 2; v.y = innerHeight / 2; applyView(); return; }
   const b = unionB(list.map(i => (i.type === 'frame' ? { x: i.x, y: i.y - 30, w: i.w, h: i.h + 30 } : bounds(i))));
   const small = innerWidth < 700, aw = Math.max(100, innerWidth - (small ? 90 : 200)), ah = Math.max(100, innerHeight - (small ? 220 : 180));
-  const z = clamp(Math.min(aw / Math.max(b.w, 1), ah / Math.max(b.h, 1)), 0.1, 1.5);
+  const z = clamp(Math.min(aw / Math.max(b.w, 1), ah / Math.max(b.h, 1)), Math.min(0.1, zMin()), 1.5);
   v.z = z; v.x = innerWidth / 2 + (small ? 30 : 20) - (b.x + b.w / 2) * z; v.y = innerHeight / 2 - (b.y + b.h / 2) * z;
   applyView();
 }
@@ -1547,7 +1576,7 @@ function createEl(it) {
     el.className = 'it ' + it.type;
     if (it.type === 'sticky' || it.type === 'text') el.innerHTML = '<div class="tw"><div class="txt"></div></div>';
     else if (it.type === 'shape') el.innerHTML = '<svg><path/></svg><div class="tw"><div class="txt"></div></div>';
-    else if (it.type === 'frame') { const hd = document.createElement('div'); hd.className = 'fhead'; hd.dataset.id = it.id; hd.innerHTML = '<div class="ftitle"></div><div class="ftabs"></div>'; el._fhead = hd; }
+    else if (it.type === 'frame') { const hd = document.createElement('div'); hd.className = 'fhead'; hd.dataset.id = it.id; hd.innerHTML = '<div class="ftop"><div class="ftitle"></div><div class="ftabzone"></div></div>'; el._fhead = hd; }
     else if (it.type === 'image') el.innerHTML = '<img alt="" draggable="false">';
     else if (it.type === 'pen') el.innerHTML = '<svg><path class="hit"/><path class="halo"/><path class="ln"/></svg>';
     else if (it.type === 'doc') el.innerHTML = '<div class="dtxt"></div>';
@@ -1693,6 +1722,7 @@ function openEmbed(it) {
 
 function updateEl(el, it) {
   el.classList.toggle('fixed', !!it.fixed);
+  if (it.fixed) el.style.setProperty('--fz', String(+it.fz || 1));
   el.classList.toggle('sel', S.sel.has(it.id));
   el.classList.toggle('focused', S.focus === it.id);
   switch (it.type) {
@@ -1735,9 +1765,11 @@ function updateEl(el, it) {
       const hd = el._fhead; if (!hd.isConnected) world.appendChild(hd);
       hd.style.left = px(it.x); hd.style.top = px(it.y); hd.style.width = px(it.w); hd.style.display = '';
       hd.classList.toggle('section', it.fstyle === 'section');
-      setText(hd.firstChild, it);
-      const tabs = hd.lastChild, tsig = JSON.stringify([it.tabs, it.tab]);
-      if (tabs._sig !== tsig) { tabs._sig = tsig; tabs.innerHTML = Array.isArray(it.tabs) && it.tabs.length ? it.tabs.map(t => `<button class="ftab${t.id === it.tab ? ' on' : ''}" data-ftab="${t.id}" title="${t.id === it.tab ? 'Щёлкните, чтобы переименовать или удалить' : 'Открыть вкладку'}">${esc(t.name)}</button>`).join('') + '<button class="ftab add" data-ftadd="1" title="Новая вкладка">+</button>' : ''; }
+      const top = hd.firstChild, ttl = hd.querySelector('.ftitle'), sec = it.fstyle === 'section';
+      if (sec && ttl.parentNode !== hd) hd.appendChild(ttl); else if (!sec && ttl.parentNode !== top) top.insertBefore(ttl, top.firstChild);
+      setText(ttl, it);
+      const tabs = top.lastChild, tsig = JSON.stringify([it.tabs, it.tab]);
+      if (tabs._sig !== tsig) { tabs._sig = tsig; tabs.innerHTML = tabRows(it).map(o => '<div class="frow">' + o.tabs.map(t => `<button class="ftab${t.id === o.tab ? ' on' : ''}" data-ftab="${t.id}" title="${esc(t.name)}${t.id === o.tab ? ': щёлкните, чтобы переименовать, удалить или добавить уровень' : ''}">${esc(t.name)}</button>`).join('') + `<button class="ftab add" data-ftadd="${o.id}" title="Новая вкладка на этом уровне">+</button></div>`).join(''); }
       break;
     }
     case 'image': {
@@ -1787,7 +1819,7 @@ function updateConn(el, it) {
 function render() {
   if (S.raf) { cancelAnimationFrame(S.raf); S.raf = 0; }
   if (!S.board) return;
-  layoutPins(); computeHidden();
+  layoutPins(); computeHidden(); S._zminFor = null;
   const order = renderOrder(), seen = new Set(), conns = [];
   order.forEach((it, i) => {
     let el = els.get(it.id);
@@ -1795,12 +1827,16 @@ function render() {
     const z = S.focus === it.id ? '100000' : String(i + 1);
     if (el.style.zIndex !== z) el.style.zIndex = z;
     seen.add(it.id);
+    const zn = S.zones && S.zones.find(z => z.id === it.id);
+    if (zn && !S.hid.has(it.id)) { let ze = el._zone; if (!ze) { ze = el._zone = document.createElement('div'); ze.className = 'pzone'; } if (ze.nextSibling !== el) world.insertBefore(ze, el); ze.style.zIndex = z; Object.assign(ze.style, { left: px(zn.x), top: px(zn.y), width: px(zn.w), height: px(zn.h) }); }
+    else if (el._zone) { el._zone.remove(); el._zone = null; }
     if (S.hid.has(it.id)) { el.style.display = 'none'; if (el._fhead) el._fhead.style.display = 'none'; return; }
     if (el.style.display === 'none') el.style.display = '';
     if (it.type === 'connector') conns.push([el, it]); else updateEl(el, it);
   });
-  for (const [id, el] of els) if (!seen.has(id)) { el.remove(); if (el._fhead) el._fhead.remove(); els.delete(id); }
+  for (const [id, el] of els) if (!seen.has(id)) { el.remove(); if (el._fhead) el._fhead.remove(); if (el._zone) el._zone.remove(); els.delete(id); }
   for (const [el, it] of conns) updateConn(el, it);
+  drawDots();
   $('#empty').hidden = order.length > 0;
   renderOverlay(); renderCtx();
 }
@@ -1814,6 +1850,7 @@ function renderOverlay() {
   if (S.hover) { const it = byId(S.hover); if (it) h += box(screenRect(padR(bounds(it), 4 / V().z)), 'ov-hover'); }
   if (d && d.type === 'marquee' && d.active) h += box(screenRect(rectFrom(d.start, d.cur)), 'ov-marquee');
   if (d && d.type === 'create' && d.active) h += box(screenRect(rectFrom(d.start, d.cur)), 'ov-ghost');
+  if (d && d.type === 'move' && d.pinDrop) { const q = d.pinDrop; h += box(q.r, 'ov-hover') + `<div class="pindrop" style="left:${q.x}px;top:${q.y}px">+</div>`; }
   const sel = selItems();
   const busy = !!d && ['move', 'resize', 'pen', 'erase', 'connect', 'cend', 'marquee'].includes(d.type);
   if (sel.length && !(d && d.type === 'pen')) {
@@ -1839,7 +1876,7 @@ function renderOverlay() {
           }
           if (one && !one.pin && one.type !== 'pen' && r.w > 50 && r.h > 30) {
             const P = { 'tl-t': [r.x + 16, r.y - 24], 'tl-l': [r.x - 24, r.y + 16], 'tr-t': [r.x + r.w - 16, r.y - 24], 'tr-r': [r.x + r.w + 24, r.y + 16], 'br-r': [r.x + r.w + 24, r.y + r.h - 16], 'br-b': [r.x + r.w - 16, r.y + r.h + 24], 'bl-b': [r.x + 16, r.y + r.h + 24], 'bl-l': [r.x - 24, r.y + r.h - 16] };
-            for (const k of SLOTS) h += `<button class="cplus" data-pin="${k}" style="left:${P[k][0]}px;top:${P[k][1]}px" title="${esc(PIN_KINDS[pinTpl(one, k)])}. Правая кнопка: выбрать другое и настроить шаблон">+</button>`;
+            for (const k of SLOTS) if (k === S.plusHot) h += `<button class="cplus" data-pin="${k}" style="left:${P[k][0]}px;top:${P[k][1]}px" title="${esc(PIN_KINDS[pinTpl(one, k)])}. Правая кнопка: выбрать другое и настроить шаблон">+</button>`;
           }
         }
       }
@@ -2140,6 +2177,7 @@ function ctxExtra(sel, single) {
   }
   if (it && it.type === 'frame') g.push(cbtn('fr:style', it.fstyle === 'section' ? 'Секция' : 'Рамка', 'Вид: рамка или секция', 'wide') + (Array.isArray(it.tabs) && it.tabs.length ? '' : cbtn('fr:tabs', 'Вкладки', 'Разбить рамку на вкладки', 'wide')));
   if (it && it.type !== 'connector' && it.type !== 'pen' && !S.editing) g.push(cbtn('k:fixed', 'Не масштабировать', 'Размер на экране не меняется при зуме', 'wide' + (it.fixed ? ' on' : '')));
+  if (it && it.pin && !S.editing) g.push(cbtn('k:unpin', 'Отцепить', 'Отцепить от элемента', 'wide'));
   if (sel.length && !S.editing) g.push(cbtn('k:snap', ic('cam'), `Снимок: PNG, JPG, WebP, с обрезкой (${S.keys ? keyOf('snap') : ''})`));
   if (it && it.type === 'connector') g.push(cbtn('c:label', 'Подпись', 'Подпись на линии', 'wide') + cbtn('c:shead', headIcon(it.start ? it.shead || 'arrow' : 'none', true), 'Вид начала') + cbtn('c:ehead', headIcon(it.end ? it.ehead || 'arrow' : 'none'), 'Вид конца'));
   if (it && it.type === 'embed') g.push(cbtn('e:view', VIEW_NAMES[viewOf(it)], 'Как показывать ссылку', 'wide') + cbtn('e:cap', 'Подпись', 'Название и подпись', 'wide'));
@@ -2168,7 +2206,7 @@ function ctxExtraAct(b, sel) {
     return true;
   }
   if (k === 'fr' && v === 'tabs') { tabsInit(it); return true; }
-  if (k === 'k') { if (v === 'fixed') { const on = !it.fixed; pushHist(); for (const x of sel) { if (x.type === 'connector' || x.type === 'pen') continue; const z = V().z; if (on) { x.fixed = true; x.w = r1(x.w * z); x.h = r1(x.h * z); } else { delete x.fixed; x.w = r1(x.w / z); x.h = r1(x.h / z); } } changed(); } else openSnap(); return true; }
+  if (k === 'k') { if (v === 'fixed') { const on = !it.fixed; pushHist(); for (const x of sel) { if (x.type === 'connector' || x.type === 'pen') continue; if (on) { x.fixed = true; x.fz = V().z; } else { delete x.fixed; delete x.fz; } } changed(); } else if (v === 'unpin') { pushHist(); for (const x of sel) delete x.pin; changed(); } else openSnap(); return true; }
   if (k === 'fr') { const sec = it.fstyle === 'section'; setProp(i => i.type === 'frame', { fstyle: sec ? '' : 'section', fill: sec ? '#ffffff' : '#eef2fb' }); return true; }
   if (k === 'c') {
     if (v === 'label') {
@@ -2502,7 +2540,7 @@ const valKey = v => (v.html || '') + '\u0001' + (v.text || '');
 const richTarget = (it, sub) => sub != null || !titled(it);
 function editTarget(el, it, sub) {
   if (sub != null) return el.querySelector(`[data-sub="${CSS.escape(String(sub))}"]`);
-  if (it.type === 'frame') return el._fhead ? el._fhead.firstChild : null;
+  if (it.type === 'frame') return el._fhead ? el._fhead.querySelector('.ftitle') : null;
   return el.querySelector('.txt, .ftitle, .et, .dtxt');
 }
 
@@ -2577,6 +2615,7 @@ function updateMindmap(el, it) {
     seen.add(a.n.id);
     d.classList.toggle('root', a.depth === 0);
     d.firstChild.style.maxWidth = a.n.mw ? px(a.n.mw) : '';
+    d.style.width = a.n.w ? px(a.n.w) : ''; d.style.minHeight = a.n.h ? px(a.n.h) : ''; d.style.fontSize = a.n.fs ? px(a.n.fs) : '';
     d.classList.toggle('mmsel', !!(S.mm && S.mm.id === it.id && S.mm.nid === a.n.id && S.sel.has(it.id)));
     d.style.setProperty('--mc', a.color);
     const t = d.firstChild;
@@ -2606,6 +2645,19 @@ function updateMindmap(el, it) {
     const total = list.reduce((a, k) => a + sh.get(k.id), 0) + GY * Math.max(0, list.length - 1);
     let cy = rs.h / 2 - total / 2;
     for (const k of list) { place(k, dir === 1 ? rs.w + GX : -GX, cy, dir); cy += sh.get(k.id) + GY; }
+  }
+  if (it.fixedLayout) {
+    const below = new Map();
+    const fix = (n, pp, dir) => {
+      const s = size.get(n.id); let q;
+      if (!pp) q = { x: 0, y: 0, w: s.w, h: s.h, dir: 0 };
+      else if (Number.isFinite(n.px)) q = { x: n.px, y: n.py, w: s.w, h: s.h, dir };
+      else { const yb = below.get(pp) ?? pp.y; q = { x: dir === 1 ? pp.x + pp.w + GX : pp.x - GX - s.w, y: yb, w: s.w, h: s.h, dir }; }
+      if (pp) below.set(pp, Math.max(below.get(pp) ?? -Infinity, q.y + q.h + GY));
+      pos.set(n.id, q);
+      for (const k of mmKids(n)) fix(k, q, pp ? dir : (k.side === 'L' ? -1 : 1));
+    };
+    fix(root, null, 0);
   }
   let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity;
   for (const p of pos.values()) { x1 = Math.min(x1, p.x); y1 = Math.min(y1, p.y); x2 = Math.max(x2, p.x + p.w); y2 = Math.max(y2, p.y + p.h); }
@@ -2821,7 +2873,7 @@ function closePane(i) {
 function splitPop(anchor) {
   openPop(anchor, '<div class="menu">' + Object.entries(SPLITS).map(([k, L]) => `<button class="mi" data-v="${k}"><span class="spic">${'▮'.repeat(L.cells.length)}</span><span>${L.name}</span></button>`).join('') + '</div>', v => enterSplit(v));
 }
-if (QS.has('debug')) setTimeout(() => { window.__h = { enterFrame, exitFrame, tabsInit, tabSwitch, addPin, fillPins, openSnap, openKeys, whimImport, parseWhim, runAction, S, byId, items: () => items(), setView, setDefaultView, enterSplit, exitSplit, viewOf, groupSel, shapePath, render, mdToHtml, sanitizeHTML, saveNow }; }, 0);
+if (QS.has('debug')) setTimeout(() => { window.__h = { whimImport2, tabDeeper, findTab, openCatalog, openVersions, enterFrame, exitFrame, tabsInit, tabSwitch, addPin, fillPins, openSnap, openKeys, whimImport, parseWhim, runAction, S, byId, items: () => items(), setView, setDefaultView, enterSplit, exitSplit, viewOf, groupSel, shapePath, render, mdToHtml, sanitizeHTML, saveNow }; }, 0);
 function wireSplit() {
   const grid = $('#splitGrid');
   $('#split').addEventListener('click', e => {
@@ -2967,10 +3019,11 @@ function handleCapture(e) {
    ========================================================= */
 function computeHidden() {
   const hid = new Set(), list = items(), owner = new Map();
-  for (const f of list) if (f.type === 'frame' && Array.isArray(f.tabs)) for (const t of f.tabs) owner.set(t.id, f);
+  for (const f of list) if (f.type === 'frame' && Array.isArray(f.tabs)) for (const t of tabIdsOf(f)) owner.set(t, f);
   if (owner.size) {
     const memo = new Map();
-    const th = (it, d) => { if (!it || !it.ftab || d > 30) return false; if (memo.has(it.id)) return memo.get(it.id); const f = owner.get(it.ftab); const r = !!f && (f.tab !== it.ftab || th(f, d + 1)); memo.set(it.id, r); return r; };
+    const paths = new Map(), ap = f => { if (!paths.has(f.id)) paths.set(f.id, activePath(f)); return paths.get(f.id); };
+    const th = (it, d) => { if (!it || !it.ftab || d > 30) return false; if (memo.has(it.id)) return memo.get(it.id); const f = owner.get(it.ftab); const r = !!f && (!ap(f).has(it.ftab) || th(f, d + 1)); memo.set(it.id, r); return r; };
     for (const it of list) if (th(it, 0)) hid.add(it.id);
   }
   const fv = S.fstack && S.fstack.length ? byId(S.fstack[S.fstack.length - 1]) : null;
@@ -2989,7 +3042,7 @@ function assignTabs() {
     const it = byId(id); if (!it || it.type === 'connector' || it.pin) continue;
     const b = bounds(it); let best = null, ba = Infinity;
     for (const f of frames) { if (f.id === it.id) continue; if (b.x >= f.x && b.y >= f.y && b.x + b.w <= f.x + f.w && b.y + b.h <= f.y + f.h && f.w * f.h < ba) { ba = f.w * f.h; best = f; } }
-    if (best) it.ftab = best.tab; else delete it.ftab;
+    if (best) it.ftab = activeLeaf(best); else delete it.ftab;
   }
 }
 function tabsInit(f) {
@@ -2999,26 +3052,30 @@ function tabsInit(f) {
   for (const it of withFrameContents([f])) if (it !== f && it.type !== 'connector' && !it.ftab) it.ftab = a.id;
   changed(); toast('Вкладки добавлены: щёлкните по активной вкладке, чтобы переименовать');
 }
-function tabSwitch(f, tid) { f.tab = tid; S.sel = new Set([f.id]); changed(); }
-function tabAdd(f) { pushHist(); const t = { id: 't' + uid(), name: 'Вкладка ' + (f.tabs.length + 1) }; f.tabs.push(t); f.tab = t.id; S.sel = new Set([f.id]); changed(); }
+function tabSwitch(f, tid) { const r = findTab(f, tid); if (r) r.owner.tab = tid; S.sel = new Set([f.id]); changed(); }
+function tabAdd(f, ownerId) { const o = !ownerId || ownerId === f.id ? f : (findTab(f, ownerId) || {}).tab; if (!o || !o.tabs) return; pushHist(); const t = { id: 't' + uid(), name: 'Вкладка ' + (o.tabs.length + 1) }; o.tabs.push(t); o.tab = t.id; S.sel = new Set([f.id]); changed(); }
 function tabMenu(anchor, f, tid) {
-  const t = f.tabs.find(x => x.id === tid); if (!t) return;
-  openPop(anchor, `<div class="capf"><label>Название вкладки<input class="inp" id="capT" value="${esc(t.name)}"></label><div class="row"><button class="btn" data-v="save">Сохранить</button><button class="btn ghost" data-v="del">Удалить вкладку</button></div></div>`, v => {
+  const fr = findTab(f, tid), t = fr && fr.tab; if (!t) return;
+  openPop(anchor, `<div class="capf"><label>Название вкладки<input class="inp" id="capT" value="${esc(t.name)}"></label><div class="row"><button class="btn" data-v="save">Сохранить</button>${t.tabs && t.tabs.length ? '' : '<button class="btn ghost" data-v="deep">Добавить уровень глубже</button>'}<button class="btn ghost" data-v="del">Удалить вкладку</button></div></div>`, v => {
+    if (v === 'deep') { tabDeeper(f, tid); return; }
     if (v === 'save') { const n = $('#capT').value.trim(); if (n && n !== t.name) { pushHist(); t.name = n; changed(); } }
     else if (v === 'del') tabDelete(f, tid);
   });
   setTimeout(() => { const i = $('#capT'); if (i) { i.focus(); i.select(); } }, 0);
 }
 function tabDelete(f, tid) {
-  const kill = new Set(items().filter(i => i.ftab === tid).map(i => i.id));
+  const fr = findTab(f, tid); if (!fr) return;
+  const sub = new Set([tid, ...tabIdsOf(fr.tab)]);
+  const kill = new Set(items().filter(i => i.ftab && sub.has(i.ftab)).map(i => i.id));
   if (kill.size && !confirm(`Удалить вкладку и всё, что в ней (${kill.size})?`)) return;
   pushHist();
   let grew = true;
-  while (grew) { grew = false; const tabIds = new Set(items().filter(i => kill.has(i.id) && Array.isArray(i.tabs)).flatMap(i => i.tabs.map(t => t.id))); for (const i of items()) if (!kill.has(i.id) && ((i.ftab && tabIds.has(i.ftab)) || (i.pin && kill.has(i.pin.to)))) { kill.add(i.id); grew = true; } }
+  while (grew) { grew = false; const tabIds = new Set(items().filter(i => kill.has(i.id) && Array.isArray(i.tabs)).flatMap(i => tabIdsOf(i))); for (const i of items()) if (!kill.has(i.id) && ((i.ftab && tabIds.has(i.ftab)) || (i.pin && kill.has(i.pin.to)))) { kill.add(i.id); grew = true; } }
   S.board.items = items().filter(i => !kill.has(i.id) && !(i.type === 'connector' && ((i.from.id && kill.has(i.from.id)) || (i.to.id && kill.has(i.to.id)))));
-  f.tabs = f.tabs.filter(t => t.id !== tid);
-  if (f.tabs.length <= 1) { const keep = f.tabs[0]; for (const i of items()) if (keep && i.ftab === keep.id) delete i.ftab; delete f.tabs; delete f.tab; }
-  else if (f.tab === tid) f.tab = f.tabs[0].id;
+  const o = fr.owner; o.tabs = o.tabs.filter(t => t.id !== tid);
+  if (o.tabs.length === 1 && !(o.tabs[0].tabs && o.tabs[0].tabs.length)) { const keep = o.tabs[0].id; for (const i of items()) if (i.ftab === keep) { if (o === f) delete i.ftab; else i.ftab = o.id; } delete o.tabs; delete o.tab; }
+  else if (!o.tabs.length) { delete o.tabs; delete o.tab; }
+  else if (o.tab === tid) o.tab = o.tabs[0].id;
   changed();
 }
 function enterFrame(id) {
@@ -3061,24 +3118,11 @@ function layoutPins() {
     if (!p || p.type === 'connector' || p.pin) { delete it.pin; continue; }
     const k = p.id + '|' + it.pin.slot; if (!groups.has(k)) groups.set(k, [p]); groups.get(k).push(it);
   }
-  const G = 10;
-  for (const [k, [p, ...list]] of groups) {
-    const slot = k.split('|')[1], b = bounds(p); let off = 0;
-    for (const it of list) {
-      const w = it.w, h = it.h || 40; let x, y;
-      switch (slot) {
-        case 'tl-t': x = b.x + off; y = b.y - h - G; off += w + G; break;
-        case 'tr-t': x = b.x + b.w - w - off; y = b.y - h - G; off += w + G; break;
-        case 'tr-r': x = b.x + b.w + G; y = b.y + off; off += h + G; break;
-        case 'br-r': x = b.x + b.w + G; y = b.y + b.h - h - off; off += h + G; break;
-        case 'br-b': x = b.x + b.w - w - off; y = b.y + b.h + G; off += w + G; break;
-        case 'bl-b': x = b.x + off; y = b.y + b.h + G; off += w + G; break;
-        case 'bl-l': x = b.x - w - G; y = b.y + b.h - h - off; off += h + G; break;
-        default: x = b.x - w - G; y = b.y + off; off += h + G;
-      }
-      it.x = r1(x); it.y = r1(y);
-    }
-  }
+  S.zones = [];
+  for (const [k, [p, ...list]] of groups) placeSlot(bounds(p), k.split('|')[1], list);
+  const byParent = new Map();
+  for (const [k, [p, ...list]] of groups) { if (!byParent.has(p.id)) byParent.set(p.id, [p]); byParent.get(p.id).push(...list); }
+  for (const [pid, [p, ...list]] of byParent) { const u = unionB([p, ...list].map(bounds)); S.zones.push({ id: pid, x: u.x - 10, y: u.y - 10, w: u.w + 20, h: u.h + 20 }); }
 }
 function addPin(p, slot, kind, quiet) {
   if (!kind || kind === 'none') { if (!quiet) toast('Для этого угла в шаблоне стоит «Ничего». Правая кнопка мыши по плюсу открывает выбор'); return null; }
@@ -3315,7 +3359,7 @@ function openWhimImport() {
     const v = $('#wimUrl').value.trim(); if (!v) { $('#wimUrl').focus(); return; }
     const logEl = $('#wimLog'), log = m => { logEl.insertAdjacentHTML('beforeend', `<div>${esc(m)}</div>`); logEl.scrollTop = 1e9; };
     $('#wimGo').disabled = true;
-    try { const r = await whimImport(v, log); log(`Готово: ${r.count} элементов.` + (r.warn.length ? ' Внимание: ' + r.warn.join('; ') + '.' : '')); toast('Доска перенесена из Whimsical'); }
+    try { const r = await whimImport2(v, log); log(`Готово: ${r.count} элементов${r.updated ? ', прежняя копия этой доски обновлена' : ''}.` + (r.warn.length ? ' Внимание: ' + r.warn.join('; ') + '.' : '')); toast('Доска перенесена из Whimsical'); }
     catch (e) { const c = e && e.code; log(c === 'server_not_connected' || c === 'server_not_found' ? 'Коннектор Whimsical не подключён в Claude: Настройки → Коннекторы.' : c === 'not_granted' || c === 'consent_required' || c === 'not_in_manifest' ? 'Нужно разрешить этой странице доступ к Whimsical. Нажмите «Перенести» ещё раз.' : 'Не получилось: ' + ((e && e.message) || e)); }
     $('#wimGo').disabled = false;
   };
@@ -3344,6 +3388,229 @@ function installHelp() {
     <ol class="steps"><li><b>Comet и другие браузеры на Chromium:</b> меню браузера → «Трансляция, сохранение и отправка» (или «Сохранить и поделиться») → «Установить страницу как приложение». Если такого пункта нет, браузер установку не поддерживает.</li>
     <li><b>Через Chrome, если он есть:</b> установите Холст из Chrome. Приложение откроется своим окном с иконкой на панели задач и работает само по себе: основным браузером может оставаться Comet, ссылки из Холста будут открываться в нём.</li>
     <li><b>Без установки:</b> закрепите вкладку Холста в Comet. Все данные и синхронизация с Диском работают и так.</li></ol>`);
+}
+
+
+/* =========================================================
+   v1.7: versions, feature catalog, tiny-object markers, pin zones, re-attach,
+   nested frame tabs, Whimsical import that reads the whole board by sections
+   ========================================================= */
+const APP_VERSION = '1.7';
+const CHANGELOG = [
+  ['1.7', '6 октября 2026', ['Импорт из Whimsical читает доску целиком, по секциям, без лимита в 200 объектов', 'Майнд-карты из Whimsical переносятся с точным расположением и размерами веток', 'Повторный импорт той же доски обновляет её, а не создаёт копию', 'Минимальный масштаб всегда вмещает всю доску, мелкие объекты видны как цветные метки', 'Версия приложения, история изменений и картотека функций с отметками «проверено»', '«Не масштабировать» при выключении возвращает исходный размер, текст не прыгает', 'Плюсики у углов появляются только при наведении', 'Зона вокруг элемента с прилипшими объектами; прилипшие переносятся на новую строку и не наезжают друг на друга', 'Любой объект можно прицепить к другому: перетащите его на место плюсика', 'Вкладки рамок: над рамкой, в своей зоне, сжимаются как в браузере, вложенные уровни']],
+  ['1.6', '5 октября 2026', ['Горячие клавиши и колесо мыши, наборы как в Miro, Whimsical и Яндекс Досках', 'Вкладки в рамках, рамка как отдельная доска с хлебными крошками', 'Элементы на углах с шаблонами', 'Снимки с обрезкой в PNG, JPG, WebP', 'Импорт из Whimsical', 'Папка «Холст» на Диске внутри LIFE OS']],
+  ['1.5', '5 октября 2026', ['Форматирование и выделение цветом внутри текста', 'Документы, таблицы, майнд-карты, секции, группы, новые фигуры', 'Виды ссылок и карточки чатов Claude', 'Разделение экрана на 2–4 доски']],
+  ['1.4', '5 октября 2026', ['Версия в Claude синхронизируется с Google Диском']],
+  ['1.3', '4 октября 2026', ['Google Диск, установка как приложение, работа на телефоне']],
+  ['1.2', '4 октября 2026', ['Встраивания, полноэкранный режим, хранение в Claude']],
+  ['1.0', '4 октября 2026', ['Первая версия доски']],
+];
+function openVersions() {
+  xdlg('Холст ' + APP_VERSION, `<p class="sub">Если номер здесь меньше, чем в последнем сообщении Claude, значит обновление ещё не дошло: перезагрузите страницу с Ctrl+F5 или загрузите файлы на GitHub заново.</p>` +
+    CHANGELOG.map(([v, d, list]) => `<h3>Версия ${v} · ${d}</h3><ul class="clog">${list.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`).join(''));
+}
+const FEATURES = [
+  ['Основа', [['pan', 'Двигать доску', 'Пробел + перетаскивание, правая кнопка мыши или два пальца на тачпаде'], ['zoom', 'Масштаб', 'Колесо мыши, кнопки внизу справа; минимальный масштаб вмещает всю доску', '1.7'], ['wheel', 'Прокрутка колесом', 'Shift + колесо по горизонтали, Ctrl + колесо по вертикали (меняется в «Горячих клавишах»)', '1.6'], ['tiny', 'Метки мелких объектов', 'На сильном отдалении мелкие объекты видны цветными точками', '1.7'], ['undo', 'Отмена и повтор', 'Ctrl+Z, Ctrl+Shift+Z'], ['boards', 'Несколько досок', 'Кнопка с квадратиками рядом с названием']]],
+  ['Элементы', [['sticky', 'Стикеры', 'N, шрифт подбирается сам'], ['text', 'Текст', 'T'], ['shapes', 'Фигуры, 21 вид', 'S, выбор вида в выпадающем списке'], ['conn', 'Линии со стрелками', 'L; подпись, вид концов, пунктир и точки в панели'], ['pen', 'Перо и ластик', 'P и E'], ['frame', 'Рамки и секции', 'F; вид «Рамка» или «Секция» в панели'], ['mm', 'Майнд-карты', 'M; Tab ветка, Enter соседняя, цвета веток, сворачивание'], ['doc', 'Документы', 'D; заголовки, списки, Shift+Enter на весь экран'], ['table', 'Таблицы', 'G; Tab между ячейками, строки и столбцы в панели'], ['img', 'Картинки', 'I, вставка из буфера или перетаскивание']]],
+  ['Текст', [['rich', 'Форматирование части текста', 'Выделите слова при редактировании: жирный, курсив, цвет, списки, заголовки'], ['hl', 'Выделение цветом', 'Ctrl+Shift+H или кнопка A на жёлтом фоне'], ['size', 'Размер части текста', 'Кнопка Aa при редактировании']]],
+  ['Структура', [['grp', 'Группы', 'Ctrl+G и Ctrl+Shift+G'], ['tabs', 'Вкладки в рамках', 'Кнопка «Вкладки» у рамки; щелчок по активной вкладке: имя, удаление, уровень глубже', '1.7'], ['fview', 'Рамка как отдельная доска', 'Кнопка развёртывания у рамки, хлебные крошки сверху, Esc выше', '1.6'], ['pins', 'Элементы на углах', 'Наведите на угол выделенного элемента, щёлкните плюс; правая кнопка: выбор и шаблоны', '1.7'], ['repin', 'Прицепить объект к другому', 'Перетащите объект на место плюсика другого объекта', '1.7'], ['fixed', 'Не масштабировать', 'Кнопка в панели: размер на экране не меняется при зуме', '1.7'], ['split', 'Разделение экрана', 'Меню ⋯ → Разделить экран (в приложении, не в Claude)']]],
+  ['Встраивания', [['embed', 'Видео, сайты, документы', 'K или просто вставьте ссылку на доску'], ['views', 'Вид ссылки', 'Содержимое, карточка, строка, обложка; вид по умолчанию для каждого типа'], ['claude', 'Карточки чатов Claude', 'Вставьте ссылку на чат, название и проект через «Подпись»'], ['html', 'Свои HTML-инструменты', 'Перетащите .html файл на доску'], ['focus', 'Во весь экран', 'Shift+Enter']]],
+  ['Файлы и синхронизация', [['drive', 'Google Диск', 'Облако вверху справа; доски совпадают на компьютере, телефоне и в Claude'], ['snap', 'Снимки', 'Ctrl+Shift+S: PNG, JPG, WebP, обрезка мышью', '1.6'], ['wimp', 'Импорт из Whimsical', 'Меню ⋯ в версии внутри Claude', '1.7'], ['keys', 'Горячие клавиши', 'Меню ⋯ → Горячие клавиши, наборы Miro, Whimsical, Яндекс Доски', '1.6'], ['ver', 'Версии и картотека', 'Меню ⋯ → номер версии и «Картотека функций»', '1.7']]],
+];
+function openCatalog(filter) {
+  const ck = LS.get('checked') || {}; filter = filter || 'all';
+  const all = FEATURES.flatMap(([, l]) => l), done = all.filter(f => ck[f[0]]).length;
+  const show = f => filter === 'all' || (filter === 'todo' && !ck[f[0]]) || (filter === 'new' && f[3] === APP_VERSION);
+  const d = xdlg('Картотека функций', `<div class="row"><button class="ob ${filter === 'all' ? 'on' : ''}" data-cf="all">Все</button><button class="ob ${filter === 'todo' ? 'on' : ''}" data-cf="todo">Не проверенные</button><button class="ob ${filter === 'new' ? 'on' : ''}" data-cf="new">Новое в ${APP_VERSION}</button><span class="sub">Проверено ${done} из ${all.length}</span></div>` +
+    FEATURES.map(([g, l]) => { const v = l.filter(show); return v.length ? `<h3>${g}</h3>` + v.map(([id, t, how, since]) => `<label class="fcat"><input type="checkbox" data-fc="${id}"${ck[id] ? ' checked' : ''}><span><b>${esc(t)}</b>${since === APP_VERSION ? '<i class="newb">новое</i>' : ''}<br><small>${esc(how)}</small></span></label>`).join('') : ''; }).join(''), true);
+  d.addEventListener('click', e => { const b = e.target.closest('[data-cf]'); if (b) openCatalog(b.dataset.cf); });
+  d.addEventListener('change', e => { const c = e.target.closest('[data-fc]'); if (!c) return; const m = LS.get('checked') || {}; if (c.checked) m[c.dataset.fc] = 1; else delete m[c.dataset.fc]; LS.set('checked', m); });
+}
+function checkVersion() {
+  const seen = LS.get('seenVersion');
+  if (seen !== APP_VERSION) { LS.set('seenVersion', APP_VERSION); if (seen) setTimeout(() => toast(`Холст обновлён до версии ${APP_VERSION}. Что нового: меню ⋯ → версия`), 1200); }
+}
+
+/* ---------- markers for objects too small to see ---------- */
+const DOT_COL = it => it.type === 'sticky' ? darken(it.color || '#fff59d') : it.type === 'text' ? (it.textColor || INK) : it.type === 'mindmap' ? (it.root.color || '#3355ff') : it.type === 'shape' ? (it.stroke || INK) : it.type === 'embed' ? ((PROV[it.provider] || PROV.web).c) : it.type === 'frame' ? (it.bcol || '#9aa1ad') : '#8a94a6';
+function darken(hex) { const n = parseInt(String(hex).slice(1), 16); if (!Number.isFinite(n)) return '#8a94a6'; return '#' + [n >> 16, (n >> 8) & 255, n & 255].map(v => Math.round(v * 0.7).toString(16).padStart(2, '0')).join(''); }
+function drawDots() {
+  const cv = S.dotsCv; if (!cv || !S.board) return;
+  const dpr = window.devicePixelRatio || 1, W = innerWidth, H = innerHeight;
+  if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+  const v = V(); if (v.z > 0.25 || S.focus) return;
+  for (const it of items()) {
+    if (it.type === 'connector' || it.type === 'pen' || isHid(it)) continue;
+    const b = bounds(it), sw = b.w * v.z, sh = b.h * v.z;
+    if (Math.max(sw, sh) >= 6) continue;
+    const x = v.x + (b.x + b.w / 2) * v.z, y = v.y + (b.y + b.h / 2) * v.z;
+    if (x < -5 || y < -5 || x > W + 5 || y > H + 5) continue;
+    g.fillStyle = DOT_COL(it); g.beginPath();
+    if (it.type === 'frame') g.rect(x - 3, y - 3, 6, 6); else g.arc(x, y, 3, 0, Math.PI * 2);
+    g.fill();
+  }
+}
+
+/* ---------- pins: rows limited to half a side, zone around the cluster, re-attach by dropping ---------- */
+function placeSlot(b, slot, list) {
+  const G = 8, horiz = /-(t|b)$/.test(slot), lim = Math.max(horiz ? b.w / 2 : b.h / 2, 40);
+  let along = 0, across = 0, band = 0;
+  for (const it of list) {
+    const w = bounds(it).w, h = bounds(it).h || 40, len = horiz ? w : h, th = horiz ? h : w;
+    if (along > 0 && along + len > lim) { across += band + G; along = 0; band = 0; }
+    let x, y;
+    if (horiz) { x = (slot[1] === 'l' ? b.x + along : b.x + b.w - along - w); y = slot.endsWith('-t') ? b.y - G - across - h : b.y + b.h + G + across; }
+    else { y = (slot[0] === 't' ? b.y + along : b.y + b.h - along - h); x = slot.endsWith('-l') ? b.x - G - across - w : b.x + b.w + G + across; }
+    it.x = r1(x); it.y = r1(y); along += len + G; band = Math.max(band, th);
+  }
+}
+const PLUS_POS = r => ({ 'tl-t': [r.x + 16, r.y - 24], 'tl-l': [r.x - 24, r.y + 16], 'tr-t': [r.x + r.w - 16, r.y - 24], 'tr-r': [r.x + r.w + 24, r.y + 16], 'br-r': [r.x + r.w + 24, r.y + r.h - 16], 'br-b': [r.x + r.w - 16, r.y + r.h + 24], 'bl-b': [r.x + 16, r.y + r.h + 24], 'bl-l': [r.x - 24, r.y + r.h - 16] });
+const pinnable = it => !!it && it.type !== 'connector' && it.type !== 'pen' && !it.pin && !isHid(it);
+function updatePlusHot(e) {
+  let hot = null;
+  const s = S.sel.size === 1 ? byId([...S.sel][0]) : null;
+  if (s && pinnable(s) && !S.editing) {
+    const r = screenRect(bounds(s));
+    if (r.w > 50 && r.h > 30) {
+      const P = PLUS_POS(r);
+      for (const k of SLOTS) if (Math.hypot(e.clientX - P[k][0], e.clientY - P[k][1]) < 30) { hot = k; break; }
+    }
+  }
+  if (hot !== S.plusHot) { S.plusHot = hot; renderOverlay(); }
+}
+function findPinDrop(e, moving) {
+  if (!pinnable(moving) && !(moving && moving.pin)) return null;
+  let best = null, bd = 30;
+  for (const it of items()) {
+    if (it.id === moving.id || !pinnable(it) || it.type === 'frame') continue;
+    const r = screenRect(bounds(it));
+    if (r.w < 50 || r.h < 30 || e.clientX < r.x - 60 || e.clientX > r.x + r.w + 60 || e.clientY < r.y - 60 || e.clientY > r.y + r.h + 60) continue;
+    const P = PLUS_POS(r);
+    for (const k of SLOTS) { const dd = Math.hypot(e.clientX - P[k][0], e.clientY - P[k][1]); if (dd < bd) { bd = dd; best = { to: it.id, slot: k, x: P[k][0], y: P[k][1], r }; } }
+  }
+  return best;
+}
+
+/* ---------- frame tabs as a tree: levels above the frame ---------- */
+function tabRows(f) { const rows = []; let o = f, n = 0; while (o && Array.isArray(o.tabs) && o.tabs.length && n++ < 12) { rows.push(o); o = o.tabs.find(t => t.id === o.tab); } return rows; }
+function activePath(f) { const s = new Set(); for (const o of tabRows(f)) if (o.tab) s.add(o.tab); return s; }
+function activeLeaf(f) { let leaf = null; for (const o of tabRows(f)) leaf = o.tab; return leaf; }
+function findTab(f, tid) { const walk = o => { for (const t of o.tabs || []) { if (t.id === tid) return { tab: t, owner: o }; const r = walk(t); if (r) return r; } return null; }; return walk(f); }
+function tabIdsOf(o) { const out = []; const walk = x => { for (const t of x.tabs || []) { out.push(t.id); walk(t); } }; walk(o); return out; }
+function tabDeeper(f, tid) {
+  const r = findTab(f, tid); if (!r || (r.tab.tabs && r.tab.tabs.length)) return;
+  pushHist();
+  const a = { id: 't' + uid(), name: 'Вкладка 1' }, b = { id: 't' + uid(), name: 'Вкладка 2' };
+  r.tab.tabs = [a, b]; r.tab.tab = a.id;
+  for (const it of items()) if (it.ftab === tid) it.ftab = a.id;
+  changed(); toast('Добавлен уровень глубже');
+}
+
+/* ---------- Whimsical import v2: crawl sections and groups, keep mind map geometry ---------- */
+async function whimImport2(link, log) {
+  if (!Drive.mcp) throw new Error('Импорт работает в версии Холста внутри Claude с подключённым коннектором Whimsical');
+  const clean = t => String(t || '').replace(/\s*\(\d+ (?:elements?|nodes?)\)\s*$/, '').replace(/ {2,}/g, '\n').trim();
+  log('Читаю доску…');
+  const ov = await whimFetch({ id: link, detail: 'detailed', limit: 200 });
+  const base = parseWhim(ov.text);
+  if (!base.rows.length) throw new Error('Whimsical не вернул содержимое доски. Проверьте ссылку');
+  const fileId = ov.fileId || link, pal = Object.assign({}, base.pal), conns = new Map(), objs = new Map(), cont = new Map(), sections = new Set(), mmIds = new Set(), warn = [];
+  const totalM = String(ov.text).match(/(\d+) objects/); const total = totalM ? +totalM[1] : 0;
+  base.conns.forEach(c => conns.set(c.id, c));
+  const fr = parseWhim((await whimFetch({ id: fileId, detail: 'detailed', expand_groups: true, limit: 200, select_kinds: ['frame', 'section', 'group', 'stack'] })).text);
+  fr.rows.forEach(r => cont.set(r.id, r)); Object.assign(pal, fr.pal);
+  const take = rows => {
+    for (const r of rows) {
+      if (r.type === 'section') sections.add(r.id);
+      if (['section', 'frame', 'group', 'stack'].includes(r.type)) { if (!cont.has(r.id)) cont.set(r.id, r); else if (r.type === 'section') cont.get(r.id).type = 'section'; }
+      else if (r.type === 'mindmap') mmIds.add(r.id);
+      else if (!objs.has(r.id)) objs.set(r.id, r);
+    }
+  };
+  take(base.rows);
+  const queue = [...cont.keys()], seen = new Set();
+  let done = 0;
+  const worker = async () => {
+    while (queue.length) {
+      const id = queue.shift(); if (seen.has(id)) continue; seen.add(id);
+      try {
+        const r = await whimFetch({ id: fileId, scope: id, detail: 'detailed', limit: 200 });
+        const p = parseWhim(r.text); p.conns.forEach(c => conns.set(c.id, c)); Object.assign(pal, p.pal);
+        for (const x of p.rows) if (['section', 'frame', 'group', 'stack'].includes(x.type) && !seen.has(x.id)) queue.push(x.id);
+        take(p.rows);
+        if (p.rows.length >= 200) warn.push('в одной секции больше 200 объектов');
+      } catch (e) { warn.push('секцию ' + id + ' прочитать не удалось'); }
+      done++; if (done % 5 === 0) log(`Секции и группы: ${done}`);
+    }
+  };
+  await Promise.all([worker(), worker(), worker(), worker()]);
+  const mms = new Map(), mmq = [...mmIds];
+  let mdone = 0;
+  const mworker = async () => {
+    while (mmq.length) {
+      const id = mmq.shift();
+      try { const r = await whimFetch({ id: fileId, scope: id, detail: 'detailed', limit: 200 }); const p = parseWhim(r.text); mms.set(id, p.rows); p.conns.forEach(c => conns.set(c.id, c)); Object.assign(pal, p.pal); }
+      catch (e) { warn.push('майнд-карту ' + id + ' прочитать не удалось'); }
+      mdone++; if (mdone % 5 === 0 || mdone === mmIds.size) log(`Майнд-карты: ${mdone} из ${mmIds.size}`);
+    }
+  };
+  await Promise.all([mworker(), mworker(), mworker(), mworker()]);
+  const got = objs.size + cont.size + [].concat(...mms.values()).length;
+  log(`Прочитано объектов: ${got}${total ? ' из ' + total : ''}`);
+  if (total && got < total * 0.98) warn.push(`не прочитано ${total - got} объектов`);
+  const C = name => pal[name] || WCOL[name] || INK;
+  const all = [...objs.values(), ...cont.values(), ...[].concat(...mms.values())].filter(r => Number.isFinite(r.x));
+  const ox = Math.min(...all.map(r => r.x)), oy = Math.min(...all.map(r => r.y));
+  const X = v => r1(v - ox), Y = v => r1(v - oy);
+  const out = [], idMap = new Map(), nodeMap = new Map();
+  const boxes = [...cont.values()].filter(r => r.type !== 'group' && r.type !== 'stack').sort((a, b) => b.w * b.h - a.w * a.h);
+  for (const r of boxes) {
+    const c = r.color || 'White', sec = sections.has(r.id) || r.type === 'section', plain = c === 'White' || c === 'Smoke';
+    const it = { id: uid(), type: 'frame', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, title: clean(r.text), fstyle: 'section', fill: c === 'White' ? '#ffffff' : c === 'Smoke' ? '#f3f4f7' : tint(C(c), sec ? 0.08 : 0.42) };
+    if (!plain && sec) it.bcol = tint(C(c), 0.6);
+    out.push(it); idMap.set(r.id, it.id);
+  }
+  for (const r of objs.values()) {
+    let it = null;
+    if (r.type === 'text') { const text = clean(r.text), bold = /[A-ZА-ЯЁ]/.test(text) && text === text.toUpperCase(); it = { id: uid(), type: 'text', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, text, fs: fitFont(text, r.w, r.h, bold), align: 'left', bold, textColor: r.color && r.color !== 'White' ? C(r.color) : INK }; }
+    else if (r.type === 'note') it = { id: uid(), type: 'sticky', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, color: tint(C(r.color || 'Yellow'), 0.35), text: clean(r.text), fs: 'auto', align: 'center', bold: false, textColor: INK };
+    else if (r.type === 'shape' || r.type === 'task') it = { id: uid(), type: 'shape', shape: 'round', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, fill: tint(C(r.color || 'Slate'), 0.12), stroke: C(r.color || 'Slate'), sw: 2, text: clean(r.text), fs: Math.min(18, fitFont(clean(r.text), r.w - 16, r.h - 8, false)), align: 'center', bold: false, textColor: INK };
+    else if (r.type === 'icon') it = { id: uid(), type: 'text', x: X(r.x), y: Y(r.y), w: Math.max(40, r.w), h: r.h, text: '★', fs: Math.max(12, Math.round(r.h * 0.7)), align: 'center', bold: false, textColor: C(r.color || 'Slate') };
+    else if (r.type === 'link') { const sp = parseEmbed(r.text) || parseEmbed(ov.url || ''); if (sp) it = { id: uid(), type: 'embed', ...sp, x: X(r.x), y: Y(r.y), w: Math.max(200, r.w), h: Math.max(56, r.h), view: 'compact', vs: 'compact' }; }
+    else if (r.type === 'image' || r.type === 'attachment') { const sp = parseEmbed(ov.url || 'https://whimsical.com'); if (sp) it = { id: uid(), type: 'embed', ...sp, title: 'Картинка из Whimsical', sub: 'Сама картинка осталась в исходной доске', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, view: 'card', vs: 'card' }; }
+    else if (r.type === 'table') {
+      let rows = [['']];
+      try { const t = await whimFetch({ id: r.id, board_id: fileId }); const md = String(t.text || '').split('\n').filter(l => /^\s*\|/.test(l) && !/^\s*\|[\s:|-]+\|\s*$/.test(l)).map(l => l.trim().replace(/^\||\|$/g, '').split('|').map(c => esc(c.trim()))); if (md.length) rows = md; } catch (e) { warn.push('таблицу не удалось прочитать'); }
+      const nc = Math.max(...rows.map(x => x.length)); rows = rows.map(x => Array.from({ length: nc }, (_, i) => x[i] || ''));
+      it = { id: uid(), type: 'table', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, cols: Array(nc).fill(r1(r.w / nc)), rows, header: true };
+    }
+    if (it) { out.push(it); idMap.set(r.id, it.id); }
+  }
+  for (const g of cont.values()) if (g.type === 'group' || g.type === 'stack') { const gid = 'g' + uid(); for (const x of objs.values()) if (x.parent === g.id && idMap.has(x.id)) { const it = out.find(i => i.id === idMap.get(x.id)); if (it) it.grp = gid; } }
+  for (const [mid, rows] of mms) {
+    const byW = new Map(rows.map(r => [r.id, r])), rootR = byW.get(mid); if (!rootR) continue;
+    const kids = new Map(); for (const r of rows) if (r.id !== mid) { if (!kids.has(r.parent)) kids.set(r.parent, []); kids.get(r.parent).push(r); }
+    const build = (r, isRoot) => { const text = clean(r.text); return { id: 'n' + r.id, text, color: C(r.color || 'Slate'), px: r1(r.x - rootR.x), py: r1(r.y - rootR.y), w: r.w, h: r.h, fs: clamp(fitFont(text, r.w - 10, r.h, isRoot), 9, isRoot ? 22 : 15), children: (kids.get(r.id) || []).sort((a, b) => a.y - b.y).map(k => build(k, false)) }; };
+    const root = build(rootR, true);
+    root.children.forEach(c => { c.side = c.px < 0 ? 'L' : 'R'; });
+    const it = { id: uid(), type: 'mindmap', rx: X(rootR.x), ry: Y(rootR.y), x: X(rootR.x), y: Y(rootR.y), w: rootR.w, h: rootR.h, layout: 'both', wstyle: true, fixedLayout: true, root };
+    out.push(it); idMap.set(mid, it.id);
+    for (const r of rows) nodeMap.set(r.id, { id: it.id, node: 'n' + r.id });
+  }
+  for (const c of conns.values()) {
+    const end = wid => nodeMap.get(wid) || (idMap.has(wid) ? { id: idMap.get(wid) } : null);
+    const a = end(c.from), b = end(c.to); if (!a || !b) continue;
+    out.push({ id: uid(), type: 'connector', from: a, to: b, style: 'curve', color: '#7f8aa3', width: 2, start: false, end: true });
+  }
+  log('Сохраняю доску…');
+  const map = LS.get('whimsrc') || {}, prevId = map[fileId];
+  const b = newBoard(ov.title || 'Доска из Whimsical');
+  if (prevId && S.index.some(x => x.id === prevId)) b.id = prevId;
+  b.items = out; await Backend.saveBoard(b);
+  map[fileId] = b.id; LS.set('whimsrc', map);
+  S.board = null; loadBoard(b); fitAll(); renderDrawer();
+  return { count: out.length, warn, updated: !!prevId };
 }
 
 /* =========================================================
@@ -3384,7 +3651,7 @@ function onDown(e) {
   const pl = e.target.closest && e.target.closest('[data-pin]');
   if (pl) { e.preventDefault(); const one = selItems()[0]; if (one) { if (e.button === 2 || e.shiftKey || e.altKey) pinChooser(pl, one, pl.dataset.pin); else if (e.button === 0) { const k = pinTpl(one, pl.dataset.pin); if (k === 'none') pinChooser(pl, one, pl.dataset.pin); else addPin(one, pl.dataset.pin, k); } } return; }
   const ftb = e.button === 0 && e.target.closest && e.target.closest('[data-ftab],[data-ftadd]');
-  if (ftb && world.contains(ftb)) { const host = ftb.closest('[data-id]'), f = host && byId(host.dataset.id); if (f && f.tabs) { if (ftb.dataset.ftadd) tabAdd(f); else if (f.tab === ftb.dataset.ftab) tabMenu(ftb, f, ftb.dataset.ftab); else tabSwitch(f, ftb.dataset.ftab); } return; }
+  if (ftb && world.contains(ftb)) { const host = ftb.closest('[data-id]'), f = host && byId(host.dataset.id); if (f && f.tabs) { if (ftb.dataset.ftadd) tabAdd(f, ftb.dataset.ftadd); else { const r = findTab(f, ftb.dataset.ftab); if (r && r.owner.tab === ftb.dataset.ftab) tabMenu(ftb, f, ftb.dataset.ftab); else tabSwitch(f, ftb.dataset.ftab); } } return; }
   const mmc = e.button === 0 && e.target.closest && e.target.closest('[data-mmc]');
   if (mmc && world.contains(mmc)) { const host = mmc.closest('[data-id]'), mit = host && byId(host.dataset.id), n = mit && findNode(mit.root, mmc.dataset.mmc); if (n) { pushHist(); n.collapsed = !n.collapsed; changed(); } return; }
   const ea = e.button === 0 && e.target.closest && e.target.closest('[data-ea]');
@@ -3446,6 +3713,7 @@ function onMove(e) {
   if (S.pinch) { updatePinch(); return; }
   const d = S.drag, w = toWorld(e.clientX, e.clientY);
   if (!d) {
+    if (S.tool === 'select') updatePlusHot(e);
     if (S.tool === 'connector') { const h = hitItemAt(w); if (h !== S.hover) { S.hover = h; renderOverlay(); } }
     return;
   }
@@ -3453,7 +3721,7 @@ function onMove(e) {
   switch (d.type) {
     case 'pan': { const v = V(); v.x = d.vx + e.clientX - d.sx; v.y = d.vy + e.clientY - d.sy; applyView(); break; }
     case 'move-pending': if (!moved) break; beginMove(d, e.altKey); moveTo(d, w); break;
-    case 'move': moveTo(d, w); break;
+    case 'move': { moveTo(d, w); const one = d.list.length === 1 ? d.list[0].it : null; const pd = one ? findPinDrop(e, one) : null; if ((pd && pd.to + pd.slot) !== (d.pinDrop && d.pinDrop.to + d.pinDrop.slot)) { d.pinDrop = pd; renderOverlay(); } break; }
     case 'marquee': {
       if (!d.active && !moved) break;
       d.active = true; d.cur = w;
@@ -3596,7 +3864,7 @@ function onUp(e) {
       }
       break;
     }
-    case 'move': scheduleSave(); break;
+    case 'move': if (d.pinDrop) { const it = d.list[0].it; it.pin = { to: d.pinDrop.to, slot: d.pinDrop.slot }; d.pinDrop = null; changed(); toast('Прицеплено. Чтобы отцепить, просто оттащите или нажмите «Отцепить»'); } scheduleSave(); break;
     case 'place': {
       pushHist();
       const it = d.tool === 'sticky' ? mkSticky(d.w.x, d.w.y) : d.tool === 'text' ? mkText(d.w.x, d.w.y) : d.tool === 'doc' ? mkDoc(d.w.x, d.w.y) : d.tool === 'table' ? mkTable(d.w.x, d.w.y) : mkMindmap(d.w.x, d.w.y);
@@ -3642,7 +3910,7 @@ function startPinch() {
 function updatePinch() {
   const [p1, p2] = [...S.pointers.values()]; if (!p2) return;
   const p = S.pinch, v = V(), c = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
-  const z = clamp(p.v0.z * dist(p1, p2) / p.d0, ZMIN, ZMAX);
+  const z = clamp(p.v0.z * dist(p1, p2) / p.d0, zMin(), ZMAX);
   const wx = (p.c0.x - p.v0.x) / p.v0.z, wy = (p.c0.y - p.v0.y) / p.v0.z;
   v.z = z; v.x = c.x - wx * z; v.y = c.y - wy * z; applyView();
 }
@@ -3734,12 +4002,15 @@ function openMenu(btn) {
     (installPrompt ? mi('install', 'install', 'Установить как приложение') : (!S.hosted && !PANE && !IS_FILE ? mi('installHow', 'install', 'Установить в другой браузер…') : '')) +
     (Drive.mcp ? mi('wimport', 'imp', 'Импорт из Whimsical…') : '') +
     mi('keys', 'kbd', 'Горячие клавиши…') +
+    mi('catalog', 'help', 'Картотека функций…') +
     '<div class="msep"></div>' +
     mi('grid', 'grid', 'Сетка', S.settings.grid ? 'вкл' : 'выкл') +
-    mi('fit', 'fit', 'Показать всё', 'Shift+1') +
-    mi('help', 'help', 'Горячие клавиши', '?') +
+    mi('fit', 'fit', 'Показать всё', keyOf('fit')) +
+    mi('help', 'help', 'Справка', keyOf('help')) +
     '<div class="msep"></div>' +
     mi('clear', 'trash', 'Очистить доску', '', 'danger') +
+    '<div class="msep"></div>' +
+    mi('versions', 'help', `Версия ${APP_VERSION} · что нового`) +
     '</div>', menuAction);
 }
 function menuAction(v) {
@@ -3752,6 +4023,8 @@ function menuAction(v) {
     case 'offline': downloadOffline(); break;
     case 'split': splitPop($('#btnMenu')); break;
     case 'keys': openKeys(); break;
+    case 'catalog': openCatalog(); break;
+    case 'versions': openVersions(); break;
     case 'wimport': openWhimImport(); break;
     case 'installHow': installHelp(); break;
     case 'drive': openDriveDlg(); break;
@@ -4370,6 +4643,7 @@ function wire() {
   document.addEventListener('input', e => { if (S.editing && world.contains(e.target)) onTextInput(); });
   document.addEventListener('focusout', e => { if (!S.editing || !world.contains(e.target)) return; const id = S.editing, sub = S.editSub; setTimeout(() => { const cur = els.get(id), a = document.activeElement; if (S.editing === id && S.editSub === sub && document.hasFocus() && !(cur && (cur.contains(a) || (cur._fhead && cur._fhead.contains(a))))) finishEdit(); }, 0); });
   wireSplit();
+  S.dotsCv = document.createElement('canvas'); S.dotsCv.id = 'dots'; world.after(S.dotsCv);
   $('#crumbs').addEventListener('click', e => { const b = e.target.closest('[data-cr]'); if (b) exitFrame(+b.dataset.cr); });
   pop.addEventListener('click', e => { const b = e.target.closest('[data-v]'); if (!b) return; const f = pop._pick; closePop(); if (f) f(b.dataset.v); });
   document.addEventListener('pointerdown', e => { if (!pop.hidden && !pop.contains(e.target) && !(pop._anchor && pop._anchor.contains(e.target))) closePop(); }, true);
@@ -4515,7 +4789,7 @@ async function init() {
   else if (fresh || firstId) fitAll();
   setStatus('saved'); dirty = false;
   await Drive.init();
-  if (!PANE) registerPWA();
+  if (!PANE) { registerPWA(); checkVersion(); }
   const sp = LS.get('split'); if (sp && SPLITS[sp.layout] && splitOk()) { S.split = sp; showSplit(); }
 }
 init();
