@@ -435,6 +435,193 @@ body.pane #status{display:none}
 .ib2 svg.i{width:18px;height:18px}
 .zlv{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--muted);margin-top:8px}
 .kwh label.zck{flex-direction:row;align-items:center;gap:8px}
+
+/* ===== v2.0 ===== */
+#pop .ob{color:var(--ink)}
+.xdlg .ob{min-height:32px;padding:0 11px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);cursor:pointer;font:600 13px var(--font);display:inline-flex;align-items:center;gap:6px}
+.xdlg .ob:hover{background:var(--hover)}
+.xdlg .ob.on{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.xdlg .ob:disabled{opacity:.5;cursor:default}
+.ds-l .ob,.ds-row .ob{align-self:flex-start}
+/* dark theme: UI tokens; the board itself is shown through one consistent colour transform,
+   so every object keeps its hue and contrast with the background and with each other */
+html[data-theme=dark]{--canvas:#111216;--dot:#2c2f37;--ink:#e6e7ea;--panel:#212329;--line:#33363c;--muted:#9ba0ab;--hover:#2b2e35;--accent:#7088ff;--accent-soft:#283152;--danger:#ff6b6e;--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -10px rgba(0,0,0,.6);color-scheme:dark}
+html[data-theme=dark] body{background:var(--canvas);color:var(--ink)}
+html[data-theme=dark] #world{--ink:#1c1d21;--muted:#6b7080;--panel:#fff;--line:#e3e5ea;--hover:#f1f2f5;--accent:#3355ff;filter:invert(.9) hue-rotate(180deg)}
+html[data-theme=dark] #world img,html[data-theme=dark] #world iframe,html[data-theme=dark] #world video{filter:invert(1) hue-rotate(180deg)}
+html[data-theme=dark] #pop .sw,html[data-theme=dark] #flyout .sw,html[data-theme=dark] #ctx .sw,html[data-theme=dark] #ctx .tc,html[data-theme=dark] #ctx .lc{filter:invert(.9) hue-rotate(180deg)}
+html[data-theme=dark] .brand,html[data-theme=dark] #toolbar,html[data-theme=dark] .btn:not(.ghost),html[data-theme=dark] #toast,html[data-theme=dark] #splitBar,html[data-theme=dark] .ov-lock,html[data-theme=dark] #toolbar .ib::after{background:#30333b;color:#fff;border-color:#30333b}
+html[data-theme=dark] .card,html[data-theme=dark] .xbox,html[data-theme=dark] .panel,html[data-theme=dark] #pop{background:var(--panel);color:var(--ink)}
+html[data-theme=dark] .inp,html[data-theme=dark] select.inp,html[data-theme=dark] textarea.inp,html[data-theme=dark] #boardName:focus,html[data-theme=dark] .kbtn,html[data-theme=dark] .code button,html[data-theme=dark] .cplus{background:#1a1c21;color:var(--ink);border-color:var(--line)}
+html[data-theme=dark] .note{background:#2e2a1a;color:var(--ink)}
+html[data-theme=dark] .krow,html[data-theme=dark] .fcat{border-color:var(--line)}
+html[data-theme=dark] #crumbs button:hover{background:var(--hover)}
+html[data-theme=dark] .scell{background:var(--canvas)}
+#dots{display:none}
+/* outlines at the furthest zoom-out */
+#outl{position:absolute;left:0;top:0;width:1px;height:1px;overflow:visible;pointer-events:none;z-index:99998;opacity:0;transition:opacity .45s ease}
+#outl.on{opacity:1}
+#outl rect{fill:none;stroke:rgba(74,79,90,.55);stroke-width:1.2;vector-effect:non-scaling-stroke}
+.it.flash{animation:holstFlash 1.6s ease-out}
+@keyframes holstFlash{0%,40%{box-shadow:0 0 0 6px rgba(51,85,255,.55)}100%{box-shadow:0 0 0 0 rgba(51,85,255,0)}}
+/* frame tabs scale with the board and stay within the frame */
+.fhead .ftop{bottom:0;display:block;gap:0}
+.fhead .ftop .ftitle{position:absolute;left:0;bottom:calc(100% + 6px * var(--iz,1));margin:0;max-width:none}
+.ftabzone{padding:4px;border-radius:9px 9px 0 0;gap:3px}
+.frow{gap:3px}
+.ftab{font-size:12px;padding:6px 10px;border-radius:7px;min-width:22px;max-width:220px}
+.ftab.add{padding:6px 9px}
+.frow+.frow .ftab{font-size:11.5px}
+.ftab.drop{background:var(--accent);color:#fff;box-shadow:0 0 0 4px rgba(51,85,255,.3)}
+/* one cloud, prominent status blocks */
+#status .dot[hidden]{display:none}
+#btnCloud[data-d=off]{color:var(--muted)}
+#btnCloud.act{animation:holstPulse 1.1s ease-in-out infinite;border-radius:50%}
+.dstat{display:flex;align-items:center;gap:10px;padding:12px 14px;margin:0 0 18px;border-radius:12px;font-size:14px;font-weight:600;background:var(--hover);border:1px solid var(--line)}
+.dstat .dot{width:10px;height:10px;border-radius:50%;flex:none;background:#2fa36b}
+.dstat[data-d=ok]{background:rgba(47,163,107,.1);border-color:rgba(47,163,107,.35)}
+.dstat[data-d=syncing],.dstat[data-d=offline]{background:rgba(217,154,0,.1);border-color:rgba(217,154,0,.35)}
+.dstat[data-d=syncing] .dot,.dstat[data-d=offline] .dot{background:#d99a00}
+.dstat[data-d=auth],.dstat[data-d=error]{background:rgba(229,72,77,.09);border-color:rgba(229,72,77,.35)}
+.dstat[data-d=auth] .dot,.dstat[data-d=error] .dot{background:var(--danger);animation:holstPulse 1.1s ease-in-out infinite}
+.dstat[data-d=off] .dot{background:var(--muted)}
+/* custom colours */
+.swb.addc{position:relative;display:grid;place-items:center;color:var(--muted);border:1.5px dashed var(--line);border-radius:8px;cursor:pointer}
+.swb.addc input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.swb.addc svg.i{width:16px;height:16px}
+/* toolbar */
+#toolbar .tbplus{color:#9aa0ad}
+#toolbar.tbmoving .ib{opacity:.55}
+#toolbar.tbmoving .ib.tbmv{opacity:1;background:var(--accent);color:#fff}
+.tbci{width:28px;display:grid;place-items:center;color:var(--muted)}
+.kbtn.on{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+/* zoom settings */
+.zp{display:flex;flex-direction:column;gap:6px;padding:4px;width:320px}
+.zl{display:flex;align-items:center;gap:8px;font-size:13px}
+.zl input{flex:1}
+.zck{display:flex;align-items:center;gap:8px;font-size:13px}
+.zrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.zrow label,.zl2{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+#zoomLbl{cursor:pointer}
+/* search */
+.srow{display:flex;flex-direction:column;gap:8px;position:sticky;top:0;background:inherit;padding-bottom:8px}
+.sres{display:flex;flex-direction:column;gap:2px;min-height:120px}
+.sr{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;border:0;background:transparent;border-radius:8px;padding:8px 10px;cursor:pointer;color:var(--ink);font:inherit}
+.sr:hover,.sr.on{background:var(--hover)}
+.sr-t{font-size:11.5px;color:var(--muted);font-weight:600}
+.sr-s{font-size:14px;line-height:1.4}
+.sr-s mark{background:#ffe27a;color:inherit;border-radius:3px;padding:0 1px}
+html[data-theme=dark] .sr-s mark{background:#7a5f00}
+/* version history */
+.hhead{position:sticky;top:-4px;z-index:2;background:var(--panel);padding:4px 0 10px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.xbox .hhead .row{margin:6px 0}
+.hsep{width:1px;height:22px;background:var(--line);margin:0 4px}
+.tax{font-size:12px}
+.hg{border:1px solid var(--line);border-radius:12px;margin:10px 0;overflow:hidden}
+.hg>summary{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;list-style:none;background:var(--hover)}
+.hg>summary::-webkit-details-marker{display:none}
+.hg>summary b{font-size:15px}
+.hg>summary .en{font-weight:400;color:var(--muted);font-size:13px}
+.hg>summary span{font-size:12.5px;color:var(--muted)}
+.hg>summary i{margin-left:auto;font-style:normal;font-size:12px;color:var(--muted);background:var(--panel);border-radius:10px;padding:2px 8px}
+.hsub{padding:10px 14px 4px;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.hsub span{font-weight:400;text-transform:none}
+.fr{border-top:1px solid var(--line);border-left:3px solid var(--accent);transition:opacity .2s}
+.fr.ck{border-left-color:transparent;opacity:.55}
+.fr.ck:hover{opacity:.85}
+.fr.bl{border-left-color:#d99a00}
+.fr-m{display:flex;align-items:center;gap:10px;padding:9px 12px}
+.fr-m input{width:17px;height:17px;flex:none;cursor:pointer}
+.fr-wait{width:17px;height:17px;flex:none;border-radius:50%;border:2px dashed #d99a00}
+.fr-t{flex:1;font-size:14px;font-weight:600;line-height:1.35}
+.fr.ck .fr-t{font-weight:500}
+.fr-b{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.fr-b i{font-style:normal;font-size:11px;font-weight:600;padding:2px 7px;border-radius:6px;background:var(--hover);color:var(--muted);white-space:nowrap}
+.fr-b .k-f{background:rgba(51,85,255,.12);color:var(--accent)}
+.fr-b .k-x{background:rgba(229,72,77,.12);color:var(--danger)}
+.fr-b .k-i{background:rgba(47,163,107,.13);color:#2b9361}
+.fr-b .k-b{background:rgba(217,154,0,.14);color:#a87700}
+.fr-x{width:28px;height:28px;flex:none;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--ink);font:600 16px/1 var(--font);cursor:pointer}
+.fr-x.op{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.fr-d{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 14px 12px 42px;font-size:13.5px}
+.fr-d b{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.fr-d p{margin:4px 0 0;line-height:1.45}
+.fr-c{grid-column:1/-1;display:flex;align-items:center;gap:8px;font-weight:600}
+@media (max-width:700px){.fr-d{grid-template-columns:1fr;padding-left:14px}.fr-b{display:none}}
+/* DEV */
+.xbox.full{width:min(1500px,96vw);height:92vh;max-height:92vh}
+.xbox.full .xbody{flex:1;display:flex;min-height:0;padding:0 0 0 18px}
+.dev{position:relative;flex:1;display:flex;flex-direction:column;min-width:0;min-height:0}
+.devbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:4px 18px 10px 0}
+.devbar .inp{flex:0 1 220px;height:34px}
+.dboard{flex:1;overflow:auto;padding:0 18px 18px 0}
+.dgrid{position:relative;display:grid;gap:10px;align-items:start}
+.drel{position:absolute;left:0;top:0;pointer-events:none;overflow:visible;z-index:3}
+.drel path{fill:none;stroke-width:2;opacity:.8}
+.dcol-h{position:sticky;top:0;z-index:4;background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--sc);border-radius:10px;padding:8px 10px;display:flex;flex-direction:column;gap:6px}
+.dcol-h.st-done{opacity:.8}
+.dcol-h.st-draft{border-style:dashed;border-top-style:solid}
+.dch-t{display:flex;align-items:center;gap:6px}
+.dch-t b{flex:1;font-size:14.5px}
+.dch-m{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.dch-m span:last-child{margin-left:auto;font-weight:700}
+.dch-st{border:0;border-radius:6px;padding:3px 8px;font:600 11.5px var(--font);cursor:pointer;background:color-mix(in srgb,var(--sc) 16%,transparent);color:var(--sc)}
+.dch-p{height:4px;border-radius:2px;background:var(--hover);overflow:hidden}
+.dch-p i{display:block;height:100%;background:#2fa36b}
+.dgrp{display:flex;align-items:center;gap:8px;padding:10px 6px 2px;font-weight:700;font-size:13px;cursor:grab;border-top:1px solid var(--line);margin-top:6px}
+.dgrp i{font-style:normal;font-weight:600;font-size:11.5px;color:var(--muted);background:var(--hover);border-radius:8px;padding:1px 7px}
+.dg-h{color:var(--muted);letter-spacing:-2px}
+.dgrp.dover{background:var(--accent-soft);border-radius:8px}
+.dcell{display:flex;flex-direction:column;gap:8px;min-height:44px;border-radius:10px;padding:2px}
+.dcell.dover{background:var(--accent-soft)}
+.dadd{border:1px dashed var(--line);background:transparent;border-radius:8px;padding:6px;color:var(--muted);font:600 12px var(--font);cursor:pointer;opacity:.6}
+.dadd:hover{opacity:1;color:var(--accent);border-color:var(--accent)}
+.dcard{position:relative;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--sc);border-radius:10px;padding:8px 10px 9px;cursor:pointer;display:flex;flex-direction:column;gap:5px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.dcard:hover{box-shadow:0 4px 14px -6px rgba(0,0,0,.25)}
+.dcard.sel{outline:2px solid var(--accent);outline-offset:1px}
+.dcard.st-draft{border-style:dashed;border-left-style:solid;background:transparent}
+.dcard.st-progress{background:color-mix(in srgb,#3355ff 5%,var(--panel))}
+.dcard.st-review{background:color-mix(in srgb,#d99a00 8%,var(--panel))}
+.dcard.st-rework{background:color-mix(in srgb,#e5484d 8%,var(--panel))}
+.dcard.st-paused{background:repeating-linear-gradient(135deg,var(--panel) 0 8px,var(--hover) 8px 16px)}
+.dcard.st-irrelevant{opacity:.5}
+.dcard.st-irrelevant .dc-title{text-decoration:line-through}
+.dcard.st-done{opacity:.72}
+.dc-top{display:flex;align-items:center;gap:6px}
+.dc-id{font:600 11px ui-monospace,Consolas,monospace;color:var(--muted)}
+.dc-st{font-size:11px;font-weight:700;color:var(--sc);margin-left:auto}
+.st-review .dc-st::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#d99a00;margin-right:5px;animation:holstPulse 1.4s ease-in-out infinite}
+.dc-cp{width:24px;height:24px;border:0;border-radius:6px;background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer;padding:0;flex:none}
+.dc-cp:hover{background:var(--hover);color:var(--accent)}
+.dc-cp svg.i{width:15px;height:15px}
+.dc-par{font-size:11.5px;color:var(--muted)}
+.dc-title{font-size:14px;font-weight:650;line-height:1.35;overflow-wrap:anywhere}
+.dc-rep{font-size:12px;line-height:1.4;background:color-mix(in srgb,#d99a00 12%,transparent);border-radius:7px;padding:6px 8px;max-height:7.2em;overflow:auto}
+.dc-rep b{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#a87700;margin-bottom:2px}
+.dc-lab{display:flex;flex-wrap:wrap;gap:4px}
+.dc-lab:empty{display:none}
+.dl{font-style:normal;font-size:11px}
+.dl.chip{padding:1px 7px;border-radius:6px;background:color-mix(in srgb,var(--c) 15%,transparent);color:color-mix(in srgb,var(--c) 80%,var(--ink))}
+.dl.dot::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--c);margin-right:4px}
+.dl.txt{color:var(--muted)}
+.dl.txt+.dl.txt::before{content:"· "}
+.dc-ic{display:flex;gap:10px;font-size:11.5px;color:var(--muted)}
+.dside{position:absolute;right:0;top:0;bottom:0;width:min(440px,92%);background:var(--panel);border-left:1px solid var(--line);box-shadow:-12px 0 30px -18px rgba(0,0,0,.4);overflow:auto;padding:12px 18px 24px;z-index:6;display:flex;flex-direction:column;gap:10px}
+.ds-h{display:flex;align-items:center;gap:8px}
+.ds-h .dc-st{margin-left:0}
+.ds-h .ib{margin-left:auto}
+.ds-title{width:100%;border:0;background:transparent;color:var(--ink);font:700 18px/1.3 var(--font);resize:vertical;padding:2px 0}
+.ds-g{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ds-g label,.ds-l{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:600}
+.ds-g select.inp{height:34px;padding:0 8px}
+.ds-l textarea.inp{height:auto;padding:8px 10px;font:14px/1.4 var(--font);color:var(--ink);resize:vertical}
+.ds-l p{margin:0;color:var(--ink);font-weight:400;font-size:13.5px}
+.ds-row{display:flex;align-items:center;gap:6px;font-weight:400;font-size:13px;color:var(--ink)}
+.ds-row i{font-style:normal;font-size:12px;white-space:nowrap}
+.ds-row a{flex:1;color:var(--ink)}
+.ds-row .inp{height:32px}
+.ds-com{font-weight:400;font-size:13px;color:var(--ink);background:var(--hover);border-radius:8px;padding:6px 8px;display:flex;flex-direction:column;gap:2px}
+.ds-com small{color:var(--muted)}
 @media (max-width:700px){#statusText{display:none}#statusText.act{display:block;max-width:132px;white-space:normal;font-size:11.5px;line-height:1.25}#status{padding-left:12px}#boardName{width:120px}.fbtn span{display:none}.fdoc{padding:28px 24px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -655,6 +842,10 @@ const ICON = {
   disV: '<path d="M4 4h16M4 20h16"/><rect x="8" y="9" width="8" height="6" rx="1"/>',
   sameW: '<path d="M4 12h16M7 9l-3 3 3 3M17 9l3 3-3 3"/>',
   sameH: '<path d="M12 4v16M9 7l3-3 3 3M9 17l3 3 3-3"/>',
+  copy: '<rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/>',
+  srch: '<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/>',
+  moon: '<path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z"/>',
+  devic: '<path d="M8.5 7.5L4 12l4.5 4.5M15.5 7.5L20 12l-4.5 4.5M13.5 5l-3 14"/>',
   kbd: '<rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6.5 10h.01M10 10h.01M13.5 10h.01M17 10h.01M7.5 14h9"/>',
   cam: '<path d="M4 8h3l1.5-2.5h7L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
   imp: '<path d="M12 3.5v11M7.5 10l4.5 4.5 4.5-4.5"/><path d="M4.5 15.5v4h15v-4"/>',
@@ -847,6 +1038,7 @@ const Db = {
     const root = db.doc('data/users/' + uid + '/holst');
     this.boards = root.collection('boards'); this.parts = root.collection('parts'); this.assets = root.collection('assets');
     this.syncDoc = root.collection('sync').doc('drive');
+    this.devDoc = root.collection('sync').doc('dev');
   },
   async listBoards() {
     const qs = await this.boards.get();
@@ -1577,7 +1769,7 @@ function zoomAt(cx, cy, nz) {
   const wx = (cx - v.x) / v.z, wy = (cy - v.y) / v.z;
   v.z = nz; v.x = cx - wx * nz; v.y = cy - wy * nz; applyView();
 }
-const zoomStep = f => zoomAt(innerWidth / 2, innerHeight / 2, zoomCfg().step ? levelZoom(V().z, f > 1 ? 1 : -1) : V().z * f);
+const zoomStep = f => { const cx = innerWidth / 2, cy = innerHeight / 2; if (zoomCfg().step) { zoomAt(cx, cy, levelZoom(V().z, f > 1 ? 1 : -1)); return; } S.zAnchor = { x: cx, y: cy }; S.zt = clamp((S.zAnim ? S.zt : V().z) * f, zMin(), zMax()); if (!S.zAnim) S.zAnim = requestAnimationFrame(zoomTick); };
 function fitAll(list) {
   list = list || items();
   const v = V();
@@ -1852,6 +2044,7 @@ function render() {
   if (S.raf) { cancelAnimationFrame(S.raf); S.raf = 0; }
   if (!S.board) return;
   layoutPins(); computeHidden(); S._zminFor = null;
+  if (S.hover && !byId(S.hover)) S.hover = null;
   const order = renderOrder(), seen = new Set(), conns = [];
   order.forEach((it, i) => {
     let el = els.get(it.id);
@@ -1902,13 +2095,13 @@ function renderOverlay() {
         if (!busy && !S.editing) {
           const one = solids.length === 1 ? solids[0] : null;
           if (one && one.locked) h += `<div class="ov-lock" style="left:${r.x + r.w}px;top:${r.y}px">${ic('lock')}</div>`;
-          const hs = solids.some(i => i.locked) || (one && one.type === 'mindmap') ? [] : one && (one.type === 'text' || one.type === 'table') ? ['w', 'e'] : one ? ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'] : ['nw', 'ne', 'se', 'sw'];
+          const hs = solids.some(i => i.locked) || (one && one.type === 'mindmap') ? [] : one && (one.type === 'text' || one.type === 'table') ? ['w', 'e'] : ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'];
           for (const k of hs) {
             const x = r.x + (k.includes('w') ? 0 : k.includes('e') ? r.w : r.w / 2);
             const y = r.y + (k.includes('n') ? 0 : k.includes('s') ? r.h : r.h / 2);
             h += `<div class="ov-h" data-handle="${k}" style="left:${x}px;top:${y}px"></div>`;
           }
-          if (one && !one.pin && one.type !== 'pen' && r.w > 50 && r.h > 30) {
+          if (one && pinnable(one) && r.w > 20 && r.h > 14) {
             const P = { 'tl-t': [r.x + 16, r.y - 24], 'tl-l': [r.x - 24, r.y + 16], 'tr-t': [r.x + r.w - 16, r.y - 24], 'tr-r': [r.x + r.w + 24, r.y + 16], 'br-r': [r.x + r.w + 24, r.y + r.h - 16], 'br-b': [r.x + r.w - 16, r.y + r.h + 24], 'bl-b': [r.x + 16, r.y + r.h + 24], 'bl-l': [r.x - 24, r.y + r.h - 16] };
             for (const k of SLOTS) if (k === S.plusHot) h += `<button class="cplus" data-pin="${k}" style="left:${P[k][0]}px;top:${P[k][1]}px" title="${esc(PIN_KINDS[pinTpl(one, k)])}. Правая кнопка: выбрать другое и настроить шаблон">+</button>`;
           }
@@ -1955,7 +2148,7 @@ function renderCtx() {
   const sel = S.board ? selItems() : [];
   const d = S.drag;
   if (!sel.length || S.pinch || S.focus || (d && !['pan', 'move-pending'].includes(d.type))) { ctxBar.hidden = true; ctxSig = ''; return; }
-  const sig = JSON.stringify(sel.map(i => [i.id, i.type, i.color, i.fill, i.stroke, i.sw, i.textColor, i.fs, i.bold, i.align, i.width, i.style, i.start, i.end, i.dash, i.shape, i.kind, i.view, i.fstyle, i.label, i.ehead, i.shead, i.layout, i.grp, i.header, i.hfill, i.sub, i.title]).concat([[S.editing, S.editSub, S.mm && S.mm.nid]]));
+  const sig = JSON.stringify(sel.map(i => [i.id, i.type, i.color, i.fill, i.stroke, i.sw, i.textColor, i.fs, i.bold, i.align, i.width, i.style, i.start, i.end, i.dash, i.shape, i.kind, i.view, i.fstyle, i.label, i.ehead, i.shead, i.layout, i.grp, i.header, i.hfill, i.sub, i.title, i.fixed, i.locked, !!i.pin]).concat([[S.editing, S.editSub, S.mm && S.mm.nid]]));
   if (sig !== ctxSig) { ctxSig = sig; ctxBar.innerHTML = buildCtx(sel); }
   ctxBar.hidden = false;
   positionCtx(sel);
@@ -2015,6 +2208,8 @@ function renderStatus() {
   if (c) { c.hidden = !Drive.available(); c.dataset.d = Drive.active() ? Drive.state : 'off'; c.title = Drive.active() ? 'Google Диск' : 'Подключить Google Диск'; }
   el.querySelector('.dot').classList.toggle('act', act);
   el.querySelector('.dot').title = text + (act ? ' (нажмите)' : '');
+  if (c && !c.hidden) { const cs = k === 'error' || k === 'mem' || k === 'full' ? 'error' : act ? 'auth' : !Drive.active() ? 'off' : k === 'saving' || k === 'loading' || Drive.state === 'syncing' ? 'syncing' : Drive.state === 'offline' ? 'offline' : 'ok'; c.dataset.d = cs; c.title = (Drive.active() ? text : 'Google Диск не подключён: ' + text) + (act ? ' — нажмите' : ''); c.classList.toggle('act', act || cs === 'error'); }
+  el.querySelector('.dot').hidden = !!(c && !c.hidden);
   const bk = $('#btnBackup');
   if (bk) { bk.hidden = !Backup.ok(); bk.dataset.b = Backup.dir ? Backup.state : 'off'; bk.title = !Backup.dir ? 'Резервная копия в папку: не настроена' : Backup.state === 'auth' ? 'Нажмите, чтобы разрешить запись в папку «' + Backup.name + '»' : Backup.state === 'error' ? 'Не удалось записать копию в папку' : 'Копия в папке «' + Backup.name + '»' + (Backup.last ? ', ' + fmtDate(Backup.last) : ''); }
   el.title = '';
@@ -2043,7 +2238,7 @@ async function saveNow() {
   if (saveAgain) { saveAgain = false; saveNow(); }
   renderDrawer();
 }
-const saveSettings = () => LS.set('settings', { grid: S.settings.grid, opts: S.opts, views: S.settings.views || {}, ctpl: S.settings.ctpl || {} });
+const saveSettings = () => LS.set('settings', { grid: S.settings.grid, opts: S.opts, views: S.settings.views || {}, ctpl: S.settings.ctpl || {}, theme: S.settings.theme || 'auto', ccol: S.settings.ccol || [] });
 
 /* Changes that arrive from outside (Claude in chat, another device) */
 async function onRemoteItems(bid, list, name) {
@@ -2316,7 +2511,7 @@ function payloadBounds(list) {
 }
 function deleteSel() {
   const ids = new Set([...S.sel].filter(id => !(byId(id) || {}).locked)); if (!ids.size) { if (S.sel.size) toast('Закреплённые объекты не удаляются: сначала снимите замок'); return; }
-  for (const i of items()) if (i.pin && ids.has(i.pin.to)) ids.add(i.id);
+  for (let n = 0; n < 25; n++) { let add = false; for (const i of items()) if (i.pin && ids.has(i.pin.to) && !ids.has(i.id)) { ids.add(i.id); add = true; } if (!add) break; }
   finishEdit(); pushHist();
   S.board.items = items().filter(i => !ids.has(i.id) && !(i.type === 'connector' && ((i.from.id && ids.has(i.from.id)) || (i.to.id && ids.has(i.to.id)))));
   if (ids.has(S.active)) S.active = null;
@@ -2915,7 +3110,7 @@ function closePane(i) {
 function splitPop(anchor) {
   openPop(anchor, '<div class="menu">' + Object.entries(SPLITS).map(([k, L]) => `<button class="mi" data-v="${k}"><span class="spic">${'▮'.repeat(L.cells.length)}</span><span>${L.name}</span></button>`).join('') + '</div>', v => enterSplit(v));
 }
-if (QS.has('debug')) setTimeout(() => { window.__h = { alignSel, toggleLock, enterIsolation, levelZoom, zoomCfg, openHistory, openBackup, Backup, applyView, V, whimImport2, tabDeeper, findTab, openCatalog, openVersions, enterFrame, exitFrame, tabsInit, tabSwitch, addPin, fillPins, openSnap, openKeys, whimImport, parseWhim, runAction, S, byId, items: () => items(), setView, setDefaultView, enterSplit, exitSplit, viewOf, groupSel, shapePath, render, mdToHtml, sanitizeHTML, saveNow }; }, 0);
+if (QS.has('debug')) setTimeout(() => { window.__h = { openSearch, runSearch, goToItem, openDev, renderDev, devTasks, devImport, devLoad, frameToTab, setTheme, tbList, openTbCatalog, zoomPop, wheelZoom, updateOutlines, layoutPins, findPinDrop, alignSel, toggleLock, enterIsolation, levelZoom, zoomCfg, openHistory, openBackup, Backup, applyView, V, whimImport2, tabDeeper, findTab, openCatalog, openVersions, enterFrame, exitFrame, tabsInit, tabSwitch, addPin, fillPins, openSnap, openKeys, whimImport, parseWhim, runAction, S, byId, items: () => items(), setView, setDefaultView, enterSplit, exitSplit, viewOf, groupSel, shapePath, render, mdToHtml, sanitizeHTML, saveNow }; }, 0);
 function wireSplit() {
   const grid = $('#splitGrid');
   $('#split').addEventListener('click', e => {
@@ -2954,10 +3149,10 @@ function wireSplit() {
 const ACTIONS = [
   ['Инструменты', [['tool:select', 'Выделение'], ['tool:hand', 'Рука'], ['tool:sticky', 'Стикер'], ['tool:text', 'Текст'], ['tool:shape', 'Фигура'], ['shape:rect', 'Прямоугольник'], ['shape:ellipse', 'Эллипс'], ['tool:connector', 'Линия со стрелкой'], ['tool:pen', 'Перо'], ['tool:eraser', 'Ластик'], ['tool:frame', 'Рамка'], ['tool:mindmap', 'Майнд-карта'], ['tool:doc', 'Документ'], ['tool:table', 'Таблица'], ['act:image', 'Изображение'], ['act:embed', 'Встроить ссылку или HTML']]],
   ['Правка', [['lock', 'Закрепить или открепить'], ['align', 'Выровнять выделенное'], ['undo', 'Отменить'], ['redo', 'Повторить'], ['redo2', 'Повторить, второе сочетание'], ['dup', 'Дублировать'], ['selectAll', 'Выделить всё'], ['del', 'Удалить'], ['del2', 'Удалить, второе сочетание'], ['group', 'Сгруппировать'], ['ungroup', 'Разгруппировать'], ['front', 'На передний план'], ['back', 'На задний план'], ['snap', 'Снимок выделенного']]],
-  ['Вид', [['zoomIn', 'Приблизить'], ['zoomOut', 'Отдалить'], ['zoom100', 'Масштаб 100%'], ['fit', 'Показать всё'], ['zoomSel', 'Показать выделенное'], ['grid', 'Сетка вкл/выкл'], ['focus', 'Развернуть на весь экран, открыть рамку'], ['help', 'Справка по клавишам']]],
+  ['Вид', [['zoomIn', 'Приблизить'], ['zoomOut', 'Отдалить'], ['zoom100', 'Масштаб 100%'], ['fit', 'Показать всё'], ['zoomSel', 'Показать выделенное'], ['search', 'Поиск'], ['grid', 'Сетка вкл/выкл'], ['focus', 'Развернуть на весь экран, открыть рамку'], ['help', 'Справка по клавишам']]],
   ['Файл', [['save', 'Сохранить файл доски'], ['open', 'Открыть файл доски']]],
 ];
-const BASE_KEYS = { lock: 'Mod+Shift+L', align: 'Mod+Shift+A', 'tool:select': 'V', 'tool:hand': 'H', 'tool:sticky': 'N', 'tool:text': 'T', 'tool:shape': 'S', 'shape:rect': 'R', 'shape:ellipse': 'O', 'tool:connector': 'L', 'tool:pen': 'P', 'tool:eraser': 'E', 'tool:frame': 'F', 'tool:mindmap': 'M', 'tool:doc': 'D', 'tool:table': 'G', 'act:image': 'I', 'act:embed': 'K', undo: 'Mod+Z', redo: 'Mod+Shift+Z', redo2: 'Mod+Y', dup: 'Mod+D', selectAll: 'Mod+A', del: 'Delete', del2: 'Backspace', group: 'Mod+G', ungroup: 'Mod+Shift+G', front: ']', back: '[', snap: 'Mod+Shift+S', zoomIn: 'Mod+=', zoomOut: 'Mod+-', zoom100: 'Shift+0', fit: 'Shift+1', zoomSel: 'Shift+2', grid: "Mod+'", focus: 'Shift+Enter', help: 'Shift+/', save: 'Mod+S', open: 'Mod+O' };
+const BASE_KEYS = { search: 'Mod+F', lock: 'Mod+Shift+L', align: 'Mod+Shift+A', 'tool:select': 'V', 'tool:hand': 'H', 'tool:sticky': 'N', 'tool:text': 'T', 'tool:shape': 'S', 'shape:rect': 'R', 'shape:ellipse': 'O', 'tool:connector': 'L', 'tool:pen': 'P', 'tool:eraser': 'E', 'tool:frame': 'F', 'tool:mindmap': 'M', 'tool:doc': 'D', 'tool:table': 'G', 'act:image': 'I', 'act:embed': 'K', undo: 'Mod+Z', redo: 'Mod+Shift+Z', redo2: 'Mod+Y', dup: 'Mod+D', selectAll: 'Mod+A', del: 'Delete', del2: 'Backspace', group: 'Mod+G', ungroup: 'Mod+Shift+G', front: ']', back: '[', snap: 'Mod+Shift+S', zoomIn: 'Mod+=', zoomOut: 'Mod+-', zoom100: 'Shift+0', fit: 'Shift+1', zoomSel: 'Shift+2', grid: "Mod+'", focus: 'Shift+Enter', help: 'Shift+/', save: 'Mod+S', open: 'Mod+O' };
 const PRESETS = {
   holst: { name: 'Холст', keys: {}, wheel: { plain: 'zoom', shift: 'panX', ctrl: 'panY' } },
   miro: { name: 'Miro', keys: { 'tool:mindmap': '', 'tool:doc': '', 'tool:table': '', front: 'PageUp', back: 'PageDown', zoom100: 'Mod+0', fit: 'Mod+1', zoomSel: 'Mod+2', grid: 'G', help: 'F1' }, wheel: { plain: 'zoom', shift: 'panX', ctrl: 'zoom' } },
@@ -3012,6 +3207,7 @@ function runAction(a) {
     case 'grid': S.settings.grid = !S.settings.grid; saveSettings(); updateCursor(); return true;
     case 'focus': { const it = one(); if (!it) return false; enterFocus(it.id); return true; }
     case 'help': openHelp(); return true;
+    case 'search': openSearch(); return true;
     case 'save': exportBoardFile(); return true;
     case 'open': $('#fileBoard').click(); return true;
   }
@@ -3028,7 +3224,7 @@ function xdlg(title, html, wide) {
   d.querySelector('[data-x="close"]').addEventListener('click', closeXdlg);
   return d;
 }
-function closeXdlg() { if (S.xdlg) { S.xdlg.remove(); S.xdlg = null; } S.capture = null; }
+function closeXdlg() { if (S.xdlg && S.xdlg._dev) devFlush(); if (S.xdlg) { S.xdlg.remove(); S.xdlg = null; } S.capture = null; }
 function openKeys() {
   const sel = k => `<select class="inp" data-w="${k}">${Object.entries(WHEEL_NAMES).map(([v, l]) => `<option value="${v}"${S.wheel[k] === v ? ' selected' : ''}>${l[0].toUpperCase() + l.slice(1)}</option>`).join('')}</select>`;
   const rows = ACTIONS.map(([g, list]) => `<h3>${g}</h3>` + list.map(([a, l]) => `<div class="krow"><span>${l}</span><button class="kbtn" data-ka="${a}">${esc(keyOf(a))}</button><button class="kclr" data-kc="${a}" title="Убрать сочетание">${ic('close')}</button></div>`).join('')).join('');
@@ -3036,7 +3232,7 @@ function openKeys() {
     ${PRESETS[S.keyPreset].approx ? '<p class="sub">Яндекс Доски не публикуют полный список клавиш, поэтому этот набор повторяет их привычные сочетания по образцу Miro. Поправьте под себя, если что-то отличается.</p>' : ''}
     <h3>Колесо мыши</h3><div class="kwh"><label>Колесо ${sel('plain')}</label><label>Shift + колесо ${sel('shift')}</label><label>${MOD} + колесо ${sel('ctrl')}</label></div>
     <p class="sub">Тачпад работает как обычно: щипок меняет масштаб, два пальца двигают доску.</p>
-    <h3>Масштаб</h3><div class="kwh"><label>Минимум, %<input class="inp" data-z="min" value="${zoomCfg().min}"></label><label>Максимум, %<input class="inp" data-z="max" value="${zoomCfg().max}"></label><label class="zck"><input type="checkbox" data-z="step"${zoomCfg().step ? ' checked' : ''}> Колесо и кнопки прыгают по уровням</label></div><label class="zlv">Уровни, %, через запятую<input class="inp" data-z="levels" value="${zoomCfg().levels.join(', ')}"></label><label class="zlv zck"><span><input type="checkbox" data-z="snap"${zoomCfg().snap === false ? '' : ' checked'}> Умные направляющие при перемещении (Alt временно отключает)</span></label><p class="sub">Ниже минимума масштаб опускается, только когда иначе доска не помещается на экран.</p>
+    <p class="sub">Масштаб, скорость колеса, плавность, диапазон и уровни: щёлкните по проценту внизу справа.</p>
     <p class="sub">Щёлкните по сочетанию и нажмите новое. Esc отменяет. Если сочетание уже занято, оно перейдёт сюда.</p>${rows}`, true);
   d.addEventListener('click', e => {
     const b = e.target.closest('[data-kp],[data-ka],[data-kc]'); if (!b) return;
@@ -3083,7 +3279,7 @@ function computeHidden() {
   if (topV === '#sel' && S.isol) for (const it of list) if (it.type !== 'connector' && !S.isol.has(it.id) && !(it.pin && S.isol.has(it.pin.to))) hid.add(it.id);
   if (fv) { const inside = new Set(withFrameContents([fv]).map(i => i.id)); for (const it of list) if (it.type !== 'connector' && !inside.has(it.id) && !(it.pin && inside.has(it.pin.to))) hid.add(it.id); }
   for (const c of list) if (c.type === 'connector') { const a = c.from && c.from.id, b = c.to && c.to.id; if ((a && hid.has(a)) || (b && hid.has(b)) || (fv && !a && !b) || (topV === '#sel' && !a && !b && !S.isol.has(c.id))) hid.add(c.id); }
-  for (const it of list) if (it.pin && hid.has(it.pin.to)) hid.add(it.id);
+  for (let n = 0; n < 25; n++) { let add = false; for (const it of list) if (it.pin && hid.has(it.pin.to) && !hid.has(it.id)) { hid.add(it.id); add = true; } if (!add) break; }
   S.hid = hid;
   for (const id of hid) S.sel.delete(id);
 }
@@ -3166,14 +3362,17 @@ function mkPin(kind, p, slot) {
   return { id: uid(), type: 'shape', shape: 'pill', x: 0, y: 0, w: 130, h: 36, fill: '#e8eeff', stroke: '#3355ff', sw: 1.5, text: 'Метка', fs: 14, align: 'center', bold: true, textColor: '#1f3fd1', pin };
 }
 function layoutPins() {
+  const depth = new Map();
+  const dOf = (it, n) => { if (!it.pin || n > 25) return n > 25 ? 99 : 0; if (depth.has(it.id)) return depth.get(it.id); const p = byId(it.pin.to); const d = p ? dOf(p, n + 1) + 1 : 0; depth.set(it.id, d); return d; };
   const groups = new Map();
   for (const it of items()) if (it.pin) {
     const p = byId(it.pin.to);
-    if (!p || p.type === 'connector' || p.pin) { delete it.pin; continue; }
+    if (!p || p.type === 'connector' || p === it || it.type === 'connector' || dOf(it, 0) > 25) { delete it.pin; continue; }
     const k = p.id + '|' + it.pin.slot; if (!groups.has(k)) groups.set(k, [p]); groups.get(k).push(it);
   }
   S.zones = [];
-  for (const [k, [p, ...list]] of groups) placeSlot(bounds(p), k.split('|')[1], list);
+  const ordered = [...groups].sort((a, b) => dOf(a[1][0], 0) - dOf(b[1][0], 0));
+  for (const [k, [p, ...list]] of ordered) placeSlot(bounds(p), k.split('|')[1], list);
   const byParent = new Map();
   for (const [k, [p, ...list]] of groups) { if (!byParent.has(p.id)) byParent.set(p.id, [p]); byParent.get(p.id).push(...list); }
   for (const [pid, [p, ...list]] of byParent) { const u = unionB([p, ...list].map(bounds)); S.zones.push({ id: pid, x: u.x - 10, y: u.y - 10, w: u.w + 20, h: u.h + 20 }); }
@@ -3309,7 +3508,7 @@ function parseWhim(txt) {
     if (ln.startsWith('Palette:')) { for (const m of ln.matchAll(/=(#[0-9A-Fa-f]{6}|oklch\(([\d.]+)%\s+([\d.]+)\s+([\d.]+)\))\s+"([^"]+)"/g)) out.pal[m[5]] = m[2] ? oklchHex(+m[2] / 100, +m[3], +m[4]) : m[1].toLowerCase(); mode = ''; continue; }
     if (!ln.trim()) { if (mode === 'rows') mode = ''; continue; }
     if (mode === 'rows') { const p = ln.split(','); if (p.length < 9) continue; out.rows.push({ type: p[0], id: p[1], parent: p[2], x: +p[3], y: +p[4], w: +p[5], h: +p[6], color: p[7], text: p.slice(8).join(',') }); }
-    else if (mode === 'conns') { const m = ln.match(/^\s*(\w+):\s*(\w+)\s*->\s*(\w+)/); if (m) out.conns.push({ id: m[1], from: m[2], to: m[3] }); }
+    else if (mode === 'conns') { const m = ln.match(/^\s*(\w+):\s*(\w+|\(x=-?[\d.]+,y=-?[\d.]+\))\s*->\s*(\w+|\(x=-?[\d.]+,y=-?[\d.]+\))(?:\s+"([^"]*)")?/); if (m) out.conns.push({ id: m[1], from: whimPt(m[2]), to: whimPt(m[3]), label: m[4] || '' }); }
   }
   return out;
 }
@@ -3457,7 +3656,7 @@ function installHelp() {
    v1.7: versions, feature catalog, tiny-object markers, pin zones, re-attach,
    nested frame tabs, Whimsical import that reads the whole board by sections
    ========================================================= */
-const APP_VERSION = '1.9';
+const APP_VERSION = '2.0';
 const CHANGELOG = [
   ['1.9', '6 октября 2026', ['Масштаб от 0,5%, свой диапазон и уровни: колесо и кнопки прыгают по уровням (Горячие клавиши → Масштаб)', 'Замок: закреплённый объект не двигается, не меняется и не удаляется', 'Выравнивание, равные промежутки, одинаковый размер и одинаковая длина линий для выделенного', 'Умные направляющие: при перемещении и растягивании объект прилипает к краям и центрам соседей (Alt отключает)', 'Выделенное можно открыть отдельно, как доску, с хлебными крошками', 'Резервная копия в папку на компьютере, в том числе в папку Яндекс Диска, с недельным архивом', 'История версий доски с поиском по дате: копии на устройстве и версии из Google Диска', 'Компактная панель статуса: цветные индикаторы, мигающий значит нужно ваше действие', 'Контуры при сильном отдалении: только у внешних объектов, нейтральным серым, точно по размеру', 'Импорт из Whimsical: секции как в оригинале, блок-схемы и прямоугольники, шрифт подбирается под каждое устройство']],
   ['1.8', '6 октября 2026', ['Импорт из Whimsical: майнд-карты снова переносятся, сбойные запросы повторяются, а не пропускаются', 'Картинки из Whimsical переносятся как картинки', 'Ссылки из Whimsical становятся текстом-ссылкой, а не пустой карточкой', 'Размер шрифта в перенесённых заголовках подбирается по настоящему шрифту, слова больше не рвутся', 'При сильном отдалении (1% и меньше) подсвечиваются контуры объектов вместо пятен', 'Копирование в другие приложения: обычный текст с форматированием, без служебного кода', 'Приложение само проверяет, есть ли на сайте новая версия, и предлагает обновиться']],
@@ -3469,28 +3668,6 @@ const CHANGELOG = [
   ['1.2', '4 октября 2026', ['Встраивания, полноэкранный режим, хранение в Claude']],
   ['1.0', '4 октября 2026', ['Первая версия доски']],
 ];
-function openVersions() {
-  if (!S.hosted && !IS_FILE) checkServerVersion(true);
-  xdlg('Холст ' + APP_VERSION, `<p class="sub">Открыта версия ${APP_VERSION}. Если номер меньше, чем в последнем сообщении Claude, нажмите Ctrl+Shift+R. Приложение и само проверяет сайт: когда там новее, внизу появляется кнопка «Обновить».</p>` +
-    CHANGELOG.map(([v, d, list]) => `<h3>Версия ${v} · ${d}</h3><ul class="clog">${list.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`).join(''));
-}
-const FEATURES = [
-  ['Основа', [['zlev', 'Уровни масштаба', 'Горячие клавиши → Масштаб: минимум, максимум и список уровней', '1.9'], ['lock', 'Замок', 'Кнопка с замком или Ctrl+Shift+L', '1.9'], ['align', 'Выравнивание и распределение', 'Выделите несколько объектов → кнопка «Выровнять»', '1.9'], ['guides', 'Умные направляющие', 'Тащите объект: он прилипает к краям и центрам соседей; Alt отключает', '1.9'], ['isol', 'Выделенное отдельно', 'Выделите несколько объектов → кнопка со стрелками', '1.9'], ['pan', 'Двигать доску', 'Пробел + перетаскивание, правая кнопка мыши или два пальца на тачпаде'], ['zoom', 'Масштаб', 'Колесо мыши, кнопки внизу справа; минимальный масштаб вмещает всю доску', '1.7'], ['wheel', 'Прокрутка колесом', 'Shift + колесо по горизонтали, Ctrl + колесо по вертикали (меняется в «Горячих клавишах»)', '1.6'], ['tiny', 'Контуры при сильном отдалении', 'На масштабе 1% и меньше объекты обводятся контуром, чтобы их было видно', '1.8'], ['undo', 'Отмена и повтор', 'Ctrl+Z, Ctrl+Shift+Z'], ['boards', 'Несколько досок', 'Кнопка с квадратиками рядом с названием']]],
-  ['Элементы', [['sticky', 'Стикеры', 'N, шрифт подбирается сам'], ['text', 'Текст', 'T'], ['shapes', 'Фигуры, 21 вид', 'S, выбор вида в выпадающем списке'], ['conn', 'Линии со стрелками', 'L; подпись, вид концов, пунктир и точки в панели'], ['pen', 'Перо и ластик', 'P и E'], ['frame', 'Рамки и секции', 'F; вид «Рамка» или «Секция» в панели'], ['mm', 'Майнд-карты', 'M; Tab ветка, Enter соседняя, цвета веток, сворачивание'], ['doc', 'Документы', 'D; заголовки, списки, Shift+Enter на весь экран'], ['table', 'Таблицы', 'G; Tab между ячейками, строки и столбцы в панели'], ['img', 'Картинки', 'I, вставка из буфера или перетаскивание']]],
-  ['Текст', [['rich', 'Форматирование части текста', 'Выделите слова при редактировании: жирный, курсив, цвет, списки, заголовки'], ['hl', 'Выделение цветом', 'Ctrl+Shift+H или кнопка A на жёлтом фоне'], ['size', 'Размер части текста', 'Кнопка Aa при редактировании']]],
-  ['Структура', [['grp', 'Группы', 'Ctrl+G и Ctrl+Shift+G'], ['tabs', 'Вкладки в рамках', 'Кнопка «Вкладки» у рамки; щелчок по активной вкладке: имя, удаление, уровень глубже', '1.7'], ['fview', 'Рамка как отдельная доска', 'Кнопка развёртывания у рамки, хлебные крошки сверху, Esc выше', '1.6'], ['pins', 'Элементы на углах', 'Наведите на угол выделенного элемента, щёлкните плюс; правая кнопка: выбор и шаблоны', '1.7'], ['repin', 'Прицепить объект к другому', 'Перетащите объект на место плюсика другого объекта', '1.7'], ['fixed', 'Не масштабировать', 'Кнопка в панели: размер на экране не меняется при зуме', '1.7'], ['split', 'Разделение экрана', 'Меню ⋯ → Разделить экран (в приложении, не в Claude)']]],
-  ['Встраивания', [['embed', 'Видео, сайты, документы', 'K или просто вставьте ссылку на доску'], ['views', 'Вид ссылки', 'Содержимое, карточка, строка, обложка; вид по умолчанию для каждого типа'], ['claude', 'Карточки чатов Claude', 'Вставьте ссылку на чат, название и проект через «Подпись»'], ['html', 'Свои HTML-инструменты', 'Перетащите .html файл на доску'], ['focus', 'Во весь экран', 'Shift+Enter']]],
-  ['Файлы и синхронизация', [['drive', 'Google Диск', 'Облако вверху справа; доски совпадают на компьютере, телефоне и в Claude'], ['snap', 'Снимки', 'Ctrl+Shift+S: PNG, JPG, WebP, обрезка мышью', '1.6'], ['wimp', 'Импорт из Whimsical', 'Меню ⋯ в версии внутри Claude; повторный импорт обновляет доску', '1.8'], ['keys', 'Горячие клавиши', 'Меню ⋯ → Горячие клавиши, наборы Miro, Whimsical, Яндекс Доски', '1.6'], ['ver', 'Версии и картотека', 'Меню ⋯ → номер версии и «Картотека функций»', '1.7'], ['upd', 'Проверка обновлений', 'Если на сайте новее, внизу появится кнопка «Обновить»', '1.8'], ['copy', 'Копирование в другие приложения', 'Ctrl+C на выделенном: в Notion, Telegram, чат вставится текст с форматированием', '1.8'], ['backup', 'Копия в папку на компьютере', 'Значок папки вверху справа: выбрать или сменить папку, недельный архив, Яндекс Диск', '1.9'], ['hist', 'История версий', 'Меню ⋯ → История версий, поиск по дате, версия открывается отдельной доской', '1.9']]],
-];
-function openCatalog(filter) {
-  const ck = LS.get('checked') || {}; filter = filter || 'all';
-  const all = FEATURES.flatMap(([, l]) => l), done = all.filter(f => ck[f[0]]).length;
-  const show = f => filter === 'all' || (filter === 'todo' && !ck[f[0]]) || (filter === 'new' && f[3] === APP_VERSION);
-  const d = xdlg('Картотека функций', `<div class="row"><button class="ob ${filter === 'all' ? 'on' : ''}" data-cf="all">Все</button><button class="ob ${filter === 'todo' ? 'on' : ''}" data-cf="todo">Не проверенные</button><button class="ob ${filter === 'new' ? 'on' : ''}" data-cf="new">Новое в ${APP_VERSION}</button><span class="sub">Проверено ${done} из ${all.length}</span></div>` +
-    FEATURES.map(([g, l]) => { const v = l.filter(show); return v.length ? `<h3>${g}</h3>` + v.map(([id, t, how, since]) => `<label class="fcat"><input type="checkbox" data-fc="${id}"${ck[id] ? ' checked' : ''}><span><b>${esc(t)}</b>${since === APP_VERSION ? '<i class="newb">новое</i>' : ''}<br><small>${esc(how)}</small></span></label>`).join('') : ''; }).join(''), true);
-  d.addEventListener('click', e => { const b = e.target.closest('[data-cf]'); if (b) openCatalog(b.dataset.cf); });
-  d.addEventListener('change', e => { const c = e.target.closest('[data-fc]'); if (!c) return; const m = LS.get('checked') || {}; if (c.checked) m[c.dataset.fc] = 1; else delete m[c.dataset.fc]; LS.set('checked', m); });
-}
 async function checkServerVersion(manual) {
   if (S.hosted || IS_FILE || PANE || !navigator.onLine) return;
   try {
@@ -3514,23 +3691,7 @@ function checkVersion() {
 /* ---------- markers for objects too small to see ---------- */
 const DOT_COL = it => it.type === 'sticky' ? darken(it.color || '#fff59d') : it.type === 'text' ? (it.textColor || INK) : it.type === 'mindmap' ? (it.root.color || '#3355ff') : it.type === 'shape' ? (it.stroke || INK) : it.type === 'embed' ? ((PROV[it.provider] || PROV.web).c) : it.type === 'frame' ? (it.bcol || '#9aa1ad') : '#8a94a6';
 function darken(hex) { const n = parseInt(String(hex).slice(1), 16); if (!Number.isFinite(n)) return '#8a94a6'; return '#' + [n >> 16, (n >> 8) & 255, n & 255].map(v => Math.round(v * 0.7).toString(16).padStart(2, '0')).join(''); }
-function drawDots() {
-  const cv = S.dotsCv; if (!cv || !S.board) return;
-  const dpr = window.devicePixelRatio || 1, W = innerWidth, H = innerHeight;
-  if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
-  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
-  const v = V(); if (v.z > 0.0101 || S.focus) return;
-  const rects = [];
-  for (const it of items()) { if (it.type === 'connector' || it.type === 'pen' || isHid(it)) continue; const b = bounds(it); rects.push([b.x * v.z + v.x, b.y * v.z + v.y, b.w * v.z, b.h * v.z]); }
-  rects.sort((a, b) => b[2] * b[3] - a[2] * a[3]);
-  const drawn = []; g.lineWidth = 1; g.strokeStyle = 'rgba(70,74,84,.55)';
-  for (const r of rects) {
-    if (r[2] < 1.5 && r[3] < 1.5) continue;
-    if (r[0] > W || r[1] > H || r[0] + r[2] < 0 || r[1] + r[3] < 0) continue;
-    if (drawn.some(o => r[0] >= o[0] - 0.5 && r[1] >= o[1] - 0.5 && r[0] + r[2] <= o[0] + o[2] + 0.5 && r[1] + r[3] <= o[1] + o[3] + 0.5)) continue;
-    drawn.push(r); g.strokeRect(Math.round(r[0]) + 0.5, Math.round(r[1]) + 0.5, Math.max(1, Math.round(r[2])), Math.max(1, Math.round(r[3])));
-  }
-}
+function drawDots() { updateOutlines(); }
 
 /* ---------- pins: rows limited to half a side, zone around the cluster, re-attach by dropping ---------- */
 function placeSlot(b, slot, list) {
@@ -3542,30 +3703,32 @@ function placeSlot(b, slot, list) {
     let x, y;
     if (horiz) { x = (slot[1] === 'l' ? b.x + along : b.x + b.w - along - w); y = slot.endsWith('-t') ? b.y - G - across - h : b.y + b.h + G + across; }
     else { y = (slot[0] === 't' ? b.y + along : b.y + b.h - along - h); x = slot.endsWith('-l') ? b.x - G - across - w : b.x + b.w + G + across; }
-    it.x = r1(x); it.y = r1(y); along += len + G; band = Math.max(band, th);
+    if (it.type === 'frame' || it.type === 'mindmap') shiftItem(it, r1(x) - it.x, r1(y) - it.y); else { it.x = r1(x); it.y = r1(y); }
+    along += len + G; band = Math.max(band, th);
   }
 }
 const PLUS_POS = r => ({ 'tl-t': [r.x + 16, r.y - 24], 'tl-l': [r.x - 24, r.y + 16], 'tr-t': [r.x + r.w - 16, r.y - 24], 'tr-r': [r.x + r.w + 24, r.y + 16], 'br-r': [r.x + r.w + 24, r.y + r.h - 16], 'br-b': [r.x + r.w - 16, r.y + r.h + 24], 'bl-b': [r.x + 16, r.y + r.h + 24], 'bl-l': [r.x - 24, r.y + r.h - 16] });
-const pinnable = it => !!it && it.type !== 'connector' && it.type !== 'pen' && !it.pin && !isHid(it);
+const pinnable = it => !!it && it.type !== 'connector' && !isHid(it);
+const pinChainHas = (it, id) => { for (let n = 0; it && it.pin && n < 30; n++) { if (it.pin.to === id) return true; it = byId(it.pin.to); } return false; };
 function updatePlusHot(e) {
   let hot = null;
   const s = S.sel.size === 1 ? byId([...S.sel][0]) : null;
   if (s && pinnable(s) && !S.editing) {
     const r = screenRect(bounds(s));
-    if (r.w > 50 && r.h > 30) {
+    if (r.w > 20 && r.h > 14) {
       const P = PLUS_POS(r);
       for (const k of SLOTS) if (Math.hypot(e.clientX - P[k][0], e.clientY - P[k][1]) < 30) { hot = k; break; }
     }
   }
   if (hot !== S.plusHot) { S.plusHot = hot; renderOverlay(); }
 }
-function findPinDrop(e, moving) {
-  if (!pinnable(moving) && !(moving && moving.pin)) return null;
+function findPinDrop(e, moving, skip) {
+  if (!moving || moving.type === 'connector') return null;
   let best = null, bd = 30;
   for (const it of items()) {
-    if (it.id === moving.id || !pinnable(it) || it.type === 'frame') continue;
+    if (it.id === moving.id || !pinnable(it) || (skip && skip.has(it.id)) || pinChainHas(it, moving.id)) continue;
     const r = screenRect(bounds(it));
-    if (r.w < 50 || r.h < 30 || e.clientX < r.x - 60 || e.clientX > r.x + r.w + 60 || e.clientY < r.y - 60 || e.clientY > r.y + r.h + 60) continue;
+    if (r.w < 20 || r.h < 14 || e.clientX < r.x - 60 || e.clientX > r.x + r.w + 60 || e.clientY < r.y - 60 || e.clientY > r.y + r.h + 60) continue;
     const P = PLUS_POS(r);
     for (const k of SLOTS) { const dd = Math.hypot(e.clientX - P[k][0], e.clientY - P[k][1]); if (dd < bd) { bd = dd; best = { to: it.id, slot: k, x: P[k][0], y: P[k][1], r }; } }
   }
@@ -3686,7 +3849,7 @@ async function whimImport2(link, log) {
     else if (r.type === 'image' || r.type === 'attachment') {
       imgN++; log(`Картинка ${imgN}`);
       const src = await whimImage(fileId, r.id).catch(() => null);
-      if (src) { const aid = 'w' + uid(), nat = await imgSize(src); const h = nat ? r1(r.w * nat[1] / nat[0]) : r.h; assets[aid] = src; it = { id: uid(), type: 'image', x: X(r.x), y: Y(r.y), w: r.w, h, asset: aid }; }
+      if (src) { const aid = 'w' + uid(); assets[aid] = await cropToAspect(src, r.w, r.h); it = { id: uid(), type: 'image', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, asset: aid }; }
       else { const sp = parseEmbed(ov.url || 'https://whimsical.com'); if (sp) it = { id: uid(), type: 'embed', ...sp, title: 'Картинка из Whimsical', sub: 'Не удалось перенести, откройте исходную доску', x: X(r.x), y: Y(r.y), w: r.w, h: r.h, view: 'card', vs: 'card' }; }
     }
     else if (r.type === 'table') {
@@ -3709,9 +3872,12 @@ async function whimImport2(link, log) {
     for (const r of rows) nodeMap.set(r.id, { id: it.id, node: 'n' + r.id });
   }
   for (const c of conns.values()) {
-    const end = wid => nodeMap.get(wid) || (idMap.has(wid) ? { id: idMap.get(wid) } : null);
+    const end = wid => (wid && typeof wid === 'object' ? { x: X(wid.x), y: Y(wid.y) } : nodeMap.get(wid) || (idMap.has(wid) ? { id: idMap.get(wid) } : null));
     const a = end(c.from), b = end(c.to); if (!a || !b) continue;
-    out.push({ id: uid(), type: 'connector', from: a, to: b, style: 'curve', color: '#7f8aa3', width: 2, start: false, end: true });
+    const free = !a.id && !b.id;
+    const cn = { id: uid(), type: 'connector', from: a, to: b, style: free ? 'straight' : 'curve', color: free ? '#9aa3b5' : '#7f8aa3', width: 2, start: false, end: !free };
+    if (free) cn.dash = true; if (c.label) cn.label = c.label;
+    out.push(cn);
   }
   log('Сохраняю доску…');
   const map = LS.get('whimsrc') || {}, prevId = map[fileId];
@@ -3729,8 +3895,8 @@ async function whimImport2(link, log) {
    v1.9: zoom levels, lock, align and distribute, smart guides, selection as a board,
    backup folder on the computer, version history, compact status
    ========================================================= */
-const ZOOM_DEF = { min: 0.5, max: 500, levels: [0.5, 1, 2, 3, 5, 10, 15, 25, 33, 50, 67, 75, 100, 125, 150, 200, 300, 400, 500], step: true };
-function zoomCfg() { return S.zoomCfg || (S.zoomCfg = Object.assign({}, ZOOM_DEF, LS.get('zoomcfg') || {})); }
+const ZOOM_DEF = { min: 0.5, max: 500, levels: [0.5, 1, 2, 3, 5, 10, 15, 25, 33, 50, 67, 75, 100, 125, 150, 200, 300, 400, 500], step: false, smooth: true, speed: 5 };
+function zoomCfg() { if (S.zoomCfg) return S.zoomCfg; const st = LS.get('zoomcfg') || {}; if (!LS.get('zoomcfg2')) { st.step = false; st.smooth = true; LS.set('zoomcfg2', 1); LS.set('zoomcfg', st); } return (S.zoomCfg = Object.assign({}, ZOOM_DEF, st)); }
 const zMax = () => clamp((+zoomCfg().max || 500) / 100, 0.1, 50);
 function levelZoom(z, dir) {
   const lo = zMin(), hi = zMax(), L = zoomCfg().levels.map(x => x / 100).filter(x => x >= lo - 1e-9 && x <= hi + 1e-9).sort((a, b) => a - b);
@@ -3777,6 +3943,11 @@ function alignSel(mode) {
     const total = s.reduce((a, [, b]) => a + (hz ? b.w : b.h), 0), gap = ((hz ? u.w : u.h) - total) / (s.length - 1);
     let p = hz ? u.x : u.y;
     for (const [it, b] of s) { shiftItem(it, hz ? p - b.x : 0, hz ? 0 : p - b.y, ids); p += (hz ? b.w : b.h) + gap; }
+  } else if (mode === 'ss') {
+    const ref = list[0]; for (const it of list.slice(1)) { if (it.type === 'mindmap' || it.fixed) continue; it.w = ref.w; if (it.type !== 'text' && it.type !== 'table') it.h = ref.h; }
+  } else if (mode === 'grid') {
+    const sb = [...bs].sort((a, b) => (Math.round(a[1].y / 40) - Math.round(b[1].y / 40)) || (a[1].x - b[1].x)), cols = Math.ceil(Math.sqrt(sb.length)), cw = Math.max(...sb.map(x => x[1].w)), ch = Math.max(...sb.map(x => x[1].h)), G = 24;
+    sb.forEach(([it, b], i) => shiftItem(it, u.x + (i % cols) * (cw + G) - b.x, u.y + Math.floor(i / cols) * (ch + G) - b.y, ids));
   } else if (mode === 'sw' || mode === 'sh') {
     const ref = list[0];
     for (const it of list.slice(1)) { if (it.type === 'mindmap' || it.fixed) continue; if (mode === 'sw') it.w = ref.w; else if (it.type !== 'text' && it.type !== 'table') it.h = ref.h; }
@@ -3785,7 +3956,7 @@ function alignSel(mode) {
 }
 function alignPop(anchor) {
   const b = (v, i, t) => `<button class="ob ib2" data-v="${v}" title="${t}">${ic(i)}</button>`;
-  openPop(anchor, `<div class="vp"><div class="vp-h">Выровнять</div><div class="row">${b('l', 'alL', 'По левому краю')}${b('c', 'alC', 'По центру')}${b('r', 'alR', 'По правому краю')}${b('t', 'alT', 'По верху')}${b('m', 'alM', 'По середине')}${b('b', 'alB', 'По низу')}</div><div class="vp-h">Распределить и размер</div><div class="row">${b('dh', 'disH', 'Равные промежутки по горизонтали')}${b('dv', 'disV', 'Равные промежутки по вертикали')}${b('sw', 'sameW', 'Одинаковая ширина, как у первого')}${b('sh', 'sameH', 'Одинаковая высота, как у первого')}<button class="ob" data-v="len" title="Свободные линии станут длиной как первая">Длина линий</button></div></div>`, v => alignSel(v));
+  openPop(anchor, `<div class="vp"><div class="vp-h">Выровнять</div><div class="row">${b('l', 'alL', 'По левому краю')}${b('c', 'alC', 'По центру')}${b('r', 'alR', 'По правому краю')}${b('t', 'alT', 'По верху')}${b('m', 'alM', 'По середине')}${b('b', 'alB', 'По низу')}</div><div class="vp-h">Распределить и размер</div><div class="row">${b('dh', 'disH', 'Равные промежутки по горизонтали')}${b('dv', 'disV', 'Равные промежутки по вертикали')}${b('sw', 'sameW', 'Одинаковая ширина, как у первого')}${b('sh', 'sameH', 'Одинаковая высота, как у первого')}<button class="ob" data-v="ss">Одинаковый размер</button><button class="ob" data-v="grid">Разложить сеткой</button><button class="ob" data-v="len" title="Свободные линии станут длиной как первая">Длина линий</button></div></div>`, v => alignSel(v));
 }
 
 /* ---------- smart guides while moving and resizing ---------- */
@@ -3883,8 +4054,8 @@ const Backup = {
 function openBackup() {
   const B = Backup;
   if (!B.ok()) { xdlg('Резервная копия в папку', '<p class="sub">Копия в папку на компьютере работает в приложении на компьютере в Chrome, Comet или Edge. В версии внутри Claude и на телефоне доски защищены Google Диском.</p>'); return; }
-  const d = xdlg('Резервная копия в папку', `<p class="sub">Холст сам кладёт копию каждой доски в выбранную папку при каждом изменении, а раз в неделю ещё и в подпапку «Архив по неделям». Копии открываются через меню ⋯ → «Открыть файл доски».</p>
-    <div class="dstat" data-d="${B.state === 'ok' ? 'ok' : B.state === 'auth' ? 'auth' : B.state === 'error' ? 'error' : 'off'}"><span class="dot"></span><span>${B.dir ? `Папка «${esc(B.name)}»` : 'Папка не выбрана'}${B.state === 'auth' ? ': браузер просит заново разрешить запись' : ''}${B.last ? `, последняя копия ${fmtDate(B.last)}` : ''}</span></div>
+  const d = xdlg('Резервная копия в папку', `<div class="dstat" data-d="${B.state === 'ok' ? 'ok' : B.state === 'auth' ? 'auth' : B.state === 'error' ? 'error' : 'off'}"><span class="dot"></span><span>${B.dir ? `Папка «${esc(B.name)}»` : 'Папка не выбрана'}${B.state === 'auth' ? ': браузер просит заново разрешить запись' : ''}${B.last ? `, последняя копия ${fmtDate(B.last)}` : ''}</span></div>
+    <p class="sub">Холст сам кладёт копию каждой доски в выбранную папку при каждом изменении, а раз в неделю ещё и в подпапку «Архив по неделям». Копии открываются через меню ⋯ → «Открыть файл доски».</p>
     <div class="btnrow"><button class="btn" data-b="choose">${B.dir ? 'Сменить папку' : 'Выбрать папку'}</button>${B.dir && B.state === 'auth' ? '<button class="btn" data-b="grant">Разрешить запись</button>' : ''}${B.dir && B.state !== 'auth' ? '<button class="btn ghost" data-b="now">Сделать копию сейчас</button>' : ''}</div>
     <div class="note"><b>Яндекс Диск</b>Установите на компьютер программу «Яндекс Диск» и выберите здесь папку внутри её папки. Холст будет класть копии туда, а программа сама отправит их в Яндекс Диск. Отдельно настраивать ничего не нужно: если программа Яндекс Диска у вас работает, работает и это.</div>`);
   d.addEventListener('click', async e => { const b = e.target.closest('[data-b]'); if (!b) return; if (b.dataset.b === 'choose') await B.choose(); else if (b.dataset.b === 'grant') { await B.grant(); openBackup(); } else { B.all = true; await B.run(); toast('Копия сохранена'); openBackup(); } });
@@ -3927,6 +4098,702 @@ async function openHistory() {
     } catch (err) { btn.textContent = 'Не удалось открыть'; }
   });
 }
+
+
+/* =========================================================
+   v2.0: feature registry (Product area → Module → Feature), version history, backlog
+   ========================================================= */
+const AREAS = {
+  canvas: ['Холст', 'Canvas', { nav: 'Навигация (Navigation)', zoom: 'Масштаб (Zoom)', sel: 'Выделение (Selection)', edit: 'Правка (Editing)', snap: 'Привязки (Snapping)', look: 'Внешний вид (Appearance)' }],
+  obj: ['Объекты', 'Objects', { basic: 'Базовые объекты (Primitives)', shape: 'Фигуры и линии (Shapes & Connectors)', struct: 'Структурные объекты (Structured objects)', media: 'Медиа и встраивания (Media & Embeds)' }],
+  text: ['Текст', 'Text editing', { rich: 'Форматирование (Rich text)', edit: 'Ввод и вставка (Input)' }],
+  org: ['Организация', 'Organization', { frames: 'Рамки и вкладки (Frames & Tabs)', pins: 'Прикрепление (Attachments)', bulk: 'Групповое редактирование (Bulk editing)', lock: 'Защита (Locking)' }],
+  data: ['Данные и надёжность', 'Data & Reliability', { store: 'Хранение (Storage)', sync: 'Синхронизация (Sync)', backup: 'Резервные копии (Backup)', ver: 'Версии досок (Versioning)' }],
+  io: ['Импорт и экспорт', 'Import & Export', { imp: 'Импорт (Import)', exp: 'Экспорт (Export)', clip: 'Буфер обмена (Clipboard)' }],
+  plat: ['Платформа', 'Platform', { install: 'Установка (Installation)', win: 'Окна и экраны (Multi-view)', rel: 'Обновления (Release management)' }],
+  cust: ['Настройки', 'Customization', { keys: 'Клавиши и мышь (Input settings)', tb: 'Панель инструментов (Toolbar)' }],
+  find: ['Поиск', 'Search', { search: 'Поиск (Search)' }],
+  dev: ['Разработка', 'DEV', { dev: 'Задачник (Task tracker)', docs: 'Документация (Docs)' }],
+};
+const areaLabel = c => { const [a, m] = String(c || '').split('.'), A = AREAS[a]; return A ? A[0] + (m && A[2][m] ? ' › ' + A[2][m].replace(/ \(.*\)$/, '') : '') : ''; };
+const VERS = [['2.0', '6 октября 2026'], ['1.9', '6 октября 2026'], ['1.8', '6 октября 2026'], ['1.7', '6 октября 2026'], ['1.6', '5 октября 2026'], ['1.5', '5 октября 2026'], ['1.4', '5 октября 2026'], ['1.3', '4 октября 2026'], ['1.2', '4 октября 2026'], ['1.0', '4 октября 2026']];
+const KIND = { f: ['Новое', 'Feature'], i: ['Улучшение', 'Improvement'], x: ['Исправление', 'Bug fix'], b: ['Ожидается', 'Backlog'] };
+/* [id, version, area.module, kind, title, how to use, context] */
+const FEATS = [
+['pan','1.0','canvas.nav','f','Бесконечный холст','Двигайте доску: пробел + мышь, правая или средняя кнопка, два пальца на тачпаде.','Основа доски: место без границ для идей.'],
+['wheelzoom','1.0','canvas.zoom','f','Масштаб колесом и щипком','Колесо мыши или щипок на тачпаде; кнопки − и + внизу справа.','Быстро переходить от общего вида к деталям.'],
+['grid','1.0','canvas.look','f','Точечная сетка','Меню ⋯ → Сетка.','Ориентир для ровного расположения.'],
+['sticky','1.0','obj.basic','f','Стикеры','Клавиша N и щелчок по доске; цвет в панели; шрифт подбирается сам.','Главный объект для быстрых мыслей, как в Miro.'],
+['text','1.0','obj.basic','f','Текст','Клавиша T, щелчок по доске, печатайте.','Подписи и заголовки без рамки.'],
+['shapes6','1.0','obj.shape','f','Фигуры','Клавиша S; вид фигуры в списке слева.','Схемы и блок-схемы.'],
+['conn','1.0','obj.shape','f','Линии со стрелками','Клавиша L, тяните от объекта к объекту; тип линии и концы в панели.','Связи между идеями; линии держатся за объекты.'],
+['pen','1.0','obj.basic','f','Перо','Клавиша P, рисуйте; цвет и толщина в списке слева.','Пометки от руки.'],
+['eraser','1.0','obj.basic','f','Ластик','Клавиша E, ведите по штрихам пера.','Стирать рисунки пером.'],
+['frame','1.0','org.frames','f','Рамки','Клавиша F, обведите область; всё внутри двигается вместе с рамкой.','Объединять области доски.'],
+['image','1.0','obj.media','f','Картинки','Вставьте из буфера, перетащите файл или клавиша I.','Скриншоты и референсы на доске.'],
+['marquee','1.0','canvas.sel','f','Выделение рамкой и Shift+щелчок','Тяните по пустому месту или щёлкайте с Shift.','Работать с несколькими объектами.'],
+['resize','1.0','canvas.sel','f','Изменение размера','Тяните за ручки; Shift сохраняет пропорции.','Подгонять объекты под содержание.'],
+['nudge','1.0','canvas.sel','f','Сдвиг стрелками','Стрелки двигают на 1, с Shift на 10.','Точное расположение без мыши.'],
+['undo','1.0','canvas.edit','f','Отмена и повтор','Ctrl+Z и Ctrl+Shift+Z, до 120 шагов.','Безопасно пробовать.'],
+['clipobj','1.0','canvas.edit','f','Копировать, вырезать, вставить, дублировать','Ctrl+C, Ctrl+X, Ctrl+V, Ctrl+D; вставка там, где указатель.','Переносить объекты между местами и досками.'],
+['layers','1.0','canvas.edit','f','Передний и задний план','Клавиши ] и [.','Управлять наложением объектов.'],
+['png','1.0','io.exp','f','Экспорт в PNG','Меню ⋯ → Сохранить как картинку; если что-то выделено — только оно.','Поделиться доской картинкой.'],
+['file','1.0','io.exp','f','Файл доски .holst.json','Меню ⋯ → Сохранить файл доски, Открыть файл доски.','Ручная копия и перенос.'],
+['boards','1.0','data.store','f','Несколько досок','Кнопка с квадратиками у названия: создать, открыть, переименовать, удалить.','Разделять темы по доскам.'],
+['autosave','1.0','data.store','f','Автосохранение','Каждое изменение сохраняется само.','Не терять работу.'],
+['offline','1.0','plat.install','f','Офлайн-версия файлом','Меню ⋯ → Скачать офлайн-версию: один HTML со всеми досками.','Открыть доски без интернета и без сайта.'],
+['help','1.0','cust.keys','f','Справка','Клавиша ? или кнопка со знаком вопроса.','Быстро вспомнить сочетания.'],
+['embed','1.2','obj.media','f','Встраивания','Вставьте ссылку на доску или клавиша K: YouTube и плейлисты, Vimeo, RuTube, VK, Loom, Google Docs/Sheets/Slides, Figma, Miro, Whimsical, Spotify, Яндекс Музыка, любые сайты.','Работать с материалами прямо на доске.'],
+['htmltool','1.2','obj.media','f','Свои HTML-инструменты','Перетащите .html файл на доску; двойной щелчок — работать внутри.','Подключать свои мини-приложения, например Life OS.'],
+['embedact','1.2','obj.media','f','Работа внутри встраивания','Двойной щелчок по карточке; щелчок мимо — выход.','Пользоваться сайтом, не уходя с доски.'],
+['focus','1.2','canvas.nav','f','Во весь экран','Shift+Enter или кнопка со стрелками: видео, картинка, текст, документ.','Сосредоточиться на одном объекте.'],
+['claudestore','1.2','data.store','f','Хранение в Claude','Версия Холста внутри Claude хранит доски в вашем аккаунте.','Доступ к доскам из чата Claude.'],
+['yt153','1.2','obj.media','x','Ошибка YouTube 153','Видео открываются через youtube-nocookie.','YouTube блокировал встраивание.'],
+['drive','1.3','data.sync','f','Синхронизация с Google Диском','Облако вверху справа → шаги подключения; доски лежат в папке «Холст».','Одни и те же доски на компьютере, телефоне и в Claude.'],
+['conflict','1.3','data.sync','f','Защита от конфликтов','Если доску меняли в двух местах без связи, сохраняются обе версии.','Ничего не теряется при работе офлайн.'],
+['dayrev','1.3','data.ver','f','Закреплённые версии в Диске','Первая версия каждого дня закрепляется в Диске навсегда.','Откат даже через месяцы.'],
+['pwa','1.3','plat.install','f','Установка как приложение','Chrome: значок установки в адресной строке или меню ⋯ → Установить.','Отдельное окно и работа без интернета.'],
+['phone','1.3','plat.install','f','Ссылка для телефона','Окно Google Диска → ссылка для телефона, открыть в Chrome на Android.','Подключить телефон в одно касание.'],
+['seedopen','1.3','io.imp','f','Открыть офлайн-версию как файл','Меню ⋯ → Открыть файл доски → выберите сохранённый Холст.html.','Вернуть доски из офлайн-копии.'],
+['claudedrive','1.4','data.sync','f','Claude и Google Диск','Откройте Холст в Claude и разрешите Google Диск.','Доски из Claude совпадают с приложением.'],
+['rich','1.5','text.rich','f','Форматирование части текста','Выделите слова при редактировании: жирный, курсив, подчёркнутый, зачёркнутый, цвет, списки, заголовки, размер.','Как в Miro и Whimsical.'],
+['hilite','1.5','text.rich','f','Выделение текста цветом','Ctrl+Shift+H или кнопка A на жёлтом фоне.','Подсвечивать главное внутри текста.'],
+['tlink','1.5','text.rich','f','Ссылки в тексте','Ctrl+K при редактировании.','Ссылаться на материалы прямо из текста.'],
+['pasterich','1.5','text.edit','f','Вставка с форматированием','Вставьте текст из Notion или сайта при редактировании: оформление сохранится.','Не переоформлять вручную.'],
+['doc','1.5','obj.struct','f','Документы','Клавиша D: заголовки, списки; Shift+Enter — на весь экран.','Длинные тексты, как документы Miro.'],
+['table','1.5','obj.struct','f','Таблицы','Клавиша G; Tab — следующая ячейка; строки, столбцы и цвет шапки в панели.','Структурированные данные на доске.'],
+['mindmap','1.5','obj.struct','f','Майнд-карты','Клавиша M; Tab — ветка, Enter — соседняя; цвета веток, сворачивание, раскладка.','Как майнд-карты Whimsical.'],
+['section','1.5','org.frames','f','Секции','Кнопка «Рамка/Секция» в панели рамки.','Рамка с заголовком внутри, как в Whimsical.'],
+['groups','1.5','org.bulk','f','Группы','Ctrl+G и Ctrl+Shift+G; щелчок выделяет всю группу, Alt — один объект.','Двигать связанные объекты вместе.'],
+['shapes21','1.5','obj.shape','f','21 вид фигур','Список фигур слева: цилиндр, облако, звезда, документ, выноска, скобки и другие.','Схемы любого типа.'],
+['connlab','1.5','obj.shape','f','Подписи и концы линий','Кнопки «Подпись», вид начала и конца (стрелка, точка, ромб), пунктир и точки.','Подписанные связи, как в референсах.'],
+['views','1.5','obj.media','f','Виды ссылок','Кнопка вида: Содержимое, Карточка, Строка, Обложка; там же вид по умолчанию для типа.','Выбирать удобный вид для каждой ссылки.'],
+['claudecard','1.5','obj.media','f','Карточки чатов Claude','Вставьте ссылку на чат или проект; «Подпись» — название и проект.','Claude не даёт показать чат внутри страницы.'],
+['ytmeta','1.5','obj.media','i','Названия видео автоматически','В приложении YouTube-ссылка сама получает название и автора.','Не подписывать вручную.'],
+['split','1.5','plat.win','f','Разделение экрана','Меню ⋯ → Разделить экран: 2, 3 или 4 доски; границы тянутся.','Работать с несколькими досками сразу.'],
+['wheelscroll','1.6','canvas.nav','f','Прокрутка Shift и Ctrl с колесом','Shift + колесо — по горизонтали, Ctrl + колесо — по вертикали.','Удобная навигация мышью.'],
+['ftitletop','1.6','org.frames','x','Названия рамок поверх объектов','Название рамки всегда видно целиком.','Объекты обрезали название.'],
+['keys','1.6','cust.keys','f','Редактор горячих клавиш','Меню ⋯ → Горячие клавиши: щёлкните действие и нажмите сочетание.','Настроить под привычки.'],
+['presets','1.6','cust.keys','f','Наборы клавиш Miro, Whimsical, Яндекс','В «Горячих клавишах» кнопки «Как в Miro» и другие.','Не переучиваться после других досок.'],
+['wheelset','1.6','cust.keys','f','Настройка колеса мыши','В «Горячих клавишах»: что делает колесо, Shift + колесо, Ctrl + колесо.','Своя схема навигации.'],
+['fixed','1.6','canvas.zoom','f','Не масштабировать','Кнопка в панели объекта: размер на экране не меняется при масштабе.','Важное видно на любом масштабе.'],
+['snap','1.6','io.exp','f','Снимки с обрезкой','Кнопка с камерой или Ctrl+Shift+S: PNG, JPG, WebP, чёткость, фон, обрезка мышью.','Делиться частью доски картинкой.'],
+['tabs','1.6','org.frames','f','Вкладки в рамках','Кнопка «Вкладки» у рамки; «+» добавляет; щелчок по активной — имя, удаление, уровень глубже.','Как вкладки Notion: много содержимого в одном месте.'],
+['frameview','1.6','org.frames','f','Рамка как отдельная доска','Кнопка со стрелками у рамки; хлебные крошки сверху; Esc — на уровень выше.','Работать внутри рамки без лишнего.'],
+['pins','1.6','org.pins','f','Элементы на углах','Наведите на угол выделенного объекта и щёлкните «+»; правая кнопка — выбор и шаблоны.','Метки, номера, пометки рядом с объектом.'],
+['wimport','1.6','io.imp','f','Импорт из Whimsical','Версия в Claude: меню ⋯ → Импорт из Whimsical → ссылка на доску.','Переезд без ручной работы.'],
+['lifeos','1.6','data.sync','i','Папка «Холст» внутри LIFE OS','Папка на Диске лежит в LIFE OS; её можно переносить, Холст найдёт.','Не нарушать структуру Диска.'],
+['comet','1.6','plat.install','f','Установка в Comet','Меню ⋯ → Установить в другой браузер: пошаговая инструкция.','В Comet нет кнопки установки.'],
+['wfull','1.7','io.imp','i','Импорт целиком, без лимита 200','Импорт читает доску по секциям.','Раньше переносилось не всё.'],
+['wmm','1.7','io.imp','i','Точная геометрия майнд-карт','Майнд-карты из Whimsical стоят как в оригинале.','Раньше они расползались.'],
+['wre','1.7','io.imp','i','Повторный импорт обновляет доску','Запустите импорт той же ссылки ещё раз.','Не плодить копии.'],
+['zfit','1.7','canvas.zoom','f','Масштаб вмещает всю доску','Отдаляйтесь: минимум опускается ровно настолько, чтобы влезла вся доска.','Видеть огромные доски целиком.'],
+['version','1.7','plat.rel','f','Номер версии и история изменений','Меню ⋯ → строка с номером версии внизу.','Понимать, дошло ли обновление.'],
+['fixedback','1.7','canvas.zoom','x','«Не масштабировать» возвращает размер','Выключите режим: объект вернётся к исходному размеру.','Размер оставался случайным.'],
+['plushover','1.7','org.pins','i','Плюсики только при наведении','Наведите на угол выделенного объекта.','Плюсики загромождали доску.'],
+['pinzone','1.7','org.pins','f','Зона прилипших объектов','Вокруг объекта с прилипшими — пунктирная зона; ряды переносятся с середины стороны.','Прилипшие не наезжают друг на друга.'],
+['repin','1.7','org.pins','f','Прицепить перетаскиванием','Перетащите объект на место плюсика другого; «Отцепить» или оттащите.','Отлипшие нельзя было вернуть.'],
+['tabsabove','1.7','org.frames','i','Вкладки над рамкой, уровни глубже','Щелчок по активной вкладке → «Добавить уровень глубже».','Вкладки были внутри и не вкладывались.'],
+['wretry','1.8','io.imp','i','Импорт: повторы и отчёт','Сбойные запросы повторяются, в журнале — что не перенеслось.','Части доски терялись молча.'],
+['wimg','1.8','io.imp','i','Импорт картинок и ссылок','Картинки из Whimsical переносятся картинками, ссылки — синим текстом.','Были пустые карточки.'],
+['wfont','1.8','io.imp','x','Шрифт заголовков без разрывов','Размер подбирается по настоящему шрифту.','Слова рвались посередине.'],
+['copyout','1.8','io.clip','f','Копирование в другие приложения','Выделите и Ctrl+C: в Notion, Telegram, Claude вставится текст с оформлением.','Раньше вставлялся служебный код.'],
+['update','1.8','plat.rel','f','Проверка обновлений','Если на сайте версия новее, внизу появится кнопка «Обновить».','Старая версия задерживалась в браузере.'],
+['zlevels','1.9','canvas.zoom','f','Диапазон и уровни масштаба','Щелчок по проценту внизу справа: минимум, максимум, уровни.','Свой ритм масштаба.'],
+['lock','1.9','org.lock','f','Замок','Кнопка с замком в панели объекта или Ctrl+Shift+L.','Защитить разметку от случайных правок.'],
+['align','1.9','org.bulk','f','Выравнивание и распределение','Выделите несколько → «Выровнять»: края, центры, равные промежутки, размер, длина линий.','Как в Whimsical.'],
+['guides','1.9','canvas.snap','f','Умные направляющие','Тащите объект: он прилипает к краям и центрам соседей; Alt отключает.','Как в Miro.'],
+['isol','1.9','canvas.nav','f','Выделенное отдельно','Выделите несколько → кнопка со стрелками.','Работать с частью доски без лишнего.'],
+['backup','1.9','data.backup','f','Резервная копия в папку компьютера','Значок папки вверху справа: выбрать или сменить папку.','Второе место хранения, кроме Диска.'],
+['weekarch','1.9','data.backup','f','Недельный архив','В выбранной папке подпапка «Архив по неделям».','Копия на каждую неделю без переполнения.'],
+['yadisk','1.9','data.backup','f','Яндекс Диск через папку','Выберите папку внутри папки программы «Яндекс Диск».','Третье хранилище без настройки VPN в Холсте.'],
+['history','1.9','data.ver','f','История версий доски','Меню ⋯ → История версий: поиск по дате; версия открывается отдельной доской.','Вернуть прошлое состояние.'],
+['compact','1.9','canvas.look','i','Компактный статус','Индикаторы вверху справа; пульсирующий — нужно ваше действие.','Панель была слишком большой.'],
+['wsect','1.9','io.imp','i','Импорт: секции, блок-схемы, фигуры','Секции как в оригинале; блок-схемы и фигуры переносятся.','Были пропуски.'],
+['zsmooth','2.0','canvas.zoom','i','Плавный масштаб к указателю','Крутите колесо: масштаб плавно идёт к точке под курсором, даже если вы её двигаете.','Масштаб стал резким и терял точку.'],
+['zspeed','2.0','canvas.zoom','f','Скорость масштаба','Щелчок по проценту внизу справа → ползунок «Скорость колеса».','Подстроить под свою мышь.'],
+['zpanel','2.0','canvas.zoom','f','Окно масштаба на проценте','Щелчок по проценту: быстрые уровни, «Показать всё», плавность, диапазон, уровни.','Все настройки масштаба в одном месте.'],
+['outline','2.0','canvas.zoom','x','Контуры на максимальном отдалении','Отдалитесь до упора: внешние объекты плавно обводятся серым точно по размеру.','Контуры смещались и появлялись резко.'],
+['hover','2.0','canvas.sel','f','Подсветка при наведении','Наведите на объект: тонкая обводка; щелчок закрепляет выделение.','Как в Whimsical.'],
+['theme','2.0','canvas.look','f','Тёмная и светлая темы','Меню ⋯ → Тема: авто, светлая, тёмная.','Работа вечером и контраст объектов.'],
+['customcol','2.0','canvas.look','f','Свои цвета','В любом выборе цвета кнопка «+»: цвет запоминается.','Цвета вне стандартного набора.'],
+['onecloud','2.0','data.sync','i','Один индикатор Диска','Облако показывает и сохранение, и Диск; пульсирует, если нужно действие.','Было два индикатора.'],
+['statustop','2.0','data.sync','i','Состояние синхронизации сверху окон','Окна Диска и резервной копии начинаются с выделенного блока состояния.','Главное видно сразу.'],
+['tbcustom','2.0','cust.tb','f','Своя панель инструментов','«+» внизу панели — каталог по категориям; правая кнопка или повторный щелчок по инструменту — убрать или переместить.','Держать под рукой нужное.'],
+['tbactions','2.0','cust.tb','f','Действия на панели','В каталоге «Действия»: поиск, снимок, тема, история, DEV, показать всё.','Частые действия в один щелчок.'],
+['navpanels','2.0','canvas.nav','x','Навигация над панелями','Колесо, Shift, Ctrl и пробел управляют доской, даже когда указатель над панелью объекта.','Браузер перехватывал масштаб.'],
+['frametab','2.0','org.frames','f','Рамка во вкладку перетаскиванием','Перетащите рамку на «+» вкладок другой рамки: размеры подстроятся.','Собирать вкладки из готовых рамок.'],
+['tabscale','2.0','org.frames','x','Вкладки масштабируются с рамкой','Вкладки — часть рамки и не выходят за её ширину.','Вкладки росли и вылезали.'],
+['bulkres','2.0','org.bulk','f','Растягивание группы','Выделите несколько и тяните за любую сторону: все растянутся одинаково; за угол — пропорционально.','Как в Miro.'],
+['tidy','2.0','org.bulk','f','Одинаковый размер и сетка','«Выровнять» → «Одинаковый размер», «Разложить сеткой».','Быстро упорядочить много объектов.'],
+['pinany','2.0','org.pins','f','Прикрепление любого к любому','Рамки, перо, уже прикреплённые объекты: всё цепляется перетаскиванием на «+»; цепочки тоже.','Раньше часть объектов не цеплялась.'],
+['search','2.0','find.search','f','Поиск','Ctrl+F: по доске или по всем доскам; Enter — к первому найденному.','Находить мысль среди сотен объектов.'],
+['histnew','2.0','plat.rel','f','История версий с инструкциями','Меню ⋯ → версия: «+» у функции — как пользоваться и зачем; галочка «Проверено».','Проверять нововведения по шагам.'],
+['taxonomy','2.0','dev.docs','f','Каталог всех функций','В истории версий: группировка по версиям или категориям, фильтр проверенных, метки.','Не утонуть в функциях.'],
+['backlogv','2.0','dev.docs','f','Ожидаемые функции','Группа «Ожидаемые функции» в истории версий и колонка в DEV.','Не забыть отложенное.'],
+['dev','2.0','dev.dev','f','Раздел DEV','Меню ⋯ → DEV: итерации колонками, карточки задач со статусами и свойствами.','Вести разработку Холста.'],
+['devcopy','2.0','dev.dev','f','Копирование задач для Claude','Кнопка копирования у итерации и у задачи: весь контекст одним текстом.','Удобно отправлять в чат.'],
+['devimport','2.0','dev.dev','f','Ответ Claude обратно в DEV','DEV → «Ответ Claude»: вставьте ответ с блоком holst-dev, статусы и отчёты обновятся.','Не переносить отчёты руками.'],
+['devrel','2.0','dev.dev','f','Связи задач стрелками','DEV → «Связи»: правки, зависимости, подзадачи.','Видеть, что откуда растёт.'],
+['devgroup','2.0','dev.dev','f','Группировка строк в DEV','DEV → «Группировать»: по любому свойству; группы перетаскиваются.','Смотреть на задачи под разными углами.'],
+['fixedbtn','2.0','canvas.zoom','x','Кнопка «Не масштабировать» отжимается','Включите и выключите режим: кнопка снова обычная.','Оставалась нажатой.'],
+['wimgsize','2.0','io.imp','x','Импорт: размер картинок','Картинки из Whimsical ровно по размеру оригинала.','Рамка картинки уходила вниз.'],
+['wlines','2.0','io.imp','i','Импорт: свободные линии','Разделители и линии без привязки переносятся пунктиром с подписью.','Пропадали разделители секций.'],
+['b_cells','backlog','org.frames','b','Таблица мини-рамок внутри рамки','Ждёт согласования устройства: ячейки-рамки, заголовки строк и столбцов, группировка, вложенность.','Самая большая функция; сначала договоримся о схеме.'],
+['b_types','backlog','obj.struct','b','Все виды объектов Miro, Whimsical, Excalidraw','Пока нет: блок-схема с автораскладкой, диаграмма последовательности, вайрфреймы, карточки и канбан Miro, таймлайн, комментарии, реакции и голосование, таймер, режим презентации, библиотека иконок, рисованный стиль Excalidraw, маркер.','Нужен порядок: что важнее для переезда.'],
+['b_miro','backlog','io.imp','b','Импорт из Miro','Будет как импорт из Whimsical.','Нужна одна пробная выгрузка формата Miro.'],
+['b_drivew','backlog','obj.media','b','Виджет папки Google Диска','Папка Диска на доске с перетаскиванием файлов.','Отложено ради исправлений.'],
+['b_ytacc','backlog','obj.media','b','Плейлисты своего YouTube','Список своих плейлистов на доске.','Нужно включить YouTube Data API в Google Cloud.'],
+['b_ytfull','backlog','obj.media','b','Полный интерфейс YouTube','—','YouTube запрещает показывать сайт целиком внутри других страниц.'],
+['b_notion','backlog','obj.media','b','Notion и TickTick под своим аккаунтом','—','Нужны небольшой сервер и ваши ключи доступа.'],
+['b_relogin','backlog','data.sync','b','Вход в Google без ежечасного повтора','—','Нужен небольшой сервер.'],
+['b_devsync','backlog','dev.dev','b','DEV на всех устройствах','—','Сейчас DEV хранится на устройстве и в Claude, без Диска.'],
+];
+const FIXOF = { zsmooth: 'zlevels', outline: 'zfit', fixedbtn: 'fixed', tabscale: 'tabsabove', wimgsize: 'wimg', navpanels: 'wheelscroll', pinany: 'repin', onecloud: 'compact', histnew: 'version', bulkres: 'align', wlines: 'wsect' };
+
+function openVersions(re) {
+  if (!re && !S.hosted && !IS_FILE) checkServerVersion(true);
+  const ck = LS.get('checked') || {}, grp = LS.get('hgroup') || 'ver', flt = LS.get('hfilter') || 'all', q = (S.hq || '').toLowerCase();
+  const openG = new Set(LS.get('hopen') || ['v2.0', 'backlog', 'a:dev']), openF = S.hopenF || (S.hopenF = new Set());
+  const live = FEATS.filter(f => f[1] !== 'backlog'), done = live.filter(f => ck[f[0]]).length;
+  const show = f => (f[1] === 'backlog' || flt === 'all' || (flt === 'todo' ? !ck[f[0]] : !!ck[f[0]])) && (!q || (f[4] + ' ' + f[5] + ' ' + f[6]).toLowerCase().includes(q));
+  const row = (f, label) => {
+    const [id, v, c, k, t, how, why] = f, on = !!ck[id], op = openF.has(id), bl = v === 'backlog';
+    return `<div class="fr${on ? ' ck' : ''}${bl ? ' bl' : ''}"><div class="fr-m">${bl ? '<span class="fr-wait"></span>' : `<input type="checkbox" data-fc="${id}"${on ? ' checked' : ''} title="Проверено">`}<span class="fr-t">${esc(t)}</span><span class="fr-b"><i class="kb k-${k}">${KIND[k][0]}</i>${label ? `<i class="lb">${esc(label)}</i>` : ''}</span><button class="fr-x${op ? ' op' : ''}" data-fx="${id}" title="Подробнее">${op ? '−' : '+'}</button></div>${op ? `<div class="fr-d"><div><b>${bl ? 'Что именно' : 'Как пользоваться'}</b><p>${esc(how)}</p></div><div><b>Контекст</b><p>${esc(why)}</p></div>${bl ? '' : `<label class="fr-c"><input type="checkbox" data-fc="${id}"${on ? ' checked' : ''}> Проверено</label>`}</div>` : ''}</div>`;
+  };
+  const block = (key, title, sub, inner, n) => inner ? `<details class="hg" data-hg="${key}"${openG.has(key) ? ' open' : ''}><summary><b>${title}</b>${sub ? `<span>${sub}</span>` : ''}<i>${n}</i></summary>${inner}</details>` : '';
+  const stats = list => { const l = list.filter(f => f[1] !== 'backlog'); return `${l.filter(f => ck[f[0]]).length} из ${l.length} проверено`; };
+  let body = '';
+  const bl = FEATS.filter(f => f[1] === 'backlog' && show(f));
+  body += block('backlog', 'Ожидаемые функции', 'бэклог: отложено или ждёт решения', bl.map(f => row(f, areaLabel(f[2]))).join(''), bl.length);
+  if (grp === 'ver') {
+    for (const [v, date] of VERS) {
+      const fs = FEATS.filter(f => f[1] === v && show(f)); if (!fs.length) continue;
+      const byA = Object.keys(AREAS).map(a => { const l = fs.filter(f => f[2].split('.')[0] === a); return l.length ? `<div class="hsub">${AREAS[a][0]} <span>${AREAS[a][1]}</span></div>` + l.map(f => row(f, areaLabel(f[2]).split(' › ')[1] || '')).join('') : ''; }).join('');
+      body += block('v' + v, `Версия ${v}${v === APP_VERSION ? ' · открыта сейчас' : ''}`, `${date} · ${stats(FEATS.filter(f => f[1] === v))}`, byA, fs.length);
+    }
+  } else {
+    for (const [a, [ru, en, mods]] of Object.entries(AREAS)) {
+      const fs = FEATS.filter(f => f[1] !== 'backlog' && f[2].split('.')[0] === a && show(f)); if (!fs.length) continue;
+      const byM = Object.entries(mods).map(([m, ml]) => { const l = fs.filter(f => f[2] === a + '.' + m); return l.length ? `<div class="hsub">${esc(ml)}</div>` + l.map(f => row(f, 'v' + f[1])).join('') : ''; }).join('');
+      body += block('a:' + a, `${ru} <span class="en">${en}</span>`, stats(FEATS.filter(f => f[2].split('.')[0] === a)), byM, fs.length);
+    }
+  }
+  const html = `<div class="hhead"><p class="sub">Открыта версия <b>${APP_VERSION}</b>. Если номер меньше, чем в последнем сообщении Claude, нажмите Ctrl+Shift+R. Когда на сайте есть новее, внизу появляется кнопка «Обновить».</p>
+    <div class="row"><button class="ob${flt === 'all' ? ' on' : ''}" data-hf="all">Все</button><button class="ob${flt === 'todo' ? ' on' : ''}" data-hf="todo">Не проверенные</button><button class="ob${flt === 'done' ? ' on' : ''}" data-hf="done">Проверенные</button><span class="hsep"></span><button class="ob${grp === 'ver' ? ' on' : ''}" data-hgp="ver">По версиям</button><button class="ob${grp === 'cat' ? ' on' : ''}" data-hgp="cat">По категориям</button></div>
+    <div class="row"><input class="inp" id="hq" placeholder="Найти функцию" value="${esc(S.hq || '')}"><span class="sub">Проверено ${done} из ${live.length}</span></div>
+    <p class="sub tax">Структура: продукт → область (Product area) → модуль (Module) → функция (Feature). Метки: вид изменения и ${grp === 'ver' ? 'модуль' : 'версия'}.</p></div><div class="hbody">${body || '<p class="sub">Ничего не найдено.</p>'}</div>`;
+  let d = re && S.xdlg && S.xdlg._hist ? S.xdlg : null;
+  if (d) { const sc = d.querySelector('.xbody').scrollTop; d.querySelector('.xbody').innerHTML = html; d.querySelector('.xbody').scrollTop = sc; }
+  else {
+    d = xdlg('История версий и функции', html, true); d._hist = true;
+    d.addEventListener('click', e => {
+      const b = e.target.closest('[data-hf],[data-hgp],[data-fx]'); if (!b) return;
+      if (b.dataset.hf) LS.set('hfilter', b.dataset.hf); else if (b.dataset.hgp) LS.set('hgroup', b.dataset.hgp); else { const s = S.hopenF; if (s.has(b.dataset.fx)) s.delete(b.dataset.fx); else s.add(b.dataset.fx); }
+      openVersions(true);
+    });
+    d.addEventListener('change', e => { const c = e.target.closest('[data-fc]'); if (!c) return; const m = LS.get('checked') || {}; if (c.checked) m[c.dataset.fc] = 1; else delete m[c.dataset.fc]; LS.set('checked', m); openVersions(true); });
+    d.addEventListener('toggle', e => { const g = e.target.closest && e.target.closest('[data-hg]'); if (!g) return; const s = new Set(LS.get('hopen') || ['v2.0', 'backlog', 'a:dev']); if (g.open) s.add(g.dataset.hg); else s.delete(g.dataset.hg); LS.set('hopen', [...s]); }, true);
+    d.addEventListener('input', e => { if (e.target.id !== 'hq') return; S.hq = e.target.value; clearTimeout(S.hqT); S.hqT = setTimeout(() => { openVersions(true); const i = $('#hq'); if (i) { i.focus(); i.setSelectionRange(i.value.length, i.value.length); } }, 250); });
+  }
+}
+function openCatalog() { openVersions(); }
+
+/* =========================================================
+   DEV: development task tracker (iterations as columns, task cards, relations, Claude workflow)
+   ========================================================= */
+const DEV_ST = { draft: ['Драфт', '#8a90a0'], progress: ['В работе', '#3355ff'], review: ['Ждёт проверки', '#d99a00'], rework: ['На доработке', '#e5484d'], paused: ['На паузе', '#9aa1ad'], irrelevant: ['Не актуально', '#b9bdc6'], done: ['Завершено', '#2fa36b'] };
+const DEV_PROPS = { status: 'Статус', type: 'Тип', prio: 'Приоритет', area: 'Область', effort: 'Оценка', owner: 'Исполнитель', it: 'Итерация' };
+const DEV_OPT = { type: ['Фича', 'Улучшение', 'Баг', 'Исследование', 'Документация'], prio: ['Критично', 'Высокий', 'Средний', 'Низкий'], effort: ['', 'XS', 'S', 'M', 'L', 'XL'], owner: ['Claude', 'Я', 'Вместе'] };
+const DEV_REL = { fix: ['Правка к', '#e5484d'], dep: ['Зависит от', '#3355ff'], rel: ['Связана с', '#8a90a0'], sub: ['Подзадача', '#2fa36b'] };
+const DEV_TYPE = { f: 'Фича', i: 'Улучшение', x: 'Баг', b: 'Фича' };
+const devStKey = s => { s = String(s || '').trim().toLowerCase(); for (const [k, [l]] of Object.entries(DEV_ST)) if (k === s || l.toLowerCase() === s) return k; return null; };
+async function devLoad() {
+  if (S.dev) return S.dev;
+  let d = null;
+  try { if (Backend === Db && Db.devDoc) { const x = await Db.devDoc.get(); d = x.exists ? x.data() : null; } else d = await Store.get('dev'); } catch (e) { d = null; }
+  S.dev = Object.assign({ ov: {}, custom: [], iov: {}, citers: [], deleted: [], seq: 1, ui: {} }, d ? clone(d) : {});
+  S.dev.ui = Object.assign({ group: '', gorder: {}, labels: ['type', 'area'], lstyle: 'chip', rel: false, rk: ['fix', 'dep', 'rel', 'sub'], hideDone: false, q: '', sub: true }, S.dev.ui);
+  return S.dev;
+}
+async function devWrite() { S.devT = 0; try { if (Backend === Db && Db.devDoc) await Db.devDoc.set(clone(S.dev)); else await Store.set('dev', S.dev); } catch (e) { toast('DEV: не удалось сохранить'); } }
+function devSave() { clearTimeout(S.devT); S.devT = setTimeout(devWrite, 250); }
+function devFlush() { if (S.devT) { clearTimeout(S.devT); devWrite(); } }
+window.addEventListener('pagehide', devFlush);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') devFlush(); });
+function devSeed() {
+  return FEATS.map((f, i) => {
+    const [id, v, c, k, t, how, why] = f, fx = FIXOF[id];
+    return { id: 'F-' + id, seed: 1, title: t, it: v, status: v === 'backlog' ? 'draft' : v === APP_VERSION ? 'review' : 'done', type: DEV_TYPE[k], prio: k === 'x' ? 'Высокий' : 'Средний', area: c, effort: '', owner: 'Claude', desc: how, why, criteria: '', source: '', report: v === APP_VERSION ? `Сделано в ${v}. Как проверить: ${how}` : '', links: fx ? [{ k: 'fix', to: 'F-' + fx }] : [], parent: '', comments: [], order: i };
+  });
+}
+function devTasks() {
+  const D = S.dev, del = new Set(D.deleted);
+  return devSeed().filter(t => !del.has(t.id)).map(t => Object.assign(t, D.ov[t.id] || {})).concat(D.custom.filter(t => !del.has(t.id)));
+}
+function devIters() {
+  const D = S.dev;
+  const seed = [...VERS].reverse().map(([v, date]) => ({ id: v, name: 'Итерация ' + v, date, status: v === APP_VERSION ? 'review' : 'done', goal: '' }));
+  seed.push({ id: 'backlog', name: 'Ожидаемые', date: 'бэклог', status: 'draft', goal: 'Отложенное и ждущее решения' });
+  return seed.concat(D.citers).map(it => Object.assign({}, it, D.iov[it.id] || {}));
+}
+const devFind = id => devTasks().find(t => t.id === id);
+function devSet(id, patch) {
+  const D = S.dev, c = D.custom.find(t => t.id === id);
+  patch.updated = Date.now();
+  if (c) Object.assign(c, patch); else D.ov[id] = Object.assign(D.ov[id] || {}, patch);
+  devSave();
+}
+function devNew(it, extra) {
+  const D = S.dev, t = Object.assign({ id: 'T-' + (D.seq++), title: 'Новая задача', it, status: 'draft', type: 'Фича', prio: 'Средний', area: '', effort: '', owner: 'Claude', desc: '', criteria: '', source: '', report: '', links: [], parent: '', comments: [], order: Date.now(), created: Date.now() }, extra || {});
+  D.custom.push(t); devSave(); return t;
+}
+const devVal = (t, k) => (k === 'area' ? String(t.area || '').split('.')[0] : t[k] || '');
+const devValLabel = (k, v) => (k === 'status' ? (DEV_ST[v] || [v])[0] : k === 'area' ? (AREAS[v] ? AREAS[v][0] : 'Без области') : k === 'it' ? 'Итерация ' + v : v || 'Не задано');
+function devTaskMd(t, all, lvl) {
+  lvl = lvl || 2;
+  const L = [`${'#'.repeat(lvl)} ${t.id} · ${t.title}`];
+  L.push(`- Статус: ${(DEV_ST[t.status] || [t.status])[0]} · Тип: ${t.type} · Приоритет: ${t.prio}${t.area ? ' · Область: ' + areaLabel(t.area) : ''}${t.effort ? ' · Оценка: ' + t.effort : ''} · Исполнитель: ${t.owner} · Итерация: ${t.it}`);
+  for (const [k, l] of [['desc', 'Описание'], ['why', 'Контекст'], ['criteria', 'Критерии приёмки'], ['source', 'Исходная формулировка'], ['report', 'Отчёт ИИ']]) if (t[k]) L.push(`- ${l}: ${t[k]}`);
+  const links = (t.links || []).map(l => { const o = all.find(x => x.id === l.to); return `${DEV_REL[l.k][0].toLowerCase()} ${l.to}${o ? ' «' + o.title + '»' : ''}`; });
+  if (t.parent) { const p = all.find(x => x.id === t.parent); links.push(`подзадача ${t.parent}${p ? ' «' + p.title + '»' : ''}`); }
+  if (links.length) L.push('- Связи: ' + links.join('; '));
+  if ((t.comments || []).length) L.push('- Комментарии:\n' + t.comments.map(c => `  - ${fmtDate(c.ts)}: ${c.t}`).join('\n'));
+  for (const s of all.filter(x => x.parent === t.id)) L.push('', devTaskMd(s, all, lvl + 1));
+  return L.join('\n');
+}
+const DEV_REPLY = '\n\n---\nКогда закончишь, добавь в конец ответа блок для импорта в DEV Холста:\n```holst-dev\n[{"id": "ID задачи", "status": "review", "report": "что сделано и как проверить"}]\n```\nСтатусы: draft, progress, review, rework, paused, irrelevant, done. Новую задачу можно добавить так: {"new": true, "title": "…", "it": "итерация", "desc": "…"}.';
+async function devCopy(text, what) {
+  let ok = false;
+  try { await navigator.clipboard.writeText(text); ok = true; } catch (e) {
+    const ta = document.createElement('textarea'); ta.value = text; ta.style.cssText = 'position:fixed;left:-9999px'; document.body.appendChild(ta); ta.select();
+    try { ok = document.execCommand('copy'); } catch (er) { ok = false; } ta.remove();
+  }
+  toast(ok ? `Скопировано для Claude: ${what}` : 'Не удалось скопировать');
+}
+function devCopyIter(itId) {
+  const all = devTasks(), it = devIters().find(x => x.id === itId), list = all.filter(t => t.it === itId && !t.parent).sort((a, b) => a.order - b.order);
+  devCopy(`# Холст · DEV · ${it.name} (${DEV_ST[it.status][0]})\nПриложение: Холст ${APP_VERSION}${it.goal ? '\nЦель: ' + it.goal : ''}\nЗадач: ${list.length}\n\n` + list.map(t => devTaskMd(t, all)).join('\n\n') + DEV_REPLY, it.name);
+}
+function devCopyList(list, title) { const all = devTasks(); devCopy(`# Холст · DEV · ${title}\nПриложение: Холст ${APP_VERSION}\n\n` + list.map(t => devTaskMd(t, all)).join('\n\n') + DEV_REPLY, title.toLowerCase()); }
+function devImport(text) {
+  const m = String(text).match(/```holst-dev\s*([\s\S]*?)```/) || String(text).match(/(\[[\s\S]*\])/);
+  let arr; try { arr = JSON.parse(m ? m[1] : text); } catch (e) { toast('Не нашёл блок holst-dev в тексте'); return 0; }
+  if (!Array.isArray(arr)) arr = [arr];
+  let n = 0;
+  for (const u of arr) {
+    if (!u || typeof u !== 'object') continue;
+    const patch = {};
+    for (const k of ['title', 'desc', 'criteria', 'report', 'it', 'prio', 'type', 'effort', 'owner', 'source']) if (u[k] != null) patch[k] = String(u[k]);
+    if (u.status && devStKey(u.status)) patch.status = devStKey(u.status);
+    const ex = u.id && devFind(String(u.id));
+    if (ex) { if (u.comment) patch.comments = (ex.comments || []).concat({ t: String(u.comment), ts: Date.now() }); devSet(ex.id, patch); n++; }
+    else if (u.new || u.title) { devNew(patch.it || APP_VERSION, patch); n++; }
+  }
+  renderDev(); toast(`DEV обновлён: ${n}`); return n;
+}
+function openDev() {
+  devLoad().then(() => {
+    const d = xdlg('DEV · задачник разработки Холста', '<div class="dev" id="dev"><div class="devbar" id="devBar"></div><div class="dboard" id="dBoard"></div><div class="dside" id="dSide" hidden></div></div>', true);
+    d.querySelector('.xbox').classList.add('full'); d._dev = true;
+    wireDev(d); renderDev();
+  });
+}
+function renderDev() {
+  const root = $('#dev'); if (!root || !S.dev) return;
+  const D = S.dev, U = D.ui, its = devIters(), all = devTasks(), q = (U.q || '').toLowerCase();
+  const vis = all.filter(t => (!U.hideDone || !['done', 'irrelevant'].includes(t.status)) && (U.sub || !t.parent) && (!q || (t.id + ' ' + t.title + ' ' + t.desc + ' ' + t.report).toLowerCase().includes(q)));
+  const rw = all.filter(t => t.status === 'rework').length, rv = all.filter(t => t.status === 'review').length;
+  const bar = $('#devBar');
+  if (!bar.firstChild) bar.innerHTML = `<input class="inp" data-dq placeholder="Найти задачу" value="${esc(U.q || '')}">
+    <button class="ob" data-db="group"></button><button class="ob" data-db="labels">Метки на карточках</button><button class="ob" data-db="rel">Связи</button><button class="ob" data-db="done">Скрыть завершённые</button><button class="ob" data-db="sub">Подзадачи на доске</button>
+    <span class="hsep"></span><button class="ob" data-db="review"></button><button class="ob" data-db="rework"></button><button class="ob" data-db="import">Ответ Claude</button><button class="ob" data-db="iter">+ Итерация</button>`;
+  bar.querySelector('[data-db=group]').textContent = 'Группировать: ' + (U.group ? DEV_PROPS[U.group] : 'нет');
+  bar.querySelector('[data-db=rel]').classList.toggle('on', !!U.rel); bar.querySelector('[data-db=done]').classList.toggle('on', !!U.hideDone); bar.querySelector('[data-db=sub]').classList.toggle('on', !!U.sub);
+  bar.querySelector('[data-db=review]').textContent = `Копировать ждущие проверки (${rv})`; bar.querySelector('[data-db=rework]').textContent = `Копировать на доработке (${rw})`;
+  let groups = [['', '']];
+  if (U.group) {
+    const vals = [...new Set(vis.map(t => devVal(t, U.group)))], ord = U.gorder[U.group] || [], ix = v => { const i = ord.indexOf(v); return i < 0 ? 1e6 : i; };
+    const base = U.group === 'status' ? Object.keys(DEV_ST) : U.group === 'area' ? Object.keys(AREAS) : DEV_OPT[U.group] || its.map(i => i.id);
+    vals.sort((a, b) => ix(a) - ix(b) || base.indexOf(a) - base.indexOf(b) || String(a).localeCompare(String(b)));
+    groups = vals.map(v => [v, devValLabel(U.group, v)]);
+  }
+  const lab = t => U.labels.map(k => { const v = k === 'area' ? areaLabel(t.area) : k === 'status' ? DEV_ST[t.status][0] : t[k]; if (!v) return ''; const col = k === 'status' ? DEV_ST[t.status][1] : k === 'prio' ? ({ 'Критично': '#e5484d', 'Высокий': '#f76b15', 'Средний': '#8a90a0', 'Низкий': '#b9bdc6' })[v] : '#8a90a0'; return U.lstyle === 'dot' ? `<i class="dl dot" style="--c:${col}" title="${esc(DEV_PROPS[k])}">${esc(v)}</i>` : U.lstyle === 'text' ? `<i class="dl txt" title="${esc(DEV_PROPS[k])}">${esc(v)}</i>` : `<i class="dl chip" style="--c:${col}" title="${esc(DEV_PROPS[k])}">${esc(v)}</i>`; }).join('');
+  const card = t => {
+    const subs = all.filter(x => x.parent === t.id).length, links = (t.links || []).length, com = (t.comments || []).length, par = t.parent && all.find(x => x.id === t.parent);
+    return `<div class="dcard st-${t.status}${S.devOpen === t.id ? ' sel' : ''}" draggable="true" data-tid="${t.id}" style="--sc:${DEV_ST[t.status][1]}">
+      <div class="dc-top"><span class="dc-id">${t.id}</span><span class="dc-st">${DEV_ST[t.status][0]}</span><button class="dc-cp" data-tcopy="${t.id}" title="Скопировать задачу для Claude">${ic('copy')}</button></div>
+      ${par ? `<div class="dc-par">↳ ${esc(par.title)}</div>` : ''}<div class="dc-title">${esc(t.title)}</div>
+      ${t.status === 'review' && t.report ? `<div class="dc-rep"><b>Отчёт ИИ</b>${esc(t.report)}</div>` : ''}
+      <div class="dc-lab">${lab(t)}</div>
+      ${subs || links || com ? `<div class="dc-ic">${subs ? `<span title="Подзадачи">☰ ${subs}</span>` : ''}${links ? `<span title="Связи">⇄ ${links}</span>` : ''}${com ? `<span title="Комментарии">💬 ${com}</span>` : ''}</div>` : ''}</div>`;
+  };
+  let h = `<div class="dgrid" style="grid-template-columns:repeat(${its.length},280px)"><svg class="drel" id="dRel"></svg>`;
+  h += its.map(it => { const l = all.filter(t => t.it === it.id), dn = l.filter(t => t.status === 'done').length; return `<div class="dcol-h st-${it.status}" style="--sc:${DEV_ST[it.status][1]}"><div class="dch-t"><b>${esc(it.name)}</b><button class="dc-cp" data-icopy="${it.id}" title="Скопировать все задачи итерации для Claude">${ic('copy')}</button></div><div class="dch-m"><button class="dch-st" data-ist="${it.id}">${DEV_ST[it.status][0]}</button><span>${esc(it.date || '')}</span><span>${dn}/${l.length}</span></div><div class="dch-p"><i style="width:${l.length ? Math.round(dn / l.length * 100) : 0}%"></i></div></div>`; }).join('');
+  for (const [gv, gl] of groups) {
+    const inG = vis.filter(t => !U.group || devVal(t, U.group) === gv);
+    if (U.group) h += `<div class="dgrp" draggable="true" data-g="${esc(gv)}" style="grid-column:1/-1"><span class="dg-h" title="Перетащите, чтобы поменять порядок групп">⋮⋮</span>${esc(gl)}<i>${inG.length}</i></div>`;
+    h += its.map(it => `<div class="dcell" data-iter="${it.id}" data-g="${esc(gv)}">${inG.filter(t => t.it === it.id).sort((a, b) => a.order - b.order).map(card).join('')}<button class="dadd" data-add="${it.id}" data-g="${esc(gv)}">+ задача</button></div>`).join('');
+  }
+  h += '</div>';
+  const bd = $('#dBoard'), sl = bd.scrollLeft, st = bd.scrollTop; bd.innerHTML = h; bd.scrollLeft = sl; bd.scrollTop = st;
+  requestAnimationFrame(devDrawRel);
+  renderDevSide();
+}
+function devDrawRel() {
+  const svg = $('#dRel'); if (!svg || !S.dev) return;
+  const U = S.dev.ui; if (!U.rel) { svg.innerHTML = ''; return; }
+  const grid = svg.parentNode, gr = grid.getBoundingClientRect(), all = devTasks();
+  svg.setAttribute('width', grid.scrollWidth); svg.setAttribute('height', grid.scrollHeight);
+  const box = id => { const el = grid.querySelector(`[data-tid="${CSS.escape(id)}"]`); if (!el) return null; const r = el.getBoundingClientRect(); return { x: r.left - gr.left, y: r.top - gr.top, w: r.width, h: r.height }; };
+  let p = '<defs>' + Object.entries(DEV_REL).map(([k, [, c]]) => `<marker id="dm-${k}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="${c}"/></marker>`).join('') + '</defs>';
+  const edge = (from, to, k) => {
+    const a = box(from), b = box(to); if (!a || !b) return;
+    const right = b.x > a.x + a.w / 2, sx = right ? a.x + a.w : a.x, ex = right ? b.x : b.x + b.w, sy = a.y + Math.min(a.h / 2, 26), ey = b.y + Math.min(b.h / 2, 26), dx = Math.max(40, Math.abs(ex - sx) / 2) * (right ? 1 : -1);
+    const sameCol = Math.abs(a.x - b.x) < 5;
+    const d = sameCol ? `M${a.x + a.w} ${sy}C${a.x + a.w + 40} ${sy} ${b.x + b.w + 40} ${ey} ${b.x + b.w} ${ey}` : `M${sx} ${sy}C${sx + dx} ${sy} ${ex - dx} ${ey} ${ex} ${ey}`;
+    p += `<path d="${d}" stroke="${DEV_REL[k][1]}" marker-end="url(#dm-${k})"${k === 'rel' ? ' stroke-dasharray="5 4"' : ''}/>`;
+  };
+  for (const t of all) {
+    for (const l of t.links || []) if (U.rk.includes(l.k)) edge(l.to, t.id, l.k);
+    if (t.parent && U.rk.includes('sub')) edge(t.parent, t.id, 'sub');
+  }
+  svg.innerHTML = p;
+}
+function renderDevSide() {
+  const side = $('#dSide'); if (!side) return;
+  const t = S.devOpen && devFind(S.devOpen);
+  if (!t) { side.hidden = true; side.innerHTML = ''; return; }
+  if (side._for === t.id && side.contains(document.activeElement) && document.activeElement.matches('input,textarea')) return;
+  side._for = t.id; side.hidden = false;
+  const all = devTasks(), its = devIters();
+  const sel = (k, opts) => `<select class="inp" data-f="${k}">${opts.map(([v, l]) => `<option value="${esc(v)}"${String(t[k] || '') === String(v) ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select>`;
+  const areas = [['', '—']].concat(Object.entries(AREAS).flatMap(([a, [ru, , mods]]) => Object.keys(mods).map(m => [a + '.' + m, areaLabel(a + '.' + m)])));
+  const ta = (k, l, rows) => `<label class="ds-l">${l}<textarea class="inp" data-f="${k}" rows="${rows || 3}">${esc(t[k] || '')}</textarea></label>`;
+  const subs = all.filter(x => x.parent === t.id), par = t.parent && all.find(x => x.id === t.parent);
+  side.innerHTML = `<div class="ds-h"><span class="dc-id">${t.id}</span><span class="dc-st" style="--sc:${DEV_ST[t.status][1]}">${DEV_ST[t.status][0]}</span><button class="ib" data-dx title="Закрыть">${ic('close')}</button></div>
+    <textarea class="ds-title" data-f="title" rows="2">${esc(t.title)}</textarea>
+    ${par ? `<p class="sub">Подзадача для <a href="#" data-open="${par.id}">${esc(par.id)} «${esc(par.title)}»</a></p>` : ''}
+    <div class="ds-g"><label>Статус${sel('status', Object.entries(DEV_ST).map(([k, [l]]) => [k, l]))}</label><label>Итерация${sel('it', its.map(i => [i.id, i.name]))}</label>
+    <label>Тип${sel('type', DEV_OPT.type.map(x => [x, x]))}</label><label>Приоритет${sel('prio', DEV_OPT.prio.map(x => [x, x]))}</label>
+    <label>Область${sel('area', areas)}</label><label>Оценка${sel('effort', DEV_OPT.effort.map(x => [x, x || '—']))}</label><label>Исполнитель${sel('owner', DEV_OPT.owner.map(x => [x, x]))}</label></div>
+    ${ta('desc', 'Описание')}${ta('criteria', 'Критерии приёмки: когда задача считается готовой')}${ta('source', 'Исходная формулировка: ваши слова')}${ta('report', 'Отчёт ИИ', 4)}
+    ${t.why ? `<div class="ds-l">Контекст<p>${esc(t.why)}</p></div>` : ''}
+    <div class="ds-l">Связи${(t.links || []).map((l, i) => { const o = all.find(x => x.id === l.to); return `<div class="ds-row"><i style="color:${DEV_REL[l.k][1]}">${DEV_REL[l.k][0]}</i><a href="#" data-open="${l.to}">${esc(l.to)} ${o ? '«' + esc(o.title) + '»' : ''}</a><button class="kclr" data-unlink="${i}">${ic('close')}</button></div>`; }).join('')}
+      <div class="ds-row"><select class="inp" id="dsLk">${Object.entries(DEV_REL).filter(([k]) => k !== 'sub').map(([k, [l]]) => `<option value="${k}">${l}</option>`).join('')}</select><input class="inp" id="dsLt" list="dsTasks" placeholder="ID или название задачи"><button class="ob" data-link>Связать</button></div>
+      <datalist id="dsTasks">${all.filter(x => x.id !== t.id).map(x => `<option value="${esc(x.id)} · ${esc(x.title)}">`).join('')}</datalist></div>
+    <div class="ds-l">Подзадачи${subs.map(s => `<div class="ds-row"><i style="color:${DEV_ST[s.status][1]}">●</i><a href="#" data-open="${s.id}">${esc(s.id)} «${esc(s.title)}»</a></div>`).join('')}<button class="ob" data-addsub>+ подзадача</button></div>
+    <div class="ds-l">Комментарии${(t.comments || []).map(c => `<div class="ds-com"><small>${esc(fmtDate(c.ts))}</small>${esc(c.t)}</div>`).join('')}<textarea class="inp" id="dsCom" rows="2" placeholder="Комментарий"></textarea><button class="ob" data-com>Добавить комментарий</button></div>
+    <div class="btnrow"><button class="btn" data-tcopy="${t.id}">Скопировать для Claude</button><button class="btn ghost" data-fixnext>Правка в следующей итерации</button><button class="btn ghost" data-dup>Дублировать</button><button class="btn ghost" data-del>Удалить</button></div>`;
+}
+function wireDev(d) {
+  const root = d.querySelector('#dev');
+  root.addEventListener('input', e => { if (e.target.matches('[data-dq]')) { S.dev.ui.q = e.target.value; devSave(); clearTimeout(S.dqT); S.dqT = setTimeout(renderDev, 200); } });
+  root.addEventListener('change', e => {
+    const f = e.target.closest('[data-f]'); if (!f || !S.devOpen) return;
+    const k = f.dataset.f, v = f.value.trim(); devSet(S.devOpen, { [k]: k === 'title' ? v || 'Без названия' : v });
+    if (k === 'status' || k === 'it') { const side = $('#dSide'); side._for = null; }
+    renderDev();
+  });
+  root.addEventListener('click', e => {
+    const U = S.dev.ui, b = e.target.closest('button, a, .dcard'); if (!b) return;
+    const ds = b.dataset;
+    if (b.matches('a[data-open]')) { e.preventDefault(); S.devOpen = ds.open; $('#dSide')._for = null; renderDev(); return; }
+    if (ds.tcopy) { const all = devTasks(), t = all.find(x => x.id === ds.tcopy); devCopy(`# Холст · DEV · задача\nПриложение: Холст ${APP_VERSION}\n\n` + devTaskMd(t, all) + DEV_REPLY, t.id); return; }
+    if (ds.icopy) { devCopyIter(ds.icopy); return; }
+    if (ds.ist) { optPop(b, Object.entries(DEV_ST).map(([k, [l]]) => [k, l]), '', v => { S.dev.iov[ds.ist] = Object.assign(S.dev.iov[ds.ist] || {}, { status: v }); devSave(); renderDev(); }); return; }
+    if (ds.add != null && b.matches('.dadd')) { const extra = U.group && ds.g && U.group !== 'it' ? { [U.group === 'area' ? 'area' : U.group]: U.group === 'area' ? ds.g + '.' + Object.keys(AREAS[ds.g] ? AREAS[ds.g][2] : {})[0] : ds.g } : {}; const t = devNew(ds.add, extra); S.devOpen = t.id; renderDev(); setTimeout(() => { const x = $('.ds-title'); if (x) { x.focus(); x.select(); } }, 30); return; }
+    if (b.matches('.dcard')) { S.devOpen = ds.tid; $('#dSide')._for = null; renderDev(); return; }
+    if (ds.dx != null && b.closest('.dside')) { S.devOpen = null; renderDev(); return; }
+    if (ds.db === 'group') { optPop(b, [['', 'Без группировки']].concat(Object.entries(DEV_PROPS)), U.group, v => { U.group = v; devSave(); renderDev(); }); return; }
+    if (ds.db === 'labels') { const lp = () => openPop(b, `<div class="vp"><div class="vp-h">Что показывать на всех карточках</div><div class="row">${Object.entries(DEV_PROPS).map(([k, l]) => `<button class="ob${U.labels.includes(k) ? ' on' : ''}" data-v="l:${k}">${l}</button>`).join('')}</div><div class="vp-h">Вид меток</div><div class="row">${[['chip', 'Плашки'], ['dot', 'Точки'], ['text', 'Текст']].map(([k, l]) => `<button class="ob${U.lstyle === k ? ' on' : ''}" data-v="s:${k}">${l}</button>`).join('')}</div></div>`, v => { const [a, k] = v.split(':'); if (a === 'l') U.labels = U.labels.includes(k) ? U.labels.filter(x => x !== k) : U.labels.concat(k); else U.lstyle = k; devSave(); renderDev(); setTimeout(lp, 0); }); lp(); return; }
+    if (ds.db === 'rel') { if (!U.rel) { U.rel = true; devSave(); renderDev(); } const rp = () => openPop(b, `<div class="vp"><div class="vp-h">Какие связи рисовать</div><div class="row">${Object.entries(DEV_REL).map(([k, [l, c]]) => `<button class="ob${U.rk.includes(k) ? ' on' : ''}" data-v="${k}"><span style="color:${c}">━</span> ${l}</button>`).join('')}<button class="ob" data-v="off">Скрыть связи</button></div></div>`, v => { if (v === 'off') U.rel = false; else U.rk = U.rk.includes(v) ? U.rk.filter(x => x !== v) : U.rk.concat(v); devSave(); renderDev(); if (v !== 'off') setTimeout(rp, 0); }); rp(); return; }
+    if (ds.db === 'done') { U.hideDone = !U.hideDone; devSave(); renderDev(); return; }
+    if (ds.db === 'sub') { U.sub = !U.sub; devSave(); renderDev(); return; }
+    if (ds.db === 'review' || ds.db === 'rework') { const l = devTasks().filter(t => t.status === ds.db); if (!l.length) { toast('Таких задач нет'); return; } devCopyList(l, ds.db === 'review' ? 'Ждут проверки' : 'На доработке'); return; }
+    if (ds.db === 'iter') { const n = prompt('Название итерации', 'Итерация ' + (Math.round((parseFloat(APP_VERSION) + 0.1) * 10) / 10)); if (!n) return; S.dev.citers.push({ id: 'I-' + (S.dev.seq++), name: n, date: new Date().toLocaleDateString('ru-RU'), status: 'draft', goal: '' }); devSave(); renderDev(); return; }
+    if (ds.db === 'import') {
+      const x = xdlg('Ответ Claude → DEV', `<p class="sub">Вставьте ответ Claude целиком. Холст найдёт блок holst-dev и обновит статусы, отчёты и задачи. Чтобы Claude его добавил, копируйте задачи кнопками DEV: инструкция уже внутри.</p><textarea class="inp" id="dImp" rows="12"></textarea><div class="btnrow"><button class="btn" id="dImpGo">Применить</button></div>`, true);
+      x.querySelector('#dImpGo').addEventListener('click', () => { const n = devImport($('#dImp').value); if (n) { closeXdlg(); openDev(); } });
+      return;
+    }
+    const t = S.devOpen && devFind(S.devOpen); if (!t) return;
+    if (ds.unlink != null) { const l = (t.links || []).slice(); l.splice(+ds.unlink, 1); devSet(t.id, { links: l }); $('#dSide')._for = null; renderDev(); }
+    else if (ds.link != null) { const id = ($('#dsLt').value.split(' · ')[0] || '').trim(), o = devFind(id); if (!o) { toast('Нет задачи с таким ID'); return; } devSet(t.id, { links: (t.links || []).concat({ k: $('#dsLk').value, to: o.id }) }); $('#dSide')._for = null; renderDev(); }
+    else if (ds.addsub != null) { const s = devNew(t.it, { parent: t.id, title: 'Подзадача', area: t.area }); S.devOpen = s.id; $('#dSide')._for = null; renderDev(); }
+    else if (ds.com != null) { const v = $('#dsCom').value.trim(); if (!v) return; devSet(t.id, { comments: (t.comments || []).concat({ t: v, ts: Date.now() }) }); $('#dSide')._for = null; renderDev(); }
+    else if (ds.dup != null) { const c = clone(t); delete c.id; delete c.seed; const n = devNew(t.it, Object.assign(c, { title: t.title + ' (копия)', status: 'draft', order: t.order + 0.5 })); S.devOpen = n.id; $('#dSide')._for = null; renderDev(); }
+    else if (ds.del != null) { if (!confirm(`Удалить ${t.id} «${t.title}»?`)) return; const D = S.dev; if (D.custom.some(x => x.id === t.id)) D.custom = D.custom.filter(x => x.id !== t.id); else D.deleted.push(t.id); devSave(); S.devOpen = null; renderDev(); }
+    else if (ds.fixnext != null) {
+      const its = devIters().filter(i => i.id !== 'backlog'), i = its.findIndex(x => x.id === t.it), next = its[i + 1] || its[its.length - 1];
+      devSet(t.id, { status: 'rework' });
+      const n = devNew(next.id, { title: 'Правка: ' + t.title, type: t.type === 'Баг' ? 'Баг' : 'Улучшение', area: t.area, links: [{ k: 'fix', to: t.id }] });
+      S.devOpen = n.id; $('#dSide')._for = null; renderDev(); toast(`Создана правка в «${next.name}»`);
+    }
+  });
+  root.addEventListener('dragstart', e => {
+    const c = e.target.closest('.dcard'), g = e.target.closest('.dgrp');
+    if (c) { S.devDrag = { t: c.dataset.tid }; e.dataTransfer.setData('text/plain', c.dataset.tid); e.dataTransfer.effectAllowed = 'move'; }
+    else if (g) { S.devDrag = { g: g.dataset.g }; e.dataTransfer.setData('text/plain', g.dataset.g); }
+  });
+  root.addEventListener('dragover', e => {
+    const dd = S.devDrag; if (!dd) return;
+    const cell = dd.t && e.target.closest('.dcell'), gh = dd.g != null && e.target.closest('.dgrp');
+    if (cell || gh) { e.preventDefault(); root.querySelectorAll('.dover').forEach(x => x.classList.remove('dover')); (cell || gh).classList.add('dover'); }
+  });
+  root.addEventListener('drop', e => {
+    const dd = S.devDrag; S.devDrag = null; root.querySelectorAll('.dover').forEach(x => x.classList.remove('dover')); if (!dd) return;
+    e.preventDefault(); const U = S.dev.ui;
+    if (dd.t) {
+      const cell = e.target.closest('.dcell'); if (!cell) return;
+      const cards = [...cell.querySelectorAll('.dcard')].filter(c => c.dataset.tid !== dd.t), all = devTasks();
+      const after = cards.findIndex(c => { const r = c.getBoundingClientRect(); return e.clientY < r.top + r.height / 2; });
+      const ord = c => (all.find(x => x.id === c.dataset.tid) || {}).order || 0;
+      let order = cards.length ? (after < 0 ? ord(cards[cards.length - 1]) + 1 : after === 0 ? ord(cards[0]) - 1 : (ord(cards[after - 1]) + ord(cards[after])) / 2) : 0;
+      const patch = { it: cell.dataset.iter, order };
+      if (U.group && U.group !== 'it') { const gv = cell.dataset.g; if (U.group === 'area') { const cur = devFind(dd.t); if (devVal(cur, 'area') !== gv) patch.area = gv ? gv + '.' + Object.keys(AREAS[gv][2])[0] : ''; } else patch[U.group] = gv; }
+      devSet(dd.t, patch); renderDev();
+    } else {
+      const gh = e.target.closest('.dgrp'); if (!gh || gh.dataset.g === dd.g) return;
+      const cur = [...root.querySelectorAll('.dgrp')].map(x => x.dataset.g).filter(x => x !== dd.g);
+      cur.splice(cur.indexOf(gh.dataset.g), 0, dd.g); U.gorder[U.group] = cur; devSave(); renderDev();
+    }
+  });
+  root.addEventListener('dragend', () => { S.devDrag = null; root.querySelectorAll('.dover').forEach(x => x.classList.remove('dover')); });
+  $('#dBoard').addEventListener('scroll', () => {}, { passive: true });
+  window.addEventListener('resize', () => { if ($('#dRel')) devDrawRel(); });
+}
+
+/* =========================================================
+   v2.0: search, themes, custom toolbar, smooth zoom, outlines, hover, frame → tab
+   ========================================================= */
+/* ---------- search ---------- */
+function itemText(it) {
+  const mm = n => (n.text || '') + ' ' + (n.children || []).map(mm).join(' ');
+  if (it.type === 'mindmap') return mm(it.root);
+  if (it.type === 'table') return it.rows.map(r => r.map(htmlToText).join(' ')).join(' ');
+  if (it.type === 'frame') return (it.title || '') + ' ' + tabIdsOf(it).map(id => (findTab(it, id) || {}).tab).filter(Boolean).map(t => t.name).join(' ');
+  if (it.type === 'embed') return [it.title, it.sub, it.url].filter(Boolean).join(' ');
+  if (it.type === 'image' || it.type === 'pen' || it.type === 'connector') return it.label || '';
+  return it.text || '';
+}
+const SEARCH_TYPE = { sticky: 'Стикер', text: 'Текст', shape: 'Фигура', frame: 'Рамка', mindmap: 'Майнд-карта', table: 'Таблица', doc: 'Документ', embed: 'Ссылка', connector: 'Линия' };
+async function runSearch(q, scope) {
+  q = q.trim().toLowerCase(); if (q.length < 2) return [];
+  const out = [], ids = scope === 'all' ? S.index.map(e => e.id) : [S.board.id];
+  for (const bid of ids) {
+    const b = bid === S.board.id ? S.board : (S.sCache && S.sCache[bid]) || await Backend.loadBoard(bid).catch(() => null);
+    if (!b) continue; if (bid !== S.board.id) (S.sCache = S.sCache || {})[bid] = b;
+    for (const it of b.items || []) {
+      const t = itemText(it).replace(/\s+/g, ' '), i = t.toLowerCase().indexOf(q); if (i < 0) continue;
+      const a = Math.max(0, i - 40), snip = (a ? '…' : '') + esc(t.slice(a, i)) + '<mark>' + esc(t.slice(i, i + q.length)) + '</mark>' + esc(t.slice(i + q.length, i + q.length + 70)) + (i + q.length + 70 < t.length ? '…' : '');
+      out.push({ bid, bname: b.name, id: it.id, type: it.type, snip });
+      if (out.length >= 300) return out;
+    }
+  }
+  return out;
+}
+function revealItem(it) {
+  if (!it) return;
+  if (S.fstack && S.fstack.length) { S.fstack = []; renderCrumbs(); }
+  for (let n = 0; n < 10 && it && it.ftab; n++) {
+    const owner = items().find(f => f.type === 'frame' && Array.isArray(f.tabs) && tabIdsOf(f).includes(it.ftab)); if (!owner) break;
+    const path = [], walk = (o, tid) => { for (const t of o.tabs || []) { if (t.id === tid) { path.push([o, t.id]); return true; } if (walk(t, tid)) { path.push([o, t.id]); return true; } } return false; };
+    walk(owner, it.ftab); for (const [o, tid] of path) o.tab = tid;
+    it = owner;
+  }
+}
+async function goToItem(bid, iid) {
+  if (bid !== S.board.id) { if (dirty) await saveNow(); const b = await Backend.loadBoard(bid); if (!b) return; S.board = null; loadBoard(b); renderDrawer(); }
+  const it = byId(iid); if (!it) return;
+  revealItem(it); S.sel = new Set([iid]); render();
+  const b = bounds(it), v = V(), z = clamp(Math.min(innerWidth * 0.6 / Math.max(b.w, 1), innerHeight * 0.6 / Math.max(b.h, 1)), zMin(), 1.2);
+  v.z = z; v.x = innerWidth / 2 - (b.x + b.w / 2) * z; v.y = innerHeight / 2 - (b.y + b.h / 2) * z; applyView(); render();
+  const el = els.get(iid); if (el) { el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
+}
+function openSearch() {
+  finishEdit();
+  const scope = LS.get('sscope') || 'board';
+  const d = xdlg('Поиск', `<div class="srow"><input class="inp" id="sq" placeholder="Что найти: текст, название, ссылка" autocomplete="off"><div class="row"><button class="ob${scope === 'board' ? ' on' : ''}" data-sc="board">Эта доска</button><button class="ob${scope === 'all' ? ' on' : ''}" data-sc="all">Все доски</button></div></div><div class="sres" id="sres"><p class="sub">Ищет в стикерах, текстах, фигурах, документах, таблицах, майнд-картах, названиях рамок и вкладок, ссылках. Enter — к первому, стрелки — по списку.</p></div>`, true);
+  S.sCache = {}; let res = [], cur = 0, sc = scope;
+  const draw = () => { $('#sres').innerHTML = res.length ? `<p class="sub">Найдено: ${res.length}${res.length >= 300 ? '+' : ''}</p>` + res.map((r, i) => `<button class="sr${i === cur ? ' on' : ''}" data-si="${i}"><span class="sr-t">${SEARCH_TYPE[r.type] || r.type}${sc === 'all' ? ' · ' + esc(r.bname) : ''}</span><span class="sr-s">${r.snip}</span></button>`).join('') : ($('#sq').value.trim().length > 1 ? '<p class="sub">Ничего не найдено.</p>' : ''); const on = $('#sres .sr.on'); if (on) on.scrollIntoView({ block: 'nearest' }); };
+  const go = i => { const r = res[i]; if (!r) return; closeXdlg(); goToItem(r.bid, r.id); };
+  const run = async () => { res = await runSearch($('#sq').value, sc); cur = 0; draw(); };
+  d.querySelector('#sq').addEventListener('input', () => { clearTimeout(S.sT); S.sT = setTimeout(run, 160); });
+  d.querySelector('#sq').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); go(cur); } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); cur = clamp(cur + (e.key === 'ArrowDown' ? 1 : -1), 0, Math.max(0, res.length - 1)); draw(); } });
+  d.addEventListener('click', e => { const b = e.target.closest('[data-sc],[data-si]'); if (!b) return; if (b.dataset.sc) { sc = b.dataset.sc; LS.set('sscope', sc); d.querySelectorAll('[data-sc]').forEach(x => x.classList.toggle('on', x === b)); run(); } else go(+b.dataset.si); });
+  setTimeout(() => $('#sq').focus(), 0);
+}
+
+/* ---------- themes ---------- */
+const darkMQ = window.matchMedia ? matchMedia('(prefers-color-scheme: dark)') : null;
+function applyTheme() {
+  const t = S.settings.theme || 'auto', dark = t === 'dark' || (t === 'auto' && !!(darkMQ && darkMQ.matches));
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = dark ? '#111216' : '#f4f5f7';
+}
+function setTheme(t) { S.settings.theme = t; saveSettings(); applyTheme(); toast(t === 'auto' ? 'Тема как в системе' : t === 'dark' ? 'Тёмная тема' : 'Светлая тема'); }
+function themePop(anchor) { optPop(anchor, [['auto', 'Как в системе'], ['light', 'Светлая'], ['dark', 'Тёмная']], S.settings.theme || 'auto', setTheme); }
+
+/* ---------- custom toolbar ---------- */
+const TB_ACTS = { 'a:search': ['Поиск', 'srch', 'search'], 'a:snap': ['Снимок выделенного', 'cam', 'snap'], 'a:fit': ['Показать всё', 'fit', 'fit'], 'a:theme': ['Сменить тему', 'moon', ''], 'a:history': ['История версий доски', 'hist', ''], 'a:dev': ['DEV: задачник', 'devic', ''], 'a:split': ['Разделить экран', 'split', ''] };
+const TB_CATS = [['Навигация', ['select', 'hand']], ['Заметки и текст', ['sticky', 'text', 'doc']], ['Фигуры и линии', ['shape', 'connector', 'pen', 'eraser']], ['Структура', ['frame', 'mindmap', 'table']], ['Медиа', ['image', 'embed']], ['Действия', Object.keys(TB_ACTS)]];
+const TB_DEF = ['select', 'hand', 'sticky', 'text', 'shape', 'connector', 'pen', 'eraser', 'frame', 'mindmap', 'doc', 'table', 'image', 'embed'];
+const tbCat = id => TB_CATS.findIndex(([, l]) => l.includes(id));
+function tbList() { const l = (LS.get('toolbar') || TB_DEF).filter(id => tbCat(id) >= 0 && (id !== 'a:split' || splitOk())); return l.includes('select') ? l : ['select'].concat(l); }
+function tbInfo(id) {
+  if (TB_ACTS[id]) { const [tip, icon, act] = TB_ACTS[id]; return { tip, icon, key: act && S.keys ? keyOf(act) : '', attr: `data-act="${id}"` }; }
+  const t = TOOLS.find(x => x && x[0] === id) || [id, id, '']; const act = id === 'image' || id === 'embed' ? 'act:' + id : 'tool:' + id;
+  return { tip: t[1], icon: id, key: S.keys ? keyOf(act) : t[2], attr: id === 'image' || id === 'embed' ? `data-act="${id}"` : `data-tool="${id}"` };
+}
+function buildToolbar() {
+  const list = tbList(); let prev = -1, h = '';
+  for (const id of list) {
+    const c = tbCat(id); if (prev >= 0 && c !== prev) h += '<div class="tsep"></div>'; prev = c;
+    const I = tbInfo(id), k = I.key && I.key !== '—' ? ` (${I.key})` : '';
+    h += `<button class="ib${S.tbMove && S.tbMove.id === id ? ' tbmv' : ''}" ${I.attr} data-tb="${id}" data-tip="${esc(I.tip)}${k}" aria-label="${esc(I.tip)}">${id === 'shape' ? shapeIcon(S.opts.shape) : ic(I.icon)}</button>`;
+  }
+  h += `<div class="tsep"></div><button class="ib tbplus" data-tbplus="1" data-tip="Инструменты на панели" aria-label="Инструменты на панели">${ic('plus')}</button>`;
+  $('#toolbar').innerHTML = h;
+  if (S.tool) document.querySelectorAll('#toolbar [data-tool]').forEach(b => b.classList.toggle('on', b.dataset.tool === S.tool));
+}
+function tbSave(l) { LS.set('toolbar', l); buildToolbar(); }
+function tbAction(id) {
+  if (id === 'a:theme') { const dark = document.documentElement.dataset.theme === 'dark'; setTheme(dark ? 'light' : 'dark'); return; }
+  if (id === 'a:history') { openHistory(); return; }
+  if (id === 'a:dev') { openDev(); return; }
+  if (id === 'a:split') { splitPop($('[data-tb="a:split"]')); return; }
+  const a = TB_ACTS[id]; if (a && a[2]) runAction(a[2]);
+}
+function tbMenu(btn, id) {
+  openPop(btn, `<div class="menu">${id === 'select' ? '' : '<button class="mi" data-v="rm">Убрать с панели</button>'}<button class="mi" data-v="mv">Переместить на панели</button><button class="mi" data-v="cat">Все инструменты…</button></div>`, v => {
+    if (v === 'rm') { tbSave(tbList().filter(x => x !== id)); toast('Убрано. Вернуть можно через «+» внизу панели'); }
+    else if (v === 'cat') openTbCatalog();
+    else { S.tbMove = { id, orig: tbList() }; buildToolbar(); $('#toolbar').classList.add('tbmoving'); toast('Ведите мышью вверх или вниз, щёлкните, чтобы поставить. Esc — отмена'); }
+  });
+}
+function tbMoveTo(y) {
+  const m = S.tbMove; if (!m) return;
+  const btns = [...document.querySelectorAll('#toolbar [data-tb]')], l = tbList().filter(x => x !== m.id);
+  let idx = btns.filter(b => b.dataset.tb !== m.id).findIndex(b => { const r = b.getBoundingClientRect(); return y < r.top + r.height / 2; });
+  if (idx < 0) idx = l.length; l.splice(idx, 0, m.id);
+  if (l.join() !== tbList().join()) { LS.set('toolbar', l); buildToolbar(); }
+}
+function tbMoveEnd(cancel) { const m = S.tbMove; if (!m) return; S.tbMove = null; if (cancel) LS.set('toolbar', m.orig); buildToolbar(); $('#toolbar').classList.remove('tbmoving'); S.tbSkipClick = true; setTimeout(() => { S.tbSkipClick = false; }, 300); }
+function openTbCatalog() {
+  const on = new Set(tbList());
+  const d = xdlg('Инструменты на панели', `<p class="sub">Включите нужное. Убрать или переместить можно и прямо на панели: правая кнопка мыши по инструменту или повторный щелчок по уже выбранному.</p>` + TB_CATS.map(([name, l]) => `<h3>${name}</h3>` + l.filter(id => id !== 'a:split' || splitOk()).map(id => { const I = tbInfo(id); return `<div class="krow"><span class="tbci">${id === 'shape' ? shapeIcon(S.opts.shape) : ic(I.icon)}</span><span>${esc(I.tip)}${I.key && I.key !== '—' ? ` <small class="sub">${esc(I.key)}</small>` : ''}</span><button class="kbtn${on.has(id) ? ' on' : ''}" data-tbt="${id}"${id === 'select' ? ' disabled' : ''}>${on.has(id) ? 'На панели' : 'Добавить'}</button></div>`; }).join('')).join('') + '<div class="btnrow"><button class="btn ghost" data-tbreset="1">Вернуть как было</button></div>');
+  d.addEventListener('click', e => {
+    const b = e.target.closest('[data-tbt],[data-tbreset]'); if (!b) return;
+    if (b.dataset.tbreset) { LS.set('toolbar', null); buildToolbar(); openTbCatalog(); return; }
+    const id = b.dataset.tbt, l = tbList();
+    if (l.includes(id)) tbSave(l.filter(x => x !== id));
+    else { const c = tbCat(id); let at = l.length; for (let i = l.length - 1; i >= 0; i--) if (tbCat(l[i]) <= c) { at = i + 1; break; } l.splice(at, 0, id); tbSave(l); }
+    const on2 = tbList().includes(id); b.classList.toggle('on', on2); b.textContent = on2 ? 'На панели' : 'Добавить';
+  });
+}
+
+/* ---------- zoom: fixed speed, smooth towards the pointer, settings on the percent ---------- */
+function wheelZoom(cx, cy, delta) {
+  const c = zoomCfg(), v = V();
+  if (c.step) { if (S.zAnim) { cancelAnimationFrame(S.zAnim); S.zAnim = 0; } zoomAt(cx, cy, levelZoom(v.z, delta < 0 ? 1 : -1)); return; }
+  const f = Math.exp(-clamp(delta, -400, 400) * 0.0016 * (+c.speed || 5) / 5);
+  if (c.smooth === false) { zoomAt(cx, cy, v.z * f); return; }
+  S.zAnchor = null;
+  S.zt = clamp((S.zAnim ? S.zt : v.z) * f, zMin(), zMax());
+  if (!S.zAnim) S.zAnim = requestAnimationFrame(zoomTick);
+}
+function zoomTick() {
+  const v = V(), a = S.zAnchor || S.mouse || { x: innerWidth / 2, y: innerHeight / 2 }, lz = Math.log(v.z), lt = Math.log(S.zt), d = lt - lz;
+  if (Math.abs(d) < 0.004) { zoomAt(a.x, a.y, S.zt); S.zAnim = 0; return; }
+  zoomAt(a.x, a.y, Math.exp(lz + d * 0.3));
+  S.zAnim = requestAnimationFrame(zoomTick);
+}
+function zcChange(el) {
+  const c = Object.assign({}, zoomCfg()), k = el.dataset.zc;
+  if (k === 'step' || k === 'snap' || k === 'smooth') c[k] = el.checked;
+  else if (k === 'speed') { c.speed = +el.value; const o = $('#zspv'); if (o) o.textContent = el.value; }
+  else if (k === 'levels') { const L = el.value.split(/[,;\s]+/).map(x => parseFloat(x.replace(',', '.'))).filter(x => x > 0 && x <= 5000); if (L.length) c.levels = [...new Set(L)].sort((a, b) => a - b); el.value = c.levels.join(', '); }
+  else { const n = parseFloat(String(el.value).replace(',', '.')); if (n > 0) c[k] = n; el.value = c[k]; }
+  S.zoomCfg = c; LS.set('zoomcfg', c); S._zminFor = null;
+}
+function zoomPop() {
+  const c = zoomCfg(), sp = +c.speed || 5;
+  openPop($('#zoomLbl'), `<div class="zp"><div class="vp-h">Перейти</div><div class="row">${[10, 25, 50, 100, 200, 400].map(p => `<button class="ob" data-v="z:${p}">${p}%</button>`).join('')}</div>
+    <div class="row"><button class="ob" data-v="fit">Показать всё</button><button class="ob" data-v="sel">К выделенному</button></div>
+    <div class="vp-h">Колесо мыши</div><label class="zl">Скорость <input type="range" min="1" max="10" step="1" value="${sp}" data-zc="speed"><b id="zspv">${sp}</b></label>
+    <label class="zck"><input type="checkbox" data-zc="smooth"${c.smooth !== false ? ' checked' : ''}> Плавно к указателю</label>
+    <label class="zck"><input type="checkbox" data-zc="step"${c.step ? ' checked' : ''}> Прыгать по уровням</label>
+    <div class="vp-h">Диапазон</div><div class="zrow"><label>Минимум, %<input class="inp" data-zc="min" value="${c.min}"></label><label>Максимум, %<input class="inp" data-zc="max" value="${c.max}"></label></div>
+    <label class="zl2">Уровни, %<input class="inp" data-zc="levels" value="${c.levels.join(', ')}"></label>
+    <label class="zck"><input type="checkbox" data-zc="snap"${c.snap === false ? '' : ' checked'}> Умные направляющие (Alt отключает)</label>
+    <p class="sub">Ниже минимума масштаб опускается, только если иначе доска не помещается.</p></div>`, v => {
+    if (v.startsWith('z:')) { S.zAnchor = { x: innerWidth / 2, y: innerHeight / 2 }; S.zt = clamp(+v.slice(2) / 100, zMin(), zMax()); if (!S.zAnim) S.zAnim = requestAnimationFrame(zoomTick); }
+    else runAction(v === 'fit' ? 'fit' : 'zoomSel');
+  });
+}
+
+/* ---------- outlines at the furthest zoom-out: in board space, exact, fading in ---------- */
+function outlinesOn() { const v = V(); return !!S.board && !S.focus && v.z <= zMin() * 1.04; }
+function updateOutlines() {
+  const svg = S.outl; if (!svg) return;
+  const on = outlinesOn(); svg.classList.toggle('on', on); if (!on) return;
+  const rects = [];
+  for (const it of items()) {
+    if (it.type === 'connector' || it.type === 'pen' || isHid(it)) continue;
+    const el = els.get(it.id), fixed = it.fixed, b = bounds(it);
+    const w = !fixed && el && el.offsetWidth ? el.offsetWidth : b.w, h = !fixed && el && el.offsetHeight ? el.offsetHeight : b.h;
+    rects.push([it.x, it.y, w, h]);
+  }
+  rects.sort((a, b) => b[2] * b[3] - a[2] * a[3]);
+  const drawn = [];
+  for (const r of rects) { if (!drawn.some(o => r[0] >= o[0] - 1 && r[1] >= o[1] - 1 && r[0] + r[2] <= o[0] + o[2] + 1 && r[1] + r[3] <= o[1] + o[3] + 1)) drawn.push(r); }
+  const key = drawn.map(r => r.map(Math.round).join(',')).join(';');
+  if (svg._k !== key) { svg._k = key; svg.innerHTML = drawn.map(r => `<rect x="${r1(r[0])}" y="${r1(r[1])}" width="${r1(r[2])}" height="${r1(r[3])}" rx="2"/>`).join(''); }
+}
+
+/* ---------- hover highlight ---------- */
+function setHover(e) {
+  let id = null;
+  if (!S.drag && S.tool === 'select' && !S.space && !S.editing) { const host = e.target && e.target.closest && e.target.closest('[data-id]'); if (host && world.contains(host)) id = host.dataset.id; }
+  if (id && (S.sel.has(id) || isHid(byId(id)))) id = null;
+  if (id !== S.hover) { S.hover = id; renderOverlay(); }
+}
+
+/* ---------- drop a frame on another frame's "+" to make it a tab ---------- */
+function frameToTab(M, F, ownerId) {
+  if (!M || !F || M === F) return;
+  const owner = ownerId === F.id ? F : (findTab(F, ownerId) || {}).tab; if (!owner || !owner.tabs) return;
+  const contents = withFrameContents([M]).filter(i => i !== M), mIds = new Set(tabIdsOf(M));
+  const t = { id: 't' + uid(), name: (M.title || 'Вкладка').slice(0, 60) };
+  if (Array.isArray(M.tabs) && M.tabs.length) { t.tabs = M.tabs; t.tab = M.tab; }
+  owner.tabs.push(t); owner.tab = t.id;
+  let dx, dy;
+  if (M.w <= F.w) dx = F.x + (F.w - M.w) / 2 - M.x; else { F.w = M.w; dx = F.x - M.x; }
+  if (M.h <= F.h) dy = F.y + (F.h - M.h) / 2 - M.y; else { F.h = M.h; dy = F.y - M.y; }
+  const leaf = t.tabs ? (() => { let o = t; while (o.tabs && o.tabs.length) o = o.tabs.find(x => x.id === o.tab) || o.tabs[0]; return o.id; })() : t.id;
+  for (const c of contents) {
+    if (c.type === 'connector') { for (const k of ['from', 'to']) if (!c[k].id) { c[k].x = r1(c[k].x + dx); c[k].y = r1(c[k].y + dy); } }
+    else { c.x = r1(c.x + dx); c.y = r1(c.y + dy); if (c.type === 'mindmap') { c.rx = r1(c.rx + dx); c.ry = r1(c.ry + dy); } }
+    if (!(c.ftab && mIds.has(c.ftab))) c.ftab = leaf;
+  }
+  for (const c of items()) if (c.type === 'connector') for (const k of ['from', 'to']) if (c[k].id === M.id) { const b = bounds(M); c[k] = { x: r1(b.x + b.w / 2 + dx), y: r1(b.y + b.h / 2 + dy) }; }
+  for (const c of items()) if (c.pin && c.pin.to === M.id) c.pin.to = F.id;
+  S.board.items = items().filter(i => i !== M);
+  S.sel = new Set([F.id]); changed();
+  toast(`Рамка «${t.name}» стала вкладкой`);
+}
+
+/* ---------- Whimsical helpers: crop screenshots to the object's size, free-standing lines ---------- */
+async function cropToAspect(src, w, h) {
+  const nat = await imgSize(src); if (!nat || !w || !h) return src;
+  const A = w / h, a = nat[0] / nat[1]; if (Math.abs(a / A - 1) < 0.02) return src;
+  const sw = a > A ? Math.round(nat[1] * A) : nat[0], sh = a > A ? nat[1] : Math.round(nat[0] / A);
+  const im = new Image(); im.src = src; await new Promise(r => { if (im.complete) r(); else { im.onload = r; im.onerror = r; } });
+  const cv = document.createElement('canvas'); cv.width = sw; cv.height = sh; cv.getContext('2d').drawImage(im, 0, 0, sw, sh, 0, 0, sw, sh);
+  try { return cv.toDataURL('image/png'); } catch (e) { return src; }
+}
+const whimPt = s => { const m = String(s).match(/^\(x=(-?[\d.]+),y=(-?[\d.]+)\)$/); return m ? { x: +m[1], y: +m[2] } : s; };
 
 /* =========================================================
    Pointer interaction
@@ -4028,7 +4895,7 @@ function onMove(e) {
   if (S.pinch) { updatePinch(); return; }
   const d = S.drag, w = toWorld(e.clientX, e.clientY);
   if (!d) {
-    if (S.tool === 'select') updatePlusHot(e);
+    if (S.tool === 'select') { updatePlusHot(e); setHover(e); }
     if (S.tool === 'connector') { const h = hitItemAt(w); if (h !== S.hover) { S.hover = h; renderOverlay(); } }
     return;
   }
@@ -4036,7 +4903,15 @@ function onMove(e) {
   switch (d.type) {
     case 'pan': { const v = V(); v.x = d.vx + e.clientX - d.sx; v.y = d.vy + e.clientY - d.sy; applyView(); break; }
     case 'move-pending': if (!moved) break; beginMove(d, e.altKey); moveTo(d, w); break;
-    case 'move': { moveTo(d, w); const one = d.list.length === 1 ? d.list[0].it : null; const pd = one ? findPinDrop(e, one) : null; if ((pd && pd.to + pd.slot) !== (d.pinDrop && d.pinDrop.to + d.pinDrop.slot)) { d.pinDrop = pd; renderOverlay(); } break; }
+    case 'move': {
+      moveTo(d, w); const sl = selItems(), one = sl.length === 1 ? sl[0] : null;
+      let td = null;
+      if (one && one.type === 'frame') { const el = document.elementFromPoint(e.clientX, e.clientY), b = el && el.closest && el.closest('[data-ftadd]'), host = b && b.closest('[data-id]'); if (host && host.dataset.id !== one.id) td = { fid: host.dataset.id, owner: b.dataset.ftadd, btn: b }; }
+      if ((td && td.btn) !== (d.tabDrop && d.tabDrop.btn)) { if (d.tabDrop) d.tabDrop.btn.classList.remove('drop'); if (td) td.btn.classList.add('drop'); d.tabDrop = td; }
+      const pd = !td && one ? findPinDrop(e, one, new Set(d.list.map(m => m.it.id))) : null;
+      if ((pd && pd.to + pd.slot) !== (d.pinDrop && d.pinDrop.to + d.pinDrop.slot)) { d.pinDrop = pd; renderOverlay(); }
+      break;
+    }
     case 'marquee': {
       if (!d.active && !moved) break;
       d.active = true; d.cur = w;
@@ -4181,7 +5056,7 @@ function onUp(e) {
       }
       break;
     }
-    case 'move': if (d.pinDrop) { const it = d.list[0].it; it.pin = { to: d.pinDrop.to, slot: d.pinDrop.slot }; d.pinDrop = null; changed(); toast('Прицеплено. Чтобы отцепить, просто оттащите или нажмите «Отцепить»'); } scheduleSave(); break;
+    case 'move': if (d.tabDrop) { d.tabDrop.btn.classList.remove('drop'); const M = selItems()[0], F = byId(d.tabDrop.fid), own = d.tabDrop.owner; d.tabDrop = null; d.pinDrop = null; frameToTab(M, F, own); } if (d.pinDrop) { const it = selItems()[0]; it.pin = { to: d.pinDrop.to, slot: d.pinDrop.slot }; d.pinDrop = null; changed(); toast('Прицеплено. Чтобы отцепить, просто оттащите или нажмите «Отцепить»'); } scheduleSave(); break;
     case 'place': {
       pushHist();
       const it = d.tool === 'sticky' ? mkSticky(d.w.x, d.w.y) : d.tool === 'text' ? mkText(d.w.x, d.w.y) : d.tool === 'doc' ? mkDoc(d.w.x, d.w.y) : d.tool === 'table' ? mkTable(d.w.x, d.w.y) : mkMindmap(d.w.x, d.w.y);
@@ -4238,12 +5113,12 @@ function onWheel(e) {
   const dy = e.deltaY * k, dx = e.deltaX * k, one = dy || dx;
   const mouseWheel = e.deltaMode !== 0 || ((dx === 0 || dy === 0) && Math.abs(one) >= 50 && Number.isInteger(one));
   if (!mouseWheel) {
-    if (e.ctrlKey || e.metaKey) zoomAt(e.clientX, e.clientY, v.z * Math.exp(-dy * 0.012));
+    if (e.ctrlKey || e.metaKey) { if (S.zAnim) { cancelAnimationFrame(S.zAnim); S.zAnim = 0; } zoomAt(e.clientX, e.clientY, v.z * Math.exp(-dy * 0.012)); }
     else { v.x -= dx; v.y -= dy; applyView(); }
     return;
   }
   const W = S.wheel || PRESETS.holst.wheel, mode = (e.ctrlKey || e.metaKey) ? W.ctrl : e.shiftKey ? W.shift : W.plain;
-  if (mode === 'zoom') zoomAt(e.clientX, e.clientY, zoomCfg().step ? levelZoom(v.z, one < 0 ? 1 : -1) : v.z * Math.exp(-one * 0.0016));
+  if (mode === 'zoom') { S.mouse = { x: e.clientX, y: e.clientY }; wheelZoom(e.clientX, e.clientY, one); }
   else if (mode === 'panX') { v.x -= one; applyView(); }
   else { v.y -= one; applyView(); }
 }
@@ -4257,15 +5132,6 @@ const TOOLS = [
   ['pen', 'Перо', 'P'], ['eraser', 'Ластик', 'E'], ['frame', 'Рамка', 'F'], ['mindmap', 'Майнд-карта', 'M'], ['doc', 'Документ', 'D'], ['table', 'Таблица', 'G'], null,
   ['image', 'Изображение', 'I'], ['embed', 'Встроить видео, сайт или HTML', 'K'],
 ];
-function buildToolbar() {
-  $('#toolbar').innerHTML = TOOLS.map(t => {
-    if (!t) return '<div class="tsep"></div>';
-    const [id, tip, key] = t;
-    const attr = id === 'image' || id === 'embed' ? `data-act="${id}"` : `data-tool="${id}"`;
-    const kk = S.keys ? keyOf(id === 'image' || id === 'embed' ? 'act:' + id : 'tool:' + id) : key;
-    return `<button class="ib" ${attr} data-tip="${tip}${kk && kk !== '—' ? ' (' + kk + ')' : ''}" aria-label="${tip}">${id === 'shape' ? shapeIcon(S.opts.shape) : ic(id)}</button>`;
-  }).join('');
-}
 function setTool(t) {
   finishEdit();
   S.tool = t; S.hover = null;
@@ -4298,8 +5164,10 @@ function openPop(anchor, html, onPick) {
 }
 function closePop() { pop.hidden = true; pop._pick = null; pop._anchor = null; }
 function colorPop(anchor, colors, cur, onPick, kind = '') {
-  const cols = Math.min(6, colors.length);
-  openPop(anchor, `<div class="grid" style="grid-template-columns:repeat(${cols},30px)">` + colors.map(c => `<button class="swb ${c === cur ? 'on' : ''}" data-v="${c}" title="${c === 'transparent' ? 'Без цвета' : c}"><span class="sw ${kind} ${c === 'transparent' ? 'tr' : ''}" style="--c:${c}"></span></button>`).join('') + '</div>', onPick);
+  const extra = (S.settings.ccol || []).filter(c => !colors.includes(c)), all = colors.concat(extra), cols = Math.min(6, all.length + 1);
+  openPop(anchor, `<div class="grid" style="grid-template-columns:repeat(${cols},30px)">` + all.map(c => `<button class="swb ${c === cur ? 'on' : ''}" data-v="${c}" title="${c === 'transparent' ? 'Без цвета' : c}"><span class="sw ${kind} ${c === 'transparent' ? 'tr' : ''}" style="--c:${c}"></span></button>`).join('') + `<label class="swb addc" title="Свой цвет"><input type="color" value="${/^#[0-9a-f]{6}$/i.test(cur || '') ? cur : '#3355ff'}" data-addc>${ic('plus')}</label></div>`, onPick);
+  const inp = pop.querySelector('[data-addc]');
+  if (inp) inp.addEventListener('change', () => { const c = inp.value; S.settings.ccol = [c].concat((S.settings.ccol || []).filter(x => x !== c)).slice(0, 12); saveSettings(); closePop(); onPick(c); });
 }
 function optPop(anchor, opts, cur, onPick) {
   openPop(anchor, '<div class="row">' + opts.map(([v, label]) => `<button class="ob ${String(v) === String(cur) ? 'on' : ''}" data-v="${v}">${label}</button>`).join('') + '</div>', onPick);
@@ -4319,7 +5187,9 @@ function openMenu(btn) {
     (installPrompt ? mi('install', 'install', 'Установить как приложение') : (!S.hosted && !PANE && !IS_FILE ? mi('installHow', 'install', 'Установить в другой браузер…') : '')) +
     (Drive.mcp ? mi('wimport', 'imp', 'Импорт из Whimsical…') : '') +
     mi('keys', 'kbd', 'Горячие клавиши…') +
-    mi('catalog', 'help', 'Картотека функций…') +
+    mi('search', 'srch', 'Поиск', keyOf('search')) +
+    mi('dev', 'devic', 'DEV: задачник разработки') +
+    mi('theme', 'moon', 'Тема', { auto: 'авто', light: 'светлая', dark: 'тёмная' }[S.settings.theme || 'auto']) +
     mi('history', 'hist', 'История версий…') +
     (Backup.ok() ? mi('backup', 'folder', 'Резервная копия в папку…') : '') +
     '<div class="msep"></div>' +
@@ -4342,7 +5212,10 @@ function menuAction(v) {
     case 'offline': downloadOffline(); break;
     case 'split': splitPop($('#btnMenu')); break;
     case 'keys': openKeys(); break;
-    case 'catalog': openCatalog(); break;
+    case 'catalog': openVersions(); break;
+    case 'search': openSearch(); break;
+    case 'dev': openDev(); break;
+    case 'theme': themePop($('#btnMenu')); break;
     case 'history': openHistory(); break;
     case 'backup': openBackup(); break;
     case 'versions': openVersions(); break;
@@ -4430,7 +5303,7 @@ function loadBoard(b) {
   S.board = b; S.sel.clear(); S.hist = []; S.fut = []; S.hover = null; S.editing = null; S.drag = null;
   S.active = null; S.loaded.clear(); S.focus = null;
   for (const el of els.values()) el.remove();
-  els.clear(); world.innerHTML = ''; assetCache.clear();
+  els.clear(); world.innerHTML = ''; assetCache.clear(); if (S.outl) { S.outl._k = ''; S.outl.innerHTML = ''; world.appendChild(S.outl); }
   $('#boardName').value = b.name;
   document.title = b.name + ' — Холст';
   Backend.subscribe(b.id, onRemoteItems);
@@ -4706,6 +5579,7 @@ async function exportPNG() {
    ========================================================= */
 const isTyping = () => { const a = document.activeElement; return !!S.editing || (a && (a.tagName === 'INPUT' || a.tagName === 'TEXTAREA' || a.isContentEditable)); };
 function onKeyDown(e) {
+  if (S.tbMove) { if (e.key === 'Escape') { e.preventDefault(); tbMoveEnd(true); } else if (e.key === 'Enter') { e.preventDefault(); tbMoveEnd(false); } return; }
   if (S.xdlg) { if (S.capture) handleCapture(e); else if (e.key === 'Escape') closeXdlg(); return; }
   if (!S.board) return;
   if (S.focus) { if (e.key === 'Escape') { e.preventDefault(); exitFocus(); } return; }
@@ -4831,7 +5705,7 @@ function renderDriveDlg() {
     return `<div class="dstat" data-d="${st}"><span class="dot"></span><span>${esc((Drive.note || labels[st] || '') + last)}</span></div>`;
   };
   if (!Drive.available()) {
-    body.innerHTML = `<p class="sub">Синхронизация с Google Диском работает, когда доска открыта по своему адресу в интернете или внутри Claude с подключённым коннектором Google Диска${IS_FILE ? ', а не файлом с диска' : ''}.</p>`;
+    body.innerHTML = `<div class="dstat" data-d="off"><span class="dot"></span><span>Здесь синхронизация недоступна</span></div><p class="sub">Синхронизация с Google Диском работает, когда доска открыта по своему адресу в интернете или внутри Claude с подключённым коннектором Google Диска${IS_FILE ? ', а не файлом с диска' : ''}.</p>`;
     return;
   }
   if (Drive.mode === 'mcp') {
@@ -4839,7 +5713,7 @@ function renderDriveDlg() {
       <div class="note"><b>Как это устроено</b>Эта версия хранит доски в Claude и, пока страница открыта, обменивается изменениями с папкой «Холст» на вашем Google Диске через коннектор Google Диска. Те же доски открываются в приложении на компьютере и телефоне. Если одну доску меняли в двух местах одновременно, сохранятся обе версии.</div>`;
   } else if (!Drive.cid) {
     const origin = location.origin;
-    body.innerHTML = `<p class="sub">Доски будут храниться в папке «Холст» на вашем Google Диске и совпадать на компьютере, телефоне и в версии внутри Claude. Настройка разовая, минут на десять.</p>
+    body.innerHTML = `<div class="dstat" data-d="off"><span class="dot"></span><span>Google Диск не подключён</span></div><p class="sub">Доски будут храниться в папке «Холст» на вашем Google Диске и совпадать на компьютере, телефоне и в версии внутри Claude. Настройка разовая, минут на десять.</p>
       <ol class="steps">
         <li>Откройте <a href="https://console.cloud.google.com/projectcreate" target="_blank" rel="noopener">Google Cloud</a> под своим аккаунтом Google и создайте проект «Холст».</li>
         <li>Включите <a href="https://console.cloud.google.com/apis/library/drive.googleapis.com" target="_blank" rel="noopener">Google Drive API</a> кнопкой «Enable» («Включить»).</li>
@@ -4998,7 +5872,28 @@ function wire() {
   document.addEventListener('input', e => { if (S.editing && world.contains(e.target)) onTextInput(); });
   document.addEventListener('focusout', e => { if (!S.editing || !world.contains(e.target)) return; const id = S.editing, sub = S.editSub; setTimeout(() => { const cur = els.get(id), a = document.activeElement; if (S.editing === id && S.editSub === sub && document.hasFocus() && !(cur && (cur.contains(a) || (cur._fhead && cur._fhead.contains(a))))) finishEdit(); }, 0); });
   wireSplit();
-  S.dotsCv = document.createElement('canvas'); S.dotsCv.id = 'dots'; world.after(S.dotsCv);
+  const tb = $('#toolbar');
+  tb.addEventListener('pointerdown', e => { const b = e.target.closest('[data-tb]'); S.tbWas = b && b.dataset.tool && b.dataset.tool === S.tool ? b.dataset.tb : null; }, true);
+  tb.addEventListener('click', e => {
+    if (S.tbSkipClick) { e.stopImmediatePropagation(); return; }
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.tbplus) { e.stopImmediatePropagation(); openTbCatalog(); return; }
+    if (b.dataset.act && b.dataset.act.startsWith('a:')) { e.stopImmediatePropagation(); tbAction(b.dataset.act); return; }
+    if (S.tbWas && S.tbWas === b.dataset.tb && b.dataset.tool !== 'shape' && b.dataset.tool !== 'sticky' && b.dataset.tool !== 'pen') { e.stopImmediatePropagation(); tbMenu(b, b.dataset.tb); }
+  }, true);
+  tb.addEventListener('contextmenu', e => { const b = e.target.closest('[data-tb]'); if (!b) return; e.preventDefault(); tbMenu(b, b.dataset.tb); });
+  window.addEventListener('pointermove', e => { S.mouse = { x: e.clientX, y: e.clientY }; if (S.tbMove) tbMoveTo(e.clientY); }, true);
+  window.addEventListener('pointerdown', e => { if (S.tbMove) { e.preventDefault(); e.stopPropagation(); tbMoveEnd(false); } }, true);
+  window.addEventListener('wheel', e => {
+    if (vp.contains(e.target) && !e.target.closest('.panel')) return;
+    const inDlg = e.target.closest && e.target.closest('.xdlg, .dlg, #drawer, #pop, #flyout, .dev');
+    if (inDlg) { if (e.ctrlKey || e.metaKey) e.preventDefault(); return; }
+    if (!S.board || S.focus) { if (e.ctrlKey || e.metaKey) e.preventDefault(); return; }
+    onWheel(e);
+  }, { capture: true, passive: false });
+  document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('button'); if (b && !b.closest('.xdlg, .dlg, form') && b.closest('.panel, #ctx, #toolbar, #zoombar')) setTimeout(() => { if (document.activeElement === b) b.blur(); }, 0); }, true);
+  vp.addEventListener('pointerleave', () => { if (S.hover && S.tool === 'select') { S.hover = null; renderOverlay(); } });
+  S.outl = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); S.outl.id = 'outl'; world.appendChild(S.outl);
   $('#crumbs').addEventListener('click', e => { const b = e.target.closest('[data-cr]'); if (b) exitFrame(+b.dataset.cr); });
   pop.addEventListener('click', e => { const b = e.target.closest('[data-v]'); if (!b) return; const f = pop._pick; closePop(); if (f) f(b.dataset.v); });
   document.addEventListener('pointerdown', e => { if (!pop.hidden && !pop.contains(e.target) && !(pop._anchor && pop._anchor.contains(e.target))) closePop(); }, true);
@@ -5039,7 +5934,8 @@ function wire() {
   $('#btnRedo').addEventListener('click', redo);
   $('#btnZoomIn').addEventListener('click', () => zoomStep(1.25));
   $('#btnZoomOut').addEventListener('click', () => zoomStep(0.8));
-  $('#zoomLbl').addEventListener('click', () => zoomAt(innerWidth / 2, innerHeight / 2, 1));
+  $('#zoomLbl').addEventListener('click', () => zoomPop());
+  $('#zoomLbl').title = 'Масштаб: щёлкните для настроек';
   $('#btnFit').addEventListener('click', () => fitAll());
 
   fbar.addEventListener('pointerdown', e => { if (e.target.closest('[data-ff]')) e.preventDefault(); });
@@ -5127,8 +6023,8 @@ async function chooseBackend() {
 async function init() {
   wire();
   const st = LS.get('settings');
-  if (st) { S.settings.grid = st.grid !== false; Object.assign(S.opts, st.opts || {}); S.settings.views = st.views || {}; S.settings.ctpl = st.ctpl || {}; }
-  loadKeys();
+  if (st) { S.settings.grid = st.grid !== false; Object.assign(S.opts, st.opts || {}); S.settings.views = st.views || {}; S.settings.ctpl = st.ctpl || {}; S.settings.theme = st.theme || 'auto'; S.settings.ccol = st.ccol || []; }
+  loadKeys(); applyTheme(); if (darkMQ && darkMQ.addEventListener) darkMQ.addEventListener('change', applyTheme);
   if (PANE) document.body.classList.add('pane');
   buildToolbar();
   Backend = await chooseBackend();
