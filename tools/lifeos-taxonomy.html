@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Таксономия Life OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#EDF1F2; --surface:#FFFFFF; --surface2:#F3F6F7; --line:#D1DADF; --line-strong:#AAB8C1;
+  --text:#14202A; --muted:#556674; --faint:#8494A0;
+  --life:#9A6A0C; --inner:#6552D0; --measure:#BB3862; --outer:#B0561B; --know:#1A74AB; --own:#17875A;
+  --serif:"Literata", Georgia, "Times New Roman", serif;
+  --sans:"Golos Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --r-s:6px; --r-m:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111A21; --surface:#16212A; --surface2:#1B2832; --line:#283844; --line-strong:#3D5263;
+    --text:#E3E9ED; --muted:#97A8B4; --faint:#6E818E;
+    --life:#E3B150; --inner:#A597FF; --measure:#F2769A; --outer:#EF9658; --know:#5FB9EE; --own:#4DC792;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111A21; --surface:#16212A; --surface2:#1B2832; --line:#283844; --line-strong:#3D5263;
+  --text:#E3E9ED; --muted:#97A8B4; --faint:#6E818E;
+  --life:#E3B150; --inner:#A597FF; --measure:#F2769A; --outer:#EF9658; --know:#5FB9EE; --own:#4DC792;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+:focus-visible{outline:2px solid var(--know);outline-offset:2px;border-radius:4px}
+a{color:var(--know)}
+button{font:inherit;color:inherit}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.bar-in{max-width:1180px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:20px;height:56px}
+.bar .brand{font-family:var(--serif);font-weight:600;font-size:1.05rem;white-space:nowrap}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{all:unset;cursor:pointer;padding:7px 12px;border-radius:var(--r-s);color:var(--muted);font-size:.94rem;white-space:nowrap}
+.tabs button:hover{color:var(--text);background:var(--surface2)}
+.tabs button[aria-selected="true"]{color:var(--text);background:var(--surface);box-shadow:inset 0 -2px 0 var(--text)}
+.tabs button:focus-visible{outline:2px solid var(--know)}
+@media (max-width:720px){.bar .brand{display:none}.bar-in{padding:0 12px}}
+
+main{max-width:1180px;margin:0 auto;padding:36px 24px 120px}
+@media (max-width:720px){main{padding:24px 16px 100px}}
+.view{display:none}
+.view.on{display:block}
+
+h1,h2{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;line-height:1.15;margin:0}
+h1{font-size:clamp(2.1rem,4.6vw,3.3rem)}
+h2{font-size:clamp(1.6rem,3vw,2.15rem);margin-bottom:12px}
+h3{font-size:1.12rem;font-weight:600;margin:38px 0 10px;line-height:1.3}
+h4{font-size:1rem;font-weight:600;margin:20px 0 6px}
+p{margin:0 0 13px;max-width:70ch}
+.lead{font-size:1.14rem;color:var(--muted);max-width:66ch}
+.intro{color:var(--muted);max-width:70ch;font-size:1.03rem}
+.muted{color:var(--muted)}.small{font-size:.9rem}.faint{color:var(--faint)}
+
+/* pencil tips */
+.tip{all:unset;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;font-size:.78rem;color:var(--faint);border:1px solid var(--line-strong);vertical-align:.12em;margin-left:4px}
+.tip:hover,.tip[aria-expanded="true"]{color:var(--text);border-color:var(--text)}
+.pop{position:absolute;z-index:40;max-width:340px;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--r-m);padding:12px 14px;font-size:.88rem;line-height:1.5;box-shadow:0 8px 28px rgba(0,0,0,.18)}
+.pop b{display:block;margin-bottom:4px;font-size:.92rem}
+.pop p{margin:0 0 6px;color:var(--muted)}
+.pop p:last-child{margin:0}
+.pop .k{color:var(--text);font-weight:500}
+
+/* hero prism */
+.prism-wrap{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:18px;overflow-x:auto}
+.prism{display:block;width:100%;min-width:760px;height:auto}
+.prism text{font-family:var(--sans)}
+.prism .an{font-size:12.5px;font-weight:600}
+.prism .av{font-size:13.5px;fill:var(--text)}
+.prism .cn{font-family:var(--serif);font-size:19px;font-weight:600;fill:var(--text)}
+.prism .cs{font-size:12.5px;fill:var(--muted)}
+.cap{font-size:.92rem;color:var(--muted);margin:12px 2px 0;max-width:84ch}
+
+/* blocks */
+.tw{overflow-x:auto;margin:12px 0 6px;border:1px solid var(--line);border-radius:var(--r-m);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{text-align:left;vertical-align:top;padding:10px 13px;border-bottom:1px solid var(--line)}
+th{font-weight:600;color:var(--muted);font-size:.83rem;background:var(--surface2)}
+tr:last-child td{border-bottom:0}
+td.k{font-weight:600}
+td.c,th.c{text-align:center}
+.yes{color:var(--own);font-weight:600}.no{color:var(--faint)}.part{color:var(--life)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;padding:2px 9px;border-radius:999px;border:1px solid var(--line-strong);color:var(--muted);margin:2px 4px 2px 0;white-space:nowrap;background:transparent}
+button.chip{cursor:pointer}
+button.chip:hover{color:var(--text);border-color:var(--text)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none}
+.callout{border-left:3px solid var(--line-strong);padding:4px 0 4px 16px;margin:18px 0;color:var(--muted);max-width:74ch}
+.callout b{color:var(--text)}
+
+/* terms grid */
+.terms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-m);overflow:hidden;margin:14px 0}
+.term{background:var(--surface);padding:15px 16px}
+.term h4{margin:0 0 4px;font-family:var(--serif);font-size:1.15rem}
+.term p{font-size:.9rem;color:var(--muted);margin:0 0 6px}
+.term .ex{font-size:.84rem;color:var(--faint);margin:0}
+@media (max-width:900px){.terms{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.terms{grid-template-columns:1fr}}
+
+.schema{display:block;width:100%;min-width:720px;height:auto}
+.schema text{font-family:var(--sans);font-size:13px;fill:var(--text)}
+.schema .lab{font-size:11.5px;fill:var(--muted)}
+.schema .hd{font-weight:600;font-size:13.5px}
+
+/* modes */
+.modes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:14px 0}
+.mode{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:14px 15px}
+.mode h4{margin:0 0 2px;font-family:var(--serif);font-size:1.1rem}
+.mode .sub{font-size:.82rem;color:var(--faint);margin-bottom:8px}
+.mode p{font-size:.88rem;color:var(--muted);margin:0 0 8px}
+.mode .ex{font-size:.82rem}
+@media (max-width:900px){.modes{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.modes{grid-template-columns:1fr}}
+
+.canons{list-style:none;padding:0;margin:12px 0;counter-reset:c}
+.canons li{counter-increment:c;display:grid;grid-template-columns:32px minmax(0,1fr);gap:10px;padding:10px 0;border-bottom:1px solid var(--line);max-width:80ch}
+.canons li:last-child{border-bottom:0}
+.canons li::before{content:counter(c);font-family:var(--serif);font-size:1.2rem;color:var(--faint);text-align:right}
+.canons b{display:block}
+.canons span{color:var(--muted);font-size:.93rem}
+
+/* aspects */
+.agrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}
+.acard{all:unset;box-sizing:border-box;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:12px 14px;border-top:3px solid var(--c)}
+.acard:hover{border-color:var(--line-strong);border-top-color:var(--c)}
+.acard[aria-pressed="true"]{background:var(--surface2);border-color:var(--text);border-top-color:var(--c)}
+.acard b{display:block;font-size:.98rem}
+.acard span{display:block;font-size:.84rem;color:var(--muted);line-height:1.4;margin-top:3px}
+.acard i{font-style:normal;font-size:.76rem;color:var(--faint)}
+@media (max-width:900px){.agrid{grid-template-columns:1fr 1fr}}
+.adetail{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:18px 20px;margin:4px 0 10px}
+.adetail h3{margin:0 0 4px;font-family:var(--serif);font-size:1.45rem}
+.fam{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.86rem;color:var(--muted);margin:8px 0}
+
+/* library */
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0}
+.filters select,.filters input{font:inherit;font-size:.9rem;padding:7px 10px;border:1px solid var(--line-strong);border-radius:var(--r-s);background:var(--surface);color:var(--text)}
+.filters .cnt{font-size:.88rem;color:var(--muted);margin-left:auto}
+.lib{border:1px solid var(--line);border-radius:var(--r-m);background:var(--surface);overflow:hidden}
+.srow{border-bottom:1px solid var(--line)}
+.srow:last-child{border-bottom:0}
+.shead{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1.3fr) 120px 150px 18px;gap:12px;align-items:center;width:100%;padding:12px 16px}
+.shead:hover{background:var(--surface2)}
+.shead .nm b{display:block;font-size:.97rem}
+.shead .nm span{font-size:.82rem;color:var(--muted)}
+.shead .asp{font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:7px}
+.badge{display:inline-block;font-size:.76rem;padding:1px 8px;border-radius:999px;border:1px solid var(--line-strong);white-space:nowrap}
+.b-strict{border-color:var(--text);color:var(--text)}
+.b-ext{border-color:var(--life);color:var(--life)}
+.b-open{border-color:var(--own);color:var(--own)}
+.b-hybrid{border-color:var(--inner);color:var(--inner)}
+.ev{font-size:.8rem;color:var(--muted)}
+.chev{color:var(--faint);transition:transform .15s}
+.srow.open .chev{transform:rotate(90deg)}
+.sbody{display:none;padding:2px 16px 18px;background:var(--surface2);border-top:1px solid var(--line)}
+.srow.open .sbody{display:block}
+.sbody .meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.86rem;color:var(--muted);margin:12px 0 8px}
+.sbody .meta b{color:var(--text);font-weight:500}
+.sbody .note{font-size:.9rem;margin:8px 0 0;max-width:80ch}
+.tree{margin:10px 0 0;padding:0;list-style:none;font-size:.9rem}
+.tree ul{list-style:none;margin:2px 0 4px 18px;padding:0 0 0 12px;border-left:1px solid var(--line-strong)}
+.tree li{padding:1px 0}
+.tree .n0{font-weight:600}
+.tree .cd{color:var(--faint);font-size:.8rem;margin-right:6px}
+.matrix-mini{font-size:.82rem}
+.matrix-mini td,.matrix-mini th{padding:5px 8px}
+@media (max-width:760px){
+  .shead{grid-template-columns:minmax(0,1fr) 18px;row-gap:4px}
+  .shead .asp,.shead .md,.shead .ev{grid-column:1}
+  .shead .chev{grid-row:1;grid-column:2}
+}
+
+/* hybrid */
+.find{list-style:none;padding:0;margin:14px 0}
+.find li{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:22px;padding:15px 0;border-top:1px solid var(--line)}
+.find li:first-child{border-top:0}
+.find h4{margin:0 0 4px}
+.find p{font-size:.92rem;color:var(--muted);margin:0}
+.find .fix{font-size:.92rem;padding-left:14px;border-left:2px solid var(--own)}
+@media (max-width:760px){.find li{grid-template-columns:1fr;gap:8px}}
+.layers3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0}
+.ly{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:14px 16px;border-top:3px solid var(--c)}
+.ly h4{margin:0 0 4px;font-family:var(--serif);font-size:1.12rem}
+.ly p{font-size:.88rem;color:var(--muted);margin:0 0 6px}
+@media (max-width:900px){.layers3{grid-template-columns:1fr}}
+.sph-tree{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-m);overflow:hidden;margin:12px 0}
+.sph-tree > div{background:var(--surface);padding:12px 14px}
+.sph-tree b{font-family:var(--serif);font-size:1rem;letter-spacing:.02em}
+.sph-tree .code{font-size:.78rem;color:var(--faint);margin-left:6px}
+.sph-tree ul{margin:6px 0 0;padding:0;list-style:none;font-size:.86rem;color:var(--muted)}
+.sph-tree li{padding:1px 0}
+.sph-tree .mnt{color:var(--know)}
+.sph-tree .del{text-decoration:line-through;color:var(--faint)}
+@media (max-width:900px){.sph-tree{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.sph-tree{grid-template-columns:1fr}}
+
+/* decisions */
+.dec{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:16px 18px;margin:12px 0}
+.dec h4{margin:0 0 2px;font-size:1.02rem}
+.dec .why{font-size:.88rem;color:var(--muted);margin:2px 0 10px}
+.opts{display:grid;gap:6px}
+.opt{display:grid;grid-template-columns:20px minmax(0,1fr);gap:8px;align-items:start;padding:8px 10px;border:1px solid var(--line);border-radius:var(--r-s);cursor:pointer}
+.opt:hover{border-color:var(--line-strong)}
+.opt input{margin-top:4px;accent-color:var(--own)}
+.opt b{font-weight:500}
+.opt span{display:block;font-size:.84rem;color:var(--muted)}
+.opt .rec{font-size:.74rem;color:var(--own);border:1px solid var(--own);border-radius:999px;padding:0 7px;margin-left:6px;vertical-align:.1em}
+.opt:has(input:checked){border-color:var(--text);background:var(--surface2)}
+.summary{background:var(--surface);border:1px solid var(--text);border-radius:var(--r-m);padding:16px 18px;margin:18px 0}
+.summary ul{margin:6px 0 10px;padding-left:18px}
+.summary li{margin:3px 0}
+textarea.json{width:100%;min-height:200px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.8rem;border:1px solid var(--line-strong);border-radius:var(--r-s);background:var(--surface2);color:var(--text);padding:10px}
+.btn{all:unset;cursor:pointer;display:inline-block;padding:7px 14px;border-radius:var(--r-s);border:1px solid var(--text);font-size:.9rem}
+.btn:hover{background:var(--surface2)}
+footer{margin-top:70px;padding-top:18px;border-top:1px solid var(--line);font-size:.84rem;color:var(--faint)}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="bar-in">
+  <div class="brand">Таксономия Life OS</div>
+  <div class="tabs" role="tablist" aria-label="Разделы">
+    <button role="tab" data-v="model" aria-selected="true">Модель</button>
+    <button role="tab" data-v="aspects" aria-selected="false">Аспекты</button>
+    <button role="tab" data-v="library" aria-selected="false">Библиотека схем</button>
+    <button role="tab" data-v="hybrid" aria-selected="false">Гибрид</button>
+    <button role="tab" data-v="tools" aria-selected="false">Сквозь инструменты</button>
+    <button role="tab" data-v="choice" aria-selected="false">Выбор</button>
+  </div>
+</div></div>
+
+<main>
+
+<!-- ============ МОДЕЛЬ ============ -->
+<section class="view on" id="v-model" role="tabpanel">
+  <h1>Таксономия Life OS</h1>
+  <p class="lead">Как раскладывать всё в жизни по категориям так, чтобы подошло любому человеку: строгие научные схемы, гибкие вроде колеса баланса, полностью свои на холсте и гибрид из всего этого. Одно дерево эту задачу не решает. Решает набор независимых ракурсов, связанных между собой.</p>
+
+  <div class="prism-wrap"><svg class="prism" id="prism" viewBox="0 0 980 360" role="img" aria-label="Одна цель, увиденная через восемь аспектов"></svg></div>
+  <p class="cap">Одна и та же цель из твоего файла Life OS, увиденная через восемь аспектов. В одном дереве ей пришлось бы выбрать одно место. При фасетной классификации у неё есть адрес в каждом ракурсе, и любой ракурс можно включить как линзу для просмотра всей жизни.</p>
+
+  <h3>Почему не одно дерево</h3>
+  <p>Любая иерархия делит мир по одному основанию на каждом уровне. «Сферы жизни» делят по областям ответственности, «потребности» — по тому, что человеку нужно, PERMA — по измерениям самочувствия. Это разные вопросы, и когда их смешивают в одном дереве, появляются вечные споры «куда это положить». В твоём файле так случилось с потребностями: каждой сфере приписана одна потребность, хотя работа одновременно даёт и безопасность, и признание, и смысл.</p>
+  <p>Решение известно с 1930-х: <b>фасетная классификация</b> Ранганатана. Мир описывается несколькими независимыми ракурсами (фасетами), у каждого своя иерархия, а запись получает адрес в каждом нужном ракурсе. Современная форма той же идеи — стандарт SKOS (W3C): схемы понятий, иерархия внутри схемы и связи соответствия между схемами.</p>
+
+  <h3>Шесть терминов</h3>
+  <div class="terms">
+    <div class="term"><h4>Аспект <button class="tip" data-tip="aspect" aria-label="Пояснение: аспект">✎</button></h4><p>Ракурс, один вопрос к записи: «где в жизни?», «какая потребность?», «какое измерение самочувствия?».</p><p class="ex">Сферы, Потребности, Благополучие, Ценности</p></div>
+    <div class="term"><h4>Схема <button class="tip" data-tip="scheme" aria-label="Пояснение: схема">✎</button></h4><p>Конкретный набор категорий внутри аспекта. У одного аспекта может быть много схем-альтернатив.</p><p class="ex">В аспекте «Благополучие»: PERMA-H, Рифф, WHO-5</p></div>
+    <div class="term"><h4>Узел <button class="tip" data-tip="node" aria-label="Пояснение: узел">✎</button></h4><p>Категория внутри схемы. У узла один родитель, глубина любая.</p><p class="ex">ЗДОРОВЬЕ › Сон и режим</p></div>
+    <div class="term"><h4>Отнесение <button class="tip" data-tip="assign" aria-label="Пояснение: отнесение">✎</button></h4><p>Связь записи с узлом. Может иметь вес и автора: ты, правило или ИИ.</p><p class="ex">Цель → Тело 0,7, Автономия 0,3</p></div>
+    <div class="term"><h4>Соответствие <button class="tip" data-tip="map" aria-label="Пояснение: соответствие">✎</button></h4><p>Связь узла одной схемы с узлом другой: совпадает, шире, уже, родственно.</p><p class="ex">ЗДОРОВЬЕ ≈ WHOQOL «Физическое»; ≈ PERMA «H»</p></div>
+    <div class="term"><h4>Монтирование <button class="tip" data-tip="mount" aria-label="Пояснение: монтирование">✎</button></h4><p>Подключение целой строгой схемы под узел гибкой, как диск в папку.</p><p class="ex">ДЕНЬГИ › Траты ⊕ классификатор COICOP</p></div>
+  </div>
+
+  <div class="tw"><svg class="schema" viewBox="0 0 1000 300" id="schemaSvg" role="img" aria-label="Схема связей: аспект, схемы, узлы, запись, соответствия, монтирование"></svg></div>
+
+  <h3>Четыре режима строгости</h3>
+  <p>Режим — свойство схемы. Он определяет, что пользователь вправе в ней менять.</p>
+  <div class="modes">
+    <div class="mode"><h4>Строгая</h4><div class="sub">закрытая, неизменяемая</div><p>Научный инструмент или официальный классификатор. Узлы нельзя добавлять, переименовывать и удалять: иначе пропадает сопоставимость с исследованиями и с собой в прошлом.</p><p class="ex muted">PERMA-H, ТСД, Шварц, WHOQOL, COICOP, УДК</p></div>
+    <div class="mode"><h4>Расширяемая</h4><div class="sub">верх заморожен, низ свободен</div><p>Верхние уровни фиксированы, ниже добавляешь что хочешь. Параметр «замороженная глубина» говорит, сколько уровней закреплено.</p><p class="ex muted">Колесо баланса, сферы Life OS</p></div>
+    <div class="mode"><h4>Свободная</h4><div class="sub">холст с нуля</div><p>Все узлы создаёт пользователь. Можно стартовать с пустого листа или с копии любой схемы. ИИ предлагает соответствия со строгими схемами, но ничего не навязывает.</p><p class="ex muted">Свои категории на Холсте</p></div>
+    <div class="mode"><h4>Составная</h4><div class="sub">гибрид</div><p>Собрана из других схем: свои узлы плюс узлы, заимствованные ссылкой, плюс смонтированные строгие поддеревья. Хранит, откуда пришёл каждый узел.</p><p class="ex muted">Гибрид Life OS</p></div>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>Действие с узлами</th><th class="c">Строгая</th><th class="c">Расширяемая</th><th class="c">Свободная</th><th class="c">Составная</th></tr></thead>
+    <tbody>
+      <tr><td>Добавить узел</td><td class="c no">нет</td><td class="c yes">ниже заморозки</td><td class="c yes">да</td><td class="c yes">в своих узлах</td></tr>
+      <tr><td>Переименовать, перенести, удалить</td><td class="c no">нет</td><td class="c part">ниже заморозки</td><td class="c yes">да</td><td class="c part">свои; заимствованные — нет</td></tr>
+      <tr><td>Скрыть ненужный узел</td><td class="c yes">да</td><td class="c yes">да</td><td class="c yes">да</td><td class="c yes">да</td></tr>
+      <tr><td>Смонтировать схему под узел</td><td class="c no">нет</td><td class="c yes">да</td><td class="c yes">да</td><td class="c yes">да</td></tr>
+      <tr><td>Связать соответствием</td><td class="c yes">да</td><td class="c yes">да</td><td class="c yes">да</td><td class="c yes">да</td></tr>
+      <tr><td>Оценивать (если схема измеряет)</td><td class="c yes">по своей шкале</td><td class="c yes">да</td><td class="c yes">да</td><td class="c yes">да</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><b>Жизненный цикл схемы.</b> Свободная схема на холсте со временем кристаллизуется: узлы, которые пережили два квартальных ревью без изменений, замораживаются, и схема становится расширяемой. Так холст не остаётся вечным черновиком, а строгость появляется из опыта, а не из желания всё сразу разложить.</div>
+
+  <h3>Три функции схемы</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Функция</th><th>Что делает</th><th>Пример</th><th>Ошибка, если перепутать</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Раскладывает</td><td>Даёт записи место. Отвечает «куда это относится»</td><td>Сферы, УДК, COICOP</td><td>Использовать измерительную шкалу как папку: WHO-5 — одно число, в него нечего раскладывать</td></tr>
+      <tr><td class="k">Измеряет</td><td>Даёт измерения для оценки состояния по шкале</td><td>PERMA-H, Рифф, четыре энергии, колесо баланса</td><td>Класть в дерево сфер результат измерения: «Счастье» — это то, что измеряют, а не область, которую ведут</td></tr>
+      <tr><td class="k">Упорядочивает</td><td>Задаёт ранг: что фундаментальнее, ближе, раньше</td><td>Маслоу, круги Данбара, горизонты GTD</td><td>Принимать эвристику порядка за закон: строгая лестница Маслоу эмпирически не подтверждена</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small muted">Одна схема может выполнять несколько функций. Колесо баланса и раскладывает, и измеряет. PERMA в основном измеряет, но цель можно отнести к измерению «Вовлечённость».</p>
+
+  <h3>Шесть форм схемы</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Форма</th><th>Устройство</th><th>Примеры</th><th>Как показывать</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Дерево</td><td>Узлы с родителями, любая глубина</td><td>Сферы, УДК, ISCO, WHOQOL</td><td>Дерево, солнечные лучи (sunburst), колесо колец</td></tr>
+      <tr><td class="k">Список</td><td>Один уровень без порядка</td><td>ТСД, PERMA-H, роли Сьюпера</td><td>Радар, полосы</td></tr>
+      <tr><td class="k">Упорядоченный список</td><td>Один уровень с рангом</td><td>Маслоу, Данбар, горизонты GTD</td><td>Лестница, концентрические круги</td></tr>
+      <tr><td class="k">Матрица</td><td>Ячейка на пересечении двух осей</td><td>Макс-Ниф 9 × 4, твоя «природа элемента» 2 × 2</td><td>Таблица, квадранты</td></tr>
+      <tr><td class="k">Круг-континуум</td><td>Соседние категории близки, противоположные конфликтуют</td><td>Ценности Шварца, эмоции Плутчика, Рассел</td><td>Круговая диаграмма с соседством</td></tr>
+      <tr><td class="k">Пересечения</td><td>Запись может входить в любое сочетание множеств</td><td>Икигай (4 круга)</td><td>Диаграмма Венна</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Свойства схемы, узла и отнесения</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Объект</th><th>Свойство</th><th>Значения и смысл</th></tr></thead>
+    <tbody>
+      <tr><td class="k" rowspan="10">Схема</td><td>Аспект</td><td>На какой вопрос отвечает</td></tr>
+      <tr><td>Режим</td><td>Строгая, расширяемая, свободная, составная</td></tr>
+      <tr><td>Функции</td><td>Раскладывает, измеряет, упорядочивает (одна или несколько)</td></tr>
+      <tr><td>Форма</td><td>Дерево, список, упорядоченный список, матрица, круг, пересечения</td></tr>
+      <tr><td>Кратность</td><td>Одно отнесение на запись, несколько, несколько с весами</td></tr>
+      <tr><td>Замороженная глубина</td><td>Сколько верхних уровней нельзя менять (у строгой — все)</td></tr>
+      <tr><td>Подписи уровней</td><td>Необязательные имена: «Сфера, Подсфера, Направление…». Глубина от них не зависит</td></tr>
+      <tr><td>Шкала</td><td>Для измеряющих: 0–10, 1–5, частота</td></tr>
+      <tr><td>Источник и доказательность</td><td>Автор, год; валидированный инструмент, стандарт, теория, практика, популярная, твоя</td></tr>
+      <tr><td>Версия</td><td>Меняется при изменении структуры, старые отнесения не ломаются</td></tr>
+      <tr><td class="k" rowspan="8">Узел</td><td>ID и код</td><td>ID неизменен, код читаемый: ЗД.1, УДК 159.9, ISCO 2354. Инструменты ссылаются на ID, не на имя</td></tr>
+      <tr><td>Название</td><td>Уникально внутри схемы</td></tr>
+      <tr><td>Родитель</td><td>Один, глубина любая</td></tr>
+      <tr><td>Границы</td><td>Что входит и что не входит, со ссылкой на соседний узел. Главное средство против споров «куда положить»</td></tr>
+      <tr><td>Ранг</td><td>Для упорядочивающих: фундаментальность, близость</td></tr>
+      <tr><td>Монтирование</td><td>Какая схема подключена под этот узел</td></tr>
+      <tr><td>Соответствия</td><td>Совпадает, шире, уже, родственно, частично с весом</td></tr>
+      <tr><td>Статус</td><td>Активен, скрыт, в архиве</td></tr>
+      <tr><td class="k" rowspan="4">Отнесение</td><td>Запись и узел</td><td>Что куда отнесено</td></tr>
+      <tr><td>Вес или роль</td><td>Основное, дополнительное или доля 0–1</td></tr>
+      <tr><td>Автор</td><td>Ты, правило, ИИ. Отнесения ИИ показываются отдельно как гипотеза, пока ты не подтвердишь</td></tr>
+      <tr><td>Наследование</td><td>Отнесено к узлу — значит, ко всем его предкам. Хранится только самое конкретное</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Каноны классификации</h3>
+  <p class="muted">Классические правила деления (от Аристотеля до Ранганатана). Строгие схемы их уже соблюдают; для своих и гибридных это чек-лист.</p>
+  <ol class="canons">
+    <li><div><b>Одно основание деления на уровне.</b><span>Все дети одного узла делятся по одному признаку. «Партнёр, Семья, Друзья, Нетворк» — по степени близости; добавить туда «Онлайн-общение» значит смешать с каналом.</span></div></li>
+    <li><div><b>Исчерпываемость.</b><span>Дети покрывают родителя целиком. Если что-то постоянно не находит места, нужен узел, а не категория «Прочее».</span></div></li>
+    <li><div><b>Взаимоисключение.</b><span>Внутри одной схемы у записи одно самое конкретное место. Пересечения решаются описанием границ или переносом признака в другой аспект.</span></div></li>
+    <li><div><b>Постепенность.</b><span>Нельзя перепрыгивать через уровень: от «ЗДОРОВЬЕ» сразу к «приседаниям» — значит, пропущено «Движение».</span></div></li>
+    <li><div><b>Одна природа на уровне.</b><span>Области, результаты, метрики и инструменты не стоят рядом. «Счастье» рядом с «Самопознанием» — это метрика среди областей.</span></div></li>
+    <li><div><b>Стабильные коды.</b><span>Переименование не ломает ничего, потому что всё ссылается на ID.</span></div></li>
+    <li><div><b>Глубина по потребности.</b><span>Хранить можно сколько угодно уровней, но новый уровень появляется, когда в узле больше 7–9 записей одного рода, а не заранее.</span></div></li>
+  </ol>
+</section>
+
+<!-- ============ АСПЕКТЫ ============ -->
+<section class="view" id="v-aspects" role="tabpanel">
+  <h2>Аспекты</h2>
+  <p class="intro">Шестнадцать ракурсов, через которые можно смотреть на жизнь. Каждый отвечает на свой вопрос и имеет одну или несколько схем. Всё сразу не нужно никому: ниже видно, какие аспекты к каким сущностям применимы.</p>
+  <div class="fam" id="famline"></div>
+  <div class="agrid" id="agrid"></div>
+  <div class="adetail" id="adetail"></div>
+
+  <h3>Какие аспекты к каким сущностям</h3>
+  <p class="muted small">● основной ракурс для этой сущности; ○ по желанию. Пустая клетка — аспект к сущности не применяется. Сущности — из «Чертежа Life OS». Сущность «Сфера» из Чертежа здесь становится узлом основной схемы: её норма, оценка и фокус — свойства узла.</p>
+  <div class="tw"><table id="applic"></table></div>
+</section>
+
+<!-- ============ БИБЛИОТЕКА ============ -->
+<section class="view" id="v-library" role="tabpanel">
+  <h2>Библиотека схем</h2>
+  <p class="intro">Основные научные, официальные, практические и популярные схемы, которые имеет смысл держать под рукой. Исчерпывающего списка не бывает: любая другая схема подключается тем же способом, через свойства из раздела «Модель». Раскрой строку, чтобы увидеть узлы.</p>
+  <div class="filters">
+    <select id="fAspect" aria-label="Аспект"></select>
+    <select id="fMode" aria-label="Режим"><option value="">Любой режим</option><option value="strict">Строгая</option><option value="ext">Расширяемая</option><option value="open">Свободная</option><option value="hybrid">Составная</option></select>
+    <select id="fFn" aria-label="Функция"><option value="">Любая функция</option><option value="classify">Раскладывает</option><option value="measure">Измеряет</option><option value="order">Упорядочивает</option></select>
+    <select id="fEv" aria-label="Доказательность"><option value="">Любая доказательность</option></select>
+    <input type="search" id="fQ" placeholder="Поиск" aria-label="Поиск по схемам">
+    <span class="cnt" id="fCnt"></span>
+  </div>
+  <div class="lib" id="lib"></div>
+</section>
+
+<!-- ============ ГИБРИД ============ -->
+<section class="view" id="v-hybrid" role="tabpanel">
+  <h2>Гибрид</h2>
+  <p class="intro">В твоём файле Life OS уже есть гибрид: 8 сфер на пирамиде потребностей, 4 именованных уровня, 79 узлов, а рядом раздел оценки состояния с семью методиками. Ниже — что в нём ломает таксономию и как выглядит версия 2.</p>
+
+  <h3>Что в текущем гибриде мешает</h3>
+  <ul class="find" id="hfind"></ul>
+
+  <h3>Гибрид v2: три слоя</h3>
+  <div class="layers3">
+    <div class="ly" style="--c:var(--life)"><h4>Раскладка</h4><p>Основной аспект — Сферы: 8 сфер (заморожены), ниже любая глубина. Каждая запись получает одно основное место. Именно этот слой уходит в папки и метки инструментов.</p><p class="small">Плюс смонтированные строгие поддеревья там, где нужна точность.</p></div>
+    <div class="ly" style="--c:var(--inner)"><h4>Смысл и порядок</h4><p>Потребности отделены от сфер и назначаются Результатам, Ориентирам и Проблемам с весами. Фундаментальность сферы считается из потребностей её активных результатов, а не задаётся раз и навсегда.</p><p class="small">Схема: ТСД внутри порядка Маслоу, 6 узлов.</p></div>
+    <div class="ly" style="--c:var(--measure)"><h4>Измерение</h4><p>PERMA-H раз в месяц, WHO-5 раз в неделю, ТСД раз в квартал. Таблица соответствий переводит баллы в сферы и потребности автоматически, без пересказа через ИИ.</p><p class="small">«Счастье» переезжает сюда из дерева сфер.</p></div>
+  </div>
+
+  <h4>Сферы v2</h4>
+  <p class="small muted">Узлы из твоего файла. ⊕ — точка монтирования строгой схемы. Зачёркнутое переезжает в другой слой.</p>
+  <div class="sph-tree" id="sphv2"></div>
+
+  <h4>Потребности v2</h4>
+  <div class="tw"><table>
+    <thead><tr><th>Узел</th><th>Откуда</th><th class="c">Ранг по умолчанию</th><th>Границы</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Тело</td><td>Маслоу: физиологические</td><td class="c">5</td><td>Сон, еда, движение, физическая боль</td></tr>
+      <tr><td class="k">Безопасность</td><td>Маслоу: безопасность</td><td class="c">4</td><td>Предсказуемость, деньги на завтра, защищённость, стабильное жильё</td></tr>
+      <tr><td class="k">Связанность</td><td>ТСД: связанность; Маслоу: принадлежность</td><td class="c">3</td><td>Близость, поддержка, принадлежность к группе</td></tr>
+      <tr><td class="k">Компетентность и признание</td><td>ТСД: компетентность; Маслоу: уважение</td><td class="c">3</td><td>Мастерство, результат, оценка другими</td></tr>
+      <tr><td class="k">Автономия</td><td>ТСД: автономия (новый узел)</td><td class="c">3</td><td>Выбор, контроль над своей жизнью, самостоятельность решений</td></tr>
+      <tr><td class="k">Смысл</td><td>Маслоу: самоактуализация, трансценденция</td><td class="c">2</td><td>Направление, ценность сделанного, вклад</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small muted">Ранг — эвристика, а не закон. Исследование Тэй и Динера (2011) на данных из 123 стран показало, что потребности универсальны, но удовлетворяются не строго по очереди. Поэтому ранг — свойство узла, которое можно переопределить.</p>
+
+  <h4>Таблица соответствий: сферы ↔ измерения</h4>
+  <p class="small muted">● сильная связь, ○ частичная. Это предложение, а не догма: правится один раз, дальше работает везде. Именно эта таблица позволяет посмотреть на свою жизнь «через PERMA» или «через WHOQOL» без повторной разметки.</p>
+  <div class="tw"><table id="xwalk" class="matrix-mini"></table></div>
+
+  <h4>Правила границ для спорных узлов</h4>
+  <div class="tw"><table>
+    <thead><tr><th>Узел</th><th>Входит</th><th>Не входит</th></tr></thead>
+    <tbody>
+      <tr><td class="k">ЗДОРОВЬЕ › Психика и стресс</td><td>Состояние и его регуляция: стресс, тревога, восстановление, эмоциональная устойчивость</td><td>Кто я и во что верю → СМЫСЛ › Самопознание. Как думать лучше → РАЗВИТИЕ › Мышление</td></tr>
+      <tr><td class="k">СМЫСЛ › Самопознание</td><td>Идентичность, ценности, черты личности, типологии</td><td>Работа с состоянием → ЗДОРОВЬЕ › Психика</td></tr>
+      <tr><td class="k">РАЗВИТИЕ › Мышление</td><td>Навыки познания: рассуждение, обучение, память, принятие решений</td><td>Отдельные профессиональные навыки → ДЕЛО › Мастерство</td></tr>
+      <tr><td class="k">СРЕДА › Распорядок</td><td>Внешняя структура дня и быта: режим, ритуалы, расписание</td><td>Навыки самоорганизации → РАЗВИТИЕ › Навыки (сюда же переезжает «Управление собой»)</td></tr>
+      <tr><td class="k">СРЕДА › Цифровая среда</td><td>Инструменты, Life OS, устройства, рабочее место</td><td>Изучение методов продуктивности как знания → РАЗВИТИЕ › Мышление</td></tr>
+      <tr><td class="k">ДЕЛО › Мастерство</td><td>Профессиональные навыки (гитара, преподавание, продакшн)</td><td>Общие навыки, полезные везде → РАЗВИТИЕ › Навыки</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ ИНСТРУМЕНТЫ ============ -->
+<section class="view" id="v-tools" role="tabpanel">
+  <h2>Сквозь инструменты</h2>
+  <p class="intro">Полная модель живёт в одном месте. Каждый инструмент получает её проекцию — ровно столько, сколько он умеет показать. Так таксономия остаётся одной, сколько бы инструментов её ни использовало.</p>
+
+  <h3>Где эталон</h3>
+  <p>Эталон — один файл <b>taxonomy.json</b> в папке «10 Контекст» на Google Drive: все схемы, узлы с ID, кодами и границами, соответствия, точки монтирования. Редактируется через модуль таксономии в HTML Life OS, читается Claude как часть контекст-пакета, а в Notion и TickTick переносится Claude по запросу «синхронизируй таксономию». Любой инструмент можно потерять — эталон останется.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Инструмент</th><th>Что умеет с иерархией</th><th>Что в нём от таксономии</th><th>Правило проекции</th></tr></thead>
+    <tbody>
+      <tr><td class="k">HTML Life OS</td><td>Всё: любая глубина, линзы, соответствия, монтирование, оценки</td><td>Полная модель и редактор</td><td>Единственное место, где таксономию меняют. Сохраняет и выгружает taxonomy.json</td></tr>
+      <tr><td class="k">Google Drive</td><td>Дерево папок</td><td>Эталонный файл; папки по сферам</td><td>Папки только для двух верхних уровней основного аспекта, с кодом в начале: «ЗД Здоровье». Глубже — в именах файлов</td></tr>
+      <tr><td class="k">Notion</td><td>Связи без ограничения глубины</td><td>База «Таксономия»: Схемы, Узлы (родитель, код, границы, ранг), Соответствия; записи связаны с узлами</td><td>Полная копия, но только для чтения руками. Обновляет Claude из taxonomy.json</td></tr>
+      <tr><td class="k">TickTick</td><td>Метки с одним уровнем вложенности, без пробелов, регистр не различается</td><td>Только основной аспект + тип записи</td><td>Родительская метка — сфера, дочерняя — самый глубокий узел записи. Имена узлов уникальны во всей схеме, поэтому плоская метка однозначна. Остальные аспекты в TickTick не дублируются</td></tr>
+      <tr><td class="k">Google Calendar</td><td>11 цветов событий</td><td>Сфера верхнего уровня как цвет</td><td>8 сфер — 8 цветов, оставшиеся три свободны</td></tr>
+      <tr><td class="k">Холст</td><td>Свободное размещение</td><td>Авторинг режима «свой холст» и визуализация любой схемы</td><td>Схему рисуешь на холсте, затем она импортируется в taxonomy.json как свободная</td></tr>
+      <tr><td class="k">Whimsical</td><td>Майндмэпы</td><td>Только визуализация</td><td>Генерируется из эталона, обратно не синхронизируется</td></tr>
+      <tr><td class="k">Claude</td><td>Читает контекст</td><td>taxonomy.json в контекст-пакете</td><td>Относит записи по кодам и границам. Его отнесения помечены «ИИ», пока ты не подтвердишь</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Как это выглядит на одной записи</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Где</th><th>Запись «Выровнять режим сна»</th></tr></thead>
+    <tbody>
+      <tr><td class="k">taxonomy.json</td><td>sphere: ЗД.1 (основное); need: Тело 0,7, Автономия 0,3; perma: H; horizon: проект</td></tr>
+      <tr><td class="k">HTML Life OS</td><td>Все отнесения, линзы, вклад в оценку сферы ЗДОРОВЬЕ</td></tr>
+      <tr><td class="k">Notion</td><td>Связи: Узел ЗД.1, Тело, Автономия, PERMA H</td></tr>
+      <tr><td class="k">TickTick</td><td>Список «Режим сна»; метки ЗДОРОВЬЕ › СОН-И-РЕЖИМ и тип</td></tr>
+      <tr><td class="k">Google Calendar</td><td>Блоки «отбой» цветом сферы ЗДОРОВЬЕ</td></tr>
+      <tr><td class="k">Drive</td><td>Папка «ЗД Здоровье», файл «ЗД.1 Протокол режима сна»</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Перенос текущих данных</h3>
+  <ol class="canons">
+    <li><div><b>Зафиксировать выбор</b><span>в разделе «Выбор» и сохранить конфигурацию.</span></div></li>
+    <li><div><b>Собрать taxonomy.json</b><span>из 79 узлов файла Life OS, твоего дерева Notion и выбранных строгих схем. Это Claude делает за один разговор.</span></div></li>
+    <li><div><b>Добавить модуль таксономии в HTML Life OS:</b><span>редактор узлов, линзы, таблица соответствий.</span></div></li>
+    <li><div><b>Перестроить метки TickTick</b><span>под новые сферы. Сейчас там дерево по старым семи сферам Notion, недостроенное на 5 узлов, — его лучше заменить целиком, чем достраивать.</span></div></li>
+    <li><div><b>Создать базу «Таксономия» в Notion</b><span>и связать с ней новую минимальную базу записей.</span></div></li>
+  </ol>
+</section>
+
+<!-- ============ ВЫБОР ============ -->
+<section class="view" id="v-choice" role="tabpanel">
+  <h2>Выбор</h2>
+  <p class="intro">Восемь решений, которые окончательно задают таксономию. В каждом отмечена рекомендация с причиной. Конфигурация внизу пересобирается сразу, её можно скопировать в Life OS или отдать Claude.</p>
+  <div id="decs"></div>
+  <div class="summary" id="summary"></div>
+  <footer>Источники: файл Life OS (схема сфер, NEEDS, раздел оценки состояния), база MY SECOND BRAIN в Notion, «Чертёж Life OS». Описания схем — по оригинальным работам авторов; узлы переведены и местами сокращены.</footer>
+</section>
+</main>
+
+<div class="pop" id="pop" role="dialog" hidden></div>
+
+<script>
+(function(){
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- tabs ---------- */
+function show(v){
+  $$('.tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.v===v?'true':'false'));
+  $$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
+  if(location.hash!=='#'+v) history.replaceState(null,'','#'+v);
+  window.scrollTo(0,0);
+}
+$$('.tabs button').forEach(b=>b.addEventListener('click',()=>show(b.dataset.v)));
+const startV=(location.hash||'').slice(1);
+if(['model','aspects','library','hybrid','tools','choice'].includes(startV)) show(startV);
+
+/* ---------- tips ---------- */
+const TIPS={
+  aspect:['Аспект','<p><span class="k">Что:</span> один независимый вопрос к записи.</p><p><span class="k">Зачем:</span> разные вопросы не смешиваются в одном дереве, и спор «куда положить» исчезает.</p><p><span class="k">Как:</span> аспект включаешь, если ответ на его вопрос меняет решение или обзор.</p>'],
+  scheme:['Схема','<p><span class="k">Что:</span> конкретный ответ на вопрос аспекта, набор категорий.</p><p><span class="k">Зачем:</span> один аспект можно смотреть через разные схемы: сферы — через гибрид, WHOQOL или колесо.</p><p><span class="k">Как:</span> у аспекта одна активная схема, остальные работают как линзы через соответствия.</p>'],
+  node:['Узел','<p><span class="k">Что:</span> категория в схеме: сфера, подсфера, направление — всё это узлы разной глубины.</p><p><span class="k">Зачем:</span> глубина не зашита в систему, у каждой ветки столько уровней, сколько нужно.</p><p><span class="k">Как:</span> у узла один родитель, ID, читаемый код и описание границ.</p>'],
+  assign:['Отнесение','<p><span class="k">Что:</span> связь записи с узлом.</p><p><span class="k">Зачем:</span> вес показывает, что цель работает на несколько потребностей сразу; автор отделяет твои решения от гипотез ИИ.</p><p><span class="k">Как:</span> хранится только самый конкретный узел, предки подразумеваются.</p>'],
+  map:['Соответствие','<p><span class="k">Что:</span> связь между узлами разных схем: совпадает, шире, уже, родственно.</p><p><span class="k">Зачем:</span> разметил по своим сферам — и сразу видишь жизнь через PERMA или WHOQOL.</p><p><span class="k">Как:</span> таблица соответствий заполняется один раз, правится на квартальном ревью.</p>'],
+  mount:['Монтирование','<p><span class="k">Что:</span> строгая схема подключается под узел гибкой целиком.</p><p><span class="k">Зачем:</span> верх остаётся твоим и понятным, а там, где нужна точность, работает готовый научный или официальный классификатор.</p><p><span class="k">Как:</span> узел ДЕНЬГИ › Траты получает поддерево COICOP; узлы внутри менять нельзя.</p>']
+};
+const pop=$('#pop'); let popBtn=null;
+function closePop(){pop.hidden=true;if(popBtn){popBtn.setAttribute('aria-expanded','false');popBtn=null;}}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.tip');
+  if(b){e.stopPropagation();
+    if(popBtn===b){closePop();return;}
+    closePop();const t=TIPS[b.dataset.tip];if(!t)return;
+    pop.innerHTML=`<b>${t[0]}</b>${t[1]}`;pop.hidden=false;popBtn=b;b.setAttribute('aria-expanded','true');
+    const r=b.getBoundingClientRect(),w=Math.min(340,window.innerWidth-24);
+    pop.style.maxWidth=w+'px';
+    let x=r.left+window.scrollX-10; x=Math.max(12,Math.min(x,window.scrollX+window.innerWidth-w-12));
+    pop.style.left=x+'px';pop.style.top=(r.bottom+window.scrollY+8)+'px';return;}
+  if(!e.target.closest('#pop')) closePop();
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePop();});
+
+/* ---------- families & aspects ---------- */
+const FAM={life:['Жизнь','var(--life)'],inner:['Внутренний мир','var(--inner)'],measure:['Состояние','var(--measure)'],outer:['Окружение и ресурсы','var(--outer)'],know:['Знание и работа','var(--know)'],own:['Твои схемы','var(--own)']};
+const A=[
+ {id:'sphere',f:'life',n:'Сферы жизни',q:'Где в жизни это происходит?',why:'Основной аспект: области ответственности, которые ведутся всегда. Понятен в момент захвата, поэтому годится для папок и меток.',primary:true},
+ {id:'need',f:'inner',n:'Потребности',q:'Какую потребность это закрывает?',why:'Показывает, ради чего на самом деле делается цель, и даёт порядок фундаментальности. Отнесение с весами: одна цель закрывает несколько потребностей.'},
+ {id:'wb',f:'measure',n:'Благополучие',q:'Какое измерение самочувствия это отражает?',why:'Измерительный аспект: оценка состояния по валидированным шкалам. Через соответствия подсвечивает сферы, которые проседают.'},
+ {id:'value',f:'inner',n:'Ценности',q:'Ради какой ценности?',why:'Для Ориентиров и Решений: проверка, согласуется ли выбор с тем, что для тебя важно, и где ценности конфликтуют.'},
+ {id:'person',f:'inner',n:'Личность и сильные стороны',q:'Какие мои качества это задействует?',why:'Для самопознания и подбора деятельности: на какие черты и сильные стороны опирается дело.'},
+ {id:'emotion',f:'inner',n:'Эмоции',q:'Что я чувствовал?',why:'Для Журнала: словарь эмоций точнее, чем «нормально» или «плохо», и даёт динамику.'},
+ {id:'horizon',f:'life',n:'Горизонт',q:'На каком масштабе времени?',why:'Различает действие, проект, цель, видение и предназначение. Связан с темпом пересмотра.'},
+ {id:'activity',f:'life',n:'Вид активности',q:'Что это за деятельность по сути?',why:'Для Действий и Событий: куда реально уходит время. Классификатор статистики времени покрывает любую активность человека.'},
+ {id:'role',f:'life',n:'Роли',q:'В какой роли я это делаю?',why:'Учитель, сын, друг, музыкант: баланс ролей видно лучше, чем баланс сфер, когда одна сфера содержит несколько ролей.'},
+ {id:'circle',f:'outer',n:'Круги общения',q:'Насколько близок этот человек?',why:'Для сущности Человек: сколько внимания нужно, как часто общаться.'},
+ {id:'money',f:'outer',n:'Назначение трат',q:'На что ушли деньги?',why:'Монтируется в ДЕНЬГИ › Траты: официальный классификатор, сопоставимый со статистикой.'},
+ {id:'body',f:'outer',n:'Функционирование',q:'Какая функция тела или жизни затронута?',why:'Медицинская точность для поддерева ЗДОРОВЬЕ. Тяжёлый, обычно не нужен.'},
+ {id:'knowledge',f:'know',n:'Область знания',q:'К какой области знания относится?',why:'Для Источников и Заметок: библиотечная классификация с неограниченной глубиной.'},
+ {id:'work',f:'know',n:'Профессии и навыки',q:'Какая это профессия или навык?',why:'Для выбора деятельности: официальные классификаторы профессий и навыков, с которыми сопоставимы данные рынка труда.'},
+ {id:'nature',f:'own',n:'Природа элемента',q:'Это объективное или субъективное, проблема или решение?',why:'Твоя матрица 2 × 2 из файла Life OS: определяет шаблон пути элемента и набор методик.'},
+ {id:'qol',f:'own',n:'Уровни качества жизни',q:'На каком уровне фундамента лежит?',why:'Твоя 13-уровневая модель: диагностический порядок от выживания к смыслу.'}
+];
+
+/* ---------- schemes ---------- */
+const EV={valid:'Валидированный инструмент',standard:'Официальный классификатор',theory:'Научная теория',practice:'Практическая модель',popular:'Популярная типология',own:'Твоя'};
+const MODE={strict:'Строгая',ext:'Расширяемая',open:'Свободная',hybrid:'Составная'};
+const FN={classify:'раскладывает',measure:'измеряет',order:'упорядочивает'};
+const FORM={tree:'дерево',list:'список',ord:'упорядоченный список',matrix:'матрица',circle:'круг-континуум',sets:'пересечения',scale:'одна шкала'};
+const S=[
+ {id:'hybrid8',a:'sphere',n:'Сферы Life OS (гибрид)',mode:'hybrid',fn:['classify','measure','order'],form:'tree',ev:'own',src:'твой файл Life OS: Notion + пирамида потребностей',size:'8 сфер, 4 уровня, 79 узлов',
+  nodes:[['ЗДОРОВЬЕ',['Сон и режим','Питание','Движение и тело','Психика и стресс','Внешность']],['ДЕНЬГИ',['Бюджет и траты','Подушка безопасности','Инвестиции','Имущество']],['СРЕДА',['Жильё и место','Быт и вещи','Распорядок','Цифровая среда']],['ОТНОШЕНИЯ',['Партнёр','Семья','Друзья','Сообщество и нетворк']],['ДЕЛО',['Текущая работа','Призвание','Мастерство','Проекты и бизнес','Репутация']],['РАЗВИТИЕ',['Мышление','Навыки','Управление собой','Кругозор']],['ДОСУГ',['Отдых','Хобби','Впечатления и путешествия']],['СМЫСЛ',['Ценности и философия','Самопознание','Вклад и наследие','Вера','Счастье']]],
+  note:'Разбор и версия 2 — в разделе «Гибрид».'},
+ {id:'wheel',a:'sphere',n:'Колесо баланса жизни',mode:'ext',fn:['classify','measure'],form:'circle',ev:'practice',src:'Пол Дж. Майер, 1960-е',size:'обычно 8 сегментов; состав у авторов разный',
+  nodes:['Здоровье','Карьера','Финансы','Любовь и партнёр','Семья и друзья','Личностный рост','Отдых и развлечения','Физическая среда'],
+  note:'Не валидирована как инструмент, зато понятна и гибка. Хороша как интерфейс ежемесячной оценки поверх любой схемы сфер.'},
+ {id:'design',a:'sphere',n:'Дизайн жизни: приборная панель',mode:'strict',fn:['measure'],form:'list',ev:'practice',src:'Бёрнетт и Эванс, «Designing Your Life», 2016',size:'4 измерения',
+  nodes:['Здоровье','Работа','Игра','Любовь'],note:'Самая короткая схема сфер. Полезна как экспресс-проверка, есть в твоём файле.'},
+ {id:'whoqol',a:'sphere',n:'WHOQOL-100',mode:'strict',fn:['measure','classify'],form:'tree',ev:'valid',src:'Всемирная организация здравоохранения, 1995–1998',size:'6 доменов, 24 фасета (короткая версия BREF — 4 домена)',
+  nodes:[['Физическое',['Боль и дискомфорт','Энергия и усталость','Сон и отдых']],['Психологическое',['Положительные эмоции','Мышление, обучение, память, концентрация','Самооценка','Образ тела и внешность','Отрицательные эмоции']],['Уровень независимости',['Подвижность','Повседневная активность','Зависимость от лекарств и лечения','Работоспособность']],['Социальные отношения',['Личные отношения','Социальная поддержка','Сексуальная активность']],['Окружающая среда',['Физическая безопасность','Домашняя среда','Финансовые ресурсы','Медицинская и социальная помощь','Возможности получать информацию и навыки','Досуг и отдых','Физическая среда','Транспорт']],['Духовность',['Духовность, религия, личные убеждения']]],
+  note:'Самая строгая научная схема сфер жизни. Обрати внимание: деньги, досуг и жильё здесь не сферы, а ресурсы окружающей среды — другое основание деления.'},
+ {id:'pwi',a:'sphere',n:'Индекс личного благополучия (PWI)',mode:'strict',fn:['measure','classify'],form:'list',ev:'valid',src:'Каммингс, Международная группа по благополучию, 2013',size:'7 доменов (+ необязательная духовность)',
+  nodes:['Уровень жизни','Здоровье','Достижения в жизни','Отношения','Безопасность','Связь с сообществом','Уверенность в будущем'],note:'Короткая валидированная альтернатива колесу: 7 вопросов по шкале 0–10.'},
+ {id:'canvas',a:'sphere',n:'Свой холст',mode:'open',fn:['classify','measure'],form:'tree',ev:'own',src:'создаёшь сам на Холсте или в Life OS',size:'пусто',nodes:[],
+  note:'Старт с пустого листа или с копии любой схемы. ИИ предлагает соответствия со строгими схемами. Узлы, пережившие два квартальных ревью, замораживаются.'},
+ {id:'sdt',a:'need',n:'Базовые потребности (теория самодетерминации)',mode:'strict',fn:['classify','measure'],form:'list',ev:'valid',src:'Деси и Райан, 1985/2000; шкала BPNSFS — Чен и др., 2015',size:'3 потребности × удовлетворённость и фрустрация',
+  nodes:['Автономия','Компетентность','Связанность'],note:'Лучшая доказательная база среди теорий потребностей. Есть в твоём файле как методика оценки.'},
+ {id:'maslow',a:'need',n:'Иерархия потребностей Маслоу',mode:'strict',fn:['classify','order'],form:'ord',ev:'theory',src:'Маслоу, 1943; расширение 1970',size:'5 уровней (в расширенной версии 8)',
+  nodes:['Физиологические','Безопасность','Принадлежность и любовь','Уважение','Самоактуализация'],
+  note:'Строгий порядок уровней эмпирически не подтверждён (Тэй и Динер, 2011): потребности универсальны, но удовлетворяются не по очереди. Годится как эвристика фундаментальности. Расширенная версия добавляет познавательные, эстетические потребности и трансценденцию.'},
+ {id:'kenrick',a:'need',n:'Обновлённая пирамида Кенрика',mode:'strict',fn:['classify','order'],form:'ord',ev:'theory',src:'Кенрик, Грискевичус, Нойберг, Шаллер, 2010',size:'7 мотивов',
+  nodes:['Непосредственные физиологические','Самозащита','Аффилиация','Статус и уважение','Поиск партнёра','Удержание партнёра','Родительство'],note:'Эволюционная переработка Маслоу: самоактуализация убрана как отдельный уровень, добавлены мотивы, связанные с партнёрством и детьми.'},
+ {id:'maxneef',a:'need',n:'Матрица потребностей Макс-Нифа',mode:'strict',fn:['classify'],form:'matrix',ev:'theory',src:'Макс-Ниф, «Human Scale Development», 1991',size:'9 потребностей × 4 категории = 36 ячеек',
+  matrix:{rows:['Существование','Защита','Привязанность','Понимание','Участие','Досуг','Творчество','Идентичность','Свобода'],cols:['Быть','Иметь','Делать','Взаимодействовать']},
+  note:'Не иерархия, а матрица: потребности не ранжируются, а различаются способы их удовлетворения. Хороша для поиска «чем ещё можно закрыть эту потребность».'},
+ {id:'needs6',a:'need',n:'Потребности v2 (гибрид)',mode:'hybrid',fn:['classify','order'],form:'ord',ev:'own',src:'ТСД внутри порядка Маслоу; предложение для Life OS',size:'6 узлов с рангом',
+  nodes:['Тело','Безопасность','Связанность','Компетентность и признание','Автономия','Смысл'],note:'Отличие от текущей схемы файла — добавлена Автономия. Подробности в разделе «Гибрид».'},
+ {id:'perma',a:'wb',n:'PERMA-H',mode:'strict',fn:['measure','classify'],form:'list',ev:'valid',src:'Селигман, 2011; PERMA-Profiler — Батлер и Керн, 2016',size:'6 измерений, 0–10',
+  nodes:['Позитивные эмоции','Вовлечённость','Отношения','Смысл','Достижения','Здоровье'],note:'Рекомендуемая основная ежемесячная оценка. Есть в твоём файле.'},
+ {id:'ryff',a:'wb',n:'Психологическое благополучие Рифф',mode:'strict',fn:['measure'],form:'list',ev:'valid',src:'Рифф, 1989',size:'6 измерений',
+  nodes:['Самопринятие','Позитивные отношения','Автономия','Управление средой','Цель в жизни','Личностный рост'],note:'Глубже PERMA в «эвдемонической» части: рост, автономия, цель.'},
+ {id:'mhc',a:'wb',n:'Континуум психического здоровья (MHC-SF)',mode:'strict',fn:['measure'],form:'tree',ev:'valid',src:'Киз, 2002',size:'3 измерения, 14 вопросов',
+  nodes:[['Эмоциональное',['Позитивный аффект','Удовлетворённость жизнью']],['Психологическое',['Шесть измерений Рифф']],['Социальное',['Принятие','Актуализация','Вклад','Связность','Интеграция']]],note:'Добавляет социальное благополучие, которого нет у Рифф и почти нет у PERMA.'},
+ {id:'who5',a:'wb',n:'WHO-5',mode:'strict',fn:['measure'],form:'scale',ev:'valid',src:'ВОЗ, 1998',size:'5 вопросов, одна шкала 0–100',nodes:['Общий индекс благополучия'],
+  note:'Самый быстрый валидированный замер. Годится для еженедельной проверки. Есть в твоём файле.'},
+ {id:'swls',a:'wb',n:'Шкала удовлетворённости жизнью (SWLS)',mode:'strict',fn:['measure'],form:'scale',ev:'valid',src:'Динер и др., 1985',size:'5 вопросов, одна шкала',nodes:['Удовлетворённость жизнью'],note:'Когнитивная оценка жизни в целом. Сюда переезжает «Счастье» из дерева сфер.'},
+ {id:'energy',a:'wb',n:'Четыре энергии',mode:'strict',fn:['measure'],form:'list',ev:'practice',src:'Лоэр и Шварц, «The Power of Full Engagement», 2003',size:'4 измерения',
+  nodes:['Физическая','Эмоциональная','Ментальная','Смысловая'],note:'Не валидирована, но точно описывает ресурс на неделю вперёд. Есть в твоём файле.'},
+ {id:'schwartz',a:'value',n:'Базовые ценности Шварца',mode:'strict',fn:['classify','measure'],form:'circle',ev:'valid',src:'Шварц, 1992; уточнённая теория 2012; опросник PVQ',size:'4 группы, 10 ценностей (в уточнённой версии 19)',
+  nodes:[['Открытость изменениям',['Самостоятельность','Стимуляция','Гедонизм (общий с соседней группой)']],['Самоутверждение',['Достижение','Власть']],['Сохранение',['Безопасность','Конформность','Традиция']],['Самопреодоление',['Благожелательность','Универсализм']]],
+  note:'Ценности стоят по кругу: соседние совместимы, противоположные конфликтуют. Это объясняет внутренние споры вида «свобода или безопасность».'},
+ {id:'bigfive',a:'person',n:'Большая пятёрка (аспекты BFAS)',mode:'strict',fn:['measure'],form:'tree',ev:'valid',src:'Де Янг, Куилти, Петерсон, 2007; в NEO-PI-R — по 6 фасетов',size:'5 доменов × 2 аспекта',
+  nodes:[['Нейротизм',['Волатильность','Отстранённость']],['Доброжелательность',['Сострадание','Вежливость']],['Добросовестность',['Трудолюбие','Упорядоченность']],['Экстраверсия',['Энтузиазм','Напористость']],['Открытость и интеллект',['Интеллект','Открытость']]],
+  note:'Основа твоей доски по кибернетической теории Большой пятёрки (P1–P8).'},
+ {id:'hexaco',a:'person',n:'HEXACO',mode:'strict',fn:['measure'],form:'tree',ev:'valid',src:'Аштон и Ли, 2004',size:'6 факторов × 4 фасета',
+  nodes:['Честность и скромность','Эмоциональность','Экстраверсия','Доброжелательность','Добросовестность','Открытость опыту'],note:'Добавляет к пятёрке фактор честности и скромности.'},
+ {id:'via',a:'person',n:'Сильные стороны характера VIA',mode:'strict',fn:['classify','measure'],form:'tree',ev:'valid',src:'Петерсон и Селигман, 2004',size:'6 добродетелей, 24 сильные стороны',
+  nodes:[['Мудрость',['Креативность','Любознательность','Критическое мышление','Любовь к учению','Перспектива']],['Мужество',['Храбрость','Настойчивость','Честность','Энтузиазм']],['Человечность',['Любовь','Доброта','Социальный интеллект']],['Справедливость',['Командность','Справедливость','Лидерство']],['Умеренность',['Прощение','Скромность','Благоразумие','Самоконтроль']],['Трансцендентность',['Ценитель красоты','Благодарность','Надежда','Юмор','Духовность']]],
+  note:'Удобна для дела и отношений: на какие сильные стороны опирается занятие.'},
+ {id:'popular',a:'person',n:'Популярные типологии',mode:'strict',fn:['classify'],form:'list',ev:'popular',src:'MBTI, Тринитарная модель Курпатова, соционика',size:'типы',nodes:['16 типов MBTI','Тринитарная модель','Соционика'],
+  note:'Хорошо работают как язык самоописания и личные ярлыки. Как основание для решений надёжнее Большая пятёрка: у типологий слабее повторяемость результата.'},
+ {id:'plutchik',a:'emotion',n:'Колесо эмоций Плутчика',mode:'strict',fn:['classify','measure'],form:'circle',ev:'theory',src:'Плутчик, 1980',size:'8 базовых × 3 интенсивности',
+  nodes:['Радость','Доверие','Страх','Удивление','Грусть','Отвращение','Гнев','Ожидание'],note:'Для Журнала: точное слово вместо «нормально».'},
+ {id:'russell',a:'emotion',n:'Циркумплекс аффекта Рассела',mode:'strict',fn:['measure'],form:'matrix',ev:'theory',src:'Рассел, 1980',size:'2 оси',
+  nodes:['Валентность: неприятно ↔ приятно','Активация: спокойно ↔ возбуждённо'],note:'Самая быстрая отметка состояния: точка на плоскости, без выбора слова.'},
+ {id:'gtd',a:'horizon',n:'Горизонты фокуса GTD',mode:'strict',fn:['classify','order'],form:'ord',ev:'practice',src:'Аллен, «Getting Things Done», 2001',size:'6 горизонтов',
+  nodes:['Действия','Проекты','Зоны ответственности','Цели на 1–2 года','Видение на 3–5 лет','Предназначение и принципы'],note:'Совпадает со слоями «Чертежа»: Действие, Результат, Сфера, Ориентир.'},
+ {id:'atus',a:'activity',n:'Классификатор активностей ATUS',mode:'strict',fn:['classify','measure'],form:'tree',ev:'standard',src:'Бюро статистики труда США, обследование использования времени',size:'3 уровня, 17 основных категорий',
+  nodes:['Уход за собой (включая сон)','Домашние дела','Забота о членах семьи','Помощь вне семьи','Работа','Образование','Покупки','Профессиональные и личные услуги','Бытовые услуги','Госуслуги и гражданские обязанности','Еда и напитки','Общение, отдых, досуг','Спорт и активный отдых','Религия и духовность','Волонтёрство','Телефонные разговоры','Перемещения'],
+  note:'Покрывает любую человеческую активность. Европейский аналог — HETUS. Нужен, если считать, куда реально уходят часы.'},
+ {id:'super',a:'role',n:'Жизненные роли Сьюпера',mode:'strict',fn:['classify'],form:'list',ev:'theory',src:'Сьюпер, «радуга жизненной карьеры», 1980',size:'9 ролей',
+  nodes:['Ребёнок','Учащийся','Человек на досуге','Гражданин','Работник','Супруг или партнёр','Хозяин дома','Родитель','Пенсионер'],note:'Для своих ролей удобнее расширяемая версия: «Работник» дробится на «Учитель гитары», «Музыкант».'},
+ {id:'dunbar',a:'circle',n:'Круги Данбара',mode:'strict',fn:['classify','order'],form:'ord',ev:'theory',src:'Данбар, 1992 и далее',size:'4 основных круга',
+  nodes:['Ближний круг ~5','Близкие ~15','Хорошие друзья ~50','Знакомые с отношениями ~150'],note:'Готовое свойство «Круг» для сущности Человек с понятной частотой внимания.'},
+ {id:'bronf',a:'circle',n:'Экологические системы Бронфенбреннера',mode:'strict',fn:['classify','order'],form:'ord',ev:'theory',src:'Бронфенбреннер, 1979',size:'5 систем',
+  nodes:['Микросистема','Мезосистема','Экзосистема','Макросистема','Хроносистема'],note:'Масштаб влияния окружения: от семьи до культуры и эпохи. Полезна для анализа причин.'},
+ {id:'coicop',a:'money',n:'COICOP 2018',mode:'strict',fn:['classify'],form:'tree',ev:'standard',src:'Статистическая комиссия ООН, 2018',size:'13 разделов, 4 уровня',
+  nodes:['Продукты и безалкогольные напитки','Алкоголь, табак','Одежда и обувь','Жильё, вода, электричество, топливо','Мебель, бытовая техника, обслуживание дома','Здоровье','Транспорт','Информация и связь','Отдых, спорт, культура','Образование','Рестораны и проживание','Страхование и финансовые услуги','Личный уход и прочее'],
+  note:'Монтируется в ДЕНЬГИ › Бюджет и траты. Сопоставим со статистикой цен и расходов.'},
+ {id:'icf',a:'body',n:'МКФ (ICF)',mode:'strict',fn:['classify'],form:'tree',ev:'standard',src:'ВОЗ, 2001',size:'4 компонента, до 4 уровней, ~1 400 категорий',
+  nodes:['Функции организма','Структуры организма','Активность и участие','Факторы окружающей среды'],note:'Медицинская точность. Для личной системы обычно избыточна; упомянута как пример строгой глубокой схемы.'},
+ {id:'udc',a:'knowledge',n:'УДК',mode:'strict',fn:['classify'],form:'tree',ev:'standard',src:'Универсальная десятичная классификация, с 1905 года',size:'10 классов, глубина не ограничена',
+  nodes:['0 Наука и знание, информатика','1 Философия, психология','2 Религия','3 Общественные науки','4 (свободен)','5 Математика, естественные науки','6 Прикладные науки, медицина, техника','7 Искусство, развлечения, спорт','8 Язык, литература','9 География, биография, история'],
+  note:'Десятичные коды дают любую глубину: 159.9 — психология. Хороша для Источников и Заметок. Российская альтернатива — ГРНТИ, 3 уровня.'},
+ {id:'isco',a:'work',n:'ISCO-08',mode:'strict',fn:['classify'],form:'tree',ev:'standard',src:'Международная организация труда, 2008',size:'4 уровня: 10 → 43 → 130 → 436',
+  nodes:['Руководители','Специалисты-профессионалы','Специалисты среднего уровня','Офисные служащие','Работники сферы услуг и торговли','Квалифицированные работники сельского хозяйства','Квалифицированные рабочие','Операторы и сборщики','Неквалифицированные работники','Военные'],
+  note:'Преподаватель гитары — код 2354 «Другие преподаватели музыки». Полезна для проекта «Выбор деятельности»: профессии сравнимы с данными рынка труда.'},
+ {id:'esco',a:'work',n:'ESCO',mode:'strict',fn:['classify'],form:'tree',ev:'standard',src:'Европейская комиссия',size:'около 3 000 профессий и 14 000 навыков',nodes:['Профессии (на основе ISCO)','Навыки и компетенции','Знания','Трансверсальные навыки'],
+  note:'Связывает профессии с навыками: видно, какие навыки переносятся из одной деятельности в другую.'},
+ {id:'ikigai',a:'work',n:'Икигай (диаграмма)',mode:'strict',fn:['classify'],form:'sets',ev:'popular',src:'западная версия, Винн, 2014',size:'4 множества, 4 пересечения',
+  nodes:['Что любишь','В чём силён','Что нужно миру','За что платят'],note:'Не дерево, а пересечения: занятие попадает в любое сочетание кругов. Годится как фильтр в выборе деятельности, не как сфера.'},
+ {id:'nature4',a:'nature',n:'Природа элемента 2 × 2',mode:'hybrid',fn:['classify'],form:'matrix',ev:'own',src:'твой файл Life OS',size:'2 оси, 4 ячейки',
+  matrix:{rows:['Объективное','Субъективное'],cols:['Проблема','Решение']},note:'Определяет шаблон пути элемента и набор методик. Ортогональна сферам, поэтому это отдельный аспект, а не уровень дерева.'},
+ {id:'qol13',a:'qol',n:'Модель качества жизни, 13 уровней',mode:'ext',fn:['order','measure'],form:'ord',ev:'own',src:'твоя модель; опоры — поливагальная теория, теория привязанности, нарративная идентичность',size:'13 уровней в 7 мета-слоях',
+  nodes:['от «Выживания» и «Нервной системы» до «Трансценденции»'],note:'Диагностический порядок. В таксономии работает как упорядочивающая схема: в каком слое фундамента лежит проблема.'}
+];
+const byId=id=>S.find(s=>s.id===id);
+
+/* ---------- prism (hero) ---------- */
+(function(){
+  const svg=$('#prism'),NS='http://www.w3.org/2000/svg';
+  const el=(n,a,p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e;};
+  const cx=490,cy=180;
+  const L=[
+    ['Сферы','ЗДОРОВЬЕ › Сон и режим','var(--life)'],
+    ['Потребности','Тело 0,7; Автономия 0,3','var(--inner)'],
+    ['Благополучие PERMA-H','Здоровье (H)','var(--measure)'],
+    ['Ценности Шварца','Безопасность','var(--inner)'],
+    ['Горизонт GTD','Проект','var(--life)'],
+    ['Активность ATUS','Уход за собой › Сон','var(--life)'],
+    ['WHOQOL','Физическое › Сон и отдых','var(--measure)'],
+    ['Природа элемента','Объективное › Решение','var(--own)']
+  ];
+  const ys=[48,128,208,288];
+  L.forEach((l,i)=>{
+    const left=i<4, y=ys[i%4], x=left?40:700, ax=left?285:695;
+    el('path',{d:`M${cx+(left?-118:118)},${cy} C ${cx+(left?-170:170)},${cy} ${ax+(left?60:-60)},${y+8} ${ax},${y+8}`,fill:'none',stroke:l[2],'stroke-width':1.4,opacity:.75});
+    el('circle',{cx:ax,cy:y+8,r:3.5,fill:l[2]});
+    const t1=el('text',{x:left?ax-12:ax+12,y:y,class:'an','text-anchor':left?'end':'start'});t1.setAttribute('fill',l[2]);t1.textContent=l[0];
+    const t2=el('text',{x:left?ax-12:ax+12,y:y+19,class:'av','text-anchor':left?'end':'start'});t2.textContent=l[1];
+    void x;
+  });
+  el('rect',{x:cx-118,y:cy-40,width:236,height:80,rx:10,fill:'var(--surface2)',stroke:'var(--text)','stroke-width':1.3});
+  const c1=el('text',{x:cx,y:cy-4,'text-anchor':'middle',class:'cn'});c1.textContent='Выровнять режим сна';
+  const c2=el('text',{x:cx,y:cy+20,'text-anchor':'middle',class:'cs'});c2.textContent='Результат из файла Life OS';
+})();
+
+/* ---------- schema diagram ---------- */
+(function(){
+  const svg=$('#schemaSvg'),NS='http://www.w3.org/2000/svg';
+  const el=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e;};
+  const box=(x,y,w,h,t,sub,col)=>{el('rect',{x,y,width:w,height:h,rx:8,fill:'var(--surface)',stroke:col||'var(--line-strong)','stroke-width':1.3});const a=el('text',{x:x+12,y:y+21,class:'hd'});a.textContent=t;if(sub){const b=el('text',{x:x+12,y:y+39,class:'lab'});b.textContent=sub;}};
+  const ln=(x1,y1,x2,y2,dash,lab,lx,ly)=>{el('line',{x1,y1,x2,y2,stroke:'var(--muted)','stroke-width':1.2,'stroke-dasharray':dash?'5 4':'none'});if(lab){const t=el('text',{x:lx,y:ly,class:'lab'});t.textContent=lab;}};
+  box(20,20,180,50,'Аспект','«Где в жизни?»','var(--life)');
+  box(260,20,200,50,'Схема: Гибрид Life OS','составная, дерево');
+  box(260,110,200,50,'Схема: WHOQOL-100','строгая, дерево');
+  box(530,20,200,50,'Узел: ЗДОРОВЬЕ','код ЗД');
+  box(530,110,200,50,'Узел: ЗД.1 Сон и режим','родитель: ЗДОРОВЬЕ');
+  box(530,200,200,50,'Узел: Физическое','WHOQOL');
+  box(790,110,190,50,'Запись','«Выровнять режим сна»','var(--text)');
+  box(790,220,190,50,'Схема: COICOP','смонтирована под ДЕНЬГИ › Траты');
+  ln(200,45,260,45);ln(200,45,230,45);ln(230,45,230,135);ln(230,135,260,135);
+  ln(460,45,530,45);ln(630,70,630,110,false,'родитель',638,94);
+  ln(460,135,500,135);ln(500,135,500,225);ln(500,225,530,225);
+  ln(730,135,790,135,false,'отнесение',738,128);
+  ln(630,160,630,200,true,'соответствие ≈',638,184);
+  ln(880,160,880,220,true,'монтирование ⊕',888,196);
+})();
+
+/* ---------- aspects view ---------- */
+$('#famline').innerHTML=Object.entries(FAM).map(([k,v])=>`<span><span class="dot" style="background:${v[1]};margin-right:6px"></span>${v[0]}</span>`).join('');
+let curA='sphere';
+function renderAspects(){
+  $('#agrid').innerHTML=A.map(a=>{const cnt=S.filter(s=>s.a===a.id).length;return `<button class="acard" style="--c:${FAM[a.f][1]}" aria-pressed="${a.id===curA}" data-a="${a.id}"><b>${esc(a.n)}</b><span>${esc(a.q)}</span><i>${cnt} ${cnt===1?'схема':cnt<5?'схемы':'схем'}${a.primary?', основной':''}</i></button>`;}).join('');
+  $$('#agrid .acard').forEach(b=>b.addEventListener('click',()=>{curA=b.dataset.a;renderAspects();}));
+  const a=A.find(x=>x.id===curA),sch=S.filter(s=>s.a===a.id);
+  $('#adetail').innerHTML=`<h3>${esc(a.n)}</h3><p class="muted">${esc(a.q)}</p><p>${esc(a.why)}</p><div>${sch.map(s=>`<button class="chip" data-open="${s.id}"><span class="dot" style="background:${FAM[a.f][1]}"></span>${esc(s.n)} <span class="faint">${MODE[s.mode].toLowerCase()}</span></button>`).join('')}</div>`;
+  $$('#adetail [data-open]').forEach(b=>b.addEventListener('click',()=>{openInLib(b.dataset.open);}));
+}
+renderAspects();
+
+const ENTS=['Ориентир','Результат','Действие','Событие','Человек','Ресурс','Источник','Заметка','Решение','Журнал','Метрика','Проблема'];
+const COLS=[['sphere','Сферы'],['need','Потребности'],['wb','Благополучие'],['value','Ценности'],['horizon','Горизонт'],['activity','Активность'],['role','Роли'],['circle','Круги'],['emotion','Эмоции'],['knowledge','Знание'],['work','Профессии'],['money','Траты'],['nature','Природа']];
+const AP={
+ 'Ориентир':{sphere:'o',need:'p',value:'p',horizon:'o',role:'o'},
+ 'Результат':{sphere:'p',need:'p',wb:'o',value:'o',horizon:'p',role:'o',work:'o',nature:'p'},
+ 'Действие':{sphere:'p',activity:'o',role:'o',nature:'o'},
+ 'Событие':{sphere:'p',activity:'o',role:'o',emotion:'o'},
+ 'Человек':{sphere:'o',circle:'p',role:'o',work:'o'},
+ 'Ресурс':{sphere:'p',money:'o'},
+ 'Источник':{sphere:'p',knowledge:'o',work:'o'},
+ 'Заметка':{sphere:'p',need:'o',wb:'o',knowledge:'o',nature:'o'},
+ 'Решение':{sphere:'p',need:'o',value:'o'},
+ 'Журнал':{sphere:'o',wb:'o',emotion:'p'},
+ 'Метрика':{sphere:'p',need:'o',wb:'o'},
+ 'Проблема':{sphere:'p',need:'o',wb:'o',nature:'p'}
+};
+$('#applic').innerHTML=`<thead><tr><th>Сущность</th>${COLS.map(c=>`<th class="c">${c[1]}</th>`).join('')}</tr></thead><tbody>${ENTS.map(e=>`<tr><td class="k">${e}</td>${COLS.map(c=>{const v=(AP[e]||{})[c[0]];return `<td class="c ${v==='p'?'yes':v==='o'?'part':''}">${v==='p'?'●':v==='o'?'○':''}</td>`;}).join('')}</tr>`).join('')}</tbody>`;
+
+/* ---------- library ---------- */
+const fA=$('#fAspect');
+fA.innerHTML='<option value="">Все аспекты</option>'+A.map(a=>`<option value="${a.id}">${esc(a.n)}</option>`).join('');
+$('#fEv').innerHTML+=Object.entries(EV).map(([k,v])=>`<option value="${k}">${v}</option>`).join('');
+const openSet=new Set();
+function nodesHTML(s){
+  if(s.matrix){return `<div class="tw"><table class="matrix-mini"><thead><tr><th></th>${s.matrix.cols.map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${s.matrix.rows.map(r=>`<tr><td class="k">${esc(r)}</td>${s.matrix.cols.map(()=>'<td class="faint">·</td>').join('')}</tr>`).join('')}</tbody></table></div>`;}
+  if(!s.nodes.length) return '<p class="small muted">Узлов нет: схема создаётся с нуля.</p>';
+  return `<ul class="tree">${s.nodes.map(n=>Array.isArray(n)?`<li class="n0">${esc(n[0])}<ul>${n[1].map(c=>`<li>${esc(c)}</li>`).join('')}</ul></li>`:`<li>${esc(n)}</li>`).join('')}</ul>`;
+}
+function renderLib(){
+  const fa=fA.value,fm=$('#fMode').value,ff=$('#fFn').value,fe=$('#fEv').value,q=$('#fQ').value.trim().toLowerCase();
+  const list=S.filter(s=>(!fa||s.a===fa)&&(!fm||s.mode===fm)&&(!ff||s.fn.includes(ff))&&(!fe||s.ev===fe)&&(!q||JSON.stringify(s).toLowerCase().includes(q)));
+  $('#fCnt').textContent=`${list.length} из ${S.length}`;
+  $('#lib').innerHTML=list.length?list.map(s=>{const a=A.find(x=>x.id===s.a);return `<div class="srow ${openSet.has(s.id)?'open':''}" id="s-${s.id}">
+    <button class="shead" aria-expanded="${openSet.has(s.id)}" data-s="${s.id}">
+      <span class="nm"><b>${esc(s.n)}</b><span>${esc(s.size)}</span></span>
+      <span class="asp"><span class="dot" style="background:${FAM[a.f][1]}"></span>${esc(a.n)}</span>
+      <span class="md"><span class="badge b-${s.mode}">${MODE[s.mode]}</span></span>
+      <span class="ev">${EV[s.ev]}</span>
+      <span class="chev" aria-hidden="true">›</span>
+    </button>
+    <div class="sbody">
+      <div class="meta"><span>Функции: <b>${s.fn.map(f=>FN[f]).join(', ')}</b></span><span>Форма: <b>${FORM[s.form]}</b></span><span>Источник: <b>${esc(s.src)}</b></span></div>
+      ${nodesHTML(s)}
+      <p class="note">${esc(s.note||'')}</p>
+    </div></div>`;}).join(''):'<p class="muted" style="padding:16px">По этим фильтрам схем нет. Сбрось один из фильтров.</p>';
+  $$('#lib .shead').forEach(b=>b.addEventListener('click',()=>{const id=b.dataset.s;openSet.has(id)?openSet.delete(id):openSet.add(id);renderLib();}));
+}
+['#fAspect','#fMode','#fFn','#fEv'].forEach(id=>$(id).addEventListener('change',renderLib));
+$('#fQ').addEventListener('input',renderLib);
+renderLib();
+function openInLib(id){fA.value='';$('#fMode').value='';$('#fFn').value='';$('#fEv').value='';$('#fQ').value='';openSet.add(id);renderLib();show('library');const r=$('#s-'+id);if(r)r.scrollIntoView({block:'start'});}
+
+/* ---------- hybrid ---------- */
+const HF=[
+ ['Потребность привязана к сфере один к одному','Каждой из 8 сфер приписана ровно одна потребность: ДОСУГ — «Тело», ДЕЛО — «Мастерство и признание». Но работа даёт и безопасность (доход), и смысл, а в твоих же правилах в файле записано: проекты могут решать сразу несколько сфер и потребностей.','Потребности становятся отдельным аспектом и назначаются Результатам, Ориентирам и Проблемам с весами. Фундаментальность сферы вычисляется из потребностей её активных результатов.'],
+ ['Четыре уровня зашиты по именам','«Сфера, Подсфера, Направление, Поднаправление» — фиксированный список. Пятый уровень некуда положить, а в коротких ветках пустые уровни приходится заполнять.','Глубина хранится через родителя и не ограничена. Подписи уровней — необязательное свойство схемы.'],
+ ['В потребностях нет автономии','Пять узлов (Тело, Безопасность, Связи, Мастерство и признание, Смысл) взяты у Маслоу. Из трёх потребностей теории самодетерминации, у которой лучшая доказательная база, автономия не представлена, хотя контроль над своей жизнью звучит в твоей же оценке сфер.','Добавить узел «Автономия». Получается 6 узлов: ТСД внутри порядка Маслоу.'],
+ ['Методики оценки не связаны со сферами','PERMA, ТСД, четыре энергии, дизайн жизни, WHO-5 и SWLS дают баллы, но перевести их в сферы может только ИИ, и каждый раз заново.','Одна таблица соответствий. Баллы сами подсвечивают сферы и потребности, ИИ остаётся для гипотез, а не для перевода.'],
+ ['Узлы разной природы на одном уровне','«Счастье» в СМЫСЛЕ — это результат, который измеряют PERMA и SWLS, а не область, которую ведут. «Распорядок» в СРЕДЕ и «Управление собой» в РАЗВИТИИ пересекаются. «Психика и стресс», «Самопознание» и «Мышление» не имеют описанных границ.','«Счастье» переезжает в слой измерения, «Управление собой» — в РАЗВИТИЕ › Навыки. Для спорных узлов пишутся границы.'],
+ ['Фундаментальность опирается на строгую лестницу','Фундаментальность сферы, по которой выстраиваются полосы на полотне, берётся из ранга её потребности, как будто нижние уровни нужно закрыть раньше верхних. Строгий порядок Маслоу эмпирически не подтверждён.','Ранг остаётся, но как эвристика по умолчанию, которую можно переопределить в узле.']
+];
+$('#hfind').innerHTML=HF.map(f=>`<li><div><h4>${esc(f[0])}</h4><p>${esc(f[1])}</p></div><div class="fix">${esc(f[2])}</div></li>`).join('');
+
+const SV2=[
+ ['ЗДОРОВЬЕ','ЗД',['Сон и режим','Питание','Движение и тело','Психика и стресс','Внешность']],
+ ['ДЕНЬГИ','ДН',['Бюджет и траты ⊕ COICOP','Подушка безопасности','Инвестиции','Имущество']],
+ ['СРЕДА','СР',['Жильё и место','Быт и вещи','Распорядок','Цифровая среда']],
+ ['ОТНОШЕНИЯ','ОТ',['Партнёр','Семья','Друзья','Сообщество и нетворк','⊕ круги Данбара для людей']],
+ ['ДЕЛО','ДЛ',['Текущая работа','Призвание ⊕ ISCO и ESCO','Мастерство','Проекты и бизнес','Репутация']],
+ ['РАЗВИТИЕ','РЗ',['Мышление','Навыки (сюда «Управление собой»)','~Управление собой','Кругозор ⊕ УДК для источников']],
+ ['ДОСУГ','ДС',['Отдых','Хобби','Впечатления и путешествия']],
+ ['СМЫСЛ','СМ',['Ценности и философия','Самопознание','Вклад и наследие','Вера','~Счастье → слой измерения']]
+];
+$('#sphv2').innerHTML=SV2.map(s=>`<div><b>${s[0]}</b><span class="code">${s[1]}</span><ul>${s[2].map((n,i)=>{const del=n.startsWith('~');const t=del?n.slice(1):n;const m=t.includes('⊕');return `<li class="${del?'del':''}">${del?'':`<span class="faint">${s[1]}.${i+1} </span>`}${m?esc(t.split('⊕')[0])+'<span class="mnt">⊕'+esc(t.split('⊕')[1])+'</span>':esc(t)}</li>`;}).join('')}</ul></div>`).join('');
+
+const XC=[['PERMA-H',['P','E','R','M','A','H']],['ТСД',['Авт','Комп','Связ']],['WHOQOL',['Физ','Псих','Незав','Соц','Среда','Дух']]];
+const XR={
+ 'ЗДОРОВЬЕ':{P:'o',H:'s',Физ:'s',Псих:'s',Незав:'o'},
+ 'ДЕНЬГИ':{A:'o',Авт:'s',Среда:'s'},
+ 'СРЕДА':{P:'o',Авт:'s',Среда:'s',Незав:'o'},
+ 'ОТНОШЕНИЯ':{P:'o',R:'s',Связ:'s',Соц:'s'},
+ 'ДЕЛО':{E:'s',M:'o',A:'s',Авт:'o',Комп:'s',Незав:'s'},
+ 'РАЗВИТИЕ':{E:'o',A:'o',Авт:'o',Комп:'s',Псих:'o',Среда:'o'},
+ 'ДОСУГ':{P:'s',E:'o',Авт:'o',Связ:'o',Среда:'o'},
+ 'СМЫСЛ':{M:'s',Авт:'o',Псих:'o',Дух:'s'}
+};
+$('#xwalk').innerHTML=`<thead><tr><th rowspan="2">Сфера</th>${XC.map(g=>`<th class="c" colspan="${g[1].length}">${g[0]}</th>`).join('')}</tr><tr>${XC.map(g=>g[1].map(c=>`<th class="c">${c}</th>`).join('')).join('')}</tr></thead><tbody>${Object.entries(XR).map(([sp,v])=>`<tr><td class="k">${sp}</td>${XC.map(g=>g[1].map(c=>`<td class="c ${v[c]==='s'?'yes':v[c]==='o'?'part':''}">${v[c]==='s'?'●':v[c]==='o'?'○':''}</td>`).join('')).join('')}</tr>`).join('')}</tbody>`;
+
+/* ---------- decisions ---------- */
+const D=[
+ {id:'primary',t:'Основной аспект',w:'Только он уходит в папки, метки TickTick и цвета календаря. Остальные аспекты — свойства записи.',multi:false,o:[
+   ['sphere','Сферы жизни','области ответственности: стабильны, понятны в момент захвата, у записи одно основное место',true],
+   ['need','Потребности','точнее отвечают «зачем», но одна запись закрывает несколько потребностей, поэтому как папка неудобны'],
+   ['role','Роли','хороши для баланса ролей, но в одной роли бывает несколько сфер, и наоборот']]},
+ {id:'top',t:'Верхний уровень сфер',w:'Какие сферы стоят наверху основной схемы.',multi:false,o:[
+   ['hybrid8','Гибрид Life OS, 8 сфер','твой язык; через таблицу соответствий читается как WHOQOL и PWI',true],
+   ['whoqol','WHOQOL, 6 доменов','максимальная научная строгость, но деньги, жильё и досуг становятся «ресурсами среды»'],
+   ['pwi','PWI, 7 доменов','валидированная и короткая, но без явной сферы развития'],
+   ['design','Дизайн жизни, 4','очень просто, слишком крупно для раскладки'],
+   ['canvas','Свой холст','полная свобода; соответствия со строгими схемами добавляются потом']]},
+ {id:'depth',t:'Глубина',w:'Сколько уровней можно хранить и показывать.',multi:false,o:[
+   ['free','Без ограничения в хранении, показ до 4','ветки растут по потребности, интерфейс не перегружается',true],
+   ['fix4','Ровно 4 именованных уровня','как сейчас в файле: проще код, но пустые и недостающие уровни'],
+   ['fix2','2 уровня','максимально просто, но направлениям не хватит места']]},
+ {id:'needs',t:'Схема потребностей',w:'Используется для отнесения целей и расчёта фундаментальности.',multi:false,o:[
+   ['needs6','Потребности v2: ТСД внутри порядка Маслоу, 6 узлов','лучшая доказательная база плюс понятный порядок; закрывает пробел с автономией',true],
+   ['sdt','Только ТСД, 3 узла','строже всего, но нет порядка фундаментальности'],
+   ['maslow','Маслоу, 5 уровней','как сейчас; известна, но строгий порядок не подтверждён'],
+   ['kenrick','Кенрик, 7 мотивов','эволюционная, подробнее про партнёрство и родительство'],
+   ['maxneef','Макс-Ниф, матрица 36','богаче всего, но тяжела для ежедневной разметки']]},
+ {id:'measure',t:'Измерение состояния',w:'Какие методики запускаются регулярно и подсвечивают сферы через соответствия.',multi:false,o:[
+   ['perma_who5','PERMA-H раз в месяц, WHO-5 раз в неделю, ТСД раз в квартал','валидированные, короткие, покрывают и самочувствие, и потребности',true],
+   ['wheel','Только колесо сфер раз в месяц','просто, но без научной опоры'],
+   ['all','Все 7 методик файла раз в месяц','полная картина, но около 60 вопросов ежемесячно']]},
+ {id:'card',t:'Кратность отнесения к сфере',w:'Сколько сфер может быть у одной записи.',multi:false,o:[
+   ['one_plus','Одна основная плюс связи с другими сферами','однозначная раскладка в инструментах и честное отражение пересечений',true],
+   ['weighted','Несколько с весами','точнее, но TickTick и папки не умеют веса'],
+   ['strict_one','Строго одна','проще всего, пересечения теряются']]},
+ {id:'mounts',t:'Строгие схемы в поддеревьях',w:'Можно выбрать несколько.',multi:true,o:[
+   ['coicop','COICOP в ДЕНЬГИ › Траты','траты сравнимы со статистикой без изобретения категорий',true],
+   ['isco','ISCO и ESCO в ДЕЛО › Призвание','профессии и навыки для проекта «Выбор деятельности»',true],
+   ['dunbar','Круги Данбара для людей','готовое свойство «Круг» с частотой внимания',true],
+   ['udc','УДК для источников и заметок','точная область знания; нужна, если источников сотни'],
+   ['atus','ATUS для действий и событий','если будешь считать, куда уходят часы'],
+   ['icf','МКФ в ЗДОРОВЬЕ','медицинская точность; для личной системы избыточна']]},
+ {id:'master',t:'Где эталон таксономии',w:'Единственное место, где её меняют.',multi:false,o:[
+   ['json','taxonomy.json на Drive, редактор в Life OS','переносимо, читается Claude, не привязано к одному инструменту',true],
+   ['notion','База в Notion','удобно править, но Notion у тебя будет хранилищем, которое ведёт Claude'],
+   ['html','Только внутри HTML Life OS','быстро, но данные заперты в одном артефакте']]}
+];
+const sel={};
+D.forEach(d=>{sel[d.id]=d.multi?new Set(d.o.filter(o=>o[3]).map(o=>o[0])):(d.o.find(o=>o[3])||d.o[0])[0];});
+function renderDecs(){
+  $('#decs').innerHTML=D.map(d=>`<div class="dec"><h4>${esc(d.t)}</h4><p class="why">${esc(d.w)}</p><div class="opts">${d.o.map(o=>{const on=d.multi?sel[d.id].has(o[0]):sel[d.id]===o[0];return `<label class="opt"><input type="${d.multi?'checkbox':'radio'}" name="d-${d.id}" value="${o[0]}" ${on?'checked':''}><span><b>${esc(o[1])}</b>${o[3]?'<span class="rec">рекомендация</span>':''}<span>${esc(o[2])}</span></span></label>`;}).join('')}</div></div>`).join('');
+  $$('#decs input').forEach(i=>i.addEventListener('change',()=>{const id=i.name.slice(2),d=D.find(x=>x.id===id);if(d.multi){i.checked?sel[id].add(i.value):sel[id].delete(i.value);}else sel[id]=i.value;renderSummary();}));
+  renderSummary();
+}
+function lab(did,v){const d=D.find(x=>x.id===did);const o=d.o.find(x=>x[0]===v);return o?o[1]:v;}
+function renderSummary(){
+  const rec=D.every(d=>d.multi?[...sel[d.id]].sort().join()===d.o.filter(o=>o[3]).map(o=>o[0]).sort().join():sel[d.id]===(d.o.find(o=>o[3])||{})[0]);
+  const cfg={version:1,primaryAspect:sel.primary,sphereTop:sel.top,depth:sel.depth,needsScheme:sel.needs,measurement:sel.measure,sphereCardinality:sel.card,mounts:[...sel.mounts],master:sel.master,
+    secondaryAspects:['need','wb','value','horizon','nature'],
+    codes:{ЗДОРОВЬЕ:'ЗД',ДЕНЬГИ:'ДН',СРЕДА:'СР',ОТНОШЕНИЯ:'ОТ',ДЕЛО:'ДЛ',РАЗВИТИЕ:'РЗ',ДОСУГ:'ДС',СМЫСЛ:'СМ'}};
+  $('#summary').innerHTML=`<h4 style="margin-top:0">Твоя конфигурация${rec?' <span class="muted small">(все рекомендации)</span>':''}</h4>
+   <ul>${D.map(d=>`<li><b>${esc(d.t)}:</b> ${d.multi?([...sel[d.id]].map(v=>esc(lab(d.id,v))).join('; ')||'ничего'):esc(lab(d.id,sel[d.id]))}</li>`).join('')}</ul>
+   <p class="small muted">Конфигурация для Life OS и для Claude. Выдели и скопируй или нажми кнопку.</p>
+   <textarea class="json" id="cfg" readonly aria-label="Конфигурация в JSON">${esc(JSON.stringify(cfg,null,2))}</textarea>
+   <p style="margin-top:10px"><button class="btn" id="copy">Скопировать конфигурацию</button> <span class="small muted" id="copied" aria-live="polite"></span></p>`;
+  $('#copy').addEventListener('click',async()=>{const t=$('#cfg');try{await navigator.clipboard.writeText(t.value);$('#copied').textContent='Скопировано';}catch(e){t.focus();t.select();$('#copied').textContent='Выделено: нажми Ctrl+C или Cmd+C';}});
+}
+renderDecs();
+})();
+</script>
+</body>
+</html>

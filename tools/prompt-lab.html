@@ -1,0 +1,1075 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Промпт-лаб — конструктор промптов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDF0F5;--bg2:#FFFFFF;--bg3:#F5F7FB;--line:#D6DCE7;--line2:#C2CAD9;
+  --ink:#1B2232;--ink2:#48536B;--ink3:#76819A;
+  --hill:#B27A10;--hill-soft:rgba(178,122,16,.12);--on-hill:#FFFFFF;
+  --t-result:#2F6DB8;--t-decision:#7547C2;--t-question:#B8436A;--t-action:#1F845A;
+  --hi:#C4452C;--mid:#A06C0C;--low:#2F6DB8;
+  --shadow:0 20px 50px rgba(27,34,50,.20);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1B2232;--bg2:#222B3E;--bg3:#2A3449;--line:#364259;--line2:#46536E;
+    --ink:#E8EBF1;--ink2:#AAB3C6;--ink3:#7B879F;
+    --hill:#E9B44C;--hill-soft:rgba(233,180,76,.13);--on-hill:#1B2232;
+    --t-result:#89B8F2;--t-decision:#C3A0F2;--t-question:#EF93AC;--t-action:#7DD3A9;
+    --hi:#F27B62;--mid:#E9B44C;--low:#89B8F2;
+    --shadow:0 20px 50px rgba(0,0,0,.5);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1B2232;--bg2:#222B3E;--bg3:#2A3449;--line:#364259;--line2:#46536E;
+  --ink:#E8EBF1;--ink2:#AAB3C6;--ink3:#7B879F;
+  --hill:#E9B44C;--hill-soft:rgba(233,180,76,.13);--on-hill:#1B2232;
+  --t-result:#89B8F2;--t-decision:#C3A0F2;--t-question:#EF93AC;--t-action:#7DD3A9;
+  --hi:#F27B62;--mid:#E9B44C;--low:#89B8F2;
+  --shadow:0 20px 50px rgba(0,0,0,.5);
+  color-scheme:dark;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.55 "Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.display{font-family:"Unbounded","Golos Text",system-ui,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+[data-type="rule"]{--tc:var(--t-decision)}[data-type="lesson"]{--tc:var(--t-result)}
+[data-type="hyp"]{--tc:var(--t-question)}[data-type="log"]{--tc:var(--t-action)}[data-type="idea"]{--tc:var(--hill)}
+
+.app{display:grid;grid-template-columns:252px minmax(0,1fr) 336px;max-width:1720px;margin:0 auto}
+.nav,.rail{position:sticky;top:env(safe-area-inset-top,0px);align-self:start;max-height:calc(100vh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));overflow:auto}
+.nav{padding:24px 14px 24px 18px;border-right:1px solid var(--line)}
+.rail{padding:24px 20px 24px 18px;border-left:1px solid var(--line)}
+.work{padding:26px 34px 90px;min-width:0}
+.app.norail{grid-template-columns:252px minmax(0,1fr)}
+.app.norail .rail{display:none}
+@media (max-width:1180px){
+  .app{grid-template-columns:232px minmax(0,1fr)}
+  .rail{position:static;grid-column:2;max-height:none;border-left:0;border-top:1px solid var(--line);padding:24px 34px 60px}
+}
+@media (max-width:760px){
+  .app,.app.norail{grid-template-columns:minmax(0,1fr)}
+  .nav{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--line);padding:16px}
+  .work{padding:20px 16px 36px}
+  .rail{grid-column:1;padding:22px 16px 48px}
+  .plist{max-height:220px;overflow:auto}
+}
+
+/* nav */
+.brand{font:600 18px/1.2 "Unbounded",system-ui,sans-serif;margin:0 10px 2px}
+.module{margin:0 10px 18px;color:var(--ink3);font-size:13px}
+.navlink,.pitem{display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:none;border:0;border-radius:8px;padding:7px 10px;cursor:pointer;color:var(--ink2)}
+.navlink:hover,.pitem:hover{background:var(--bg3);color:var(--ink)}
+.navlink[aria-current="true"],.pitem[aria-current="true"]{background:var(--bg3);color:var(--ink);box-shadow:inset 2px 0 0 var(--hill)}
+.navlink .cnt{margin-left:auto;font-size:12.5px;color:var(--ink3)}
+.navlink .ic{width:18px;text-align:center;color:var(--ink3);flex:none}
+.pname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sc{flex:none;font:600 10.5px/1 "Unbounded",sans-serif;color:var(--ink3);min-width:22px;text-align:right}
+.sc.ok{color:var(--t-action)}
+.gdot{flex:none;width:7px;height:7px;border-radius:50%;background:var(--line2)}
+.gdot.s-draft{background:var(--ink3)}.gdot.s-ripe{background:var(--mid)}.gdot.s-ready{background:var(--t-action)}.gdot.s-used{background:var(--t-result)}.gdot.s-idea{background:var(--t-question)}
+.ghead{margin:18px 10px 5px;font-size:12.5px;color:var(--ink3);display:flex;justify-content:space-between;align-items:center}
+.store{margin:18px 10px 0;font-size:12.5px;color:var(--ink3);line-height:1.45}
+details.sets>summary{cursor:pointer;margin:16px 10px 4px;font-size:12.5px;color:var(--ink3)}
+details.sets .inner{padding:4px 10px 0}
+
+/* controls */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line2);background:var(--bg3);border-radius:9px;padding:8px 14px;cursor:pointer;font-weight:500;font-size:14px;line-height:1.3}
+.btn:hover{border-color:var(--ink3)}
+.btn.primary{background:var(--hill);border-color:var(--hill);color:var(--on-hill)}
+.btn.primary:hover{filter:brightness(1.06)}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--ink2)}
+.btn.ghost:hover{background:var(--bg3)}
+.btn.small{padding:5px 10px;font-size:13px}
+.btn.full{width:100%}
+.btn.big{padding:13px 16px;font-size:15.5px;border-radius:11px}
+.btn:disabled{opacity:.5;cursor:default}
+.link{background:none;border:0;padding:0;color:var(--hill);cursor:pointer;text-decoration:underline;text-underline-offset:2px;font-size:inherit}
+.icon{width:30px;height:30px;flex:none;border-radius:7px;border:1px solid var(--line);background:var(--bg3);cursor:pointer;display:grid;place-items:center;color:var(--ink2);font-size:15px;line-height:1}
+.icon:hover{color:var(--ink);border-color:var(--line2)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.row.end{justify-content:flex-end}.row.between{justify-content:space-between}
+.mt6{margin-top:6px}.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt24{margin-top:24px}
+.muted{color:var(--ink3)}.small{font-size:13px}
+.seg{display:inline-flex;flex-wrap:wrap;background:var(--bg3);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
+.seg button{border:0;background:none;padding:5px 11px;border-radius:7px;cursor:pointer;color:var(--ink2);font-size:13.5px}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--bg2);color:var(--ink);box-shadow:0 0 0 1px var(--line2)}
+input[type=text],input[type=search],input[type=date],textarea,select{width:100%;background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:8px 11px;line-height:1.45}
+textarea{resize:vertical;min-height:42px;overflow:hidden;display:block}
+select{cursor:pointer}
+input[type=checkbox]{accent-color:var(--hill);width:16px;height:16px;margin:3px 0 0;flex:none}
+:focus-visible,input:focus,textarea:focus,select:focus{outline:2px solid var(--hill);outline-offset:1px}
+input::placeholder,textarea::placeholder{color:var(--ink3)}
+.chip{display:inline-flex;align-items:center;gap:5px;flex:none;font-size:12.5px;font-weight:500;padding:2px 9px;border-radius:999px;border:1px solid color-mix(in srgb,var(--tc,var(--line2)) 55%,transparent);background:color-mix(in srgb,var(--tc,var(--line2)) 13%,transparent);color:var(--ink);white-space:nowrap}
+button.chip{cursor:pointer}
+.chip.off{--tc:var(--line2);color:var(--ink2)}
+.chip.on{--tc:var(--hill)}
+.switch{display:flex;gap:9px;align-items:flex-start;cursor:pointer;font-size:13.5px;color:var(--ink2);margin-top:8px}
+
+/* head */
+.thead{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:flex-start;justify-content:space-between}
+.tmain{flex:1 1 360px;min-width:0}
+.ttitle{font:500 24px/1.3 "Unbounded",system-ui,sans-serif;background:transparent;border:0;border-bottom:1px dashed transparent;border-radius:0;padding:2px 0;width:100%}
+.ttitle:focus{outline:none;border-bottom-color:var(--line2)}
+.tmeta{color:var(--ink3);font-size:13.5px;margin-top:4px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.tmeta select{width:auto;padding:3px 8px;font-size:13px}
+.h1{font:500 24px/1.3 "Unbounded",system-ui,sans-serif;margin:0 0 6px}
+.lead{margin:0;color:var(--ink2);max-width:68ch}
+
+/* blocks */
+.sect{margin-top:30px}
+.sect>h3,.shead h3{font:600 15.5px/1.35 "Golos Text",sans-serif;margin:0}
+.shead{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;justify-content:space-between;margin-bottom:4px}
+.hint{margin:0 0 7px;color:var(--ink3);font-size:13px;line-height:1.45}
+.panel{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px 16px 16px;margin-top:10px}
+.props{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px}
+.prop .pl{display:block;font-size:13px;color:var(--ink3);margin-bottom:4px}
+.prop select{padding:6px 9px;font-size:14px}
+.prop.wide{grid-column:1/-1}
+@media (max-width:760px){.props{grid-template-columns:minmax(0,1fr)}}
+.recs{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line2)}
+.recs .lbl{font-size:13px;color:var(--ink3);margin:0 0 6px}
+.tplpick{display:flex;flex-wrap:wrap;gap:8px}
+.tplpick button{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:1px;border:1px solid var(--line);background:var(--bg3);border-radius:10px;padding:8px 12px;cursor:pointer;max-width:280px}
+.tplpick button:hover{border-color:var(--hill)}
+.tplpick button.best{border-color:color-mix(in srgb,var(--hill) 60%,transparent);background:var(--hill-soft)}
+.tplpick b{font-weight:500;font-size:14px}.tplpick small{font-size:12.5px;color:var(--ink3);line-height:1.35}
+.blk{margin-top:14px}
+.blk .bl{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.blk .bl label{font-weight:500;font-size:14.5px}
+.blk .bl .len{margin-left:auto;font-size:12px;color:var(--ink3)}
+.blk.flag textarea{border-color:color-mix(in srgb,var(--mid) 70%,transparent)}
+.blk.req .bl label::after{content:" *";color:var(--hill)}
+.techgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+@media (max-width:760px){.techgrid{grid-template-columns:minmax(0,1fr)}}
+.tgroup{margin-top:14px}
+.tgroup>p{margin:0 0 6px;font-size:13px;color:var(--ink3)}
+.lens{display:flex;gap:10px;align-items:flex-start;padding:9px 11px;border:1px solid var(--line);border-radius:9px;background:var(--bg2);cursor:pointer}
+.lens b{display:block;font-weight:500;font-size:14px}
+.lens small{display:block;color:var(--ink3);font-size:12.5px;line-height:1.4}
+.lens:has(input:checked){border-color:color-mix(in srgb,var(--hill) 60%,transparent);background:var(--hill-soft)}
+.lens .rec{font-size:11.5px;color:var(--hill);font-weight:600;margin-left:4px}
+.preview{white-space:pre-wrap;word-break:break-word;background:var(--bg3);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font:400 13.5px/1.55 "Golos Text",sans-serif;max-height:520px;overflow:auto;margin:10px 0 0}
+.preview:empty::before{content:"Пока пусто — заполни задачу или выбери шаблон.";color:var(--ink3)}
+.banner{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;margin:12px 0 0;padding:10px 14px;border-radius:10px;background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--hill);font-size:14px}
+.emptybox{padding:16px;border:1px dashed var(--line2);border-radius:12px;margin-top:16px;color:var(--ink2)}
+.emptybox p{margin:0 0 10px}
+
+/* ai */
+.ai{border-left:3px solid var(--hill)}
+.ai h4{margin:14px 0 6px;font-size:14px;font-weight:600}
+.ai ul{margin:0;padding-left:18px;color:var(--ink2);font-size:14px}
+.ai li{margin-bottom:5px}
+.aib{border-top:1px solid var(--line);padding:10px 0}
+.aib:first-of-type{border-top:0}
+.aib .row{justify-content:space-between}
+.aib pre{white-space:pre-wrap;margin:6px 0 0;font:inherit;font-size:14px;color:var(--ink)}
+.qa{margin-top:8px}
+.qa label{display:block;font-size:14px;margin-bottom:4px}
+
+/* rail */
+.ripe{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px}
+.ripe-top{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.ripe-num{font:500 46px/1 "Unbounded",system-ui,sans-serif;letter-spacing:-.02em}
+.ripe-num small{font-size:16px;color:var(--ink3);margin-left:2px}
+.ripe-st{text-align:right;font-size:14px;font-weight:500}
+.ripe-st small{display:block;font-weight:400;color:var(--ink3);font-size:12.5px}
+.ripe-track{position:relative;height:10px;border-radius:6px;background:var(--bg3);border:1px solid var(--line);margin:16px 0 6px;overflow:visible}
+.ripe-track i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:linear-gradient(90deg,color-mix(in srgb,var(--hill) 35%,transparent),var(--hill));transition:width .6s cubic-bezier(.3,.75,.2,1)}
+.ripe-track b{position:absolute;top:50%;width:16px;height:16px;border-radius:50%;background:var(--hill);transform:translate(-50%,-50%);box-shadow:0 0 0 5px var(--hill-soft);transition:left .6s cubic-bezier(.3,.75,.2,1)}
+.ripe.done .ripe-track i{background:linear-gradient(90deg,color-mix(in srgb,var(--t-action) 35%,transparent),var(--t-action))}
+.ripe.done .ripe-track b{background:var(--t-action);box-shadow:0 0 0 5px color-mix(in srgb,var(--t-action) 18%,transparent)}
+.ripe-marks{display:grid;grid-template-columns:35fr 25fr 25fr 15fr;font-size:12px;color:var(--ink3)}
+.ripe-marks span.cur{color:var(--ink);font-weight:500}
+.lint{list-style:none;padding:0;margin:12px 0 0}
+.lint li{display:flex;gap:9px;padding:7px 0;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink2);align-items:flex-start}
+.lint li:first-child{border-top:0}
+.lint .gi{flex:none;width:16px;text-align:center;color:var(--mid);font-weight:600}
+.lint li.bad .gi{color:var(--hi)}
+.lint b{display:block;color:var(--ink);font-weight:500}
+.lint .fix{margin-top:3px}
+details.passed>summary{cursor:pointer;font-size:13px;color:var(--t-action);margin-top:8px}
+details.passed ul{list-style:none;padding:0;margin:6px 0 0;font-size:13px;color:var(--ink3)}
+details.passed li{padding:2px 0}
+.copybox{margin-top:16px}
+.cstats{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink3);margin-top:7px}
+.rcard{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:14px}
+.rcard h4{margin:0 0 6px;font-size:14px;font-weight:600}
+.fb{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0}
+.fb button{border:1px solid var(--line);background:var(--bg3);border-radius:8px;padding:6px 4px;cursor:pointer;font-size:13px}
+.fb button[aria-pressed="true"]{border-color:var(--hill);background:var(--hill-soft)}
+
+/* lists */
+.trow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-top:6px}
+.trow.done .ttext{text-decoration:line-through;color:var(--ink3)}
+.trow .ttext{border:0;background:transparent;padding:4px 2px}
+.trow .acts{display:flex;gap:4px;align-items:center}
+.pdot{width:9px;height:9px;border-radius:50%;flex:none;background:var(--line2);border:0;padding:0;cursor:pointer}
+.pdot.hi{background:var(--hi)}.pdot.mid{background:var(--mid)}.pdot.low{background:var(--low)}
+.tstat{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:2px 8px;background:var(--bg3);cursor:pointer;color:var(--ink2);white-space:nowrap}
+.tstat.doing{border-color:var(--hill);color:var(--ink);background:var(--hill-soft)}
+.dentry{background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--tc,var(--line2));border-radius:10px;padding:10px 12px;margin-top:8px}
+.dentry .dt{white-space:pre-wrap;margin:6px 0 0;font-size:14.5px}
+.dentry .dm{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-size:12.5px;color:var(--ink3)}
+.dentry .dm .sp{margin-left:auto;display:flex;gap:4px}
+.dstats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:16px}
+.dstats div{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.dstats b{display:block;font:500 20px/1.2 "Unbounded",sans-serif}
+.dstats span{font-size:12.5px;color:var(--ink3)}
+@media (max-width:760px){.dstats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tpl{background:var(--bg2);border:1px solid var(--line);border-radius:11px;padding:11px 14px;margin-top:8px}
+.tpl .tn{font-weight:500;font-size:15px;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.tpl .tn:hover{color:var(--hill)}
+.tpl p{margin:2px 0 0;font-size:13.5px;color:var(--ink2)}
+.tpl .row{margin-top:8px}
+.gtitle{margin:26px 0 2px;font:600 14px/1.3 "Golos Text",sans-serif;color:var(--ink2)}
+.gtitle small{font-weight:400;color:var(--ink3);margin-left:6px}
+.board{display:grid;grid-template-columns:repeat(5,minmax(170px,1fr));gap:10px;margin-top:14px;overflow-x:auto;padding-bottom:6px}
+.col{background:var(--bg3);border:1px solid var(--line);border-radius:12px;padding:10px;min-height:120px}
+.col h4{margin:0 0 3px;font-size:13.5px;font-weight:600;display:flex;justify-content:space-between}
+.col>p{margin:0 0 8px;font-size:12px;color:var(--ink3);line-height:1.35}
+.pcard{background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:8px 10px;margin-bottom:7px;font-size:14px}
+.pcard .pt{background:none;border:0;padding:0;text-align:left;cursor:pointer;font-weight:500;width:100%}
+.pcard .pt:hover{color:var(--hill)}
+.pcard .pm{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:12px;color:var(--ink3)}
+.pcard.due{border-color:var(--hill);box-shadow:inset 3px 0 0 var(--hill)}
+.principles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.principles div{background:var(--bg2);border:1px solid var(--line);border-radius:11px;padding:12px 14px}
+.principles b{display:block;font-weight:600;font-size:14.5px;margin-bottom:4px}
+.principles p{margin:0;font-size:13.5px;color:var(--ink2)}
+@media (max-width:760px){.principles{grid-template-columns:minmax(0,1fr)}}
+.mrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;padding:10px 0;border-top:1px solid var(--line)}
+.mrow b{font-weight:500}
+.mrow p{margin:2px 0 0;font-size:13.5px;color:var(--ink2)}
+.mrow q{display:block;margin-top:5px;font-size:13px;color:var(--ink3);quotes:none;border-left:2px solid var(--line2);padding-left:9px}
+.verrow{display:flex;gap:10px;align-items:center;padding:6px 0;border-top:1px solid var(--line);font-size:13.5px}
+.verrow:first-child{border-top:0}
+.verrow span{flex:1;min-width:0;color:var(--ink2)}
+.note{font-size:13.5px;padding:6px 0;border-top:1px solid var(--line)}
+.note small{color:var(--ink3);margin-right:8px}
+
+/* overlay */
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:60;max-width:90vw}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.modal{position:fixed;inset:0;background:rgba(15,20,30,.45);display:grid;place-items:center;z-index:50;padding:16px}
+.modal[hidden]{display:none}
+.mbox{background:var(--bg2);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:18px 20px;width:min(560px,100%);max-height:90vh;overflow:auto}
+.mbox h3{margin:0 0 8px;font:500 17px/1.3 "Unbounded",sans-serif}
+.mbox p{margin:0 0 12px;color:var(--ink2)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <nav class="nav" id="nav" aria-label="Разделы"></nav>
+  <main class="work" id="work"></main>
+  <aside class="rail" id="rail" aria-label="Зрелость и копирование"></aside>
+</div>
+<div class="modal" id="modal" hidden><div class="mbox" id="mbox" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<input type="file" id="importFile" accept=".json,application/json" hidden>
+<script>
+(function(){
+'use strict';
+/* ================= ДАННЫЕ ================= */
+const BLOCKS=[
+ {k:'role',n:'Роль',xml:'role',h:'Кем быть Claude. Конкретная экспертиза и чьи интересы он держит, а не просто «эксперт».',ph:'Ты — редактор, который пишет для занятых людей и режет всё лишнее.'},
+ {k:'context',n:'Контекст',xml:'context',h:'Ситуация, а не желаемое: что есть сейчас, что не устраивает, зачем это нужно, что уже пробовал.',ph:'Я преподаю гитару 15 лет, ищу учеников через агрегатор. Сейчас…'},
+ {k:'materials',n:'Материалы',xml:'materials',h:'Данные, текст, код, выдержки. Длинное (больше 1500 знаков) автоматически уйдёт в начало промпта — так Claude читает его точнее.',ph:'Вставь текст, таблицу или опиши файл, который приложишь.'},
+ {k:'task',n:'Задача',xml:'task',req:1,h:'Одно главное действие глаголом совершенного вида: «составь», «найди», «перепиши». Несколько задач — нумерованным списком.',ph:'Составь…'},
+ {k:'constraints',n:'Ограничения',xml:'constraints',h:'Время, деньги, инструменты, стиль, что нельзя менять.',ph:'Не больше…, сохрани…'},
+ {k:'nongoals',n:'Не делать',xml:'non_goals',h:'Что точно не нужно. Отброшенные варианты — чтобы Claude их не предлагал снова.',ph:'Не предлагай…'},
+ {k:'examples',n:'Примеры',xml:'examples',h:'Образец желаемого результата, можно с анти-примером. Самый сильный способ передать стиль.',ph:'Хороший пример: …\nПлохой пример: …'},
+ {k:'format',n:'Формат ответа',xml:'output_format',h:'Структура, объём, разметка, куда пойдёт результат.',ph:'Таблица из 3 колонок…'},
+ {k:'criteria',n:'Критерии успеха',xml:'success_criteria',h:'Как поймёшь, что результат хороший. Проверяемо, без слов «хорошо» и «качественно».',ph:'Результат удачный, если…'},
+ {k:'extra',n:'Дополнительно',xml:'notes',h:'Всё, что не легло в блоки выше.',ph:''}
+];
+const BK={};BLOCKS.forEach(b=>BK[b.k]=b);
+const TYPES=[['other','Любая задача'],['write','Текст с нуля'],['edit','Правка текста'],['msg','Сообщение человеку'],['analyze','Анализ данных'],['doc','Документ и знания'],['research','Исследование с поиском'],['learn','Обучение'],['decide','Решение и выбор'],['plan','План и декомпозиция'],['ideas','Идеи'],['review','Критика и ревью'],['code','Код и артефакты'],['system','Система и сессии']];
+const TYPEN={};TYPES.forEach(t=>TYPEN[t[0]]=t[1]);
+const PROPS=[
+ {k:'mode',n:'Режим',o:[['execute','Исполняю'],['explore','Проясняю']],h:'«Проясняю» — когда пока не понятно, что именно нужно.'},
+ {k:'type',n:'Тип задачи',sel:1,o:TYPES},
+ {k:'out',n:'Результат',o:[['chat','Ответ в чат'],['file','Файл целиком'],['frag','Только правки'],['artifact','Артефакт']]},
+ {k:'vol',n:'Объём',o:[['auto','Сам решит'],['short','Коротко'],['mid','Средне'],['long','Подробно']]},
+ {k:'think',n:'Глубина',o:[['quick','Сразу'],['step','Пошагово'],['deep','Глубокий разбор']]},
+ {k:'stakes',n:'Ставки',o:[['low','Обычные'],['high','Высокие']]},
+ {k:'data',n:'Мои материалы',o:[['no','Нет'],['yes','Есть']]},
+ {k:'session',n:'Сессия',o:[['new','Новый чат'],['cont','Продолжение']]},
+ {k:'lang',n:'Язык ответа',o:[['ru','Русский'],['en','English'],['same','Как в запросе']]}
+];
+const DEFP={mode:'execute',type:'other',out:'chat',vol:'auto',think:'quick',stakes:'low',data:'no',session:'new',lang:'ru'};
+const TG=[['think','Мышление'],['truth','Достоверность'],['dialog','Диалог'],['econ','Экономия токенов'],['lang','Русский язык'],['proj','Контекст проекта'],['fmt','Формат']];
+const TECH=[
+ {id:'steps',g:'think',n:'Пошагово',d:'Сложные задачи решаются точнее, если рассуждение идёт до вывода.',s:'Рассуждай пошагово, затем дай итог.'},
+ {id:'plan_first',g:'think',n:'Сначала план',d:'Видишь ход работы до того, как потрачены токены на исполнение.',s:'Сначала покажи короткий план (3–7 пунктов), потом выполняй.'},
+ {id:'selfcheck',g:'think',n:'Самопроверка',d:'Ловит ошибки до того, как ты их найдёшь сам.',s:'Перед ответом сверь результат с критериями успеха и исправь найденное.'},
+ {id:'variants',g:'think',n:'Радикально разные варианты',d:'Ты хорошо узнаёшь нужное, когда видишь контраст, а не вариации одного.',s:'Дай 3 радикально разных варианта — разные подходы, а не вариации одного. Для каждого — чем он отличается по последствиям.'},
+ {id:'forks',g:'think',n:'Карта развилок',d:'Превращает туман в список конкретных выборов.',s:'Перечисли ключевые решения в этой задаче. Для каждого — 2–4 варианта и их последствия.'},
+ {id:'hypothesis',g:'think',n:'Гипотеза + «оспорь»',d:'Даёт Claude точку опоры, а тебе — реакцию на критику.',s:'Моя гипотеза: [гипотеза]. Не соглашайся из вежливости — оспорь её и покажи, где она слабее всего.',ph:1},
+ {id:'redteam',g:'think',n:'Независимый критик',d:'Модель склонна соглашаться. Явная роль критика это ломает.',s:'Выступи независимым критиком: найди 3 самых слабых места и что сломается первым.'},
+ {id:'oneaction',g:'think',n:'Одно главное действие',d:'Против склонности модели производить объём.',s:'Назови одно действие с наибольшим эффектом. Остальное вычеркни или отложи.'},
+ {id:'deletable',g:'think',n:'Что удалить',d:'Сокращает план вместо того, чтобы раздувать его.',s:'Отметь, какие пункты можно удалить без потерь.'},
+ {id:'test',g:'think',n:'Различающий тест',d:'Переводит спор гипотез в проверку на практике.',s:'Предложи быстрый тест (до недели), который различит эти гипотезы.'},
+ {id:'labels',g:'truth',n:'Метки источника',d:'Отделяет выводы из твоих данных от общих мест и догадок.',s:'Помечай утверждения: [данные] — из моих материалов, [знание] — общее знание, [догадка] — предположение.'},
+ {id:'idk',g:'truth',n:'Право на «не знаю»',d:'Снижает выдуманные факты и цифры.',s:'Если не уверен или данных не хватает — так и скажи. Не выдумывай факты, цифры и источники.'},
+ {id:'contra',g:'truth',n:'Поиск противоречий',d:'Защищает от вывода, который тебе приятен.',s:'Отдельно укажи, что в моих данных противоречит твоим выводам.'},
+ {id:'quotes',g:'truth',n:'Ссылки на материалы',d:'Ответ можно проверить по документу.',s:'Подкрепляй ответы ссылкой на раздел или короткой цитатой из материалов.'},
+ {id:'search',g:'truth',n:'Свежие данные',d:'Для всего, что могло измениться: цены, люди, правила.',s:'Проверь актуальные данные поиском; для цифр укажи источник и дату.'},
+ {id:'interview',g:'dialog',n:'Вопросы по одному',d:'Пачка вопросов вызывает тот же ступор, что и чистый лист.',s:'Пока ничего не решай. Задавай вопросы по одному, начиная с самых важных, пока не поймёшь задачу. На моё «не знаю» предлагай 2–3 варианта ответа.'},
+ {id:'clarify',g:'dialog',n:'Уточни при неоднозначности',d:'Вопросы только там, где они правда нужны.',s:'Если в задаче есть критическая неоднозначность — задай до 3 вопросов перед началом. Если нет — сразу делай и перечисли свои допущения.'},
+ {id:'restate',g:'dialog',n:'Сверка задачи',d:'Ловит расхождение до того, как потрачена работа.',s:'Сначала перескажи задачу в 3–5 предложениях: что делаем, зачем и по каким критериям поймём, что получилось. Дождись моего подтверждения.'},
+ {id:'nopre',g:'econ',n:'Без преамбулы',d:'Модель по умолчанию поясняет и повторяет — отключается одной фразой.',s:'Без вступления, без пересказа задачи и без итоговых повторов.'},
+ {id:'onlydiff',g:'econ',n:'Только изменения',d:'Не платишь за перепечатку того, что не менялось.',s:'Меняй только [что менять]. Остальное не трогай и не переписывай; покажи изменённые фрагменты и где они стоят.',ph:1,ex:'fullfile'},
+ {id:'fullfile',g:'econ',n:'Готовый файл целиком',d:'Когда нужна рабочая сборка, а не фрагменты.',s:'Выдай готовый файл целиком, без сокращений вида «…остальное без изменений».',ex:'onlydiff'},
+ {id:'defer',g:'econ',n:'Отложить некритичное',d:'Главное делается сейчас, остальное не теряется.',s:'Если всё не помещается в один ответ — сделай главное, а в конце дай список «На следующую итерацию».'},
+ {id:'stages',g:'econ',n:'Этапы с остановкой',d:'Защита от обрыва по лимиту и от работы не в ту сторону.',s:'Большую работу разбей на этапы и остановись после первого, чтобы я проверил.'},
+ {id:'brief',g:'econ',n:'Бриф для нового чата',d:'Длинный чат дорожает с каждым сообщением. Чистый бриф — то, что стоит переносить.',s:'В конце собери бриф до 200 слов: цель, принятые решения, открытые вопросы, следующий шаг — чтобы продолжить в новом чате.'},
+ {id:'handoff',g:'econ',n:'Строка передачи',d:'След для следующей сессии в таблице.',s:'В конце дай одну строку для таблицы передачи: дата | задача | что сделано | решение | следующий шаг.'},
+ {id:'ru_style',g:'lang',n:'Живой русский',d:'Главная слабость модели в русском — канцелярит и кальки.',s:'Пиши простым живым русским: без канцелярита, цепочек отглагольных существительных и калек с английского.'},
+ {id:'terms',g:'lang',n:'Единые термины',d:'Синонимы для одного объекта путают и модель, и тебя.',s:'Один объект — одно название во всём ответе. Не заменяй термины синонимами.'},
+ {id:'en_tags',g:'lang',n:'Служебное — по-английски',d:'Экономит токены в часто перечитываемых таблицах.',s:'Служебные метки (заголовки колонок, статусы, теги) пиши по-английски, содержание — по-русски.'},
+ {id:'keyfacts',g:'proj',n:'Опора на ядро проекта',d:'Чат без ядра отвечает «мнением с улицы», пусть и умным.',s:'Опирайся на KEY_FACTS и DECISIONS проекта. Не противоречь принятым решениям без явной причины — если противоречишь, скажи об этом прямо.'},
+ {id:'decision',g:'proj',n:'Решение с основанием',d:'Вывод становится правдой, только когда записан с датой и основанием.',s:'Итоговое решение оформи строкой для DECISIONS: дата | решение | основание | как проверим.'},
+ {id:'table',g:'fmt',n:'Сравнение таблицей',d:'Таблица плотнее прозы и дешевле при перечитывании.',s:'Сравнение дай таблицей.'},
+ {id:'answer_tag',g:'fmt',n:'Итог в тегах',d:'Удобно, если ответ потом разбирается программой или копируется.',s:'Итог помести в теги <answer></answer>, рассуждения — вне их.'},
+ {id:'json',g:'fmt',n:'Только JSON',d:'Для данных, которые пойдут в инструмент.',s:'Ответь только валидным JSON без markdown и пояснений, по схеме: [схема].',ph:1}
+];
+const TK={};TECH.forEach(t=>TK[t.id]=t);
+const TPLG=[['explore','Прояснение: когда не знаешь, чего хочешь','Цепочка шагов — проходи по порядку, каждый в том же чате.'],['text','Тексты и сообщения',''],['know','Анализ и знания',''],['decide','Решения и планы',''],['build','Код и артефакты',''],['sys','Система и сессии',''],['mine','Мои шаблоны','Сохранённые из своих промптов.']];
+const TPL=[
+ {id:'x1',g:'explore',n:'1. Выгрузка и интервью',d:'Сбрасываешь всё, что знаешь, без структуры. Claude задаёт вопросы по одному, пока не поймёт задачу.',p:{mode:'explore',type:'other'},b:{context:'Ситуация: [что происходит сейчас]\nЧто не устраивает: [что мешает и почему это важно]\nЧто уже пробовал: [что делал и что вышло]\nОграничения: [время, деньги, инструменты, навыки]\nЧего точно не хочу: [что отпадает]\nДогадки: [любые, даже сомнительные]',task:'Помоги понять, что мне на самом деле нужно. Пока не предлагай решений.',criteria:'Остановись, когда новые вопросы перестанут менять понимание задачи. Тогда сформулируй задачу в 3–5 предложениях и спроси, верно ли.'},t:['interview','idk']},
+ {id:'x2',g:'explore',n:'2. Карта развилок',d:'Список решений, которые нужно принять, с вариантами и последствиями.',p:{mode:'explore',type:'decide'},b:{task:'Перечисли ключевые решения, которые нужно принять в задаче: [задача одной фразой]. Для каждого дай 2–4 варианта и объясни, чем они отличаются по последствиям.',format:'Таблица: развилка | варианты | последствия | что нужно знать, чтобы выбрать.'},t:['forks','table','nopre']},
+ {id:'x3',g:'explore',n:'3. Пробники',d:'Три радикально разных черновика по одной развилке — чтобы узнать нужное по реакции.',p:{mode:'explore',type:'ideas',vol:'short'},b:{task:'По развилке «[развилка]» сделай 3 радикально разных варианта — разные подходы, а не вариации одного. Коротко, черновиком: качество сейчас не важно.',format:'Каждый вариант — до 100 слов. В конце каждого одна строка: кому и когда он подходит.',extra:'Я отвечу по схеме: что цепляет, что отталкивает и почему.'},t:['nopre']},
+ {id:'x4',g:'explore',n:'4. Сверка формулировки',d:'Claude пересказывает задачу, ты правишь, пока не скажешь «да, это оно».',p:{mode:'explore'},b:{context:'Что выяснили: [ответы из интервью и реакции на пробники]',task:'Сформулируй задачу в 3–5 предложениях: что делаем, зачем и по каким критериям поймём, что получилось. Спроси, верно ли.'},t:['restate']},
+ {id:'x5',g:'explore',n:'5. Чистый бриф для нового чата',d:'Выжимка разговора без тупиков — с ней начинается исполнение в новом чате.',p:{mode:'execute',type:'system',session:'cont'},b:{task:'Собери из нашего разговора бриф для нового чата, где будет исполнение.',format:'Разделы: Цель; Контекст (только нужное); Решения и их причины; Отброшенные варианты; Критерии успеха; Формат результата. До 300 слов.',nongoals:'Не переноси тупики и пересказ разговора. Отброшенные идеи — только с пометкой «отброшено, потому что…».'},t:['nopre','terms']},
+ {id:'w1',g:'text',n:'Текст с нуля',d:'Пост, письмо, описание услуги, статья.',p:{type:'write',vol:'mid'},b:{role:'Ты — автор, который пишет для [аудитория] в тоне [тон].',context:'Зачем текст: [цель]. Где опубликую: [площадка]. Читатель уже знает: [что знает]; не знает: [что не знает].',task:'Напиши [тип текста] о [тема].',constraints:'Объём: [N] слов. Обязательно: [что упомянуть].',format:'Сразу готовый текст, без вступления. Затем 2 варианта заголовка.',criteria:'После текста читатель [что должен сделать или понять].'},t:['ru_style','nopre']},
+ {id:'w2',g:'text',n:'Правка готового текста',d:'Сохранить голос и факты, поменять то, что не устраивает.',p:{type:'edit',data:'yes'},b:{context:'Текст для [площадка или адресат]. Что не устраивает: [конкретно].',materials:'[вставь текст]',task:'Отредактируй текст: [что изменить — тон, длина, структура].',constraints:'Сохрани факты, цифры и мой голос. Не добавляй новых утверждений.',format:'Исправленный текст целиком, затем до 5 пунктов: что изменил и почему.'},t:['ru_style','terms']},
+ {id:'w3',g:'text',n:'Сообщение человеку',d:'Ответ клиенту, отклик на заказ, трудный разговор в переписке.',p:{type:'msg',vol:'short'},b:{context:'Кому: [кто и какие у нас отношения]. Ситуация: [что произошло]. Чего хочу добиться: [цель].',materials:'Его сообщение: [текст]',task:'Составь ответ.',constraints:'Канал: [мессенджер или почта]. Тон: [например, дружелюбно и по делу].',format:'2 варианта с разной стратегией. Над каждым — одна строка: чем он рискует.'},t:['ru_style','nopre']},
+ {id:'w4',g:'text',n:'Перевод и локализация',d:'Смысл и регистр важнее дословности.',p:{type:'edit',data:'yes'},b:{materials:'[текст]',task:'Переведи на [язык] для [аудитория].',constraints:'Сохрани смысл и регистр, адаптируй идиомы. Глоссарий: [термин → перевод].',format:'Перевод, затем список мест, где пришлось отступить от оригинала.'},t:['terms']},
+ {id:'a1',g:'know',n:'Анализ данных',d:'Таблица, выгрузка, статистика — под конкретное решение.',p:{type:'analyze',data:'yes',stakes:'high'},b:{role:'Ты — аналитик, который отличает сигнал от шума на малых выборках.',context:'Данные: [что это, откуда, за какой период]. Решение, которое я принимаю: [решение].',materials:'[таблица или описание файла]',task:'Найди в данных то, что влияет на это решение.',format:'1) Итог в 3 предложениях. 2) Ключевые цифры таблицей. 3) Три вывода с указанием, на каких данных они основаны. 4) Чего данные не позволяют утверждать.',criteria:'Каждый вывод проверяем по данным.'},t:['labels','contra','idk']},
+ {id:'a2',g:'know',n:'Конспект документа и вопросы',d:'Резюме с фокусом и ответы со ссылками на текст.',p:{type:'doc',data:'yes'},b:{materials:'[документ: название]',task:'Сделай конспект в [N] абзацах с фокусом на [тема]. Затем ответь на вопросы:\n1. [вопрос]\n2. [вопрос]',format:'Ответы — со ссылкой на раздел или короткой цитатой.'},t:['quotes','idk']},
+ {id:'a3',g:'know',n:'Извлечение знаний',d:'Видео, книга, курс → то, что меняет действия. Девять разделов.',p:{type:'doc',data:'yes',vol:'long'},b:{role:'Ты — методист, который превращает материал в применимые знания.',materials:'[транскрипт или текст]',task:'Извлеки из материала знания, которые я применю в [моя область или задача].',format:'Разделы: 1) Главная идея (2 предложения); 2) Ключевые тезисы; 3) Модели и фреймворки; 4) Приёмы и шаги; 5) Цифры и факты; 6) Примеры; 7) Ошибки и предостережения; 8) Что применить на этой неделе; 9) Спорное и что проверить.',constraints:'Не пересказывай по порядку. Только то, что меняет действия.'},t:['labels','nopre']},
+ {id:'a4',g:'know',n:'Исследование вопроса',d:'С веб-поиском, источниками и датами.',p:{type:'research',stakes:'high'},b:{context:'Зачем: [решение, под которое нужна информация]. Что уже знаю: [известное].',task:'Исследуй [вопрос].',constraints:'Источники не старше [период]. Приоритет — первоисточникам.',format:'Короткий итог; находки с источником и датой; где источники расходятся; что осталось неизвестным.'},t:['search','idk','labels']},
+ {id:'a5',g:'know',n:'Объяснение концепции',d:'Понять механизм, а не запомнить определение.',p:{type:'learn',think:'step'},b:{context:'Мой уровень: [что уже знаю]. Зачем мне: [применение].',task:'Объясни [концепция] так, чтобы я мог [применить или объяснить другому].',format:'Интуиция → механизм → пример из [моя область] → типичная ошибка понимания → 3 вопроса для самопроверки.'},t:['ru_style']},
+ {id:'d1',g:'decide',n:'Выбор между вариантами',d:'Сравнение по твоим критериям и условие, при котором выбор меняется.',p:{type:'decide',stakes:'high',think:'deep'},b:{role:'Ты — советник, которому важен мой результат, а не согласие со мной.',context:'Ситуация: [ситуация]. Варианты: A) [вариант] B) [вариант]. Важно (по убыванию): [критерии].',task:'Помоги выбрать.',format:'Таблица вариантов по критериям, затем рекомендация и условие, при котором она меняется.'},t:['redteam','labels','table']},
+ {id:'d2',g:'decide',n:'План и декомпозиция',d:'Цель → этапы → шаги на эту неделю.',p:{type:'plan'},b:{context:'Цель: [результат и срок]. Ресурсы: [часов в неделю, деньги, навыки].',task:'Разбей цель на этапы и первые конкретные шаги.',constraints:'Не больше 5 этапов.',format:'Этапы с результатом каждого; для первого — шаги на ближайшую неделю; риски и как заметить их рано.'},t:['oneaction','deletable','defer']},
+ {id:'d3',g:'decide',n:'Мозговой штурм',d:'Много идей, сгруппированных по подходам, с дешёвыми проверками.',p:{type:'ideas'},b:{context:'Задача: [что придумать]. Ограничения: [бюджет, формат, срок].',task:'Сгенерируй [N] идей.',nongoals:'Без того, что уже пробовал: [список].',format:'Сгруппируй по подходам. Пометь 3 самых дешёвых для проверки и 1 самую смелую.'},t:['test']},
+ {id:'d4',g:'decide',n:'Критика работы',d:'Независимый разбор: что слабо и как исправить.',p:{type:'review',data:'yes',stakes:'high'},b:{role:'Ты — независимый критик. Твоя задача — найти слабое, а не похвалить.',context:'Цель работы: [цель]. Аудитория: [кто].',materials:'[работа]',task:'Сделай критический разбор.',format:'3–5 главных проблем по убыванию важности: что не так, почему важно, как исправить. Затем что оставить как есть.'},t:['redteam','labels','deletable']},
+ {id:'d5',g:'decide',n:'Репетиция разговора',d:'Переговоры, сложный разговор: возражения и тренировка по реплике.',p:{type:'decide'},b:{role:'Ты играешь [роль собеседника] с его интересами и возражениями.',context:'Моя цель в разговоре: [цель]. Что знаю о собеседнике: [факты].',task:'Подготовь меня к разговору.',format:'3 вероятных возражения и мой ответ на каждое; 2 альтернативы, которые он может предложить. Затем сыграй разговор: одна твоя реплика — жди мою.'},t:[]},
+ {id:'d6',g:'decide',n:'Решение в DECISIONS',d:'Принять решение по данным проекта и записать с основанием.',p:{type:'decide',session:'cont',stakes:'high'},b:{context:'Вопрос: [что решаем]. Что известно: [факты из ядра проекта].',task:'Помоги принять решение и зафиксировать его.'},t:['keyfacts','decision','labels','contra']},
+ {id:'c1',g:'build',n:'Новый HTML-инструмент',d:'Артефакт в одном файле: сценарий, хранение, дизайн.',p:{type:'code',out:'artifact',think:'step'},b:{role:'Ты — фронтенд-разработчик и продуктовый дизайнер.',context:'Для чего инструмент: [задача]. Кто пользуется: [я или другие]. Где: [компьютер или телефон].',task:'Сделай одностраничный HTML-инструмент, который [что делает].',constraints:'Один файл. Дизайн как в [образец]. Данные хранятся: [где].',criteria:'Главный сценарий «[сценарий]» проходит за [N] действий.'},t:['plan_first','fullfile','stages']},
+ {id:'c2',g:'build',n:'Доработка файла',d:'Точечные правки без перепечатки всего файла.',p:{type:'code',out:'frag',data:'yes'},b:{materials:'[файл или ссылка]',task:'Внеси изменения:\n1. [изменение]\n2. [изменение]',constraints:'Не меняй [что сохранить].'},t:['onlydiff','selfcheck']},
+ {id:'c3',g:'build',n:'Отладка',d:'Причина, исправление, проверка.',p:{type:'code',out:'frag',data:'yes',think:'step'},b:{materials:'Код: [фрагмент]\nОшибка: [текст ошибки]\nОжидал: [что] / Получил: [что]',task:'Найди причину и исправь.',format:'Причина в 1–2 предложениях, исправленный фрагмент, как проверить.'},t:['idk']},
+ {id:'s1',g:'sys',n:'Инструкции проекта',d:'Системный промпт для Claude Project или skill.',p:{type:'system'},b:{role:'Ты — инженер промптов.',context:'Проект: [о чём]. Типичные задачи: [задачи]. Что не устраивает в ответах сейчас: [проблемы].',task:'Напиши инструкции проекта для Claude.',format:'До 300 слов. Разделы: роль и цель; контекст; как отвечать; чего не делать. Каждое правило — с причиной.'},t:['ru_style','terms']},
+ {id:'s2',g:'sys',n:'Передача между сессиями',d:'Строки для таблицы-передачи: что изменилось и что дальше.',p:{type:'system',session:'cont',vol:'short'},b:{task:'Подготовь передачу в следующую сессию.',format:'Строки таблицы: дата | задача | статус | что сделано | решение и основание | следующий шаг | что прочитать в начале.',constraints:'Только то, что изменилось. Без пересказа диалога.'},t:['nopre','en_tags']},
+ {id:'s3',g:'sys',n:'Пакет задач итерации',d:'Несколько задач за сессию с защитой от обрыва по лимиту.',p:{type:'system',session:'cont'},b:{context:'Итерация №[N]. Пакет задач:\n1. [задача]\n2. [задача]',task:'Выполни пакет по порядку.',constraints:'Если упираешься в лимит — доведи текущую задачу до конца и остановись.',format:'После каждой задачи — строка статуса. В конце — что перенести в следующую итерацию.'},t:['defer','stages','handoff']},
+ {id:'s4',g:'sys',n:'Быстрый вопрос',d:'Минимум токенов: вопрос и короткий ответ.',p:{type:'other',vol:'short'},b:{task:'[вопрос]',format:'Ответ до 3 предложений.'},t:['nopre']},
+ {id:'s5',g:'sys',n:'Улучшить мой промпт',d:'Мета-промпт: слабости, улучшенная версия, вопросы ко мне.',p:{type:'system',data:'yes'},b:{materials:'[мой промпт]',task:'Улучши этот промпт для Claude.',format:'3–5 главных слабостей; улучшенная версия целиком; вопросы ко мне, ответы на которые сделают его сильнее.'},t:['labels']}
+];
+const STAGES=[['idea','Идея','Мысль, которую стоит развернуть'],['draft','Черновик','Блоки заполняются'],['ripe','Дозревает','Отлёживается: возвращайся с новыми мыслями'],['ready','Готов','Зрелость 85+ и ты доволен'],['used','Использован','Запущен; записан итог'],['arch','Архив','']];
+const STN={};STAGES.forEach(s=>STN[s[0]]=s[1]);
+const DTYPES=[['rule','Правило','Что работает. Закреплённые правила добавляются в каждый промпт.'],['lesson','Урок','Итог запуска: что сработало, что нет'],['hyp','Гипотеза','Проверить на следующих промптах'],['idea','Идея','Промпт или метод, который стоит сделать'],['log','Запуск','Журнал скопированных промптов']];
+const DTN={};DTYPES.forEach(d=>DTN[d[0]]=d[1]);
+const VAGUE=['хорош','лучше','качествен','интересн','нормальн','красив','эффективн','оптимальн','как-нибудь','что-нибудь','какой-нибудь','креативн','профессиональн','грамотн','правильн','подробн'];
+const PRINCIPLES=[
+ ['Понимать задачу, а не знать решение','Для хорошего промпта нужен контекст, ограничения и критерий успеха. Решение знать не нужно — его и ищем.'],
+ ['Две фазы','Прояснение и исполнение не смешивай. Не знаешь, чего хочешь, — ты в режиме прояснения: интервью, развилки, пробники, сверка, бриф.'],
+ ['Описывай проблему, а не желаемое','«Не знаю, чего хочу» почти всегда значит «знаю, что не устраивает». Этого достаточно для старта.'],
+ ['Реагируй, а не описывай','Попроси 3–4 радикально разных варианта и скажи, что цепляет, что отталкивает и почему. «Почему» — это и есть твои критерии.'],
+ ['Самый дорогой токен — на неправильный ответ','Точный промпт на 300 токенов дешевле расплывчатого на 30 плюс три круга правок. Не экономь на контексте, примерах и критериях.'],
+ ['Новый чат под новую задачу','Каждое сообщение заново отправляет всю историю. Длинный чат дорожает нелинейно — переходи в новый с брифом.'],
+ ['Спецификация вперёд','Формат, тон, объём, аудитория — сразу. Каждый круг «нет, не так» перечитывает весь контекст.'],
+ ['Длинное — в начало, вопрос — в конец','Большие материалы ставь в начало промпта, задачу после них. Разделяй материалы тегами.'],
+ ['«Больше» модель понимает буквально','Формулировки «делай больше», «максимально» разрешают производить объём. Работают обратные: «одно главное», «что удалить», «какой тест различит».'],
+ ['Точность русского промпта','Без местоимений без опоры («это», «его»), без безличных конструкций без адресата, без оценочных слов без меры. Один объект — одно имя.'],
+ ['Вид глагола как инструмент','Несовершенный вид — постоянное правило («всегда отвечай кратко»). Совершенный — разовое действие («перепиши абзац»).'],
+ ['Чат — не хранилище','Вывод становится решением, только когда записан в DECISIONS с датой и основанием. Любой чат начинает с ядра проекта.']
+];
+
+/* ================= УТИЛИТЫ ================= */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const now=()=>Date.now();
+const clone=o=>JSON.parse(JSON.stringify(o==null?null:o));
+const fmtD=t=>t?new Date(t).toLocaleDateString('ru-RU',{day:'numeric',month:'short'}):'';
+const fmtDT=t=>t?new Date(t).toLocaleString('ru-RU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'';
+const today=()=>new Date().toISOString().slice(0,10);
+const tok=s=>{s=s||'';const c=(s.match(/[а-яё]/gi)||[]).length;return Math.round(c/2.4+(s.length-c)/3.8);};
+const plural=(n,a,b,c)=>{const m=n%10,h=n%100;return m===1&&h!==11?a:(m>=2&&m<=4&&(h<12||h>14)?b:c);};
+let toastT=null;
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2400);}
+
+/* ================= СОСТОЯНИЕ ================= */
+const LS='promptlab.v1',LSU='promptlab.ui';
+const S={prompts:[],tasks:[],dash:[],tpls:[],set:{markup:'xml',params:true,rules:true,theme:'auto',logRuns:false},mu:0,
+ cur:null,view:'build',tplQ:'',tplG:'all',tplOpen:null,dashF:'all',dashType:'rule',dEdit:null,taskF:'open',taskPrio:'mid',showArch:false,
+ setOpen:false,tgOpen:{},wantCur:null,ai:null,dl:null,aiRes:null,aiBusy:false,aiCtl:null,aiErr:'',aiQA:[],justCopied:null,fbRes:null,fbNote:'',mb:[]};
+function norm(p){const n=Object.assign(newPrompt(),p);n.p=Object.assign({},DEFP,p.p||{});n.b=n.b||{};n.t=(n.t||[]).filter(id=>TK[id]);n.tv=n.tv||{};['notes','v','runs'].forEach(k=>{if(!Array.isArray(n[k]))n[k]=[];});return n;}
+function newPrompt(o){return Object.assign({id:uid(),title:'Новый промпт',stage:'draft',p:Object.assign({},DEFP),b:{},t:[],tv:{},raw:null,notes:[],v:[],runs:[],uses:0,rev:'',c:now(),u:now()},o||{});}
+const cur=()=>S.prompts.find(x=>x.id===S.cur)||null;
+function ensureCur(){
+ if(cur())return;
+ const live=S.prompts.filter(p=>p.stage!=='arch').sort((a,b)=>b.u-a.u);
+ if(live.length){S.cur=live[0].id;return;}
+ const p=newPrompt();S.prompts.push(p);S.cur=p.id;Store.touchP(p);
+}
+function saveUI(){try{localStorage.setItem(LSU,JSON.stringify({view:S.view,cur:S.cur}))}catch(e){}}
+
+/* ================= ХРАНЕНИЕ ================= */
+const Store={mode:'local',label:'Данные сохраняются в этом браузере.',pcol:null,meta:null,dirty:new Set(),del:new Set(),metaDirty:false,timer:null,busy:false,
+ cacheLocal(){try{localStorage.setItem(LS,JSON.stringify({prompts:S.prompts,tasks:S.tasks,dash:S.dash,tpls:S.tpls,set:S.set,mu:S.mu}))}catch(e){}},
+ loadLocal(){try{return JSON.parse(localStorage.getItem(LS)||'null')}catch(e){return null}},
+ touchP(p){p.u=now();delete p.seed;this.dirty.add(p.id);this.sched();},
+ touchM(){S.mu=now();this.metaDirty=true;this.sched();},
+ sched(ms){clearTimeout(this.timer);this.timer=setTimeout(()=>this.flush(),ms||700);},
+ async flush(){
+  this.cacheLocal();
+  if(this.mode!=='cloud')return;
+  if(this.busy){this.sched(500);return;}
+  this.busy=true;
+  const ids=[...this.dirty];this.dirty.clear();const dels=[...this.del];this.del.clear();const md=this.metaDirty;this.metaDirty=false;
+  try{
+   for(const id of ids){const p=S.prompts.find(x=>x.id===id);if(p)await this.pcol.doc(id).set(clone(p));}
+   for(const id of dels)await this.pcol.doc(id).delete();
+   if(md)await this.meta.set(clone({tasks:S.tasks,dash:S.dash,tpls:S.tpls,set:S.set,mu:S.mu}));
+   if(this.err){this.err=false;this.label='Сохраняется в облаке Claude — доступно с любого устройства.';rNav();}
+  }catch(e){
+   ids.forEach(i=>this.dirty.add(i));dels.forEach(i=>this.del.add(i));if(md)this.metaDirty=true;
+   this.err=true;this.label=(e&&e.code==='quota_exceeded')?'Облако заполнено — удали лишнее. Пока сохраняю в этом браузере.':'Облако не приняло запись — повторю. Копия есть в этом браузере.';rNav();
+   if(!(e&&(e.code==='quota_exceeded'||e.code==='invalid_argument')))this.sched(6000);
+  }finally{this.busy=false;}
+ },
+ setMode(m,l){this.mode=m;this.label=l;rNav();},
+ async connect(){
+  if(!(window.claude&&typeof window.claude.use==='function')){this.setMode('local','Страница открыта вне Claude — данные только в этом браузере.');return;}
+  let db=null,user=null;
+  try{[db,user]=await Promise.all([window.claude.use('db'),window.claude.use('user')]);}catch(e){}
+  if(!db||!user){this.setMode('local','Облако недоступно в этом окне — данные в этом браузере.');return;}
+  let id=null;try{id=await user.id();}catch(e){}
+  if(!id){this.setMode('local','Облако недоступно — данные в этом браузере.');return;}
+  try{
+   const base=db.doc('data/users/'+id+'/promptlab');
+   this.pcol=base.collection('prompts');this.meta=base.collection('meta').doc('main');
+   const [qs,ms]=await Promise.all([this.pcol.get(),this.meta.get()]);
+   const remote={};qs.docs.forEach(d=>{if(d.exists){const v=clone(d.data());if(v&&v.id)remote[v.id]=norm(v);}});
+   const hasRemote=Object.keys(remote).length>0;
+   const local={};S.prompts.forEach(p=>{if(!(p.seed&&hasRemote))local[p.id]=p;});
+   const merged=[];
+   Object.keys(remote).forEach(k=>{const r=remote[k],l=local[k];if(l&&(l.u||0)>(r.u||0)){merged.push(l);this.dirty.add(k);}else merged.push(r);delete local[k];});
+   Object.values(local).forEach(l=>{merged.push(l);this.dirty.add(l.id);});
+   S.prompts=merged;
+   if(ms.exists){const m=clone(ms.data())||{};
+    if((m.mu||0)>=(S.mu||0)){S.tasks=m.tasks||[];S.dash=m.dash||[];S.tpls=m.tpls||[];S.set=Object.assign(S.set,m.set||{});S.mu=m.mu||0;}else this.metaDirty=true;
+   }else this.metaDirty=true;
+   this.mode='cloud';this.label='Сохраняется в облаке Claude — доступно с любого устройства.';
+   if(S.wantCur&&S.prompts.some(p=>p.id===S.wantCur)&&S.cur!==S.wantCur&&!(cur()&&!cur().seed&&hasContent(cur())))S.cur=S.wantCur;
+   ensureCur();applyTheme();fullRender();this.sched(300);
+  }catch(e){this.setMode('local','Облако не ответило — данные в этом браузере.');}
+ }
+};
+
+/* ================= СБОРКА ПРОМПТА ================= */
+function techText(t,p){
+ if(!t.ph)return t.s;
+ const v=((p.tv||{})[t.id]||'').trim();
+ return v?t.s.replace(/\[[^\]]+\]/,v):t.s;
+}
+function phLabel(t){const m=t.s.match(/\[([^\]]+)\]/);return m?m[1]:'';}
+function paramLines(p){
+ const P=p.p,T=new Set(p.t||[]),L=[];
+ if(P.out==='file'&&!T.has('fullfile'))L.push('Нужен готовый файл целиком — рабочая сборка, без пропусков и сокращений.');
+ if(P.out==='frag'&&!T.has('onlydiff'))L.push('Покажи только изменённые фрагменты и где они стоят. Остальное не переписывай.');
+ if(P.out==='artifact')L.push('Сделай результат интерактивным HTML-артефактом в одном файле.');
+ if(P.vol==='short')L.push('Объём: коротко — до 150 слов.');
+ if(P.vol==='mid')L.push('Объём: средний — до 500 слов.');
+ if(P.vol==='long')L.push('Объём: подробно, но без воды — каждый абзац добавляет новое.');
+ if(P.think==='step'&&!T.has('steps'))L.push('Рассуждай пошагово, затем дай итог.');
+ if(P.think==='deep')L.push('Сначала разбери задачу: допущения, варианты, риски. Потом реши и коротко объясни выбор.');
+ if(P.stakes==='high')L.push('Ставки высокие: отметь, в чём не уверен, и проверь выводы на слабые допущения.');
+ if(P.session==='cont'&&!T.has('keyfacts'))L.push('Это продолжение работы: опирайся на принятые решения и не пересматривай их без причины.');
+ if(P.lang==='en')L.push('Отвечай на английском.');
+ return L;
+}
+const pinned=()=>S.dash.filter(d=>d.type==='rule'&&d.pin);
+function parts(p){
+ const B=p.b||{},out=[];
+ const add=(k,label,xml,text)=>{text=String(text||'').trim();if(text)out.push({k,label,xml,text});};
+ const long=(B.materials||'').trim().length>1500;
+ add('role','Роль','role',B.role);
+ if(long)add('materials','Материалы','materials',B.materials);
+ add('context','Контекст','context',B.context);
+ if(!long)add('materials','Материалы','materials',B.materials);
+ ['task','constraints','nongoals','examples','format','criteria','extra'].forEach(k=>add(k,BK[k].n,BK[k].xml,B[k]));
+ const how=[...(S.set.params?paramLines(p):[]),...(p.t||[]).map(id=>TK[id]).filter(Boolean).map(t=>techText(t,p))];
+ if(how.length)add('how','Как работать','instructions',how.map(x=>'- '+x).join('\n'));
+ if(S.set.rules&&p.useRules!==false){const r=pinned();if(r.length)add('rules','Мои постоянные правила','my_rules',r.map(x=>'- '+x.text.trim()).join('\n'));}
+ return out;
+}
+function assemble(p,force){
+ if(!p)return '';
+ if(p.raw!=null&&!force)return p.raw;
+ const ps=parts(p),m=S.set.markup;
+ if(m==='xml')return ps.map(x=>`<${x.xml}>\n${x.text}\n</${x.xml}>`).join('\n\n');
+ if(m==='md')return ps.map(x=>`## ${x.label}\n${x.text}`).join('\n\n');
+ return ps.map(x=>x.k==='task'&&!x.text.includes('\n')?x.text:(x.text.includes('\n')?`${x.label}:\n${x.text}`:`${x.label}: ${x.text}`)).join('\n\n');
+}
+
+/* ================= ЗРЕЛОСТЬ ================= */
+function collectPh(p){
+ const set=new Set(),re=/\[([^\]\n]{1,60})\]/g;
+ BLOCKS.forEach(b=>{const s=(p.b||{})[b.k]||'';let m;re.lastIndex=0;while((m=re.exec(s)))set.add(m[0]);});
+ (p.t||[]).forEach(id=>{const t=TK[id];if(t&&t.ph&&!((p.tv||{})[id]||'').trim())set.add('['+phLabel(t)+']');});
+ return [...set];
+}
+function findVague(B){
+ const found=[];let blk=null;
+ ['task','criteria','format'].forEach(k=>{const s=(B[k]||'').toLowerCase();VAGUE.forEach(st=>{const re=new RegExp('(^|[^а-яё])('+st.replace('-','\\-')+'[а-яё]*)','i');const m=s.match(re);if(m&&!found.includes(m[2])){found.push(m[2]);if(!blk)blk=k;}});});
+ return {found,blk};
+}
+function lint(p){
+ const B=p.b||{},P=p.p,T=new Set(p.t||[]),L=[],len=k=>(B[k]||'').trim().length;
+ const add=(id,ok,w,n,tip,act,arg)=>L.push({id,ok,w,n,tip,act,arg});
+ add('task',len('task')>=12,3,'Задача сформулирована','Одно главное действие глаголом: «составь», «найди», «перепиши».','focus','task');
+ const ex=P.mode==='explore';
+ add('ctx',ex?len('context')>=80:(len('context')>=40||len('materials')>=40),2,ex?'Контекст выгружен':'Есть контекст',ex?'Выгрузи всё, что есть: ситуация, что не устраивает, что пробовал. Без структуры — это сырьё.':'Опиши ситуацию: что есть, что не устраивает, зачем это нужно.','focus','context');
+ add('crit',len('criteria')>=12||(ex&&(T.has('interview')||T.has('restate'))),2,'Есть критерий успеха','Как поймёшь, что результат хороший? Проверяемо, без «хорошо».','focus','criteria');
+ add('fmt',len('format')>=10||['file','frag','artifact'].includes(P.out)||(ex&&len('criteria')>=12),1.5,'Задан формат ответа','В каком виде нужен результат: таблица, список, текст, файл.','focus','format');
+ if(!ex)add('vol',P.vol!=='auto'||P.out==='frag'||/\d+\s*(слов|строк|абзац|пункт|предлож|символ|знак|вариант|раздел|идей|колон)/i.test(B.format||''),1,'Задан объём','Без объёма Claude решит сам — обычно длиннее, чем нужно.','prop','vol');
+ if(!ex)add('bounds',len('constraints')>=8||len('nongoals')>=8,1,'Есть рамки','Что нельзя менять и чего не делать.','focus','constraints');
+ if(ex)add('exp',T.has('interview')||T.has('restate')||T.has('forks')||T.has('variants'),2,'Метод прояснения','В режиме прояснения включи «Вопросы по одному», иначе Claude сразу начнёт решать.','tech','interview');
+ if(len('materials')>=40)add('lbl',T.has('labels')||T.has('quotes')||T.has('contra'),1,'Привязка к материалам','Попроси помечать, что взято из материалов, а что — догадка.','tech','labels');
+ const phs=collectPh(p);
+ if(phs.length)add('ph',false,2,'Остались поля в скобках','Заполни: '+phs.slice(0,4).join(', ')+(phs.length>4?' и ещё '+(phs.length-4):''),'nextph');
+ const vg=findVague(B);
+ if(vg.found.length)add('vague',false,1.5,'Оценочные слова без меры','«'+vg.found.join('», «')+'» — замени измеримым: число, пример, критерий.','focus',vg.blk);
+ if(/(больше|максимальн|как можно|по максимуму)/i.test(B.task||''))add('trap',false,1,'Ловушка объёма','«Больше» и «максимально» модель понимает буквально и производит объём. Лучше: «одно главное», «что удалить».','tech','oneaction');
+ if(/(^|[.!?\n]\s*)(это|он|она|оно|они|там|его|её|их|этот|эта|такое)\s/i.test(B.task||''))add('pron',false,0.5,'Местоимение без опоры','Фраза в задаче начинается с «это», «его», «там» — назови объект прямо.','focus','task');
+ if(((B.task||'').match(/\?/g)||[]).length>3)add('multi',false,1,'Много вопросов сразу','Больше трёх вопросов в одной задаче — пронумеруй или раздели на шаги.','focus','task');
+ if((T.has('fullfile')&&(T.has('onlydiff')||P.out==='frag'))||(T.has('onlydiff')&&P.out==='file'))add('conf',false,2,'Противоречие','«Файл целиком» и «только правки» одновременно. Оставь одно.','prop','out');
+ const total=assemble(p,true).length;
+ if(total>0&&total<90&&P.vol!=='short')add('short',false,1,'Слишком коротко','Короткий промпт — Claude додумает остальное по-своему.','focus','context');
+ if(total>15000)add('long',false,1,'Очень длинный промпт','Каждый следующий ход перечитывает его. Постоянное вынеси в инструкции проекта, материалы — в файлы.');
+ const sw=L.reduce((a,x)=>a+x.w,0),ow=L.reduce((a,x)=>a+(x.ok?x.w:0),0);
+ let score=sw?Math.round(ow/sw*100):0;
+ if(!(B.task||'').trim())score=Math.min(score,20);
+ return {score,items:L};
+}
+function level(s){return s>=85?['Созрел','можно запускать']:s>=60?['Наливается','осталось немного']:s>=35?['Росток','нужны ещё блоки']:['Зерно','только начало'];}
+const scoreOf=p=>lint(p).score;
+
+/* ================= РЕКОМЕНДАЦИИ ================= */
+function recTpl(P){
+ return TPL.concat(S.tpls).map(t=>{let s=0;const tp=t.p||{};
+  if(tp.type&&tp.type===P.type&&P.type!=='other')s+=5;
+  if(P.mode==='explore'){if(t.g==='explore')s+=6;}else if(t.g==='explore'&&t.id!=='x5')s-=4;
+  if(tp.out&&tp.out===P.out&&P.out!=='chat')s+=2;
+  if(tp.data&&tp.data===P.data&&P.data==='yes')s+=1;
+  if(tp.stakes&&tp.stakes===P.stakes&&P.stakes==='high')s+=1;
+  if(P.session==='cont'&&tp.session==='cont')s+=1;
+  if(tp.vol&&tp.vol===P.vol&&P.vol!=='auto')s+=1;
+  return {t,s};}).filter(x=>x.s>=4).sort((a,b)=>b.s-a.s).slice(0,4).map(x=>x.t);
+}
+function recTech(P){
+ const R=new Set();
+ if(P.mode==='explore'){R.add('interview');R.add('idk');}
+ if(P.stakes==='high'){R.add('selfcheck');R.add('labels');}
+ if(P.data==='yes'){R.add('labels');R.add('contra');}
+ if(P.out==='file'||P.out==='artifact')R.add('fullfile');
+ if(P.out==='frag')R.add('onlydiff');
+ if(P.out==='artifact')R.add('plan_first');
+ if(P.vol==='short')R.add('nopre');
+ if(P.session==='cont')R.add('keyfacts');
+ if(P.think==='deep'&&P.stakes==='high')R.add('redteam');
+ ({decide:['redteam','oneaction'],plan:['oneaction','deletable','defer'],ideas:['variants','test'],code:['plan_first','selfcheck','stages'],research:['search','idk'],review:['redteam','deletable'],system:['terms','nopre'],write:['ru_style'],edit:['ru_style','terms'],msg:['ru_style'],analyze:['labels','contra','idk'],doc:['quotes','idk'],learn:['steps']}[P.type]||[]).forEach(x=>R.add(x));
+ if(P.out==='frag')R.delete('fullfile');
+ return [...R];
+}
+function setTech(p,id,on){
+ const T=new Set(p.t||[]);const t=TK[id];if(!t)return;
+ if(on){T.add(id);if(t.ex)T.delete(t.ex);}else T.delete(id);
+ p.t=TECH.map(x=>x.id).filter(x=>T.has(x));
+}
+
+/* ================= НАВИГАЦИЯ ================= */
+function seg(act,attrs,opts,val){return `<div class="seg">${opts.map(o=>`<button type="button" data-act="${act}" ${attrs} data-v="${esc(o[0])}" aria-pressed="${o[0]===val}">${esc(o[1])}</button>`).join('')}</div>`;}
+function rNav(){
+ const v=S.view,openT=S.tasks.filter(t=>t.st!=='done').length,due=S.prompts.filter(isDue).length;
+ const L=(id,ic,n,cnt)=>`<button class="navlink" data-act="view" data-v="${id}" aria-current="${v===id}"><span class="ic" aria-hidden="true">${ic}</span>${n}${cnt?`<span class="cnt">${cnt}</span>`:''}</button>`;
+ const list=S.prompts.filter(p=>p.stage!=='arch').sort((a,b)=>b.u-a.u);
+ $('nav').innerHTML=`<div class="brand">Промпт-лаб</div><div class="module">Конструктор и улучшатель промптов</div>
+ ${L('build','✎','Конструктор')}${L('tpl','▤','Шаблоны',TPL.length+S.tpls.length)}${L('methods','◈','Методы',TECH.length)}${L('ripen','◔','Созревание',due?due+' пора':'')}${L('tasks','☐','Задачи',openT||'')}${L('dash','≡','DASH',S.dash.length||'')}
+ <div class="ghead"><span>Промпты</span><button class="btn small ghost" data-act="new" title="Новый промпт">+ Новый</button></div>
+ <div class="plist">${list.map(p=>{const s=scoreOf(p);return `<button class="pitem" data-act="open" data-id="${p.id}" aria-current="${v==='build'&&p.id===S.cur}" title="${esc(STN[p.stage]||'')}"><span class="gdot s-${p.stage}"></span><span class="pname">${esc(p.title||'Без названия')}</span><span class="sc ${s>=85?'ok':''}">${s}</span></button>`;}).join('')||'<p class="module">Пока пусто</p>'}</div>
+ <details class="sets" ${S.setOpen?'open':''}><summary>Настройки и данные</summary><div class="inner">
+  <div class="small muted mt8">Разметка промпта</div>${seg('set','data-sk="markup"',[['xml','XML-теги'],['md','Заголовки'],['plain','Текст']],S.set.markup)}
+  <div class="small muted mt12">Тема</div>${seg('set','data-sk="theme"',[['auto','Как в системе'],['light','Светлая'],['dark','Тёмная']],S.set.theme)}
+  <label class="switch"><input type="checkbox" data-act="setb" data-sk="params" ${S.set.params?'checked':''}><span>Добавлять строки из свойств запроса</span></label>
+  <label class="switch"><input type="checkbox" data-act="setb" data-sk="rules" ${S.set.rules?'checked':''}><span>Добавлять закреплённые правила из DASH</span></label>
+  <div class="row mt12"><button class="btn small" data-act="export">Скачать копию</button><button class="btn small" data-act="import">Загрузить</button></div>
+ </div></details>
+ <div class="store">${esc(Store.label)}</div>`;
+}
+const isDue=p=>p.rev&&p.rev<=today()&&!['used','arch'].includes(p.stage);
+
+/* ================= КОНСТРУКТОР ================= */
+function propsHTML(p){
+ return `<div class="props">${PROPS.map(pr=>`<div class="prop${pr.sel?' wide':''}"><span class="pl">${pr.n}${pr.h?` <span title="${esc(pr.h)}">ⓘ</span>`:''}</span>${pr.sel?`<select data-k="p.${pr.k}">${pr.o.map(o=>`<option value="${o[0]}" ${p.p[pr.k]===o[0]?'selected':''}>${esc(o[1])}</option>`).join('')}</select>`:seg('prop',`data-pk="${pr.k}"`,pr.o,p.p[pr.k])}</div>`).join('')}</div>`;
+}
+function recsHTML(p){
+ const tp=recTpl(p.p),rt=recTech(p.p),T=new Set(p.t);
+ const off=rt.filter(x=>!T.has(x));
+ return `<div class="recs"><p class="lbl">Подходящие шаблоны</p>${tp.length?`<div class="tplpick">${tp.map((t,i)=>`<button data-act="apply-tpl" data-id="${t.id}" class="${i===0?'best':''}"><b>${esc(t.n)}</b><small>${esc(t.d)}</small></button>`).join('')}</div>`:`<p class="hint">Выбери тип задачи или режим — подберу шаблон. Или <button class="link" data-act="view" data-v="tpl">открой все шаблоны</button>.</p>`}
+ ${rt.length?`<p class="lbl mt12">Рекомендуемые методы для этих свойств</p><div class="row">${rt.map(id=>T.has(id)?`<button class="chip on" data-act="tech" data-id="${id}" title="Выключить">✓ ${esc(TK[id].n)}</button>`:`<button class="chip off" data-act="tech" data-id="${id}" title="${esc(TK[id].d)}">+ ${esc(TK[id].n)}</button>`).join('')}${off.length>1?`<button class="link small" data-act="tech-all">включить все</button>`:''}</div>`:''}</div>`;
+}
+function blocksHTML(p){
+ const fl=new Set();lint(p).items.forEach(i=>{if(!i.ok&&i.act==='focus'&&i.arg&&i.id!=='task'&&i.id!=='ctx'&&i.id!=='crit'&&i.id!=='fmt'&&i.id!=='bounds')fl.add(i.arg);});
+ return BLOCKS.map(b=>{const v=(p.b||{})[b.k]||'';return `<div class="blk${b.req?' req':''}${fl.has(b.k)?' flag':''}" id="blk-${b.k}"><div class="bl"><label for="ta-${b.k}">${b.n}</label><span class="len" id="len-${b.k}">${v.length?v.length+' зн.':''}</span></div><p class="hint">${esc(b.h)}</p><textarea id="ta-${b.k}" data-k="b.${b.k}" rows="${b.k==='materials'?3:2}" placeholder="${esc(b.ph)}">${esc(v)}</textarea></div>`;}).join('');
+}
+function techHTML(p){
+ const T=new Set(p.t),R=new Set(recTech(p.p));
+ return TG.map(g=>{const items=TECH.filter(t=>t.g===g[0]);const on=items.filter(t=>T.has(t.id)).length,rec=items.some(t=>R.has(t.id)&&!T.has(t.id));
+  const op=(S.tgOpen[g[0]]!=null)?S.tgOpen[g[0]]:(on||rec);
+  return `<details class="tgroup" data-g="${g[0]}" ${op?'open':''}><summary class="small" style="cursor:pointer;color:var(--ink2)">${g[1]} <span class="muted">${on?on+' из '+items.length:items.length}</span></summary><div class="techgrid">${items.map(t=>`<div><label class="lens"><input type="checkbox" data-act="tech" data-id="${t.id}" ${T.has(t.id)?'checked':''}><span><b>${esc(t.n)}${R.has(t.id)&&!T.has(t.id)?'<span class="rec">рекомендую</span>':''}</b><small>${esc(t.d)}</small></span></label>${t.ph&&T.has(t.id)?`<input type="text" class="mt6" data-k="tv.${t.id}" placeholder="${esc(phLabel(t))}" value="${esc((p.tv||{})[t.id]||'')}">`:''}</div>`).join('')}</div></details>`;}).join('');
+}
+function previewHTML(p){
+ if(p.raw!=null)return `<div class="banner"><span>Итог правится вручную — изменения блоков в него не попадают.</span><button class="btn small" data-act="raw-off">Вернуться к сборке</button></div><textarea class="mt8" id="rawTa" data-k="raw" rows="10">${esc(p.raw)}</textarea>`;
+ return `<pre class="preview" id="pv">${esc(assemble(p))}</pre>`;
+}
+function aiHTML(p){
+ if(!S.ai)return '';
+ if(S.aiBusy)return `<div class="panel ai"><div class="row between"><b>Claude разбирает промпт…</b><button class="btn small" data-act="ai-stop">Остановить</button></div><p class="hint mt8">Обычно 10–40 секунд.</p></div>`;
+ const r=S.aiRes;
+ let h=`<div class="panel ai"><div class="row between"><div><b>Улучшить с Claude</b><p class="hint" style="margin:2px 0 0">Найдёт слабости, перепишет блоки и задаст вопросы. Материалы не переписывает. Тратит лимит твоей подписки.</p></div><button class="btn" data-act="ai-run">${r?'Ещё раз':'Улучшить'}</button></div>`;
+ if(S.aiErr)h+=`<p class="gmsg small" style="color:var(--hi)">${esc(S.aiErr)}</p>`;
+ if(r){
+  if(r.weak&&r.weak.length)h+=`<h4>Главные слабости</h4><ul>${r.weak.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`;
+  const ks=Object.keys(r.blocks||{}).filter(k=>BK[k]&&k!=='materials'&&String(r.blocks[k]||'').trim()&&String(r.blocks[k]).trim()!==String((p.b||{})[k]||'').trim());
+  if(ks.length)h+=`<h4>Предложенные блоки</h4>${ks.map(k=>`<div class="aib"><div class="row"><b class="small">${BK[k].n}</b><button class="btn small" data-act="ai-take" data-k="${k}">Взять</button></div><pre>${esc(r.blocks[k])}</pre></div>`).join('')}<div class="row mt8"><button class="btn primary small" data-act="ai-apply">Применить все блоки</button><span class="small muted">Текущая версия сохранится в истории.</span></div>`;
+  const nt=(r.techniques||[]).filter(id=>TK[id]&&!p.t.includes(id));
+  if(nt.length)h+=`<h4>Методы, которые стоит включить</h4><div class="row">${nt.map(id=>`<button class="chip off" data-act="tech" data-id="${id}">+ ${esc(TK[id].n)}</button>`).join('')}</div>`;
+  if(r.questions&&r.questions.length)h+=`<h4>Вопросы к тебе</h4>${r.questions.map((q,i)=>`<div class="qa"><label for="qa${i}">${esc(q)}</label><textarea id="qa${i}" data-qa="${i}" rows="1">${esc(S.aiQA[i]||'')}</textarea></div>`).join('')}<div class="row mt8"><button class="btn small" data-act="ai-qa">Добавить ответы в контекст</button></div>`;
+ }
+ return h+'</div>';
+}
+function ripenHTML(p){
+ return `<div class="panel"><div class="props"><div class="prop"><span class="pl">Вернуться к промпту</span><input type="date" data-k="rev" value="${esc(p.rev||'')}"></div><div class="prop"><span class="pl">Версии</span><button class="btn small" data-act="savever">Сохранить версию сейчас</button></div></div>
+ <div class="mt12"><span class="pl small muted">Мысли вдогонку — то, что пришло в голову, пока промпт отлёживается</span><div class="row mt6" style="flex-wrap:nowrap"><input type="text" id="noteNew" placeholder="Например: добавить пример плохого ответа"><button class="btn small" data-act="note-add">Записать</button></div>
+ ${(p.notes||[]).map((n,i)=>`<div class="note row between"><span><small>${fmtD(n.t)}</small>${esc(n.text)}</span><span class="row"><button class="link small" data-act="note-ctx" data-i="${i}">в контекст</button><button class="link small" data-act="note-del" data-i="${i}">удалить</button></span></div>`).join('')}</div>
+ ${(p.v||[]).length?`<div class="mt12"><span class="pl small muted">История версий</span>${p.v.map((v,i)=>`<div class="verrow"><small class="muted">${fmtDT(v.t)}</small><span>${esc(v.l||'версия')}</span><button class="btn small ghost" data-act="ver-restore" data-i="${i}">Вернуть</button></div>`).join('')}</div>`:''}
+ ${(p.runs||[]).length?`<div class="mt12"><span class="pl small muted">Запуски</span>${p.runs.map(r=>`<div class="note"><small>${fmtD(r.t)}</small>${{ok:'Сработал',mid:'Частично',bad:'Не сработал'}[r.res]||''}${r.note?' — '+esc(r.note):''}</div>`).join('')}</div>`:''}</div>`;
+}
+function vBuild(){
+ const p=cur();if(!p)return '';
+ const empty=!Object.values(p.b||{}).some(v=>String(v||'').trim())&&!(p.t||[]).length&&p.raw==null;
+ return `<div class="thead"><div class="tmain"><input class="ttitle" data-k="title" value="${esc(p.title)}" aria-label="Название промпта"><div class="tmeta"><span>Этап <select data-k="stage">${STAGES.map(s=>`<option value="${s[0]}" ${p.stage===s[0]?'selected':''}>${s[1]}</option>`).join('')}</select></span><span>Изменён ${fmtDT(p.u)}</span>${p.uses?`<span>Запусков: ${p.uses}</span>`:''}</div></div>
+ <div class="row"><button class="icon" data-act="dup" title="Дублировать">⧉</button><button class="icon" data-act="save-tpl" title="Сохранить как шаблон">▤</button><button class="icon" data-act="savever" title="Сохранить версию (Ctrl+S)">◷</button><button class="icon" data-act="del-prompt" title="Удалить промпт">✕</button></div></div>
+ ${empty?`<div class="emptybox"><p>Отметь свойства запроса — ниже появятся подходящие шаблоны и методы. Не знаешь, чего хочешь, — выбери режим «Проясняю».</p><p style="margin:0">Можно и сразу писать задачу в блоках.</p></div>`:''}
+ <section class="sect"><div class="shead"><h3>Свойства запроса</h3><span class="small muted">меняют рекомендации и строки «Как работать»</span></div><div class="panel" id="propsBox">${propsHTML(p)}${recsHTML(p)}</div></section>
+ <section class="sect"><div class="shead"><h3>Блоки</h3><span class="small muted">пустые в промпт не попадают</span></div>${blocksHTML(p)}</section>
+ <section class="sect"><div class="shead"><h3>Методы</h3><span class="small muted">включённые добавятся в «Как работать»</span></div><div id="techBox">${techHTML(p)}</div></section>
+ <section class="sect"><div class="shead"><h3>Готовый промпт</h3><div class="row">${seg('set','data-sk="markup"',[['xml','XML'],['md','Заголовки'],['plain','Текст']],S.set.markup)}${p.raw==null?`<button class="btn small ghost" data-act="raw-on">Править вручную</button>`:''}</div></div><div id="pvBox">${previewHTML(p)}</div></section>
+ ${S.ai?`<section class="sect" id="aiBox">${aiHTML(p)}</section>`:''}
+ <section class="sect"><div class="shead"><h3>Созревание</h3><span class="small muted">мысли, версии и итоги запусков</span></div>${ripenHTML(p)}</section>`;
+}
+
+/* ================= ПРАВАЯ КОЛОНКА ================= */
+function rRail(){
+ const rail=$('rail');
+ if(S.view!=='build'){rail.innerHTML='';return;}
+ const p=cur();if(!p){rail.innerHTML='';return;}
+ const L=lint(p),lv=level(L.score),txt=assemble(p),bad=L.items.filter(i=>!i.ok),good=L.items.filter(i=>i.ok);
+ const marks=['Зерно','Росток','Наливается','Созрел'],ci=marks.indexOf(lv[0]);
+ const fixBtn=i=>i.act==='focus'?`<button class="link small" data-act="focus" data-k="${i.arg}">к блоку</button>`:i.act==='tech'?`<button class="link small" data-act="tech-on" data-id="${i.arg}">включить «${esc(TK[i.arg].n)}»</button>`:i.act==='nextph'?`<button class="link small" data-act="nextph">к первому полю</button>`:i.act==='prop'?`<button class="link small" data-act="focus-props">к свойствам</button>`:'';
+ let fb='';
+ if(S.justCopied===p.id){fb=`<div class="rcard"><h4>Как сработал этот промпт?</h4><p class="hint" style="margin:0">Итог запуска — то, что делает следующий промпт лучше.</p><div class="fb">${[['ok','Сработал'],['mid','Частично'],['bad','Нет']].map(o=>`<button data-act="fb" data-v="${o[0]}" aria-pressed="${S.fbRes===o[0]}">${o[1]}</button>`).join('')}</div><textarea id="fbNote" rows="2" placeholder="Что поправить в следующий раз?">${esc(S.fbNote)}</textarea><div class="row mt8"><button class="btn small primary" data-act="fb-save" ${S.fbRes?'':'disabled'}>Записать в DASH</button><button class="btn small ghost" data-act="fb-skip">Позже</button></div></div>`;}
+ rail.innerHTML=`<div class="ripe${L.score>=85?' done':''}"><div class="ripe-top"><div class="ripe-num">${L.score}<small>/100</small></div><div class="ripe-st">${lv[0]}<small>${lv[1]}</small></div></div>
+ <div class="ripe-track" role="img" aria-label="Зрелость ${L.score} из 100"><i style="width:${L.score}%"></i><b style="left:${Math.max(2,Math.min(98,L.score))}%"></b></div>
+ <div class="ripe-marks">${marks.map((m,i)=>`<span class="${i===ci?'cur':''}">${m}</span>`).join('')}</div>
+ ${bad.length?`<ul class="lint">${bad.map(i=>`<li class="${i.w>=2?'bad':''}"><span class="gi">${i.w>=2?'!':'·'}</span><span><b>${esc(i.n)}</b>${esc(i.tip)}<div class="fix">${fixBtn(i)}</div></span></li>`).join('')}</ul>`:''}
+ ${good.length?`<details class="passed"><summary>Выполнено: ${good.length}</summary><ul>${good.map(i=>`<li>✓ ${esc(i.n)}</li>`).join('')}</ul></details>`:''}</div>
+ <div class="copybox"><button class="btn primary big full" data-act="copy" ${txt.trim()?'':'disabled'}>Скопировать промпт</button>
+ <div class="cstats"><span>≈ ${tok(txt)} ${plural(tok(txt),'токен','токена','токенов')}</span><span>${txt.length} зн.</span><span>Ctrl+Enter</span></div></div>
+ ${fb}
+ ${S.ai&&!S.aiBusy?`<button class="btn full mt12" data-act="ai-run">Улучшить с Claude</button>`:''}
+ ${pinned().length&&S.set.rules?`<div class="rcard"><h4>Правила из DASH в промпте</h4><label class="switch" style="margin-top:0"><input type="checkbox" data-act="use-rules" ${p.useRules!==false?'checked':''}><span>${pinned().length} ${plural(pinned().length,'правило','правила','правил')} в этом промпте</span></label></div>`:''}
+ ${linkedTasks(p)}`;
+}
+function linkedTasks(p){
+ const ts=S.tasks.filter(t=>t.pid===p.id);if(!ts.length)return '';
+ return `<div class="rcard"><h4>Задачи этого промпта</h4>${ts.map(t=>`<label class="switch" style="margin-top:4px"><input type="checkbox" data-act="task-done" data-id="${t.id}" ${t.st==='done'?'checked':''}><span>${esc(t.text)}</span></label>`).join('')}</div>`;
+}
+
+/* ================= ШАБЛОНЫ ================= */
+function tplMatch(t,q){if(!q)return true;q=q.toLowerCase();return (t.n+' '+t.d+' '+Object.values(t.b||{}).join(' ')).toLowerCase().includes(q);}
+function tplListHTML(){
+ const all=TPL.concat(S.tpls),q=S.tplQ.trim();
+ const groups=TPLG.filter(g=>S.tplG==='all'||S.tplG===g[0]);
+ let h='';
+ groups.forEach(g=>{const items=all.filter(t=>t.g===g[0]&&tplMatch(t,q));if(!items.length)return;
+  h+=`<h3 class="gtitle">${esc(g[1])}${g[2]?`<small>${esc(g[2])}</small>`:''}</h3>`;
+  h+=items.map(t=>{const open=S.tplOpen===t.id;const tp=Object.assign({},DEFP,t.p||{});
+   return `<div class="tpl"><button class="tn" data-act="tpl-open" data-id="${t.id}" aria-expanded="${open}">${esc(t.n)}</button><p>${esc(t.d)}</p>
+   <div class="row"><span class="chip">${esc(TYPEN[tp.type]||'Любая задача')}</span>${tp.mode==='explore'?'<span class="chip" style="--tc:var(--t-question)">прояснение</span>':''}${(t.t||[]).slice(0,4).map(id=>TK[id]?`<span class="chip off">${esc(TK[id].n)}</span>`:'').join('')}
+   <span style="margin-left:auto" class="row"><button class="btn small" data-act="apply-tpl" data-id="${t.id}">Применить</button><button class="btn small ghost" data-act="tpl-new" data-id="${t.id}">В новый промпт</button>${t.g==='mine'?`<button class="btn small ghost" data-act="tpl-del" data-id="${t.id}">Удалить</button>`:''}</span></div>
+   ${open?`<pre class="preview">${esc(assemble(Object.assign(newPrompt(),{p:tp,b:clone(t.b||{}),t:[...(t.t||[])],tv:{}})))}</pre>`:''}</div>`;}).join('');
+ });
+ return h||`<div class="emptybox"><p>Ничего не нашлось по запросу «${esc(q)}».</p><button class="btn small" data-act="tpl-clear">Сбросить поиск</button></div>`;
+}
+function vTpl(){
+ return `<h1 class="h1">Шаблоны</h1><p class="lead">На все виды запросов. «Применить» заменяет блоки текущего промпта (прежняя версия сохранится), «В новый промпт» — создаёт отдельный. Поля в [скобках] заполни своим.</p>
+ <div class="row mt16"><input type="search" id="tplQ" placeholder="Поиск по шаблонам" value="${esc(S.tplQ)}" style="flex:1 1 220px;width:auto"><button class="btn small" data-act="save-tpl">Сохранить текущий промпт как шаблон</button></div>
+ <div class="mt12">${seg('tpl-g','',[['all','Все']].concat(TPLG.filter(g=>g[0]!=='mine'||S.tpls.length).map(g=>[g[0],g[1].split(':')[0]])),S.tplG)}</div>
+ <div id="tplList">${tplListHTML()}</div>`;
+}
+
+/* ================= МЕТОДЫ ================= */
+function vMethods(){
+ const p=cur(),T=new Set(p?p.t:[]);
+ return `<h1 class="h1">Методы</h1><p class="lead">Принципы, на которых держится конструктор, и все приёмы улучшения промпта. «Добавить» включает приём в текущий промпт «${esc(p?p.title:'')}».</p>
+ <h3 class="gtitle">Принципы</h3><div class="principles">${PRINCIPLES.map(x=>`<div><b>${esc(x[0])}</b><p>${esc(x[1])}</p></div>`).join('')}</div>
+ ${TG.map(g=>`<h3 class="gtitle">${g[1]}</h3>${TECH.filter(t=>t.g===g[0]).map(t=>`<div class="mrow"><div><b>${esc(t.n)}</b><p>${esc(t.d)}</p><q>${esc(t.s)}</q></div><div>${T.has(t.id)?`<button class="chip on" data-act="tech" data-id="${t.id}">✓ В промпте</button>`:`<button class="chip off" data-act="tech" data-id="${t.id}">+ Добавить</button>`}</div></div>`).join('')}`).join('')}
+ <h3 class="gtitle">Проверки зрелости</h3><p class="lead small">Зрелость считается из того, что есть в промпте: задача, контекст, критерий успеха, формат, объём, рамки. Снижают её поля в скобках, оценочные слова без меры («хорошо», «качественно», «подробно»), «больше» и «максимально» в задаче, местоимения без опоры, больше трёх вопросов в задаче и противоречивые указания. В режиме прояснения нужен метод прояснения, при материалах — привязка к ним.</p>`;
+}
+
+/* ================= СОЗРЕВАНИЕ ================= */
+function vRipen(){
+ const cols=STAGES.filter(s=>s[0]!=='arch'||S.showArch);
+ const due=S.prompts.filter(isDue);
+ return `<h1 class="h1">Созревание</h1><p class="lead">Промпт дозревает между сессиями: возвращаешься с мыслями, сохраняешь версии, после запуска записываешь итог. Дата «вернуться» поднимает промпт наверх.</p>
+ ${due.length?`<div class="banner"><span>Пора вернуться: ${due.map(p=>`<button class="link" data-act="open" data-id="${p.id}">${esc(p.title)}</button>`).join(', ')}</span></div>`:''}
+ <div class="row mt16"><input type="text" id="ideaNew" placeholder="Идея для промпта — Enter" style="flex:1 1 240px;width:auto"><button class="btn small" data-act="idea-add">В идеи</button><label class="switch" style="margin:0 0 0 8px"><input type="checkbox" data-act="show-arch" ${S.showArch?'checked':''}><span>Показать архив</span></label></div>
+ <div class="board" style="grid-template-columns:repeat(${cols.length},minmax(170px,1fr))">${cols.map((s,ci)=>{const ps=S.prompts.filter(p=>p.stage===s[0]).sort((a,b)=>b.u-a.u);
+  return `<div class="col"><h4>${s[1]}<span class="muted">${ps.length}</span></h4><p>${esc(s[2])}</p>${ps.map(p=>{const sc=scoreOf(p);return `<div class="pcard${isDue(p)?' due':''}"><button class="pt" data-act="open" data-id="${p.id}">${esc(p.title)}</button><div class="pm"><span>${sc}/100${p.notes&&p.notes.length?', мыслей: '+p.notes.length:''}${p.rev?', вернуться '+esc(p.rev.slice(5).split('-').reverse().join('.')):''}</span><span class="row" style="gap:2px">${ci>0?`<button class="icon" style="width:24px;height:24px;font-size:13px" data-act="stage-mv" data-id="${p.id}" data-d="-1" title="Назад">‹</button>`:''}${s[0]!=='arch'?`<button class="icon" style="width:24px;height:24px;font-size:13px" data-act="stage-mv" data-id="${p.id}" data-d="1" title="Дальше">›</button>`:''}</span></div></div>`;}).join('')}</div>`;}).join('')}</div>`;
+}
+
+/* ================= ЗАДАЧИ ================= */
+function vTasks(){
+ const order={doing:0,todo:1,done:2},pr={hi:0,mid:1,low:2};
+ const list=S.tasks.filter(t=>S.taskF==='all'||(S.taskF==='open'?t.st!=='done':t.st==='done')).sort((a,b)=>order[a.st]-order[b.st]||pr[a.pr]-pr[b.pr]||b.c-a.c);
+ return `<h1 class="h1">Задачи</h1><p class="lead">Мини-задачник: что сделать и какой промпт для этого нужен. Из задачи можно сразу собрать промпт — текст задачи станет блоком «Задача».</p>
+ <div class="panel"><div class="row" style="flex-wrap:nowrap"><input type="text" id="taskNew" placeholder="Новая задача — Enter"><button class="btn primary small" data-act="task-add">Добавить</button></div>
+ <div class="row mt8"><span class="small muted">Приоритет</span>${seg('task-prio','',[['hi','Высокий'],['mid','Средний'],['low','Низкий']],S.taskPrio)}</div></div>
+ <div class="row mt16 between">${seg('task-f','',[['open','Открытые'],['all','Все'],['done','Готово']],S.taskF)}<span class="small muted">${S.tasks.filter(t=>t.st!=='done').length} открыто</span></div>
+ ${list.length?list.map(t=>{const lp=t.pid&&S.prompts.find(p=>p.id===t.pid);return `<div class="trow${t.st==='done'?' done':''}"><input type="checkbox" data-act="task-done" data-id="${t.id}" ${t.st==='done'?'checked':''} aria-label="Готово">
+ <div><input type="text" class="ttext" data-tk="${t.id}" value="${esc(t.text)}"><div class="small muted">${fmtD(t.c)}${lp?`, промпт <button class="link" data-act="open" data-id="${lp.id}">${esc(lp.title)}</button>`:''}</div></div>
+ <div class="acts"><button class="pdot ${t.pr}" data-act="task-pr" data-id="${t.id}" title="Приоритет: ${{hi:'высокий',mid:'средний',low:'низкий'}[t.pr]}"></button>${t.st!=='done'?`<button class="tstat ${t.st}" data-act="task-st" data-id="${t.id}">${t.st==='doing'?'в работе':'к работе'}</button>`:''}<button class="btn small ghost" data-act="task-prompt" data-id="${t.id}">${lp?'Открыть промпт':'Собрать промпт'}</button><button class="icon" data-act="task-del" data-id="${t.id}" title="Удалить">✕</button></div></div>`;}).join(''):`<div class="emptybox"><p>${S.taskF==='done'?'Готовых задач пока нет.':'Задач нет. Запиши первую — Enter добавляет.'}</p></div>`}`;
+}
+
+/* ================= DASH ================= */
+function vDash(){
+ const live=S.prompts.filter(p=>p.stage!=='arch'),runs=S.prompts.reduce((a,p)=>a.concat(p.runs||[]),[]);
+ const okp=runs.length?Math.round(runs.filter(r=>r.res==='ok').length/runs.length*100)+'%':'—';
+ const list=S.dash.filter(d=>S.dashF==='all'||d.type===S.dashF).sort((a,b)=>(b.pin?1:0)-(a.pin?1:0)||b.c-a.c);
+ const cnt=k=>S.dash.filter(d=>d.type===k).length;
+ return `<h1 class="h1">DASH</h1><p class="lead">Журнал промптинга: правила, уроки запусков, гипотезы. Закреплённые правила автоматически добавляются в каждый промпт.</p>
+ <div class="dstats"><div><b>${live.length}</b><span>промптов</span></div><div><b>${live.filter(p=>scoreOf(p)>=85).length}</b><span>созрело</span></div><div><b>${S.prompts.reduce((a,p)=>a+(p.uses||0),0)}</b><span>запусков</span></div><div><b>${okp}</b><span>сработало</span></div><div><b>${pinned().length}</b><span>правил в промпте</span></div></div>
+ <div class="panel mt16">${seg('dtype','',DTYPES.filter(d=>d[0]!=='log').map(d=>[d[0],d[1]]),S.dashType)}<p class="hint mt6">${esc((DTYPES.find(d=>d[0]===S.dashType)||[])[2]||'')}</p><textarea id="dashNew" rows="2" placeholder="Запись — Ctrl+Enter"></textarea><div class="row mt8 between"><label class="switch" style="margin:0"><input type="checkbox" data-act="setb" data-sk="logRuns" ${S.set.logRuns?'checked':''}><span>Записывать каждое копирование как запуск</span></label><button class="btn primary small" data-act="dash-add">Записать</button></div></div>
+ <div class="row mt16">${[['all','Все',S.dash.length]].concat(DTYPES.map(d=>[d[0],d[1],cnt(d[0])])).map(f=>`<button class="chip ${S.dashF===f[0]?'on':'off'}" data-act="dash-f" data-v="${f[0]}" ${f[0]!=='all'?`data-type="${f[0]}"`:''}>${f[1]} ${f[2]}</button>`).join('')}</div>
+ ${list.length?list.map(d=>{const lp=d.pid&&S.prompts.find(p=>p.id===d.pid);return `<div class="dentry" data-type="${d.type}"><div class="dm"><span class="chip">${DTN[d.type]}</span><span>${fmtD(d.c)}</span>${lp?`<button class="link" data-act="open" data-id="${lp.id}">${esc(lp.title)}</button>`:''}<span class="sp">${d.type==='rule'?`<button class="chip ${d.pin?'on':'off'}" data-act="dash-pin" data-id="${d.id}" title="Добавлять в каждый промпт">${d.pin?'✓ в промпте':'в промпт'}</button>`:''}${d.type==='hyp'?`<button class="btn small ghost" data-act="dash-torule" data-id="${d.id}">Подтвердилась → правило</button>`:''}<button class="btn small ghost" data-act="dash-edit" data-id="${d.id}">${S.dEdit===d.id?'Готово':'Изменить'}</button><button class="icon" data-act="dash-del" data-id="${d.id}" title="Удалить">✕</button></span></div>${S.dEdit===d.id?`<textarea class="mt8" data-dk="${d.id}" rows="2">${esc(d.text)}</textarea>`:`<p class="dt">${esc(d.text)}</p>`}</div>`;}).join(''):`<div class="emptybox"><p>Записей этого типа пока нет.</p></div>`}`;
+}
+
+/* ================= ОТРИСОВКА ================= */
+function grow(el){if(!el||el.tagName!=='TEXTAREA')return;el.style.height='auto';el.style.height=(el.scrollHeight+2)+'px';}
+function rWork(){
+ const v=S.view;
+ $('app').classList.toggle('norail',v!=='build');
+ $('work').innerHTML=v==='tpl'?vTpl():v==='methods'?vMethods():v==='ripen'?vRipen():v==='tasks'?vTasks():v==='dash'?vDash():vBuild();
+ $('work').querySelectorAll('textarea').forEach(grow);
+}
+function fullRender(){rNav();rWork();rRail();}
+let liveRaf=0;
+function live(){
+ cancelAnimationFrame(liveRaf);
+ liveRaf=requestAnimationFrame(()=>{
+  const p=cur();if(!p)return;
+  const pv=$('pv');if(pv)pv.textContent=assemble(p);
+  rRail();rNav();
+  const fl=new Set();lint(p).items.forEach(i=>{if(!i.ok&&i.act==='focus'&&['vague','pron','multi','short'].includes(i.id))fl.add(i.arg);});
+  BLOCKS.forEach(b=>{const el=$('blk-'+b.k);if(el)el.classList.toggle('flag',fl.has(b.k));const ln=$('len-'+b.k);if(ln){const n=((p.b||{})[b.k]||'').length;ln.textContent=n?n+' зн.':'';}});
+ });
+}
+function rProps(){const p=cur(),box=$('propsBox');if(p&&box)box.innerHTML=propsHTML(p)+recsHTML(p);}
+function rTech(){const p=cur(),box=$('techBox');if(p&&box)box.innerHTML=techHTML(p);}
+function rPv(){const p=cur(),box=$('pvBox');if(p&&box){box.innerHTML=previewHTML(p);grow($('rawTa'));}}
+function rAi(){const p=cur(),box=$('aiBox');if(p&&box){box.innerHTML=aiHTML(p);box.querySelectorAll('textarea').forEach(grow);}}
+function applyTheme(){const t=S.set.theme;if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.dataset.theme=t;}
+function go(view){S.view=view;saveUI();rNav();rWork();rRail();window.scrollTo(0,0);}
+function openP(id){if(S.cur!==id){S.aiRes=null;S.aiErr='';S.aiQA=[];}S.cur=id;go('build');}
+
+/* ================= МОДАЛКА ================= */
+function modal(title,html,btns){
+ S.mb=btns||[];
+ $('mbox').innerHTML=`<h3>${esc(title)}</h3>${html}<div class="row end mt12">${S.mb.map((b,i)=>`<button class="btn ${b.cls||''}" data-act="m-btn" data-i="${i}">${esc(b.l)}</button>`).join('')}</div>`;
+ $('modal').hidden=false;
+ const f=$('mbox').querySelector('textarea,input')||$('mbox').querySelector('.btn');if(f)f.focus();
+}
+function closeModal(){$('modal').hidden=true;S.mb=[];}
+
+/* ================= ДЕЙСТВИЯ НАД ПРОМПТОМ ================= */
+function hasContent(p){return Object.values(p.b||{}).some(v=>String(v||'').trim())||p.raw!=null;}
+function snapshot(p,label){p.v=p.v||[];p.v.unshift({t:now(),l:label,b:clone(p.b),tl:[...(p.t||[])],p:clone(p.p),tv:clone(p.tv||{}),raw:p.raw});p.v=p.v.slice(0,15);}
+function doApplyTpl(p,t){
+ if(hasContent(p))snapshot(p,'до шаблона «'+t.n+'»');
+ p.b=clone(t.b||{});p.t=[...(t.t||[])];p.p=Object.assign({},DEFP,t.p||{});p.tv={};p.raw=null;
+ if(!p.title||p.title==='Новый промпт')p.title=t.n.replace(/^\d+\.\s*/,'');
+ if(p.stage==='idea')p.stage='draft';
+ Store.touchP(p);
+}
+function findTpl(id){return TPL.concat(S.tpls).find(t=>t.id===id);}
+function createFromTpl(t){const p=newPrompt();S.prompts.push(p);doApplyTpl(p,t);openP(p.id);toast('Создан промпт из шаблона');}
+async function copyText(t){
+ try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(t);return true;}}catch(e){}
+ try{const ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;top:0;left:0;opacity:0';document.body.appendChild(ta);ta.select();const ok=document.execCommand('copy');ta.remove();if(ok)return true;}catch(e){}
+ return false;
+}
+async function doCopy(){
+ const p=cur();if(!p)return;const txt=assemble(p);
+ if(!txt.trim()){toast('Промпт пуст — заполни задачу');return;}
+ const ok=await copyText(txt);
+ if(!ok){modal('Скопируй вручную',`<p>Браузер не дал доступ к буферу обмена. Текст выделен — нажми Ctrl+C (на Mac — Cmd+C).</p><textarea id="manualCopy" rows="8" readonly>${esc(txt)}</textarea>`,[{l:'Закрыть',cls:'primary'}]);const m=$('manualCopy');if(m){grow(m);m.select();}}
+ p.uses=(p.uses||0)+1;p.lastUse=now();
+ if(S.set.logRuns){S.dash.unshift({id:uid(),type:'log',text:`Запуск «${p.title}»: ≈${tok(txt)} ток., зрелость ${scoreOf(p)}.`,pid:p.id,c:now()});Store.touchM();}
+ S.justCopied=p.id;S.fbRes=null;S.fbNote='';
+ Store.touchP(p);rRail();rNav();
+ if(ok)toast(`Скопировано: ≈${tok(txt)} ${plural(tok(txt),'токен','токена','токенов')}`);
+}
+function focusBlock(k){const ta=$('ta-'+k);if(!ta){go('build');setTimeout(()=>focusBlock(k),30);return;}ta.scrollIntoView({behavior:'smooth',block:'center'});ta.focus({preventScroll:true});}
+function nextPh(){
+ const p=cur();if(!p)return;
+ for(const b of BLOCKS){const s=(p.b||{})[b.k]||'';const m=s.match(/\[[^\]\n]{1,60}\]/);if(m){const ta=$('ta-'+b.k);if(ta){ta.scrollIntoView({behavior:'smooth',block:'center'});ta.focus({preventScroll:true});ta.setSelectionRange(m.index,m.index+m[0].length);}return;}}
+ for(const id of p.t||[]){const t=TK[id];if(t&&t.ph&&!((p.tv||{})[id]||'').trim()){const el=document.querySelector(`[data-k="tv.${id}"]`);if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.focus({preventScroll:true});}return;}}
+}
+
+/* ================= CLAUDE ================= */
+async function aiRun(){
+ const p=cur();if(!p||!S.ai||S.aiBusy)return;
+ const B=p.b||{};
+ if(!Object.values(B).some(v=>String(v||'').trim())){toast('Сначала заполни хотя бы задачу');return;}
+ const send={};BLOCKS.forEach(b=>{if(b.k!=='materials'&&(B[b.k]||'').trim())send[b.k]=B[b.k];});
+ const mat=(B.materials||'').trim();
+ const props=PROPS.map(pr=>pr.n+': '+((pr.o.find(o=>o[0]===p.p[pr.k])||[])[1]||'')).join('; ');
+ const q=`Ты — инженер промптов для Claude. Ниже черновик промпта пользователя, разложенный по блокам, и свойства запроса. Улучши черновик.
+
+Правила:
+- Сохрани смысл, факты и цифры пользователя. Ничего не выдумывай о его ситуации: где данных не хватает, оставь поле в квадратных скобках, например [сколько учеников сейчас].
+- Задача — одно главное действие глаголом совершенного вида. Убери оценочные слова без меры («хорошо», «качественно»), местоимения без опоры, формулировки «больше» и «максимально».
+- Добавь критерий успеха и формат ответа, если их нет.
+- Пиши на языке черновика, живым языком, без канцелярита.
+- Блок materials не переписывай и не возвращай.
+
+Свойства запроса: ${props}
+Включённые методы: ${(p.t||[]).map(id=>TK[id]?TK[id].n:'').join(', ')||'нет'}
+${mat?`Материалы (только для понимания, ${mat.length} знаков): ${mat.slice(0,1500)}${mat.length>1500?' …':''}\n`:''}Блоки черновика (JSON): ${JSON.stringify(send)}
+
+Ответь только JSON без markdown, по схеме:
+{"weak":["главная слабость черновика", "... до 5"],"blocks":{"role":"","context":"","task":"","constraints":"","nongoals":"","examples":"","format":"","criteria":"","extra":""},"techniques":["id метода"],"questions":["вопрос пользователю, ответ на который сильнее всего улучшит промпт", "... до 4"]}
+Пустые блоки, которые не нужны, оставь пустыми. Доступные id методов: ${TECH.map(t=>t.id+' ('+t.n+')').join(', ')}.`;
+ S.aiBusy=true;S.aiErr='';S.aiCtl=new AbortController();rAi();rRail();
+ try{
+  const r=await S.ai.json(q,{signal:S.aiCtl.signal,modelTier:'default'});
+  if(!r||typeof r!=='object')throw {message:'Пустой ответ'};
+  S.aiRes={weak:Array.isArray(r.weak)?r.weak.map(String).slice(0,6):[],blocks:r.blocks&&typeof r.blocks==='object'?r.blocks:{},techniques:Array.isArray(r.techniques)?r.techniques.map(String):[],questions:Array.isArray(r.questions)?r.questions.map(String).slice(0,5):[]};
+  S.aiQA=[];
+ }catch(e){
+  const c=e&&e.code;
+  S.aiErr=c==='cancelled'?'Остановлено.':c==='not_granted'?'Нет разрешения на запросы к Claude из этой страницы.':c==='rate_limited'?'Слишком часто — подожди минуту и попробуй снова.':'Не получилось: '+((e&&e.message)||'ошибка')+'. Попробуй ещё раз.';
+  if(c==='not_granted')S.ai=null;
+ }
+ S.aiBusy=false;S.aiCtl=null;rAi();rRail();
+}
+function aiTake(k){const p=cur(),r=S.aiRes;if(!p||!r||!r.blocks[k])return;snapshot(p,'до правки Claude: '+BK[k].n);p.b[k]=String(r.blocks[k]);p.raw=null;Store.touchP(p);rWork();rRail();rNav();toast('Блок «'+BK[k].n+'» обновлён');}
+function aiApply(){
+ const p=cur(),r=S.aiRes;if(!p||!r)return;snapshot(p,'до улучшения Claude');
+ Object.keys(r.blocks||{}).forEach(k=>{if(BK[k]&&k!=='materials'){const v=String(r.blocks[k]||'').trim();if(v)p.b[k]=v;}});
+ (r.techniques||[]).forEach(id=>{if(TK[id])setTech(p,id,true);});
+ p.raw=null;Store.touchP(p);rWork();rRail();rNav();toast('Улучшения применены — прежняя версия в истории');
+}
+function aiQA(){
+ const p=cur(),r=S.aiRes;if(!p||!r)return;
+ const lines=(r.questions||[]).map((q,i)=>[q,(S.aiQA[i]||'').trim()]).filter(x=>x[1]);
+ if(!lines.length){toast('Ответь хотя бы на один вопрос');return;}
+ p.b.context=((p.b.context||'').trim()+'\n\nУточнения:\n'+lines.map(x=>'— '+x[0]+' '+x[1]).join('\n')).trim();
+ S.aiQA=[];Store.touchP(p);rWork();rRail();toast('Ответы добавлены в контекст');
+}
+
+/* ================= ЭКСПОРТ / ИМПОРТ ================= */
+async function doExport(){
+ const json=JSON.stringify({app:'promptlab',v:1,at:new Date().toISOString(),prompts:S.prompts,tasks:S.tasks,dash:S.dash,tpls:S.tpls,set:S.set},null,1);
+ const fn='promptlab-'+today()+'.json';
+ if(S.dl){try{await S.dl.save({filename:fn,data:json});toast('Копия сохранена');return;}catch(e){if(e&&e.code==='declined')return;}}
+ try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([json],{type:'application/json'}));a.download=fn;document.body.appendChild(a);a.click();a.remove();toast('Файл скачивается');}
+ catch(e){const ok=await copyText(json);toast(ok?'JSON скопирован в буфер':'Не удалось сохранить копию');}
+}
+function doImport(file){
+ const fr=new FileReader();
+ fr.onload=()=>{let d;try{d=JSON.parse(fr.result);}catch(e){toast('Это не JSON-файл Промпт-лаба');return;}
+  if(!d||!Array.isArray(d.prompts)){toast('В файле нет промптов');return;}
+  const byId={};S.prompts.forEach(p=>byId[p.id]=p);let n=0;
+  d.prompts.forEach(p=>{if(!p||!p.id)return;const l=byId[p.id];if(!l||(p.u||0)>(l.u||0)){const np=norm(p);if(l)S.prompts[S.prompts.indexOf(l)]=np;else S.prompts.push(np);Store.dirty.add(np.id);n++;}});
+  const mergeArr=(a,b)=>{const ids=new Set(a.map(x=>x.id));(b||[]).forEach(x=>{if(x&&x.id&&!ids.has(x.id))a.push(x);});};
+  mergeArr(S.tasks,d.tasks);mergeArr(S.dash,d.dash);mergeArr(S.tpls,d.tpls);
+  Store.touchM();Store.sched(200);ensureCur();fullRender();toast('Загружено промптов: '+n);
+ };
+ fr.readAsText(file);
+}
+
+/* ================= ОБРАБОТЧИКИ ================= */
+const ACT={
+ view:a=>go(a.dataset.v),
+ open:a=>openP(a.dataset.id),
+ new:()=>{const p=newPrompt();S.prompts.push(p);Store.touchP(p);openP(p.id);const t=document.querySelector('.ttitle');if(t){t.focus();t.select();}},
+ dup:()=>{const p=cur();if(!p)return;const n=Object.assign(newPrompt(),clone(p),{id:uid(),title:p.title+' (копия)',v:[],runs:[],uses:0,notes:[],c:now(),u:now(),stage:'draft'});S.prompts.push(n);Store.touchP(n);openP(n.id);toast('Создана копия');},
+ 'del-prompt':()=>{const p=cur();if(!p)return;modal('Удалить промпт?',`<p>«${esc(p.title)}» удалится вместе с версиями и мыслями. Если он ещё может пригодиться — переведи в архив.</p>`,[{l:'В архив',fn:()=>{p.stage='arch';Store.touchP(p);S.cur=null;ensureCur();fullRender();toast('Перенесён в архив');}},{l:'Удалить',cls:'primary',fn:()=>{S.prompts=S.prompts.filter(x=>x!==p);Store.del.add(p.id);S.tasks.forEach(t=>{if(t.pid===p.id)delete t.pid;});Store.touchM();S.cur=null;ensureCur();fullRender();toast('Промпт удалён');}},{l:'Отмена'}]);},
+ prop:a=>{const p=cur();if(!p)return;p.p[a.dataset.pk]=a.dataset.v;Store.touchP(p);rProps();rTech();live();},
+ tech:a=>{const p=cur();if(!p)return;const id=a.dataset.id,on=a.type==='checkbox'?a.checked:!(p.t||[]).includes(id);setTech(p,id,on);Store.touchP(p);if(S.view==='methods'){rWork();}else{rProps();rTech();live();}if(S.view==='build'&&S.aiRes)rAi();},
+ 'tech-on':a=>{const p=cur();if(!p)return;setTech(p,a.dataset.id,true);Store.touchP(p);rProps();rTech();live();toast('Включено: '+TK[a.dataset.id].n);},
+ 'tech-all':()=>{const p=cur();if(!p)return;recTech(p.p).forEach(id=>setTech(p,id,true));Store.touchP(p);rProps();rTech();live();},
+ 'apply-tpl':a=>{const t=findTpl(a.dataset.id);const p=cur();if(!t)return;if(!p){createFromTpl(t);return;}
+  if(hasContent(p))modal('Применить «'+t.n+'»?',`<p>Блоки, методы и свойства промпта «${esc(p.title)}» заменятся. Текущая версия сохранится в истории.</p>`,[{l:'В новый промпт',fn:()=>createFromTpl(t)},{l:'Заменить',cls:'primary',fn:()=>{doApplyTpl(p,t);go('build');toast('Шаблон применён');}},{l:'Отмена'}]);
+  else{doApplyTpl(p,t);go('build');toast('Шаблон применён');setTimeout(nextPh,80);}},
+ 'tpl-new':a=>{const t=findTpl(a.dataset.id);if(t){createFromTpl(t);setTimeout(nextPh,80);}},
+ 'tpl-open':a=>{S.tplOpen=S.tplOpen===a.dataset.id?null:a.dataset.id;$('tplList').innerHTML=tplListHTML();},
+ 'tpl-g':a=>{S.tplG=a.dataset.v;rWork();},
+ 'tpl-clear':()=>{S.tplQ='';rWork();},
+ 'tpl-del':a=>{S.tpls=S.tpls.filter(t=>t.id!==a.dataset.id);Store.touchM();rWork();rNav();toast('Шаблон удалён');},
+ 'save-tpl':()=>{const p=cur();if(!p||!hasContent(p)){toast('В текущем промпте нечего сохранять');return;}
+  modal('Сохранить как шаблон',`<p>Блоки, методы и свойства станут шаблоном в группе «Мои шаблоны». Конкретику лучше заменить полями в [скобках].</p><input type="text" id="tplName" value="${esc(p.title)}">`,[{l:'Отмена'},{l:'Сохранить',cls:'primary',fn:()=>{const n=($('tplName').value||'').trim()||p.title;S.tpls.push({id:'u'+uid(),g:'mine',n,d:'Из промпта «'+p.title+'»',p:clone(p.p),b:clone(p.b),t:[...(p.t||[])]});Store.touchM();rNav();if(S.view==='tpl')rWork();toast('Шаблон сохранён');}}]);},
+ set:a=>{const sk=a.dataset.sk;S.set[sk]=a.dataset.v;if(sk==='theme')applyTheme();Store.touchM();document.querySelectorAll(`[data-act="set"][data-sk="${sk}"]`).forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===S.set[sk])));if(S.view==='build'){rPv();rRail();}},
+ setb:a=>{S.set[a.dataset.sk]=a.checked;Store.touchM();if(S.view==='build'){rPv();rRail();}},
+ 'use-rules':a=>{const p=cur();if(!p)return;p.useRules=a.checked;Store.touchP(p);rPv();rRail();},
+ 'raw-on':()=>{const p=cur();if(!p)return;p.raw=assemble(p);Store.touchP(p);rWork();rRail();const r=$('rawTa');if(r)r.focus();},
+ 'raw-off':()=>{const p=cur();if(!p)return;modal('Вернуться к сборке?','<p>Ручные правки итога пропадут; промпт снова соберётся из блоков. Текущий текст сохранится в истории версий.</p>',[{l:'Отмена'},{l:'Вернуться',cls:'primary',fn:()=>{snapshot(p,'ручной итог');p.raw=null;Store.touchP(p);rWork();rRail();}}]);},
+ copy:()=>doCopy(),
+ focus:a=>focusBlock(a.dataset.k),
+ 'focus-props':()=>{const b=$('propsBox');if(b)b.scrollIntoView({behavior:'smooth',block:'center'});},
+ nextph:()=>nextPh(),
+ savever:()=>{const p=cur();if(!p)return;snapshot(p,'сохранено вручную');Store.touchP(p);if(S.view==='build')rWork();toast('Версия сохранена');},
+ 'ver-restore':a=>{const p=cur();const v=p&&p.v[+a.dataset.i];if(!v)return;snapshot(p,'до возврата версии');const vv=p.v[+a.dataset.i+1];p.b=clone(vv.b)||{};p.t=[...(vv.tl||[])];p.p=Object.assign({},DEFP,vv.p||{});p.tv=clone(vv.tv||{});p.raw=vv.raw==null?null:vv.raw;Store.touchP(p);rWork();rRail();rNav();toast('Версия возвращена');},
+ 'note-add':()=>{const p=cur(),i=$('noteNew');const v=(i&&i.value||'').trim();if(!p||!v)return;p.notes=p.notes||[];p.notes.unshift({t:now(),text:v});if(p.stage==='draft')p.stage='ripe';Store.touchP(p);rWork();rNav();const n=$('noteNew');if(n)n.focus();},
+ 'note-del':a=>{const p=cur();if(!p)return;p.notes.splice(+a.dataset.i,1);Store.touchP(p);rWork();},
+ 'note-ctx':a=>{const p=cur();const n=p&&p.notes[+a.dataset.i];if(!n)return;p.b.context=((p.b.context||'').trim()+'\n'+n.text).trim();p.notes.splice(+a.dataset.i,1);Store.touchP(p);rWork();rRail();toast('Мысль перенесена в контекст');},
+ fb:a=>{S.fbRes=a.dataset.v;const n=$('fbNote');if(n)S.fbNote=n.value;rRail();},
+ 'fb-skip':()=>{S.justCopied=null;rRail();},
+ 'fb-save':()=>{const p=cur();if(!p||!S.fbRes)return;const n=$('fbNote');const note=((n&&n.value)||S.fbNote||'').trim();
+  p.runs=p.runs||[];p.runs.unshift({t:now(),res:S.fbRes,note});
+  const lab={ok:'сработал',mid:'сработал частично',bad:'не сработал'}[S.fbRes];
+  S.dash.unshift({id:uid(),type:'lesson',text:`«${p.title}» ${lab}.${note?' '+note:''}`,pid:p.id,c:now()});
+  if(S.fbRes==='ok'&&['idea','draft','ripe','ready'].includes(p.stage))p.stage='used';
+  S.justCopied=null;S.fbRes=null;S.fbNote='';Store.touchP(p);Store.touchM();fullRender();toast('Урок записан в DASH');},
+ 'ai-run':()=>{if(S.view!=='build')go('build');aiRun();const b=$('aiBox');if(b)b.scrollIntoView({behavior:'smooth',block:'start'});},
+ 'ai-stop':()=>{if(S.aiCtl)S.aiCtl.abort();},
+ 'ai-take':a=>aiTake(a.dataset.k),
+ 'ai-apply':()=>aiApply(),
+ 'ai-qa':()=>aiQA(),
+ 'stage-mv':a=>{const p=S.prompts.find(x=>x.id===a.dataset.id);if(!p)return;const ids=STAGES.map(s=>s[0]);let i=ids.indexOf(p.stage)+ +a.dataset.d;i=Math.max(0,Math.min(ids.length-1,i));p.stage=ids[i];Store.touchP(p);rWork();rNav();},
+ 'idea-add':()=>{const i=$('ideaNew');const v=(i&&i.value||'').trim();if(!v)return;const p=newPrompt({title:v.slice(0,80),stage:'idea'});if(v.length>80)p.b.task=v;S.prompts.push(p);Store.touchP(p);rWork();rNav();const n=$('ideaNew');if(n)n.focus();},
+ 'show-arch':a=>{S.showArch=a.checked;rWork();},
+ 'task-add':()=>{const i=$('taskNew');const v=(i&&i.value||'').trim();if(!v)return;S.tasks.unshift({id:uid(),text:v,st:'todo',pr:S.taskPrio,c:now()});Store.touchM();rWork();rNav();const n=$('taskNew');if(n)n.focus();},
+ 'task-prio':a=>{S.taskPrio=a.dataset.v;rWork();},
+ 'task-f':a=>{S.taskF=a.dataset.v;rWork();},
+ 'task-done':a=>{const t=S.tasks.find(x=>x.id===a.dataset.id);if(!t)return;t.st=a.checked?'done':'todo';t.done=a.checked?now():null;Store.touchM();if(S.view==='tasks')rWork();else rRail();rNav();},
+ 'task-st':a=>{const t=S.tasks.find(x=>x.id===a.dataset.id);if(!t)return;t.st=t.st==='doing'?'todo':'doing';Store.touchM();rWork();},
+ 'task-pr':a=>{const t=S.tasks.find(x=>x.id===a.dataset.id);if(!t)return;t.pr={hi:'mid',mid:'low',low:'hi'}[t.pr]||'mid';Store.touchM();rWork();},
+ 'task-del':a=>{S.tasks=S.tasks.filter(x=>x.id!==a.dataset.id);Store.touchM();rWork();rNav();},
+ 'task-prompt':a=>{const t=S.tasks.find(x=>x.id===a.dataset.id);if(!t)return;let p=t.pid&&S.prompts.find(x=>x.id===t.pid);
+  if(!p){p=newPrompt({title:t.text.slice(0,80)});p.b.task=t.text;S.prompts.push(p);t.pid=p.id;if(t.st==='todo')t.st='doing';Store.touchP(p);Store.touchM();}
+  openP(p.id);},
+ dtype:a=>{S.dashType=a.dataset.v;const keep=($('dashNew')||{}).value||'';rWork();const d=$('dashNew');if(d){d.value=keep;d.focus();}},
+ 'dash-add':()=>{const i=$('dashNew');const v=(i&&i.value||'').trim();if(!v)return;S.dash.unshift({id:uid(),type:S.dashType,text:v,c:now(),pin:false});Store.touchM();rWork();rNav();},
+ 'dash-f':a=>{S.dashF=a.dataset.v;rWork();},
+ 'dash-pin':a=>{const d=S.dash.find(x=>x.id===a.dataset.id);if(!d)return;d.pin=!d.pin;Store.touchM();rWork();toast(d.pin?'Правило будет в каждом промпте':'Правило убрано из промптов');},
+ 'dash-torule':a=>{const d=S.dash.find(x=>x.id===a.dataset.id);if(!d)return;d.type='rule';d.c=now();Store.touchM();rWork();toast('Гипотеза стала правилом');},
+ 'dash-edit':a=>{S.dEdit=S.dEdit===a.dataset.id?null:a.dataset.id;rWork();const t=document.querySelector(`[data-dk="${a.dataset.id}"]`);if(t)t.focus();},
+ 'dash-del':a=>{S.dash=S.dash.filter(x=>x.id!==a.dataset.id);Store.touchM();rWork();rNav();},
+ export:()=>doExport(),
+ import:()=>$('importFile').click(),
+ 'm-btn':a=>{const b=S.mb[+a.dataset.i];closeModal();if(b&&b.fn)b.fn();}
+};
+document.addEventListener('click',e=>{
+ if(e.target===$('modal')){closeModal();return;}
+ const a=e.target.closest('[data-act]');if(!a)return;
+ const fn=ACT[a.dataset.act];if(!fn)return;
+ if(a.tagName==='INPUT'&&a.type==='checkbox'){fn(a,e);return;}
+ e.preventDefault();fn(a,e);
+});
+document.addEventListener('input',e=>{
+ const el=e.target;
+ if(el.tagName==='TEXTAREA')grow(el);
+ if(el.id==='tplQ'){S.tplQ=el.value;$('tplList').innerHTML=tplListHTML();return;}
+ if(el.id==='fbNote'){S.fbNote=el.value;return;}
+ if(el.dataset.qa!=null){S.aiQA[+el.dataset.qa]=el.value;return;}
+ if(el.dataset.tk){const t=S.tasks.find(x=>x.id===el.dataset.tk);if(t){t.text=el.value;Store.touchM();}return;}
+ if(el.dataset.dk){const d=S.dash.find(x=>x.id===el.dataset.dk);if(d){d.text=el.value;Store.touchM();}return;}
+ const k=el.dataset.k;if(!k)return;
+ const p=cur();if(!p)return;
+ if(k.startsWith('b.')){p.b=p.b||{};p.b[k.slice(2)]=el.value;}
+ else if(k.startsWith('tv.')){p.tv=p.tv||{};p.tv[k.slice(3)]=el.value;}
+ else if(k.startsWith('p.')){p.p[k.slice(2)]=el.value;Store.touchP(p);rProps();rTech();live();return;}
+ else if(k==='title'){p.title=el.value;}
+ else if(k==='raw'){p.raw=el.value;}
+ else if(k==='stage'||k==='rev'){p[k]=el.value;Store.touchP(p);rNav();return;}
+ else return;
+ Store.touchP(p);live();
+});
+document.addEventListener('toggle',e=>{const t=e.target;if(!t||!t.classList)return;if(t.classList.contains('sets'))S.setOpen=t.open;else if(t.classList.contains('tgroup')&&t.dataset.g)S.tgOpen[t.dataset.g]=t.open;},true);
+document.addEventListener('change',e=>{
+ const el=e.target;
+ if(el.id==='importFile'&&el.files&&el.files[0]){doImport(el.files[0]);el.value='';return;}
+ if(el.dataset.k==='stage'||el.dataset.k==='rev'){const p=cur();if(p){p[el.dataset.k]=el.value;Store.touchP(p);rNav();}}
+});
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape'&&!$('modal').hidden){closeModal();return;}
+ const mod=e.ctrlKey||e.metaKey;
+ if(mod&&e.key==='Enter'){
+  if(e.target.id==='dashNew'){e.preventDefault();ACT['dash-add']();return;}
+  if(S.view==='build'){e.preventDefault();doCopy();}
+  return;
+ }
+ if(mod&&(e.key==='s'||e.key==='ы')&&S.view==='build'){e.preventDefault();ACT.savever();return;}
+ if(e.key==='Enter'&&!e.shiftKey){
+  const id=e.target.id;
+  if(id==='taskNew'){e.preventDefault();ACT['task-add']();}
+  else if(id==='ideaNew'){e.preventDefault();ACT['idea-add']();}
+  else if(id==='noteNew'){e.preventDefault();ACT['note-add']();}
+  else if(id==='tplName'){e.preventDefault();const b=document.querySelector('#mbox .btn.primary');if(b)b.click();}
+ }
+});
+
+/* ================= СТАРТ ================= */
+(function init(){
+ const d=Store.loadLocal();
+ if(d&&Array.isArray(d.prompts)){S.prompts=d.prompts.filter(p=>p&&p.id).map(norm);S.tasks=d.tasks||[];S.dash=d.dash||[];S.tpls=d.tpls||[];S.set=Object.assign(S.set,d.set||{});S.mu=d.mu||0;}
+ else{
+  const p=newPrompt({seed:true});S.prompts=[p];
+  S.dash=[
+   {id:uid(),type:'rule',text:'Новый чат под новую задачу. Переношу бриф, а не историю.',c:now(),pin:false},
+   {id:uid(),type:'rule',text:'Не знаю, чего хочу, — значит режим прояснения: сначала интервью, потом исполнение.',c:now(),pin:false},
+   {id:uid(),type:'hyp',text:'Промпты с критерием успеха требуют меньше кругов правок.',c:now()}
+  ];S.mu=0;
+ }
+ try{const u=JSON.parse(localStorage.getItem(LSU)||'null');if(u){if(u.view)S.view=u.view;if(u.cur){S.cur=u.cur;S.wantCur=u.cur;}}}catch(e){}
+ if(!['build','tpl','methods','ripen','tasks','dash'].includes(S.view))S.view='build';
+ ensureCur();applyTheme();fullRender();
+ Store.connect();
+ if(window.claude&&typeof window.claude.use==='function'){
+  window.claude.use('sample').then(s=>{S.ai=s||null;if(S.ai&&S.view==='build'){rWork();rRail();}}).catch(()=>{});
+  window.claude.use('downloads').then(x=>{S.dl=x||null;}).catch(()=>{});
+ }
+})();
+})();
+</script>
+</body>
+</html>

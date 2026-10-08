@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Чертёж Life OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400;1,7..72,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#EDF1F2; --surface:#FFFFFF; --surface2:#F4F7F8; --line:#D1DADF; --line-strong:#AEBBC3;
+  --text:#14202A; --muted:#566775; --faint:#8494A0;
+  --orient:#6552D0; --map:#9A6A0C; --move:#17875A; --env:#B0561B; --know:#1A74AB; --feed:#BB3862;
+  --serif:"Literata", Georgia, "Times New Roman", serif;
+  --sans:"Golos Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --radius-s:6px; --radius-m:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111A21; --surface:#16212A; --surface2:#1B2832; --line:#283844; --line-strong:#3B5060;
+    --text:#E3E9ED; --muted:#96A7B3; --faint:#6D808D;
+    --orient:#A597FF; --map:#E3B150; --move:#4DC792; --env:#EF9658; --know:#5FB9EE; --feed:#F2769A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111A21; --surface:#16212A; --surface2:#1B2832; --line:#283844; --line-strong:#3B5060;
+  --text:#E3E9ED; --muted:#96A7B3; --faint:#6D808D;
+  --orient:#A597FF; --map:#E3B150; --move:#4DC792; --env:#EF9658; --know:#5FB9EE; --feed:#F2769A;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%}
+a{color:var(--know)}
+:focus-visible{outline:2px solid var(--know);outline-offset:2px;border-radius:4px}
+
+/* ---------- layout ---------- */
+.shell{display:grid;grid-template-columns:220px minmax(0,1fr);gap:48px;max-width:1240px;margin:0 auto;padding:0 28px}
+.side{position:sticky;top:env(safe-area-inset-top,0px);align-self:start;height:100vh;padding:40px 0;display:flex;flex-direction:column;gap:6px}
+.side .brand{font-family:var(--serif);font-size:1.15rem;font-weight:600;margin-bottom:18px}
+.side a{display:block;text-decoration:none;color:var(--muted);padding:7px 10px;border-radius:var(--radius-s);font-size:.95rem;border-left:2px solid transparent}
+.side a:hover{color:var(--text);background:var(--surface2)}
+.side a.on{color:var(--text);border-left-color:var(--text);background:var(--surface)}
+.side .note{margin-top:auto;font-size:.8rem;color:var(--faint);line-height:1.45}
+main{min-width:0;padding:40px 0 120px}
+.topnav{display:none}
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr;gap:0;padding:0 18px}
+  .side{display:none}
+  .topnav{display:flex;position:sticky;top:0;z-index:5;gap:4px;overflow-x:auto;background:var(--bg);padding:10px 18px;padding-top:calc(env(safe-area-inset-top,0px) + 10px);margin:0;border-bottom:1px solid var(--line);scrollbar-width:none}
+  .topnav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:.9rem;padding:6px 10px;border-radius:999px}
+  .topnav a.on{background:var(--surface);color:var(--text)}
+  main{padding-top:20px}
+  body{font-size:16px}
+}
+
+/* ---------- type ---------- */
+h1,h2{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;line-height:1.15;margin:0}
+h1{font-size:clamp(2.3rem,5.2vw,3.7rem)}
+h2{font-size:clamp(1.7rem,3.2vw,2.3rem);margin-bottom:14px}
+h3{font-size:1.15rem;font-weight:600;margin:40px 0 10px;line-height:1.3}
+h4{font-size:1rem;font-weight:600;margin:22px 0 6px}
+p{margin:0 0 14px;max-width:68ch}
+.lead{font-size:1.18rem;color:var(--muted);max-width:60ch}
+.muted{color:var(--muted)}
+.small{font-size:.9rem}
+.tempo{font-family:var(--serif);font-style:italic;font-weight:500}
+section{padding-top:72px}
+section:first-of-type{padding-top:0}
+.sec-intro{max-width:68ch;color:var(--muted);font-size:1.05rem}
+hr.rule{border:0;border-top:1px solid var(--line);margin:56px 0 0}
+
+/* ---------- hero score ---------- */
+.hero{padding:10px 0 8px}
+.hero .lead{margin-top:16px}
+.score-wrap{margin-top:34px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);padding:22px 22px 14px;overflow-x:auto}
+.score{display:block;min-width:720px;width:100%;height:auto}
+.score text{font-family:var(--sans);fill:var(--text)}
+.score .lbl{font-size:15px;font-weight:600}
+.score .tmp{font-family:var(--serif);font-style:italic;font-size:15px;fill:var(--muted)}
+.score .rh{font-size:13px;fill:var(--muted)}
+.score-cap{font-size:.92rem;color:var(--muted);margin:12px 2px 0;max-width:80ch}
+
+/* ---------- generic blocks ---------- */
+.tablewrap{overflow-x:auto;margin:14px 0 6px;border:1px solid var(--line);border-radius:var(--radius-m);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{text-align:left;vertical-align:top;padding:11px 14px;border-bottom:1px solid var(--line)}
+th{font-weight:600;color:var(--muted);font-size:.85rem;background:var(--surface2)}
+tr:last-child td{border-bottom:0}
+td.k{font-weight:600;white-space:nowrap}
+.tag{display:inline-block;font-size:.8rem;padding:1px 8px;border-radius:999px;border:1px solid var(--line-strong);color:var(--muted);margin:2px 4px 2px 0;white-space:nowrap}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:.08em}
+.callout{border-left:3px solid var(--line-strong);padding:4px 0 4px 16px;margin:18px 0;color:var(--muted);max-width:70ch}
+.callout strong{color:var(--text)}
+
+/* formula */
+.formula{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:18px 0 10px}
+.formula .term{flex:1 1 150px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);padding:14px 16px}
+.formula .term b{display:block;font-family:var(--serif);font-size:1.25rem;font-weight:600;margin-bottom:2px}
+.formula .term span{font-size:.9rem;color:var(--muted)}
+.formula .op{align-self:center;font-family:var(--serif);font-size:1.6rem;color:var(--faint)}
+.example-line{font-size:.93rem;color:var(--muted);background:var(--surface2);border-radius:var(--radius-s);padding:10px 14px;max-width:none}
+
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin:20px 0 8px;border:1px solid var(--line);border-radius:var(--radius-m);background:var(--surface);overflow:hidden}
+.flow .st{padding:16px 16px 18px;border-right:1px solid var(--line);position:relative}
+.flow .st:last-child{border-right:0}
+.flow .st h4{margin:0 0 4px;font-size:1rem}
+.flow .st .when{font-size:.82rem;color:var(--faint);margin-bottom:8px}
+.flow .st p{font-size:.9rem;color:var(--muted);margin:0 0 8px}
+.flow .st ul{margin:0;padding-left:18px;font-size:.88rem;color:var(--muted)}
+.flow .st:not(:last-child)::after{content:"";position:absolute;right:-7px;top:24px;width:12px;height:12px;background:var(--surface);border-top:1px solid var(--line);border-right:1px solid var(--line);transform:rotate(45deg);z-index:1}
+@media (max-width:900px){
+  .flow{grid-template-columns:1fr}
+  .flow .st{border-right:0;border-bottom:1px solid var(--line)}
+  .flow .st:last-child{border-bottom:0}
+  .flow .st:not(:last-child)::after{right:auto;left:24px;top:auto;bottom:-7px;transform:rotate(135deg)}
+}
+
+/* spheres */
+.spheres{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;margin:16px 0}
+.sph{background:var(--surface);padding:14px 16px 16px}
+.sph b{font-family:var(--serif);font-weight:600;font-size:1.05rem;letter-spacing:.02em}
+.sph .sub{font-size:.87rem;color:var(--muted);margin-top:6px;line-height:1.45}
+.sph .was{font-size:.78rem;color:var(--faint);margin-top:8px}
+@media (max-width:900px){.spheres{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.spheres{grid-template-columns:1fr}}
+
+/* entity explorer */
+.groupsline{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 0 18px;font-size:.9rem;color:var(--muted)}
+.explorer{display:grid;grid-template-columns:260px minmax(0,1fr);gap:0;border:1px solid var(--line);border-radius:var(--radius-m);background:var(--surface);overflow:hidden;margin-top:12px}
+.elist{border-right:1px solid var(--line);padding:10px 0;background:var(--surface2)}
+.elist .gh{font-size:.78rem;color:var(--faint);padding:12px 16px 4px}
+.elist button{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;width:100%;padding:8px 16px;cursor:pointer;font-size:.97rem;color:var(--text)}
+.elist button:hover{background:var(--surface)}
+.elist button.on{background:var(--surface);box-shadow:inset 3px 0 0 var(--c)}
+.elist button .v1{font-size:.72rem;color:var(--muted);border:1px solid var(--line-strong);border-radius:999px;padding:0 7px}
+.elist button.dim{opacity:.38}
+.edetail{padding:24px 28px 28px;min-width:0}
+.edetail .eh{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.edetail h3{font-family:var(--serif);font-size:1.7rem;margin:0}
+.edetail .eq{color:var(--muted);font-size:.95rem}
+.edetail .what{font-size:1.05rem;margin-top:12px}
+.edetail .not{font-size:.93rem;color:var(--muted)}
+.edetail table{font-size:.92rem}
+.edetail .meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+.edetail .meta div{background:var(--surface2);border-radius:var(--radius-s);padding:10px 12px;font-size:.88rem}
+.edetail .meta .tag{white-space:normal}
+.edetail .meta div b{display:block;font-size:.8rem;color:var(--faint);font-weight:500;margin-bottom:3px}
+.edetail .ex{margin-top:16px;padding:12px 14px;border-left:3px solid var(--c);background:var(--surface2);font-size:.93rem;border-radius:0 var(--radius-s) var(--radius-s) 0}
+.stages{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 4px;font-size:.88rem}
+.stages span.s{padding:3px 10px;border-radius:999px;background:var(--surface2);border:1px solid var(--line)}
+.stages span.a{color:var(--faint)}
+.switch{display:inline-flex;align-items:center;gap:8px;font-size:.9rem;color:var(--muted);cursor:pointer;user-select:none}
+.switch input{accent-color:var(--move);width:16px;height:16px}
+@media (max-width:900px){
+  .explorer{grid-template-columns:1fr}
+  .elist{border-right:0;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:4px;padding:10px}
+  .elist .gh{display:none}
+  .elist button{width:auto;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);gap:8px}
+  .elist button.on{box-shadow:inset 0 -2px 0 var(--c)}
+  .edetail{padding:18px}
+  .edetail .meta{grid-template-columns:1fr}
+}
+
+/* base props & rules */
+.rules{counter-reset:r;list-style:none;padding:0;margin:14px 0}
+.rules li{counter-increment:r;position:relative;padding:12px 0 12px 44px;border-bottom:1px solid var(--line);max-width:74ch}
+.rules li:last-child{border-bottom:0}
+.rules li::before{content:counter(r);position:absolute;left:0;top:10px;font-family:var(--serif);font-size:1.35rem;color:var(--faint);width:30px;text-align:right}
+.rules li b{display:block}
+.rules li span{color:var(--muted);font-size:.95rem}
+
+/* audit */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;margin:18px 0}
+.stats div{background:var(--surface);padding:14px 16px}
+.stats b{display:block;font-family:var(--serif);font-size:1.6rem;font-weight:600}
+.stats span{font-size:.88rem;color:var(--muted)}
+@media (max-width:700px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.comp{margin:22px 0 8px}
+.comp .bar{display:flex;height:34px;border-radius:var(--radius-s);overflow:hidden;border:1px solid var(--line)}
+.comp .bar div{height:100%}
+.comp .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:.88rem;color:var(--muted)}
+.comp .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-.05em}
+.findings{list-style:none;padding:0;margin:18px 0}
+.findings li{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;padding:16px 0;border-top:1px solid var(--line)}
+.findings li:first-child{border-top:0}
+.findings h4{margin:0 0 4px}
+.findings p{font-size:.93rem;color:var(--muted);margin:0}
+.findings .fix{font-size:.93rem;padding-left:14px;border-left:2px solid var(--move)}
+@media (max-width:760px){.findings li{grid-template-columns:1fr;gap:8px}}
+.filter{display:flex;gap:10px;align-items:center;margin-top:14px}
+.filter input{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-s);background:var(--surface);color:var(--text);width:min(320px,100%)}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.zero{color:var(--faint)}
+
+/* ecosystem */
+.eco{display:grid;grid-template-columns:1fr 1.1fr 1.5fr 1fr;gap:0;border:1px solid var(--line);border-radius:var(--radius-m);background:var(--surface);overflow:hidden;margin:20px 0 8px}
+.eco .col{padding:16px;border-right:1px solid var(--line);position:relative}
+.eco .col:last-child{border-right:0}
+.eco .col .ch{font-size:.82rem;color:var(--faint);margin-bottom:10px}
+.eco .tool{border:1px solid var(--line);border-radius:var(--radius-s);padding:9px 11px;margin-bottom:8px;background:var(--surface2)}
+.eco .tool b{display:block;font-size:.95rem}
+.eco .tool span{font-size:.82rem;color:var(--muted);line-height:1.4;display:block}
+.eco .tool.center{border-color:var(--text)}
+.eco .col:not(:last-child)::after{content:"";position:absolute;right:-7px;top:30px;width:12px;height:12px;background:var(--surface);border-top:1px solid var(--line);border-right:1px solid var(--line);transform:rotate(45deg);z-index:1}
+.eco .gone{opacity:.55;text-decoration:line-through;text-decoration-color:var(--feed)}
+@media (max-width:900px){
+  .eco{grid-template-columns:1fr}
+  .eco .col{border-right:0;border-bottom:1px solid var(--line)}
+  .eco .col:last-child{border-bottom:0}
+  .eco .col:not(:last-child)::after{right:auto;left:26px;top:auto;bottom:-7px;transform:rotate(135deg)}
+}
+.verdict{font-size:.85rem;font-weight:600}
+.v-keep{color:var(--move)}.v-change{color:var(--map)}.v-drop{color:var(--feed)}
+.layers{display:grid;gap:8px;margin:16px 0}
+.layer{display:grid;grid-template-columns:58px minmax(0,1fr);gap:14px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);padding:12px 16px}
+.layer .ln{font-family:var(--serif);font-size:1.5rem;color:var(--faint);line-height:1.1}
+.layer b{display:block}
+.layer span{font-size:.93rem;color:var(--muted)}
+.steps{counter-reset:s;list-style:none;padding:0;margin:14px 0}
+.steps li{counter-increment:s;display:grid;grid-template-columns:36px minmax(0,1fr);gap:10px;padding:10px 0;border-bottom:1px solid var(--line);max-width:78ch}
+.steps li:last-child{border-bottom:0}
+.steps li::before{content:counter(s);font-family:var(--serif);font-size:1.25rem;color:var(--faint);text-align:right}
+.steps li b{display:block}
+.steps li span{color:var(--muted);font-size:.94rem}
+.diverge{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0}
+.diverge div{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);padding:14px 16px}
+.diverge h4{margin:0 0 6px;font-family:var(--serif);font-size:1.1rem}
+.diverge p{font-size:.92rem;color:var(--muted);margin:0 0 6px}
+.diverge p b{color:var(--text);font-weight:600}
+@media (max-width:900px){.diverge{grid-template-columns:1fr}}
+.qt{font-family:var(--serif);font-style:italic}
+footer{margin-top:80px;padding-top:20px;border-top:1px solid var(--line);font-size:.85rem;color:var(--faint)}
+</style>
+</head>
+<body>
+
+<nav class="topnav" aria-label="Разделы">
+  <a href="#ustroystvo">Устройство</a>
+  <a href="#yadro">Ядро</a>
+  <a href="#razbor">Разбор Notion</a>
+  <a href="#ekosistema">Инструменты</a>
+  <a href="#pravila">Правила</a>
+</nav>
+
+<div class="shell">
+  <aside class="side" aria-label="Навигация">
+    <div class="brand">Чертёж Life OS</div>
+    <a href="#ustroystvo">1. Верхний уровень</a>
+    <a href="#yadro">2. Ядро: сущности</a>
+    <a href="#razbor">3. Разбор твоей базы</a>
+    <a href="#ekosistema">4. Инструменты</a>
+    <a href="#pravila">5. Правила защиты</a>
+    <p class="note">Собрано по базе MY SECOND BRAIN в Notion, доске LIFE OS в Whimsical и записям в TickTick. Сентябрь 2026.</p>
+  </aside>
+
+  <main>
+    <header class="hero">
+      <h1>Чертёж Life OS</h1>
+      <p class="lead">Универсальная структура, которая подходит любому человеку: из чего система состоит, какие в ней сущности и свойства, и какой инструмент за что отвечает. Твои данные использованы как материал для проверки и для примеров.</p>
+
+      <div class="score-wrap" role="img" aria-label="Слои Life OS как партитура: чем быстрее меняется слой, тем короче его ноты">
+        <svg class="score" id="score" viewBox="0 0 1080 452" preserveAspectRatio="xMinYMin meet"></svg>
+      </div>
+      <p class="score-cap">Система похожа на партитуру: пять слоёв звучат одновременно, но в разном темпе. Сферы почти не меняются, ориентиры пересматриваются раз в год, результаты раз в квартал, действия каждый день, входящие льются постоянно. Быстрые слои приносят сигналы наверх через ревью, медленные задают направление вниз. Знание, окружение и обратная связь звучат как аккомпанемент под всеми слоями сразу.</p>
+    </header>
+
+    <!-- ===================== 1 ===================== -->
+    <section id="ustroystvo">
+      <h2>1. Верхний уровень</h2>
+      <p class="sec-intro">Если описать одной фразой, Life OS — это цикл, который превращает поток входящего в действия и знание и регулярно сверяет направление с ориентирами. Всё остальное — детали этого цикла.</p>
+
+      <h3>Шесть частей, как у настоящей операционной системы</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Часть</th><th>Что это в жизни</th><th>Вопрос, на который отвечает</th><th>Где описано</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Ядро</td><td>Сущности (типы записей) и их свойства. Общий язык, на котором пишется любая запись.</td><td>Что это за штука?</td><td>Раздел 2</td></tr>
+          <tr><td class="k">Карта</td><td>Сферы жизни: постоянные области ответственности, в которые попадает каждая запись.</td><td>К какой части жизни относится?</td><td>Ниже, «Карта сфер»</td></tr>
+          <tr><td class="k">Поток</td><td>Путь записи от захвата до архива: захват, разбор, действие или хранение, ревью.</td><td>Что с этим сейчас происходит?</td><td>Ниже, «Поток»</td></tr>
+          <tr><td class="k">Ритмы</td><td>Регулярные сверки: день, неделя, месяц, квартал, год.</td><td>Когда я на это снова посмотрю?</td><td>Ниже, «Ритмы»</td></tr>
+          <tr><td class="k">Интерфейсы</td><td>Экраны, через которые ты видишь систему: входящие, сегодня, проект, сфера, панель месяца.</td><td>Где я это увижу?</td><td>Раздел 4</td></tr>
+          <tr><td class="k">Инструменты</td><td>Конкретные приложения, у каждого одна роль.</td><td>Чем это делается?</td><td>Раздел 4</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Формула любой записи</h3>
+      <p>Любая запись в системе полностью описывается четырьмя координатами. Первые две ты уже расставляешь в TickTick метками.</p>
+      <div class="formula" aria-label="Запись равна тип на сферу на контейнер на стадию">
+        <div class="term"><b>Тип</b><span>какая это сущность: действие, источник, заметка…</span></div>
+        <div class="op">×</div>
+        <div class="term"><b>Сфера</b><span>к какой части жизни относится</span></div>
+        <div class="op">×</div>
+        <div class="term"><b>Контейнер</b><span>к какому результату ведёт, если ведёт</span></div>
+        <div class="op">×</div>
+        <div class="term"><b>Стадия</b><span>входящее, активно, пауза или архив</span></div>
+      </div>
+      <p class="example-line">Пример из твоего TickTick: «Как фрилансеру найти клиентов» = Источник × ДЕЛО › Преподавание × «Монетизация преподавания» × Активно.</p>
+
+      <h3>Поток: путь записи</h3>
+      <div class="flow">
+        <div class="st"><h4>Захват</h4><div class="when">постоянно, до 10 секунд</div><p>Записать и забыть. Никаких меток и решений в этот момент.</p><ul><li>текст, ссылка, репост</li><li>скриншот, файл</li></ul></div>
+        <div class="st"><h4>Разбор</h4><div class="when">раз в неделю, с Claude</div><p>Три вопроса к каждой записи:</p><ul><li>Что это? (тип)</li><li>Куда относится? (сфера, результат)</li><li>Что дальше?</li></ul></div>
+        <div class="st"><h4>Решение</h4><div class="when">исход разбора</div><p>У каждой записи ровно одна судьба:</p><ul><li>сделать: действие или результат</li><li>сохранить: заметка или источник</li><li>обдумать: доска в Whimsical</li><li>удалить</li></ul></div>
+        <div class="st"><h4>Ревью</h4><div class="when">по ритмам</div><p>Сверка активного с ориентирами. Лишнее уходит в паузу или архив.</p></div>
+        <div class="st"><h4>Архив</h4><div class="when">навсегда</div><p>Завершённое хранится с итогом и больше не мешает. Удаление и архив — нормальные исходы, а не провал.</p></div>
+      </div>
+
+      <h3>Ритмы</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Ритм</th><th>Время</th><th>Что делаешь</th><th>Какие сущности трогаешь</th></tr></thead>
+        <tbody>
+          <tr><td class="k">День</td><td>5 мин</td><td>Утром выбрать 1–3 главных действия. Вечером по желанию одна строка в журнал.</td><td>Действие, Журнал</td></tr>
+          <tr><td class="k">Неделя</td><td>30 мин</td><td>Разобрать входящие с Claude. Проверить, что у каждого активного результата есть следующее действие. Сократить очередь источников до 10.</td><td>Все входящие, Результат, Источник</td></tr>
+          <tr><td class="k">Месяц</td><td>45 мин</td><td>Оценить каждую сферу от 1 до 10 относительно нормы. Посмотреть метрики. Выбрать 2–3 сферы в фокус.</td><td>Сфера, Метрика, Проблема</td></tr>
+          <tr><td class="k">Квартал</td><td>1,5 ч</td><td>Закрыть результаты с итогом, запустить новые. Проверить, работают ли правила системы.</td><td>Результат, Решение</td></tr>
+          <tr><td class="k">Год</td><td>полдня</td><td>Переписать видение и ценности. Пересмотреть решения, у которых наступила дата пересмотра.</td><td>Ориентир, Решение</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Карта сфер</h3>
+      <p>Восемь сфер покрывают жизнь без пересечений. Проверка для любой записи: какая часть жизни изменится, если это сделать? Структура согласована с «колесом баланса» и исследованиями жизненных доменов, но названия взяты по возможности твои.</p>
+      <div class="spheres" id="spheres"></div>
+      <div class="callout"><strong>Три отличия от твоих семи сфер.</strong> Первое: работа была разрезана на IKIGAI и ДЕНЬГИ (музыка в одной сфере, преподавание в другой), теперь это одна сфера ДЕЛО, а ДЕНЬГИ отвечают только за управление деньгами. Второе: КОМФОРТ объединял жильё и развлечения, это разные ответственности, поэтому они разведены на СРЕДУ и ДОСУГ. Третье: LIFE-OS и ВОРКФЛОУ стояли внутри РАЗВИТИЯ, из-за чего работа над системой выглядела как личный рост. Теперь это инструменты в СРЕДЕ.</div>
+    </section>
+
+    <!-- ===================== 2 ===================== -->
+    <section id="yadro">
+      <h2>2. Ядро: сущности и свойства</h2>
+      <p class="sec-intro">Вместо 47 значений TYPE — 13 сущностей в шести группах. Шесть из них помечены v1: с них стоит начать, остальные подключаются только тогда, когда их реально не хватает.</p>
+
+      <div class="groupsline" id="groupsline"></div>
+
+      <h3>Базовые свойства, общие для всех сущностей</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Свойство</th><th>Значения</th><th>Когда заполняется</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Название</td><td>Одна фраза, понятная без контекста</td><td>При захвате (единственное обязательное)</td></tr>
+          <tr><td class="k">Тип</td><td>Одна из 13 сущностей</td><td>На разборе</td></tr>
+          <tr><td class="k">Сфера</td><td>Одна, самая конкретная (подсфера или направление)</td><td>На разборе</td></tr>
+          <tr><td class="k">Стадия</td><td>Входящее, активно, пауза, архив</td><td>Автоматически «входящее», дальше на разборе и ревью</td></tr>
+          <tr><td class="k">Родитель</td><td>Одна связь вверх, любая глубина</td><td>Когда запись принадлежит результату, источнику или сфере</td></tr>
+          <tr><td class="k">Связи</td><td>Сколько угодно ссылок на другие записи</td><td>По ходу</td></tr>
+          <tr><td class="k">Создано, изменено</td><td>Даты</td><td>Автоматически</td></tr>
+          <tr><td class="k">Тело</td><td>Текст, чек-лист, вложения</td><td>По ходу</td></tr>
+        </tbody>
+      </table></div>
+
+      <h4>Стадии одинаковы для всех</h4>
+      <div class="stages"><span class="s">Входящее</span><span class="a">→</span><span class="s">Активно</span><span class="a">⇄</span><span class="s">Пауза</span><span class="a">→</span><span class="s">Архив</span></div>
+      <p class="small muted">Причина паузы или блокировки — не стадия. Она пишется в поле «Жду» у действия или оформляется связанной Проблемой.</p>
+
+      <h3>Сущности</h3>
+      <label class="switch"><input type="checkbox" id="onlyV1"> Показать только v1</label>
+      <div class="explorer">
+        <div class="elist" id="elist" role="tablist" aria-label="Сущности"></div>
+        <div class="edetail" id="edetail" role="tabpanel" aria-live="polite"></div>
+      </div>
+
+      <h3>Как проектировать свойства</h3>
+      <ol class="rules">
+        <li><b>Свойство живёт, только если меняет фильтр, сортировку или действие.</b><span>Если по значению ничего не отбирается и ничего не делается, это украшение.</span></li>
+        <li><b>Одна ось — одно свойство.</b><span>Стадия отдельно, причина блокировки отдельно, важность отдельно.</span></li>
+        <li><b>Шкалы грубые.</b><span>Три деления для важности и пользы, пять для самочувствия, десять только для ежемесячной оценки сфер. Дробные числа там, где нет измерения, дают ощущение точности без точности.</span></li>
+        <li><b>Иерархия — одной связью «Родитель».</b><span>Глубина любая, отдельное свойство на каждый уровень не нужно.</span></li>
+        <li><b>Автоматическое вместо ручного.</b><span>Даты, счётчики, последнее значение метрики, последний контакт с человеком.</span></li>
+        <li><b>Отметки, замеры и уведомления — данные, не страницы.</b><span>Строка «дата + значение» внутри метрики или рутины.</span></li>
+        <li><b>Не больше пяти собственных свойств у сущности</b><span>сверх восьми базовых.</span></li>
+      </ol>
+    </section>
+
+    <!-- ===================== 3 ===================== -->
+    <section id="razbor">
+      <h2>3. Разбор твоей базы</h2>
+      <p class="sec-intro">Я посмотрел схему базы MY SECOND BRAIN, посчитал записи по типам и прочитал страницы разных типов. Ниже то, что мешает системе быть объективной, и чем это заменено в ядре.</p>
+
+      <div class="stats">
+        <div><b>6 189</b><span>записей в базе</span></div>
+        <div><b>39%</b><span>служебные записи механики</span></div>
+        <div><b>146</b><span>свойств в одной базе</span></div>
+        <div><b>47 → 13</b><span>значений TYPE → сущностей</span></div>
+      </div>
+
+      <div class="comp" aria-label="Состав базы по типам записей">
+        <div class="bar" id="compbar"></div>
+        <div class="legend" id="complegend"></div>
+      </div>
+
+      <h3>Что не так и чем заменено</h3>
+      <ul class="findings" id="findings"></ul>
+
+      <h3>Куда уходит каждое значение TYPE</h3>
+      <div class="filter"><input type="search" id="mapfilter" placeholder="Найти тип или сущность" aria-label="Фильтр таблицы соответствий"></div>
+      <div class="tablewrap"><table id="maptable">
+        <thead><tr><th>TYPE в Notion</th><th class="num">Записей</th><th>Станет</th><th>Комментарий</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+
+      <h3>Метки типов в TickTick</h3>
+      <p>Восемнадцать меток, которые я расставил на прошлом шаге, сводятся к сущностям ядра. Если примешь эту модель, миграция займёт один проход.</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Сейчас</th><th>Станет</th></tr></thead>
+        <tbody id="tttable"></tbody>
+      </table></div>
+    </section>
+
+    <!-- ===================== 4 ===================== -->
+    <section id="ekosistema">
+      <h2>4. Цифровые инструменты</h2>
+      <p class="sec-intro">Четыре принципа: у каждого инструмента одна роль; у каждого вида данных одно главное место; Claude видит всё через коннекторы; данные текут в одну сторону, от захвата к хранению и витрине.</p>
+
+      <div class="eco">
+        <div class="col"><div class="ch">Вход</div>
+          <div class="tool center"><b>TickTick</b><span>тексты, ссылки, репосты</span></div>
+          <div class="tool"><b>Drive, папка «00 Входящие»</b><span>картинки и файлы без лимита</span></div>
+          <div class="tool gone"><b>Telegram Избранное</b><span>выводится</span></div>
+        </div>
+        <div class="col"><div class="ch">Обработка</div>
+          <div class="tool center"><b>Claude</b><span>разбирает входящие, раскладывает по местам, собирает ревью и панели</span></div>
+          <div class="tool"><b>Whimsical</b><span>обдумывание на холсте, итог уходит в заметку или решение</span></div>
+        </div>
+        <div class="col"><div class="ch">Хранение</div>
+          <div class="tool"><b>TickTick</b><span>действия, активные результаты, очередь источников</span></div>
+          <div class="tool"><b>Notion (новая база)</b><span>заметки, изученные источники, люди, решения, журнал, итоги завершённых результатов</span></div>
+          <div class="tool"><b>Google Calendar</b><span>события и блоки времени</span></div>
+          <div class="tool"><b>Google Drive</b><span>файлы, контекст для ИИ, экспорты и бэкапы</span></div>
+        </div>
+        <div class="col"><div class="ch">Витрина</div>
+          <div class="tool center"><b>HTML-панели</b><span>дашборды и свои инструменты поверх данных</span></div>
+        </div>
+      </div>
+
+      <h3>Роль каждого инструмента</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Инструмент</th><th>Роль</th><th>Главное место для</th><th>Доступ Claude</th><th>Решение</th></tr></thead>
+        <tbody>
+          <tr><td class="k">TickTick</td><td>Вход и исполнение</td><td>Входящие, действия, рутины, активные результаты (списки), очередь источников</td><td>Читает и пишет через коннектор</td><td><span class="verdict v-keep">Центр системы</span></td></tr>
+          <tr><td class="k">Google Drive</td><td>Файлы и память для ИИ</td><td>Картинки и файлы, контекст-пакет, исходники панелей, экспорты и бэкапы</td><td>Ищет, читает, создаёт файлы</td><td><span class="verdict v-keep">Оставить, расширить</span></td></tr>
+          <tr><td class="k">Notion</td><td>Долговременное хранилище</td><td>Обработанное знание, люди, решения, журнал, ресурсы, итоги результатов</td><td>Читает и пишет</td><td><span class="verdict v-change">Новая минимальная база, старая заморожена</span></td></tr>
+          <tr><td class="k">Whimsical</td><td>Мышление на холсте</td><td>Исследования, карты, схемы в процессе</td><td>Читает и пишет</td><td><span class="verdict v-keep">Только для обдумывания</span></td></tr>
+          <tr><td class="k">Google Calendar</td><td>Время</td><td>События, встречи, блоки фокуса</td><td>Читает и пишет</td><td><span class="verdict v-change">Добавить как слой времени</span></td></tr>
+          <tr><td class="k">HTML-артефакты</td><td>Интерфейс</td><td>Ничего уникального: показывают данные из TickTick и Notion или хранят свою базу с выгрузкой</td><td>Публикует, читает и обновляет базу артефакта, если она включена</td><td><span class="verdict v-keep">Витрина, не сейф</span></td></tr>
+          <tr><td class="k">Telegram Избранное</td><td>Нет</td><td>Нет</td><td>Не видит</td><td><span class="verdict v-drop">Вывести после разового экспорта</span></td></tr>
+          <tr><td class="k">Claude</td><td>Оркестратор</td><td>Ничего как главное место, кроме памяти о тебе</td><td>Через коннекторы ко всему выше</td><td><span class="verdict v-keep">Разбор, синтез, ревью, сборка панелей</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Где мой вариант расходится с твоим планом</h3>
+      <div class="diverge">
+        <div><h4>Notion</h4><p><b>Твой план:</b> бэкап.</p><p><b>Предлагаю:</b> основное хранилище обработанных записей, которое заполняет Claude на недельном разборе, а не ты руками.</p><p>Из твоих инструментов у Notion лучшие виды, связи и доступ для ИИ. Бросил ты его из-за схемы на 146 свойств, а не из-за самого инструмента. Роль стороннего бэкапа он выполняет при этом автоматически.</p></div>
+        <div><h4>HTML-артефакты</h4><p><b>Твой план:</b> финальный инструмент, где оказывается всё накопленное.</p><p><b>Предлагаю:</b> финальный интерфейс, но не единственное место данных.</p><p>Данные, которые живут только внутри артефакта, — единая точка отказа, и Claude видит их, только если явно открыть этот артефакт. Панель должна уметь пересобраться из TickTick и Notion.</p></div>
+        <div><h4>Telegram</h4><p><b>Твой план:</b> скорее забросить.</p><p><b>Согласен.</b> Единственная его польза, безлимитные картинки, закрывается папкой на Drive, которую Claude читает напрямую. Старое Избранное выгружается один раз и разбирается.</p></div>
+      </div>
+
+      <h3>Типовые сценарии</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Ситуация</th><th>Куда и как</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Мысль или ссылка на ходу</td><td>TickTick, через «Поделиться» или виджет. Без меток, 5 секунд.</td></tr>
+          <tr><td class="k">Скриншот или фото</td><td>Drive, папка «00 Входящие», через «Поделиться». Лимитов нет, Claude видит сразу.</td></tr>
+          <tr><td class="k">Нужно подумать</td><td>Доска в Whimsical. Итог записывается как Заметка или Решение со ссылкой на доску.</td></tr>
+          <tr><td class="k">Конец недели</td><td>В проекте LIFE OS фраза «разбери входящие». Claude читает TickTick и папку Drive, предлагает тип, сферу и место, ты подтверждаешь пачкой.</td></tr>
+          <tr><td class="k">Конец месяца</td><td>Claude собирает панель месяца из TickTick, Notion и метрик и переносит завершённые результаты в Notion с итогом.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Как Claude видит всё и не перегружается</h3>
+      <p>Главное правило: Claude сначала читает короткие выжимки, а сырые данные берёт только запросом с фильтром. Две тысячи страниц целиком ему не нужны никогда.</p>
+      <div class="layers">
+        <div class="layer"><div class="ln">0</div><div><b>Память</b><span>Профиль и предпочтения. Подгружается сама в каждом разговоре.</span></div></div>
+        <div class="layer"><div class="ln">1</div><div><b>Контекст-пакет</b><span>Один документ до трёх страниц: ориентиры, сферы с нормами, активные результаты, правила классификации. Лежит на Drive и в знаниях проекта LIFE OS. Обновляется на квартальном ревью.</span></div></div>
+        <div class="layer"><div class="ln">2</div><div><b>Файл результата</b><span>По одному на активный результат: критерий готовности, принятые решения, открытые вопросы.</span></div></div>
+        <div class="layer"><div class="ln">3</div><div><b>Сырые данные по запросу</b><span>Через коннекторы и с фильтром: «входящие TickTick за неделю», «заметки сферы ЗДОРОВЬЕ в стадии активно».</span></div></div>
+      </div>
+
+      <h4>Папки на Google Drive</h4>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Папка</th><th>Что внутри</th></tr></thead>
+        <tbody>
+          <tr><td class="k">00 Входящие</td><td>Картинки и файлы до разбора</td></tr>
+          <tr><td class="k">10 Контекст</td><td>Контекст-пакет, ориентиры, карта сфер</td></tr>
+          <tr><td class="k">20 Результаты</td><td>Папка на каждый активный результат</td></tr>
+          <tr><td class="k">30 Знание</td><td>Длинные конспекты, выгрузки исследований</td></tr>
+          <tr><td class="k">80 Панели</td><td>Исходники HTML-артефактов и их данные</td></tr>
+          <tr><td class="k">90 Архив</td><td>Экспорт Telegram, снимки Notion v0, старые версии</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Переход</h3>
+      <ol class="steps">
+        <li><div><b>Заморозить старую базу Notion.</b><span>Ничего не удалять, пометить как v0 и перестать туда писать.</span></div></li>
+        <li><div><b>Создать новую базу на шесть сущностей v1</b><span>с восемью базовыми свойствами. Это Claude может сделать через коннектор за один разговор.</span></div></li>
+        <li><div><b>Завести папки на Drive и первый контекст-пакет.</b><span>Первую версию Claude соберёт из памяти, старого Notion и TickTick.</span></div></li>
+        <li><div><b>Свести метки типов в TickTick к сущностям</b><span>и решить, переходишь ли на восемь универсальных сфер.</span></div></li>
+        <li><div><b>Выгрузить Telegram Избранное</b><span>через Telegram Desktop, положить в «90 Архив» и отдать Claude на разбор.</span></div></li>
+        <li><div><b>Провести первый недельный разбор по новой схеме.</b><span>Через 90 дней — первое ревью самой системы по правилам ниже.</span></div></li>
+      </ol>
+    </section>
+
+    <!-- ===================== 5 ===================== -->
+    <section id="pravila">
+      <h2>5. Правила защиты от перекосов</h2>
+      <p class="sec-intro">Эти шесть формулировок — твои собственные записи из Notion и TickTick. Каждое правило ниже закрывает одну из них. Объективность системы держится не на идеальной схеме, а на ограничителях.</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Твоя запись</th><th>Правило системы</th></tr></thead>
+        <tbody>
+          <tr><td class="qt">«Фанатичная необходимость все структурировать»</td><td><b>Правило трёх.</b> Новый тип или свойство появляется только после трёх реальных случаев, когда его не хватило.</td></tr>
+          <tr><td class="qt">«Планирование планов планирования»</td><td><b>Заморозка на 90 дней.</b> Схема ядра меняется только на квартальном ревью. Работа над системой сверх ритуалов — не больше часа в неделю.</td></tr>
+          <tr><td class="qt">«Бесконтрольное разрастание проекта»</td><td><b>Не больше трёх активных результатов.</b> Остальные в паузе. Сейчас в TickTick восемь списков-проектов: три стоит оставить активными.</td></tr>
+          <tr><td class="qt">«Качество подготовки не соразмерно важности и повторяемости задач»</td><td><b>Грубые шкалы и лимит объёма.</b> Действие больше полудня разбивается, а не планируется подробнее. Оценки в три деления.</td></tr>
+          <tr><td class="qt">«Долгий сбор сигналов»</td><td><b>Решение с датой пересмотра.</b> До этой даты решение не обсуждается, новые сигналы копятся в поле «Как вышло».</td></tr>
+          <tr><td class="qt">«Паралич анализа»</td><td><b>Выбрасывание — функция.</b> Очередь источников не больше десяти. Всё, что пролежало квартал нетронутым, уходит в архив без чтения.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout"><strong>Главный ограничитель — v1.</strong> Шесть сущностей, восемь базовых свойств, четыре стадии. Всё остальное в этом чертеже — запас, который подключается по правилу трёх, а не план на ближайший месяц.</div>
+
+      <footer>Источники: схема и статистика базы MY SECOND BRAIN (Notion), доска LIFE OS › ПРОЕКТИРОВАНИЕ (Whimsical), 243 активные записи TickTick. Цифры на 29 сентября 2026.</footer>
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){
+  const G = {
+    orient:{name:'Ориентиры', q:'Зачем', c:'var(--orient)'},
+    map:{name:'Карта', q:'Где в жизни', c:'var(--map)'},
+    move:{name:'Движение', q:'Что делаю и когда', c:'var(--move)'},
+    env:{name:'Окружение', q:'С кем и чем', c:'var(--env)'},
+    know:{name:'Знание', q:'Что я знаю', c:'var(--know)'},
+    feed:{name:'Обратная связь', q:'Как идёт', c:'var(--feed)'}
+  };
+
+  /* ---------- score ---------- */
+  const svg = document.getElementById('score');
+  const NS = 'http://www.w3.org/2000/svg';
+  function el(n, a, parent){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(parent||svg).appendChild(e);return e;}
+  const staves = [
+    {lbl:'Сферы', tmp:'Grave', rh:'почти не меняются', col:'var(--map)', val:1},
+    {lbl:'Ориентиры', tmp:'Largo', rh:'пересмотр раз в год', col:'var(--orient)', val:2},
+    {lbl:'Результаты', tmp:'Andante', rh:'раз в квартал', col:'var(--move)', val:4},
+    {lbl:'Действия', tmp:'Allegro', rh:'каждый день', col:'var(--move)', val:8},
+    {lbl:'Входящие', tmp:'Presto', rh:'постоянно', col:'var(--text)', val:16}
+  ];
+  const X0=230, X1=820, gap=7, top0=44, step=84;
+  const seq=[4,1,6,3,7,2,5,0,8,3,6,1,4,7,2,5];
+  staves.forEach((s,i)=>{
+    const y=top0+i*step;
+    for(let l=0;l<5;l++) el('line',{x1:X0,x2:X1,y1:y+l*gap,y2:y+l*gap,stroke:'var(--line-strong)','stroke-width':1});
+    el('line',{x1:X0,x2:X0,y1:y,y2:y+4*gap,stroke:'var(--line-strong)','stroke-width':1});
+    el('line',{x1:X1,x2:X1,y1:y,y2:y+4*gap,stroke:'var(--line-strong)','stroke-width':1.5});
+    const t1=el('text',{x:0,y:y+11,class:'lbl'}); t1.textContent=s.lbl; t1.setAttribute('fill',s.col);
+    const t2=el('text',{x:0,y:y+30,class:'tmp'}); t2.textContent=s.tmp;
+    const t3=el('text',{x:X1+22,y:y+19,class:'rh'}); t3.textContent=s.rh;
+    const n=s.val, span=(X1-X0-40)/n;
+    const heads=[];
+    for(let k=0;k<n;k++){
+      const pos=seq[(k+i*3)%seq.length];
+      const cx=X0+30+k*span+span/2-8;
+      const cy=y-gap+pos*(gap/2)+gap/2;
+      heads.push({cx,cy});
+    }
+    const hollow = s.val<=2;
+    heads.forEach(h=>{
+      el('ellipse',{cx:h.cx,cy:h.cy,rx:6.2,ry:4.4,transform:`rotate(-20 ${h.cx} ${h.cy})`,fill:hollow?'none':s.col,stroke:s.col,'stroke-width':hollow?1.8:1});
+    });
+    if(s.val>=2){
+      const stemTop = y-18;
+      heads.forEach(h=>el('line',{x1:h.cx+5.6,x2:h.cx+5.6,y1:h.cy-1,y2:(s.val>=8?stemTop:h.cy-24),stroke:s.col,'stroke-width':1.3}));
+      if(s.val>=8){
+        const grp=4;
+        for(let g=0; g<heads.length; g+=grp){
+          const a=heads[g], b=heads[Math.min(g+grp-1,heads.length-1)];
+          el('line',{x1:a.cx+5.6,x2:b.cx+5.6,y1:stemTop,y2:stemTop,stroke:s.col,'stroke-width':3.2});
+          if(s.val>=16) el('line',{x1:a.cx+5.6,x2:b.cx+5.6,y1:stemTop+6,y2:stemTop+6,stroke:s.col,'stroke-width':3.2});
+        }
+      }
+    }
+  });
+  // arrows
+  const ax=X1+2, yTop=top0+2, yBot=top0+4*step+4*gap-2;
+  const defs=el('defs',{});
+  const m=el('marker',{id:'ah',viewBox:'0 0 10 10',refX:5,refY:5,markerWidth:7,markerHeight:7,orient:'auto-start-reverse'},defs);
+  el('path',{d:'M0,0 L10,5 L0,10 z',fill:'var(--muted)'},m);
+  const mid=(yTop+yBot)/2;
+  el('line',{x1:1030,x2:1030,y1:yBot,y2:yTop+6,stroke:'var(--muted)','stroke-width':1.3,'marker-end':'url(#ah)'});
+  el('line',{x1:1062,x2:1062,y1:yTop,y2:yBot-6,stroke:'var(--muted)','stroke-width':1.3,'stroke-dasharray':'4 4','marker-end':'url(#ah)'});
+  const ta=el('text',{x:0,y:0,class:'rh','text-anchor':'middle',transform:`translate(1022 ${mid}) rotate(-90)`}); ta.textContent='ревью поднимает сигналы';
+  const tbx=el('text',{x:0,y:0,class:'rh','text-anchor':'middle',transform:`translate(1054 ${mid}) rotate(-90)`}); tbx.textContent='ориентиры задают курс';
+  void ax;
+
+  /* ---------- spheres ---------- */
+  const SPH=[
+    ['ЗДОРОВЬЕ','тело, сон, питание, движение, психика, внешность','было: ЭНЕРГИЯ целиком, ВНЕШНИЙ-ВИД'],
+    ['ДЕЛО','работа сейчас, призвание и выбор деятельности, профессиональные навыки, музыка','было: IKIGAI, ПРЕПОДАВАНИЕ-ГИТАРЫ, БИЗНЕС'],
+    ['ДЕНЬГИ','бюджет и траты, подушка, инвестиции, крупные покупки','было: ДЕНЬГИ › ИНВЕСТ'],
+    ['ОТНОШЕНИЯ','партнёр, семья, друзья, сообщество и нетворк','было: ОКРУЖЕНИЕ'],
+    ['РАЗВИТИЕ','обучение, мышление, кругозор, общие навыки','было: РАЗВИТИЕ без LIFE-OS и ВОРКФЛОУ'],
+    ['СРЕДА','жильё и место жизни, быт и вещи, цифровая среда и сама Life OS','было: УСЛОВИЯ-ЖИЗНИ, LIFE-OS, ВОРКФЛОУ'],
+    ['ДОСУГ','отдых, хобби, впечатления, путешествия','было: ДОСУГ, ХОББИ'],
+    ['СМЫСЛ','ценности, самопознание, философия, вклад и наследие','было: ЛИЧНОСТЬ, ФИЛОСОФИЯ, СЧАСТЬЕ, ЛАЙФ-ДИЗАЙН']
+  ];
+  document.getElementById('spheres').innerHTML = SPH.map(s=>`<div class="sph"><b>${s[0]}</b><div class="sub">${s[1]}</div><div class="was">${s[2]}</div></div>`).join('');
+
+  document.getElementById('groupsline').innerHTML = Object.values(G).map(g=>`<span><span class="dot" style="background:${g.c}"></span><b>${g.name}</b> <span class="muted">${g.q.toLowerCase()}</span></span>`).join('');
+
+  /* ---------- entities ---------- */
+  const E=[
+    {id:'orient',name:'Ориентир',g:'orient',v1:false,
+     what:'То, по чему сверяется всё остальное: ценности, потребности, видение будущего, принципы и роли. Меняется редко и только на ревью.',
+     not:'Не цель, потому что не достигается. Не заметка из чужого источника, потому что это твоё.',
+     props:[['Вид','ценность, потребность, видение, принцип, роль','разные виды пересматриваются по-разному'],['Формулировка','текст; видение пишется в настоящем времени','читается как описание уже наступившего будущего'],['Тест','вопрос для проверки решений','«это приближает меня к…?» применяется на разборе'],['Пересмотреть','дата, обычно раз в год','ориентир не правится между ревью']],
+     ex:'Принцип «Личность важнее дел» — твоя запись типа ПОКЗ в Notion. В новой модели это Ориентир вида «принцип», а не показатель.',
+     merges:['VISN','РОЛЬ','ПОТРЕБНОСТЬ','МЕЧТА','УБЕЖД (личные правила)','ЕСЛИ','УСЛ (как стандарт)'],tt:'ориентир',home:'Notion, копия в контекст-пакете на Drive'},
+    {id:'area',name:'Сфера',g:'map',v1:true,
+     what:'Постоянная область жизни, за которую ты отвечаешь всегда. Её нельзя закончить, можно только держать на уровне нормы.',
+     not:'Не проект, потому что у проекта есть конец. Не тема для чтения.',
+     props:[['Уровень','сфера, подсфера, направление','строит дерево'],['Норма','одна-две фразы: как выглядит «здесь всё в порядке»','без нормы оценка сферы бессмысленна'],['Оценка','1–10, раз в месяц','показывает, какие сферы проседают'],['В фокусе','да или нет, не больше трёх','заменяет FOCUS SLOT, СПРИНТ и ОЧЕРЕДНОСТЬ']],
+     ex:'ЗДОРОВЬЕ › Сон. Норма: ложусь и встаю в одно время пять дней из семи. Сейчас 4 из 10, в фокусе — связано с твоим списком «Режим сна».',
+     merges:['СФЕРА','ПОДСФ','НАПРАВ','ПОДНАП','TOPIC (если это область)','SKIL (как направление)'],tt:'метка домена ВЕРХНИМ регистром',home:'метки TickTick и страницы сфер в Notion'},
+    {id:'outcome',name:'Результат',g:'move',v1:true,
+     what:'Конечное изменение, которого ты добиваешься: цель или проект. У него есть критерий готовности и итог.',
+     not:'Не сфера, потому что заканчивается. Не действие, потому что не делается за один подход.',
+     props:[['Горизонт','цель (3–12 месяцев) или проект (1–12 недель)','заменяет разделение на VISN, EPIC и PROJ'],['Готово, когда','критерий, проверяемый ответом да или нет','без него проект не заканчивается'],['Срок','дата или квартал','только если срок реален'],['Зачем','связь с Ориентиром','проверка на разборе'],['Итог','достигнут, частично, нет, отменён + вывод одной фразой','превращает архив в опыт']],
+     stages:['идея','активен','пауза','завершён с итогом'],
+     ex:'«Выбор деятельности». Пример формулировки: готово, когда выбрано одно направление на три года и проведён первый платный тест.',
+     merges:['EPIC','PROJ','LIST (если это коллекция задач)','МЕЧТА (когда стала конкретной)'],tt:'список в TickTick',home:'TickTick, пока активен; Notion с итогом после завершения'},
+    {id:'action',name:'Действие',g:'move',v1:true,
+     what:'То, что делается физически за один подход: разовая задача или повторяемая рутина.',
+     not:'Не проект: если шагов больше одного, это Результат. Не напоминание о мысли: мысль — Заметка.',
+     props:[['Вид','разовое или повторяемое','заменяет разделение TASK, ROUT, STEP'],['Когда','дата или срок, только если реально привязано ко времени','ложные сроки обесценивают настоящие'],['Объём','до 15 минут, до часа, до полудня','больше полудня — значит, это надо разбить'],['Повтор','правило повторения','для рутин'],['Жду','кого или что','причина блокировки, отдельно от стадии']],
+     stages:['следующее','в работе','жду','сделано'],
+     ex:'«Купить сушку для посуды» из твоего TickTick: разовое, до 15 минут, СРЕДА › быт.',
+     merges:['TASK','STEP','ROUT','PURC','чек-листы (как подпункты)'],tt:'без метки типа: задача по умолчанию',home:'TickTick'},
+    {id:'event',name:'Событие',g:'move',v1:false,
+     what:'То, что привязано к конкретному времени: встреча, веха, эпизод жизни.',
+     not:'Не действие: событие происходит в своё время независимо от того, выбрал ли ты его сегодня.',
+     props:[['Дата и время','точное время','для календаря'],['Вид','встреча, веха, эпизод','вехи и эпизоды потом читаются как история'],['Люди','связь с Человеком','даёт «последний контакт» автоматически'],['Итог','одна фраза после','что вышло']],
+     ex:'«Лекция Алипова с Дашей» из твоих входящих: событие с человеком и датой, после — строка итога.',
+     merges:['СОБЫТИЕ','ТАЙМЛ (это вид отображения)'],tt:'событие',home:'Google Calendar, итог — в Журнал'},
+    {id:'person',name:'Человек',g:'env',v1:false,
+     what:'Любой человек, контекст о котором помогает жить и работать: близкие, друзья, ученики, коллеги.',
+     not:'Не контакт в телефоне: здесь то, что важно помнить, а не номер.',
+     props:[['Круг','близкие, друзья, работа, знакомые','разная частота внимания'],['Последний контакт','дата, автоматически из событий и журнала','видно, кого давно не было'],['Частота','как часто хочешь общаться','основа для напоминаний'],['Важное','даты, интересы, договорённости','то, что стыдно забыть']],
+     ex:'В твоей базе всего две записи типа КОНТАКТ при целой сфере ОКРУЖЕНИЕ. Это самая недопредставленная сущность.',
+     merges:['КОНТАКТ'],tt:'человек',home:'Notion'},
+    {id:'resource',name:'Ресурс',g:'env',v1:false,
+     what:'То, чем ты пользуешься: инструменты, подписки, вещи, финансовые активы.',
+     not:'Не покупка: покупка — Действие, а после неё появляется Ресурс.',
+     props:[['Вид','инструмент, подписка, вещь, актив','разные вопросы на ревью'],['Стоимость в месяц','число','видна цена всей системы'],['Продление','дата','чтобы не платить за ненужное'],['Польза','1–3','кандидаты на отказ видны сразу']],
+     ex:'Claude: подписка, дата продления, польза 3. Решение о покупке остаётся отдельной записью Решения.',
+     merges:['TOOL','PURC (после покупки)','SUBTYPE «Подписки»'],tt:'ресурс',home:'Notion'},
+    {id:'source',name:'Источник',g:'know',v1:true,
+     what:'Внешний материал, который собираешься изучить или изучил: видео, статья, книга, курс, подкаст, канал, ответ ИИ.',
+     not:'Не знание само по себе. Знание появляется как Заметка после переработки.',
+     props:[['Формат','видео, статья, книга, курс, подкаст, канал, ответ ИИ','разное время на потребление'],['Автор','текст или связь с Человеком','доверие и повторные находки'],['Ссылка','URL','—'],['Очередь','сейчас, позже, когда-нибудь','очередь «сейчас» не больше десяти'],['Ценность','1–3, после изучения','что стоит советовать и пересматривать']],
+     ex:'«Как фрилансеру найти клиентов» — видео, очередь «сейчас», родитель: «Монетизация преподавания». Правило архива: у изученного источника есть хотя бы одна Заметка или пометка «ничего не взял».',
+     merges:['CONT','ИСТОЧ','SUBTYPE «Книга», «Рисерч»'],tt:'источник',home:'TickTick в очереди; Notion после изучения'},
+    {id:'note',name:'Заметка',g:'know',v1:true,
+     what:'Одна единица знания своими словами: факт, идея, гипотеза, принцип, метод или вопрос.',
+     not:'Не пересказ источника целиком. Одна мысль — одна заметка.',
+     props:[['Вид','факт, идея, гипотеза, принцип, метод, вопрос','заменяет шесть отдельных типов'],['Уверенность','проверено, правдоподобно, под вопросом','держит гипотезы отдельно от фактов'],['Источник','связь','откуда это'],['Где применить','связь со Сферой или Результатом','знание без применения не всплывает']],
+     ex:'«Переключение между задачами кратно дороже по ресурсу» из твоих входящих: факт, правдоподобно, источник — Алипов, применять в СРЕДЕ › Life OS.',
+     merges:['АКС','ГИП','УБЕЖД','КОНЦЕПТ','ЛАЙФХАК','ФРЕЙМВ','ФАКТОР','ВОПРОС','SUBTYPE «Фраза», «Гайд», «Памятка», «Теория», «Аксиома», «Факт-карта»'],tt:'заметка',home:'Notion'},
+    {id:'decision',name:'Решение',g:'know',v1:false,
+     what:'Зафиксированный выбор: вопрос, варианты, что выбрано и почему. Защищает от бесконечного пересмотра.',
+     not:'Не задача «решить». Задача ведёт к Решению, а Решение хранит результат выбора.',
+     props:[['Вопрос','одна фраза','—'],['Варианты','список','видно, что было на столе'],['Выбор и почему','вариант и три главных довода','потом не нужно восстанавливать логику'],['Пересмотреть','дата','до неё решение не обсуждается'],['Как вышло','оценка задним числом','учит принимать решения']],
+     ex:'«Решить, покупать ли Claude» из твоих входящих: после выбора становится Решением с датой пересмотра через три месяца.',
+     merges:['новая сущность, в старой базе её не было'],tt:'решение',home:'Notion'},
+    {id:'journal',name:'Журнал',g:'feed',v1:true,
+     what:'Запись о том, как было: дневник, ревью периода или снимок состояния.',
+     not:'Не лог механики. Отметки рутин и уведомления — данные, а не записи журнала.',
+     props:[['Вид','дневник, ревью дня, недели, месяца, квартала, года, снимок','разные шаблоны'],['Дата','дата','—'],['Энергия','1–5','видна динамика без отдельного трекера'],['Главное','одна фраза','читается в обзоре за месяц']],
+     ex:'Снимок «Кайфую с достижения выживания» — твоя запись типа СНЭПШОТ. В новой модели это Журнал вида «снимок».',
+     merges:['REFL','СНЭПШОТ','ОТЧЕТ (содержательные)','SUBTYPE «Дневник», «Эмоция», «Воспоминание», «Мнение со стороны»'],tt:'журнал',home:'Notion'},
+    {id:'metric',name:'Метрика',g:'feed',v1:false,
+     what:'Число, по которому видно, приближается ли сфера к норме или результат к цели.',
+     not:'Не цель: метрика показывает движение, цель задаёт направление.',
+     props:[['Единица','часы, кг, рубли, раз','—'],['Направление','больше — лучше, меньше — лучше, держать в коридоре','это твоя идея «рост, инверсия, симметрия»'],['Цель или коридор','число или диапазон','—'],['Частота замера','день, неделя, месяц','—'],['Последнее значение','автоматически','замеры хранятся строками «дата + число»']],
+     ex:'«Три часа глубокого фокуса» — твоя запись ПОКЗ: метрика «часы фокуса в день», больше — лучше, цель 3, замер ежедневно.',
+     merges:['МЕТР','ПОКЗ','СТАТ','свойство «Норматив»'],tt:'метрика',home:'HTML-панель со своей базой или Notion'},
+    {id:'issue',name:'Проблема',g:'feed',v1:false,
+     what:'То, что мешает сейчас (проблема) или может помешать (риск). Живёт до решения или осознанного принятия.',
+     not:'Не жалоба и не заметка о себе: у проблемы есть влияние и путь решения.',
+     props:[['Вид','проблема или риск','—'],['Проявления','как ты это замечаешь','заменяет отдельные ПРИЗН и СИМПТ'],['Гипотеза причины','текст','разделяет симптом и корень'],['Влияние','1–3','что решать первым'],['Решается через','связь с Результатом, Действием или Решением','проблема без пути решения — просто тревога']],
+     stages:['открыта','исследуется','решается','решена или принята'],
+     ex:'«Паралич анализа» — твоя запись СИМПТ: проблема, проявление «планирование планов», влияние 3, решается через правила из раздела 5.',
+     merges:['ПРОБЛЕМА','ПРИЗН','СИМПТ','РИСК','флаг ГЛОЖЕТ'],tt:'проблема',home:'Notion'}
+  ];
+
+  const elist=document.getElementById('elist'), ed=document.getElementById('edetail'), only=document.getElementById('onlyV1');
+  let current='area';
+  function renderList(){
+    let html='';
+    Object.keys(G).forEach(gk=>{
+      const items=E.filter(e=>e.g===gk);
+      html+=`<div class="gh">${G[gk].name}</div>`;
+      items.forEach(e=>{
+        const dim = only.checked && !e.v1;
+        html+=`<button role="tab" aria-selected="${e.id===current}" class="${e.id===current?'on':''} ${dim?'dim':''}" style="--c:${G[e.g].c}" data-id="${e.id}"><span><span class="dot" style="background:${G[e.g].c}"></span>${e.name}</span>${e.v1?'<span class="v1">v1</span>':''}</button>`;
+      });
+    });
+    elist.innerHTML=html;
+    elist.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{current=b.dataset.id;renderList();renderDetail();}));
+  }
+  function renderDetail(){
+    const e=E.find(x=>x.id===current), g=G[e.g];
+    ed.style.setProperty('--c',g.c);
+    ed.innerHTML=`
+      <div class="eh"><h3>${e.name}</h3><span class="eq"><span class="dot" style="background:${g.c}"></span>${g.name}: ${g.q.toLowerCase()}${e.v1?', входит в v1':', расширение'}</span></div>
+      <p class="what">${e.what}</p>
+      <p class="not">${e.not}</p>
+      <h4>Собственные свойства</h4>
+      <div class="tablewrap"><table><thead><tr><th>Свойство</th><th>Значения</th><th>Зачем</th></tr></thead><tbody>
+        ${e.props.map(p=>`<tr><td class="k">${p[0]}</td><td>${p[1]}</td><td class="muted">${p[2]}</td></tr>`).join('')}
+      </tbody></table></div>
+      ${e.stages?`<h4>Подстадии внутри «активно»</h4><div class="stages">${e.stages.map((s,i)=>`${i?'<span class="a">→</span>':''}<span class="s">${s}</span>`).join('')}</div>`:''}
+      <div class="ex">${e.ex}</div>
+      <div class="meta">
+        <div><b>Было в Notion</b>${e.merges.map(m=>`<span class="tag">${m}</span>`).join('')}</div>
+        <div><b>Метка в TickTick</b>${e.tt}</div>
+        <div><b>Главное место</b>${e.home}</div>
+      </div>`;
+  }
+  only.addEventListener('change',renderList);
+  renderList(); renderDetail();
+
+  /* ---------- audit ---------- */
+  const COMP=[['Служебные записи механики',2443,'var(--feed)'],['Действия',1241,'var(--move)'],['Источники',774,'var(--know)'],['Без типа',674,'var(--line-strong)'],['Результаты',276,'var(--map)'],['Знание',186,'var(--orient)'],['Остальное',595,'var(--faint)']];
+  const total=COMP.reduce((a,b)=>a+b[1],0);
+  document.getElementById('compbar').innerHTML=COMP.map(c=>`<div title="${c[0]}: ${c[1]}" style="width:${(c[1]/total*100).toFixed(2)}%;background:${c[2]}"></div>`).join('');
+  document.getElementById('complegend').innerHTML=COMP.map(c=>`<span><i style="background:${c[2]}"></i>${c[0]} ${Math.round(c[1]/total*100)}%</span>`).join('');
+
+  const F=[
+    ['Служебные записи вытесняют содержание','КЛАСТЕР (997), ОТЧЕТ (985) и УВЕДОМЛ (461) — 2 443 страницы, почти 40% базы. Это журнал работы механики: блоки рутин, пустые отчёты, «Конец блока».','Отметки рутин, уведомления и замеры хранятся как строки данных «дата + значение», а напоминания живут в TickTick.'],
+    ['Одна сущность разрезана на пять','VISN, EPIC, PROJ, TASK и STEP различаются масштабом, а не природой. Ради этого в базе 26 связей вида «Над задача N уровня» и «Дочерние N уровня».','Две сущности, Результат и Действие, и одна связь «Родитель» любой глубины.'],
+    ['Различий в знании больше, чем использований','АКС — 128 записей. Остальные пять видов знания (ГИП, УБЕЖД, КОНЦЕПТ, ЛАЙФХАК, ФРЕЙМВ) вместе — 47.','Одна Заметка со свойствами «вид» и «уверенность».'],
+    ['Статус смешивает стадию и причину','В STATUS рядом стоят IDEA, ACT, PROGRESS, BLOCKED, STUCK, PROCRASTINATING и «Обстоятельства» — 14 значений.','Четыре стадии для всех сущностей. Причина — поле «Жду» или связанная Проблема.'],
+    ['ACTION отвечает на три разных вопроса','27 значений: вопросы разбора («ЧТО ЭТО», «ЗАЧЕМ ЭТО»), шаги обработки (TAG, DISTILL, PLAN) и режимы (ЖДАТЬ, УДЕРЖИВАТЬ, BACK BRAIN).','Вопросы — в недельный разбор, режимы — в стадию, шаги обработки — в ритуал, а не в свойство.'],
+    ['Приоритет выражен семью свойствами','PRIORITY, Вес, СРОЧНО, КЛЮЧЕВЫЕ, FOCUS SLOT, ОЧЕРЕДНОСТЬ, СПРИНТ. Плюс 23 флажка, среди них шесть «НЕ-» (НЕОЦЕНЯЕМО, НЕКОНТРОЛИРУЕМО…) и пять однобуквенных.','Фокус задаётся на уровне Сферы, число активных Результатов ограничено тремя, внутри списка решает порядок.'],
+    ['Шесть видов дат','Дата активности, активации, обновления, инвентаризации, дедлайн и техническая «для цепей блокировок».','Срок только там, где он реален; создано и изменено — автоматически; «пересмотреть» — у Ориентира и Решения.'],
+    ['Свойства используются как вёрстка','11 безымянных свойств и 3 разделителя из чёрточек нужны только для раскладки экрана.','Раскладка — задача интерфейса, то есть HTML-панелей, а не схемы данных.'],
+    ['Люди почти отсутствуют','КОНТАКТ — 2 записи при целой сфере ОКРУЖЕНИЕ.','Отдельная сущность Человек с кругом, частотой и последним контактом.'],
+    ['Потребление обгоняет переработку','774 источника на 186 единиц знания, около четырёх к одному. В TickTick 147 из 243 записей — источники.','Очередь источников с лимитом и правило архива: изученный источник даёт заметку или пометку «ничего не взял».'],
+    ['Каждая девятая запись без типа','674 страницы. Тип требовался при создании и поэтому пропускался.','Тип ставится на недельном разборе. Всё неразобранное видно как стадия «входящее».']
+  ];
+  document.getElementById('findings').innerHTML=F.map(f=>`<li><div><h4>${f[0]}</h4><p>${f[1]}</p></div><div class="fix">${f[2]}</div></li>`).join('');
+
+  const MAP=[
+    ['КЛАСТЕР',997,'—','служебное: блоки рутин становятся отметками внутри Действия'],
+    ['ОТЧЕТ',985,'Журнал или данные','содержательные — Журнал, пустые — не нужны'],
+    ['TASK',719,'Действие','разовое'],
+    ['CONT',557,'Источник','видео и статьи'],
+    ['УВЕДОМЛ',461,'—','служебное: напоминания в TickTick'],
+    ['ROUT',397,'Действие','повторяемое'],
+    ['ИСТОЧ',217,'Источник',''],
+    ['PROJ',176,'Результат','горизонт «проект»'],
+    ['АКС',128,'Заметка','вид «принцип» или «факт»'],
+    ['МЕТР',120,'Метрика',''],
+    ['EPIC',78,'Результат','горизонт «цель»'],
+    ['PURC',65,'Действие','затем Ресурс'],
+    ['ПРИЗН',60,'Проблема','как проявления'],
+    ['STEP',60,'Действие','или подпункт чек-листа'],
+    ['SKIL',58,'Сфера','направление в ДЕЛЕ или РАЗВИТИИ, уровень — через Метрику'],
+    ['ПОДСФ',43,'Сфера','уровень «подсфера»'],
+    ['ПОКЗ',40,'Метрика','или Ориентир, если это принцип'],
+    ['TOOL',38,'Ресурс','вид «инструмент»'],
+    ['НАПРАВ',31,'Сфера','уровень «направление»'],
+    ['РОЛЬ',28,'Ориентир','вид «роль»'],
+    ['УСЛ',27,'Результат или Ориентир','критерий готовности или стандарт'],
+    ['СОБЫТИЕ',23,'Событие',''],
+    ['СНЭПШОТ',23,'Журнал','вид «снимок»'],
+    ['VISN',22,'Ориентир','вид «видение»'],
+    ['УБЕЖД',20,'Заметка или Ориентир','чужое — Заметка, своё правило — Ориентир'],
+    ['СИМПТ',17,'Проблема','как проявления'],
+    ['LIST',16,'Результат или Заметка','список — это вид отображения, а не сущность'],
+    ['ПОТРЕБНОСТЬ',15,'Ориентир','вид «потребность»'],
+    ['КОНЦЕПТ',11,'Заметка','вид «идея»'],
+    ['ГИП',11,'Заметка','вид «гипотеза»'],
+    ['ВОПРОС',11,'Заметка','вид «вопрос»'],
+    ['СФЕРА',7,'Сфера','уровень «сфера»'],
+    ['REFL',7,'Журнал',''],
+    ['TOPIC',6,'Сфера или Заметка','область — Сфера, тема для изучения — Заметка-вопрос'],
+    ['ТАЙМФР',5,'—','свойство времени, не сущность'],
+    ['ПОДНАП',5,'Сфера','уровень «направление»'],
+    ['ЛАЙФХАК',3,'Заметка','вид «метод»'],
+    ['ФРЕЙМВ',2,'Заметка','вид «метод»'],
+    ['КОНТАКТ',2,'Человек',''],
+    ['ТАЙМЛ',1,'—','вид отображения'],
+    ['ПРОБЛЕМА',1,'Проблема','вид «проблема»'],
+    ['ФАКТОР',0,'Заметка','вид «факт» или «гипотеза»'],
+    ['СТАТ',0,'Метрика',''],
+    ['РИСК',0,'Проблема','вид «риск»'],
+    ['ЕСЛИ',0,'Ориентир или Заметка','своё правило или метод'],
+    ['МЕЧТА',0,'Ориентир','вид «видение»'],
+    ['ROOT',0,'—','служебное']
+  ];
+  const tb=document.querySelector('#maptable tbody');
+  function renderMap(q){
+    q=(q||'').trim().toLowerCase();
+    tb.innerHTML=MAP.filter(r=>!q||r.join(' ').toLowerCase().includes(q)).map(r=>`<tr><td class="k">${r[0]}</td><td class="num ${r[1]===0?'zero':''}">${r[1].toLocaleString('ru-RU')}</td><td>${r[2]}</td><td class="muted">${r[3]}</td></tr>`).join('') || '<tr><td colspan="4" class="muted">Ничего не найдено. Попробуй другое слово.</td></tr>';
+  }
+  document.getElementById('mapfilter').addEventListener('input',e=>renderMap(e.target.value));
+  renderMap('');
+
+  const TT=[
+    ['источник, рисерч','источник (для рисерча формат «ответ ИИ»)'],
+    ['концепт, факт, гипотеза, лайфхак, фреймворк, идея, тема','заметка (вид переносится в свойство при сохранении в Notion)'],
+    ['задача, покупка','без метки: задача по умолчанию является Действием'],
+    ['рефлексия, отчет','журнал'],
+    ['проблема','проблема'],
+    ['контакт','человек'],
+    ['инструмент','ресурс'],
+    ['картинка','убрать: это формат, а не тип. Тип определяется по содержанию на разборе']
+  ];
+  document.getElementById('tttable').innerHTML=TT.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('');
+
+  /* ---------- nav highlight ---------- */
+  const links=[...document.querySelectorAll('.side a, .topnav a')];
+  const secs=[...document.querySelectorAll('main section')];
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+en.target.id));
+      }
+    });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  secs.forEach(s=>io.observe(s));
+})();
+</script>
+</body>
+</html>
