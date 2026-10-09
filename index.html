@@ -1989,6 +1989,137 @@ body.t-view::after{content:"Только просмотр: ваши правки
 @keyframes hflash24{0%,30%{background:var(--sel-soft,#fff5c2)}100%{background:transparent}}
 .de-toc .t4{padding-left:42px;color:var(--muted);font-size:12px}
 
+/* ===== v2.6: tabulator, side panel, team spaces, the task manager ===== */
+/* tabulator: the name has its own line; metrics then Life OS share the next one */
+.fhead.annex .ftop{grid-template-columns:max-content minmax(0,1fr)}
+.fhead.annex .ftop .ftitle{grid-column:1 / -1}
+.fhead.annex .fchips{grid-column:1}
+.fhead.annex .flo{grid-column:2}
+.fhead.annex .fchips:empty{display:none}
+.fhead.annex .fchips:empty+.flo{grid-column:1 / -1}
+.fhead.annex .ftabzone{grid-column:1 / -1}
+/* side panel: the over-the-screen button is visible on docked panels */
+#side24 .s24pane .xdlg .xhead [data-x="dock"]{display:inline-grid!important}
+#side24 .s24col.col .s24ch{flex-direction:column}
+/* team spaces in the boards panel */
+.gt-sh .bs-a{margin-left:auto}
+.gt-g .bs-n{font-weight:700}
+.gt-r{font-size:10.5px;color:var(--muted);background:var(--hover);border-radius:6px;padding:1px 6px;white-space:nowrap}
+.gt-err{color:#fff;background:var(--danger);border-radius:50%;width:16px;height:16px;display:inline-grid;place-items:center;font-size:11px;font-weight:800;flex:none}
+.gt-empty{padding:6px 10px 8px calc(14px + var(--d,0) * 14px);font-size:12.5px;color:var(--muted);line-height:1.45}
+.gt-empty .ob{margin-top:4px}
+#gtwho{flex:none;display:flex;align-items:center;gap:4px;height:34px;margin-left:4px;padding:0 10px;border:0;border-radius:9px;background:rgba(142,78,198,.08);cursor:pointer;font:600 12.5px var(--font);color:var(--ink)}
+#gtwho:hover{background:rgba(142,78,198,.16)}
+#gtwho .gt-wn{color:var(--info,#8e4ec6);margin-right:4px;white-space:nowrap}
+.gt-av,.tm-av{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--c);color:#fff;font:700 11px/1 var(--font);flex:none;box-shadow:0 0 0 2px var(--panel)}
+.gt-av.here{box-shadow:0 0 0 2px var(--sel,#ffd84d)}
+.xbox.gt-x{width:min(900px,96vw)}
+.gt-top{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.gt-top .stpill a{color:var(--info,#8e4ec6)}
+.stpill.err{background:rgba(229,72,77,.12);color:var(--danger)}
+.gt-mem{display:flex;flex-direction:column;gap:4px}
+.gt-m{display:flex;align-items:center;gap:10px;padding:6px 8px;border:1px solid var(--line);border-radius:10px}
+.gt-m .gt-av{width:30px;height:30px;font-size:13px}
+.gt-mn{flex:1;min-width:0;display:flex;flex-direction:column}
+.gt-mn small{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gt-on{color:#2fa36b!important;font-weight:600}
+.gt-off{color:var(--muted)}
+.gt-inv{display:flex;gap:6px;flex-wrap:wrap}
+.gt-inv .inp{flex:1 1 240px}
+.gt-inv select.inp{flex:none;width:auto}
+.gt-how p{margin:0 0 6px}
+.gt-list{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.gt-list .ob{justify-content:flex-start}
+body.gt-view #toolbar{opacity:.4;pointer-events:none}
+/* the task manager */
+.tm-spb{display:flex;align-items:center;justify-content:space-between;gap:6px;width:100%;margin:2px 0 6px;padding:7px 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel);font:600 13px var(--font);color:var(--ink);cursor:pointer;text-align:left}
+.tm-spb span{color:var(--muted)}
+.tm-spb:hover{border-color:#c4c9d3}
+.tm-spbar{margin:-4px 0 10px;padding:6px 10px;border-radius:9px;background:rgba(142,78,198,.08);color:var(--info,#8e4ec6);font-size:12.5px;font-weight:600}
+.tm-dir{display:flex;align-items:center;padding-left:calc(var(--d,0) * 12px)}
+.tm-dir .lo-nav{flex:1;min-width:0}
+.tm-tw{flex:none;width:16px;height:22px;border:0;background:none;padding:0;color:var(--muted);cursor:pointer;font-size:11px}
+.tm-add{flex:none;width:22px;height:22px;border:0;border-radius:6px;background:none;color:var(--muted);cursor:pointer;opacity:0;font-size:15px}
+.tm-dir:hover .tm-add{opacity:1}
+.tm-add:hover{background:var(--hover);color:var(--ink)}
+.tm-pre{opacity:.75}
+.tm-cards b small{font-size:.55em;font-weight:600;color:var(--muted)}
+.tm-cards .bad b{color:var(--danger)}
+.tm-cards .warn b{color:#d99a00}
+.tm-cards .good b{color:#2fa36b}
+.tmc{border-left:3px solid var(--sc,#8a90a0)}
+.tm-why{font-size:11.5px;color:var(--muted);margin:3px 0 0;line-height:1.35}
+.tm-flag{font-size:10.5px;font-weight:700;border-radius:6px;padding:1px 6px;color:#fff}
+.tm-flag.w{background:#8e4ec6}.tm-flag.r{background:#e5484d}
+.tm-age{font-size:10.5px;color:var(--muted);background:var(--hover);border-radius:6px;padding:1px 5px}
+.tm-age.old{color:#fff;background:#d99a00}
+.tm-sp{font-size:10.5px;color:var(--info,#8e4ec6)}
+.lo24cm .tm-av{width:18px;height:18px;font-size:9.5px;margin-left:auto}
+.mchip.bad{background:rgba(229,72,77,.15);color:var(--danger)}
+.tm-lane{margin:0 0 14px}
+.tm-lh{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;margin:4px 0 6px}
+.tm-lh b{font-weight:600;color:var(--muted);font-size:12px}
+.tm-prow,.tm-frow,.tm-drow{display:flex;align-items:center;gap:10px;width:100%;padding:7px 8px;border:0;border-radius:9px;background:transparent;color:var(--ink);font:inherit;font-size:13px;text-align:left;cursor:pointer}
+.tm-prow:hover,.tm-frow:hover,.tm-drow:hover{background:var(--hover)}
+.tm-prow>span:first-child,.tm-drow>span:first-child{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.tm-prow>i,.tm-drow>i{font-style:normal;font-size:12px;color:var(--muted);white-space:nowrap}
+.tm-drow{padding-left:calc(8px + var(--d,0) * 18px)}
+.tm-bar{flex:none;width:110px;height:6px;border-radius:3px;background:var(--hover);overflow:hidden}
+.tm-bar i{display:block;height:100%;background:var(--c,#2fa36b)}
+.tm-avs{display:flex;gap:2px}
+.tm-frow span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tm-frow small{color:var(--muted);font-size:11.5px;white-space:nowrap}
+.tm-from{margin-top:16px;border:1px dashed rgba(142,78,198,.4);border-radius:12px;padding:6px}
+.tm-thr{height:110px}
+.tm-flowbar{display:flex;height:26px;border-radius:8px;overflow:hidden;gap:2px;margin:6px 0}
+.tm-flowbar i{display:grid;place-items:center;background:var(--c);color:#fff;font:700 11px var(--font);font-style:normal;min-width:18px}
+.tm-legend{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted)}
+.tm-legend span{display:flex;align-items:center;gap:4px}
+.tm-who{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.tm-wc{border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--panel);display:flex;flex-direction:column;gap:6px}
+.tm-wh{display:flex;align-items:center;gap:8px}
+.tm-wh .tm-av{width:30px;height:30px;font-size:13px}
+.tm-wh small{margin-left:auto;font-size:11.5px}
+.tm-wl>span{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.tm-wf{font-size:12px;color:var(--muted)}
+.tm-tt{width:100%;border-collapse:collapse;font-size:12.5px}
+.tm-tt th,.tm-tt td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+.tm-tt td{position:relative;color:var(--muted)}
+.tm-tt td i{position:absolute;left:4px;right:4px;bottom:2px;height:var(--h);max-height:calc(100% - 4px);background:rgba(51,85,255,.12);border-radius:3px;z-index:-1}
+.tm-stc{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 14px}
+.tm-stb{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:110px;padding:8px 12px;border:1px solid var(--line);border-top:4px solid var(--c);border-radius:10px;background:var(--panel);cursor:pointer;color:var(--ink);font:inherit}
+.tm-stb b{font-size:20px}
+.tm-stb span{font-size:12px;color:var(--muted)}
+.tm-acts{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.tm-act{border:1px solid var(--line);border-left:4px solid var(--sc);border-radius:12px;padding:10px 12px;background:var(--panel);cursor:pointer;display:flex;flex-direction:column;gap:6px}
+.tm-act.sel{box-shadow:0 0 0 2px var(--sel,#ffd84d)}
+.tm-ah{display:flex;align-items:center;gap:8px}
+.tm-ah b{flex:1;min-width:0}
+.tm-stchip{border:0;border-radius:6px;padding:2px 8px;font:600 11.5px var(--font);background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--c);white-space:nowrap;cursor:pointer}
+.tm-need{background:rgba(142,78,198,.08);border-radius:8px;padding:6px 8px}
+.tm-need b,.tm-rep b{font-size:12px}
+.tm-need p,.tm-rep p{margin:2px 0;font-size:12.5px;line-height:1.45;white-space:pre-wrap}
+.tm-ab{display:flex;gap:6px;flex-wrap:wrap}
+.tm-iters{grid-auto-columns:minmax(280px,1fr);align-items:start}
+.tm-ic .lo-kh{display:flex;align-items:center;gap:6px}
+.tm-blk{margin:8px 0 2px}
+.tm-bh{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--muted);margin:4px 2px}
+.tm-bh b{font-weight:600}
+.tm-mx{display:grid;grid-template-columns:200px repeat(var(--n),minmax(200px,1fr));gap:6px;align-items:start}
+.tm-mxh{font-size:12px;font-weight:700;color:var(--c,var(--muted));text-transform:uppercase;letter-spacing:.03em;padding:4px 6px}
+.tm-mxr{display:flex;align-items:center;gap:6px;font-weight:700;font-size:13px;padding:8px 6px}
+.tm-mxr b{margin-left:auto;font-weight:600;color:var(--muted);font-size:12px}
+.tm-mxc{background:var(--hover);border-radius:10px;padding:4px;min-height:54px}
+.tm-modes{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:12.5px}
+.tm-modes span{color:var(--muted)}
+.tm-dirs{display:flex;flex-direction:column}
+@media (max-width:900px){.tm-mx{grid-template-columns:140px repeat(var(--n),minmax(160px,1fr));overflow:auto}}
+@media (max-width:700px){.lo24two{grid-template-columns:minmax(0,1fr)}.tm-bar{width:56px}.tm-prow,.tm-drow{flex-wrap:wrap}.tm-prow>span:first-child{flex-basis:100%}.tm-stb{min-width:0;flex:1 1 30%}.tm-acts,.tm-who{grid-template-columns:minmax(0,1fr)}}
+.tmc .lo24cm{display:flex;flex-wrap:wrap;gap:4px;align-items:center;min-width:0}
+.tmc .lo-ch{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tm-wc{min-width:0}
+.gt-m select.inp{flex:none;width:auto}
+
 @media (max-width:700px){#statusText{display:none}#statusText.act{display:block;max-width:132px;white-space:normal;font-size:11.5px;line-height:1.25}#status{padding-left:12px}#boardName{width:120px}.fbtn span{display:none}.fdoc{padding:28px 24px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -2901,7 +3032,7 @@ const Drive = {
       }
       // this copy → Drive
       let removed = 0;
-      for (const e of [...S.index]) {
+      for (const e of [...S.index].filter(x => !x.space)) {
         const bid = e.id, f = remote.get(bid), m = this.st.meta[bid];
         if (f && m && m.rev !== f.rev) continue;
         if (f && m && m.u === e.updatedAt && !(m.pendingTrash && f.stale.length)) continue;
@@ -5092,7 +5223,7 @@ function installHelp() {
    v1.7: versions, feature catalog, tiny-object markers, pin zones, re-attach,
    nested frame tabs, Whimsical import that reads the whole board by sections
    ========================================================= */
-const APP_VERSION = '2.5';
+const APP_VERSION = '2.6';
 const CHANGELOG = [
   ['1.9', '6 октября 2026', ['Масштаб от 0,5%, свой диапазон и уровни: колесо и кнопки прыгают по уровням (Горячие клавиши → Масштаб)', 'Замок: закреплённый объект не двигается, не меняется и не удаляется', 'Выравнивание, равные промежутки, одинаковый размер и одинаковая длина линий для выделенного', 'Умные направляющие: при перемещении и растягивании объект прилипает к краям и центрам соседей (Alt отключает)', 'Выделенное можно открыть отдельно, как доску, с хлебными крошками', 'Резервная копия в папку на компьютере, в том числе в папку Яндекс Диска, с недельным архивом', 'История версий доски с поиском по дате: копии на устройстве и версии из Google Диска', 'Компактная панель статуса: цветные индикаторы, мигающий значит нужно ваше действие', 'Контуры при сильном отдалении: только у внешних объектов, нейтральным серым, точно по размеру', 'Импорт из Whimsical: секции как в оригинале, блок-схемы и прямоугольники, шрифт подбирается под каждое устройство']],
   ['1.8', '6 октября 2026', ['Импорт из Whimsical: майнд-карты снова переносятся, сбойные запросы повторяются, а не пропускаются', 'Картинки из Whimsical переносятся как картинки', 'Ссылки из Whimsical становятся текстом-ссылкой, а не пустой карточкой', 'Размер шрифта в перенесённых заголовках подбирается по настоящему шрифту, слова больше не рвутся', 'При сильном отдалении (1% и меньше) подсвечиваются контуры объектов вместо пятен', 'Копирование в другие приложения: обычный текст с форматированием, без служебного кода', 'Приложение само проверяет, есть ли на сайте новая версия, и предлагает обновиться']],
@@ -5567,7 +5698,7 @@ const AREAS = {
 };
 Object.assign(AREAS.canvas[2], { filter: 'Фильтры (Filters)' }); Object.assign(AREAS.org[2], { fhead: 'Шапка рамки (Frame header)' }); Object.assign(AREAS.obj[2], { docs: 'Документы (Documents)', html: 'HTML-инструменты (HTML tools)' }); Object.assign(AREAS.io[2], { web: 'Страница по ссылке (Web capture)', queue: 'Очередь импорта (Import queue)' }); Object.assign(AREAS.cust[2], { mech: 'Механики (Feature toggles)', panels: 'Панели (Panels)', menu: 'Меню (Menu)', drag: 'Перетаскивание (Drag)' }); Object.assign(AREAS.ws[2], { side: 'Панель досок слева (Boards sidebar)', smart: 'Умные доски (Smart boards)' }); Object.assign(AREAS.life[2], { time: 'Учёт времени (Time tracking)', src: 'Источники записей (Sources)' }); Object.assign(AREAS.plat[2], { audit: 'Аудит (Audit)' }); Object.assign(AREAS, { team: ['Команда', 'Team', { space: 'Командное пространство (Team space)', live: 'Кто на доске (Presence)' }], ai: ['Claude', 'AI', { board: 'Claude на доске (AI on board)' }], files: ['Файлы', 'Files', { drop: 'Файлы на доске (Files on board)', group: 'Групповое встраивание (Bulk embed)', lib: 'Библиотека файлов (File library)' }] }); Object.assign(AREAS.data[2], { trash: 'Корзина (Trash)', space: 'Объём (Storage usage)' }); Object.assign(AREAS.life[2], { modes: 'Режимы задачника (Task manager modes)' }); Object.assign(AREAS.plat[2], { guide: 'Гайды и демо (Guides)' }); AREAS.org[2].fhead = 'Табулятор рамки (Frame tabulator)';
 const areaLabel = c => { const [a, m] = String(c || '').split('.'), A = AREAS[a]; return A ? A[0] + (m && A[2][m] ? ' › ' + A[2][m].replace(/ \(.*\)$/, '') : '') : ''; };
-const VERS = [['2.5', '9 октября 2026'], ['2.4', '9 октября 2026'], ['2.3', '8 октября 2026'], ['2.2', '7 октября 2026'], ['2.1', '6 октября 2026'], ['2.0', '6 октября 2026'], ['1.9', '6 октября 2026'], ['1.8', '6 октября 2026'], ['1.7', '6 октября 2026'], ['1.6', '5 октября 2026'], ['1.5', '5 октября 2026'], ['1.4', '5 октября 2026'], ['1.3', '4 октября 2026'], ['1.2', '4 октября 2026'], ['1.0', '4 октября 2026']];
+const VERS = [['2.6', '9 октября 2026'], ['2.5', '9 октября 2026'], ['2.4', '9 октября 2026'], ['2.3', '8 октября 2026'], ['2.2', '7 октября 2026'], ['2.1', '6 октября 2026'], ['2.0', '6 октября 2026'], ['1.9', '6 октября 2026'], ['1.8', '6 октября 2026'], ['1.7', '6 октября 2026'], ['1.6', '5 октября 2026'], ['1.5', '5 октября 2026'], ['1.4', '5 октября 2026'], ['1.3', '4 октября 2026'], ['1.2', '4 октября 2026'], ['1.0', '4 октября 2026']];
 const KIND = { f: ['Новое', 'Feature'], i: ['Улучшение', 'Improvement'], x: ['Исправление', 'Bug fix'], b: ['Ожидается', 'Backlog'] };
 /* [id, version, area.module, kind, title, how to use, context] */
 const FEATS = [
@@ -5839,6 +5970,18 @@ const FEATS = [
 ['f25_dfit','2.5','obj.docs','i','Документ виден целиком','Ничего не нужно: высота сама по тексту.','На доске видно всё сразу.'],
 ['f25_dtoc','2.5','obj.docs','f','Оглавление документа','Выделите документ → «Оглавление».','Все уровни заголовков, щелчок — переход.'],
 ['f25_dsec','2.5','obj.docs','f','Документ по разделам с вкладками','Выделите документ → «Целиком / По разделам».','Длинный текст по частям — там, где это нужно.'],
+['f26_spaces','2.6','team.space','f','Командные пространства на Google Диске','Панель досок → «Командные пространства» → «+».','Команда с Google-аккаунтами, без Claude: общие доски и задачи.'],
+['f26_invite','2.6','team.space','f','Приглашения по почте, роли, разделы','⚙ у пространства → «Пригласить».','Владелец, администратор, участник, наблюдатель; Диск сам открывает доступ.'],
+['f26_move','2.6','team.space','i','Перенос доски в пространство','⋯ у доски → «Перенести в командное пространство».','Рабочие доски — команде.'],
+['f26_who','2.6','team.live','f','Кто чем занят и время команды','Life OS → Lean → «Кто чем занят», «Время команды».','Видно всем: работа, блоки, где сейчас, время каждого.'],
+['f26_modes','2.6','life.modes','f','Один задачник — три методологии','Life OS → To-do, Lean, Life OS.','Те же задачи: список дел, поток Lean, метод DEV.'],
+['f26_lean','2.6','life.modes','f','Lean: витрина, поток, WIP-лимит, блоки','Life OS → Lean → «Витрина Lean», «Поток».','Работа течёт, а не копится.'],
+['f26_life','2.6','life.modes','f','Life OS как DEV: итерации, статусы, отчёты','Life OS → Life OS → «Итерации», «Нужно ваше действие».','Метод DEV для своей жизни и проектов.'],
+['f26_dirs','2.6','life.modes','f','Направления любой глубины, первый слой по методологии','Слева «Направления» → «+»; «Преднастроить по …».','Своя структура в каждой методологии.'],
+['f26_my','2.6','life.modes','i','«Мои задачи» в каждом режиме','Назначьте исполнителя в карточке задачи.','Каждому — своё.'],
+['f26_tab','2.6','org.fhead','i','Табулятор: название своей строкой, метрики рядом с Life OS','Посмотрите на рамку.','Ничто не мешает названию.'],
+['f26_tabz','2.6','org.fhead','i','Табулятор уменьшается вместе с доской с 7%','Отдалите доску.','Не засоряет экран.'],
+['f26_side','2.6','cust.panels','x','Боковая панель: «поверх / сбоку» и закрытие колонки','Life OS → ⇤ → ⇤; ✕ у свёрнутой колонки.','Кнопки работают.'],
 ['b_types','backlog','obj.struct','b','Остальные виды объектов Miro, Whimsical, Excalidraw','Остались: диаграмма последовательности, вайрфреймы, таймлайн, комментарии','Нужен порядок: что важнее для переезда.'],
 ['b_miro','backlog','io.imp','b','Импорт из Miro','Будет как импорт из Whimsical.','Отложено: жду полного удовлетворения импортом из Whimsical; возможно, перенесу вручную — досок там мало.'],
 ['b_drivew','backlog','obj.media','b','Виджет папки Google Диска','Папка Диска на доске с перетаскиванием файлов.','Отложено ради исправлений.'],
@@ -6905,13 +7048,13 @@ const DEV_X = [
   { id: 'S24-h9', it: '2.4', area: 'obj.html', parent: 'U24-html', status: 'review', orig: 'при добавлении инструментов на доску это происходит какое то время… должна быть индикация загрузки. то же самое происходит и на доске. объект доавлен но какое то времяпрогружается, там тоже нужна индикация.', title: 'Индикация загрузки в библиотеке и на доске', report: R21('Кнопка «Поставить» крутит значок и внизу экрана видно «Ставлю … на доску». На доске пока инструмент грузится — фиолетовый кружок и «Загружаю…».', 'Поставьте большой инструмент из библиотеки.', '') },
   { id: 'S24-h10', it: '2.4', area: 'obj.html', parent: 'U24-html', status: 'review', orig: 'все инструменты life os должны иметь функцию встраивания в доску. примерно как это сейчас у html инструментов.', title: 'Виджеты Life OS на доске', report: R21('Меню → «Виджет на доску»: Life OS (витрина, сегодня, 7 дней, входящие, все задачи, командный задачник, спринт, гипотезы, «ждут меня»), учёт времени. Виджет обновляется сам, щелчок по задаче открывает её в Life OS, задачу можно добавить прямо из виджета.', 'Меню → «Виджет на доску…» → «Life OS: сегодня».', 'Сложные действия (перетаскивание между колонками) — в окне Life OS.') },
   { id: 'S24-h11', it: '2.4', area: 'obj.html', parent: 'U24-html', status: 'review', orig: 'панели меню тоже должно быть возможно размещать на доске. в общем практически все что есть в приложении должно быть возможно размещать на досках.', title: 'Меню, библиотека и хранилище — тоже виджетами', report: R21('Виджеты «Меню Холста» (все пункты меню кнопками), «Библиотека» (поставить инструмент), «Хранилище: что куда сохраняется». Любой объект и любую панель можно открыть в боковой панели.', 'Меню → «Виджет на доску…» → «Меню Холста».', 'DEV целиком пока на доску не ставится — только сбоку.') },
-  { id: 'U24-team', it: '2.4', area: 'team.space', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'реализуй полностью все механики коллективной командной работы. на основе референсных сервисов.', title: 'Командная работа' },
-  { id: 'S24-t1', it: '2.4', area: 'team.space', parent: 'U24-team', status: 'review', orig: 'как минимум жду коллективное пространство куда добавляются пользователи. там будут свои папки и так далее', title: 'Командное пространство', report: R21('Меню → «Команда»: участники (появляются сами, когда открывают ваш Холст), роли, командные доски, командный задачник. Доска становится командной кнопкой «Сделать командной»; у участников она появляется в списке досок со значком 👥.', 'Поделитесь Холстом в Claude с коллегой → он открывает → Меню → «Команда».', 'Общих папок команды пока нет: командные доски каждый раскладывает по своим группам. Следующим шагом — общие папки.') },
-  { id: 'S24-t2', it: '2.4', area: 'team.space', parent: 'U24-team', status: 'review', orig: 'продумай как реализовать техническую архитектуру этих процессов. я вижу так что у каждого пользователя данные хранятся в их гугл драйве, а коллективная доска тоже сохраняется у каждого синхронно. но так же должна быть опция чтобы была одна коллективная база на драве.', title: 'Архитектура: живая доска в Claude + копии у каждого или одна база на Диске', report: R21('Личное — у каждого своё (устройство, его хранилище Claude, его Google Диск). Командные доски живут в общей базе артефакта: правки сливаются по объектам (разные объекты — оба изменения, один и тот же — побеждает более позднее), перед каждой записью Холст читает свежую версию. Хранение на выбор: «копия у каждого участника» (через его обычную синхронизацию с Диском) или «одна общая база на Диске» — файлы пишутся в общую папку владельца. Схема описана в окне «Команда» → «Как устроена командная работа» и в документе проекта.', 'Меню → «Команда» → «Где хранятся командные доски».', 'Работает в версии внутри Claude. В приложении на компьютере командных досок пока нет — только их копии на Диске.') },
-  { id: 'S24-t3', it: '2.4', area: 'team.space', parent: 'U24-team', status: 'review', orig: 'разный функционал у разных пользователей', title: 'Роли и свой набор разделов у каждого', report: R21('Роли: владелец, администратор, участник, только просмотр. У каждого участника галочками включаются разделы: Life OS, DEV, Библиотека, Импорт, Claude — выключенные пропадают у него из меню и с панели.', 'Меню → «Команда» → снимите у участника «DEV».', 'Роль «только просмотр»: правки такого участника не уходят в команду.') },
-  { id: 'S24-t4', it: '2.4', area: 'team.space', parent: 'U24-team', status: 'review', orig: 'у всего что есть на сайте должна быть возможность раздельной настройки. например тумблеры механик или фильтры на досках. кстати говоря фильтры на досках как опция нужно сделать чтобы и раздельный фильтр и общий можно было выбрать.', title: 'Общие и личные настройки: механики и фильтры', report: R21('Механики: владелец задаёт значение для всей команды, любой участник может поменять у себя. Фильтры доски: переключатель «Общий / Только мой».', 'Фильтр доски → «Только мой».', 'Остальные настройки (клавиши, масштаб) и раньше были у каждого свои.') },
-  { id: 'S24-t5', it: '2.4', area: 'team.space', parent: 'U24-team', status: 'review', orig: 'коллективный задачник тоже должен полностью работать в пространстве.', title: 'Командный задачник', report: R21('Задача с пометкой «Командная задача» видна всем участникам, у неё есть исполнитель. Страница «Командный задачник» — колонки по статусам, «Мои» и «Все».', 'Life OS → режим «Команда» → «Командный задачник» → добавьте задачу.', '') },
-  { id: 'S24-pres', it: '2.4', area: 'team.live', parent: 'U24-team', status: 'review', orig: 'пометка о том какой пользователь на доске и указатель его мышки виден всем. только сделай надежно, а то на других сервисах типа вимзикла почему то указатель пропадал часто.', title: 'Кто на доске и их курсоры — надёжно', report: R21('Наверху — кружки тех, кто сейчас в Холсте; щелчок: где они, «Перейти», «Где он», «Следовать» (экран едет за человеком). Курсоры с именами видны всем на одной доске. Надёжность: присутствие подтверждается раз в 2,5 секунды, курсор отошедшего бледнеет, но не пропадает; при обрыве связи Холст переподключается сам.', 'Откройте Холст в двух окнах (или с коллегой) — двигайте мышью.', 'Работает в версии внутри Claude у тех, кому вы дали доступ к Холсту.') },
+  { id: 'U24-team', it: '2.4', area: 'team.space', status: 'irrelevant', nowhyAi: 'Заменено командными пространствами на Google Диске (2.6): команда работает без Claude.', type: 'Фича', prio: 'Высокий', orig: 'реализуй полностью все механики коллективной командной работы. на основе референсных сервисов.', title: 'Командная работа' },
+  { id: 'S24-t1', it: '2.4', area: 'team.space', parent: 'U24-team', status: 'irrelevant', nowhyAi: 'Заменено командными пространствами на Google Диске (2.6): команда работает без Claude.', orig: 'как минимум жду коллективное пространство куда добавляются пользователи. там будут свои папки и так далее', title: 'Командное пространство', report: R21('Меню → «Команда»: участники (появляются сами, когда открывают ваш Холст), роли, командные доски, командный задачник. Доска становится командной кнопкой «Сделать командной»; у участников она появляется в списке досок со значком 👥.', 'Поделитесь Холстом в Claude с коллегой → он открывает → Меню → «Команда».', 'Общих папок команды пока нет: командные доски каждый раскладывает по своим группам. Следующим шагом — общие папки.') },
+  { id: 'S24-t2', it: '2.4', area: 'team.space', parent: 'U24-team', status: 'irrelevant', nowhyAi: 'Заменено командными пространствами на Google Диске (2.6): команда работает без Claude.', orig: 'продумай как реализовать техническую архитектуру этих процессов. я вижу так что у каждого пользователя данные хранятся в их гугл драйве, а коллективная доска тоже сохраняется у каждого синхронно. но так же должна быть опция чтобы была одна коллективная база на драве.', title: 'Архитектура: живая доска в Claude + копии у каждого или одна база на Диске', report: R21('Личное — у каждого своё (устройство, его хранилище Claude, его Google Диск). Командные доски живут в общей базе артефакта: правки сливаются по объектам (разные объекты — оба изменения, один и тот же — побеждает более позднее), перед каждой записью Холст читает свежую версию. Хранение на выбор: «копия у каждого участника» (через его обычную синхронизацию с Диском) или «одна общая база на Диске» — файлы пишутся в общую папку владельца. Схема описана в окне «Команда» → «Как устроена командная работа» и в документе проекта.', 'Меню → «Команда» → «Где хранятся командные доски».', 'Работает в версии внутри Claude. В приложении на компьютере командных досок пока нет — только их копии на Диске.') },
+  { id: 'S24-t3', it: '2.4', area: 'team.space', parent: 'U24-team', status: 'irrelevant', nowhyAi: 'Заменено командными пространствами на Google Диске (2.6): команда работает без Claude.', orig: 'разный функционал у разных пользователей', title: 'Роли и свой набор разделов у каждого', report: R21('Роли: владелец, администратор, участник, только просмотр. У каждого участника галочками включаются разделы: Life OS, DEV, Библиотека, Импорт, Claude — выключенные пропадают у него из меню и с панели.', 'Меню → «Команда» → снимите у участника «DEV».', 'Роль «только просмотр»: правки такого участника не уходят в команду.') },
+  { id: 'S24-t4', it: '2.4', area: 'team.space', parent: 'U24-team', status: 'irrelevant', nowhyAi: 'Заменено командными пространствами на Google Диске (2.6): команда работает без Claude.', orig: 'у всего что есть на сайте должна быть возможность раздельной настройки. например тумблеры механик или фильтры на досках. кстати говоря фильтры на досках как опция нужно сделать чтобы и раздельный фильтр и общий можно было выбрать.', title: 'Общие и личные настройки: механики и фильтры', report: R21('Механики: владелец задаёт значение для всей команды, любой участник может поменять у себя. Фильтры доски: переключатель «Общий / Только мой».', 'Фильтр доски → «Только мой».', 'Остальные настройки (клавиши, масштаб) и раньше были у каждого свои.') },
+  { id: 'S24-t5', it: '2.4', area: 'team.space', parent: 'U24-team', status: 'irrelevant', nowhyAi: 'Заменено командными пространствами на Google Диске (2.6): команда работает без Claude.', orig: 'коллективный задачник тоже должен полностью работать в пространстве.', title: 'Командный задачник', report: R21('Задача с пометкой «Командная задача» видна всем участникам, у неё есть исполнитель. Страница «Командный задачник» — колонки по статусам, «Мои» и «Все».', 'Life OS → режим «Команда» → «Командный задачник» → добавьте задачу.', '') },
+  { id: 'S24-pres', it: '2.4', area: 'team.live', parent: 'U24-team', status: 'irrelevant', nowhyAi: 'Заменено командными пространствами на Google Диске (2.6): команда работает без Claude.', orig: 'пометка о том какой пользователь на доске и указатель его мышки виден всем. только сделай надежно, а то на других сервисах типа вимзикла почему то указатель пропадал часто.', title: 'Кто на доске и их курсоры — надёжно', report: R21('Наверху — кружки тех, кто сейчас в Холсте; щелчок: где они, «Перейти», «Где он», «Следовать» (экран едет за человеком). Курсоры с именами видны всем на одной доске. Надёжность: присутствие подтверждается раз в 2,5 секунды, курсор отошедшего бледнеет, но не пропадает; при обрыве связи Холст переподключается сам.', 'Откройте Холст в двух окнах (или с коллегой) — двигайте мышью.', 'Работает в версии внутри Claude у тех, кому вы дали доступ к Холсту.') },
   { id: 'S24-src', it: '2.4', area: 'obj.media', status: 'review', type: 'Фича', prio: 'Средний', orig: 'к картинке или любому файлу должна быть возможность указать ссылку на исходник. если исходник находится на гугл драйве то через виджет гугл драйва чтобы была визуализация с их интерфейсом.', title: 'Ссылка на исходник у картинки и файла', report: R21('У картинки, файла, документа и встраивания — «Исходник» на панели. На объекте появляется фиолетовая метка «↗ исходник» или «◭ Диск»; щелчок по метке с Google Диска открывает файл в просмотре самого Диска сбоку.', 'Выделите картинку → «Исходник» → вставьте ссылку на файл Google Диска → щёлкните метку.', 'Просмотр Диска покажет файл, если у вас есть к нему доступ.') },
   { id: 'S24-tg', it: '2.4', area: 'life.tm', status: 'review', type: 'Фича', prio: 'Средний', orig: 'любые отдельные или группы задач в задачнике должны иметь функцию скриншота и отдельно еще красивого форматирования текстовым видом при импорте в телеграм чат. это связано с тем что один из пользователей не будет заходить в холст и его нужно вводить в курс дела.', title: 'Задачи в Telegram: текстом и картинкой', report: R21('На любой странице со списком задач — «В Telegram» (аккуратный текст: проекты жирным, значки статусов, сроки, приоритеты, исполнители, первая строка заметки) и «Снимок» (картинка списка в стиле Холста). Текст и картинка копируются — вставьте в чат.', 'Life OS → «Сегодня» → «В Telegram» → вставьте в Telegram.', 'Если браузер не даёт скопировать картинку, она скачается файлом.') },
   { id: 'S24-tour', it: '2.4', area: 'plat.guide', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'в мою доску приходят новые люди. ты должен сделать интерактивный гайд по холсту. некий демо режим с ведением пользователя… когда стрелочки и всплавашки появляются и просят делать действия по шагам обучения. так же отдельно по каждой функции такие же гайды. в разделе инфы про версии', title: 'Интерактивные гайды', report: R21('При первом открытии Холст предлагает гайд: подсветка, стрелка и подсказка по шагам; на некоторых шагах он ждёт, пока вы сделаете действие (например, поставите стикер). Отдельные гайды: фильтры, HTML-инструменты, боковая панель, матрица, вставка из Whimsical, хранилище, Claude, команда, режимы задачника — в «Что нового» сверху и кнопкой «Гайд ▸» у функций.', 'Меню → «Гайд по Холсту».', '') },
@@ -6974,7 +7117,7 @@ const DEV_X = [
   { id: 'A24-tt', it: '2.4', area: 'life.src', status: 'action', type: 'Фича', prio: 'Высокий', owner: 'Я', title: 'Повторить перенос из TickTick', need: '1. Откройте Холст внутри Claude.\n2. J → «Перенос из TickTick» → «Перенести».\n3. Напишите, сколько пришло задач, или пришлите текст ошибки.' },
   { id: 'A24-whim', it: '2.4', area: 'io.clip', status: 'action', type: 'Фича', prio: 'Высокий', owner: 'Я', title: 'Обновить тексты Whimsical вставкой', need: '1. Импортируйте доску из очереди заново (все тексты станут красными).\n2. В Whimsical выделите объекты одним щелчком (можно сразу много), Ctrl+C.\n3. В Холсте на этой доске Ctrl+V — красное уйдёт.\n4. Если цвет или фон не совпал: Меню → «Что лежит в буфере обмена» → вставьте → «Скопировать отчёт для Claude» → пришлите мне.' },
   { id: 'A24-notion', it: '2.4', area: 'io.imp', status: 'action', type: 'Фича', prio: 'Высокий', owner: 'Я', title: 'Перенести Notion архивом', need: '1. Notion → Settings → Export → Export all workspace content → формат «Markdown & CSV», «Include subpages».\n2. Скачайте архив .zip.\n3. Холст → Меню → «Перенос из Notion (архив .zip)» → выберите архив → проверьте виды записей → «Перенести».' },
-  { id: 'A24-team', it: '2.4', area: 'team.space', status: 'action', type: 'Фича', prio: 'Средний', owner: 'Я', title: 'Запустить команду', need: '1. Откройте Холст внутри Claude → Меню → «Команда» (пространство создастся).\n2. Кнопкой «Поделиться» в Claude дайте коллеге доступ «Может редактировать».\n3. Сделайте доску командной, откройте её вдвоём: проверьте курсоры и правки.\n4. Решите, где хранить командные доски: копии у каждого или одна папка на Диске.' },
+  { id: 'A24-team', it: '2.4', area: 'team.space', status: 'irrelevant', nowhyAi: 'Заменено командными пространствами на Google Диске (2.6): команда работает без Claude.', type: 'Фича', prio: 'Средний', owner: 'Я', title: 'Запустить команду', need: '1. Откройте Холст внутри Claude → Меню → «Команда» (пространство создастся).\n2. Кнопкой «Поделиться» в Claude дайте коллеге доступ «Может редактировать».\n3. Сделайте доску командной, откройте её вдвоём: проверьте курсоры и правки.\n4. Решите, где хранить командные доски: копии у каждого или одна папка на Диске.' },
   { id: 'A24-pc', it: '2.4', area: 'data.backup', status: 'action', type: 'Фича', prio: 'Высокий', owner: 'Я', title: 'Проверить копии перед переездом', need: '1. В приложении на компьютере: Меню → «Резервная копия в папку» → выберите папку (если ещё нет).\n2. «Открыть папку»: должны быть файлы досок, «Файлы досок» с картинками, «Life OS», «DEV», «Настройки».\n3. Меню → «Хранилище и копии» → проверьте таблицу и галочки.' },
   /* ---------- 2.4: added during the build (fa05d8a5) ---------- */
   { id: 'S24-hov', it: '2.4', area: 'canvas.look', parent: 'U24-ui', status: 'review', orig: 'при наведении на объекты не надо подсвечивать их содержание. только контуры. это связано с тем что я просто читаю то что там внутри. а синяя подсветка портит вид.', title: 'При наведении — только контур', report: R21('Синяя заливка при наведении убрана везде, остался только контур. Записано в «Опоры» → «Правила интерфейса».', 'Наведите на стикер или текст: содержимое не тонируется.', '') },
@@ -7009,6 +7152,59 @@ const DEV_X = [
   { id: 'A25-figma', it: '2.5', area: 'files.group', status: 'action', type: 'Исследование', prio: 'Средний', owner: 'Я', title: 'Figma: нужен ли прямой импорт', need: 'Сейчас работают живые фреймы по ссылкам и портфолио из экспорта PNG.\nПрямой импорт (Холст сам забирает картинки всех фреймов файла Figma) требует вашего личного токена: Figma → Settings → Security → Personal access tokens → создать токен только для чтения. Токен будет храниться только на вашем устройстве.\nНапишите «делаем» — сделаю в следующей итерации.' },
   { id: 'A25-big', it: '2.5', area: 'files.drop', status: 'action', type: 'Исследование', prio: 'Средний', owner: 'Я', title: 'Большие файлы внутри Claude: включать ли', need: 'Сейчас файлы больше 600 КБ хранятся на устройстве, в папке на компьютере и на Google Диске, а в версии внутри Claude — только небольшие.\nМожно включить хранилище файлов Claude (до 20 МБ на файл). Цена: Холст внутри Claude перестанет открываться по публичной ссылке — только у людей вашей организации в Claude.\nНапишите, нужно ли.' },
   { id: 'A25-site', it: '2.5', area: 'plat.rel', status: 'action', type: 'Документация', prio: 'Средний', owner: 'Я', title: 'Выложить 2.5 на сайт', need: '1. Скачайте holst-app.zip из чата.\n2. GitHub → podkindmitry/holst → «Add file» → «Upload files» → перетащите содержимое архива (с папкой tools) → «Commit changes».\n3. Через минуту откройте сайт: ⋯ → «Справка» → версия 2.5.' },
+  /* ---------- 2.6: the user's words split into atomic tasks ---------- */
+  { id: 'U26-team', it: '2.6', area: 'team.space', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'мне нужен функционал работы команды где у каждого гугл аккаунт а не клод. так как клода нет ни у кого кроме меня. это самое важное', title: 'Команда с Google-аккаунтами, без Claude', report: R21('Командные пространства на Google Диске. Пространство — общая папка владельца: доски, задачи, присутствие и время каждого. Участник открывает ссылку-приглашение на сайте Холста и входит своим Google — Claude не нужен. Изменения доходят за 20 секунд и сливаются по объектам и задачам; при одновременной правке ничего не теряется.', 'Панель досок → «Командные пространства» → «+» → пригласите второй свой адрес Google и откройте ссылку в другом браузере.', 'Живых курсоров нет: Google Диск не умеет мгновенную связь, присутствие обновляется раз в минуту. Участников нужно добавить в «Test users» вашего проекта Google Cloud (или опубликовать приложение) — см. «Нужно ваше действие».') },
+  { id: 'S26-g1', it: '2.6', area: 'team.space', parent: 'U26-team', status: 'review', orig: 'я так и не увидел общих пространств с другими пользователями. сделай их на панели так как это обычно в референсах. это назвается командные пространства. внутри них свои проекты и так далее', title: 'Командные пространства на панели досок', report: R21('Как в Notion и ClickUp: в панели досок сверху раздел «Командные пространства», в каждом — свои доски, «+» — новая доска, ⚙ — участники. В задачнике переключатель «Моё / пространство»: у пространства свои направления, проекты и задачи. Личную доску можно перенести в пространство (⋯ у доски).', 'Откройте панель досок слева.', '') },
+  { id: 'S26-g2', it: '2.6', area: 'team.space', parent: 'U26-team', status: 'review', type: 'Баг', orig: 'режимы работающие только если у всех есть клод - упраздни, это не гибко', title: 'Команда «только с Claude» упразднена', report: R21('Командная база внутри артефакта Claude больше не включается. Командная работа — только через Google Диск, одинаково на сайте и внутри Claude.', '⋯ → «Командные пространства».', '') },
+  { id: 'S26-g3', it: '2.6', area: 'team.space', parent: 'U26-team', status: 'review', orig: 'продумай все сценарии командной работы людей с гугл аккаунтами, общим гугл диском. должно быть уже готово к развертыванию полноценного бизнеса. для контекста мы делаем маркетинговое агентство', title: 'Сценарии агентства на общем Google Диске', report: R21('Сценарии: владелец создаёт пространство с заготовкой «Маркетинговое агентство» (направления-услуги); приглашает по почте с ролью (администратор, участник, наблюдатель) — Диск сам открывает доступ к папке и шлёт письмо со ссылкой; у каждого свои «Мои задачи»; поток Lean с лимитами и блоками; «Кто чем занят» и «Время команды» видят все; роли ограничивают правку (наблюдатель только смотрит, удаляет доски владелец или администратор); участник убирается — доступ к папке снимается; разделы можно скрыть отдельному человеку; папку можно создать в общем диске Google Workspace; без интернета работа продолжается, при подключении сливается.', 'Создайте пространство «Агентство», пригласите себя вторым адресом, назначьте задачу.', 'Клиенту можно дать роль «Наблюдатель», но он увидит всё пространство — отдельное пространство на клиента решает это.') },
+  { id: 'S26-g4', it: '2.6', area: 'team.live', parent: 'U26-team', status: 'review', orig: 'учет времени для лин сделай чтобы все видели статистику всех', title: 'Время команды: все видят всех', report: R21('Каждый участник раз в 10 минут кладёт в папку пространства своё активное время по дням и доскам. Lean → «Время команды»: таблица людей по дням за неделю; «Кто чем занят» — время сегодня и за неделю у каждого.', 'Lean → «Время команды».', '') },
+  { id: 'U26-tm', it: '2.6', area: 'life.modes', status: 'review', type: 'Баг', prio: 'Высокий', orig: 'ты не понял мою задумку насчет трех режимов. идея такая что один и тот же контент отображается в трех разных методологиях.', title: 'Задачник: один контент — три методологии', report: R21('Режимы больше не держат разные данные: задачи, проекты и направления одни, у статуса одно значение. To-do, Lean и Life OS называют статусы по-своему и показывают их своими панелями. Старые статусы Life OS из 2.4 перенесены в общие.', 'Переключите To-do → Lean → Life OS на одной задаче.', '') },
+  { id: 'S26-t1', it: '2.6', area: 'life.modes', parent: 'U26-tm', status: 'review', orig: 'режим 2 назови Lean', title: 'Режим 2 — Lean', report: R21('Режим называется Lean.', 'Откройте Life OS.', '') },
+  { id: 'S26-t2', it: '2.6', area: 'life.modes', parent: 'U26-tm', status: 'review', orig: 'базу перенеси в служебное', title: '«База» — в «Служебное»', report: R21('«База» внизу, в «Служебном», рядом с учётом времени, корзиной и переносом.', 'Посмотрите низ левой колонки.', '') },
+  { id: 'S26-t3', it: '2.6', area: 'life.modes', parent: 'U26-tm', status: 'review', orig: 'для каждого режима придумай свои витрины на основе методологий. например стартапу не нужны сферы жизни', title: 'Своя витрина у каждого режима', report: R21('To-do: сегодня, просрочено, входящие, неделя, проекты с прогрессом — без сфер. Lean: WIP и лимит, пропускная способность по неделям, время цикла, блоки, застрявшее, загрузка людей, поток по направлениям. Life OS: статусы как в DEV, «нужно ваше действие», «ждёт проверки», сферы, итерация.', 'Откройте «Витрину» в каждом режиме.', '') },
+  { id: 'S26-t4', it: '2.6', area: 'life.modes', parent: 'U26-tm', status: 'review', orig: 'добавь еще возможность создания своих направлений на любом количестве углубления в уровни', title: 'Свои направления любой глубины', report: R21('Слева дерево направлений: «+» у направления — вложенное направление, проект, эпик или задача; ▸ сворачивает ветку. Глубина не ограничена.', 'Наведите на направление → «+».', '') },
+  { id: 'S26-t5', it: '2.6', area: 'life.modes', parent: 'U26-tm', status: 'review', orig: 'для каждой методологии первый слой направлений должен быть преднастроен на основе этой методологии', title: 'Первый слой направлений — по методологии', report: R21('To-do: Личное, Работа, Дом и быт, Покупки и дела, Идеи. Lean (агентство): Клиенты и проекты, Продажи и лиды, SMM и контент, Реклама и трафик, Сайты и SEO, Стратегия и бренд, Команда и найм, Финансы и операции, Улучшение процессов. Life OS: сферы жизни. Кнопка «Преднастроить по …»; у направления можно выбрать, в каких режимах его показывать.', 'Режим без направлений → «Преднастроить».', '') },
+  { id: 'S26-t6', it: '2.6', area: 'life.modes', parent: 'U26-tm', status: 'review', orig: 'продумай чтобы было удобная структура того что назначено кому. во всех трех режимах личные задачи каждому пользователю должны падать в соответствующие панели согласно методологиям.', title: '«Мои задачи» в каждом режиме', report: R21('Исполнитель — в карточке задачи. To-do: «Мои задачи» по статусам. Lean: «Мои задачи» потоком и дорожка «По людям». Life OS: «Нужно ваше действие». В личном пространстве внизу — «Назначено мне в командах» из всех пространств.', 'Назначьте задачу себе в пространстве.', '') },
+  { id: 'S26-t7', it: '2.6', area: 'life.modes', parent: 'U26-tm', status: 'review', orig: 'режим life os в основных рабочих панелях должен копировать dev раздел', title: 'Life OS — рабочие панели как в DEV', report: R21('Итерации колонками с направлениями внутри, «Направления × статусы», все статусы DEV (драфт, ожидает, в работе, нужно ваше действие, ждёт проверки, на доработке, на паузе, завершено, не актуально), пояснение к каждому статусу, «что нужно от вас», отчёт «сделано · проверить · ограничения», «Не сейчас».', 'Life OS → «Итерации» и «Нужно ваше действие».', '') },
+  { id: 'S26-t8', it: '2.6', area: 'life.modes', parent: 'U26-tm', status: 'review', orig: 'командный задачник не имеет смысла потому что это будет внутри пространств команд', title: 'Командный задачник убран', report: R21('Отдельного командного задачника нет: задачи команды — внутри её пространства, во всех трёх режимах.', 'Откройте Life OS.', '') },
+  { id: 'S26-t9', it: '2.6', area: 'life.modes', parent: 'U26-tm', status: 'review', orig: 'режим лин хорошо продумай чтобы было удобно ориентироваться в общекомандных процессах, по направлениям, по проектам и личных. это должно быть хорошо видно всем кто чем занят и так далее', title: 'Lean: поток, направления, проекты, люди', report: R21('«Поток» с дорожками по направлениям или по людям и фильтром «Только мои», WIP-лимит, блоки и доработка на карточках, дни в работе. «Кто чем занят»: у каждого в работе, блок, дальше, готово за неделю, время, где сейчас. «Направления и проекты»: дерево с прогрессом и людьми.', 'Lean → «Поток» → «По людям».', '') },
+  { id: 'S26-t10', it: '2.6', area: 'life.modes', parent: 'U26-tm', status: 'review', orig: 'витрину лин сделай на основе методологии лин. то есть переработай', title: 'Витрина Lean по методологии Lean', report: R21('Метрики Kanban и Lean: WIP против лимита, пропускная способность, время цикла (медиана), блоки, застрявшее дольше недели, распределение работы по этапам, загрузка людей, поток по направлениям.', 'Lean → «Витрина Lean».', '') },
+  { id: 'S26-tz', it: '2.6', area: 'org.fhead', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'вкладки фреймов должны начать подчиняться масштабирования начиная с 7 процентов и меньше. это связано с тем что на большом зумауте большие вкладки вообще не нужны потому что юзер даже не видит контент внутри доски, а вкладки нелогично засоряют экран', title: 'Табулятор уменьшается вместе с доской с 7%', report: R21('До 7% табулятор того же размера на экране, ниже — уменьшается вместе с доской.', 'Отдалите доску до 4%.', '') },
+  { id: 'S26-tn', it: '2.6', area: 'org.fhead', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'название в табуляторе должно быть всегда отдельной строкой и ничего не должно ему мешать.', title: 'Название в табуляторе — своей строкой', report: R21('Название рамки всегда в первой строке табулятора, без соседей.', 'Посмотрите на любую рамку.', '') },
+  { id: 'S26-tm2', it: '2.6', area: 'org.fhead', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'перемести метрики в ту же строку где метки life os. сначала метрики потом life os', title: 'Метрики и Life OS — одной строкой', report: R21('Вторая строка: сначала числа, потом метки Life OS.', 'Свяжите рамку с проектом Life OS.', '') },
+  { id: 'S26-sp1', it: '2.6', area: 'cust.panels', status: 'review', type: 'Баг', prio: 'Высокий', orig: 'кнопка переключения режимов отображения панелей не всегда работает.', title: 'Кнопка «поверх / сбоку» работает в боковой панели', report: R21('Причина: у Life OS и DEV свои кнопки режима, внутри боковой панели они не срабатывали, а после возврата поверх экрана панель «помнила» старое положение. Теперь любая такая кнопка внутри боковой панели открывает панель поверх экрана, и снова — обратно.', 'Life OS → ⇤ → ⇤.', '') },
+  { id: 'S26-sp2', it: '2.6', area: 'cust.panels', status: 'review', type: 'Баг', prio: 'Высокий', orig: 'так же удаление колонки не работает. я так понял что они не работают джля колонок панелей, но это не точно.', title: 'Свёрнутую колонку можно закрыть', report: R21('Причина: у свёрнутой колонки пропадала кнопка закрытия. Теперь ✕ есть всегда.', 'Сверните колонку «‹» → ✕.', '') },
+  /* ---------- 2.7: in progress ---------- */
+  { id: 'U26-crawl', it: 'backlog', area: 'io.web', status: 'progress', type: 'Фича', prio: 'Средний', orig: 'сделай функцию при вставке любой ссылки. когда будет сканироваться весь сайт и его разделы. и выкладываться на доску группой объектов.', title: 'Сайт целиком на доску по одной ссылке', desc: 'Делается в 2.7.' },
+  { id: 'S26-cr1', it: 'backlog', area: 'io.web', parent: 'U26-crawl', status: 'progress', orig: 'внедри гибкую настройку с панелью того что найдено. структура сайта, добавление только определенных кусков и так далее.', title: 'Панель найденного: структура, выбор кусков' },
+  { id: 'S26-cr2', it: 'backlog', area: 'io.web', parent: 'U26-crawl', status: 'progress', orig: 'подумай сам что еще нужно.', title: 'Глубина, раздел, снимки или текст, раскладка' },
+  { id: 'U26-road', it: 'backlog', area: 'dev.dev', status: 'progress', type: 'Фича', prio: 'Средний', orig: 'внутри dev создай подраздел который будет с роадмапом и метриками и статусами подготовки продукта к релизу на широкую аудиторию. я там должен отслеживать всю стратегию и тактику процесса на основе методологий по котором выпускают цифровые сервисы подобного рода. можно взять вдохновение из референсов тоже', title: 'DEV: подготовка к широкому релизу', desc: 'Делается в 2.7.' },
+  { id: 'S26-rd1', it: 'backlog', area: 'dev.dev', parent: 'U26-road', status: 'progress', orig: 'роадмап', title: 'Роадмап по этапам' },
+  { id: 'S26-rd2', it: 'backlog', area: 'dev.dev', parent: 'U26-road', status: 'progress', orig: 'метрики', title: 'Метрики готовности' },
+  { id: 'S26-rd3', it: 'backlog', area: 'dev.dev', parent: 'U26-road', status: 'progress', orig: 'статусы подготовки продукта к релизу на широкую аудиторию', title: 'Готовность по направлениям' },
+  { id: 'S26-rd4', it: 'backlog', area: 'dev.dev', parent: 'U26-road', status: 'progress', orig: 'на основе методологий по котором выпускают цифровые сервисы подобного рода. можно взять вдохновение из референсов тоже', title: 'Методология и референсы' },
+  { id: 'U26-ai', it: 'backlog', area: 'ai.board', status: 'progress', type: 'Фича', prio: 'Средний', orig: 'каждый аккаунт должен подцеплять отдельно свою нейронку.', title: 'Своя нейросеть у каждого аккаунта', desc: 'Делается в 2.7.' },
+  { id: 'S26-ai1', it: 'backlog', area: 'ai.board', parent: 'U26-ai', status: 'progress', orig: 'в первую очередь сделай чат гпт', title: 'ChatGPT' },
+  { id: 'S26-ai2', it: 'backlog', area: 'ai.board', parent: 'U26-ai', status: 'progress', orig: 'но вообще хочу еще qwen и перплексити', title: 'Qwen и Perplexity' },
+  { id: 'U26-docl', it: 'backlog', area: 'obj.docs', status: 'progress', type: 'Фича', prio: 'Средний', orig: 'еще один режим раскладывания на доске текстового документа - это группировка по вертикали и горизонтали на основе оглавления. то есть это будет группа объектов, которую можно настроить по оглавлению.', title: 'Документ на доске группой объектов по оглавлению', desc: 'Делается в 2.7.' },
+  { id: 'S26-dl1', it: 'backlog', area: 'obj.docs', parent: 'U26-docl', status: 'progress', orig: 'например все вторые уровни оглавления в строчку.', title: 'Уровни — в строку или в столбец' },
+  { id: 'S26-dl2', it: 'backlog', area: 'obj.docs', parent: 'U26-docl', status: 'progress', orig: 'ну в общем сделай чтобы была гибкая настройка. пресеты, опции, горизонтальность вертикальность и так далее.', title: 'Пресеты и настройки раскладки' },
+  { id: 'U26-sel', it: 'backlog', area: 'org.bulk', status: 'progress', type: 'Фича', prio: 'Высокий', orig: 'внедри функции гибкого расположения нескольких выделенных файлов.', title: 'Расположение нескольких выделенных', desc: 'Делается в 2.7.' },
+  { id: 'S26-s1', it: 'backlog', area: 'org.bulk', parent: 'U26-sel', status: 'progress', orig: 'выравнивание по вертикали и горизонтали', title: 'Выравнивание по вертикали и горизонтали' },
+  { id: 'S26-s2', it: 'backlog', area: 'org.bulk', parent: 'U26-sel', status: 'progress', orig: 'вплотную или на заданном расстоянии', title: 'Вплотную или на заданном расстоянии' },
+  { id: 'S26-s3', it: 'backlog', area: 'org.bulk', parent: 'U26-sel', status: 'progress', orig: 'по строкам и столбцам гибкая настройка', title: 'По строкам и столбцам' },
+  { id: 'S26-s4', it: 'backlog', area: 'org.bulk', parent: 'U26-sel', status: 'progress', orig: 'обернуть во фрейм', title: 'Обернуть в рамку' },
+  { id: 'S26-s5', it: 'backlog', area: 'org.bulk', parent: 'U26-sel', status: 'progress', orig: 'групповое редактирование одинаковых типов объектов. любой параметр объекта должен групповым образом редактироваться. для всех категорий настроек.', title: 'Групповое редактирование всех параметров' },
+  { id: 'U26-paste', it: 'backlog', area: 'obj.docs', status: 'progress', type: 'Фича', prio: 'Средний', orig: 'качественно продумай добавление любого текста и контента во внутрь инструмента «Документ». Важно сохранение максимально достоверного любого форматирования.', title: 'Вставка в документ с точным оформлением', desc: 'Делается в 2.7.' },
+  { id: 'S26-p2', it: 'backlog', area: 'obj.docs', parent: 'U26-paste', status: 'progress', orig: 'если это требуется то документ может спрашивать из какого источника происходит вставка. и подстраивать адаптацию вставки.', title: 'Спросить источник и подстроить вставку' },
+  { id: 'U26-tick', it: 'backlog', area: 'dev.dev', status: 'progress', type: 'Фича', prio: 'Средний', orig: 'любой объект доски или других разделов сайта должен содержать функционал отправки тикета правки для разработчиков. этот тикет попадает в задачник dev', title: 'Тикет правки разработчикам с любого объекта', desc: 'Делается в 2.7.' },
+  { id: 'S26-tk1', it: 'backlog', area: 'dev.dev', parent: 'U26-tick', status: 'progress', orig: 'панель заполнения на доске должна содержать текстовое поле правки', title: 'Панель тикета: текст правки' },
+  { id: 'S26-tk2', it: 'backlog', area: 'dev.dev', parent: 'U26-tick', status: 'progress', orig: 'и переключалку уточнения чего касается правка. всех объектов этого вида или конкретно этого', title: 'Все такие объекты или только этот' },
+  /* ---------- 2.6: what is needed from you ---------- */
+  { id: 'A26-gc', it: '2.6', area: 'team.space', status: 'action', type: 'Фича', prio: 'Высокий', owner: 'Я', title: 'Разрешить вход коллегам в Google Cloud', need: '1. Откройте console.cloud.google.com → ваш проект (тот, где Client ID для Диска).\n2. «APIs & Services» → «OAuth consent screen» → «Test users» → «Add users» → адреса Google сотрудников (до 100).\n3. Или «Publish app» — тогда пускает всех, но Google покажет «Приложение не проверено» (это нормально для внутреннего инструмента).' },
+  { id: 'A26-space', it: '2.6', area: 'team.space', status: 'action', type: 'Фича', prio: 'Высокий', owner: 'Я', title: 'Создать пространство агентства и пригласить людей', need: '1. На сайте Холста войдите в Google (облако вверху).\n2. Панель досок → «Командные пространства» → «+» → «Агентство», заготовка «Маркетинговое агентство (Lean)».\n3. ⚙ → пригласите сотрудников по адресам Google с ролями.\n4. Перенесите рабочие доски в пространство: ⋯ у доски → «Перенести в командное пространство».\n5. Напишите, что неудобно в сценариях команды.' },
+  { id: 'A26-modes', it: '2.6', area: 'life.modes', status: 'action', type: 'Фича', prio: 'Средний', owner: 'Я', title: 'Проверить три методологии', need: '1. Откройте Life OS → переключайте To-do, Lean, Life OS.\n2. В каждом режиме «Преднастроить» направления, если нужно.\n3. Напишите, каких панелей или метрик не хватает в каждой методологии.' },
+  { id: 'A26-site', it: '2.6', area: 'plat.rel', status: 'action', type: 'Документация', prio: 'Высокий', owner: 'Я', title: 'Выложить 2.6 на сайт', need: '1. Скачайте holst-app.zip из чата.\n2. GitHub → podkindmitry/holst → «Add file» → «Upload files» → содержимое архива (с папкой tools) → «Commit changes».\n3. Командные пространства работают на сайте: проверьте ⋯ → «Справка» → версия 2.6.' },
 ];
 
 /* =========================================================
@@ -9677,7 +9873,7 @@ function menuItems() {
     I('save', 'board', 'download', 'Сохранить доску в файл', MOD + '+S'), I('png', 'board', 'image', 'Экспорт в PNG'), I('dupb', 'board', 'dup', 'Дублировать доску'),
     I('fid', 'board', 'imp', 'Соответствие оригиналу Whimsical…', '', !!(LS.get('whimsrcurl') || {})[S.board && S.board.id]),
     I('clear', 'board', 'trash', 'Очистить доску'),
-    I('new', 'make', 'plus', 'Новая доска'), I('embed', 'make', 'embed', 'Встроить видео, сайт или HTML…', 'K'), I('web', 'make', 'globe', 'Страница по ссылке: снимок или текст…'), I('doc', 'make', 'doc', 'Новый документ'), I('lib', 'make', 'code', 'Библиотека: плагины и мои инструменты…'), I('flib', 'make', 'folder', 'Библиотека файлов и ссылок…'), I('group', 'make', 'imp', 'Групповое встраивание: много файлов и ссылок…'), I('widget', 'make', 'boards', 'Виджет на доску: Life OS, меню, хранилище…'), I('demo', 'help', 'boards', 'Демо-доска: весь Холст по темам'), I('tour', 'help', 'help', 'Гайд по Холсту: шаг за шагом'), I('claude', 'go', 'help', 'Claude на доске'), I('team', 'go', 'boards', 'Команда: участники, роли, общие доски…'),
+    I('new', 'make', 'plus', 'Новая доска'), I('embed', 'make', 'embed', 'Встроить видео, сайт или HTML…', 'K'), I('web', 'make', 'globe', 'Страница по ссылке: снимок или текст…'), I('doc', 'make', 'doc', 'Новый документ'), I('lib', 'make', 'code', 'Библиотека: плагины и мои инструменты…'), I('flib', 'make', 'folder', 'Библиотека файлов и ссылок…'), I('group', 'make', 'imp', 'Групповое встраивание: много файлов и ссылок…'), I('widget', 'make', 'boards', 'Виджет на доску: Life OS, меню, хранилище…'), I('demo', 'help', 'boards', 'Демо-доска: весь Холст по темам'), I('tour', 'help', 'help', 'Гайд по Холсту: шаг за шагом'), I('claude', 'go', 'help', 'Claude на доске'), I('team', 'go', 'boards', 'Командные пространства: Google-аккаунты, роли, общие доски…'),
     I('open', 'io', 'folder', 'Открыть файл доски…', MOD + '+O'), I('offline', 'io', 'offline', 'Скачать офлайн-версию'), I('wimport', 'io', 'imp', 'Импорт из Whimsical (очередь досок)…', '', !!Drive.mcp),
     I('notion', 'io', 'imp', 'Перенос из Notion (архив .zip)…'), I('ttimp', 'io', 'imp', 'Перенос из TickTick…'), I('clip', 'io', 'copy', 'Что лежит в буфере обмена…'),
     I('boards', 'go', 'boards', 'Все доски (панель слева)'), I('vboards', 'go', 'srch', 'Умные доски: фильтр по всем доскам…'), I('lifeos', 'go', 'boards', 'Life OS: задачник и витрина', keyOf('lifeos')), I('time', 'go', 'hist', 'Учёт времени'), I('dev', 'go', 'devic', 'DEV: задачник разработки'), I('search', 'go', 'srch', 'Поиск', keyOf('search')), I('split', 'go', 'split', 'Разделить экран…', '', splitOk()),
@@ -10196,7 +10392,7 @@ function bsDockApply() {
   if (S.board && now !== before) { const v = V(); v.x += (now - before) / 2; applyView(); }
 }
 function bsTree() {
-  const groups = orgGroups(), boards = [...S.index], ok = new Set(groups.map(g => g.id));
+  const groups = orgGroups(), boards = S.index.filter(x => !x.space), ok = new Set(groups.map(g => g.id));
   const gid = b => { const g = bmOf(b.id).g; return g && ok.has(g) ? g : ''; };
   const kids = id => groups.filter(g => (g.parent || '') === (id || '') && g.id !== id).sort((a, b) => (a.order || 0) - (b.order || 0) || a.name.localeCompare(b.name, 'ru'));
   const inG = id => boards.filter(b => gid(b) === id).sort((a, b) => (bmOf(a.id).order || 0) - (bmOf(b.id).order || 0) || a.name.localeCompare(b.name, 'ru'));
@@ -14112,6 +14308,918 @@ Object.assign(TOURS, {
 Object.assign(FEAT_TOUR, { f25_group: 'files', f25_drop: 'files', f25_lib: 'files', f25_libv: 'files', f25_dtoc: 'docs', f25_dsec: 'docs', f25_dname: 'docs' });
 
 /* =========================================================
+   v2.6: fixes — frame tabs shrink with the board at 7% and below; the name in
+   the tabulator always has a line of its own, metrics and Life OS chips share
+   the next line (metrics first); side panel: the panel-mode button works for
+   panels inside the side panel, a collapsed column can be closed.
+   ========================================================= */
+const FRAME_STOPZ = 0.07;
+tabHzSet = function (hd, it) {
+  const z = V().z, n = hd._nat; if (!n) return;
+  let hz = 1 / Math.max(z, it.cell ? CELL_STOPZ : FRAME_STOPZ);
+  hz = Math.max(0.05, Math.min(hz, it.w / n.w, it.h * (it.cell ? 0.3 : 0.5) / n.h, hd._room > 0 && hd._room < Infinity ? hd._room / n.h : Infinity));
+  const v = hz.toFixed(4); if (hd._hz !== v) { hd._hz = v; hd.style.setProperty('--hz', v); }
+  hd.classList.toggle('tiny', hz * z < 0.55);
+};
+{ const o = fheadDecor; fheadDecor = (el, it) => {
+  o(el, it); const hd = el._fhead; if (!hd || !hd.classList.contains('annex') || !hd._nat) return;
+  const top = hd.firstChild, ch = top.querySelector(':scope > .fchips'), lr = top.querySelector(':scope > .flo');
+  const has = !!((ch && ch.childElementCount) || lr);
+  top.classList.toggle('f2', has);
+  const hfs = +it.hfs || (it.cell ? 13 : 14), rows = Array.isArray(it.tabs) && mechOn('ftabs') ? tabRows(it).length : (Array.isArray(it.tabs) ? 1 : 0);
+  hd._nat.h = 12 + hfs * 1.3 + (has ? 24 : 0) + rows * 27; tabHzSet(hd, it);
+}; }
+/* side panel: the buttons that switch a panel between «over the screen» and «in the side panel» */
+function s26DockClick(e) {
+  const b = e.target.closest && e.target.closest('[data-x="dock"], [data-l23="dock"], [data-dv="side"], .dockb'); if (!b) return;
+  const pane = b.closest('#side24 .s24pane'); if (!pane) return;
+  e.stopPropagation(); e.stopImmediatePropagation(); e.preventDefault();
+  s24Undock(pane.dataset.key); toast('Панель поверх экрана. Кнопкой ⇤ — обратно в боковую панель');
+}
+{ const o = s24Layout; s24Layout = (...a) => {
+  o(...a); const el = S24.el; if (!el) return;
+  el.querySelectorAll('.s24col').forEach((c, i) => { const h = c.querySelector('.s24ch'); if (h && !h.querySelector('[data-s24^="closecol"]')) h.insertAdjacentHTML('beforeend', `<button class="ib sm" data-s24="closecol:${i}" title="Закрыть колонку: панели уйдут, место запомнится">${ic('close')}</button>`); });
+  el.querySelectorAll('.s24pane .xdlg [data-x="dock"], .s24pane .dockb, .s24pane [data-dv="side"]').forEach(b => { b.title = 'Открыть поверх экрана'; });
+}; }
+{ const o = s24Undock; s24Undock = key => {
+  o(key); const d = S.xdlg; if (!d || !d.isConnected || d.closest('#side24')) return;
+  d.classList.remove('dock', 'dvside', 's24in'); document.body.classList.remove('dvside');
+  const b = d.querySelector('[data-x="dock"]'); if (b) b.classList.remove('on');
+  try { const st = dockSt(); st.by[dockKey(d)] = 'over'; LS.set('dock', st); } catch (e) { /* no preference */ }
+}; }
+/* =========================================================
+   v2.6: team spaces on Google Drive — for people with Google accounts.
+   No Claude needed: every member opens Холст on the site, signs in with Google,
+   and works in a shared Drive folder (a usual shared folder or a shared drive).
+   The folder holds:
+     space.json            — name, members and roles, settings of the space
+     tasks.json            — the space's records (directions, projects, tasks…)
+     board-<id>--<name>.json + asset-<id>.txt — the space's boards
+     presence-<email>.json — who is where right now
+     time-<email>.json     — time stats of each member (everyone sees everyone's)
+     Файлы/                — big files from the space's boards
+   Changes merge record by record and object by object; the folder is read
+   every 20 seconds while Холст is open.
+   ========================================================= */
+const GT_ROLES = { owner: ['Владелец', 'Всё, включая состав и роли'], admin: ['Администратор', 'Всё, кроме передачи владения'], member: ['Участник', 'Работает с досками и задачами'], viewer: ['Наблюдатель', 'Только смотрит'] };
+const GT = { list: LS.get('gtsp') || [], data: {}, st: LS.get('gtst') || {}, stores: {}, me: LS.get('gtme') || null, busy: {}, again: {}, dirtyLo: new Set(), dirtyB: new Map(), err: {}, people: {}, ppl: {}, bt: 0, lt: 0, poll: 0 };
+for (const s of GT.list) GT.data[s.id] = LS.get('gtdata:' + s.id) || null;
+const gtColor = x => PRES_COLORS[[...String(x || '')].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7) % PRES_COLORS.length];
+const gtSave = () => { LS.set('gtsp', GT.list); LS.set('gtst', GT.st); };
+const gtSt = id => GT.st[id] || (GT.st[id] = { b: {}, names: {} });
+const gtOn = () => GT.list.length > 0;
+const gtSpaceOf = bid => ((S.index || []).find(x => x.id === bid) || {}).space || '';
+const gtName = id => (GT.data[id] && GT.data[id].name) || (GT.list.find(s => s.id === id) || {}).name || 'Команда';
+const gtMeEmail = () => ((GT.me && GT.me.email) || '').toLowerCase();
+const gtMembers = id => Object.entries((GT.data[id] && GT.data[id].members) || {}).map(([email, m]) => Object.assign({ email }, m));
+function gtRole(id, email) { const m = ((GT.data[id] || {}).members || {})[(email || gtMeEmail()).toLowerCase()]; return m ? m.role : (GT.data[id] && GT.data[id].owner === gtMeEmail() ? 'owner' : 'member'); }
+const gtCan = (id, what) => { const r = gtRole(id); return what === 'admin' ? r === 'owner' || r === 'admin' : what === 'write' ? r !== 'viewer' : true; };
+const gtPerson = (id, email) => { const m = ((GT.data[id] || {}).members || {})[email] || {}, pr = ((GT.ppl[id] || {}).pres || {})[email]; return m.name || (pr && pr.name) || (email === gtMeEmail() ? (GT.me && GT.me.name) || 'Я' : email.split('@')[0]); };
+
+/* ---------- transport: Google Drive REST on the site, the connector inside Claude ---------- */
+const GAPI2 = 'https://www.googleapis.com/drive/v3/', GUP2 = 'https://www.googleapis.com/upload/drive/v3/files', GT_ALL = 'supportsAllDrives=true';
+async function gtFetch(url, opt) {
+  opt = opt || {};
+  const r = await fetch(url, Object.assign({}, opt, { headers: Object.assign({ Authorization: 'Bearer ' + Drive.token }, opt.headers || {}) }));
+  if (r.status === 401) { Drive.token = null; LS.set('gtok', null); Drive.setState('auth'); }
+  if (!r.ok) throw driveErr(r.status);
+  return r;
+}
+const GTX = {
+  async list(fid) {
+    if (Drive.mode === 'mcp') return (await Drive.mcpList(`parentId = '${fid}'`)).map(f => ({ id: f.id, name: f.title, mt: f.mtime, mime: f.mime }));
+    let out = [], pg = '';
+    do {
+      const r = await (await gtFetch(GAPI2 + `files?q=${encodeURIComponent(`'${fid}' in parents and trashed=false`)}&fields=nextPageToken,files(id,name,mimeType,modifiedTime,size)&pageSize=1000&${GT_ALL}&includeItemsFromAllDrives=true${pg ? '&pageToken=' + pg : ''}`)).json();
+      out = out.concat((r.files || []).map(f => ({ id: f.id, name: f.name, mt: f.modifiedTime, mime: f.mimeType, size: +f.size || 0 }))); pg = r.nextPageToken;
+    } while (pg);
+    return out;
+  },
+  async read(id) {
+    if (Drive.mode === 'mcp') { const p = await Drive.tool('download_file_content', { fileId: id }); return new TextDecoder().decode(b64ToBytes(p.content)); }
+    return (await gtFetch(GAPI2 + `files/${id}?alt=media&${GT_ALL}`)).text();
+  },
+  async write(folder, name, text, id, mime) {
+    mime = mime || 'application/json';
+    if (Drive.mode === 'mcp') {
+      const p = await Drive.tool('create_file', { title: name, parentId: folder, contentMimeType: mime, disableConversionToGoogleType: true, textContent: text });
+      if (id) { try { await Drive.tool('trash_file', { fileId: id }); } catch (e) { /* the old copy stays */ } }
+      return { id: p.id, mt: p.modifiedTime };
+    }
+    const bd = 'gt' + uid(), meta = id ? { name } : { name, parents: [folder], mimeType: mime };
+    const body = new Blob([`--${bd}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(meta)}\r\n--${bd}\r\nContent-Type: ${mime}\r\n\r\n`, text, `\r\n--${bd}--`]);
+    const r = await (await gtFetch(GUP2 + (id ? '/' + id : '') + `?uploadType=multipart&fields=id,name,modifiedTime&${GT_ALL}`, { method: id ? 'PATCH' : 'POST', headers: { 'Content-Type': 'multipart/related; boundary=' + bd }, body })).json();
+    return { id: r.id, mt: r.modifiedTime };
+  },
+  async mkdir(name, parent) {
+    if (Drive.mode === 'mcp') return Drive.makeFolder(name, parent || 'root');
+    return (await (await gtFetch(GAPI2 + `files?fields=id&${GT_ALL}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, mimeType: FOLDER_MIME, parents: [parent || 'root'] }) })).json()).id;
+  },
+  async share(fid, email, role, msg) {
+    if (Drive.mode === 'mcp') return Drive.tool('share_file', { fileId: fid, emailAddress: email, role });
+    return (await gtFetch(GAPI2 + `files/${fid}/permissions?${GT_ALL}&sendNotificationEmail=true&emailMessage=${encodeURIComponent(msg || '')}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'user', role, emailAddress: email }) })).json();
+  },
+  async unshare(fid, email) {
+    if (Drive.mode === 'mcp') throw new Error('Внутри Claude доступ снимается в самом Google Диске: «Настройки доступа» у папки');
+    const r = await (await gtFetch(GAPI2 + `files/${fid}/permissions?fields=permissions(id,emailAddress)&${GT_ALL}`)).json();
+    const p = (r.permissions || []).find(x => (x.emailAddress || '').toLowerCase() === email.toLowerCase());
+    if (p) await gtFetch(GAPI2 + `files/${fid}/permissions/${p.id}?${GT_ALL}`, { method: 'DELETE' });
+  },
+  async me() {
+    if (Drive.mode === 'mcp') return null;
+    const r = await (await gtFetch(GAPI2 + 'about?fields=user(displayName,emailAddress)')).json();
+    return r.user && r.user.emailAddress ? { email: r.user.emailAddress.toLowerCase(), name: r.user.displayName || '' } : null;
+  },
+};
+const gtByName = files => { const by = {}; for (const f of files) { const p = by[f.name]; if (!p || String(f.mt) > String(p.mt)) by[f.name] = f; } return by; };
+async function gtMe(ask) {
+  if (GT.me && GT.me.email) return GT.me;
+  let m = null; try { m = await GTX.me(); } catch (e) { m = null; }
+  if (!m && ask) { const v = await uiPrompt('Ваш адрес Google (им вы входите в Google Диск)', ''); if (v && /@/.test(v)) m = { email: v.trim().toLowerCase(), name: '' }; }
+  if (m) { GT.me = m; LS.set('gtme', m); }
+  return m;
+}
+/* ready: signed in to Google (the site) or the Drive connector (inside Claude) */
+async function gtReady(ask) {
+  if (!Drive.available()) { if (ask) toast('Командные пространства работают через Google Диск: откройте Холст на сайте'); return false; }
+  if (Drive.mode === 'rest' && !Drive.cid) { if (ask) openDriveDlg(); return false; }
+  if (!Drive.ready()) { if (ask) { Drive.connect(); toast('Войдите в Google и повторите'); } return false; }
+  return !!(await gtMe(ask));
+}
+
+/* ---------- the records of a space: the same shape as personal Life OS ---------- */
+async function gtStore(id) {
+  if (GT.stores[id]) return GT.stores[id];
+  let d = null; try { d = await Store.get('gtlo:' + id); } catch (e) { d = null; }
+  const L = loNorm(d); L.space = id; L.seeded = 1; L.wip = L.wip || (d && d.wip) || { doing: 5 };
+  GT.stores[id] = L; return L;
+}
+const gtStoreCache = id => { const L = GT.stores[id]; if (L) Store.set('gtlo:' + id, L).catch(() => {}); };
+function gtMergeInto(L, R) { const m = loMerge(L, R); L.recs = m.recs; L.del = m.del; L.trash = Object.assign({}, L.trash || {}); if (R.wip) L.wip = R.wip; }
+function gtLoDirty(id) { GT.dirtyLo.add(id); gtStoreCache(id); clearTimeout(GT.lt); GT.lt = setTimeout(() => gtSyncSpace(id), 1500); }
+async function gtPushTasks(id, by) {
+  if (!gtCan(id, 'write')) { GT.dirtyLo.delete(id); return; }
+  const st = gtSt(id), L = await gtStore(id), cur = by['tasks.json'];
+  if (cur && st.tkMt && cur.mt !== st.tkMt) { try { gtMergeInto(L, JSON.parse(await GTX.read(cur.id))); } catch (e) { /* write ours */ } }
+  const body = JSON.stringify({ format: 'holst-space-tasks', v: 1, savedBy: gtMeEmail(), savedAt: Date.now(), recs: L.recs, del: L.del, wip: L.wip });
+  const r = await GTX.write(id, 'tasks.json', body, cur && cur.id);
+  st.tkMt = r.mt; GT.dirtyLo.delete(id); gtStoreCache(id);
+}
+
+/* ---------- reading a space ---------- */
+async function gtSyncSpace(id) {
+  if (GT.busy[id]) { GT.again[id] = 1; return; }
+  if (!(await gtReady(false))) return;
+  GT.busy[id] = 1;
+  try {
+    const st = gtSt(id), files = await GTX.list(id), by = gtByName(files);
+    st.names = Object.fromEntries(Object.entries(by).map(([n, f]) => [n, { id: f.id, mt: f.mt }]));
+    const sp = by['space.json'];
+    if (!sp) { GT.err[id] = 'Папка пространства пуста или нет доступа'; return; }
+    if (sp.mt !== st.spMt) { GT.data[id] = JSON.parse(await GTX.read(sp.id)); LS.set('gtdata:' + id, GT.data[id]); st.spMt = sp.mt; const s = GT.list.find(x => x.id === id); if (s) s.name = GT.data[id].name; gtApplyAccess(); }
+    const L = await gtStore(id), tk = by['tasks.json'];
+    if (tk && tk.mt !== st.tkMt && !GT.dirtyLo.has(id)) {
+      const R = JSON.parse(await GTX.read(tk.id)); gtMergeInto(L, R); st.tkMt = tk.mt; gtStoreCache(id); gtLoRedraw(L);
+      const rr = R.recs || {}, rd = R.del || {};
+      if (Object.values(L.recs).some(r => !rr[r.id] || (rr[r.id].u || 0) < (r.u || 0)) || Object.entries(L.del || {}).some(([k, t]) => (rd[k] || 0) < t)) GT.dirtyLo.add(id);
+    }
+    if (GT.dirtyLo.has(id)) { await gtPushTasks(id, by); gtLoRedraw(L); }
+    gtBoardsFromListing(id, by);
+    GT.people[id] = Object.values(by).filter(f => /^(presence|time)-/.test(f.name)).map(f => ({ id: f.id, name: f.name, mt: f.mt }));
+    GT.err[id] = '';
+  } catch (e) { GT.err[id] = (e && (e.message || e.code || e.status)) || 'ошибка'; }
+  finally { GT.busy[id] = 0; gtSave(); if (GT.again[id]) { GT.again[id] = 0; setTimeout(() => gtSyncSpace(id), 300); } }
+}
+function gtLoRedraw(L) { if (S.lo === L && S.loOpen) { clearTimeout(S.loRT); S.loRT = setTimeout(renderLo, 60); } if (typeof widgetsRefresh === 'function') widgetsRefresh(); }
+const GT_BOARD_RE = /^board-([A-Za-z0-9_-]+?)(?:--(.*))?\.json$/;
+function gtBoardsFromListing(id, by) {
+  const st = gtSt(id), seen = new Set(); let ch = false;
+  for (const [n, f] of Object.entries(by)) {
+    const m = GT_BOARD_RE.exec(n); if (!m) continue;
+    const bid = m[1], nm = (m[2] || '').trim() || 'Доска'; seen.add(bid);
+    const b = st.b[bid] || (st.b[bid] = {}); b.fid = f.id; b.rmt = f.mt; if (!b.name || b.name !== nm && !GT.dirtyB.has(bid)) b.name = nm;
+    let e = S.index.find(x => x.id === bid);
+    if (!e) { S.index.push({ id: bid, name: b.name, updatedAt: Date.parse(f.mt) || Date.now(), count: 0, space: id }); ch = true; }
+    else { if (e.space !== id || (e.name !== b.name && !GT.dirtyB.has(bid))) { e.space = id; e.name = b.name; ch = true; } }
+    if (b.mt && b.mt !== f.mt && !GT.dirtyB.has(bid)) { if (S.board && S.board.id === bid) gtPullOpen(id, bid); else b.stale = 1; }
+  }
+  for (const e of S.index.filter(x => x.space === id && !seen.has(x.id))) { const b = st.b[e.id]; if (b && b.mt && !GT.dirtyB.has(e.id)) { delete st.b[e.id]; S.index = S.index.filter(x => x.id !== e.id); Store.del('gtb:' + e.id).catch(() => {}); ch = true; } }
+  if (ch) { if (typeof bsRender === 'function') bsRender(); renderDrawer(); }
+}
+/* object by object: every object carries the time it last changed (iu), deletions leave a tombstone
+   (tomb); a member who overwrote the file without someone's fresh object never makes it disappear */
+GT.base = {};
+function gtStamp(b) {
+  const base = GT.base[b.id] || new Map(), now = Date.now(); b.gtiu = b.gtiu || {}; b.gttomb = b.gttomb || {};
+  const cur = new Set();
+  for (const it of b.items) { cur.add(it.id); const s = JSON.stringify(it); if (base.get(it.id) !== s) b.gtiu[it.id] = now; }
+  for (const id of base.keys()) if (!cur.has(id)) b.gttomb[id] = now;
+  const old = now - 30 * 864e5; for (const [k, t] of Object.entries(b.gttomb)) if (t < old) delete b.gttomb[k];
+}
+const gtSetBase = b => { GT.base[b.id] = new Map(b.items.map(i => [i.id, JSON.stringify(i)])); };
+function gtMergeItems(b, R) {
+  gtStamp(b);
+  const Li = new Map(b.items.map(i => [i.id, i])), Ri = new Map((R.items || []).map(i => [i.id, i])), LU = b.gtiu, RU = R.iu || {}, tomb = Object.assign({}, R.tomb || {});
+  for (const [k, t] of Object.entries(b.gttomb || {})) tomb[k] = Math.max(tomb[k] || 0, t);
+  const iu = {}, keep = (id, it) => { const u = Math.max(LU[id] || 0, RU[id] || 0); iu[id] = u; return !(tomb[id] && tomb[id] >= u) ? it : null; };
+  const out = [], seen = new Set();
+  const remoteFrames = (R.items || []).filter(i => !Li.has(i.id) && i.type === 'frame');
+  for (const r of remoteFrames) { const x = keep(r.id, r); if (x) { out.push(x); seen.add(r.id); } }
+  for (const l of b.items) { const r = Ri.get(l.id); const pick = !r ? l : (LU[l.id] || 0) >= (RU[l.id] || 0) ? l : r; const x = keep(l.id, pick); if (x) out.push(x); seen.add(l.id); }
+  for (const r of R.items || []) { if (seen.has(r.id)) continue; const x = keep(r.id, r); if (x) out.push(x); }
+  b.gtiu = iu; b.gttomb = tomb;
+  return out;
+}
+async function gtFetchBoard(id, bid) {
+  const st = gtSt(id), f = st.b[bid]; if (!f || !f.fid) return null;
+  const j = JSON.parse(await GTX.read(f.fid)), b = j.board || {};
+  let cached = null; try { cached = await Store.get('gtb:' + bid); } catch (e) { cached = null; }
+  b.assets = Object.assign({}, (cached && cached.assets) || {}); b.space = id; b.team = 'gt'; b.id = bid;
+  for (const aid of j.assets || []) {
+    if (b.assets[aid] != null) continue;
+    const af = st.names['asset-' + aid + '.txt']; if (!af) continue;
+    try { b.assets[aid] = await GTX.read(af.id); } catch (e) { /* next time */ }
+  }
+  b.gtiu = b.iu || {}; b.gttomb = b.tomb || {}; delete b.iu; delete b.tomb;
+  b._mt = f.rmt; f.mt = f.rmt; f.name = b.name; f.stale = 0;
+  return b;
+}
+async function gtPullOpen(id, bid) {
+  if (S.editing || S.drag || S.focus || saving) { setTimeout(() => gtPullOpen(id, bid), 900); return; }
+  try {
+    const b0 = await gtFetchBoard(id, bid); if (!b0 || !S.board || S.board.id !== bid) return;
+    const b = S.board, R = { items: b0.items || [], iu: b0.gtiu, tomb: b0.gttomb };
+    for (const [k, v] of Object.entries(b0.assets || {})) if (b.assets[k] == null) b.assets[k] = v;
+    const merged = gtMergeItems(b, R), changedLocal = JSON.stringify(merged) !== JSON.stringify(R.items);
+    if (JSON.stringify(merged) !== JSON.stringify(b.items)) { b.items = merged; S.sel = new Set([...S.sel].filter(x => byId(x))); render(); }
+    if (b0.name && b0.name !== b.name && !changedLocal) { b.name = b0.name; $('#boardName').value = b.name; }
+    b._mt = b0._mt; gtSt(id).b[bid].mt = b0._mt; gtSetBase(b); teamBaseSet(b.items);
+    Store.set('gtb:' + bid, b).catch(() => {});
+    if (changedLocal) { GT.dirtyB.set(bid, id); clearTimeout(GT.bt); GT.bt = setTimeout(gtPushBoards, 800); }
+  } catch (e) { /* next poll */ }
+}
+async function gtLoadBoard(bid) {
+  const e = S.index.find(x => x.id === bid), id = e && e.space, f = gtSt(id).b[bid] || {};
+  let b = null; try { b = await Store.get('gtb:' + bid); } catch (er) { b = null; }
+  if (b && !f.stale && (!f.rmt || b._mt === f.rmt)) { b.space = id; b.team = 'gt'; if (!GT.base[bid]) gtSetBase(b); return b; }
+  if (!(await gtReady(false))) { if (b) { b.space = id; b.team = 'gt'; } return b; }
+  if (!f.fid) await gtSyncSpace(id);
+  try { const fb = await gtFetchBoard(id, bid); if (fb) { b = fb; gtSetBase(b); Store.set('gtb:' + bid, b).catch(() => {}); } } catch (er) { if (!b) throw er; }
+  return b;
+}
+async function gtSaveBoard(b) {
+  b.team = 'gt'; if (!b.space) b.space = gtSpaceOf(b.id);
+  try { await Store.set('gtb:' + b.id, b); } catch (e) { /* memory */ }
+  upsertIndex(b);
+  if (!gtCan(b.space, 'write')) return;
+  GT.dirtyB.set(b.id, b.space); clearTimeout(GT.bt); GT.bt = setTimeout(gtPushBoards, 1500);
+}
+async function gtPushBoards() {
+  if (!GT.dirtyB.size) return;
+  if (!(await gtReady(false))) { clearTimeout(GT.bt); GT.bt = setTimeout(gtPushBoards, 15000); return; }
+  for (const [bid, id] of [...GT.dirtyB]) {
+    try {
+      const b = S.board && S.board.id === bid ? S.board : await Store.get('gtb:' + bid); if (!b) { GT.dirtyB.delete(bid); continue; }
+      const st = gtSt(id), f = st.b[bid] || (st.b[bid] = {}), by = gtByName(await GTX.list(id));
+      st.names = Object.fromEntries(Object.entries(by).map(([n, x]) => [n, { id: x.id, mt: x.mt }]));
+      const cur = Object.values(by).find(x => { const m = GT_BOARD_RE.exec(x.name); return m && m[1] === bid; });
+      if (cur && f.mt && cur.mt !== f.mt) {
+        const j = JSON.parse(await GTX.read(cur.id)), jb = j.board || {};
+        for (const aid of j.assets || []) if (b.assets[aid] == null && st.names['asset-' + aid + '.txt']) { try { b.assets[aid] = await GTX.read(st.names['asset-' + aid + '.txt'].id); } catch (e) { /* later */ } }
+        const merged = gtMergeItems(b, { items: jb.items || [], iu: jb.iu, tomb: jb.tomb });
+        if (JSON.stringify(merged) !== JSON.stringify(b.items)) { b.items = merged; if (S.board === b) requestRender(); }
+      } else gtStamp(b);
+      for (const aid of assetIdsOf(b.items)) if (b.assets[aid] != null && !st.names['asset-' + aid + '.txt']) { const r = await GTX.write(id, 'asset-' + aid + '.txt', String(b.assets[aid]), null, 'text/plain'); st.names['asset-' + aid + '.txt'] = { id: r.id, mt: r.mt }; }
+      const { assets, _mt, gtiu, gttomb, ...rest } = b, body = JSON.stringify({ format: 'holst-space-board', v: 1, savedBy: gtMeEmail(), board: Object.assign(rest, { iu: gtiu || {}, tomb: gttomb || {} }), assets: assetIdsOf(b.items) });
+      const r = await GTX.write(id, `board-${bid}--${safeName(b.name)}.json`, body, cur && cur.id);
+      f.fid = r.id; f.mt = f.rmt = r.mt; f.name = b.name; b._mt = r.mt; GT.dirtyB.delete(bid);
+      gtSetBase(b); if (S.board && S.board.id === bid) teamBaseSet(b.items);
+      Store.set('gtb:' + bid, b).catch(() => {});
+    } catch (e) { GT.err[id] = (e && (e.message || e.status)) || 'ошибка записи'; }
+  }
+  gtSave();
+  if (GT.dirtyB.size) { clearTimeout(GT.bt); GT.bt = setTimeout(gtPushBoards, 10000); }
+}
+
+/* ---------- presence and time: one small file per member ---------- */
+async function gtPresence(id) {
+  const me = gtMeEmail(); if (!me || !gtCan(id, 'write')) return;
+  const st = gtSt(id), name = `presence-${me}.json`, f = st.names[name];
+  const b = S.board && S.board.space === id ? { id: S.board.id, name: S.board.name } : null;
+  const doing = Object.values((GT.stores[id] || {}).recs || {}).filter(r => r.k === 'task' && r.who === me && r.st === 'doing').map(r => r.title).slice(0, 5);
+  const r = await GTX.write(id, name, JSON.stringify({ email: me, name: (GT.me && GT.me.name) || '', at: Date.now(), board: b, doing }), f && f.id);
+  st.names[name] = { id: r.id, mt: r.mt };
+}
+async function gtTimePush(id) {
+  const me = gtMeEmail(); if (!me || !S.tt || !gtCan(id, 'write')) return;
+  const keep = ttDay(Date.now() - 30 * 864e5), days = {}, ids = new Set(S.index.filter(x => x.space === id).map(x => x.id));
+  for (const [d, D] of Object.entries(S.tt.days || {})) { if (d < keep) continue; const b = {}; for (const [bid, v] of Object.entries(D.b || {})) if (ids.has(bid)) b[bid] = (v && v.act) || 0; days[d] = { app: D.app || 0, act: D.act || 0, b }; }
+  const st = gtSt(id), name = `time-${me}.json`, f = st.names[name];
+  const r = await GTX.write(id, name, JSON.stringify({ email: me, name: (GT.me && GT.me.name) || '', at: Date.now(), days }), f && f.id);
+  st.names[name] = { id: r.id, mt: r.mt };
+}
+/* everyone's presence and time (fetched when a page needs it, at most once a minute) */
+async function gtPeople(id, force) {
+  const P = GT.ppl[id] || (GT.ppl[id] = { at: 0, pres: {}, time: {}, mt: {} });
+  if (!force && Date.now() - P.at < 60000) return P;
+  P.at = Date.now();
+  for (const f of GT.people[id] || []) {
+    if (P.mt[f.name] === f.mt) continue;
+    try { const j = JSON.parse(await GTX.read(f.id)); if (f.name.startsWith('presence-')) P.pres[j.email] = j; else P.time[j.email] = j; P.mt[f.name] = f.mt; } catch (e) { /* skip */ }
+  }
+  return P;
+}
+
+/* ---------- create, join, invite ---------- */
+async function gtCreate(name, tpl, parent) {
+  if (!(await gtReady(true))) return null;
+  const me = gtMeEmail(), fid = await GTX.mkdir('Холст · ' + name, parent || 'root');
+  const data = { format: 'holst-space', v: 1, id: fid, name, owner: me, created: Date.now(), tpl: tpl || 'lean', members: { [me]: { role: 'owner', name: (GT.me && GT.me.name) || '', at: Date.now() } }, settings: {} };
+  await GTX.write(fid, 'space.json', JSON.stringify(data, null, 1));
+  const L = loNorm(null); L.space = fid; L.seeded = 1; L.wip = { doing: 5 };
+  GT.stores[fid] = L;
+  tmPreset(L, tpl === 'empty' ? null : 'lean');
+  GT.list.push({ id: fid, name }); GT.data[fid] = data; LS.set('gtdata:' + fid, data); gtSave();
+  GT.dirtyLo.add(fid); await gtSyncSpace(fid);
+  return fid;
+}
+async function gtJoin(fid) {
+  if (!(await gtReady(true))) { LS.set('gtjoin', fid); return false; }
+  let by; try { by = gtByName(await GTX.list(fid)); } catch (e) { toast('Нет доступа к папке пространства. Попросите владельца открыть доступ вашему адресу Google'); return false; }
+  if (!by['space.json']) { toast('В этой папке нет командного пространства Холста'); return false; }
+  const data = JSON.parse(await GTX.read(by['space.json'].id)), me = gtMeEmail();
+  if (!GT.list.find(s => s.id === fid)) GT.list.push({ id: fid, name: data.name || 'Команда' });
+  GT.data[fid] = data; LS.set('gtdata:' + fid, data); LS.set('gtjoin', null); gtSave();
+  const mine = (data.members || {})[me];
+  if (!mine || (!mine.name && GT.me && GT.me.name)) { data.members = Object.assign({}, data.members, { [me]: Object.assign({ role: 'member', at: Date.now(), self: 1 }, mine || {}, { name: (GT.me && GT.me.name) || (mine && mine.name) || '' }) }); try { await gtWriteSpace(fid, data); } catch (e) { /* a reader cannot write: fine */ } }
+  await gtSyncSpace(fid); gtApplyAccess();
+  toast('Вы в пространстве «' + (data.name || 'Команда') + '»');
+  return true;
+}
+async function gtWriteSpace(id, data) {
+  const st = gtSt(id), by = gtByName(await GTX.list(id)), cur = by['space.json'];
+  if (cur && st.spMt && cur.mt !== st.spMt) { const R = JSON.parse(await GTX.read(cur.id)); data.members = Object.assign({}, R.members, data.members); }
+  data.u = Date.now();
+  const r = await GTX.write(id, 'space.json', JSON.stringify(data, null, 1), cur && cur.id);
+  st.spMt = r.mt; GT.data[id] = data; LS.set('gtdata:' + id, data); gtSave(); gtApplyAccess();
+}
+const gtInviteLink = id => { const base = location.protocol === 'https:' && !S.hosted ? location.origin + location.pathname : 'https://podkindmitry.github.io/holst/'; return base + '?join=' + encodeURIComponent(id) + (Drive.cid ? '#cid=' + encodeURIComponent(Drive.cid) : ''); };
+async function gtInvite(id, email, role) {
+  email = String(email || '').trim().toLowerCase(); if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { toast('Нужен адрес вида name@gmail.com'); return false; }
+  const data = clone(GT.data[id] || {});
+  try { await GTX.share(id, email, role === 'viewer' ? 'reader' : 'writer', `Вас пригласили в пространство «${data.name || 'Команда'}» в Холсте. Откройте ссылку и войдите с этим адресом Google: ${gtInviteLink(id)}`); }
+  catch (e) { toast('Google Диск не открыл доступ: ' + ((e && (e.message || e.status)) || 'ошибка')); return false; }
+  data.members = Object.assign({}, data.members, { [email]: Object.assign({}, (data.members || {})[email], { role: role || 'member', at: Date.now(), inv: gtMeEmail() }) });
+  await gtWriteSpace(id, data); return true;
+}
+async function gtRemoveMember(id, email) {
+  const data = clone(GT.data[id] || {}); delete (data.members || {})[email];
+  try { await GTX.unshare(id, email); } catch (e) { toast(String(e && e.message || 'Снимите доступ к папке в Google Диске')); }
+  await gtWriteSpace(id, data);
+}
+function gtLeave(id) {
+  GT.list = GT.list.filter(s => s.id !== id); delete GT.st[id]; delete GT.stores[id]; LS.set('gtdata:' + id, null);
+  for (const e of S.index.filter(x => x.space === id)) Store.del('gtb:' + e.id).catch(() => {});
+  S.index = S.index.filter(x => x.space !== id); gtSave();
+  if (S.lo && S.lo.space === id) tmUseStore('');
+  if (typeof bsRender === 'function') bsRender(); renderDrawer();
+}
+
+/* ---------- the loop ---------- */
+async function gtTick() {
+  if (document.visibilityState !== 'visible') return;
+  const j = LS.get('gtjoin'); if (j && Drive.ready()) await gtJoin(j);
+  if (!gtOn()) return;
+  for (const s of [...GT.list]) {
+    await gtSyncSpace(s.id);
+    const st = gtSt(s.id);
+    if (!st.presAt || Date.now() - st.presAt > 60000) { st.presAt = Date.now(); gtPresence(s.id).catch(() => {}); }
+    if (!st.timeAt || Date.now() - st.timeAt > 600000) { st.timeAt = Date.now(); gtTimePush(s.id).catch(() => {}); }
+  }
+  if (GT.dirtyB.size) gtPushBoards();
+}
+function gtStart() {
+  const q = new URLSearchParams(location.search).get('join');
+  if (q) { LS.set('gtjoin', q); history.replaceState(null, '', location.pathname + location.hash); setTimeout(() => gtJoinUi(q), 1200); }
+  clearInterval(GT.poll); GT.poll = setInterval(gtTick, 20000); setTimeout(gtTick, 2500);
+  { const o = Drive.onToken; Drive.onToken = function (r) { o.call(this, r); setTimeout(gtTick, 400); }; }
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') setTimeout(gtTick, 300); });
+}
+/* access: a viewer's boards are read-only; sections hidden for a member stay hidden */
+function gtApplyAccess() {
+  const id = S.board && S.board.space; const ro = !!id && !gtCan(id, 'write');
+  document.body.classList.toggle('gt-view', ro);
+  const hide = new Set(); for (const s of GT.list) { const m = ((GT.data[s.id] || {}).members || {})[gtMeEmail()]; (m && m.hide || []).forEach(x => hide.add(x)); }
+  for (const k of Object.keys(TEAM_SECTIONS)) document.body.classList.toggle('t-no-' + k, hide.has(k));
+}
+/* =========================================================
+   v2.6: team spaces — the interface: the section «Командные пространства» in the
+   boards panel, the space window (members, roles, invitations, sections,
+   where everything lies), joining by a link, who is on the board.
+   ========================================================= */
+const gtFolderUrl = id => 'https://drive.google.com/drive/folders/' + encodeURIComponent(id);
+function gtBoardsOf(id) { return S.index.filter(x => x.space === id).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0)); }
+/* the boards panel: spaces first, each with its boards */
+function gtSideHTML() {
+  const col = bsCol(), now = S.board && S.board.id;
+  const head = `<div class="bs-sh gt-sh${col.has('§gt') ? ' closed' : ''}" data-sec="gt"><button class="bs-t" data-gt="§gt">${col.has('§gt') ? '▸' : '▾'}</button>👥 Командные пространства <i>${GT.list.length}</i><button class="bs-a" data-gtx="new" title="Новое командное пространство">+</button></div>`;
+  if (col.has('§gt')) return head;
+  if (!GT.list.length) return head + `<div class="gt-empty">Общие доски и задачи для команды с Google-аккаунтами. <button class="ob sm" data-gtx="new">+ Создать</button> <button class="ob sm" data-gtx="joinask">Войти по ссылке</button></div>`;
+  return head + GT.list.map(s => {
+    const k = '§gt:' + s.id, closed = col.has(k), bs = gtBoardsOf(s.id), err = GT.err[s.id], role = gtRole(s.id);
+    return `<div class="bs-g gt-g${closed ? ' closed' : ''}" style="--d:0;--c:#3355ff"><button class="bs-t" data-gt="${k}">${closed ? '▸' : '▾'}</button><span class="bs-n">${esc(gtName(s.id))}</span><span class="gt-r" title="${esc((GT_ROLES[role] || [''])[1])}">${esc((GT_ROLES[role] || [''])[0])}</span>${err ? `<span class="gt-err" title="${esc(String(err))}">!</span>` : ''}<button class="bs-a" data-gtx="board:${s.id}" title="Новая доска в пространстве">+</button><button class="bs-a" data-gtx="open:${s.id}" title="Участники и настройки">⚙</button></div>`
+      + (closed ? '' : bs.map(b => `<div class="bs-b${b.id === now ? ' cur' : ''}" data-bid="${b.id}" tabindex="0" style="--d:1"><span class="bp-dot" style="--c:#3355ff"></span><span class="bs-n">${esc(b.name || 'Доска')}</span></div>`).join('') || `<div class="gt-empty" style="--d:1">Досок пока нет. <button class="ob sm" data-gtx="board:${s.id}">+ Доска</button></div>`);
+  }).join('') + (Drive.mode === 'rest' && !Drive.ready() ? `<div class="gt-empty">Чтобы видеть изменения команды, <button class="ob sm" data-gtx="login">войдите в Google</button></div>` : '');
+}
+async function gtSideClick(b) {
+  const v = b.dataset.gtx; if (!v) return false;
+  const [a, id] = v.split(':');
+  if (a === 'new') gtCreateDlg();
+  else if (a === 'joinask') { const l = await uiPrompt('Ссылка-приглашение в пространство', ''); const m = l && /[?&]join=([^&#]+)/.exec(l); if (m) { const c = /[#&]cid=([^&]+)/.exec(l); if (c && Drive.mode === 'rest' && !Drive.cid) Drive.setClient(decodeURIComponent(c[1])); gtJoinUi(decodeURIComponent(m[1])); } else if (l) toast('В ссылке нет приглашения'); }
+  else if (a === 'board') gtNewBoard(id);
+  else if (a === 'open') gtOpen(id);
+  else if (a === 'login') Drive.connect();
+  return true;
+}
+async function gtNewBoard(id) {
+  if (!gtCan(id, 'write')) { toast('Наблюдатель не создаёт доски'); return; }
+  finishEdit(); if (S.board && dirty) await saveNow();
+  const b = newBoard('Доска ' + (gtBoardsOf(id).length + 1)); b.space = id; b.team = 'gt';
+  loadBoard(b); await saveNow(); if (typeof bsRender === 'function') bsRender(true);
+  $('#boardName').focus(); $('#boardName').select();
+}
+/* move a personal board into a space: the personal copy goes away */
+async function gtMoveBoard(bid, id) {
+  if (!gtCan(id, 'write')) { toast('Наблюдатель не добавляет доски'); return; }
+  if (S.board && S.board.id === bid && dirty) await saveNow();
+  const b = S.board && S.board.id === bid ? S.board : await Backend.loadBoard(bid); if (!b) return;
+  if (!(await uiConfirm(`Перенести «${b.name}» в пространство «${gtName(id)}»? Её увидят и смогут менять все участники.`))) return;
+  const own = gtOwnDel(); b.space = id; b.team = 'gt';
+  await gtSaveBoard(b); if (own) { try { await own(bid); } catch (e) { /* stays as a stale personal copy */ } }
+  const e = S.index.find(x => x.id === bid); if (e) e.space = id; else upsertIndex(b);
+  if (Drive.st && Drive.st.meta && Drive.st.meta[bid]) Drive.forget(bid);
+  if (typeof bsRender === 'function') bsRender(true); renderDrawer(); toast('Доска теперь командная');
+}
+/* ---------- the windows ---------- */
+function gtCreateDlg() {
+  const d = xdlg('Новое командное пространство', `<div class="p24"><p class="sub">Папка на вашем Google Диске, к которой вы откроете доступ команде. Каждый участник входит в Холст на сайте со своим аккаунтом Google — Claude не нужен.</p>
+    <label class="ds-l">Название<input class="inp" data-gc="name" value="Агентство" autocomplete="off"></label>
+    <label class="ds-l">Заготовка<select class="inp" data-gc="tpl"><option value="lean">Маркетинговое агентство (Lean): направления-услуги, поток, гипотезы</option><option value="empty">Пустое пространство</option></select></label>
+    <details class="clipf"><summary>Папка в общем диске (Google Workspace)</summary><label class="ds-l">ID папки или общего диска, где создать пространство (необязательно)<input class="inp" data-gc="parent" placeholder="из адреса папки: drive.google.com/drive/folders/<ID>"></label></details>
+    <div class="btnrow"><button class="btn" data-gc="go">Создать</button></div><p class="sub gt-note" hidden></p></div>`);
+  d.addEventListener('click', async e => {
+    if (!e.target.closest('[data-gc="go"]')) return;
+    const name = d.querySelector('[data-gc="name"]').value.trim() || 'Команда', tpl = d.querySelector('[data-gc="tpl"]').value, parent = d.querySelector('[data-gc="parent"]').value.trim().replace(/^.*folders\//, '').replace(/[?#].*$/, '');
+    const note = d.querySelector('.gt-note'); note.hidden = false; note.textContent = 'Создаю папку на Google Диске…';
+    try { const id = await gtCreate(name, tpl, parent || ''); if (!id) { note.textContent = 'Сначала войдите в Google — и нажмите «Создать» ещё раз.'; return; } closeXdlg(); gtOpen(id); if (typeof bsRender === 'function') bsRender(); }
+    catch (er) { note.textContent = 'Не получилось: ' + ((er && (er.message || er.status)) || er); }
+  });
+}
+async function gtJoinUi(fid) {
+  if (GT.list.find(s => s.id === fid)) { toast('Вы уже в этом пространстве'); return; }
+  const ok = Drive.ready();
+  const d = xdlg('Приглашение в команду', `<div class="p24"><p>Вас пригласили в командное пространство Холста. Оно лежит на Google Диске владельца — войдите тем адресом Google, на который пришло приглашение.</p>
+    ${Drive.available() ? '' : '<p class="sub">Откройте эту ссылку в браузере на сайте Холста — внутри файла или приложения без интернета пространства не работают.</p>'}
+    <div class="btnrow">${ok ? '<button class="btn" data-gj="join">Присоединиться</button>' : '<button class="btn" data-gj="login">Войти в Google</button>'}</div><p class="sub gt-note" hidden></p></div>`);
+  d.addEventListener('click', async e => {
+    const b = e.target.closest('[data-gj]'); if (!b) return;
+    const note = d.querySelector('.gt-note'); note.hidden = false;
+    if (b.dataset.gj === 'login') { LS.set('gtjoin', fid); Drive.connect(); note.textContent = 'После входа присоединение произойдёт само.'; return; }
+    note.textContent = 'Подключаюсь…'; if (await gtJoin(fid)) { closeXdlg(); if (typeof bsToggle === 'function') bsToggle(true); setTimeout(() => bsRender && bsRender(), 300); } else note.textContent = 'Не получилось: проверьте, что вошли нужным адресом Google и что владелец открыл ему доступ.';
+  });
+}
+async function gtOpen(id) {
+  if (!id) { if (GT.list.length === 1) id = GT.list[0].id; else return gtListDlg(); }
+  const d = xdlg('Пространство «' + gtName(id) + '»', '<div class="gt-body"><p class="sub">Загружаю…</p></div>', true);
+  d._dkey = 'gt'; d.querySelector('.xbox').classList.add('gt-x');
+  const draw = async () => {
+    const data = GT.data[id] || {}, me = gtMeEmail(), admin = gtCan(id, 'admin'), P = await gtPeople(id).catch(() => ({ pres: {}, time: {} }));
+    const mem = gtMembers(id).sort((a, b) => ['owner', 'admin', 'member', 'viewer'].indexOf(a.role) - ['owner', 'admin', 'member', 'viewer'].indexOf(b.role) || a.email.localeCompare(b.email));
+    const seen = e => { const p = P.pres[e]; if (!p) return '<span class="gt-off">ещё не заходил</span>'; const m = Math.round((Date.now() - p.at) / 60000); return m < 3 ? `<span class="gt-on">в Холсте${p.board ? ' · ' + esc(p.board.name) : ''}</span>` : `<span class="gt-off">был ${m < 60 ? m + ' мин' : m < 1440 ? Math.round(m / 60) + ' ч' : Math.round(m / 1440) + ' дн'} назад</span>`; };
+    d.querySelector('.gt-body').innerHTML = `
+      <div class="gt-top"><span class="stpill on">Папка: <a href="${gtFolderUrl(id)}" target="_blank" rel="noopener">открыть в Google Диске ↗</a></span><span class="stpill">Вы: ${esc(me || '—')} · ${esc((GT_ROLES[gtRole(id)] || [''])[0])}</span>${GT.err[id] ? `<span class="stpill err">Связь: ${esc(String(GT.err[id]))}</span>` : `<span class="stpill">Обновляется каждые 20 секунд</span>`}</div>
+      <h3>Участники <i>${mem.length}</i></h3>
+      <div class="gt-mem">${mem.map(m => `<div class="gt-m"><span class="gt-av" style="--c:${gtColor(m.email)}">${esc((m.name || m.email)[0].toUpperCase())}</span><span class="gt-mn"><b>${esc(m.name || m.email.split('@')[0])}${m.email === me ? ' (вы)' : ''}</b><small>${esc(m.email)} · ${seen(m.email)}</small></span>
+        ${admin && m.role !== 'owner' ? `<select class="inp sm" data-gr="${esc(m.email)}">${Object.entries(GT_ROLES).filter(([k]) => k !== 'owner').map(([k, [l]]) => `<option value="${k}"${m.role === k ? ' selected' : ''}>${l}</option>`).join('')}</select><button class="ob sm" data-gm="hide:${esc(m.email)}" title="Какие разделы видит участник">Разделы${(m.hide || []).length ? ' · скрыто ' + m.hide.length : ''}</button><button class="ib sm" data-gm="del:${esc(m.email)}" title="Убрать из пространства">${ic('close')}</button>` : `<span class="gt-r">${esc((GT_ROLES[m.role] || [''])[0])}</span>`}</div>`).join('')}</div>
+      ${admin ? `<h3>Пригласить</h3><div class="gt-inv"><input class="inp" data-gi="email" placeholder="адрес Google: name@gmail.com" autocomplete="off"><select class="inp sm" data-gi="role">${Object.entries(GT_ROLES).filter(([k]) => k !== 'owner').map(([k, [l]]) => `<option value="${k}"${k === 'member' ? ' selected' : ''}>${l}</option>`).join('')}</select><button class="btn" data-gm="invite">Пригласить</button></div>
+        <p class="sub">Google Диск сам пришлёт письмо с доступом к папке и ссылкой на Холст. Ссылка-приглашение: <button class="ob sm" data-gm="copy">Скопировать</button></p>
+        ${Drive.mode === 'rest' ? `<details class="clipf"><summary>Если участник видит «Приложение не проверено» или «Доступ заблокирован»</summary><div class="note"><p>Вход в Холст идёт через ваш проект Google Cloud (тот, где вы создавали Client ID для Диска).</p><ol class="steps"><li>Откройте <a href="https://console.cloud.google.com/apis/credentials/consent" target="_blank" rel="noopener">Google Cloud → OAuth consent screen</a>.</li><li>Раздел «Test users» → «Add users» → впишите адреса участников (до 100) — или нажмите «Publish app».</li><li>Участник снова открывает ссылку-приглашение и входит.</li></ol></div></details>` : ''}` : ''}
+      <h3>Как устроено</h3><div class="note gt-how"><p><b>Где лежит:</b> всё пространство — одна папка на Google Диске владельца: доски, задачи, присутствие и время каждого участника. Доступ к папке = доступ к пространству.</p><p><b>Кто что видит:</b> задачи пространства видны всем участникам во всех трёх режимах задачника; у каждого — «Мои задачи» по исполнителю. Личные доски и Life OS каждого остаются личными.</p><p><b>Одновременная работа:</b> изменения доходят за 20 секунд; разные объекты и задачи не мешают друг другу, при правке одного и того же побеждает более поздняя.</p><p><b>Без интернета:</b> работаете с копией на устройстве, при подключении всё сольётся.</p></div>
+      <div class="btnrow">${admin ? `<button class="ob" data-gm="rename">Переименовать</button>` : ''}<button class="ob" data-gm="sync">Обновить сейчас</button><button class="ob danger" data-gm="leave">Покинуть пространство</button></div>`;
+  };
+  d.addEventListener('change', async e => { const s = e.target.closest('[data-gr]'); if (!s) return; const data = clone(GT.data[id] || {}); const m = (data.members || {})[s.dataset.gr]; if (!m) return; m.role = s.value; try { await gtWriteSpace(id, data); toast('Роль изменена'); } catch (er) { toast('Не сохранилось'); } draw(); });
+  d.addEventListener('click', async e => {
+    const b = e.target.closest('[data-gm]'); if (!b) return; const [a, x] = [b.dataset.gm.split(':')[0], b.dataset.gm.slice(b.dataset.gm.indexOf(':') + 1)];
+    if (a === 'invite') { const em = d.querySelector('[data-gi="email"]').value, role = d.querySelector('[data-gi="role"]').value; b.disabled = true; if (await gtInvite(id, em, role)) { toast('Приглашение отправлено: ' + em); d.querySelector('[data-gi="email"]').value = ''; } b.disabled = false; draw(); }
+    else if (a === 'copy') { try { await navigator.clipboard.writeText(gtInviteLink(id)); toast('Ссылка скопирована'); } catch (er) { await uiPrompt('Ссылка-приглашение', gtInviteLink(id)); } }
+    else if (a === 'del') { if (await uiConfirm(`Убрать ${x} из пространства? Доступ к папке тоже снимется.`)) { await gtRemoveMember(id, x); draw(); } }
+    else if (a === 'hide') gtHidePop(b, id, x, draw);
+    else if (a === 'rename') { const n = await uiPrompt('Название пространства', gtName(id)); if (n && n.trim()) { const data = clone(GT.data[id] || {}); data.name = n.trim(); await gtWriteSpace(id, data); const s = GT.list.find(y => y.id === id); if (s) s.name = data.name; gtSave(); draw(); if (typeof bsRender === 'function') bsRender(); } }
+    else if (a === 'sync') { b.disabled = true; await gtSyncSpace(id); await gtPeople(id, true).catch(() => {}); draw(); }
+    else if (a === 'leave') { if (await uiConfirm(`Покинуть «${gtName(id)}» на этом устройстве? Папка и данные команды останутся на Диске.`)) { gtLeave(id); closeXdlg(); } }
+  });
+  draw();
+}
+function gtHidePop(anchor, id, email, done) {
+  const m = ((GT.data[id] || {}).members || {})[email] || {}, hide = new Set(m.hide || []);
+  openPop(anchor, `<div class="menu"><div class="vp-h">Что видит ${esc(email)}</div>${Object.entries(TEAM_SECTIONS).map(([k, l]) => `<button class="mi" data-v="${k}"><span>${hide.has(k) ? '☐' : '☑'} ${esc(l)}</span></button>`).join('')}</div>`, async v => {
+    const data = clone(GT.data[id] || {}), mm = data.members[email]; const h = new Set(mm.hide || []); if (h.has(v)) h.delete(v); else h.add(v); mm.hide = [...h];
+    await gtWriteSpace(id, data); done();
+  });
+}
+function gtListDlg() {
+  const d = xdlg('Командные пространства', `<div class="p24"><p class="sub">Общие доски и задачи для команды. Каждый участник работает со своим аккаунтом Google на сайте Холста; всё лежит в общей папке Google Диска.</p>
+    <div class="gt-list">${GT.list.map(s => `<button class="ob" data-gl="${s.id}">👥 ${esc(gtName(s.id))} · ${esc((GT_ROLES[gtRole(s.id)] || [''])[0])}</button>`).join('') || '<p class="sub">Пока ни одного.</p>'}</div>
+    <div class="btnrow"><button class="btn" data-gl="new">+ Создать пространство</button><button class="ob" data-gl="join">Войти по ссылке-приглашению</button></div></div>`);
+  d.addEventListener('click', e => { const b = e.target.closest('[data-gl]'); if (!b) return; const v = b.dataset.gl; if (v === 'new') gtCreateDlg(); else if (v === 'join') gtSideClick({ dataset: { gtx: 'joinask' } }); else gtOpen(v); });
+}
+/* who is on this board right now (from presence files, fresh within 3 minutes) */
+async function gtWhoDraw() {
+  let el = $('#gtwho'); const id = S.board && S.board.space;
+  if (!id) { if (el) el.hidden = true; return; }
+  if (!el) { el = document.createElement('button'); el.id = 'gtwho'; el.dataset.app = ''; el.title = 'Командное пространство: участники и кто сейчас здесь'; ($('#topbar') || document.body).appendChild(el); el.addEventListener('click', () => gtOpen(S.board && S.board.space)); }
+  const P = await gtPeople(id).catch(() => null); if (!P) return;
+  const here = Object.values(P.pres).filter(p => p.email !== gtMeEmail() && Date.now() - p.at < 180000);
+  el.hidden = false;
+  el.innerHTML = `<span class="gt-wn" title="Командное пространство">👥 ${esc(gtName(id))}</span>` + here.map(p => `<span class="gt-av${p.board && p.board.id === S.board.id ? ' here' : ''}" style="--c:${gtColor(p.email)}" title="${esc((p.name || p.email) + (p.board ? ' — на доске «' + p.board.name + '»' : ''))}">${esc((p.name || p.email)[0].toUpperCase())}</span>`).join('');
+}
+/* =========================================================
+   v2.6: the task manager — one content, three methodologies.
+   The same records (directions, projects, tasks) are shown three ways:
+   • To-do — a clear list of things to do;
+   • Lean — the flow of work: backlog → ready → in progress → check → done,
+     WIP limits, blocks, cycle time, throughput, who is doing what, hypotheses,
+     everyone's time;
+   • Life OS — the DEV method: statuses with your explanations, reports
+     «сделано · проверить · ограничения», «нужно ваше действие», iterations,
+     directions × statuses.
+   A status is one for all three; each methodology names it in its own words.
+   Directions are a tree of any depth; the first layer of each methodology is
+   preset. «Моё» is your personal space; command spaces live on Google Drive.
+   ========================================================= */
+for (const k of ['who', 'sd', 'it', 'rep', 'stw', 'need', 'modes', 'sp', 'pts', 'hs', 'metric', 'exp', 'learn', 'flag', 'ws', 'team']) if (!LO_CMP.includes(k)) LO_CMP.push(k);
+if (!LO_ST.rework) LO_ST.rework = ['На доработке', '#e5484d'];
+if (!LO_ST.paused) LO_ST.paused = ['На паузе', '#9aa1ad'];
+if (!LO_ST.review) LO_ST.review = ['На проверке', '#d99a00'];
+(() => { const order = ['inbox', 'todo', 'doing', 'wait', 'review', 'rework', 'paused', 'done', 'drop'], copy = Object.assign({}, LO_ST); for (const k of Object.keys(LO_ST)) delete LO_ST[k]; for (const k of order) if (copy[k]) LO_ST[k] = copy[k]; for (const k of Object.keys(copy)) if (!LO_ST[k]) LO_ST[k] = copy[k]; })();
+(() => { const life = LO_MODES.life; for (const k of Object.keys(LO_MODES)) delete LO_MODES[k]; LO_MODES.todo = ['To-do', 'Список дел: сегодня, неделя, проекты']; LO_MODES.lean = ['Lean', 'Поток работы: WIP-лимиты, блоки, время цикла, кто чем занят, гипотезы']; LO_MODES.life = life || ['Life OS', 'Методология DEV: статусы, отчёты, итерации']; })();
+const TM_STC = { inbox: '#8a90a0', todo: '#6b7080', doing: '#3355ff', wait: '#8e4ec6', review: '#d99a00', rework: '#e5484d', paused: '#9aa1ad', done: '#2fa36b', drop: '#b9bdc6' };
+const TM_ST = {
+  todo: { inbox: 'Входящие', todo: 'К выполнению', doing: 'В работе', wait: 'Ждёт', review: 'Проверить', rework: 'Переделать', paused: 'Отложено', done: 'Готово', drop: 'Отменено' },
+  lean: { inbox: 'Бэклог', todo: 'Готово к работе', doing: 'В работе', wait: 'Блок', review: 'Проверка', rework: 'Доработка', paused: 'Пауза', done: 'Готово', drop: 'Отказ' },
+  life: { inbox: 'Драфт', todo: 'Ожидает', doing: 'В работе', wait: 'Нужно ваше действие', review: 'Ждёт проверки', rework: 'На доработке', paused: 'На паузе', done: 'Завершено', drop: 'Не актуально' },
+};
+const TM_KIND = { todo: 'Направление', lean: 'Направление', life: 'Сфера' };
+const TM_PRESET = {
+  todo: [['Личное', '#3355ff'], ['Работа', '#f76b15'], ['Дом и быт', '#2fa36b'], ['Покупки и дела', '#d9a300'], ['Идеи и потом', '#7b61ff']],
+  lean: [['Клиенты и проекты', '#3355ff'], ['Продажи и лиды', '#2fa36b'], ['SMM и контент', '#d6409f'], ['Реклама и трафик', '#f76b15'], ['Сайты и SEO', '#0b8fa8'], ['Стратегия и бренд', '#7b61ff'], ['Команда и найм', '#d9a300'], ['Финансы и операции', '#897a5f'], ['Улучшение процессов', '#8a90a0']],
+  life: LO_AREAS.map(([k, n, c]) => [n, c, 'A-' + k]),
+};
+const TM_PAGES = {
+  todo: [['dash', '◫', 'Витрина'], ['my', '☺', 'Мои задачи'], ['inbox', '⇣', 'Входящие'], ['today', '☀', 'Сегодня'], ['next', '⇢', 'Ближайшие 7 дней'], ['all', '☰', 'Все задачи']],
+  lean: [['ldash', '◫', 'Витрина Lean'], ['flow', '▥', 'Поток'], ['who', '👥', 'Кто чем занят'], ['lmy', '☺', 'Мои задачи'], ['dirs', '▦', 'Направления и проекты'], ['hyp', '⚗', 'Гипотезы'], ['ltime', '⏱', 'Время команды']],
+  life: [['lifedash', '◫', 'Витрина'], ['lact', '⚑', 'Нужно ваше действие'], ['liters', '◷', 'Итерации'], ['lareas', '▦', 'Направления'], ['lstat', '▥', 'Статусы'], ['lnot', '⏸', 'Не сейчас']],
+};
+const tmMode = () => (LO_MODES[S.loUi && S.loUi.mode] ? S.loUi.mode : 'todo');
+function tmLabels() { const m = tmMode(); for (const k of Object.keys(TM_ST[m])) if (LO_ST[k]) { LO_ST[k][0] = TM_ST[m][k]; LO_ST[k][1] = TM_STC[k]; } LO_KINDS.area[0] = TM_KIND[m]; }
+function tmMigrate(L) {
+  if (!L || L.v26) return;
+  const WS = { draft: 'inbox', backlog: 'todo', progress: 'doing', review: 'review', action: 'wait', rework: 'rework', done: 'done', paused: 'paused', irrelevant: 'drop' };
+  for (const r of Object.values(L.recs || {})) {
+    if (r.ws && WS[r.ws] && r.st !== 'done' && r.st !== 'drop') r.st = WS[r.ws];
+    if (r.ws) delete r.ws;
+    if (r.k === 'area' && /^A-/.test(r.id) && !r.modes) r.modes = ['life'];
+  }
+  L.v26 = 1;
+}
+function tmPreset(L, m) {
+  if (!L || !m) return 0; const t = Date.now(); let n = 0;
+  TM_PRESET[m].forEach(([title, color, fixed], i) => { const id = fixed || 'D-' + m + '-' + i; const r = L.recs[id]; if (r) { if (!(r.modes || []).includes(m)) { r.modes = (r.modes || []).concat(m); r.u = t; } return; } if (L.del && L.del[id]) return; L.recs[id] = { id, k: 'area', title, color, st: 'doing', ord: i, tags: [], modes: [m], c: t, u: t, seed: 1 }; n++; });
+  return n;
+}
+/* ---------- personal store and team spaces ---------- */
+{ const o = loLoad; loLoad = async () => { if (S.lo) return S.lo; const L = await o(); S.loPersonal = L; if (S.loUi.mode === 'corp') S.loUi.mode = 'lean'; tmMigrate(L); tmLabels(); const sp = S.loUi.space; if (sp && GT.list.some(s => s.id === sp)) { S.lo = await gtStore(sp); tmMigrate(S.lo); } return S.lo; }; }
+async function tmUseStore(id) {
+  await loLoad();
+  if (S.loT && !S.lo.space) { clearTimeout(S.loT); S.loT = 0; await loWrite(); }
+  S.lo = id ? await gtStore(id) : S.loPersonal; tmMigrate(S.lo);
+  S.loUi.space = id || ''; loUiSave(); S.loSel = null;
+  if (S.loOpen) renderLo(); if (typeof loTopChips === 'function') loTopChips();
+}
+{ const o = loSave; loSave = q => { if (S.lo && S.lo.space) { gtLoDirty(S.lo.space); clearTimeout(S.tmWt); S.tmWt = setTimeout(() => { if (typeof widgetsRefresh === 'function') widgetsRefresh(); }, 800); return; } return o(q); }; }
+{ const o = loWrite; loWrite = async () => { const cur = S.lo; if (cur && cur.space) { if (!S.loPersonal) return; S.lo = S.loPersonal; try { await o(); } finally { S.lo = cur; } return; } return o(); }; }
+{ const o = loPut; loPut = (r, quiet) => { if (S.lo && S.lo.space && !gtCan(S.lo.space, 'write')) { toast('Наблюдатель только смотрит'); return S.lo.recs[r.id] || r; } return o(r, quiet); }; }
+{ const o = loSet; loSet = (id, patch, quiet) => { const r = loGet(id); if (r && patch && patch.st === 'doing' && r.st !== 'doing' && !r.sd) patch = Object.assign({}, patch, { sd: Date.now() }); return o(id, patch, quiet); }; }
+/* board scans and board groups go to the store of the board */
+function tmWithStore(L, fn) { const cur = S.lo; S.lo = L; try { return fn(); } finally { S.lo = cur; } }
+{ const o = loScanBoard; loScanBoard = bo => { const b = bo || S.board, sp = b && b.space; if (!S.lo) return; const want = sp ? GT.stores[sp] : S.loPersonal || S.lo; if (sp && !want) { gtStore(sp).then(L => { tmMigrate(L); tmWithStore(L, () => o(bo)); }); return; } return want && want !== S.lo ? tmWithStore(want, () => o(bo)) : o(bo); }; }
+{ const o = loGroupsFromLo; loGroupsFromLo = (...a) => (S.lo && S.lo.space ? undefined : o(...a)); }
+{ const o = loGroupsToLo; loGroupsToLo = (...a) => (S.lo && S.lo.space ? undefined : o(...a)); }
+/* ---------- helpers ---------- */
+const tmOpenT = r => r.k === 'task' && r.st !== 'done' && r.st !== 'drop';
+const tmMine = r => (S.lo && S.lo.space ? r.who === gtMeEmail() : !r.who || r.who === 'me' || r.who === gtMeEmail());
+const tmPersonName = email => (!email ? '' : S.lo && S.lo.space ? gtPerson(S.lo.space, email) : 'Я');
+const tmAv = email => (email ? `<span class="tm-av" style="--c:${gtColor(email)}" title="${esc(tmPersonName(email))}">${esc((tmPersonName(email) || '?')[0].toUpperCase())}</span>` : '');
+function tmFirst() {
+  const m = tmMode(), all = loAll().filter(r => r.k === 'area' && (!r.par || !loGet(r.par) || loGet(r.par).k !== 'area'));
+  return all.filter(r => !(r.modes || []).length || r.modes.includes(m)).sort((a, b) => (a.ord || 0) - (b.ord || 0) || a.title.localeCompare(b.title, 'ru'));
+}
+const tmHasPreset = () => loAll().some(r => r.k === 'area' && (r.modes || []).includes(tmMode()));
+function tmTop(r) { const p = loPath(r).concat(LO_CONT.includes(r.k) ? [r] : []); const firsts = new Set(tmFirst().map(x => x.id)); const f = p.find(x => firsts.has(x.id)); return f || null; }
+function tmCard(r, o) {
+  o = o || {}; const p = r.par && loGet(r.par), d = loDue(r), t = loToday(), m = tmMode();
+  const flag = r.st === 'wait' ? `<span class="tm-flag w">${esc(LO_ST.wait[0])}</span>` : r.st === 'rework' ? `<span class="tm-flag r">${esc(LO_ST.rework[0])}</span>` : '';
+  const age = r.st === 'doing' && r.sd ? Math.floor((Date.now() - r.sd) / 864e5) : 0;
+  const note = m === 'life' && o.why !== false && (r.stw || {})[r.st] ? `<div class="tm-why">💬 ${esc(r.stw[r.st])}</div>` : '';
+  return `<div class="lo24c tmc${S.loSel === r.id ? ' sel' : ''}" draggable="true" data-lsel="${r.id}" data-l24drag="${r.id}" style="--sc:${TM_STC[r.st] || '#8a90a0'}"><div class="lo24ct">${esc(loName(r))}</div>${note}<div class="lo24cm">${flag}${p ? `<span class="lo-ch" style="--c:${p.color || LO_KINDS[p.k][2]}">${LO_KINDS[p.k][1]} ${esc(loName(p))}</span>` : ''}${d ? `<span class="lo-due${d < t && r.st !== 'done' ? ' over' : d === t ? ' today' : ''}">${esc(d === t ? 'сегодня' : fmtDay(d))}</span>` : ''}${age >= 3 ? `<span class="tm-age${age > 7 ? ' old' : ''}" title="Дней в работе">${age} дн</span>` : ''}${o.space ? `<span class="tm-sp">👥 ${esc(gtName(o.space))}</span>` : ''}${tmAv(r.who)}</div></div>`;
+}
+const tmSpec = s => Object.fromEntries(String(s || '').split(';').filter(Boolean).map(x => { const i = x.indexOf(':'); return [x.slice(0, i), x.slice(i + 1)]; }));
+function tmKan(cols, list, colOf, o) {
+  o = o || {};
+  return `<div class="lo-kan lo24k tmk">${cols.map(([k, l, c, extra]) => { const spec = (o.spec ? o.spec + ';' : '') + (o.field || 'st') + ':' + k, l2 = list.filter(r => colOf(r) === k); return `<div class="lo-kc" data-tmcol="${esc(spec)}"><div class="lo-kh" style="--c:${c}"><i class="mxdot" style="--c:${c}"></i>${esc(l)} <b>${l2.length}</b>${extra || ''}</div>${l2.slice(0, o.max || 300).map(r => tmCard(r)).join('')}${l2.length > (o.max || 300) ? `<p class="lo-hint">и ещё ${l2.length - o.max}</p>` : ''}${o.add ? `<form class="lo-qa tmqa" data-tmqa="${esc(spec)}"><input class="inp sm" name="q" placeholder="+ задача" autocomplete="off"></form>` : ''}</div>`; }).join('')}</div>`;
+}
+const tmHead = (title, sub, btns) => `<div class="lo-head"><h1>${esc(title)}</h1><span class="lo-flex"></span>${btns || ''}${lo24Share()}</div>${sub ? `<p class="lo-hint">${sub}</p>` : ''}`;
+const tmStCols = keys => keys.map(k => [k, LO_ST[k][0], TM_STC[k]]);
+const tmCards = cards => `<div class="tt-cards tm-cards">${cards.map(([v, l, cls]) => `<div class="${cls || ''}"><b>${v}</b><span>${l}</span></div>`).join('')}</div>`;
+const tmBar = (a, b, c) => `<span class="tm-bar"><i style="width:${b ? Math.round(a / b * 100) : 0}%;--c:${c || '#2fa36b'}"></i></span>`;
+function tmPeopleList() {
+  const sp = S.lo && S.lo.space;
+  if (!sp) return [{ email: gtMeEmail() || 'me', name: 'Я', me: 1 }];
+  return gtMembers(sp).map(m => ({ email: m.email, name: m.name || gtPerson(sp, m.email), me: m.email === gtMeEmail(), role: m.role }));
+}
+/* ---------- To-do ---------- */
+function tmTodoDash() {
+  const t = loToday(), tasks = loAll().filter(tmOpenT), done7 = loAll().filter(r => r.k === 'task' && r.st === 'done' && (r.done || 0) > Date.now() - 7 * 864e5).length;
+  const over = tasks.filter(r => r.due && r.due < t), today = tasks.filter(r => r.due === t), inbox = tasks.filter(r => !r.par && !r.due), week = tasks.filter(r => r.due && r.due > t && r.due <= loAddDays(7));
+  const projs = loAll().filter(r => (r.k === 'project' || r.k === 'epic') && r.st !== 'done' && r.st !== 'drop').map(r => [r, loProgress(r.id)]).filter(([, [, n]]) => n).sort((a, b) => (b[1][1] - b[1][0]) - (a[1][1] - a[1][0])).slice(0, 10);
+  return tmHead('Витрина', 'Что сделать сегодня и что на подходе.')
+    + tmCards([[today.length, 'на сегодня'], [over.length, 'просрочено', over.length ? 'bad' : ''], [inbox.length, 'во входящих'], [week.length, 'на неделе'], [done7, 'сделано за 7 дней', 'good']])
+    + `<form class="lo-qa" data-qa="1"><input class="inp" name="q" placeholder="+ Задача: «название завтра !1 #метка @проект»" autocomplete="off"><button class="btn">Добавить</button></form>`
+    + `<div class="lo24two"><div><h3>Сегодня и просрочено</h3>${over.concat(today).map(r => loTaskRow(r)).join('') || '<p class="lo-hint">На сегодня ничего — хороший день.</p>'}</div><div><h3>Проекты</h3>${projs.map(([r, [d, n]]) => `<button class="tm-prow" data-lp="ent:${r.id}"><span>${LO_KINDS[r.k][1]} ${esc(loName(r))}</span>${tmBar(d, n)}<i>${d}/${n}</i></button>`).join('') || '<p class="lo-hint">Проектов с задачами пока нет.</p>'}</div></div>`
+    + tmFromSpacesHTML();
+}
+function tmMyHTML() {
+  const m = tmMode(), mine = loAll().filter(r => tmOpenT(r) && tmMine(r)), sp = S.lo.space;
+  if (m === 'lean') return tmHead('Мои задачи', sp ? 'Назначено вам в этом пространстве — по потоку.' : 'Ваши задачи по потоку.') + tmKan(tmStCols(['todo', 'doing', 'wait', 'review']), mine, r => r.st === 'rework' ? 'doing' : r.st === 'inbox' ? 'todo' : r.st, { add: true, spec: sp ? 'who:' + gtMeEmail() : '' }) + tmFromSpacesHTML();
+  const groups = ['doing', 'rework', 'wait', 'review', 'todo', 'inbox', 'paused'].map(k => [k, mine.filter(r => r.st === k)]).filter(([, l]) => l.length);
+  return tmHead('Мои задачи', sp ? 'Назначено вам в пространстве «' + esc(gtName(sp)) + '».' : 'Все ваши открытые задачи по статусам.') + `<form class="lo-qa tmqa" data-tmqa="${sp ? 'who:' + esc(gtMeEmail()) : ''}"><input class="inp" name="q" placeholder="+ Моя задача" autocomplete="off"><button class="btn">Добавить</button></form>` + (groups.map(([k, l]) => `<div class="lo-grp"><div class="lo-gh"><i class="mxdot" style="--c:${TM_STC[k]}"></i> ${esc(LO_ST[k][0])} <b>${l.length}</b></div>${l.map(r => loTaskRow(r)).join('')}</div>`).join('') || '<p class="lo-hint">Ничего не назначено.</p>') + tmFromSpacesHTML();
+}
+/* tasks assigned to me in team spaces — on personal pages */
+function tmFromSpacesHTML() {
+  if (S.lo && S.lo.space) return ''; const me = gtMeEmail(); if (!me || !GT.list.length) return '';
+  const rows = []; for (const s of GT.list) { const L = GT.stores[s.id]; if (!L) { gtStore(s.id); continue; } for (const r of Object.values(L.recs)) if (tmOpenT(r) && r.who === me) rows.push([s.id, r]); }
+  if (!rows.length) return '';
+  return `<div class="lo-grp tm-from"><div class="lo-gh">👥 Назначено мне в командах <b>${rows.length}</b></div>${rows.sort((a, b) => String(a[1].due || '9').localeCompare(String(b[1].due || '9'))).slice(0, 40).map(([sid, r]) => `<button class="tm-frow" data-tmgo="${sid}|${r.id}"><i class="mxdot" style="--c:${TM_STC[r.st]}"></i><span>${esc(loName(r))}</span><small>${esc(gtName(sid))} · ${esc(TM_ST[tmMode()][r.st] || '')}${r.due ? ' · ' + esc(fmtDay(r.due)) : ''}</small></button>`).join('')}</div>`;
+}
+/* ---------- Lean ---------- */
+function tmLeanStats() {
+  const now = Date.now(), tasks = loAll().filter(r => r.k === 'task'), wk = 7 * 864e5;
+  const doing = tasks.filter(r => r.st === 'doing'), lim = ((S.lo.wip || {}).doing) || 5;
+  const thr = []; for (let i = 7; i >= 0; i--) { const a = now - (i + 1) * wk, b = now - i * wk; thr.push(tasks.filter(r => r.st === 'done' && r.done >= a && r.done < b).length); }
+  const cyc = tasks.filter(r => r.st === 'done' && r.done > now - 30 * 864e5 && r.sd && r.done > r.sd).map(r => (r.done - r.sd) / 864e5).sort((a, b) => a - b);
+  const med = cyc.length ? cyc[Math.floor(cyc.length / 2)] : null;
+  return { tasks, doing, lim, thr, med, blocked: tasks.filter(r => r.st === 'wait'), aging: doing.filter(r => r.sd && now - r.sd > wk).sort((a, b) => a.sd - b.sd), done7: thr[7] };
+}
+function tmLeanDash() {
+  const s = tmLeanStats(), hyp = loAll().filter(r => r.k === 'hyp'), mx = Math.max(1, ...s.thr), people = tmPeopleList(), firsts = tmFirst(), open = s.tasks.filter(tmOpenT);
+  const stage = ['inbox', 'todo', 'doing', 'review', 'wait', 'rework'].map(k => [k, open.filter(r => r.st === k).length]);
+  const tot = stage.reduce((a, [, n]) => a + n, 0) || 1;
+  const vs = firsts.map(d => { const ids = loDesc(d.id), l = s.tasks.filter(r => ids.has(r.id)); return [d, l.filter(tmOpenT).length, l.filter(r => r.st === 'doing').length, l.filter(r => r.st === 'done' && r.done > Date.now() - 30 * 864e5).length]; });
+  return tmHead('Витрина Lean', 'Поток работы: сколько в работе, что застряло, с какой скоростью идёт и кто чем занят.')
+    + tmCards([[`${s.doing.length}<small> / ${s.lim}</small>`, 'в работе (WIP / лимит)', s.doing.length > s.lim ? 'bad' : ''], [s.done7, 'готово за 7 дней', 'good'], [s.med == null ? '—' : (s.med < 1 ? '<1' : Math.round(s.med)) + '<small> дн</small>', 'время цикла, медиана'], [s.blocked.length, 'в блоке', s.blocked.length ? 'bad' : ''], [s.aging.length, 'дольше 7 дней в работе', s.aging.length ? 'warn' : ''], [hyp.filter(h => h.hs === 'test').length, 'гипотез в проверке']])
+    + `<div class="lo24two"><div><h3>Пропускная способность: готово по неделям</h3><div class="tt-days tm-thr">${s.thr.map((n, i) => `<div title="${n} за неделю"><i style="height:${Math.round(n / mx * 100)}%"></i><span>${i === 7 ? 'эта' : '−' + (7 - i)}</span></div>`).join('')}</div>
+      <h3>Где сейчас работа</h3><div class="tm-flowbar">${stage.filter(([, n]) => n).map(([k, n]) => `<i style="flex:${n};--c:${TM_STC[k]}" title="${esc(LO_ST[k][0])}: ${n}">${n}</i>`).join('')}</div><div class="tm-legend">${stage.map(([k, n]) => `<span><i class="mxdot" style="--c:${TM_STC[k]}"></i>${esc(LO_ST[k][0])} ${n}</span>`).join('')}</div></div>
+      <div><h3>Загрузка людей</h3>${people.map(p => { const l = s.tasks.filter(r => r.who === p.email || (p.me && !S.lo.space && !r.who)); return `<div class="tm-prow"><span>${tmAv(p.email)} ${esc(p.name)}</span><i>в работе ${l.filter(r => r.st === 'doing').length} · блок ${l.filter(r => r.st === 'wait').length} · готово ${l.filter(r => r.st === 'done' && r.done > Date.now() - 7 * 864e5).length}</i></div>`; }).join('')}
+      <h3>Застряло в работе</h3>${s.aging.slice(0, 8).map(r => tmCard(r)).join('') || '<p class="lo-hint">Ничего не застряло.</p>'}</div></div>
+      <h3>Направления: поток по каждому</h3><div class="tm-vs">${vs.map(([d, o, w, dn]) => `<button class="tm-prow" data-lp="ent:${d.id}"><span><i class="mxdot" style="--c:${d.color || '#3355ff'}"></i> ${esc(loName(d))}</span><i>открыто ${o} · в работе ${w} · готово за 30 дн ${dn}</i></button>`).join('') || `<p class="lo-hint">Направлений пока нет. <button class="ob sm" data-tm="preset">Преднастроить по Lean</button></p>`}</div>`;
+}
+function tmLeanFlow() {
+  const U = S.loUi, s = tmLeanStats(), lane = U.lane || '', mine = !!U.fmine, lim = s.lim;
+  const list = loAll().filter(r => r.k === 'task' && (r.st !== 'done' || (r.done || 0) > Date.now() - 14 * 864e5) && r.st !== 'drop' && r.st !== 'paused' && (!mine || tmMine(r)));
+  const colOf = r => (r.st === 'wait' || r.st === 'rework' ? 'doing' : r.st);
+  const cols = [['inbox', LO_ST.inbox[0], TM_STC.inbox], ['todo', LO_ST.todo[0], TM_STC.todo], ['doing', LO_ST.doing[0], TM_STC.doing, ` <button class="mchip${s.doing.length > lim ? ' bad' : ''}" data-tm="wip" title="WIP-лимит: сколько задач одновременно в работе">${s.doing.length}/${lim}</button>`], ['review', LO_ST.review[0], TM_STC.review], ['done', LO_ST.done[0] + ' · 14 дн', TM_STC.done]];
+  const ctl = `<div class="dv-seg sm">${[['', 'Без дорожек'], ['dir', 'По направлениям'], ['who', 'По людям']].map(([v, l]) => `<button class="${lane === v ? 'on' : ''}" data-tm="lane:${v}">${l}</button>`).join('')}</div><button class="ob sm${mine ? ' on' : ''}" data-tm="fmine">Только мои</button>`;
+  let body = '';
+  if (lane === 'who') { const ppl = tmPeopleList(); body = ppl.map(p => { const l = list.filter(r => r.who === p.email || (p.me && !S.lo.space && !r.who)); return `<div class="tm-lane"><div class="tm-lh">${tmAv(p.email)} ${esc(p.name)} <b>${l.length}</b></div>${tmKan(cols, l, colOf, { add: true, spec: S.lo.space ? 'who:' + p.email : '' })}</div>`; }).join('') + (S.lo.space ? (() => { const l = list.filter(r => !r.who); return l.length ? `<div class="tm-lane"><div class="tm-lh">Без исполнителя <b>${l.length}</b></div>${tmKan(cols, l, colOf, {})}</div>` : ''; })() : ''); }
+  else if (lane === 'dir') { const firsts = tmFirst(), by = new Map(firsts.map(d => [d.id, []])), none = []; for (const r of list) { const t = tmTop(r); (t && by.has(t.id) ? by.get(t.id) : none).push(r); } body = firsts.map(d => `<div class="tm-lane"><div class="tm-lh"><i class="mxdot" style="--c:${d.color || '#3355ff'}"></i> ${esc(loName(d))} <b>${by.get(d.id).length}</b></div>${tmKan(cols, by.get(d.id), colOf, { add: true, spec: 'par:' + d.id })}</div>`).join('') + (none.length ? `<div class="tm-lane"><div class="tm-lh">Без направления <b>${none.length}</b></div>${tmKan(cols, none, colOf, {})}</div>` : ''); }
+  else body = tmKan(cols, list, colOf, { add: true });
+  return tmHead('Поток', 'Тяните задачи слева направо. «В работе» держите в пределах лимита: лучше закончить, чем начать новое. Блок и доработка отмечены на карточке.', ctl) + body;
+}
+function tmWhoHTML() {
+  const sp = S.lo.space, ppl = tmPeopleList(), tasks = loAll().filter(r => r.k === 'task'), P = sp ? GT.ppl[sp] : null;
+  if (sp && (!P || Date.now() - P.at > 60000)) gtPeople(sp).then(() => { if (S.loUi.page === 'who' && S.loOpen) renderLo(); }).catch(() => {});
+  const timeOf = email => { const T = P && P.time[email]; if (!T) return null; const d = T.days || {}, td = ttDay(); let w = 0; for (let i = 0; i < 7; i++) w += ((d[ttDay(Date.now() - i * 864e5)] || {}).act || 0); return [((d[td] || {}).act || 0), w]; };
+  return tmHead('Кто чем занят', sp ? 'Что у каждого в работе, что заблокировано и что дальше. Присутствие обновляется раз в минуту.' : 'В личном пространстве — только вы. Командная картина — в командных пространствах.')
+    + `<div class="tm-who">${ppl.map(p => {
+      const l = tasks.filter(r => r.who === p.email || (p.me && !sp && !r.who)), pr = P && P.pres[p.email], on = pr && Date.now() - pr.at < 180000;
+      const tm = p.me && !sp && S.tt ? (() => { const D = S.tt.days || {}; let w = 0; for (let i = 0; i < 7; i++) w += ((D[ttDay(Date.now() - i * 864e5)] || {}).act || 0); return [((D[ttDay()] || {}).act || 0), w]; })() : timeOf(p.email);
+      return `<div class="tm-wc"><div class="tm-wh">${tmAv(p.email)}<b>${esc(p.name)}</b>${sp ? `<small class="${on ? 'gt-on' : 'gt-off'}">${on ? 'в Холсте' + (pr.board ? ' · ' + esc(pr.board.name) : '') : pr ? 'был ' + esc(fmtDate(pr.at)) : 'не заходил'}</small>` : ''}</div>
+        <div class="tm-wl"><span>В работе</span>${l.filter(r => r.st === 'doing' || r.st === 'rework').map(r => tmCard(r)).join('') || '<p class="lo-hint">—</p>'}</div>
+        ${l.some(r => r.st === 'wait') ? `<div class="tm-wl"><span>Блок</span>${l.filter(r => r.st === 'wait').map(r => tmCard(r)).join('')}</div>` : ''}
+        <div class="tm-wl"><span>Дальше</span>${l.filter(r => r.st === 'todo').slice(0, 3).map(r => tmCard(r)).join('') || '<p class="lo-hint">—</p>'}</div>
+        <div class="tm-wf">готово за 7 дней: <b>${l.filter(r => r.st === 'done' && r.done > Date.now() - 7 * 864e5).length}</b>${tm ? ` · время: сегодня <b>${ttFmt(tm[0])}</b>, за неделю <b>${ttFmt(tm[1])}</b>` : ''}</div></div>`;
+    }).join('')}</div>`;
+}
+function tmDirsHTML() {
+  const firsts = tmFirst(), tasks = loAll().filter(r => r.k === 'task');
+  const row = (r, d) => { const ids = loDesc(r.id), l = tasks.filter(t => ids.has(t.id) && t.st !== 'drop'), dn = l.filter(t => t.st === 'done').length, kids = loKids(r.id).filter(x => LO_CONT.includes(x.k)), who = [...new Set(l.filter(tmOpenT).map(t => t.who).filter(Boolean))]; return `<button class="tm-drow" data-lp="ent:${r.id}" style="--d:${d}"><span>${LO_KINDS[r.k][1]} ${esc(loName(r))}</span>${tmBar(dn, l.length, r.color)}<i>${dn}/${l.length}</i><span class="tm-avs">${who.slice(0, 5).map(tmAv).join('')}</span><i>${l.filter(t => t.st === 'doing').length} в работе</i></button>` + kids.map(k => row(k, d + 1)).join(''); };
+  const loose = loAll().filter(r => LO_CONT.includes(r.k) && r.k !== 'area' && (!r.par || !loGet(r.par)));
+  return tmHead('Направления и проекты', 'Дерево направлений любой глубины и проекты в них: прогресс, кто занят, сколько в работе.', `<button class="btn" data-tm="newdir">+ Направление</button>`) + `<div class="tm-dirs">${firsts.map(r => row(r, 0)).join('')}${loose.length ? `<div class="lo-sh">Без направления</div>${loose.map(r => row(r, 0)).join('')}` : ''}</div>` + (tmHasPreset() ? '' : `<p class="lo-hint">Направления по методологии ещё не заданы. <button class="ob sm" data-tm="preset">Преднастроить по ${esc(LO_MODES[tmMode()][0])}</button></p>`);
+}
+function tmTimeTeam() {
+  const sp = S.lo.space; if (!sp) return ttPageHTML();
+  const P = GT.ppl[sp]; if (!P || Date.now() - P.at > 60000) gtPeople(sp).then(() => { if (S.loUi.page === 'ltime' && S.loOpen) renderLo(); }).catch(() => {});
+  const days = []; for (let i = 6; i >= 0; i--) days.push(ttDay(Date.now() - i * 864e5));
+  const ppl = tmPeopleList(), rows = ppl.map(p => { const T = (P && P.time[p.email]) || { days: {} }; const v = days.map(d => (T.days[d] || {}).act || 0); return [p, v, v.reduce((a, b) => a + b, 0), T.at]; }), mx = Math.max(1, ...rows.flatMap(r => r[1]));
+  return tmHead('Время команды', 'Активное время в Холсте по дням — у каждого участника, видно всем. Данные приходят раз в 10 минут.') + `<table class="tm-tt"><thead><tr><th>Кто</th>${days.map(d => `<th>${esc(d.slice(8))}.${esc(d.slice(5, 7))}</th>`).join('')}<th>За 7 дней</th></tr></thead><tbody>${rows.map(([p, v, sum, at]) => `<tr><th>${tmAv(p.email)} ${esc(p.name)}${at ? '' : ' <small>нет данных</small>'}</th>${v.map(x => `<td><i style="--h:${Math.round(x / mx * 100)}%"></i>${x ? ttFmt(x) : ''}</td>`).join('')}<td><b>${ttFmt(sum)}</b></td></tr>`).join('')}</tbody></table><p class="lo-hint">Своё подробно — «Служебное → Учёт времени».</p>`;
+}
+/* ---------- Life OS: the DEV method ---------- */
+function tmLifeDash() {
+  const tasks = loAll().filter(r => r.k === 'task'), firsts = tmFirst(), iter = loAll().filter(r => r.k === 'iter' && r.st !== 'done').sort((a, b) => String(b.start || '').localeCompare(String(a.start || '')))[0];
+  const cnt = Object.keys(TM_STC).map(k => [k, tasks.filter(r => r.st === k).length]);
+  const act = tasks.filter(r => r.st === 'wait'), rev = tasks.filter(r => r.st === 'review');
+  const il = iter ? tasks.filter(r => r.it === iter.id) : [];
+  return tmHead('Витрина Life OS', 'Как в DEV: что ждёт вашего действия, что ждёт проверки, как идут сферы и текущая итерация.')
+    + `<div class="tm-stc">${cnt.map(([k, n]) => `<button class="tm-stb" data-lp="lstat" style="--c:${TM_STC[k]}"><b>${n}</b><span>${esc(LO_ST[k][0])}</span></button>`).join('')}</div>`
+    + `<div class="lo24two"><div><h3>⚑ Нужно ваше действие · ${act.length}</h3>${act.slice(0, 8).map(r => tmCard(r)).join('') || '<p class="lo-hint">Ничего не ждёт.</p>'}<h3>Ждёт проверки · ${rev.length}</h3>${rev.slice(0, 8).map(r => tmCard(r)).join('') || '<p class="lo-hint">Пусто.</p>'}</div>
+      <div><h3>${esc(TM_KIND.life)}ы</h3>${firsts.map(d => { const ids = loDesc(d.id), l = tasks.filter(r => ids.has(r.id)), op = l.filter(tmOpenT).length, dn = l.filter(r => r.st === 'done' && r.done > Date.now() - 30 * 864e5).length; return `<button class="tm-prow" data-lp="ent:${d.id}"><span><i class="mxdot" style="--c:${d.color || '#3355ff'}"></i> ${esc(loName(d))}</span>${tmBar(dn, dn + op, d.color)}<i>открыто ${op} · за 30 дн ${dn}</i></button>`; }).join('') || `<p class="lo-hint"><button class="ob sm" data-tm="preset">Преднастроить сферы</button></p>`}
+      ${iter ? `<h3>Итерация «${esc(iter.title)}»</h3><button class="tm-prow" data-lp="liters"><span>${esc(iter.start ? fmtDay(iter.start) : '')}${iter.due ? ' — ' + esc(fmtDay(iter.due)) : ''}</span>${tmBar(il.filter(r => r.st === 'done').length, il.length)}<i>${il.filter(r => r.st === 'done').length}/${il.length}</i></button>` : ''}</div></div>`;
+}
+function tmLifeAct() {
+  const l = loAll().filter(r => r.k === 'task' && (r.st === 'wait' || r.st === 'review'));
+  const card = r => { const rep = r.rep || {}; return `<div class="tm-act${S.loSel === r.id ? ' sel' : ''}" data-lsel="${r.id}" style="--sc:${TM_STC[r.st]}"><div class="tm-ah"><span class="tm-stchip" style="--c:${TM_STC[r.st]}">${esc(LO_ST[r.st][0])}</span><b>${esc(loName(r))}</b>${tmAv(r.who)}</div>${r.need ? `<div class="tm-need"><b>Что нужно от вас</b><p>${esc(r.need)}</p></div>` : ''}${rep.did || rep.check ? `<div class="tm-rep">${rep.did ? `<p><b>Сделано:</b> ${esc(rep.did)}</p>` : ''}${rep.check ? `<p><b>Как проверить:</b> ${esc(rep.check)}</p>` : ''}${rep.lim ? `<p><b>Ограничения:</b> ${esc(rep.lim)}</p>` : ''}</div>` : ''}<div class="tm-ab"><button class="ob sm" data-tmst="${r.id}|done">${esc(LO_ST.done[0])}</button><button class="ob sm" data-tmst="${r.id}|rework">${esc(LO_ST.rework[0])}</button><button class="ob sm" data-tmst="${r.id}|doing">${esc(LO_ST.doing[0])}</button></div></div>`; };
+  return tmHead('Нужно ваше действие', 'Как в DEV: где нужно ваше действие и что ждёт проверки — с отчётом «сделано · проверить · ограничения».') + `<div class="tm-acts">${l.map(card).join('') || '<p class="lo-hint">Сейчас ничего не ждёт вас.</p>'}</div>`;
+}
+function tmLifeIters() {
+  const its = loAll().filter(r => r.k === 'iter').sort((a, b) => String(b.start || '').localeCompare(String(a.start || ''))), tasks = loAll().filter(r => r.k === 'task' && r.st !== 'drop'), firsts = tmFirst();
+  const col = (id, title, sub, chip) => { const l = tasks.filter(r => (r.it || '') === id), dn = l.filter(r => r.st === 'done').length; const by = new Map(); for (const r of l) { const t = tmTop(r), k = t ? t.id : ''; if (!by.has(k)) by.set(k, []); by.get(k).push(r); } return `<div class="lo-kc tm-ic" data-tmcol="it:${id}"><div class="lo-kh"><b>${esc(title)}</b>${chip || ''}<span class="lo-flex"></span><i>${dn}/${l.length}</i></div>${sub ? `<p class="lo-hint">${sub}</p>` : ''}${tmBar(dn, l.length)}${[...by].map(([k, rl]) => { const d = k && loGet(k); return `<div class="tm-blk"><div class="tm-bh"><i class="mxdot" style="--c:${(d && d.color) || '#8a90a0'}"></i>${esc(d ? loName(d) : 'Без направления')} <b>${rl.length}</b></div>${rl.map(r => tmCard(r)).join('')}</div>`; }).join('')}<form class="lo-qa tmqa" data-tmqa="it:${id}"><input class="inp sm" name="q" placeholder="+ задача в итерацию" autocomplete="off"></form></div>`; };
+  return tmHead('Итерации', 'Как в DEV: колонки — итерации, внутри — направления. Перетащите задачу в другую итерацию.', '<button class="btn" data-l24="newiter">+ Итерация</button>')
+    + `<div class="lo-kan tm-iters">${its.map(i => col(i.id, i.title, (i.start ? fmtDay(i.start) : '') + (i.due ? ' — ' + fmtDay(i.due) : '') + (i.notes ? ' · ' + esc(i.notes.split('\n')[0]) : ''), `<button class="tm-stchip" data-lsel="${i.id}" style="--c:${TM_STC[i.st] || '#8a90a0'}">${esc((LO_ST[i.st] || ['—'])[0])}</button>`)).join('')}${col('', 'Без итерации', '', '')}</div>`;
+}
+function tmLifeAreas() {
+  const firsts = tmFirst(), tasks = loAll().filter(r => r.k === 'task' && r.st !== 'drop'), G = [['wait', ['wait', 'review'], 'Ждёт вас'], ['doing', ['doing', 'rework'], 'В работе'], ['todo', ['inbox', 'todo', 'paused'], 'Ожидает'], ['done', ['done'], 'Завершено']];
+  const rows = firsts.map(d => [d, tasks.filter(r => loDesc(d.id).has(r.id))]); const none = tasks.filter(r => !tmTop(r)); if (none.length) rows.push([null, none]);
+  return tmHead('Направления × статусы', 'Как вид «по модулям» в DEV: строки — сферы и направления, колонки — где задачи сейчас.') + `<div class="tm-mx" style="--n:${G.length}"><div class="tm-mxh"></div>${G.map(([k, , l]) => `<div class="tm-mxh" style="--c:${TM_STC[k]}">${esc(l)}</div>`).join('')}${rows.map(([d, l]) => `<div class="tm-mxr"><i class="mxdot" style="--c:${(d && d.color) || '#8a90a0'}"></i>${esc(d ? loName(d) : 'Без направления')}<b>${l.length}</b></div>${G.map(([k, sts]) => { const c = l.filter(r => sts.includes(r.st)); return `<div class="tm-mxc" data-tmcol="st:${k}">${c.slice(0, k === 'done' ? 3 : 6).map(r => tmCard(r, { why: false })).join('')}${c.length > (k === 'done' ? 3 : 6) ? `<p class="lo-hint">и ещё ${c.length - (k === 'done' ? 3 : 6)}</p>` : ''}</div>`; }).join('')}`).join('')}</div>`;
+}
+function tmLifeStat() { return tmHead('Все статусы', 'Перетаскивайте задачи между статусами. Пояснение, почему статус такой, — в карточке задачи (💬).') + tmKan(tmStCols(Object.keys(TM_STC)), loAll().filter(r => r.k === 'task'), r => r.st || 'todo', { add: true, max: 60 }); }
+function tmLifeNot() { const l = loAll().filter(r => r.k === 'task' && ['inbox', 'paused', 'drop'].includes(r.st)); return tmHead('Не сейчас', 'Драфты, пауза и неактуальное — с вашей причиной «почему не сейчас».') + tmKan(tmStCols(['inbox', 'paused', 'drop']), l, r => r.st, { add: true }); }
+const TM_RENDER = { dash: tmTodoDash, my: tmMyHTML, ldash: tmLeanDash, flow: tmLeanFlow, who: tmWhoHTML, lmy: tmMyHTML, dirs: tmDirsHTML, hyp: () => LO24_PAGES.hyp(), ltime: tmTimeTeam, lifedash: tmLifeDash, lact: tmLifeAct, liters: tmLifeIters, lareas: tmLifeAreas, lstat: tmLifeStat, lnot: tmLifeNot };
+function tmCount(p) {
+  const all = loAll(), t = loToday(), open = all.filter(tmOpenT);
+  return { my: open.filter(tmMine).length, lmy: open.filter(tmMine).length, inbox: open.filter(r => !r.par).length, today: open.filter(r => loDue(r) && loDue(r) <= t).length, next: open.filter(r => loDue(r) && loDue(r) <= loAddDays(7)).length, all: open.length, flow: open.filter(r => r.st === 'doing').length, lact: open.filter(r => r.st === 'wait' || r.st === 'review').length, hyp: all.filter(r => r.k === 'hyp' && r.hs !== 'valid' && r.hs !== 'invalid').length, liters: all.filter(r => r.k === 'iter' && r.st !== 'done').length, lnot: all.filter(r => r.k === 'task' && ['inbox', 'paused'].includes(r.st)).length }[p] || '';
+}
+/* ---------- the window ---------- */
+renderLo = function () {
+  const root = $('#lo'); if (!root || !S.lo) return;
+  tmLabels();
+  const U = S.loUi, m = tmMode(), pages = TM_PAGES[m], SV = ['db', 'time', 'trash', 'safe'];
+  if (!U.page || !(pages.some(p => p[0] === U.page) || SV.includes(U.page) || U.page.startsWith('ent:'))) U.page = pages[0][0];
+  const P = U.page, sp = S.lo.space || '';
+  const item = (k, i2, l, n) => `<button class="lo-nav${P === k ? ' on' : ''}" data-lp="${k}"><i>${i2}</i><span>${l}</span>${n ? `<b>${n}</b>` : ''}</button>`;
+  const col = new Set(LS.get('tmcol') || []);
+  const tree = (r, d) => { const kids = loKids(r.id).filter(x => LO_CONT.includes(x.k)).sort((a, b) => (a.ord || 0) - (b.ord || 0) || a.title.localeCompare(b.title, 'ru')), [dn, n] = loProgress(r.id), closed = col.has(r.id); return `<div class="tm-dir" style="--d:${d}">${kids.length ? `<button class="tm-tw" data-tmtw="${r.id}">${closed ? '▸' : '▾'}</button>` : '<span class="tm-tw"></span>'}<button class="lo-nav ent${P === 'ent:' + r.id ? ' on' : ''}" data-lp="ent:${r.id}"><i style="color:${r.color || LO_KINDS[r.k][2]}">${LO_KINDS[r.k][1]}</i><span>${esc(loName(r))}</span>${n - dn ? `<b>${n - dn}</b>` : ''}</button><button class="tm-add" data-tmadd="${r.id}" title="Вложенное направление, проект или эпик">+</button></div>` + (closed ? '' : kids.map(k => tree(k, d + 1)).join('')); };
+  const firsts = tmFirst(), loose = loAll().filter(r => LO_CONT.includes(r.k) && r.k !== 'area' && (!r.par || !loGet(r.par)));
+  $('#loSide').innerHTML = `<div class="lo-brand"><b>Life OS</b><span class="dv-flex"></span><button class="ib sm dockb" data-l23="dock" title="Слева за доской или поверх экрана">⇤</button><button class="ib sm" data-la="close" title="Закрыть (Esc)">${ic('close')}</button></div>
+    <button class="tm-spb" data-tm="spaces" title="Личное пространство или командное">${sp ? '👥 ' + esc(gtName(sp)) : '👤 Моё'} <span>▾</span></button>
+    <div class="lo24m seg24" title="Одни и те же задачи — в трёх методологиях">${Object.entries(LO_MODES).map(([k, [l, t]]) => `<button class="${m === k ? 'on' : ''}" data-l24="mode:${k}" title="${esc(t)}">${l}</button>`).join('')}</div>
+    ${pages.map(([k, i2, l]) => item(k, i2, l, tmCount(k))).join('')}
+    <div class="lo-sh">${m === 'life' ? 'Сферы и направления' : 'Направления'}<button data-tm="newdir" title="Новое направление">+</button></div>
+    ${firsts.map(r => tree(r, 0)).join('')}${tmHasPreset() ? '' : `<button class="lo-nav tm-pre" data-tm="preset"><i>✦</i><span>Преднастроить по ${esc(LO_MODES[m][0])}</span></button>`}
+    ${loose.length ? `<div class="lo-sh">Без направления</div>${loose.map(r => tree(r, 0)).join('')}` : ''}
+    <div class="lo-sh">Служебное</div>${item('db', '▦', 'База', loAll().length)}${item('time', '⏱', 'Учёт времени', '')}<button class="lo-nav" data-l23="tick"><i>⇣</i><span>Перенос из TickTick</span></button>${item('trash', '🗑', 'Корзина', Object.keys(S.lo.trash || {}).length)}${item('safe', '🛡', 'Надёжность и перенос', '')}`;
+  const M = $('#loMain'), sT = M.scrollTop;
+  try {
+    if (TM_RENDER[P]) M.innerHTML = TM_RENDER[P]();
+    else if (P === 'db') M.innerHTML = loDbHTML();
+    else if (P === 'trash') M.innerHTML = loTrashHTML();
+    else if (P === 'safe') M.innerHTML = loSafeHTML();
+    else if (P === 'time') M.innerHTML = ttPageHTML();
+    else if (P.startsWith('ent:')) M.innerHTML = loEntHTML(loGet(P.slice(4)));
+    else M.innerHTML = loListHTML(P);
+  } catch (e) { console.error(e); M.innerHTML = `<p class="lo-hint">Не получилось показать: ${esc(String(e && e.message || e))}</p>`; }
+  if (sp) M.insertAdjacentHTML('afterbegin', `<div class="tm-spbar">👥 Пространство «${esc(gtName(sp))}» · ${esc((GT_ROLES[gtRole(sp)] || [''])[0])}${GT.err[sp] ? ` · <span class="gt-err" title="${esc(String(GT.err[sp]))}">нет связи</span>` : ''}${GT.dirtyLo.has(sp) ? ' · сохраняю…' : ''}</div>`);
+  M.scrollTop = sT;
+  renderLoDet();
+  lo24AfterRender();
+};
+/* ---------- the record card: who, why, report, iteration, modes ---------- */
+{ const o = lo24Det; lo24Det = (side, r) => {
+  if (!r) return; if (r.k !== 'task') o(side, r);
+  const m = tmMode(), sp = S.lo.space, h = [];
+  const sel = (f, opts, cur) => `<select class="inp sm" data-l24f="${f}">${opts.map(([v, l]) => `<option value="${esc(v)}"${String(cur || '') === String(v) ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select>`;
+  if (r.k === 'task' || r.k === 'project' || r.k === 'epic') {
+    const ppl = sp ? gtMembers(sp).map(x => [x.email, (x.name || x.email) + (x.email === gtMeEmail() ? ' (я)' : '')]) : [['', '—']];
+    h.push(`<div class="lo-row"><label>${r.k === 'task' ? 'Исполнитель' : 'Ответственный'} ${sp ? sel('who', [['', '— не назначен']].concat(ppl), r.who) : '<span class="lo-hint">в личном — вы</span>'}</label>${r.k === 'task' && (m === 'life' || r.it) ? `<label>Итерация ${sel('it', [['', '—']].concat(loAll().filter(x => x.k === 'iter').map(x => [x.id, x.title])), r.it)}</label>` : ''}</div>`);
+  }
+  if (r.k === 'task') {
+    const why = (r.stw || {})[r.st] || '';
+    if (m !== 'todo' || why) h.push(`<label class="ds-l">${r.st === 'wait' && m === 'lean' ? 'Что блокирует' : 'Почему статус «' + esc((LO_ST[r.st] || [''])[0]) + '»: ваше пояснение'}<textarea class="inp" rows="2" data-l24f="stw">${esc(why)}</textarea></label>`);
+    if (r.st === 'wait' && m === 'life' || r.need) h.push(`<label class="ds-l">Что нужно сделать мне<textarea class="inp" rows="2" data-l24f="need">${esc(r.need || '')}</textarea></label>`);
+    if (m === 'life' && ['review', 'done', 'rework', 'wait'].includes(r.st) || (r.rep && (r.rep.did || r.rep.check))) { const rep = r.rep || {}; h.push(`<div class="lo24rep"><b>Отчёт</b><label class="ds-l">Сделано<textarea class="inp" rows="2" data-l24f="rep.did">${esc(rep.did || '')}</textarea></label><label class="ds-l">Как проверить<textarea class="inp" rows="2" data-l24f="rep.check">${esc(rep.check || '')}</textarea></label><label class="ds-l">Ограничения<textarea class="inp" rows="2" data-l24f="rep.lim">${esc(rep.lim || '')}</textarea></label></div>`); }
+    if (r.sd || r.done) h.push(`<p class="lo-hint">${r.sd ? 'В работе с ' + esc(fmtDate(r.sd)) : ''}${r.sd && r.done && r.st === 'done' ? ' · время цикла ' + Math.max(1, Math.round((r.done - r.sd) / 864e5)) + ' дн' : ''}</p>`);
+  }
+  if (r.k === 'area') h.push(`<div class="lo-row tm-modes"><span>Показывать в режимах</span>${Object.entries(LO_MODES).map(([k, [l]]) => `<label><input type="checkbox" data-l24f="modes:${k}"${!(r.modes || []).length || r.modes.includes(k) ? ' checked' : ''}> ${esc(l)}</label>`).join('')}</div>`);
+  if (!h.length) return;
+  const box = document.createElement('div'); box.className = 'lo24det'; box.innerHTML = `<div class="lo-sh">${esc(LO_MODES[m][0])}</div>` + h.join(''); side.appendChild(box);
+}; }
+lo24Field = function (id, f, v) {
+  const r = loGet(id); if (!r) return;
+  if (f === 'stw') loSet(id, { stw: Object.assign({}, r.stw || {}, { [r.st || 'todo']: v }) });
+  else if (f.startsWith('rep.')) loSet(id, { rep: Object.assign({}, r.rep || {}, { [f.slice(4)]: v }) });
+  else if (f.startsWith('modes:')) { const k = f.slice(6), cur = (r.modes || []).length ? new Set(r.modes) : new Set(Object.keys(LO_MODES)); if (v) cur.add(k); else cur.delete(k); loSet(id, { modes: cur.size === Object.keys(LO_MODES).length ? undefined : [...cur] }); renderLo(); }
+  else if (f === 'pts') loSet(id, { pts: v ? +v : undefined });
+  else loSet(id, { [f]: v || undefined });
+};
+/* ---------- events ---------- */
+function tmWire(d) {
+  d.addEventListener('click', async e => {
+    const t = e.target;
+    const st = t.closest('[data-tmst]'); if (st) { e.stopPropagation(); const [id, s] = st.dataset.tmst.split('|'); loSet(id, { st: s }); renderLo(); return; }
+    const tw = t.closest('[data-tmtw]'); if (tw) { e.stopPropagation(); const c = new Set(LS.get('tmcol') || []); if (c.has(tw.dataset.tmtw)) c.delete(tw.dataset.tmtw); else c.add(tw.dataset.tmtw); LS.set('tmcol', [...c]); renderLo(); return; }
+    const go = t.closest('[data-tmgo]'); if (go) { e.stopPropagation(); const [sid, rid] = go.dataset.tmgo.split('|'); await tmUseStore(sid); S.loSel = rid; renderLo(); return; }
+    const ad = t.closest('[data-tmadd]'); if (ad) { e.stopPropagation(); const par = loGet(ad.dataset.tmadd); openPop(ad, `<div class="menu"><button class="mi" data-v="area"><span>◎ Вложенное направление</span></button><button class="mi" data-v="project"><span>▣ Проект</span></button><button class="mi" data-v="epic"><span>▤ Эпик</span></button><button class="mi" data-v="task"><span>☐ Задача</span></button></div>`, k => { const r = loNew(k, { title: { area: 'Новое направление', project: 'Новый проект', epic: 'Новый эпик', task: 'Новая задача' }[k], par: par.id, modes: k === 'area' && par.modes ? par.modes : undefined }); S.loSel = r.id; renderLo(); setTimeout(() => { const ta = $('#loDet [data-ldf="title"]'); if (ta) { ta.focus(); ta.select(); } }, 30); }); return; }
+    const b = t.closest('[data-tm]'); if (!b) return; e.stopPropagation();
+    const [k, v] = b.dataset.tm.split(':'), U = S.loUi;
+    if (k === 'spaces') tmSpacesPop(b);
+    else if (k === 'preset') { const n = tmPreset(S.lo, tmMode()); loSave(); renderLo(); toast(n ? `Добавлено направлений: ${n}` : 'Направления уже на месте'); }
+    else if (k === 'newdir') { const r = loNew('area', { title: 'Новое направление', modes: [tmMode()] }); S.loSel = r.id; renderLo(); setTimeout(() => { const ta = $('#loDet [data-ldf="title"]'); if (ta) { ta.focus(); ta.select(); } }, 30); }
+    else if (k === 'lane') { U.lane = v || ''; loUiSave(); renderLo(); }
+    else if (k === 'fmine') { U.fmine = !U.fmine; loUiSave(); renderLo(); }
+    else if (k === 'wip') { const n = await uiPrompt('WIP-лимит: сколько задач может быть «В работе» одновременно', String(((S.lo.wip || {}).doing) || 5)); if (n && +n > 0) { S.lo.wip = Object.assign({}, S.lo.wip, { doing: +n }); loSave(); renderLo(); } }
+  }, true);
+  d.addEventListener('dragover', e => { const c = e.target.closest('[data-tmcol]'); if (c) { e.preventDefault(); c.classList.add('l24over'); } }, true);
+  d.addEventListener('dragleave', e => { const c = e.target.closest('[data-tmcol]'); if (c) c.classList.remove('l24over'); }, true);
+  d.addEventListener('drop', e => { const c = e.target.closest('[data-tmcol]'); if (!c) return; e.preventDefault(); e.stopPropagation(); c.classList.remove('l24over'); const id = e.dataTransfer.getData('text/l24'); if (!id || !loGet(id)) return; const p = tmSpec(c.dataset.tmcol); if (p.st === 'doing') { const r = loGet(id); if (r.st === 'wait' || r.st === 'rework') delete p.st; } if (p.par) delete p.par; for (const x of Object.keys(p)) if (p[x] === '') p[x] = undefined; if (Object.keys(p).length) loSet(id, p); renderLo(); }, true);
+  d.addEventListener('submit', e => { const f = e.target.closest('[data-tmqa]'); if (!f) return; e.preventDefault(); e.stopPropagation(); const i = f.querySelector('input'), q = (i.value || '').trim(); if (!q) return; const p = tmSpec(f.dataset.tmqa); for (const x of Object.keys(p)) if (p[x] === '') delete p[x]; const r = loQuick(q, p.par || ''); if (r) { delete p.par; if (Object.keys(p).length) loSet(r.id, p); } i.value = ''; renderLo(); setTimeout(() => { const n = $(`#loMain [data-tmqa="${CSS.escape(f.dataset.tmqa)}"] input`); if (n) n.focus(); }, 30); }, true);
+}
+{ const o = wireLo; wireLo = d => { tmWire(d); o(d); }; }
+function tmSpacesPop(anchor) {
+  const cur = (S.lo && S.lo.space) || '';
+  openPop(anchor, `<div class="menu"><div class="vp-h">Пространство задач</div><button class="mi${!cur ? ' on' : ''}" data-v=""><span>👤 Моё — личное</span></button>${GT.list.map(s => `<button class="mi${cur === s.id ? ' on' : ''}" data-v="${s.id}"><span>👥 ${esc(gtName(s.id))}</span><span class="k">${esc((GT_ROLES[gtRole(s.id)] || [''])[0])}</span></button>`).join('')}<div class="msep"></div><button class="mi" data-v="+new"><span>+ Командное пространство…</span></button><button class="mi" data-v="+join"><span>Войти по ссылке-приглашению…</span></button>${cur ? '<button class="mi" data-v="+set"><span>⚙ Участники и настройки…</span></button>' : ''}</div>`, v => {
+    if (v === '+new') gtCreateDlg(); else if (v === '+join') gtSideClick({ dataset: { gtx: 'joinask' } }); else if (v === '+set') gtOpen(cur); else tmUseStore(v);
+  });
+}
+/* the mode switch keeps the page set of the mode */
+{ const o = lo24Wire; lo24Wire = d => { d.addEventListener('click', e => { const b = e.target.closest('[data-l24^="mode:"]'); if (!b) return; e.stopPropagation(); const v = b.dataset.l24.slice(5); S.loUi.mode = v; S.loUi.page = TM_PAGES[v][0][0]; loUiSave(); renderLo(); toast('Режим: ' + LO_MODES[v][0] + ' — те же задачи, другая методология'); }, true); o(d); }; }
+/* widgets of the task manager */
+delete WIDGETS['lo:team']; delete WIDGETS['lo:sprint'];
+Object.assign(WIDGETS, { 'lo:dash': ['Задачник: витрина To-do', () => tmTodoDash()], 'lo:flow': ['Задачник: поток Lean', () => tmLeanFlow()], 'lo:ldash': ['Задачник: витрина Lean', () => tmLeanDash()], 'lo:who': ['Кто чем занят', () => tmWhoHTML()], 'lo:lifedash': ['Life OS: витрина', () => tmLifeDash()], 'lo:lact': ['Нужно ваше действие', () => tmLifeAct()], 'lo:my': ['Мои задачи', () => tmMyHTML()] });
+/* ---------- 2.6 glue ---------- */
+/* boards of team spaces live in their Drive folder; personal boards stay where they were */
+GT.ownDel = {};
+for (const B of [Local, Db]) {
+  const LB = B.listBoards, LD = B.loadBoard, SR = B.saveBoardRaw, DEL = B.deleteBoard, SUB = B.subscribe;
+  GT.ownDel[B.kind] = id => DEL.call(B, id);
+  B.listBoards = async function (...a) {
+    const l = (await LB.apply(this, a)) || []; if (a[0] === true) return l;
+    const known = new Set(); const sp = [];
+    for (const s of GT.list) { const st = gtSt(s.id); for (const [bid, f] of Object.entries(st.b || {})) { known.add(bid); sp.push({ id: bid, name: f.name || 'Доска', updatedAt: Date.parse(f.rmt || '') || 0, count: 0, space: s.id }); } }
+    return l.filter(x => !x.space && !known.has(x.id)).concat(sp);
+  };
+  B.loadBoard = async function (id) { if (gtSpaceOf(id) || GT.list.some(s => (gtSt(s.id).b || {})[id])) return gtLoadBoard(id); return LD.call(this, id); };
+  B.saveBoardRaw = async function (b) { if (b && (b.space || gtSpaceOf(b.id))) { b.space = b.space || gtSpaceOf(b.id); return gtSaveBoard(b); } return SR.call(this, b); };
+  B.deleteBoard = async function (id) {
+    const sp = gtSpaceOf(id); if (!sp) return DEL.call(this, id);
+    if (!gtCan(sp, 'admin')) throw new Error('Командную доску удаляет владелец или администратор');
+    const f = (gtSt(sp).b || {})[id];
+    if (f && f.fid) { if (Drive.mode === 'mcp') await Drive.tool('trash_file', { fileId: f.fid }); else await gtFetch(GAPI2 + `files/${f.fid}?${GT_ALL}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ trashed: true }) }); }
+    delete (gtSt(sp).b || {})[id]; gtSave(); Store.del('gtb:' + id).catch(() => {}); S.index = S.index.filter(x => x.id !== id);
+  };
+  if (SUB) B.subscribe = function (bid, cb) { if (gtSpaceOf(bid)) { if (B.unsubscribe) B.unsubscribe.call(B); return; } return SUB.call(this, bid, cb); };
+}
+const gtOwnDel = () => GT.ownDel[Backend.kind];
+{ const o = upsertIndex; upsertIndex = b => { o(b); if (b && b.space) { const e = S.index.find(x => x.id === b.id); if (e) e.space = b.space; } }; }
+{ const o = loadBoard; loadBoard = b => { o(b); gtApplyAccess(); gtWhoDraw(); if (b && b.space && S.lo && !S.loOpen && S.lo.space !== b.space) tmUseStore(b.space); else if (b && !b.space && S.lo && S.lo.space && !S.loOpen) tmUseStore(''); }; }
+{ const o = bsRender; bsRender = (...a) => { o(...a); const box = $('#bsList'); if (!box || $('#bside').hidden || (S.bsq || '').trim()) return; box.insertAdjacentHTML('afterbegin', gtSideHTML()); }; }
+{ const o = boardMenu; boardMenu = (anchor, bid) => {
+  o(anchor, bid); const m = $('#pop .menu'); if (!m || !GT.list.length || gtSpaceOf(bid)) return;
+  m.insertAdjacentHTML('beforeend', '<div class="msep"></div><button class="mi" data-gtmv="1"><span>👥 Перенести в командное пространство…</span></button>');
+  m.querySelector('[data-gtmv]').addEventListener('click', e => { e.stopPropagation(); closePop(); setTimeout(() => openPop(anchor, `<div class="menu"><div class="vp-h">В какое пространство</div>${GT.list.map(s => `<button class="mi" data-v="${s.id}"><span>👥 ${esc(gtName(s.id))}</span></button>`).join('')}</div>`, v => gtMoveBoard(bid, v)), 0); }, true);
+}; }
+{ const o = menuAction; menuAction = async v => { if (v === 'team') { S.menuQ = ''; return GT.list.length ? gtOpen() : gtListDlg(); } return o(v); }; }
+{ const o = fileDriveFolder; fileDriveFolder = async () => { const sp = S.board && S.board.space; if (!sp) return o(); const st = gtSt(sp); if (st.files) return st.files; const f = (await GTX.list(sp)).find(x => x.name === 'Файлы' && x.mime === FOLDER_MIME); st.files = f ? f.id : await GTX.mkdir('Файлы', sp); gtSave(); return st.files; }; }
+function wire26() {
+  document.addEventListener('click', s26DockClick, true);
+  document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('#bside [data-gtx]'); if (b) { e.stopPropagation(); e.preventDefault(); gtSideClick(b); } }, true);
+  for (const s of GT.list) gtStore(s.id).then(tmMigrate).catch(() => {});
+  gtStart(); gtApplyAccess();
+  setInterval(() => { if (S.board && S.board.space && document.visibilityState === 'visible') gtWhoDraw(); }, 60000);
+}
+/* ---------- guides ---------- */
+Object.assign(TOURS, {
+  spaces: { name: 'Командные пространства', steps: [
+    { el: '#btnBoards', t: 'Панель досок', x: 'Откройте панель досок слева: сверху — «Командные пространства».' },
+    { el: () => document.querySelector('#bside [data-gtx="new"]') || document.querySelector('#btnMenu'), t: 'Создать пространство', x: '«+» — новое пространство: папка на вашем Google Диске. Внутри — участники, роли и приглашения по почте. Каждый входит со своим Google, Claude не нужен.' },
+  ] },
+  modes2: { name: 'Три методологии одного задачника', steps: [
+    { el: '#btnLife', t: 'Задачник', x: 'Откройте Life OS.', wait: () => !!xdOf('_lo') },
+    { el: () => document.querySelector('.lo24m'), t: 'To-do · Lean · Life OS', x: 'Это одни и те же задачи в трёх методологиях: список дел, поток работы (лимиты, блоки, кто чем занят) и метод DEV (статусы с пояснениями, отчёты, итерации).' },
+    { el: () => document.querySelector('.tm-spb'), t: 'Моё или команда', x: 'Здесь переключается пространство: личное или командное. «Мои задачи» в каждом режиме — то, что назначено вам.' },
+  ] },
+});
+Object.assign(FEAT_TOUR, { f26_spaces: 'spaces', f26_invite: 'spaces', f26_modes: 'modes2', f26_lean: 'modes2', f26_life: 'modes2' });
+
+/* =========================================================
    Pointer interaction
    ========================================================= */
 function hitItemAt(w, exclude) {
@@ -15077,7 +16185,7 @@ function wire() {
   fbar.querySelector('[data-fa="reload"]').innerHTML = ic('reload') + '<span>Перезагрузить</span>';
   fbar.querySelector('[data-fa="full"]').innerHTML = ic('fit') + '<span>На весь монитор</span>';
   fbar.querySelector('[data-fa="close"]').innerHTML = ic('close') + '<span>Свернуть (Esc)</span>';
-  buildToolbar(); buildHelp(); wire23(); wire24(); wire24b(); wire25();
+  buildToolbar(); buildHelp(); wire23(); wire24(); wire24b(); wire25(); wire26();
 
   vp.addEventListener('pointerdown', onDown);
   vp.addEventListener('pointermove', onMove);
@@ -15291,7 +16399,7 @@ async function chooseBackend() {
     try {
       const [db, user] = await Promise.all([window.claude.use('db'), window.claude.use('user')]);
       const id = user ? await user.id() : null;
-      if (db && id) { Db.init(db, id); Team.pre(db, user, id); await Db.listBoards(); return Db; }
+      if (db && id) { Db.init(db, id); await Db.listBoards(); return Db; }
     } catch (e) { /* fall back */ }
   }
   await Store.init();
