@@ -1,6 +1,6 @@
 /* Холст: offline cache. The page itself is fetched fresh when online,
    and served from cache when there is no connection. */
-const CACHE = 'holst-v20';
+const CACHE = 'holst-v21';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png'];
 
 self.addEventListener('install', e => {

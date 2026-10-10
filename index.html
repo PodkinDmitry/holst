@@ -2475,6 +2475,195 @@ body.tb29-bottom #toolbar .tsep,body.tb29-bottom #toolbar hr{width:1px!important
 @media (max-width:700px){.lo29h .pv29b{display:none}}
 .sh29 .ds-l{display:flex;flex-direction:column;gap:4px;margin:8px 0}.sh29 .inp,.sh29 select{min-height:38px;padding:6px 10px;width:100%;box-sizing:border-box;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:14px var(--font)}.sh29 textarea.inp{min-height:76px}
 
+/* ===== 2.10: learning mode is purple ===== */
+:root{--gd:#7b61ff;--gd-soft:rgba(123,97,255,.12);--gd-ink:#5b3fe0}
+html[data-theme=dark]{--gd-soft:rgba(123,97,255,.22);--gd-ink:#b9a8ff}
+.gd210m{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;background:var(--gd);color:#fff;font:700 10.5px var(--font);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.gd210m::before{content:'🎓';font-size:11px;letter-spacing:0}
+#gd210{position:fixed;inset:0;z-index:99980}
+#gd210 .gd210d{position:fixed;inset:0;background:rgba(17,18,22,.38)}
+#gd210 .gd210s{position:fixed;border-radius:12px;box-shadow:0 0 0 3px var(--gd),0 0 0 9px rgba(123,97,255,.25),0 0 0 9999px rgba(17,18,22,.18);pointer-events:none;transition:all .2s}
+#gd210 .gd210s[hidden]{display:none}
+#gd210 .gd210k{position:fixed;width:min(380px,calc(100vw - 16px));max-height:calc(100vh - 16px);overflow:auto;background:var(--panel);color:var(--ink);border-radius:16px;padding:12px 14px 12px;box-shadow:0 24px 60px -16px rgba(0,0,0,.55);border:1px solid var(--line);border-top:4px solid var(--gd)}
+#gd210 .gd210t{display:flex;align-items:center;gap:6px}
+#gd210 .gd210b{font:600 12px var(--font);color:var(--gd-ink)}
+#gd210 h3{margin:8px 0 6px;font-size:16px}#gd210 h3 small{font:600 10.5px var(--font);color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-left:6px}
+.gd210f{margin:8px 0 2px;padding:7px 10px;border-radius:10px;background:var(--gd-soft);font-size:12.5px;line-height:1.45}
+#gd210 .gd210v{margin:2px 0 8px}#gd210 .gd210v button.on,.gd210all .seg24 button.on{background:var(--gd)!important;color:#fff!important}
+#gd210 ul{margin:4px 0 8px;padding-left:18px;font-size:13.5px;line-height:1.5}#gd210 li{margin:4px 0}
+#gd210 .gd210st{padding:10px 12px;border-radius:12px;background:var(--gd-soft);margin:4px 0 8px}#gd210 .gd210st b{font:700 11px var(--font);color:var(--gd-ink);text-transform:uppercase;letter-spacing:.05em}#gd210 .gd210st p{margin:4px 0 0;font-size:14px;line-height:1.5}
+#gd210 .gd210ft{display:flex;align-items:center;gap:6px;margin-top:6px;flex-wrap:wrap}
+#gd210 .ob,#gd210 .btn,.gd210all .ob{min-height:30px;padding:0 10px;border-radius:9px;font:600 12.5px var(--font);cursor:pointer}
+#gd210 .ob{border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+.gd210go,#gd210 .btn{border:0;background:var(--gd)!important;color:#fff!important}
+.gd210ai{border-color:color-mix(in srgb,var(--gd) 45%,var(--line))!important;color:var(--gd-ink)!important}
+#gd210 .gd210chat{margin-top:8px;border-top:1px solid var(--line);padding-top:8px}
+#gd210 .gd210log{max-height:240px;overflow:auto;display:flex;flex-direction:column;gap:6px;margin-bottom:6px}
+#gd210 .gd210log .clm{padding:7px 10px;border-radius:10px;font-size:13px;line-height:1.45}#gd210 .gd210log .clm.u{background:var(--hover);align-self:flex-end;max-width:85%}#gd210 .gd210log .clm.a{background:var(--gd-soft)}#gd210 .gd210log .clm.n{color:var(--muted);font-size:12px}
+#gd210 .gd210qf{display:flex;gap:6px}#gd210 .gd210qf .inp{flex:1;min-width:0}
+.gd210b{border-color:color-mix(in srgb,var(--gd) 40%,var(--line))!important}
+/* the tours are the same mode */
+#tour24 .tspot{box-shadow:0 0 0 3px var(--gd),0 0 0 9px rgba(123,97,255,.25),0 0 0 9999px rgba(17,18,22,.42)!important}
+#tour24 .tbub{border-top:4px solid var(--gd)}
+#tour24 .tbub .btn,#tour24 .tbub button.btn{background:var(--gd)!important;color:#fff!important;border:0}
+#tour24:not([hidden])::after{content:'🎓 Режим обучения · Esc — выйти';position:fixed;top:10px;left:50%;transform:translateX(-50%);padding:5px 12px;border-radius:999px;background:var(--gd);color:#fff;font:700 12px var(--font);letter-spacing:.03em;pointer-events:none;box-shadow:0 6px 18px -6px rgba(123,97,255,.6)}
+/* the task manager intro */
+.gd210bn{display:flex;align-items:center;flex-wrap:wrap;gap:6px 8px;margin:-2px 0 8px;padding:8px 10px;border-radius:10px;background:var(--gd-soft);font-size:12.5px;line-height:1.45}
+.lo29.intro{border-top-color:var(--gd)!important}
+.lo29.intro .lo29r.cur .seg24{box-shadow:0 0 0 2px var(--gd),0 0 0 6px rgba(123,97,255,.18)!important}
+.lo29.intro .lo29hint{background:var(--gd-soft);border-left:3px solid var(--gd)}
+.lo29.intro [data-l29="skip:"]{border-color:var(--gd)!important;color:var(--gd-ink)!important}
+/* «По веткам» */
+.br210c{display:flex;flex-direction:column;gap:6px;margin:6px 0 2px;padding:8px 10px;border-radius:12px;background:var(--gd-soft)}
+.br210c .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.br210n{font:700 10.5px var(--font);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);min-width:118px}
+.br210c .seg24 button.on{background:var(--gd)!important;color:#fff!important}
+.sty210{display:flex;flex-wrap:wrap;gap:4px}.sty210 .ob.on{background:var(--gd);color:#fff;border-color:var(--gd)}
+details.br210>summary{display:flex;align-items:center;gap:8px;flex-wrap:wrap}details.br210>summary>span:not(.br210i){flex:1 1 260px;color:var(--muted);font-size:12.5px}
+.br210i{width:28px;height:28px;display:inline-grid;place-items:center;border-radius:8px;background:var(--hover);font-size:15px;flex:none}
+.br210a{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 6px}
+.own210{background:var(--gd)!important;color:#fff!important}
+/* working styles in «Механики» */
+.sty210m,.sec210{margin-bottom:12px}
+.sty210g{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin:8px 0}
+.sty210c{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;font:inherit}
+.sty210c span{font-size:20px}.sty210c b{font-size:13px}.sty210c small{color:var(--muted);font-size:11.5px;line-height:1.35}
+.sty210c:hover{border-color:var(--gd)}.sty210c.on{border-color:var(--gd);box-shadow:0 0 0 2px var(--gd);background:var(--gd-soft)}
+.sec210g{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:2px 12px}
+.gd210all .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0}
+.gd210br{display:flex;flex-direction:column;gap:2px}.gd210r{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:9px}.gd210r:hover{background:var(--hover)}
+.sk210 h3{margin:16px 0 6px}.sk210 .steps li{margin:5px 0;line-height:1.5}
+/* ===== the board bar: pins | main | tasks block | ⋯ ===== */
+#tb210pins{display:flex;align-items:center;gap:2px;padding:2px 4px;margin:0 6px 0 2px;border-radius:10px;background:var(--hover);max-width:46vw;overflow-x:auto;scrollbar-width:none}
+#tb210pins.empty{background:transparent;padding:0}
+.pin210{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 8px;border:0;border-radius:8px;background:transparent;color:var(--muted);font:600 12px var(--font);cursor:pointer;white-space:nowrap}
+.pin210:hover{background:var(--panel);color:var(--ink)}.pin210 span{font-size:13px}
+.pin210.add{width:26px;padding:0;justify-content:center;opacity:.55}#tb210pins.empty .pin210.add{opacity:.35}.pin210.add:hover{opacity:1}
+#topbar .tb210main{width:38px;height:38px;font-size:17px;color:var(--ink)}
+#tb210task{display:inline-flex;align-items:center;gap:2px;padding:2px 6px 2px 2px;margin-left:4px;border-radius:12px;background:var(--hover);border:1px solid var(--line)}
+#tb210task #btnLife{width:36px;height:36px}#tb210task #loChips{margin:0}
+#topbar #btnMenu{margin-left:4px}
+@media (max-width:700px){#tb210pins{max-width:28vw}.pin210 b{display:none}#topbar .tb210main{width:34px;height:34px}}
+/* ===== widgets: a panel or an object in its own window ===== */
+body.pip210b{margin:0;background:var(--panel);overflow:hidden}
+.pip210r{position:fixed;inset:0;display:flex}
+.pip210r>.xdlg.pip210{position:static!important;inset:auto!important;flex:1;display:flex;background:none!important;padding:0!important;width:auto!important}
+.pip210r>.xdlg.pip210 .xbox{width:100%!important;height:100vh!important;max-width:none!important;max-height:none!important;border-radius:0!important;box-shadow:none!important;margin:0!important}
+.pip210r>.s24pane.pip210{flex:1;display:flex;flex-direction:column;border-radius:0!important;border:0!important;box-shadow:none!important}
+.pip210r .s24pb{flex:1;min-height:0;overflow:auto}.pip210r .s24pb iframe,.pip210r .s24pb img{width:100%;height:100%;border:0;object-fit:contain}
+.pip210back{position:fixed;right:10px;bottom:10px;z-index:5;border:0;border-radius:999px;padding:6px 12px;background:var(--gd);color:#fff;font:600 12px var(--font);cursor:pointer;box-shadow:0 6px 18px -6px rgba(0,0,0,.4);opacity:.85}.pip210back:hover{opacity:1}
+.obj210full{height:calc(100vh - 120px);display:flex;flex-direction:column}.obj210full .s24pb{flex:1;min-height:0}.obj210full iframe,.obj210full img{width:100%;height:100%;border:0;object-fit:contain}
+/* ===== the source of a file: the plate under the object ===== */
+.srcchip.src210{left:0!important;bottom:auto!important;top:calc(100% + 6px);transform:scale(var(--iz,1));transform-origin:0 0;max-width:none;white-space:nowrap;background:var(--panel);color:var(--ink);border:1px solid var(--line);box-shadow:0 2px 6px -2px rgba(0,0,0,.18)}
+.srcchip.src210[data-k=drive]{color:#1a73e8;border-color:color-mix(in srgb,#1a73e8 35%,var(--line))}
+.srcchip.src210[data-k=local]{color:var(--muted)}
+.up210{position:absolute;left:0;right:0;top:calc(100% + 2px);height:16px;transform-origin:0 0;pointer-events:none}
+.up210>i{position:absolute;left:0;top:0;height:4px;border-radius:4px;background:#1a73e8;transition:width .2s}
+.up210::before{content:'';position:absolute;left:0;right:0;top:0;height:4px;border-radius:4px;background:color-mix(in srgb,#1a73e8 18%,transparent)}
+.up210>span{position:absolute;right:0;top:6px;font:600 11px var(--font);color:#1a73e8;white-space:nowrap;transform:scale(var(--iz,1));transform-origin:100% 0}
+.up210.ind>i{width:30%!important;animation:up210 1.1s infinite ease-in-out}@keyframes up210{0%{left:0}50%{left:70%}100%{left:0}}
+.up210.ok>i{background:#2fa36b;width:100%!important}.up210.ok>span{color:#2fa36b}.up210.err>i{background:var(--danger);width:100%!important}.up210.err>span{color:var(--danger)}
+.it .srcchip.src210~.up210>span{top:30px}
+.up210.big{position:relative;top:auto;height:auto;margin:8px 0;padding-top:10px}.up210.big>span{position:static;transform:none;display:block;text-align:right;margin-top:4px}
+.src210p .src210loc{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-radius:12px;background:var(--hover)}.src210loc span{font:700 10.5px var(--font);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}.src210loc b{flex:1 1 240px;overflow-wrap:anywhere;font-size:13px}
+.src210w{margin:10px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden}.src210wh{display:flex;align-items:center;gap:6px;padding:8px 10px;background:var(--panel);border-bottom:1px solid var(--line)}
+.src210fr{display:block;width:100%;height:min(48vh,440px);border:0;background:#fff}
+.src210p h3{margin:16px 0 6px}
+/* ===== chats on the board ===== */
+.it.tchat{z-index:6;cursor:pointer}
+.it.tchat .ch210{background:var(--panel);color:var(--ink);border-radius:14px 14px 14px 4px;border:1.5px solid var(--chc);box-shadow:0 6px 18px -8px rgba(0,0,0,.35);padding:8px 10px;font:13px/1.4 var(--font)}
+.it.tchat.chcol .ch210{width:40px;height:40px;padding:0;display:grid;place-items:center;border-radius:50% 50% 50% 6px;background:var(--chc);border:2px solid #fff;position:relative}
+.it.tchat.chcol .chi{font-size:18px;filter:saturate(1.2)}
+.it.tchat .chn{position:absolute;right:-6px;top:-6px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:var(--ink);color:var(--panel);font:700 10.5px/18px var(--font);text-align:center}
+.it.tchat .chh{display:flex;align-items:center;gap:6px;margin-bottom:4px}.it.tchat .chh b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.it.tchat .chn2{font:700 11px var(--font);color:var(--muted)}.it.tchat .chst{font:600 10.5px var(--font);font-style:normal;color:#2fa36b;background:color-mix(in srgb,#2fa36b 14%,transparent);padding:1px 6px;border-radius:6px}
+.it.tchat .chm{font-size:12.5px;color:var(--ink);margin-top:2px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.it.tchat .chm b{color:var(--chc)}.it.tchat .chm.e{color:var(--muted)}
+.it.tchat .chres{margin-top:6px;padding-top:6px;border-top:1px dashed var(--line);font-size:12px;color:var(--muted)}
+.it.tchat.chdone .ch210{opacity:.62;border-style:dashed}.it.tchat.chdone.chcol .ch210{background:var(--muted)}
+.it.tchat.chai:not(.chcol) .ch210{box-shadow:0 6px 18px -8px rgba(0,0,0,.35),inset 3px 0 0 var(--gd)}
+body.ch210nodone .it.tchat.chdone,body.ch210off .it.tchat{display:none!important}
+body.ch210pl #viewport{cursor:crosshair!important}
+.ch210p{position:fixed;z-index:58;display:flex;flex-direction:column;max-height:min(70vh,640px);border-radius:16px;overflow:hidden;border-top:4px solid var(--chc)}
+.ch210p[hidden]{display:none}
+.chph{display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid var(--line)}.chph .chtl{flex:1;min-width:0}
+.chpt{border-color:color-mix(in srgb,var(--chc) 45%,var(--line))!important;color:var(--chc)!important}
+.chhint{padding:6px 12px;font-size:12px;color:var(--muted);background:var(--hover);line-height:1.45}.chhint a{color:var(--accent)}
+.chlog{flex:1;min-height:60px;overflow:auto;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.chmsg{padding:7px 10px;border-radius:12px;background:var(--hover);max-width:92%;align-self:flex-start}
+.chmsg.me{align-self:flex-end;background:color-mix(in srgb,var(--chc) 12%,var(--panel))}
+.chmsg.ai{background:var(--gd-soft);border-left:3px solid var(--gd)}
+.chmsg.sys{align-self:center;background:transparent;color:var(--muted);font-size:11.5px;padding:2px 6px}
+.chmsg.ans{box-shadow:0 0 0 2px #2fa36b}
+.chmh{display:flex;align-items:center;gap:6px;font-size:11.5px}.chmh small{color:var(--muted)}.chmh .ob{margin-left:auto;min-height:22px;padding:0 6px;font-size:11px}
+.chmt{font-size:13.5px;line-height:1.45;overflow-wrap:anywhere}.chmt p{margin:4px 0}
+.chin{padding:8px 10px;border-top:1px solid var(--line)}.chin textarea{width:100%;box-sizing:border-box;resize:vertical;min-height:44px}.chin .btnrow{margin-top:6px}
+.chcl{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:8px 10px;border-top:1px solid var(--line);background:var(--panel)}.chcl.hl{background:color-mix(in srgb,var(--chc) 10%,var(--panel))}.chcl .sub{font-size:12px}
+.ch210m .mi small{color:var(--muted)}
+/* ===== AI: the window of networks and the panel ===== */
+.ai210top{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;padding:12px 14px;border-radius:14px;background:var(--gd-soft);margin-bottom:6px}
+.ai210top p{margin:4px 0 0}.ai210now{display:flex;flex-direction:column;align-items:flex-end;flex:none}.ai210now small{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em;font-weight:700}.ai210now b{font-size:16px}
+.ai210 h3{margin:14px 0 8px}
+.ai210g{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px}
+.ai210c{border:1px solid var(--line);border-radius:14px;background:var(--panel);transition:border-color .15s,box-shadow .15s;cursor:pointer}
+.ai210c:hover{border-color:color-mix(in srgb,var(--gd) 50%,var(--line))}
+.ai210c.on{border-color:var(--gd);box-shadow:0 0 0 2px var(--gd)}
+.ai210c.off{opacity:.5;cursor:default}
+.ai210c.open{grid-column:1/-1}
+.ai210h{display:flex;align-items:center;gap:10px;padding:10px 12px;flex-wrap:wrap}
+.ai210l{width:32px;height:32px;flex:none;display:inline-grid;place-items:center;border-radius:10px;background:var(--c);color:#fff;font:800 15px var(--font)}
+.ai210l.sm{width:18px;height:18px;border-radius:5px;font-size:10px;vertical-align:-3px;margin-right:2px}
+.ai210n{display:flex;flex-direction:column;flex:1;min-width:120px}.ai210n small{color:var(--muted);font-size:12px}
+.ai210t{font:600 11px var(--font);color:var(--muted);background:var(--hover);padding:2px 8px;border-radius:999px}
+.ai210s{font:600 11px var(--font);color:var(--muted)}.ai210s.ok{color:#2fa36b}
+.ai210on{font:700 11px var(--font);color:#fff;background:var(--gd);padding:3px 9px;border-radius:999px}
+.ai210b{padding:0 12px 12px 54px}.ai210k{display:grid;grid-template-columns:2fr 1fr;gap:6px;margin:6px 0}.ai210b .steps{margin:6px 0 8px}
+@media (max-width:700px){.ai210b{padding-left:12px}.ai210k{grid-template-columns:1fr}.ai210top{flex-direction:column}.ai210now{align-items:flex-start}}
+.ai210pill{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px 0 4px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:600 12.5px var(--font);cursor:pointer}
+.ai210pill:hover{border-color:var(--gd)}.ai210pill .ai210l{width:20px;height:20px;border-radius:999px;font-size:11px}
+#cl24.ai210panel{border:1px solid var(--line);border-top:4px solid var(--gd);background:var(--panel);box-shadow:0 24px 60px -20px rgba(0,0,0,.45)}
+#cl24.ai210panel .clh{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line)}
+#cl24.ai210panel .clh b{font-size:14.5px}
+#cl24.ai210panel .clctx{font:600 11px var(--font);color:var(--muted);background:var(--hover);padding:2px 8px;border-radius:999px}
+#cl24.ai210panel .clq{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line)}
+#cl24.ai210panel .clq .ob{min-height:28px;padding:0 10px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:600 12px var(--font);cursor:pointer}
+#cl24.ai210panel .clq .ob:hover{border-color:var(--gd);color:var(--gd-ink)}
+#cl24.ai210panel .cllog{flex:1;min-height:0;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+#cl24.ai210panel .clm{padding:9px 12px;border-radius:14px;font-size:13.5px;line-height:1.5;max-width:94%}
+#cl24.ai210panel .clm.u{align-self:flex-end;background:var(--hover);border-bottom-right-radius:4px}
+#cl24.ai210panel .clm.a{align-self:flex-start;background:var(--gd-soft);border-bottom-left-radius:4px}
+#cl24.ai210panel .clm.n{align-self:center;color:var(--muted);font-size:12px;background:transparent;text-align:center}
+#cl24.ai210panel .clin{padding:10px 12px;border-top:1px solid var(--line)}
+#cl24.ai210panel .clin textarea{width:100%;box-sizing:border-box;border-radius:12px;resize:vertical}
+#cl24.ai210panel .clin .btn{background:var(--gd);border-color:var(--gd);color:#fff}
+#btn24claude{color:var(--gd)!important}
+#tk27hint{top:auto!important;bottom:calc(76px + var(--sb,0px))!important}
+@media (max-width:700px){
+#topbar{max-width:calc(100vw - 140px);overflow-x:auto;overflow-y:hidden;scrollbar-width:none;flex-wrap:nowrap}
+#topbar::-webkit-scrollbar{display:none}
+#topbar #boardName{max-width:76px}
+#topbar .vsep,#tb210pins.empty,#topbar #btnFilter,#topbar #btn210chat{display:none!important}
+#topbar>*{flex:none}
+.ch210p{left:8px!important;right:8px;width:auto!important;top:auto!important;bottom:calc(8px + var(--sb,0px));max-height:70vh}
+}
+@media (max-width:700px){
+#topbar .brand{display:none!important}
+#topbar #boardName{max-width:64px}
+#topbar .tb210main,#tb210task #btnLife{width:32px!important;height:32px!important;font-size:15px}
+#tb210task{padding:1px 4px 1px 1px;margin-left:2px}
+}
+/* buttons inside the new panels: one look */
+.ch210p .ob,.ch210p .btn,.src210p .ob,.src210p .btn,.ai210 .ob,.ai210 .btn,.sk210 .ob,.sk210 .btn,.gd210all .btn,.chcl .ob{display:inline-flex;align-items:center;gap:4px;min-height:30px;padding:0 11px;border-radius:9px;font:600 12.5px var(--font);cursor:pointer;text-decoration:none;white-space:nowrap}
+.ch210p .ob,.src210p .ob,.ai210 .ob,.sk210 .ob,.chcl .ob{border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+.ch210p .ob:hover,.src210p .ob:hover,.ai210 .ob:hover,.sk210 .ob:hover{border-color:var(--gd);color:var(--gd-ink)}
+.ch210p .btn,.src210p .btn,.ai210 .btn,.sk210 .btn{border:0;background:var(--ink);color:var(--panel)}
+.ch210p .ob.sm,.ch210p .btn.sm,.ai210 .ob.sm{min-height:26px;padding:0 9px;font-size:12px}
+.ch210p .chpt{background:color-mix(in srgb,var(--chc) 10%,var(--panel))}
+.ch210p .inp{border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink);padding:6px 9px;font:13.5px var(--font)}
+.tourbar.note{background:var(--gd-soft)!important;border:1px solid color-mix(in srgb,var(--gd) 30%,transparent)!important}
+.tourbar.note>b::before{content:'🎓 ';}
+.tourbar .ob,.tourbar button{border-color:color-mix(in srgb,var(--gd) 35%,var(--line))!important}
+.tourbar .ob:hover,.tourbar button:hover{border-color:var(--gd)!important;color:var(--gd-ink)!important}
+[data-tour],[data-ft]{--sel:var(--gd)}
+
 @media (max-width:700px){#statusText{display:none}#statusText.act{display:block;max-width:132px;white-space:normal;font-size:11.5px;line-height:1.25}#status{padding-left:12px}#boardName{width:120px}.fbtn span{display:none}.fdoc{padding:28px 24px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -2494,7 +2683,7 @@ body.tb29-bottom #toolbar .tsep,body.tb29-bottom #toolbar hr{width:1px!important
   <button class="ib" id="btnFilter" title="Фильтры доски" aria-label="Фильтры доски"></button>
   <button class="ib" id="btnBoards" title="Все доски" aria-label="Все доски"></button>
   <button class="ib" id="btnLife" title="Life OS: задачник и витрина (J)" aria-label="Life OS"></button>
-  <button class="ib" id="btn24claude" title="Claude на доске" aria-label="Claude на доске">✦</button>
+  <button class="ib" id="btn24claude" title="ИИ на доске — ваша нейросеть" aria-label="ИИ на доске">✦</button>
   <button class="ib" id="btnMenu" title="Меню" aria-label="Меню"></button>
 </header>
 
@@ -2579,6 +2768,7 @@ body.tb29-bottom #toolbar .tsep,body.tb29-bottom #toolbar hr{width:1px!important
 <script data-app>
 (() => {
 'use strict';
+const DOCL = []; { const add = Document.prototype.addEventListener; document.addEventListener = function (t, f, o) { DOCL.push([t, f, o]); return add.call(this, t, f, o); }; }
 
 /* The page's own source, captured before anything changes the DOM:
    used by "Download offline version". */
@@ -5581,7 +5771,7 @@ function installHelp() {
    v1.7: versions, feature catalog, tiny-object markers, pin zones, re-attach,
    nested frame tabs, Whimsical import that reads the whole board by sections
    ========================================================= */
-const APP_VERSION = '2.9';
+const APP_VERSION = '2.10';
 const CHANGELOG = [
   ['1.9', '6 октября 2026', ['Масштаб от 0,5%, свой диапазон и уровни: колесо и кнопки прыгают по уровням (Горячие клавиши → Масштаб)', 'Замок: закреплённый объект не двигается, не меняется и не удаляется', 'Выравнивание, равные промежутки, одинаковый размер и одинаковая длина линий для выделенного', 'Умные направляющие: при перемещении и растягивании объект прилипает к краям и центрам соседей (Alt отключает)', 'Выделенное можно открыть отдельно, как доску, с хлебными крошками', 'Резервная копия в папку на компьютере, в том числе в папку Яндекс Диска, с недельным архивом', 'История версий доски с поиском по дате: копии на устройстве и версии из Google Диска', 'Компактная панель статуса: цветные индикаторы, мигающий значит нужно ваше действие', 'Контуры при сильном отдалении: только у внешних объектов, нейтральным серым, точно по размеру', 'Импорт из Whimsical: секции как в оригинале, блок-схемы и прямоугольники, шрифт подбирается под каждое устройство']],
   ['1.8', '6 октября 2026', ['Импорт из Whimsical: майнд-карты снова переносятся, сбойные запросы повторяются, а не пропускаются', 'Картинки из Whimsical переносятся как картинки', 'Ссылки из Whimsical становятся текстом-ссылкой, а не пустой карточкой', 'Размер шрифта в перенесённых заголовках подбирается по настоящему шрифту, слова больше не рвутся', 'При сильном отдалении (1% и меньше) подсвечиваются контуры объектов вместо пятен', 'Копирование в другие приложения: обычный текст с форматированием, без служебного кода', 'Приложение само проверяет, есть ли на сайте новая версия, и предлагает обновиться']],
@@ -6056,7 +6246,7 @@ const AREAS = {
 };
 Object.assign(AREAS.canvas[2], { filter: 'Фильтры (Filters)' }); Object.assign(AREAS.org[2], { fhead: 'Шапка рамки (Frame header)' }); Object.assign(AREAS.obj[2], { docs: 'Документы (Documents)', html: 'HTML-инструменты (HTML tools)' }); Object.assign(AREAS.io[2], { web: 'Страница по ссылке (Web capture)', queue: 'Очередь импорта (Import queue)' }); Object.assign(AREAS.cust[2], { mech: 'Механики (Feature toggles)', panels: 'Панели (Panels)', menu: 'Меню (Menu)', drag: 'Перетаскивание (Drag)' }); Object.assign(AREAS.ws[2], { side: 'Панель досок слева (Boards sidebar)', smart: 'Умные доски (Smart boards)' }); Object.assign(AREAS.life[2], { time: 'Учёт времени (Time tracking)', src: 'Источники записей (Sources)' }); Object.assign(AREAS.plat[2], { audit: 'Аудит (Audit)' }); Object.assign(AREAS, { team: ['Команда', 'Team', { space: 'Командное пространство (Team space)', live: 'Кто на доске (Presence)' }], ai: ['Claude', 'AI', { board: 'Claude на доске (AI on board)' }], files: ['Файлы', 'Files', { drop: 'Файлы на доске (Files on board)', group: 'Групповое встраивание (Bulk embed)', lib: 'Библиотека файлов (File library)' }] }); Object.assign(AREAS.data[2], { trash: 'Корзина (Trash)', space: 'Объём (Storage usage)' }); Object.assign(AREAS.life[2], { modes: 'Режимы задачника (Task manager modes)' }); Object.assign(AREAS.plat[2], { guide: 'Гайды и демо (Guides)' }); AREAS.org[2].fhead = 'Табулятор рамки (Frame tabulator)';
 const areaLabel = c => { const [a, m] = String(c || '').split('.'), A = AREAS[a]; return A ? A[0] + (m && A[2][m] ? ' › ' + A[2][m].replace(/ \(.*\)$/, '') : '') : ''; };
-const VERS = [['2.9', '10 октября 2026'], ['2.8', '10 октября 2026'], ['2.7', '9 октября 2026'], ['2.6', '9 октября 2026'], ['2.5', '9 октября 2026'], ['2.4', '9 октября 2026'], ['2.3', '8 октября 2026'], ['2.2', '7 октября 2026'], ['2.1', '6 октября 2026'], ['2.0', '6 октября 2026'], ['1.9', '6 октября 2026'], ['1.8', '6 октября 2026'], ['1.7', '6 октября 2026'], ['1.6', '5 октября 2026'], ['1.5', '5 октября 2026'], ['1.4', '5 октября 2026'], ['1.3', '4 октября 2026'], ['1.2', '4 октября 2026'], ['1.0', '4 октября 2026']];
+const VERS = [['2.10', '10 октября 2026'], ['2.9', '10 октября 2026'], ['2.8', '10 октября 2026'], ['2.7', '9 октября 2026'], ['2.6', '9 октября 2026'], ['2.5', '9 октября 2026'], ['2.4', '9 октября 2026'], ['2.3', '8 октября 2026'], ['2.2', '7 октября 2026'], ['2.1', '6 октября 2026'], ['2.0', '6 октября 2026'], ['1.9', '6 октября 2026'], ['1.8', '6 октября 2026'], ['1.7', '6 октября 2026'], ['1.6', '5 октября 2026'], ['1.5', '5 октября 2026'], ['1.4', '5 октября 2026'], ['1.3', '4 октября 2026'], ['1.2', '4 октября 2026'], ['1.0', '4 октября 2026']];
 const KIND = { f: ['Новое', 'Feature'], i: ['Улучшение', 'Improvement'], x: ['Исправление', 'Bug fix'], b: ['Ожидается', 'Backlog'] };
 /* [id, version, area.module, kind, title, how to use, context] */
 const FEATS = [
@@ -6388,6 +6578,31 @@ const FEATS = [
 ['f29_ext','2.9','plat.ext','f','Расширение браузера: клиппер и виджеты','holst-extension.zip → chrome://extensions → «Загрузить распакованное».','Любая страница — в задачник или на доску; задачи поверх сайтов.'],
 ['f29_share','2.9','plat.ext','f','«Поделиться» → Холст на телефоне','Установите Холст как приложение → «Поделиться» в любом приложении.','Ссылки, текст, картинки и файлы — сразу в Холст.'],
 ['f29_cx','2.9','life.inbox','f','Отчёты из чатов Claude в задачник','Навык «Отчёт в Холст» в Claude → «отчёт в Холст» в конце чата.','Все отчёты и проекты чатов — в одном месте.'],
+['f210_br','2.10','cust.learn','f','Знакомство по веткам и глубине','☰ → «Версия · что нового» → «По веткам»: глубина 1 — ветки, 2 — механики, 3 — нюансы; «Как вы работаете» — свои ветки.','Сначала целые механики, вглубь — когда нужно.'],
+['f210_sty','2.10','cust.learn','f','Стили работы и пресеты','☰ → «Механики» → «Как вы работаете»: скетчи, задачи, системы, материалы, команда, ИИ, показ, всё сразу.','Одним щелчком включается нужное, лишние разделы прячутся.'],
+['f210_sec','2.10','cust.mech','i','Разделы на экране — у каждого свои','☰ → «Механики» → «Разделы на экране»: задачник, DEV, ИИ, библиотека, импорт.','Видно только то, чем вы пользуетесь.'],
+['f210_gd','2.10','cust.learn','f','Режим обучения: фиолетовые гайды с затемнением','Само при первом нажатии кнопки; в гайде — «Пояснение» или «По шагам».','Сразу видно, что это обучение и где вы.'],
+['f210_gdopt','2.10','cust.learn','i','Гайды: снова, никогда, по веткам, глубина','«⋯» в гайде; ☰ → «Все гайды».','Обучение под вашим контролем.'],
+['f210_gdai','2.10','cust.learn','f','Спросить ИИ прямо в гайде','«✦ Спросить ИИ» в гайде — чат по этой функции.','Объяснение своими словами и с примером.'],
+['f210_lointro','2.10','life.struct','i','Знакомство с задачником — как режим обучения','Само при первом открытии задачника: фиолетовая плашка и подсвеченная строка.','Понятно, что от вас ждут.'],
+['f210_skill','2.10','ai.sub','f','Навыки Claude для Холста — гайд','☰ → «Навыки Claude для Холста».','Как работают «Отчёт в Холст» и «Задания из Холста».'],
+['f210_pip','2.10','plat.pip','f','Панель или объект в отдельном окне','▣ в шапке панели или «▣ Вид» у объекта → «В отдельном окне».','Окно поверх всех — можно унести на другой монитор.'],
+['f210_pin','2.10','cust.pins','f','Закрепить панель или объект кнопкой','▣ → «Закрепить кнопкой»; ＋ в блоке закреплённых наверху.','Своё под рукой; главные кнопки выделены сильнее.'],
+['f210_view','2.10','cust.panels','i','У объектов — все виды, как у панелей','Выделите объект → «▣ Вид»: сбоку слева или справа, во весь экран, в окне, кнопкой.','Объект смотрится где удобно.'],
+['f210_top','2.10','cust.tb','i','Верхняя панель: ⋯ справа, задачник со счётчиком — одним блоком','Само.','Порядок как в референсах.'],
+['f210_wheel','2.10','ws.side','x','Колесо над списком досок листает список','Само.','Доска под панелью больше не масштабируется.'],
+['f210_src','2.10','obj.media','f','Панель исходника: Диск, ссылка, адрес, куда сохранять','Плашка под картинкой или файлом, или «Исходник» на панели объекта.','Видно, где лежит оригинал, и им легко поделиться.'],
+['f210_up','2.10','obj.media','i','Прогресс загрузки на Диск под объектом','Само при добавлении, если включено «Оригиналы на Google Диск».','Видно, что файл уходит на Диск.'],
+['f210_old','2.10','obj.media','i','Старые картинки и файлы — на Диск одной кнопкой','Панель исходника → «Загрузить оригинал на Диск».','Все оригиналы в одном месте.'],
+['f210_chat','2.10','team.chat','f','Чаты на доске','💬 наверху → «Новый чат» → щелчок по доске или объекту; 💬 на панели объекта.','Обсуждения прямо у объектов, как в Miro и Google Документах.'],
+['f210_chtype','2.10','team.chat','f','Тип чата и сценарий закрытия','В переписке: тип ▾ — обсуждение, задача, вопрос, идея, замечание, решение.','Понятно, кто, когда и как закрывает чат.'],
+['f210_chlo','2.10','team.chat','i','Чаты в задачнике с меткой «чат»','Само; задачник → «Эта доска».','Ни одно обсуждение не теряется.'],
+['f210_chcol','2.10','team.chat','i','Чат значком или превью; видимость и фильтры','Переписка → «Свернуть в значок»; 💬 → «Показывать закрытые», «Показывать чаты»; фильтры доски.','Доска не загромождена.'],
+['f210_chatai','2.10','ai.chat','f','ИИ в чатах и замечания ИИ по доске','«✦ Ответ ИИ» или «@ии» в сообщении; 💬 → «ИИ: замечания по доске».','ИИ — участник обсуждения и сам открывает чаты.'],
+['f210_ai','2.10','ai.prov','f','Нейросети: Claude API, Gemini, Groq — и прежние','☰ → «Нейросети»: выбрать, вставить ключ, «Проверить».','У каждого своя нейросеть, есть бесплатные.'],
+['f210_cd','2.10','ai.sub','f','Claude по подписке через Google Диск','☰ → «Нейросети» → «Claude по подписке»; в Claude — «задания из Холста».','Без ключа и оплаты API.'],
+['f210_aiwin','2.10','ai.prov','i','Окно нейросетей и панель ИИ — в едином дизайне','☰ → «Нейросети»; ✦ наверху.','Красиво и понятно, чья нейросеть работает.'],
+['f210_demo','2.10','plat.guide','i','Демо-доска: все панели меню по темам','☰ → «Демо-доска».','Вся карта Холста на одной доске.'],
 ['b_types','backlog','obj.struct','b','Остальные виды объектов Miro, Whimsical, Excalidraw','Остались: диаграмма последовательности, вайрфреймы, таймлайн, комментарии','Нужен порядок: что важнее для переезда.'],
 ['b_miro','backlog','io.imp','b','Импорт из Miro','Будет как импорт из Whimsical.','Отложено: жду полного удовлетворения импортом из Whimsical; возможно, перенесу вручную — досок там мало.'],
 ['b_drivew','backlog','obj.media','b','Виджет папки Google Диска','Папка Диска на доске с перетаскиванием файлов.','Отложено ради исправлений.'],
@@ -7650,7 +7865,19 @@ const DEV_X = [
   { id: 'T29-tabs', it: '2.9', area: 'org.fhead', status: 'review', type: 'Баг', prio: 'Средний', orig: 'вкладки внутри фрейма сейчас пропадают за его границы при зумауте. сделай чтобы они не пропадали а сужались', title: 'Вкладки рамки сужаются при отдалении', report: R21('Вкладки пересчитывают ширину при каждом масштабе и не выходят за края рамки: сначала уменьшаются, потом сужаются с многоточием.', 'Рамка с 4–5 вкладками → отдалите до 20%.', '') },
   { id: 'T29-tb', it: '2.9', area: 'cust.tb', status: 'review', type: 'Фича', prio: 'Средний', orig: 'панель инструментов должно быть возможно разместить по любым 3 краям экрана. кроме верхнего потому что там и так много места занимают основные кнопки меню и так далее', title: 'Панель инструментов: слева, справа, снизу', report: R21('Правый щелчок по панели инструментов или ☰ → «Панель инструментов»: слева, справа или снизу (горизонтально). Списки вариантов инструментов открываются в сторону доски.', 'Правый щелчок по панели → «Снизу».', '') },
   { id: 'T29-gd', it: '2.9', area: 'cust.guide', status: 'review', type: 'Фича', prio: 'Средний', orig: 'гайды по нажатию кнопок. первое нажатие на любую кнопку первого экрана должны запускать гайды поясняющие куда попал юзер и что тут можно делать. всегда должна быть кнопка отключения всех гайдов или только частей гайдов по категориям которые ты должен структурировать', title: 'Гайды при первом нажатии кнопок', report: R21('Первое нажатие на кнопки главного экрана (доски, задачник, ИИ, фильтр, меню, облако, папка, масштаб, история, число задач, команда, основные инструменты) показывает карточку: куда попали и что тут можно, «Показать по шагам» там, где есть пошаговый гайд. Разделы: доски и навигация, задачник, ИИ, синхронизация и хранение, инструменты, вид и управление, команда. «Гайды…» на карточке и ☰ → «Гайды»: выключить все или по разделам, показать заново.', 'Нажмите «Все доски» впервые — появится карточка.', '') },
+  { id: 'T210-br', it: '2.10', area: 'cust.learn', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'введи категоризацию фич по уровням углубления в ветки механик… юзер уже на первом слое контролирует уровни проваливания вглубь; категоризация по стилям мышления; пресеты в разделе тумблеров', title: 'Ветки, глубина, стили работы, пресеты', report: R21('Все функции разложены по 16 веткам (доска, объекты, рамки и матрицы, чаты, задачник, медиа и файлы, документы, доски, оформление и обучение, команда, ИИ, синхронизация, импорт, расширение, установка, DEV). Внутри ветки: механики (уровень 2) и нюансы (уровень 3). «Что нового» → «По веткам»: переключатель глубины 1–3 и «Как вы работаете» — 8 стилей (скетчи, задачи, системы, материалы, команда, ИИ, показ, всё сразу). ☰ → «Механики»: пресеты по стилю работы и «Разделы на экране» у каждого свои.', '1. ☰ → «Версия · что нового» → «По веткам», глубина 1 → 2 → 3.\n2. «Как вы работаете» → «Рисую и думаю на доске».\n3. ☰ → «Механики» → «Веду задачи».', 'Ветка у функции определяется по её модулю; спорные можно переложить — скажите какие.') },
+  { id: 'T210-gd', it: '2.10', area: 'cust.learn', status: 'review', type: 'Улучшение', prio: 'Высокий', orig: 'РЕЖИМ ГАЙДОВ: дисклеймер и визуальное подчёркивание режима обучения, затемнение, фиолетовый; два режима; опции; кнопка уточнения у ИИ; гайд не исчезает сам', title: 'Режим обучения: фиолетовые гайды', report: R21('Гайды при первом нажатии и знакомство с задачником — один режим обучения: экран темнеет, место подсвечено фиолетовым, на карточке «Режим обучения» и первые разы — пояснение, что происходит. В каждом гайде выбор «Пояснение / По шагам», «✦ Спросить ИИ» — чат по функции прямо в гайде, «⋯»: показывать снова, не показывать этот, не показывать ветку, никакие, «Все гайды». Закрывается только кнопкой. ☰ → «Все гайды»: вкл/выкл, как показывать, глубина, по веткам. Пошаговые туры — тоже фиолетовые.', '1. ☰ → «Все гайды» → «↺ Показать заново».\n2. Нажмите «Все доски» → гайд, «По шагам», «Спросить ИИ».\n3. Задачник с нуля: ⋯ → «Пройти знакомство заново».', 'Чат в гайде работает, когда подключена нейросеть.') },
+  { id: 'T210-skill', it: '2.10', area: 'ai.sub', status: 'review', type: 'Документация', prio: 'Средний', orig: 'в фичах отразить гайд по механикам скилла в клоде, с пометкой и отображением только у меня; для других гайд как такой скилл добавить', title: 'Гайд по навыкам Claude', report: R21('☰ → «Навыки Claude для Холста» (виден только вашему аккаунту podkindmitrii@gmail.com, с пометкой «Только у вас»): что такое навык, «Отчёт в Холст» и «Задания из Холста» по шагам, с примером и разбором неполадок. Остальным — «Своя нейросеть и навыки: как подключить». Функция в «Что нового» тоже видна только вам.', 'Войдите в Google своим аккаунтом → ☰ → «Навыки Claude для Холста».', '') },
+  { id: 'T210-pip', it: '2.10', area: 'plat.pip', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'еще один режим отображения как виджет, чтобы уйти за рамки браузера на другой монитор; объектов тоже; у каждого объекта весь функционал отображения как панель', title: 'Отдельные окна для панелей и объектов', report: R21('▣ в шапке панели → «В отдельном окне»: панель уходит в своё окно поверх всех, его можно перетащить на другой монитор; кнопки внутри работают как обычно, «↩ В Холст» возвращает. У объектов — «▣ Вид»: сбоку слева или справа, во весь экран, в отдельном окне, закрепить кнопкой.', '1. Откройте задачник → ▣ → «В отдельном окне».\n2. Выделите видео или картинку → «▣ Вид» → «В отдельном окне».', 'Окна поверх всех умеют Chromium-браузеры 116+ (Chrome, Edge, Vivaldi, Arc, Comet, Яндекс); одно такое окно за раз. В Safari и Firefox — колонки и весь экран.') },
+  { id: 'T210-pin', it: '2.10', area: 'cust.pins', status: 'review', type: 'Фича', prio: 'Средний', orig: 'закрепление элемента в качестве кнопки на панели кнопок общего меню, отдельный блок слева от основных; основные выделяются больше; ⋯ всегда справа; задачи и плашка задач в общем блоке', title: 'Закреплённые кнопки и порядок верхней панели', report: R21('Блок закреплённых — слева от главных кнопок, тише и мельче; главные (ИИ, фильтр, 💬, доски, задачник, ⋯) — крупнее. Закрепить: ▣ → «Закрепить кнопкой», «▣ Вид» у объекта, ＋ в блоке (любой пункт меню). Правый щелчок — переименовать, сдвинуть, открепить. «⋯» всегда справа, задачник и счётчик — одним блоком.', '▣ в шапке «Механик» → «Закрепить кнопкой» → кнопка наверху.', '') },
+  { id: 'T210-wheel', it: '2.10', area: 'ws.side', status: 'review', type: 'Баг', prio: 'Средний', orig: 'при работе в меню списка досок при зуминге срабатывает доска', title: 'Колесо над панелями', report: R21('Колесо и щипок над списком досок, колонками, гайдом, панелью ИИ и чатами больше не масштабируют доску — листается панель.', 'Откройте «Все доски» и покрутите колесо над списком.', '') },
+  { id: 'T210-src', it: '2.10', area: 'obj.media', status: 'review', type: 'Улучшение', prio: 'Высокий', orig: 'МЕХАНИКА ИСХОДНИКОВ ФАЙЛА: виджет диска, ссылка, плашка снаружи, старые файлы — на диск, адрес, настройки сохранения, прогресс-бар', title: 'Исходники файлов', report: R21('Плашка под картинкой или файлом (снаружи, картинка целиком): ◭ Диск, ↗ сайт или 📍 устройство. Щелчок — панель исходника: адрес, где лежит, просмотр Google Диска, «Скопировать ссылку», «Сбоку», «Загрузить оригинал на Диск» (и для старых), своя ссылка, а ниже — куда сохранять оригиналы (Google Диск, папка на компьютере) и ссылки на источники синхронизации. Загрузка — полоса прогресса под объектом.', '1. Включите в панели исходника «На Google Диск».\n2. Перетащите картинку на доску — под ней полоса прогресса.\n3. У старой картинки → плашка → «Загрузить оригинал на Диск».', 'Внутри Claude прогресс — без процентов.') },
+  { id: 'T210-chat', it: '2.10', area: 'team.chat', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'чаты на доске как в референсах и гугл доках: видимость в фильтрах, в задачник с пометкой, тип, логика закрытия, сворачивание в иконку, чат с ИИ, ИИ сам создаёт чаты', title: 'Чаты на доске', report: R21('💬 наверху: новый чат (щелчок по доске или объекту), список открытых, видимость закрытых и всех, «свернуть все», чаты в задачнике, «ИИ: замечания по доске». У объекта — 💬 на его панели. Чат — значок или превью; переписка рядом: тип (обсуждение, задача, вопрос, идея, замечание, решение) и свой сценарий закрытия: «Решено» с итогом, «Выполнено», ✓ ответ, «В задачи» или «Отклонить», «Исправлено» или «Не актуально», «Зафиксировать решение». Закрывают автор, исполнитель или администратор; остальные — «Предложить закрыть». Новое сообщение открывает чат снова. В задачнике — задача «💬 …» с меткой «чат», статусы синхронны. «✦ Ответ ИИ» или «@ии» — отвечает ваша нейросеть; ИИ сам ставит чаты-замечания.', '1. 💬 → «Новый чат» → щелчок по стикеру → сообщение.\n2. Тип «Вопрос» → ✓ у ответа.\n3. Задачник → «Эта доска».\n4. 💬 → «ИИ: замечания по доске».', 'Споры нейросетей и команды агентов — в 2.11.') },
+  { id: 'T210-ai', it: '2.10', area: 'ai.prov', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'добавить все нейронки, платные и бесплатные; придумать для claude чтобы не только в облачной версии; кнопка нейронок осталась от claude; у каждого юзера своя нейронка; окно супер красивым', title: 'Своя нейросеть у каждого', report: R21('☰ → «Нейросети»: карточки — ChatGPT, Claude API, Gemini (есть бесплатно), Groq (бесплатно), OpenRouter, Qwen, Perplexity; без ключа — Claude по подписке (через Google Диск) и Claude внутри Claude. Ключ, модель, «Где взять ключ», «Проверить». Панель ИИ: «✦ ИИ на доске» и плашка вашей нейросети — щелчок меняет её. Тексты и подсказки — про «вашу нейросеть», не про Claude.', '1. ☰ → «Нейросети» → Groq → ключ → «Проверить».\n2. ✦ → плашка нейросети → сменить.', 'Режимы работы, лимиты, подхват при лимите, метрики токенов, споры и команды агентов — 2.11.') },
+  { id: 'T210-cd', it: '2.10', area: 'ai.sub', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'придумай что-то для claude чтобы не только в облачной версии доски работало', title: 'Claude по подписке через Google Диск', report: R21('Нейросеть «Claude по подписке»: вопросы из панели ИИ и чатов на доске уходят заданием в «Холст/Claude» на вашем Google Диске (вместе со списком объектов доски). В любом чате Claude скажите «задания из Холста» (навык — карточка в чате) — Claude ответит и при необходимости добавит стикеры, документы, задачи, чаты. Ответ кладётся в «Холст/Входящие» — Холст сам ставит его в панель ИИ или в чат.', '1. ☰ → «Нейросети» → «Claude по подписке».\n2. ✦ → вопрос.\n3. В Claude: «задания из Холста».\n4. ✦ → «⟳ Ответы».', 'Не мгновенно: ответ приходит, когда вы запускаете навык в Claude.') },
+  { id: 'T210-demo', it: '2.10', area: 'plat.guide', status: 'review', type: 'Улучшение', prio: 'Низкий', orig: 'на доске знакомства размести все панели меню по фреймам тематик', title: 'Демо-доска: меню по темам', report: R21('Внизу демо-доски — 7 рамок: Доска, Создать, Перейти, Импорт и экспорт, Настройки, Синхронизация, Помощь. В каждой — пояснение и виджет с кнопками всех панелей этой темы.', '☰ → «Демо-доска» → прокрутите вниз.', '') },
 ];
+
 
 /* =========================================================
    v2.1: matrix mode — any frame divided into rows and columns of cell frames
@@ -9525,7 +9752,7 @@ function loScanBoard(bo) {
         if (links.length) up('R' + b.id + '.' + it.id, { k: 'ref', title: loObjTitle(it) || 'Чек-лист', par: links[0], on: links, src, ty: it.type });
       } else if (links.length) up('R' + b.id + '.' + it.id, { k: 'ref', title: loObjTitle(it), par: links[0], on: links, src, ty: it.type });
     }
-    bdScanCells(b, up, bdc);
+    bdScanCells(b, up, bdc); chScan210(b, up);
     for (const r of loAll()) if (r.src && r.src.b === b.id && !seen.has(r.id)) loDel(r.id, true);
   } finally { S.loApplying = false; }
   if (S.loT) { clearTimeout(S.loT); S.loT = setTimeout(loWrite, 300); }
@@ -12492,7 +12719,7 @@ function ctx24Extra(sel, single) {
     const t = single.lib && libTools().find(x => x.id === single.lib);
     g.push(cbtn('h:fit', '⤢ Авторастягивание', 'Подогнать размер под содержимое: весь интерфейс на виду, без прокрутки внутри', 'wide') + (t && (t.secs || []).length && !single.sec ? cbtn('h:split', 'Разложить', 'Разложить инструмент на разделы: одним полотном или по вкладкам', 'wide') : '') + cbtn('h:io', 'Вход и выход', 'Какие данные Холст даёт инструменту и что инструмент отдаёт обратно', 'wide') + cbtn('h:bare', single.bare ? 'Показать шапку' : 'Без шапки', 'Встроить без шапки и рамки — просто часть страницы', 'wide' + (single.bare ? ' on' : '')));
   }
-  if (single.type !== 'connector' && single.type !== 'pen') g.push(cbtn('h:side', 'Сбоку', 'Открыть в боковой панели', 'wide') + (['image', 'embed', 'doc', 'file'].includes(single.type) ? cbtn('h:src', single.srcUrl ? '↗ Исходник' : 'Исходник', 'Ссылка на исходник: Google Диск, Figma, сайт', 'wide' + (single.srcUrl ? ' on' : '')) : '') + (single.type === 'embed' && EO[single.provider] ? cbtn('h:eo', 'Параметры', 'Старт, автозапуск, звук, повтор, тема, масштаб', 'wide') : single.type === 'embed' && single.kind === 'web' ? cbtn('h:eo', 'Масштаб', 'Масштаб содержимого', 'wide') : '') + (!document.body.classList.contains('t-no-claude') ? cbtn('h:claude', '✦ Claude', 'Спросить Claude об этом или попросить сделать', 'wide') : ''));
+  if (single.type !== 'connector' && single.type !== 'pen') g.push(cbtn('h:side', 'Сбоку', 'Открыть в боковой панели', 'wide') + (['image', 'embed', 'doc', 'file'].includes(single.type) ? cbtn('h:src', single.srcUrl ? '↗ Исходник' : 'Исходник', 'Ссылка на исходник: Google Диск, Figma, сайт', 'wide' + (single.srcUrl ? ' on' : '')) : '') + (single.type === 'embed' && EO[single.provider] ? cbtn('h:eo', 'Параметры', 'Старт, автозапуск, звук, повтор, тема, масштаб', 'wide') : single.type === 'embed' && single.kind === 'web' ? cbtn('h:eo', 'Масштаб', 'Масштаб содержимого', 'wide') : '') + (!document.body.classList.contains('t-no-claude') ? cbtn('h:claude', '✦ ИИ', 'Спросить вашу нейросеть об этом или попросить сделать', 'wide') : ''));
   if (single && mechOn('filters') && S.board && !S.board.virtual && single.type !== 'connector') g.push(cbtn('h:bfobj', '⊘ Фильтр', 'Фильтр доски для этого объекта: убрать, приглушить, оставить только его', 'wide'));
   if (single.type === 'frame' && single.lib && items().some(i => i.stack === single.id)) g.push(cbtn('h:fitall', '⤢ Подогнать разделы', 'Каждый раздел — по размеру своего содержимого', 'wide'));
   return g;
@@ -13338,15 +13565,15 @@ function clTools() {
     { name: 'add_lifeos_task', description: 'Adds a task to the Life OS task list (optionally with a due date YYYY-MM-DD).', inputSchema: { type: 'object', properties: { title: { type: 'string' }, due: { type: 'string' }, notes: { type: 'string' } }, required: ['title'] }, execute: async inp => { await loLoad(); const r = loNew('task', { title: String(inp.title).slice(0, 200) }); if (inp.due && /^\d{4}-\d{2}-\d{2}$/.test(inp.due)) loSet(r.id, { due: inp.due }); if (inp.notes) loSet(r.id, { notes: String(inp.notes).slice(0, 4000) }); return { id: r.id }; } },
   ].map(t => Object.assign(t, { _made: made }));
 }
-const CL_RULES = 'You are Claude working directly on a whiteboard called Холст (a Miro-like board) together with the user. Reply in Russian, briefly. Prefer DOING the work with the tools over describing it: put ideas on stickies, structure in frames, long text in documents, tasks in checklists. Never delete anything. Keep stickies short (up to 12 words). When the user refers to "this", "these" or "selected", use only_selection. After acting, say in one or two sentences what you did.';
+const CL_RULES = 'You are the AI assistant chosen by this person, working directly on a whiteboard called Холст (a Miro-like board) together with the user. Reply in Russian, briefly. Prefer DOING the work with the tools over describing it: put ideas on stickies, structure in frames, long text in documents, tasks in checklists. Never delete anything. Keep stickies short (up to 12 words). When the user refers to "this", "these" or "selected", use only_selection. After acting, say in one or two sentences what you did.';
 function clOpen(prefill) {
   let p = $('#cl24');
   if (!p) {
     p = document.createElement('div'); p.id = 'cl24'; p.className = 'panel'; p.dataset.app = ''; document.body.appendChild(p);
-    p.innerHTML = `<div class="clh"><b>✦ Claude на доске</b><span class="clctx" id="clCtx"></span><span class="p24sp"></span><div class="seg24" id="clTier" title="Быстро — дешевле и сразу; Глубоко — дольше и дороже"><button data-tier="quick">Быстро</button><button data-tier="default">Обычно</button><button data-tier="complex">Глубоко</button></div><button class="ib sm" data-cl="x" aria-label="Закрыть">${ic('close')}</button></div>
+    p.innerHTML = `<div class="clh"><b>✦ ИИ на доске</b><span class="clctx" id="clCtx"></span><span class="p24sp"></span><div class="seg24" id="clTier" title="Быстро — дешевле и сразу; Глубоко — дольше и дороже"><button data-tier="quick">Быстро</button><button data-tier="default">Обычно</button><button data-tier="complex">Глубоко</button></div><button class="ib sm" data-cl="x" aria-label="Закрыть">${ic('close')}</button></div>
       <div class="clq">${[['ideas', 'Идеи стикерами'], ['cluster', 'Сгруппировать по темам'], ['sum', 'Сводка'], ['tasks', 'Задачи из выделенного'], ['improve', 'Улучшить текст'], ['struct', 'Структура в рамках']].map(([k, l]) => `<button class="ob" data-clq="${k}">${l}</button>`).join('')}</div>
       <div class="cllog" id="clLog"></div>
-      <div class="clin"><textarea class="inp" id="clIn" rows="3" placeholder="Например: разложи эти идеи по темам и сделай из каждой темы рамку"></textarea><div class="btnrow"><button class="btn" data-cl="go">Отправить</button><button class="ob" data-cl="stop" hidden>Стоп</button><button class="ob" data-cl="chat" title="Передать выделенное в ваш чат с Claude рядом с Холстом" hidden>В чат Claude</button><span class="p24sp"></span><button class="ob sm" data-cl="new" title="Начать заново">Новый разговор</button></div><p class="clnote">Каждый запрос тратит ваш лимит Claude. «Быстро» — дешевле. Всё, что Claude поставил, отменяется Ctrl+Z.</p></div>`;
+      <div class="clin"><textarea class="inp" id="clIn" rows="3" placeholder="Например: разложи эти идеи по темам и сделай из каждой темы рамку"></textarea><div class="btnrow"><button class="btn" data-cl="go">Отправить</button><button class="ob" data-cl="stop" hidden>Стоп</button><button class="ob" data-cl="chat" title="Передать выделенное в ваш чат с Claude рядом с Холстом" hidden>В чат Claude</button><span class="p24sp"></span><button class="ob sm" data-cl="new" title="Начать заново">Новый разговор</button></div><p class="clnote">Работает ваша нейросеть, по вашему ключу или подписке. Всё, что она поставила, отменяется Ctrl+Z.</p></div>`;
     p.addEventListener('click', e => {
       const b = e.target.closest('[data-cl],[data-clq],[data-tier]'); if (!b) return;
       if (b.dataset.tier) { CL.tier = b.dataset.tier; LS.set('cltier', CL.tier); clDraw(); return; }
@@ -18994,6 +19221,1053 @@ Object.assign(TOURS, {
 Object.assign(FEAT_TOUR, { f29_lo: 'lo29', f29_check: 'lo29', f29_cells: 'bd29', f29_hl: 'bd29', f29_doc: 'bd29', f29_copy: 'bd29', f29_pv: 'pv29' });
 
 /* =========================================================
+   v2.10: learning mode. Everything about learning is purple and looks the
+   same: the screen dims, the place is outlined, the card says «Режим обучения».
+   A guide is either a short explanation or steps; the choice is always there.
+   Features are sorted into branches (a whole mechanic, like the browser
+   extension) → mechanics → nuances, and by working styles (sketches, tasks,
+   systems, materials, team, AI, sharing). The first layer is the branch; the
+   reader decides how deep to go.
+   ========================================================= */
+const OWNER210 = ['podkindmitrii@gmail.com'];
+const meAcct210 = () => String((Drive.st && Drive.st.acct) || (typeof gtMeEmail === 'function' && gtMeEmail()) || '').toLowerCase();
+const isOwner210 = () => OWNER210.includes(meAcct210());
+/* ---------- working styles ---------- */
+const STY210 = {
+  sketch: ['✏️', 'Рисую и думаю на доске', 'Стикеры, фигуры, схемы, рамки. Задачи и настройки не мешают.'],
+  tasks: ['☑', 'Веду задачи', 'Задачник, сроки, статусы, чек-листы на досках.'],
+  struct: ['🧱', 'Строю системы', 'Рамки, матрицы, связи, базы, документы по уровням.'],
+  collect: ['📚', 'Собираю материалы', 'Ссылки, видео, страницы, файлы, клиппер из браузера.'],
+  team: ['👥', 'Работаю в команде', 'Общие пространства, мгновенный режим, курсоры, чаты.'],
+  ai: ['✦', 'Работаю с нейросетями', 'ИИ на доске, чаты с ИИ, отчёты чатов Claude.'],
+  present: ['📣', 'Показываю и делюсь', 'Документ из доски, снимки, текст для Telegram, экспорт.'],
+  all: ['∞', 'Всё сразу', 'Весь Холст: доски, задачи, команда, ИИ.'],
+};
+/* style → mechanics and sections on screen (sections: lo, dev, lib, imp, claude) */
+const STY_PRE210 = {
+  sketch: { hide: ['lo', 'dev', 'imp'], v: { lodecor: false, lochips: false, losync: false, fmetrics: false, wfix: false, fidelity: false } },
+  tasks: { hide: ['dev', 'imp'], v: { lodecor: true, lochips: true, losync: true } },
+  struct: { hide: ['dev'], v: { fhead: true, fmetrics: true, ftabs: true, lodecor: true } },
+  collect: { hide: ['dev'], v: { richpaste: true, lodecor: false } },
+  team: { hide: ['dev'], v: {} },
+  ai: { hide: ['dev'], v: {} },
+  present: { hide: ['dev', 'imp'], v: { pins: false, fmetrics: false, wfix: false, fidelity: false } },
+  all: { hide: [], v: {} },
+};
+/* ---------- branches: a whole mechanic first, then its parts ---------- */
+const BR210 = [
+  ['board', '🧭', 'Доска: движение, масштаб, выделение', 'Бесконечный холст: как двигаться, приближать, выделять, править и управлять мышью или тачпадом.', ['canvas.nav', 'canvas.zoom', 'canvas.sel', 'canvas.edit', 'canvas.snap', 'cust.ctrl', 'cust.drag', 'cust.keys'], ['sketch', 'struct', 'all'], 'main', '#zoomLbl'],
+  ['objects', '🟨', 'Объекты: стикеры, текст, фигуры, схемы', 'Всё, что ставится на доску: стикеры, тексты, фигуры, стрелки, блок-схемы, карточки, чек-листы, таблицы.', ['obj.basic', 'obj.shape', 'obj.flow', 'obj.cards', 'obj.struct', 'text.rich', 'text.edit'], ['sketch', 'struct', 'tasks', 'collect', 'all'], '', '#toolbar'],
+  ['org', '▦', 'Рамки, вкладки, матрицы', 'Как раскладывать доску: рамки с вкладками, матрицы с ячейками, прикрепление, групповая правка, защита.', ['org.frames', 'org.fhead', 'org.matrix', 'org.pins', 'org.bulk', 'org.lock'], ['struct', 'sketch', 'tasks', 'all'], 'matrix', '#toolbar [data-tool="frame"]'],
+  ['chat', '💬', 'Чаты на доске', 'Обсуждения прямо у объектов: задача, вопрос, идея, решение. Попадают в задачник, закрываются по сценарию, в них отвечает ИИ.', ['team.chat'], ['team', 'ai', 'tasks', 'all'], '', '#btn210chat'],
+  ['tasks', '☑', 'Задачник (Life OS)', 'Задачи всех досок в одном месте: режим, пространство, категория, стиль показа. Ячейки матриц и чек-листы становятся задачами.', ['life.'], ['tasks', 'struct', 'all'], 'modes', '#btnLife'],
+  ['media', '🖼', 'Медиа, встраивания, файлы', 'Картинки, видео, сайты, HTML-инструменты, файлы и их исходники на Google Диске.', ['obj.media', 'obj.html', 'files.', 'io.web', 'io.crawl', 'io.queue'], ['collect', 'present', 'all'], '', ''],
+  ['docs', '📄', 'Документы и доска как документ', 'Документы на доске; доска, рамка или выделенное — документом с картинками и схемами.', ['obj.docs', 'io.doc', 'io.exp', 'io.clip'], ['present', 'collect', 'struct', 'all'], 'bd29', ''],
+  ['boards', '🗂', 'Доски, группы, поиск', 'Список досок слева: группы, избранное, умные доски, поиск по всем доскам.', ['ws.boards', 'ws.side', 'ws.smart', 'find.'], ['sketch', 'tasks', 'struct', 'collect', 'team', 'ai', 'present', 'all'], 'side', '#btnBoards'],
+  ['look', '🎨', 'Оформление, панели, обучение', 'Темы, палитры, стили досок, фильтры, панели (слева, справа, в окне), механики, гайды.', ['canvas.look', 'canvas.filter', 'ws.look', 'cust.', 'plat.panels', 'plat.guide'], ['sketch', 'struct', 'present', 'all'], 'pv29', '#btnMenu'],
+  ['team', '👥', 'Команда', 'Командные пространства на Google Диске: роли, приглашения, мгновенный режим с курсорами.', ['team.', 'data.rt', 'data.space'], ['team', 'all'], 'spaces', '#gtwho'],
+  ['ai', '✦', 'ИИ и нейросети', 'Своя нейросеть у каждого: ChatGPT, Claude, Gemini, Groq, OpenRouter, Perplexity, Claude по подписке. ИИ на доске, в чатах, отчёты чатов.', ['ai.'], ['ai', 'all'], 'claude', '#btn24claude'],
+  ['sync', '☁', 'Синхронизация, хранение, копии', 'Google Диск, папка на компьютере, источники синхронизации, корзина, версии досок.', ['data.'], ['team', 'all'], 'sync28', '#btnCloud'],
+  ['import', '⇣', 'Импорт и перенос', 'Whimsical, Miro, Notion, TickTick, файлы — перенос на доски и в задачник.', ['io.imp'], ['collect', 'all'], '', ''],
+  ['ext', '🧩', 'Расширение браузера и «Поделиться»', 'Клиппер страниц в задачник и на доску, виджеты задач поверх сайтов, «Поделиться» на телефоне.', ['plat.ext'], ['collect', 'tasks', 'all'], '', ''],
+  ['app', '⚙', 'Установка, версии, окна', 'Приложение на компьютер и телефон, обновления, несколько окон.', ['plat.'], ['all'], '', ''],
+  ['dev', '🛠', 'DEV: разработка Холста', 'Задачи разработки, отчёты, релизы, тикеты правки.', ['dev.'], ['all'], '', ''],
+];
+const brById = id => BR210.find(b => b[0] === id);
+function brOf(code) {
+  code = String(code || '');
+  let best = null, bl = -1;
+  for (const b of BR210) for (const m of b[4]) { const hit = m.endsWith('.') ? code.startsWith(m) : code === m; if (hit && m.length > bl) { best = b; bl = m.length; } }
+  return best || BR210.find(b => b[0] === 'app');
+}
+const lvOf210 = f => (f[3] === 'f' ? 2 : 3);
+/* rows that only the owner sees (his own Claude skills) */
+const OWN210 = new Set(['f210_skill']);
+/* ---------- the versions dialog: «По веткам» with depth and style ---------- */
+function brHTML210() {
+  const ck = LS.get('checked') || {}, flt = LS.get('hfilter') || 'all', q = (S.hq || '').toLowerCase(), depth = +LS.get('hdepth') || 1, sty = LS.get('hsty') || 'all';
+  const openF = S.hopenF || (S.hopenF = new Set()), openG = new Set(LS.get('hopen') || []);
+  const show = f => f[1] !== 'backlog' && (flt === 'all' || (flt === 'todo' ? !ck[f[0]] : !!ck[f[0]])) && (!q || (f[4] + ' ' + f[5] + ' ' + f[6]).toLowerCase().includes(q)) && (!OWN210.has(f[0]) || isOwner210());
+  const row = f => {
+    const [id, v, , k, t, how, why] = f, on = !!ck[id], op = openF.has(id);
+    return `<div class="fr${on ? ' ck' : ''}"><div class="fr-m"><input type="checkbox" data-fc="${id}"${on ? ' checked' : ''} title="Проверено"><span class="fr-t">${esc(t)}</span><span class="fr-b"><i class="kb k-${k}">${KIND[k][0]}</i><i class="lb">v${esc(v)}</i>${OWN210.has(id) ? '<i class="lb own210">только у вас</i>' : ''}</span><button class="fr-x${op ? ' op' : ''}" data-fx="${id}" title="Подробнее">${op ? '−' : '+'}</button></div>${op ? `<div class="fr-d"><div><b>Как пользоваться</b><p>${esc(how)}</p></div><div><b>Контекст</b><p>${esc(why)}</p></div></div>` : ''}</div>`;
+  };
+  const list = BR210.filter(b => sty === 'all' || b[5].includes(sty));
+  const out = list.map(b => {
+    const fs = FEATS.filter(f => brOf(f[2]) === b && show(f)), l2 = fs.filter(f => lvOf210(f) === 2), l3 = fs.filter(f => lvOf210(f) === 3);
+    const all = FEATS.filter(f => f[1] !== 'backlog' && brOf(f[2]) === b), done = all.filter(f => ck[f[0]]).length;
+    if (q && !fs.length && !(b[2] + ' ' + b[3]).toLowerCase().includes(q)) return '';
+    const inner = depth === 1 ? `<p class="sub">${l2.length ? `Механик: <b>${l2.length}</b>${l3.length ? `, нюансов: <b>${l3.length}</b>` : ''}. Глубина «2» и «3» сверху — увидеть их.` : 'Подробностей пока нет.'}</p>`
+      : (l2.length ? `<div class="hsub">Механики <span>уровень 2</span></div>` + l2.map(row).join('') : '') + (depth >= 3 && l3.length ? `<div class="hsub">Нюансы <span>уровень 3</span></div>` + l3.map(row).join('') : depth < 3 && l3.length ? `<p class="sub">И ещё нюансов: ${l3.length} — глубина «3».</p>` : '');
+    return `<details class="hg br210" data-hg="br:${b[0]}"${openG.has('br:' + b[0]) || q ? ' open' : ''}><summary><span class="br210i">${b[1]}</span><b>${esc(b[2])}</b><span>${esc(b[3])}</span><i>${done}/${all.length}</i></summary><div class="br210a">${b[6] && TOURS[b[6]] ? `<button class="ob sm gd210b" data-br210="tour:${b[6]}">▶ Гайд по шагам</button>` : ''}<button class="ob sm gd210b" data-br210="ai:${b[0]}">✦ Спросить ИИ про ветку</button></div>${inner}</details>`;
+  }).join('');
+  return out || '<p class="sub">Ничего не найдено.</p>';
+}
+function brCtl210() {
+  const depth = +LS.get('hdepth') || 1, sty = LS.get('hsty') || 'all';
+  return `<div class="br210c"><div class="row"><span class="br210n">Глубина</span><div class="seg24">${[[1, '1 · Ветки'], [2, '2 · + механики'], [3, '3 · + нюансы']].map(([v, l]) => `<button class="${depth === v ? 'on' : ''}" data-br210="d:${v}">${l}</button>`).join('')}</div></div>
+    <div class="row"><span class="br210n">Как вы работаете</span><div class="sty210">${Object.entries(STY210).map(([k, [i, l]]) => `<button class="ob sm${sty === k ? ' on' : ''}" data-br210="s:${k}" title="${esc(STY210[k][2])}">${i} ${esc(l)}</button>`).join('')}</div></div></div>`;
+}
+{ const o = openVersions; openVersions = function (re) {
+  const hide = isOwner210() ? [] : FEATS.map((f, i) => [f, i]).filter(([f]) => OWN210.has(f[0]));
+  for (let k = hide.length - 1; k >= 0; k--) FEATS.splice(hide[k][1], 1);
+  try { o.call(this, re); } finally { for (const [f, i] of hide) FEATS.splice(i, 0, f); }
+  const d = S.xdlg && S.xdlg._hist ? S.xdlg : null; if (!d) return;
+  const gb = d.querySelector('[data-hgp="ver"]'); if (gb && !d.querySelector('[data-hgp="br"]')) gb.insertAdjacentHTML('beforebegin', `<button class="ob${LS.get('hgroup') === 'br' ? ' on' : ''}" data-hgp="br" title="Сначала ветки механик, потом глубже — по вашему выбору">По веткам</button>`);
+  if (LS.get('hgroup') === 'br') {
+    if (gb) d.querySelectorAll('[data-hgp]').forEach(b => b.classList.toggle('on', b.dataset.hgp === 'br'));
+    const head = d.querySelector('.hhead'), tax = head && head.querySelector('.tax');
+    if (tax) { tax.textContent = 'Ветка — целая механика (например, расширение браузера). Внутри — механики (уровень 2) и нюансы (уровень 3). Начните с веток и спускайтесь, когда нужно.'; tax.insertAdjacentHTML('beforebegin', brCtl210()); }
+    const body = d.querySelector('.hbody'); if (body) body.innerHTML = brHTML210();
+  }
+  if (!d._br210) {
+    d._br210 = 1;
+    d.addEventListener('click', e => {
+      const b = e.target.closest('[data-br210]'); if (!b) return; e.stopPropagation();
+      const [k, v] = b.dataset.br210.split(':');
+      if (k === 'd') LS.set('hdepth', +v); else if (k === 's') LS.set('hsty', v);
+      else if (k === 'tour') { closeXdlg(); tourStart(v); return; }
+      else if (k === 'ai') { const br = brById(v); gdAsk210(null, br ? br[3] : v, v); return; }
+      openVersions(true);
+    });
+  }
+}; }
+/* ---------- sections on screen and working-style presets ---------- */
+const SEC210 = () => new Set(LS.get('sec210') || []);
+{ const o = teamApplyAccess; teamApplyAccess = (...a) => { const r = o(...a); const mine = SEC210(); for (const k of Object.keys(TEAM_SECTIONS)) if (mine.has(k)) document.body.classList.add('t-no-' + k); return r; }; }
+function secApply210() { const mine = SEC210(), team = S.teamHide || new Set(); for (const k of Object.keys(TEAM_SECTIONS)) document.body.classList.toggle('t-no-' + k, mine.has(k) || team.has(k)); }
+function styApply210(k) {
+  const P = STY_PRE210[k]; if (!P) return;
+  for (const [id, , , , def] of MECH) mechSet(id, P.v[id] !== undefined ? P.v[id] : def, true);
+  LS.set('sec210', P.hide); LS.set('sty210', k); LS.set('mechcur', 'sty:' + k); mechApply(); secApply210();
+  toast(`Стиль работы: ${STY210[k][1]}. Скрыто: ${P.hide.length ? P.hide.map(h => TEAM_SECTIONS[h]).join(', ') : 'ничего'}`);
+}
+{ const o = openMech; openMech = (...a) => {
+  const r = o(...a); const d = S.xdlg; if (!d || d._dkey !== 'mech') return r;
+  const draw = () => {
+    let box = d.querySelector('.sty210m'); if (!box) { d.querySelector('#mech').insertAdjacentHTML('beforebegin', '<div class="sty210m"></div><div class="sec210"></div>'); box = d.querySelector('.sty210m'); }
+    const cur = LS.get('sty210') || '', hid = SEC210();
+    box.innerHTML = `<h3>Как вы работаете — пресет</h3><p class="sub">Один щелчок включает нужные механики и прячет лишние разделы. Потом любую механику можно поправить ниже.</p><div class="sty210g">${Object.entries(STY210).map(([k, [i, l, t]]) => `<button class="sty210c${cur === k ? ' on' : ''}" data-sty210="${k}"><span>${i}</span><b>${esc(l)}</b><small>${esc(t)}</small></button>`).join('')}</div>`;
+    d.querySelector('.sec210').innerHTML = `<h3>Разделы на экране</h3><div class="sec210g">${Object.entries(TEAM_SECTIONS).map(([k, l]) => `<label class="mrow"><span class="sw2"><input type="checkbox" data-sec210="${k}"${hid.has(k) ? '' : ' checked'}><i></i></span><span><b>${esc(k === 'claude' ? 'ИИ на доске' : l)}</b><small>${hid.has(k) ? 'скрыт у вас' : 'виден'}</small></span></label>`).join('')}</div>`;
+  };
+  draw();
+  d.addEventListener('click', e => { const b = e.target.closest('[data-sty210]'); if (!b) return; e.stopPropagation(); styApply210(b.dataset.sty210); closeXdlg(); openMech(); });
+  d.addEventListener('change', e => { const c = e.target.closest('[data-sec210]'); if (!c) return; e.stopPropagation(); const s = SEC210(); if (c.checked) s.delete(c.dataset.sec210); else s.add(c.dataset.sec210); LS.set('sec210', [...s]); LS.set('sty210', ''); secApply210(); draw(); }, true);
+  return r;
+}; }
+/* ---------- guides: purple, dimmed, explanation or steps, a chat with the AI ---------- */
+const GD210 = [
+  ['#btnBoards', 'boards', 1, 'Все доски', ['Слева — список досок: группы, избранное, недавние, умные доски.', 'Ctrl/Shift-щелчок выделяет несколько досок; «⋯» у доски — переименовать, перенести, выключить синхронизацию.', 'Сверху — командные пространства.'], 'side'],
+  ['#btnLife', 'tasks', 1, 'Задачник', ['Задачи всех досок в одном месте.', 'Сверху вниз: режим (задачи или дашборд) → пространство → категория → стиль показа.', 'Стили: чек-лист, To-do, Lean, Life OS — одни и те же задачи.', '«Эта доска» — задачи из объектов открытой доски.'], 'modes'],
+  ['#btn24claude', 'ai', 1, 'ИИ на доске', ['Ваша нейросеть: спросите или попросите сделать — она сама поставит стикеры, рамки, документы, задачи.', '«⚙ Нейросети» — выбрать свою: ChatGPT, Claude, Gemini, Groq, OpenRouter, Perplexity или Claude по подписке.', 'У каждого человека своя нейросеть и свои ключи.'], 'claude'],
+  ['#btnFilter', 'look', 1, 'Фильтры доски', ['Показать только нужное: по типу, цвету, тексту, статусу.', 'Фильтр не удаляет объекты — только прячет. Чаты тоже фильтруются.'], 'filters'],
+  ['#btnMenu', 'look', 1, 'Меню', ['Всё остальное: поиск по командам, оформление, стиль управления, синхронизация, гайды, «Что нового».', 'Начните печатать — меню найдёт пункт.'], ''],
+  ['#btnCloud', 'sync', 1, 'Синхронизация', ['Облако — Google Диск: цвет показывает, всё ли сохранено.', 'Внутри — аккаунт устройства, «Сменить аккаунт…» и «Источники синхронизации».'], 'sync28'],
+  ['#btnBackup', 'sync', 2, 'Папка на компьютере', ['Копии досок и файлов в выбранную папку — ещё одна страховка.'], 'store'],
+  ['#zoomLbl', 'board', 1, 'Масштаб', ['Щёлкните процент — переход к 100%, «Показать всё», скорость колеса и тачпада.', 'Стиль управления «как в Miro / Figma» — в меню.'], ''],
+  ['#btnHistC', 'sync', 2, 'История версий', ['Снимки доски по времени: вернуть любую версию или достать из неё объект.'], ''],
+  ['#loChips', 'tasks', 2, 'Доска в задачнике', ['Сколько объектов этой доски связано с задачником. Щелчок — откроет их чек-листом.'], ''],
+  ['#gtwho', 'team', 1, 'Командная доска', ['Кто сейчас на доске; ⚡ — мгновенный режим.', 'Щелчок — окно пространства: участники, роли, приглашения.'], 'spaces'],
+  ['#btn210chat', 'chat', 1, 'Чаты на доске', ['Щёлкните по доске или объекту — появится чат: обсуждение, вопрос, задача, идея, решение.', 'Чат сворачивается в значок, попадает в задачник, закрывается по своему сценарию.', 'В чате можно позвать ИИ — он ответит прямо там.'], ''],
+  ['#tb210pins', 'look', 2, 'Закреплённые кнопки', ['Сюда закрепляются панели и объекты: ▣ в шапке панели → «Закрепить кнопкой».', 'Правый щелчок по кнопке — открепить.'], ''],
+  ['#toolbar [data-tool="sticky"]', 'objects', 2, 'Стикеры', ['Щёлкните по доске — стикер. Цвет — в панели объекта, там же вкладки палитр.'], ''],
+  ['#toolbar [data-tool="frame"]', 'org', 2, 'Рамки', ['Обведите область — всё внутри двигается вместе.', '«Матрица» делит рамку на ячейки; ячейки могут стать задачами.'], 'matrix'],
+  ['#toolbar [data-tool="text"]', 'objects', 2, 'Текст', ['Подписи и заголовки. Кнопка «H» в панели делает текст заголовком — так доска читается в документ и задачи.'], ''],
+  ['[data-l29="copy:"]', 'docs', 2, 'Копировать', ['Одна кнопка: текст для Telegram, картинка, Markdown, документ с картинками.'], ''],
+  ['.pv29b', 'look', 2, 'Вид панели', ['Поверх экрана, слева или справа за доской, в колонку, во весь экран.', '«В отдельном окне» — панель поверх всех окон, её можно унести на другой монитор.', '«Закрепить кнопкой» — панель появится кнопкой наверху.'], 'pv29'],
+  ['.srcchip', 'media', 3, 'Исходник файла', ['Плашка под картинкой или файлом: где лежит оригинал.', 'Щелчок — панель исходника: Google Диск, ссылка, адрес, «Загрузить на Диск», куда сохранять.'], ''],
+  ['[data-act="bd:hl"]', 'docs', 3, 'Заголовки H1–H3', ['Делает объект заголовком: доска читается по уровням — в задачи и документ.'], 'bd29'],
+  ['[data-aiset]', 'ai', 2, 'Нейросети', ['Выбор своей нейросети и ключей. Проверка ключа — одной кнопкой.'], ''],
+];
+const GD_LV210 = { 1: 'Ветка', 2: 'Механика', 3: 'Нюанс' };
+const GDS210 = Object.assign({ off: 0, br: {}, seen: {}, never: {}, depth: 3, mode: 'info', intro: 0 }, LS.get('gd210') || {});
+const gdSave210 = () => LS.set('gd210', GDS210);
+const GD_RUN = { el: null, g: null, step: -1, chat: null };
+function gdClose210() { if (GD_RUN.el) GD_RUN.el.remove(); GD_RUN.el = null; GD_RUN.g = null; GD_RUN.chat = null; document.body.classList.remove('gd210on'); }
+function gdSpot210(anchor) {
+  const sp = GD_RUN.el && GD_RUN.el.querySelector('.gd210s'); if (!sp) return;
+  if (!anchor || !anchor.isConnected || !anchor.getBoundingClientRect().width) { sp.hidden = true; return; }
+  const r = anchor.getBoundingClientRect(), p = 6; sp.hidden = false;
+  Object.assign(sp.style, { left: px(r.left - p), top: px(r.top - p), width: px(r.width + p * 2), height: px(r.height + p * 2) });
+}
+function gdPlace210(anchor) {
+  const el = GD_RUN.el, c = el && el.querySelector('.gd210k'); if (!c) return;
+  const w = c.offsetWidth, h = c.offsetHeight;
+  if (!anchor || !anchor.isConnected) { c.style.left = px((innerWidth - w) / 2); c.style.top = px(Math.max(16, (innerHeight - h) / 2)); return; }
+  const r = anchor.getBoundingClientRect();
+  let x = r.left + r.width / 2 - w / 2, y = r.bottom + 14;
+  if (y + h > innerHeight - 8) y = r.top - h - 14;
+  if (y < 8) { y = clamp(r.top, 8, innerHeight - h - 8); x = r.right + 16 + w < innerWidth ? r.right + 16 : r.left - w - 16; }
+  c.style.left = px(clamp(x, 8, innerWidth - w - 8)); c.style.top = px(clamp(y, 8, innerHeight - h - 8));
+}
+function gdShow210(g, anchor) {
+  gdClose210();
+  const [sel, br, lv, t, lines, tour] = g, B = brById(br) || ['', '•', '', ''];
+  const el = document.createElement('div'); el.id = 'gd210'; el.dataset.app = '';
+  GD_RUN.el = el; GD_RUN.g = g; GD_RUN.anchor = anchor; GD_RUN.step = GDS210.mode === 'steps' ? 0 : -1;
+  document.body.appendChild(el); document.body.classList.add('gd210on');
+  const first = (GDS210.intro || 0) < 3;
+  const draw = () => {
+    const steps = GD_RUN.step >= 0, i = GD_RUN.step;
+    el.innerHTML = `<div class="gd210d"></div><div class="gd210s"></div><div class="gd210k" role="dialog" aria-label="Режим обучения: ${esc(t)}">
+      <div class="gd210t"><span class="gd210m">Режим обучения</span><span class="gd210b">${B[1]} ${esc(B[2] || '')}</span><span class="p24sp"></span><button class="ib sm" data-gd210="x" title="Закрыть гайд">${ic('close')}</button></div>
+      ${first ? '<p class="gd210f">Фиолетовым подсвечено, куда вы нажали и что тут можно. Гайд закрывается только кнопкой. Выключить — «⋯» внизу или ☰ → «Все гайды».</p>' : ''}
+      <h3>${esc(t)} <small>${GD_LV210[lv] || ''}</small></h3>
+      <div class="seg24 gd210v"><button class="${steps ? '' : 'on'}" data-gd210="m:info">Пояснение</button><button class="${steps ? 'on' : ''}" data-gd210="m:steps">По шагам</button></div>
+      ${steps ? `<div class="gd210st"><b>Шаг ${i + 1} из ${lines.length}</b><p>${esc(lines[i])}</p></div><div class="btnrow"><button class="ob sm" data-gd210="prev"${i ? '' : ' disabled'}>← Назад</button>${i < lines.length - 1 ? '<button class="btn sm gd210go" data-gd210="next">Далее →</button>' : tour && TOURS[tour] ? '<button class="btn sm gd210go" data-gd210="tour">▶ Показать на экране</button>' : '<button class="btn sm gd210go" data-gd210="ok">Готово</button>'}</div>`
+        : `<ul>${lines.map(l => `<li>${esc(l)}</li>`).join('')}</ul>`}
+      <div class="gd210chat"${GD_RUN.chat ? '' : ' hidden'}></div>
+      <div class="gd210ft"><button class="ob sm gd210ai" data-gd210="ai">✦ Спросить ИИ</button>${!steps && tour && TOURS[tour] ? '<button class="ob sm" data-gd210="tour">▶ По шагам на экране</button>' : ''}<span class="p24sp"></span><button class="btn sm gd210go" data-gd210="ok">Понятно</button><button class="ob sm" data-gd210="opt" title="Показывать ли гайды">⋯</button></div></div>`;
+    gdSpot210(anchor); gdPlace210(anchor); if (GD_RUN.chat) gdChatDraw210();
+  };
+  GD_RUN.draw = draw; draw();
+  if (first) { GDS210.intro = (GDS210.intro || 0) + 1; gdSave210(); }
+  el.addEventListener('click', async e => {
+    const b = e.target.closest('[data-gd210]'); if (!b) return; e.stopPropagation();
+    const a = b.dataset.gd210;
+    if (a === 'x' || a === 'ok') gdClose210();
+    else if (a === 'm:info') { GDS210.mode = 'info'; gdSave210(); GD_RUN.step = -1; draw(); }
+    else if (a === 'm:steps') { GDS210.mode = 'steps'; gdSave210(); GD_RUN.step = 0; draw(); }
+    else if (a === 'next') { GD_RUN.step = Math.min(lines.length - 1, GD_RUN.step + 1); draw(); }
+    else if (a === 'prev') { GD_RUN.step = Math.max(0, GD_RUN.step - 1); draw(); }
+    else if (a === 'tour') { gdClose210(); tourStart(tour); }
+    else if (a === 'ai') { gdAsk210(g); }
+    else if (a === 'opt') gdOpt210(b, g);
+  });
+  el.addEventListener('keydown', e => { if (e.key === 'Escape') gdClose210(); e.stopPropagation(); });
+  el.addEventListener('submit', e => { e.preventDefault(); const i = el.querySelector('.gd210q'); if (i && i.value.trim()) { gdChatSend210(i.value.trim()); i.value = ''; } });
+}
+addEventListener('resize', () => { if (GD_RUN.el) { gdSpot210(GD_RUN.anchor); gdPlace210(GD_RUN.anchor); } });
+function gdOpt210(anchor, g) {
+  const br = brById(g[1]) || ['', '', 'этой ветки'];
+  openPop(anchor, `<div class="menu"><div class="vp-h">Гайды</div><button class="mi" data-v="again"><span>↺ Показывать этот гайд снова</span></button><button class="mi" data-v="never"><span>✕ Больше не показывать этот</span></button><button class="mi" data-v="br"><span>⊘ Не показывать гайды ветки «${esc(br[2])}»</span></button><button class="mi" data-v="off"><span>⊘ Не показывать никакие гайды</span></button><div class="msep"></div><button class="mi" data-v="all"><span>☰ Все гайды…</span></button></div>`, v => {
+    if (v === 'again') { delete GDS210.seen[g[0]]; delete GDS210.never[g[0]]; toast('Этот гайд появится снова при следующем нажатии'); }
+    else if (v === 'never') { GDS210.never[g[0]] = 1; gdClose210(); toast('Этот гайд больше не появится'); }
+    else if (v === 'br') { GDS210.br[g[1]] = 0; gdClose210(); toast(`Гайды ветки «${br[2]}» выключены`); }
+    else if (v === 'off') { GDS210.off = 1; gdClose210(); toast('Гайды выключены. Включить: ☰ → «Все гайды»'); }
+    else if (v === 'all') { gdClose210(); gdDlg210(); }
+    gdSave210();
+  });
+}
+/* the AI answers right inside the guide */
+async function gdAsk210(g, about, brId) {
+  if (!g) { const B = brById(brId); g = ['', brId || 'look', 1, B ? B[2] : 'Вопрос по Холсту', [about || ''], '']; closeXdlg(); gdShow210(g, null); }
+  GD_RUN.chat = GD_RUN.chat || [];
+  GD_RUN.chatCtx = `Функция «${g[3]}»: ${g[4].join(' ')}`; GD_RUN.draw();
+  if (!GD_RUN.chat.length) gdChatSend210('Объясни по шагам, как этим пользоваться, с одним живым примером.', true);
+}
+function gdChatDraw210() {
+  const box = GD_RUN.el && GD_RUN.el.querySelector('.gd210chat'); if (!box) return; box.hidden = false;
+  box.innerHTML = `<div class="gd210log">${GD_RUN.chat.map(m => `<div class="clm ${m.r === 'u' ? 'u' : m.r === 'n' ? 'n' : 'a'}">${m.r === 'a' ? sanitizeHTML(mdToHtml(m.t)) : esc(m.t)}</div>`).join('')}</div><form class="gd210qf"><input class="inp sm gd210q" placeholder="Уточнить у ИИ…" autocomplete="off"><button class="btn sm gd210go">→</button></form>`;
+  const log = box.querySelector('.gd210log'); log.scrollTop = log.scrollHeight; gdPlace210(GD_RUN.anchor);
+}
+async function gdChatSend210(text, auto) {
+  const C = GD_RUN.chat; if (!C) return;
+  if (!auto) C.push({ r: 'u', t: text });
+  const ns = await clReady().catch(() => null);
+  if (!ns) { C.push({ r: 'n', t: aiProvNow() === 'claudedrive' ? 'Claude по подписке отвечает не сразу: задайте вопрос в панели ИИ — ответ придёт после «задания из Холста» в Claude.' : 'Нейросеть не подключена: ☰ → «Нейросети» — выберите свою и вставьте ключ.' }); gdChatDraw210(); return; }
+  const cur = { r: 'a', t: 'Думаю…' }; C.push(cur); gdChatDraw210();
+  const sys = 'Ты — встроенный помощник по приложению Холст (офлайн-доска как Miro + задачник Life OS). Отвечай по-русски, коротко, по шагам, с примером. Не выдумывай кнопки, которых нет в описании; если не уверен — скажи, где посмотреть (☰ → «Что нового» → «По веткам»).';
+  const turns = [{ role: 'user', content: (GD_RUN.chatCtx || '') + '\n\n' + (auto ? text : C.filter(m => m.r === 'u').slice(-1)[0].t) }];
+  try { const r = await ns(turns, { system: sys, maxTokens: 900, onText: ({ text: t }) => { cur.t = t; gdChatDraw210(); } }); cur.t = r.text; }
+  catch (e) { cur.r = 'n'; cur.t = 'Не получилось: ' + ((e && (e.message || e.code)) || e); }
+  gdChatDraw210();
+}
+function gdClick210(e) {
+  if (GDS210.off || !e.isTrusted || document.querySelector('#tour24:not([hidden])') || GD_RUN.el) return;
+  for (const g of GD210) {
+    const el = e.target.closest && e.target.closest(g[0]); if (!el) continue;
+    const key = g[0]; if (GDS210.seen[key] || GDS210.never[key] || GDS210.br[g[1]] === 0 || g[2] > (GDS210.depth || 3)) return;
+    GDS210.seen[key] = Date.now(); gdSave210(); setTimeout(() => { if (el.isConnected) gdShow210(g, el); }, 450); return;
+  }
+}
+/* «Все гайды»: by branches, depth, explanation or steps */
+function gdDlg210() {
+  const d = xdlg('Все гайды', '<div class="p24 gd210all"></div>', true); d._dkey = 'gd210';
+  const draw = () => {
+    const n = br => GD210.filter(g => g[1] === br).length;
+    d.querySelector('.gd210all').innerHTML = `<p class="sub">Гайды — это режим обучения: экран темнеет, фиолетовым подсвечено, куда вы попали. Появляются при первом нажатии кнопки и закрываются только кнопкой.</p>
+      <label class="mrow"><span class="sw2"><input type="checkbox" data-g2="all"${GDS210.off ? '' : ' checked'}><i></i></span><span><b>Показывать гайды</b><small>${GDS210.off ? 'выключены' : 'включены'}</small></span></label>
+      <div class="row"><span class="br210n">Как показывать</span><div class="seg24"><button class="${GDS210.mode !== 'steps' ? 'on' : ''}" data-g2="m:info">Пояснение</button><button class="${GDS210.mode === 'steps' ? 'on' : ''}" data-g2="m:steps">По шагам</button></div></div>
+      <div class="row"><span class="br210n">Насколько глубоко</span><div class="seg24">${[[1, 'Только ветки'], [2, '+ механики'], [3, '+ нюансы']].map(([v, l]) => `<button class="${(GDS210.depth || 3) === v ? 'on' : ''}" data-g2="d:${v}">${l}</button>`).join('')}</div></div>
+      <h3>По веткам</h3><div class="gd210br">${BR210.filter(b => n(b[0]) || TOURS[b[6]]).map(b => `<div class="gd210r"><label class="l27ck"><input type="checkbox" data-g2="b:${b[0]}"${GDS210.br[b[0]] === 0 ? '' : ' checked'}${GDS210.off ? ' disabled' : ''}> ${b[1]} <b>${esc(b[2])}</b> <small>· ${n(b[0])}</small></label><span class="p24sp"></span>${GD210.filter(g => g[1] === b[0]).slice(0, 1).map(g => `<button class="ob sm" data-g2="show:${GD210.indexOf(g)}">Показать</button>`).join('')}${b[6] && TOURS[b[6]] ? `<button class="ob sm" data-g2="tour:${b[6]}">▶ По шагам</button>` : ''}</div>`).join('')}</div>
+      <div class="btnrow"><button class="ob" data-g2="reset">↺ Показать заново все просмотренные</button><button class="ob" data-g2="tours">Все гайды по шагам…</button><button class="ob" data-g2="skill">${isOwner210() ? '✦ Навыки Claude для Холста' : '✦ Своя нейросеть и навыки'}</button></div>`;
+  };
+  d.addEventListener('change', e => { const t = e.target, k = t.dataset.g2 || ''; if (k === 'all') GDS210.off = t.checked ? 0 : 1; else if (k.startsWith('b:')) GDS210.br[k.slice(2)] = t.checked ? 1 : 0; gdSave210(); draw(); });
+  d.addEventListener('click', e => {
+    const b = e.target.closest('button[data-g2]'); if (!b) return; const [k, v] = b.dataset.g2.split(':');
+    if (k === 'm') GDS210.mode = v; else if (k === 'd') GDS210.depth = +v;
+    else if (k === 'reset') { GDS210.seen = {}; GDS210.never = {}; toast('Гайды снова появятся при первом нажатии'); }
+    else if (k === 'tours') { closeXdlg(); runAction('tour'); return; }
+    else if (k === 'tour') { closeXdlg(); tourStart(v); return; }
+    else if (k === 'skill') { closeXdlg(); skillGuide210(); return; }
+    else if (k === 'show') { const g = GD210[+v]; closeXdlg(); setTimeout(() => gdShow210(g, document.querySelector(g[0])), 60); return; }
+    gdSave210(); draw();
+  });
+  draw();
+}
+/* ---------- the task manager intro looks like a guide ---------- */
+{ const o = lo29Bar; lo29Bar = (...a) => { const h = o(...a); if (!lo29Intro()) return h; return h.replace('<div class="lo29h">', `<div class="gd210bn"><span class="gd210m">Режим обучения</span><b>Знакомство с задачником.</b> Уровни открываются по одному: выберите любую кнопку в подсвеченной строке — откроется следующая. «Пропустить» — показать всё сразу.</div><div class="lo29h">`); }; }
+/* ---------- Claude skills: the owner's mechanics; for others — how to add their own ---------- */
+function skillGuide210() {
+  const own = isOwner210();
+  const d = xdlg(own ? 'Навыки Claude для Холста' : 'Своя нейросеть и навыки', `<div class="p24 sk210">${own ? `<p class="gd210f"><span class="gd210m">Только у вас</span> Этот раздел виден только вашему аккаунту: у других людей свои нейросети.</p>
+    <h3>Что такое навык</h3><p class="sub">Навык — сохранённая в Claude инструкция. Вы говорите короткую фразу в любом чате — Claude делает всё сам: собирает, сохраняет на Google Диск, Холст подхватывает при синхронизации.</p>
+    <h3>1. «Отчёт в Холст»</h3><ol class="steps"><li>Один раз: сохраните навык из карточки в чате сборки Холста (кнопка «Save» на карточке навыка).</li><li>В конце любого чата напишите: <b>отчёт в Холст</b>.</li><li>Claude спросит ссылку на чат (вставьте или ответьте «нет») и положит файл в «Холст/Входящие» на Google Диске.</li><li>Холст забирает его сам при синхронизации (или задачник ⋯ → «Отчёты из чатов Claude…» → «Проверить сейчас»).</li><li>Где смотреть: задачник → проект (как проект Claude, иначе «Чаты Claude») → эпик чата → «Отчёт: …» в статусе «на проверке» и следующие шаги задачами.</li></ol>
+    <p class="sub"><b>Пример.</b> Чат «лендинг для клиники» → «отчёт в Холст» → в задачнике: Маркетинг › Лендинг для клиники › «Отчёт: структура и тексты» + задачи «Согласовать с клиентом», «Сделать фото».</p>
+    <h3>2. «Задания из Холста» — Claude по подписке прямо в Холсте</h3><ol class="steps"><li>Холст: ☰ → «Нейросети» → <b>Claude по подписке (через Диск)</b>.</li><li>Пишите ИИ как обычно — в панели ✦, в чате на доске («✦ Ответ ИИ») или «ИИ: замечания по доске». Холст кладёт задание в «Холст/Claude» на Диске.</li><li>В любом чате Claude скажите: <b>задания из Холста</b>. Claude прочитает задания и сами доски, ответит, при необходимости поставит стикеры, документы, задачи и чаты.</li><li>Ответ возвращается в «Холст/Входящие» — Холст покажет его в панели ИИ или в чате на доске.</li></ol>
+    <p class="sub">Плюс: работает по подписке, без ключей и оплаты API. Минус: не мгновенно — ответ приходит, когда вы скажете Claude «задания из Холста». Для мгновенных ответов — ключ Claude API (оплата отдельно).</p>
+    <h3>Если что-то не работает</h3><ul class="steps"><li>Google Диск в Claude подключён к <b>podkindmitrii@gmail.com</b> — тому же аккаунту, что и Холст.</li><li>В Диске есть папки «Холст/Входящие» и «Холст/Claude» (Холст создаёт их сам).</li><li>Отчёт можно вставить вручную: задачник ⋯ → «Отчёты из чатов Claude…» → вставить JSON.</li></ul>`
+    : `<h3>У каждого — своя нейросеть</h3><p class="sub">Холст работает с вашей нейросетью и вашими ключами: они хранятся только на этом устройстве, в вашем аккаунте, и не попадают в общие пространства.</p>
+    <ol class="steps"><li>☰ → <b>«Нейросети»</b> → выберите: ChatGPT, Claude API, Gemini (есть бесплатный уровень), Groq (бесплатно), OpenRouter (один ключ — сотни моделей), Perplexity (поиск с источниками) или Claude по подписке.</li><li>Нажмите «Где взять ключ», вставьте ключ, нажмите «Проверить».</li><li>Готово: ✦ на панели — ИИ на доске; в чатах на доске — «✦ Ответ ИИ»; в гайдах — «Спросить ИИ».</li></ol>
+    <h3>Навыки: отчёты из ваших чатов в задачник</h3><p class="sub">Если ваша нейросеть умеет сохранять инструкции (Claude — навыки, ChatGPT — свои GPT или инструкции проекта), добавьте такую: «В конце чата по команде „отчёт в Холст“ собери JSON: {"format":"holst-report","v":1,"chat":{"title":"…","project":"…"},"report":{"title":"…","did":"…","check":"…","lim":"…","next":["…"]}}». Полученный JSON вставьте: задачник ⋯ → «Отчёты из чатов…».</p>`}
+    <div class="btnrow"><button class="btn" data-sk="ai">⚙ Нейросети…</button><button class="ob" data-sk="cx">Отчёты из чатов…</button></div></div>`, true);
+  d._dkey = 'sk210';
+  d.addEventListener('click', e => { const b = e.target.closest('[data-sk]'); if (!b) return; closeXdlg(); if (b.dataset.sk === 'ai') aiOpen(); else cxDlg(); });
+}
+function gd210Setup() {
+  document.removeEventListener('click', gdClick, true);
+  document.addEventListener('click', gdClick210, true);
+  secApply210();
+}
+/* =========================================================
+   v2.10: panels and objects as widgets. Any panel or object opens in its own
+   always-on-top window (Document Picture-in-Picture) that can go to another
+   monitor. Panels and objects can be pinned as buttons: a separate, quieter
+   block left of the main buttons. The «⋯» menu is always the rightmost; the
+   task manager and its count are one block. The wheel over a panel scrolls
+   the panel, not the board.
+   ========================================================= */
+/* ---------- lookups find nodes in the widget window too ---------- */
+const PIP = { win: null, doc: null, node: null, kind: '', back: false };
+{ const q1 = Document.prototype.querySelector, qa = Document.prototype.querySelectorAll, gi = Document.prototype.getElementById;
+  document.querySelector = function (s) { return q1.call(this, s) || (PIP.doc ? q1.call(PIP.doc, s) : null); };
+  document.getElementById = function (s) { return gi.call(this, s) || (PIP.doc ? gi.call(PIP.doc, s) : null); };
+  document.querySelectorAll = function (s) { const a = qa.call(this, s); if (!PIP.doc) return a; const b = qa.call(PIP.doc, s); return b.length ? [...a, ...b] : a; };
+}
+const PIP_EV = new Set(['click', 'pointerdown', 'pointerup', 'pointermove', 'change', 'input', 'keydown', 'contextmenu', 'dblclick', 'focusin', 'focusout', 'toggle', 'submit', 'mousedown']);
+const pipOk210 = () => 'documentPictureInPicture' in window;
+async function pipOpen210(node, w, h, kind) {
+  if (!pipOk210()) { toast('Отдельное окно поверх всех умеют Chrome, Edge, Vivaldi, Arc, Comet и Яндекс Браузер (версии 116+). В этом браузере — «Во весь экран» или колонка.'); return false; }
+  if (PIP.win) pipClose210(false);
+  let win; try { win = await documentPictureInPicture.requestWindow({ width: Math.round(clamp(w, 320, 1600)), height: Math.round(clamp(h, 240, 1200)) }); }
+  catch (e) { toast('Браузер не открыл окно: ' + ((e && e.message) || e)); return false; }
+  const dd = win.document;
+  for (const s of Document.prototype.querySelectorAll.call(document, 'style')) dd.head.appendChild(s.cloneNode(true));
+  for (const a of document.documentElement.attributes) dd.documentElement.setAttribute(a.name, a.value);
+  dd.title = 'Холст · ' + (((node.querySelector('.xhead h2,[data-s24t],.lo29h b') || {}).textContent) || 'панель');
+  dd.body.className = document.body.className + ' pip210b';
+  const root = dd.createElement('div'); root.id = 'side24'; root.className = 'pip210r'; dd.body.appendChild(root);
+  Object.assign(PIP, { win, doc: dd, node, kind, back: false });
+  if (S.xdlg === node) S.xdlg = null;
+  node.classList.add('pip210'); root.appendChild(node);
+  const bar = dd.createElement('button'); bar.className = 'pip210back'; bar.dataset.pip210 = 'back'; bar.title = 'Вернуть в окно Холста'; bar.textContent = '↩ В Холст'; root.appendChild(bar);
+  dd.addEventListener('pointerdown', e => { if (e.target === node) { e.stopImmediatePropagation(); } }, true);
+  dd.addEventListener('click', e => {
+    const c = e.target.closest && e.target.closest('[data-x="close"],[data-la="close"],[data-pip210]');
+    if (!c) return; e.stopImmediatePropagation(); e.preventDefault();
+    if (c.dataset.pip210 === 'back') { PIP.back = true; win.close(); } else if (c.dataset.pip210 === 'go') pipGo210(); else win.close();
+  }, true);
+  for (const [t, f, o] of DOCL) if (PIP_EV.has(t)) dd.addEventListener(t, f, o);
+  win.addEventListener('pagehide', () => { if (PIP.win === win) pipBack210(); });
+  win.addEventListener('keydown', e => { if (e.key === 'Escape' && !e.defaultPrevented && (!pop || pop.hidden)) { e.stopPropagation(); } });
+  return true;
+}
+function pipClose210(back) { const w = PIP.win; if (!w) return; PIP.back = !!back; try { w.close(); } catch (e) { pipBack210(); } }
+function pipBack210() {
+  const n = PIP.node, back = PIP.back; Object.assign(PIP, { win: null, doc: null, node: null, kind: '', back: false });
+  if (pop && pop.ownerDocument !== document) { document.body.appendChild(pop); closePop(); }
+  if (!n) return; n.classList.remove('pip210');
+  if (n.classList.contains('xdlg')) {
+    const prev = S.xdlg; document.body.appendChild(n);
+    if (back) { if (prev && prev !== n) { S.xdlg = prev; closeXdlg(); } S.xdlg = n; if (n._lo && typeof renderLo === 'function') renderLo(); }
+    else { S.xdlg = n; closeXdlg(); S.xdlg = prev && prev !== n && prev.isConnected ? prev : null; }
+  } else n.remove();
+}
+function pipGo210() { const it = PIP.obj && byId(PIP.obj); if (!it) return; S.sel = new Set([it.id]); render(); fitAll([it]); window.focus(); }
+/* popups follow the window their button is in */
+{ const o = openPop; openPop = (anchor, html, onPick) => {
+  const doc = (anchor && anchor.ownerDocument) || document;
+  if (pop.ownerDocument !== doc) doc.body.appendChild(pop);
+  o(anchor, html, onPick);
+  if (doc !== document) { const W = doc.defaultView, r = anchor.getBoundingClientRect(), pw = pop.offsetWidth, ph = pop.offsetHeight; pop.style.left = px(clamp(r.left + r.width / 2 - pw / 2, 8, Math.max(8, W.innerWidth - pw - 8))); let y = r.bottom + 8; if (y + ph > W.innerHeight - 8) y = Math.max(8, r.top - ph - 8); pop.style.top = px(y); }
+}; }
+/* a panel into its own window */
+async function pvPip210(d) {
+  if (!d) return; const box = d.querySelector('.xbox') || d, r = box.getBoundingClientRect();
+  if (d.closest('#side24,#side24r') && !d.closest('.pip210r')) { const p = d.closest('.s24pane'); if (p) { s24Undock(p.dataset.key); } }
+  const cur = pvMode(d); if (cur === 'full') pfToggle(d, false); if (cur === 'left') dockApply(d, false); if (cur === 'right') dockR(d, false);
+  return pipOpen210(d, Math.max(380, r.width), Math.max(420, r.height), 'panel');
+}
+/* an object into its own window */
+async function objPip210(it) {
+  if (!it || !S.board) return;
+  const pane = document.createElement('div'); pane.className = 's24pane pip210obj';
+  pane.innerHTML = `<div class="s24ph"><b data-s24t></b><span class="p24sp"></span><button class="ob sm" data-pip210="go" title="Показать на доске">На доске</button><button class="ib sm" data-pip210="x" title="Закрыть окно">${ic('close')}</button></div><div class="s24pb"></div>`;
+  document.body.appendChild(pane); await s24ObjRender(pane, S.board.id, it.id); PIP.obj = it.id;
+  const W = it.type === 'embed' || it.type === 'image' ? clamp(it.w, 360, 1200) : 460, H = it.type === 'embed' || it.type === 'image' ? clamp(it.h + 44, 300, 900) : 520;
+  const ok = await pipOpen210(pane, W, H, 'obj'); if (!ok) pane.remove();
+}
+/* ---------- the panel view menu: own window and pin ---------- */
+{ const o = pv29Menu; pv29Menu = (anchor, d) => {
+  o(anchor, d); d = d || (anchor && anchor.closest('.xdlg')) || S.xdlg; if (!d) return;
+  const box = pop.querySelector('.pv29'); if (!box) return;
+  const first = box.querySelector('.vp-h + .mi'); const at = box.querySelectorAll('.vp-h')[1];
+  const inPip = !!d.closest('.pip210r');
+  (at || box).insertAdjacentHTML('beforebegin', `<button class="mi${inPip ? ' on' : ''}" data-v="pip210"><span>${inPip ? '● ' : ''}⧉ В отдельном окне — поверх всех, на другой монитор</span></button><button class="mi" data-v="pin210"><span>📌 Закрепить кнопкой на панели</span></button>`);
+  if (first) { /* keep order */ }
+  const pick = pop._pick; pop._pick = v => {
+    if (v === 'pip210') { if (inPip) pipClose210(true); else pvPip210(d); return; }
+    if (v === 'pin210') { pinAdd210(pinOfDlg210(d)); return; }
+    if (inPip && v.startsWith('m:')) { const mode = v.slice(2); PIP.back = true; const w = PIP.win; if (w) w.close(); setTimeout(() => { const dd = d.isConnected ? d : null; if (dd && mode !== 'over') pvSet(dd, mode); }, 80); return; }
+    return pick(v);
+  };
+}; }
+/* ---------- pins: panels and objects as buttons ---------- */
+const PINM = { v: '', at: 0 };
+{ const o = menuAction; menuAction = async v => { PINM.v = v; PINM.at = Date.now(); return o(v); }; }
+{ const o = xdlg; xdlg = (...a) => { const d = o(...a); if (Date.now() - PINM.at < 2500 && PINM.v) d._mid = PINM.v; return d; }; }
+const pins210 = () => LS.get('pin210') || [];
+function pinOfDlg210(d) {
+  const t = ((d.querySelector('.xhead h2') || {}).textContent || (d._lo ? 'Задачник' : 'Панель')).trim();
+  if (d._lo) return { k: 'lo', t: 'Задачник', ic: '☑' };
+  if (d._dev) return { k: 'dev', t: 'DEV', ic: '🛠' };
+  if (d._mid) return { k: 'menu', id: d._mid, t, ic: '▣' };
+  if (d._dkey === 'mech') return { k: 'menu', id: 'mech', t, ic: '▣' };
+  toast('Эту панель пока нельзя закрепить: откройте её из меню ☰ и закрепите оттуда'); return null;
+}
+function pinAdd210(p) {
+  if (!p) return; const l = pins210(); const key = JSON.stringify([p.k, p.id || '', p.b || '', p.i || '']);
+  if (l.some(x => JSON.stringify([x.k, x.id || '', x.b || '', x.i || '']) === key)) { toast('Уже закреплено'); return; }
+  l.push(p); LS.set('pin210', l); pinDraw210(); toast('Закреплено кнопкой наверху: «' + p.t + '». Правый щелчок по кнопке — открепить');
+}
+function pinDraw210() {
+  const tb = $('#topbar'); if (!tb) return;
+  let box = $('#tb210pins'); if (!box) { box = document.createElement('div'); box.id = 'tb210pins'; box.title = 'Закреплённые панели и объекты'; const ai = $('#btn24claude'); tb.insertBefore(box, ai || null); }
+  const l = pins210(); box.classList.toggle('empty', !l.length);
+  box.innerHTML = l.map((p, i) => `<button class="pin210" data-pin210="${i}" title="${esc(p.t)} — правый щелчок: открепить"><span>${esc(p.ic || '▣')}</span><b>${esc(p.t.length > 14 ? p.t.slice(0, 13) + '…' : p.t)}</b></button>`).join('') + `<button class="pin210 add" data-pin210="+" title="Закрепить пункт меню кнопкой">＋</button>`;
+}
+async function pinRun210(p) {
+  if (p.k === 'lo') return openLo();
+  if (p.k === 'dev') return openDev();
+  if (p.k === 'menu') return menuAction(p.id);
+  if (p.k === 'obj') {
+    if (!S.board || S.board.id !== p.b) { const b = await Backend.loadBoard(p.b).catch(() => null); if (!b) { toast('Доска объекта недоступна'); return; } if (dirty) await saveNow(); S.board = null; loadBoard(b); }
+    const it = byId(p.i); if (!it) { toast('Объект удалён'); return; }
+    S.sel = new Set([it.id]); render(); fitAll([it]);
+  }
+}
+function pinClick210(e) {
+  const b = e.target.closest && e.target.closest('[data-pin210]'); if (!b || !b.closest('#tb210pins')) return;
+  e.stopPropagation(); const v = b.dataset.pin210;
+  if (v === '+') { openPop(b, `<div class="menu"><div class="vp-h">Закрепить кнопкой</div><button class="mi" data-v="lo"><span>☑ Задачник</span></button>${menuItems().filter(x => !['rename', 'clear', 'fit', 'grid', 'theme'].includes(x.id)).map(x => `<button class="mi" data-v="m:${x.id}"><span>${esc(x.label)}</span></button>`).join('')}</div>`, v2 => { if (v2 === 'lo') pinAdd210({ k: 'lo', t: 'Задачник', ic: '☑' }); else { const m = menuItems().find(x => 'm:' + x.id === v2); if (m) pinAdd210({ k: 'menu', id: m.id, t: m.label.replace(/[:…].*$/, '').trim(), ic: '▣' }); } }); return; }
+  const p = pins210()[+v]; if (p) pinRun210(p);
+}
+function pinCtx210(e) {
+  const b = e.target.closest && e.target.closest('[data-pin210]'); if (!b || b.dataset.pin210 === '+') return;
+  e.preventDefault(); const i = +b.dataset.pin210, l = pins210(), p = l[i]; if (!p) return;
+  openPop(b, `<div class="menu"><div class="vp-h">${esc(p.t)}</div><button class="mi" data-v="ren"><span>✎ Переименовать</span></button><button class="mi" data-v="l"><span>← Левее</span></button><button class="mi" data-v="r"><span>→ Правее</span></button><button class="mi" data-v="x"><span>✕ Открепить</span></button></div>`, async v => {
+    if (v === 'x') l.splice(i, 1);
+    else if (v === 'l' && i > 0) l.splice(i - 1, 0, l.splice(i, 1)[0]);
+    else if (v === 'r' && i < l.length - 1) l.splice(i + 1, 0, l.splice(i, 1)[0]);
+    else if (v === 'ren') { const n = await uiPrompt('Название кнопки', p.t); if (n && n.trim()) p.t = n.trim(); }
+    LS.set('pin210', l); pinDraw210();
+  });
+}
+/* ---------- the board bar: pins | main buttons | tasks block | ⋯ ---------- */
+function topOrder210() {
+  const tb = $('#topbar'); if (!tb) return;
+  pinDraw210();
+  const life = $('#btnLife'), chips = $('#loChips'), menu = $('#btnMenu');
+  let grp = $('#tb210task'); if (!grp && life) { grp = document.createElement('span'); grp.id = 'tb210task'; grp.title = 'Задачник и объекты этой доски в нём'; tb.insertBefore(grp, life); }
+  if (grp) { if (life && life.parentNode !== grp) grp.appendChild(life); if (chips && chips.parentNode !== grp) grp.appendChild(chips); }
+  if (menu) tb.appendChild(menu);
+  for (const id of ['btn24claude', 'btnFilter', 'btnBoards', 'btnMenu']) { const b = $('#' + id); if (b) b.classList.add('tb210main'); }
+}
+/* ---------- the wheel over a panel scrolls the panel ---------- */
+addEventListener('wheel', e => {
+  const t = e.target; if (!t || !t.closest) return;
+  if (t.closest('#bside, #side24, #side24r, #gd210, #cl24, #ver29, #tb210pins, .pip210r, .ch210p')) { if (e.ctrlKey || e.metaKey) e.preventDefault(); e.stopImmediatePropagation(); }
+}, { capture: true, passive: false });
+/* ---------- objects: the same display options as panels ---------- */
+{ const o = ctx24Extra; ctx24Extra = (sel, single) => { const g = o(sel, single); if (sel.length === 1 && !S.editing && !['connector', 'pen'].includes(sel[0].type) && !sel[0].cell) g.push(cbtn('v210:view', '▣ Вид', 'Как показывать объект: сбоку слева или справа, во весь экран, в отдельном окне поверх всех, закрепить кнопкой', 'wide')); return g; }; }
+{ const o = ctx24Act; ctx24Act = (b, sel) => {
+  if ((b.dataset.act || '') !== 'v210:view') return o(b, sel);
+  const it = sel[0]; if (!it) return true;
+  openPop(b, `<div class="menu"><div class="vp-h">Как показывать объект</div><button class="mi" data-v="L"><span>⇤ Сбоку слева</span></button><button class="mi" data-v="R"><span>⇥ Сбоку справа</span></button><button class="mi" data-v="full"><span>⤢ Во весь экран</span></button><button class="mi" data-v="pip"><span>⧉ В отдельном окне — поверх всех, на другой монитор</span></button><div class="msep"></div><button class="mi" data-v="pin"><span>📌 Закрепить кнопкой на панели</span></button></div>`, async v => {
+    if (v === 'L' || v === 'R') { S24.wantSide = v; try { s24AddObj(it); } finally { setTimeout(() => { S24.wantSide = ''; }, 400); } }
+    else if (v === 'full') { const d = xdlg(it.title || TYPE_NAME[it.type] || 'Объект', '<div class="s24pane obj210full"><div class="s24pb"></div></div>', true); await s24ObjRender(d.querySelector('.obj210full'), S.board.id, it.id); pvSet(d, 'full', false); }
+    else if (v === 'pip') objPip210(it);
+    else if (v === 'pin') pinAdd210({ k: 'obj', b: S.board.id, i: it.id, t: (bdTitle(it) || it.title || TYPE_NAME[it.type] || 'Объект').slice(0, 40), ic: it.type === 'image' ? '🖼' : it.type === 'embed' ? '▶' : it.type === 'doc' ? '📄' : it.type === 'chat' ? '💬' : '◻' });
+  });
+  return true;
+}; }
+function pan210Setup() {
+  topOrder210();
+  document.addEventListener('click', pinClick210, true);
+  document.addEventListener('contextmenu', pinCtx210, true);
+}
+/* =========================================================
+   v2.10: where the original of a picture or a file lives. The plate sits
+   under the object (the picture stays whole): Google Drive, a link, or this
+   device, with the address. Its panel shows the file in Google Drive's own
+   viewer, copies the link, uploads old files to Drive and keeps the settings
+   of where originals go. Uploading shows a progress bar under the object.
+   ========================================================= */
+const UP210 = new Map();
+const srcKind210 = it => it.type === 'image' || isFileIt(it);
+function srcAddr210(it) {
+  if (it.driveId) return { t: 'Google Диск › Холст › Файлы › ' + (it.fname || fileNameOf(it) || 'файл'), s: '☁ Диск', k: 'drive' };
+  if (it.srcUrl) { let h = ''; try { h = new URL(it.srcUrl).hostname.replace(/^www\./, ''); } catch (e) { h = 'ссылка'; } return { t: it.srcUrl, s: '↗ ' + h, k: 'url' }; }
+  if (it.fid || it.asset) return { t: 'Только на этом устройстве (в браузере)', s: '📍 устройство', k: 'local' };
+  return null;
+}
+{ const o = srcChip; srcChip = (el, it) => {
+  if (!srcKind210(it) && !it.srcUrl) return o(el, it);
+  const A = srcAddr210(it), sel = S.sel && S.sel.has(it.id), U = UP210.get(it.id);
+  let c = el._src;
+  if (!A || (A.k === 'local' && !isFileIt(it) && !sel && !U)) { if (c) { c.remove(); el._src = null; } }
+  else {
+    if (!c) { c = el._src = document.createElement('button'); c.className = 'srcchip src210'; c.dataset.src = it.id; el.appendChild(c); }
+    const t = A.s + (A.k === 'local' && Drive.active() ? ' · ☁ на Диск' : ''); if (c.textContent !== t) c.textContent = t; c.title = 'Где лежит: ' + A.t + '\nЩелчок — панель исходника'; c.dataset.k = A.k;
+  }
+  let bar = el._up; if (!U) { if (bar) { bar.remove(); el._up = null; } return; }
+  if (!bar) { bar = el._up = document.createElement('div'); bar.className = 'up210'; bar.innerHTML = '<i></i><span></span>'; el.appendChild(bar); }
+  bar.classList.toggle('ind', U.p < 0); bar.classList.toggle('ok', U.st === 'ok'); bar.classList.toggle('err', U.st === 'err');
+  bar.firstChild.style.width = U.p < 0 ? '' : Math.round(U.p * 100) + '%';
+  bar.lastChild.textContent = U.st === 'ok' ? '✓ На Диске' : U.st === 'err' ? '✕ ' + (U.msg || 'не загрузилось') : 'На Диск… ' + (U.p < 0 ? '' : Math.round(U.p * 100) + '%');
+}; }
+function upSet210(id, p, st, msg) {
+  UP210.set(id, { p, st: st || 'up', msg }); const el = els.get(id), it = byId(id); if (el && it) srcChip(el, it);
+  if (st === 'ok' || st === 'err') setTimeout(() => { const u = UP210.get(id); if (u && u.st === st) { UP210.delete(id); const e2 = els.get(id), i2 = byId(id); if (e2 && i2) srcChip(e2, i2); } }, st === 'ok' ? 2500 : 8000);
+}
+async function srcBlob210(it) {
+  if (isFileIt(it)) return fileBlob(it).catch(() => null);
+  if (it.fid) { try { const b = await Store.get('file:' + it.fid); if (b instanceof Blob) return b; } catch (e) { /* the picture itself */ } }
+  const d = S.board && S.board.assets[it.asset]; if (!d) return null;
+  try { return await (await fetch(d)).blob(); } catch (e) { return null; }
+}
+function upXhr210(folder, name, mime, blob, onp) {
+  return new Promise((res, rej) => {
+    const fd = new FormData(); fd.append('metadata', new Blob([JSON.stringify({ name, parents: [folder], mimeType: mime })], { type: 'application/json' })); fd.append('file', blob, name);
+    const x = new XMLHttpRequest(); x.open('POST', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,modifiedTime');
+    x.setRequestHeader('Authorization', 'Bearer ' + Drive.token);
+    x.upload.onprogress = e => { if (e.lengthComputable) onp(e.loaded / e.total); };
+    x.onload = () => { if (x.status < 300) { try { res(JSON.parse(x.responseText)); } catch (e) { rej(e); } } else rej(new Error('Диск ответил ' + x.status)); };
+    x.onerror = () => rej(new Error('нет сети'));
+    x.send(fd);
+  });
+}
+/* one object to Drive, with progress under it */
+async function srcUp210(it, quiet) {
+  if (!it || it.driveId) return false;
+  if (!Drive.active() || !Drive.ready()) { if (!quiet) toast('Сначала подключите Google Диск: облако вверху справа'); return false; }
+  if (Drive.writeBlocked || syOff('drive')) { if (!quiet) toast('Синхронизация с Диском сейчас выключена'); return false; }
+  const b = await srcBlob210(it); if (!b) { if (!quiet) toast('Оригинала нет на этом устройстве'); return false; }
+  if (b.size > DRIVE_FILE_MAX()) { if (!quiet) toast('Файл больше, чем можно положить на Диск отсюда'); return false; }
+  const name = it.fname || fileNameOf(it) || (it.type === 'image' ? 'картинка.' + ((b.type.split('/')[1] || 'png').replace('jpeg', 'jpg')) : 'файл'), mime = it.fmime || b.type || 'application/octet-stream';
+  upSet210(it.id, Drive.mode === 'mcp' ? -1 : 0);
+  try {
+    const folder = await fileDriveFolder();
+    let r;
+    if (Drive.mode === 'mcp') { const d = await blobDataUrl(b); r = await Drive.write(() => Drive.create(folder, name, mime, null, d.slice(d.indexOf(',') + 1))); }
+    else r = await Drive.write(() => upXhr210(folder, name, mime, b, p => upSet210(it.id, p)));
+    if (!r || !r.id) throw new Error('Диск не вернул файл');
+    const cur = byId(it.id) || it; cur.driveId = r.id; if (!cur.srcUrl) cur.srcUrl = driveLink(r.id); if (!cur.fname) cur.fname = name;
+    if (cur.fid) fileIdxSet(cur.fid, { d: r.id }); changed(); upSet210(it.id, 1, 'ok');
+    return true;
+  } catch (e) { upSet210(it.id, 0, 'err', (e && e.message) || ''); return false; }
+}
+/* automatic uploads show the same progress */
+imgDriveUp = async () => { for (const it of items().filter(i => i.type === 'image' && i.fid && !i.driveId && !(fileIdx()[i.fid] || {}).d && !UP210.has(i.id))) { if ((it.fsize || 0) > DRIVE_FILE_MAX()) continue; await srcUp210(it, true); } };
+fileDriveUp = async () => { for (const it of items().filter(i => isFileIt(i) && !i.driveId && !(fileIdx()[i.fid] || {}).d && !UP210.has(i.id))) { if ((it.fsize || 0) > DRIVE_FILE_MAX()) continue; await srcUp210(it, true); } };
+/* ---------- the panel of the source ---------- */
+function storeSet210(path, v) { const s = LS.get('storecfg') || {}; const [a, b] = path.split('.'); s[a] = Object.assign({}, s[a], { [b]: v }); LS.set('storecfg', s); }
+function srcPanel210(it) {
+  if (!it) return;
+  const d = xdlg('Исходник: ' + (it.fname || it.title || TYPE_NAME[it.type] || 'объект'), '<div class="p24 src210p"></div>', true); d._dkey = 'src210';
+  const draw = () => {
+    const cur = byId(it.id) || it, A = srcAddr210(cur) || { t: '—', k: '' }, C = storeCfg(), U = UP210.get(cur.id), canUp = !cur.driveId && (cur.fid || cur.asset || isFileIt(cur));
+    const id = cur.driveId || driveId(cur.srcUrl || ''), link = cur.driveId ? driveLink(cur.driveId) : cur.srcUrl || '';
+    d.querySelector('.src210p').innerHTML = `<div class="src210loc"><span>📍 Где лежит</span><b>${esc(A.t)}</b>${link ? `<button class="ob sm" data-s210="copy">⧉ Скопировать ссылку</button>` : ''}</div>
+      ${id ? `<div class="src210w"><div class="src210wh"><b>☁ Google Диск</b><span class="p24sp"></span><a class="ob sm" href="${esc(link)}" target="_blank" rel="noopener">Открыть в Диске ↗</a><button class="ob sm" data-s210="side">Сбоку</button></div><iframe class="src210fr" src="https://drive.google.com/file/d/${esc(id)}/preview" allow="autoplay; fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`
+        : link ? `<div class="src210w"><div class="src210wh"><b>↗ ${esc(A.s || 'Ссылка')}</b><span class="p24sp"></span><a class="ob sm" href="${esc(link)}" target="_blank" rel="noopener">Открыть ↗</a></div></div>` : ''}
+      <div class="btnrow">${canUp ? `<button class="btn" data-s210="up"${U && U.st === 'up' ? ' disabled' : ''}>☁ Загрузить оригинал на Диск</button>` : ''}<button class="ob" data-s210="link">✎ ${cur.srcUrl && !cur.driveId ? 'Изменить ссылку' : 'Своя ссылка на исходник'}…</button>${cur.srcUrl ? '<button class="ob" data-s210="unlink">✕ Убрать ссылку</button>' : ''}</div>
+      ${U ? `<div class="up210 big${U.p < 0 ? ' ind' : ''}${U.st === 'ok' ? ' ok' : U.st === 'err' ? ' err' : ''}"><i style="width:${U.p < 0 ? 0 : Math.round(U.p * 100)}%"></i><span>${U.st === 'ok' ? '✓ На Диске' : U.st === 'err' ? '✕ ' + esc(U.msg || 'не загрузилось') : 'Загружаю на Диск… ' + (U.p < 0 ? '' : Math.round(U.p * 100) + '%')}</span></div>` : ''}
+      <h3>Куда сохранять оригиналы</h3>
+      <label class="mrow"><span class="sw2"><input type="checkbox" data-s210c="drive.files"${C.drive.files ? ' checked' : ''}><i></i></span><span><b>На Google Диск, в «Холст/Файлы»</b><small>${Drive.active() ? 'Новые картинки и файлы загружаются сами, с полосой прогресса под объектом' : 'Google Диск не подключён: облако вверху справа'}</small></span></label>
+      <label class="mrow"><span class="sw2"><input type="checkbox" data-s210c="pc.files"${C.pc.files ? ' checked' : ''}><i></i></span><span><b>В папку на компьютере</b><small>${typeof Backup !== 'undefined' && Backup.dir ? 'Папка выбрана' : 'Папка не выбрана: ☰ → «Резервная копия в папку»'}</small></span></label>
+      <p class="sub">Отсюда на Диск — до ${Math.round(DRIVE_FILE_MAX() / 1048576)} МБ на файл.${Drive.st && Drive.st.files ? ` <a href="https://drive.google.com/drive/folders/${esc(Drive.st.files)}" target="_blank" rel="noopener">Открыть папку «Файлы» ↗</a>` : ''}</p>
+      <div class="btnrow"><button class="ob" data-s210="sy">Источники синхронизации…</button><button class="ob" data-s210="st">Хранилище и копии…</button></div>`;
+  };
+  d._src210 = draw; draw();
+  d.addEventListener('click', async e => {
+    const b = e.target.closest('[data-s210]'); if (!b) return; const a = b.dataset.s210, cur = byId(it.id) || it;
+    if (a === 'copy') copyPlain(cur.driveId ? driveLink(cur.driveId) : cur.srcUrl, 'Ссылка скопирована');
+    else if (a === 'side') { closeXdlg(); srcOpen(Object.assign({}, cur, { srcUrl: cur.srcUrl || driveLink(cur.driveId) })); }
+    else if (a === 'up') { const p = srcUp210(cur); const t = setInterval(() => { if (d.isConnected) draw(); else clearInterval(t); }, 250); await p; clearInterval(t); if (d.isConnected) draw(); }
+    else if (a === 'link') { closeXdlg(); await srcLinkAsk(cur); }
+    else if (a === 'unlink') { pushHist(); delete cur.srcUrl; changed(); draw(); }
+    else if (a === 'sy') { closeXdlg(); menuAction('sy28'); }
+    else if (a === 'st') { closeXdlg(); menuAction('storage'); }
+  });
+  d.addEventListener('change', e => { const c = e.target.closest('[data-s210c]'); if (!c) return; storeSet210(c.dataset.s210c, c.checked); if (c.checked) fileSyncSoon(); draw(); });
+}
+/* the plate and the «Исходник» button open the panel */
+document.addEventListener('click', e => {
+  const c = e.target.closest && e.target.closest('.src210'); if (!c) return;
+  e.stopImmediatePropagation(); e.preventDefault(); srcPanel210(byId(c.dataset.src));
+}, true);
+document.addEventListener('pointerdown', e => { if (e.target.closest && e.target.closest('.src210')) e.stopPropagation(); }, true);
+{ const o = ctx24Act; ctx24Act = (b, sel) => { if ((b.dataset.act || '') === 'h:src' && sel.length === 1) { srcPanel210(sel[0]); return true; } return o(b, sel); }; }
+/* =========================================================
+   v2.10: chats on the board, as comments in Miro and Google Docs. A chat sits
+   at a place or at an object, folds into an icon or shows a preview, has a
+   type (discussion, task, question, idea, remark, decision) and closes by its
+   own scenario. Chats are board objects: they sync with the board, obey the
+   board filters and go to the task manager marked «чат». The AI answers in a
+   chat and can open chats itself (remarks on a board).
+   ========================================================= */
+const CT210 = {
+  disc: ['💬', 'Обсуждение', '#3355ff', 'Закрывается кнопкой «Решено» — можно с итогом.'],
+  task: ['☑', 'Задача', '#2fa36b', 'Закрывается, когда задача выполнена — здесь или в задачнике.'],
+  q: ['❓', 'Вопрос', '#f76b15', 'Закрывается, когда отмечен ответ: ✓ у сообщения.'],
+  idea: ['💡', 'Идея', '#d9a300', 'Принять — станет задачей; или отклонить.'],
+  review: ['🔎', 'Замечание', '#e5484d', 'Закрывается: «Исправлено» или «Не актуально».'],
+  decision: ['⚖', 'Решение', '#7b61ff', 'Закрывается фиксацией: последнее сообщение — решение.'],
+};
+NEW_TYPES.add('chat'); TYPE_CLS.chat = 'tchat'; TYPE_NAME.chat = 'Чат';
+const chMe = () => { const e = (typeof gtMeEmail === 'function' && gtMeEmail()) || ''; return { e: e || 'local', n: (GT.me && GT.me.name) || (e ? e.split('@')[0] : 'Я') }; };
+const chTime = t => { const d = new Date(t), now = new Date(); return d.toDateString() === now.toDateString() ? d.toTimeString().slice(0, 5) : fmtDay(d.toISOString().slice(0, 10)) + ' ' + d.toTimeString().slice(0, 5); };
+function mkChat210(x, y, on, ct, first) {
+  const me = chMe();
+  return { id: uid(), type: 'chat', x: r1(x), y: r1(y), w: 300, h: 120, ct: ct || 'disc', title: '', msgs: first ? [{ id: uid(), a: me.e, n: me.n, t: first, at: Date.now() }] : [], st: 'open', col: false, on: on || '', au: me.e, an: me.n, c: Date.now() };
+}
+const chCan210 = it => { const sp = S.board && S.board.space; if (!sp) return true; const me = chMe().e; try { return it.au === me || gtCan(sp, 'admin') || (it.ct === 'task' && it.who === me); } catch (e) { return true; } };
+/* ---------- on the board: an icon or a preview ---------- */
+{ const o = normalizeNew; normalizeNew = it => { if (it.type !== 'chat') return o(it); if (!Array.isArray(it.msgs)) it.msgs = []; if (!CT210[it.ct]) it.ct = 'disc'; if (it.st !== 'done') it.st = 'open'; }; }
+{ const o = createNewEl; createNewEl = (el, it) => { if (it.type !== 'chat') return o(el, it); el.innerHTML = '<div class="ch210"></div>'; }; }
+{ const o = updateNew; updateNew = (el, it) => {
+  if (it.type !== 'chat') return o(el, it);
+  const T = CT210[it.ct] || CT210.disc, n = (it.msgs || []).length, last = (it.msgs || []).slice(-2), done = it.st === 'done';
+  el.style.left = px(it.x); el.style.top = px(it.y); el.style.setProperty('--chc', T[2]);
+  el.classList.toggle('chcol', !!it.col); el.classList.toggle('chdone', done); el.classList.toggle('chai', (it.msgs || []).some(m => m.ai));
+  const sig = JSON.stringify([it.col, it.ct, it.title, it.st, n, last.map(m => m.t.slice(0, 80)), it.res]);
+  const box = el.firstChild;
+  if (box._sig !== sig) {
+    box._sig = sig;
+    box.innerHTML = it.col ? `<span class="chi">${T[0]}</span>${n ? `<b class="chn">${n}</b>` : ''}`
+      : `<div class="chh"><span class="chi">${T[0]}</span><b>${esc(it.title || T[1])}</b>${done ? '<i class="chst">закрыт</i>' : ''}<span class="chn2">${n}</span></div>${last.map(m => `<div class="chm"><b>${esc(m.ai ? '✦ ' + m.ai : m.n || '')}</b> ${esc(m.t.length > 90 ? m.t.slice(0, 88) + '…' : m.t)}</div>`).join('') || '<div class="chm e">Пока нет сообщений</div>'}${done && it.res ? `<div class="chres">Итог: ${esc(it.res.slice(0, 120))}</div>` : ''}`;
+  }
+  el.style.width = px(it.col ? 40 : it.w); el.style.height = '';
+  if (it.col) { if (it.w !== 40 || it.h !== 40) { it.w = 40; it.h = 40; } }
+  else { if (it.w < 200) it.w = 300; const h = el.offsetHeight; if (h && Math.abs(h - it.h) > 0.5) it.h = h; }
+  if (CHP.id === it.id) chpDraw210();
+}; }
+{ const o = updateEl; updateEl = (el, it) => { o(el, it); if (it.type === 'chat') updateNew(el, it); }; }
+{ const o = newText; newText = it => it.type === 'chat' ? [it.title, ...(it.msgs || []).map(m => m.t), it.res].filter(Boolean).join(' ') : o(it); }
+{ const o = newClip; newClip = (it, html) => { if (it.type !== 'chat') return o(it, html); const t = (it.msgs || []).map(m => `${m.ai ? '✦ ' + m.ai : m.n}: ${m.t}`); return html ? `<p><b>${esc((CT210[it.ct] || CT210.disc)[1] + (it.title ? ': ' + it.title : ''))}</b></p><ul>${t.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : [it.title, ...t].filter(Boolean).join('\n'); }; }
+{ const o = drawNew; drawNew = async (g, it) => {
+  if (it.type !== 'chat') return o(g, it);
+  const T = CT210[it.ct] || CT210.disc; g.fillStyle = '#fff'; roundRectPath(g, it.x, it.y, it.w, it.h, 12); g.fill(); g.strokeStyle = T[2]; g.lineWidth = 2; g.stroke();
+  g.fillStyle = '#1c1d21'; g.font = '600 14px sans-serif'; g.fillText((it.col ? T[0] : T[0] + ' ' + (it.title || T[1])).slice(0, 40), it.x + 10, it.y + 24);
+}; }
+{ const o = ctxNew; ctxNew = it => {
+  if (!it || it.type !== 'chat') return o(it);
+  const T = CT210[it.ct] || CT210.disc;
+  return cbtn('ch:open', '💬 Открыть', 'Открыть переписку', 'wide') + cbtn('ch:type', T[0] + ' ' + T[1] + ' ▾', 'Тип чата: от него зависит, как он закрывается', 'wide') + cbtn('ch:col', it.col ? 'Развернуть' : 'Свернуть в значок', 'Чат на доске — значком или превью', 'wide') + cbtn('ch:ai', '✦ Ответ ИИ', 'Ваша нейросеть ответит в этом чате', 'wide') + cbtn('ch:st', it.st === 'done' ? '↺ Открыть снова' : '✓ Закрыть…', 'Закрыть по сценарию типа', 'wide');
+}; }
+{ const o = ctx24Act; ctx24Act = (b, sel) => {
+  const a = b.dataset.act || ''; if (!a.startsWith('ch:')) return o(b, sel);
+  const it = sel[0]; if (!it) return true;
+  if (a === 'ch:new') { chNewAt210(it); return true; }
+  if (it.type !== 'chat') return true;
+  if (a === 'ch:open') chpOpen210(it.id);
+  else if (a === 'ch:type') chTypePop210(b, it);
+  else if (a === 'ch:col') { pushHist(); it.col = !it.col; changed(); }
+  else if (a === 'ch:ai') chAi210(it);
+  else if (a === 'ch:st') { if (it.st === 'done') chReopen210(it); else chpOpen210(it.id, true); }
+  return true;
+}; }
+/* a chat at any object: one button on its panel */
+{ const o = ctx24Extra; ctx24Extra = (sel, single) => { const g = o(sel, single); if (sel.length === 1 && !S.editing && sel[0].type !== 'chat' && sel[0].type !== 'connector') g.push(cbtn('ch:new', '💬', 'Чат у этого объекта: обсуждение, вопрос, задача, идея, решение')); return g; }; }
+function chTypePop210(anchor, it) {
+  openPop(anchor, `<div class="menu"><div class="vp-h">Тип чата</div>${Object.entries(CT210).map(([k, [i, l, , h]]) => `<button class="mi${it.ct === k ? ' on' : ''}" data-v="${k}"><span>${i} <b>${l}</b><br><small>${esc(h)}</small></span></button>`).join('')}</div>`, v => { pushHist(); it.ct = v; changed(); if (CHP.id === it.id) chpDraw210(true); });
+}
+/* ---------- placing: the 💬 button, then a click on the board ---------- */
+let ct210silent = false;
+function chNewAt210(obj, pt, ct, text) {
+  if (!S.board) return null; let x, y, on = '';
+  if (obj) { const b = bounds(obj); x = b.x + b.w + 14; y = b.y - 6; on = obj.id; } else { x = pt.x; y = pt.y; }
+  for (let k = 0; k < 30 && items().some(i => i.type === 'chat' && Math.abs(i.x - x) < 24 && Math.abs(i.y - y) < 40); k++) y += 52;
+  const c = mkChat210(x, y, on, ct, text); pushHist(); S.board.items.push(c); S.sel = new Set([c.id]); changed();
+  if (!text && !ct210silent) setTimeout(() => chpOpen210(c.id), 60);
+  return c;
+}
+function chPlace210(on) { S.ch210place = !!on; document.body.classList.toggle('ch210pl', !!on); if (on) toast('Щёлкните по доске или по объекту — там появится чат. Esc — отмена'); }
+document.addEventListener('pointerdown', e => {
+  if (!S.ch210place || !e.isTrusted || !vp.contains(e.target)) return;
+  e.preventDefault(); e.stopPropagation(); chPlace210(false);
+  const p = toWorld(e.clientX, e.clientY), under = items().filter(i => i.type !== 'frame' && i.type !== 'connector' && i.type !== 'chat' && !isHid(i)).reverse().find(i => { const b = bounds(i); return p.x >= b.x && p.x <= b.x + b.w && p.y >= b.y && p.y <= b.y + b.h; });
+  chNewAt210(under || null, p);
+}, true);
+addEventListener('keydown', e => { if (e.key === 'Escape' && S.ch210place) chPlace210(false); });
+/* ---------- the thread ---------- */
+const CHP = { id: '', el: null, sig: '' };
+function chpOpen210(id, closing) {
+  CHP.id = id; CHP.closing = !!closing;
+  if (!CHP.el) { CHP.el = document.createElement('div'); CHP.el.className = 'ch210p panel'; CHP.el.dataset.app = ''; document.body.appendChild(CHP.el); chpWire210(CHP.el); }
+  CHP.el.hidden = false; chpDraw210(true); setTimeout(() => { const i = CHP.el && CHP.el.querySelector('.chq'); if (i && !closing) i.focus(); }, 30);
+}
+function chpClose210() { CHP.id = ''; if (CHP.el) CHP.el.hidden = true; }
+function chpDraw210(force) {
+  const p = CHP.el, it = CHP.id && byId(CHP.id); if (!p) return; if (!it) { chpClose210(); return; }
+  const sig = JSON.stringify([it.ct, it.title, it.st, (it.msgs || []).length, it.res, CHP.closing, CHP.busy]); if (!force && sig === CHP.sig) return; CHP.sig = sig;
+  const T = CT210[it.ct] || CT210.disc, done = it.st === 'done', can = chCan210(it), me = chMe().e;
+  const draft = (p.querySelector('.chq') || {}).value || '';
+  const closeBtns = done ? `<button class="ob sm" data-ch="reopen">↺ Открыть снова</button>`
+    : it.ct === 'task' ? `<button class="btn sm" data-ch="done">✓ Выполнено</button>`
+    : it.ct === 'q' ? `<span class="sub">Отметьте ✓ у сообщения-ответа</span><button class="ob sm" data-ch="done">Закрыть без ответа</button>`
+    : it.ct === 'idea' ? `<button class="btn sm" data-ch="totask">→ В задачи</button><button class="ob sm" data-ch="reject">✕ Отклонить</button>`
+    : it.ct === 'review' ? `<button class="btn sm" data-ch="fixed">✓ Исправлено</button><button class="ob sm" data-ch="moot">Не актуально</button>`
+    : it.ct === 'decision' ? `<button class="btn sm" data-ch="fix">⚖ Зафиксировать решение</button>`
+    : `<button class="btn sm" data-ch="solved">✓ Решено</button>`;
+  p.style.setProperty('--chc', T[2]);
+  p.innerHTML = `<div class="chph"><button class="ob sm chpt" data-ch="type" title="Тип чата">${T[0]} ${T[1]} ▾</button><input class="inp sm chtl" value="${esc(it.title || '')}" placeholder="Тема (необязательно)"><button class="ib sm" data-ch="col" title="${it.col ? 'Развернуть на доске' : 'Свернуть в значок на доске'}">${it.col ? '▢' : '▁'}</button><button class="ib sm" data-ch="more" title="Ещё">⋯</button><button class="ib sm" data-ch="x" title="Закрыть переписку">${ic('close')}</button></div>
+    <div class="chhint">${done ? `<b>Закрыт</b>${it.byn ? ' · ' + esc(it.byn) : ''}${it.at ? ' · ' + esc(chTime(it.at)) : ''}${it.res ? '<br>Итог: ' + esc(it.res) : ''}` : esc(T[3])}${it.on && byId(it.on) ? ` · <a href="#" data-ch="obj">у объекта «${esc((bdTitle(byId(it.on)) || TYPE_NAME[byId(it.on).type] || '').slice(0, 30))}»</a>` : ''}</div>
+    <div class="chlog">${(it.msgs || []).map(m => `<div class="chmsg${m.a === me && !m.ai ? ' me' : ''}${m.ai ? ' ai' : ''}${m.sys ? ' sys' : ''}${it.ans === m.id ? ' ans' : ''}"><div class="chmh"><b>${esc(m.ai ? '✦ ' + m.ai : m.n || '')}</b><small>${esc(chTime(m.at))}</small>${it.ct === 'q' && !done && !m.sys && m.a !== it.au ? `<button class="ob sm" data-ch="ans:${m.id}" title="Это ответ — вопрос закроется">✓ Ответ</button>` : ''}</div><div class="chmt">${m.ai ? sanitizeHTML(mdToHtml(m.t)) : esc(m.t).replace(/\n/g, '<br>')}</div></div>`).join('') || '<p class="sub">Напишите первое сообщение. «@ии» в тексте — ответит ваша нейросеть.</p>'}${CHP.busy ? '<div class="chmsg ai"><div class="chmt">✦ Думаю…</div></div>' : ''}</div>
+    <form class="chin"><textarea class="inp chq" rows="2" placeholder="${done ? 'Новое сообщение откроет чат снова' : 'Сообщение… Enter — отправить, Shift+Enter — строка, @ии — спросить ИИ'}">${esc(draft)}</textarea><div class="btnrow"><button class="btn sm" data-ch="send">Отправить</button><button class="ob sm" data-ch="ai" title="Ответит ваша нейросеть: ${esc(aiName())}">✦ Ответ ИИ</button></div></form>
+    <div class="chcl${CHP.closing ? ' hl' : ''}">${can || done ? closeBtns : '<span class="sub">Закрыть может автор, исполнитель или администратор.</span><button class="ob sm" data-ch="propose">Предложить закрыть</button>'}</div>`;
+  chpPlace210(it); const log = p.querySelector('.chlog'); log.scrollTop = log.scrollHeight;
+}
+function chpPlace210(it) {
+  const p = CHP.el, el = els.get(it.id); if (!p) return;
+  const w = Math.min(380, innerWidth - 16), r = el ? el.getBoundingClientRect() : { right: innerWidth / 2, top: 120, left: innerWidth / 2 };
+  let x = r.right + 10; if (x + w > innerWidth - 8) x = r.left - w - 10; if (x < 8) x = (innerWidth - w) / 2;
+  p.style.width = px(w); p.style.left = px(clamp(x, 8, innerWidth - w - 8)); p.style.top = px(clamp(r.top, 64, Math.max(64, innerHeight - p.offsetHeight - 12)));
+}
+function chMsg210(it, t, extra) {
+  const me = chMe(), m = Object.assign({ id: uid(), a: me.e, n: me.n, t: String(t).slice(0, 4000), at: Date.now() }, extra || {});
+  pushHist(); it.msgs = (it.msgs || []).concat(m);
+  if (it.st === 'done' && !m.sys && !m.ai) { it.st = 'open'; delete it.res; it.msgs.push({ id: uid(), sys: 1, a: '', n: 'Холст', t: 'Чат открыт снова: новое сообщение', at: Date.now() }); }
+  changed(); return m;
+}
+function chClose210(it, res, how) { const me = chMe(); pushHist(); it.st = 'done'; it.by = me.e; it.byn = me.n; it.at = Date.now(); if (res) it.res = String(res).slice(0, 600); else delete it.res; it.msgs = (it.msgs || []).concat({ id: uid(), sys: 1, a: '', n: 'Холст', t: `${me.n}: ${how || 'закрыл чат'}`, at: Date.now() }); changed(); CHP.closing = false; }
+function chReopen210(it) { const me = chMe(); pushHist(); it.st = 'open'; delete it.res; delete it.ans; it.msgs = (it.msgs || []).concat({ id: uid(), sys: 1, a: '', n: 'Холст', t: `${me.n} открыл чат снова`, at: Date.now() }); changed(); }
+function chpWire210(p) {
+  p.addEventListener('pointerdown', e => e.stopPropagation());
+  p.addEventListener('keydown', e => {
+    e.stopPropagation();
+    if (e.target.classList.contains('chq') && e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); chSend210(); }
+    if (e.key === 'Escape') chpClose210();
+  });
+  p.addEventListener('change', e => { if (!e.target.classList.contains('chtl')) return; const it = byId(CHP.id); if (!it) return; pushHist(); it.title = e.target.value.trim().slice(0, 120); changed(); });
+  p.addEventListener('submit', e => { e.preventDefault(); chSend210(); });
+  p.addEventListener('click', async e => {
+    const b = e.target.closest('[data-ch]'); if (!b) return; e.preventDefault(); const it = byId(CHP.id); if (!it) return; const a = b.dataset.ch;
+    if (a === 'x') chpClose210();
+    else if (a === 'send') chSend210();
+    else if (a === 'ai') chAi210(it);
+    else if (a === 'type') chTypePop210(b, it);
+    else if (a === 'col') { pushHist(); it.col = !it.col; changed(); }
+    else if (a === 'obj') { const o = byId(it.on); if (o) { S.sel = new Set([o.id]); render(); fitAll([o]); } }
+    else if (a.startsWith('ans:')) { const m = it.msgs.find(x => x.id === a.slice(4)); it.ans = m && m.id; chClose210(it, m && m.t, 'отметил ответ'); }
+    else if (a === 'done') chClose210(it, '', it.ct === 'task' ? 'задача выполнена' : 'закрыл');
+    else if (a === 'solved') { const r = await uiPrompt('Итог обсуждения (необязательно)', ''); if (r === null) return; chClose210(it, r, 'отметил «Решено»'); }
+    else if (a === 'fixed') chClose210(it, '', 'исправлено');
+    else if (a === 'moot') chClose210(it, 'Не актуально', 'не актуально');
+    else if (a === 'reject') { const r = await uiPrompt('Почему отклонена (необязательно)', ''); if (r === null) return; chClose210(it, 'Отклонено' + (r ? ': ' + r : ''), 'отклонил идею'); }
+    else if (a === 'totask') { await loLoad(); const t = loNew('task', { title: (it.title || (it.msgs[0] || {}).t || 'Идея').slice(0, 200), notes: it.msgs.map(m => (m.ai ? '✦ ' + m.ai : m.n) + ': ' + m.t).join('\n').slice(0, 3000), st: 'todo', tags: ['из чата'] }); loSave(); chClose210(it, 'Стала задачей: ' + t.title, 'принял идею в задачи'); toast('Идея стала задачей в задачнике'); }
+    else if (a === 'fix') { const last = [...it.msgs].reverse().find(m => !m.sys); const r = await uiPrompt('Решение', last ? last.t : ''); if (r === null) return; chClose210(it, r, 'зафиксировал решение'); }
+    else if (a === 'reopen') chReopen210(it);
+    else if (a === 'propose') chMsg210(it, 'Предлагаю закрыть этот чат', { sys: 1 });
+    else if (a === 'more') openPop(b, `<div class="menu"><button class="mi" data-v="lo"><span>☑ Открыть в задачнике</span></button><button class="mi" data-v="sel"><span>◎ Показать на доске</span></button><button class="mi" data-v="copy"><span>⧉ Скопировать переписку</span></button><div class="msep"></div><button class="mi" data-v="del"><span>🗑 Удалить чат</span></button></div>`, async v => {
+      if (v === 'lo') { await loLoad(); S.loUi = S.loUi || {}; S.loUi.sp29 = '#board'; S.loUi.top29 = 'tasks'; S.loSel = 'C' + S.board.id + '.' + it.id; loUiSave(); openLo(); }
+      else if (v === 'sel') { S.sel = new Set([it.id]); render(); fitAll([it]); }
+      else if (v === 'copy') copyPlain(newClip(it, false), 'Переписка скопирована');
+      else if (v === 'del') { if (!(await uiConfirm('Удалить чат со всей перепиской?'))) return; pushHist(); S.board.items = S.board.items.filter(i => i.id !== it.id); changed(); chpClose210(); }
+    });
+  });
+}
+function chSend210() {
+  const it = byId(CHP.id), i = CHP.el && CHP.el.querySelector('.chq'); if (!it || !i) return; const t = i.value.trim(); if (!t) return;
+  i.value = ''; chMsg210(it, t); chpDraw210(true);
+  if (/(^|\s)@(ии|ai|ии,)/i.test(t)) chAi210(it);
+}
+/* ---------- the AI in a chat ---------- */
+async function chAi210(it) {
+  if (!it || CHP.busy) return;
+  const obj = it.on && byId(it.on), T = CT210[it.ct] || CT210.disc;
+  const ctx = `Доска «${S.board.name}». Чат: ${T[1]}${it.title ? ' «' + it.title + '»' : ''}.${obj ? ` Чат у объекта (${TYPE_NAME[obj.type] || obj.type}): «${clTxt(obj)}».` : ''}\nПереписка:\n${(it.msgs || []).filter(m => !m.sys).slice(-20).map(m => `${m.ai ? 'ИИ' : m.n}: ${m.t}`).join('\n') || '(пусто — начни обсуждение по объекту)'}`;
+  if (aiProvNow() === 'claudedrive') { const ok = await cdAsk210({ kind: 'chat', chat: it.id, text: ctx }); if (ok) chMsg210(it, 'Задание отправлено Claude по подписке. Ответ придёт сюда после «задания из Холста» в Claude.', { sys: 1 }); return; }
+  const ns = await clReady().catch(() => null);
+  if (!ns) { chMsg210(it, 'Нейросеть не подключена: ☰ → «Нейросети».', { sys: 1 }); return; }
+  CHP.busy = true; if (CHP.id === it.id) chpDraw210(true);
+  try {
+    const r = await ns([{ role: 'user', content: ctx + '\n\nОтветь в этом чате как участник обсуждения: по делу, коротко (до 120 слов), по-русски. Если это вопрос — дай ответ; задача — предложи шаги; идея — оцени и предложи, как проверить.' }], { maxTokens: 700 });
+    CHP.busy = false; chMsg210(it, r.text, { ai: aiName(), a: 'ai', n: aiName() });
+  } catch (e) { CHP.busy = false; chMsg210(it, 'ИИ не ответил: ' + ((e && (e.message || e.code)) || e), { sys: 1 }); }
+  if (CHP.id === it.id) chpDraw210(true);
+}
+/* the board AI can open chats itself */
+{ const o = clTools; clTools = () => {
+  const l = o(), made = l[0] && l[0]._made;
+  l.push(Object.assign({ name: 'add_chat', description: 'Opens a chat (a comment thread) on the board, next to an object or in a free spot: use it for remarks, questions, ideas, tasks or decisions about specific objects (e.g. when asked to review the board). kind: disc | task | q | idea | review | decision. Returns its id.', inputSchema: { type: 'object', properties: { object_id: { type: 'string' }, kind: { type: 'string', enum: Object.keys(CT210) }, title: { type: 'string' }, text: { type: 'string' } }, required: ['text'] }, execute: inp => {
+    const obj = inp.object_id && byId(inp.object_id); ct210silent = true; let c; try { c = chNewAt210(obj || null, obj ? null : clPlace(1, 300, 120), CT210[inp.kind] ? inp.kind : 'review', null); } finally { ct210silent = false; }
+    if (!c) throw new Error('no board'); c.title = String(inp.title || '').slice(0, 120); c.msgs = [{ id: uid(), a: 'ai', n: aiName(), ai: aiName(), t: String(inp.text || '').slice(0, 4000), at: Date.now() }]; c.au = 'ai'; changed(); if (made) made.push(c.id); return { id: c.id };
+  } }, { _made: made }));
+  return l;
+}; }
+function chReview210() { clOpen(); clSend('Пройдись по доске (get_board) и оставь замечания чатами (add_chat, kind review) прямо у объектов: что неясно, что противоречит, чего не хватает, что улучшить. До 8 самых важных. Ничего не меняй и не удаляй.'); }
+/* ---------- the task manager: chats are tasks marked «чат» ---------- */
+function chScan210(b, up) {
+  for (const it of b.items) {
+    if (it.type !== 'chat') continue; const T = CT210[it.ct] || CT210.disc, id = 'C' + b.id + '.' + it.id, old = loGet(id);
+    up(id, { k: 'task', title: '💬 ' + (it.title || ((it.msgs || []).find(m => !m.sys) || {}).t || T[1]).slice(0, 160), st: it.st === 'done' ? 'done' : it.ct === 'task' ? (old && old.st !== 'done' ? old.st : 'todo') : (LO_ST.wait ? 'wait' : 'todo'), tags: ['чат', T[1].toLowerCase()], notes: (it.msgs || []).filter(m => !m.sys).slice(-4).map(m => (m.ai ? '✦ ' + m.ai : m.n) + ': ' + m.t).join('\n').slice(0, 1200), src: { b: b.id, i: it.id, bn: b.name, chat: 1 }, chat: { ct: it.ct, n: (it.msgs || []).length }, par: old ? old.par || '' : '' });
+  }
+}
+{ const o = loToBoard; loToBoard = r => {
+  if (!r || !r.src || !r.src.chat) return o(r);
+  bdWrite(r.src.b, list => { const it = list.find(i => i.id === r.src.i); if (!it) return false; const me = chMe();
+    if (r.st === 'done' && it.st !== 'done') { it.st = 'done'; it.by = me.e; it.byn = me.n; it.at = Date.now(); it.msgs = (it.msgs || []).concat({ id: uid(), sys: 1, a: '', n: 'Холст', t: me.n + ': закрыт в задачнике', at: Date.now() }); return true; }
+    if (r.st !== 'done' && it.st === 'done') { it.st = 'open'; delete it.res; return true; }
+    return false; });
+}; }
+/* ---------- the 💬 button: new chat, the list, visibility, AI remarks ---------- */
+function chBtn210() {
+  const tb = $('#topbar'); if (!tb || $('#btn210chat')) return;
+  const b = document.createElement('button'); b.className = 'ib tb210main'; b.id = 'btn210chat'; b.title = 'Чаты на доске: новый, список, видимость, замечания ИИ'; b.setAttribute('aria-label', 'Чаты на доске'); b.textContent = '💬';
+  const f = $('#btnFilter'); tb.insertBefore(b, f ? f.nextSibling : null);
+  b.addEventListener('click', e => { e.stopPropagation(); chMenu210(b); });
+}
+function chMenu210(anchor) {
+  if (!S.board) return; const all = items().filter(i => i.type === 'chat'), open = all.filter(i => i.st !== 'done'), hideDone = !!LS.get('ch210done'), hideAll = !!LS.get('ch210off');
+  openPop(anchor, `<div class="menu ch210m"><div class="vp-h">Чаты на доске · открыто ${open.length} из ${all.length}</div><button class="mi" data-v="new"><span>＋ Новый чат — щёлкните по доске или объекту</span></button><button class="mi" data-v="review"><span>✦ ИИ: замечания по доске — чатами у объектов</span></button><div class="msep"></div>${open.slice(0, 12).map(c => `<button class="mi" data-v="go:${c.id}"><span>${(CT210[c.ct] || CT210.disc)[0]} ${esc((c.title || ((c.msgs || [])[0] || {}).t || 'Чат').slice(0, 46))} <small>· ${(c.msgs || []).length}</small></span></button>`).join('') || '<p class="sub" style="padding:4px 10px">Открытых чатов нет</p>'}<div class="msep"></div><button class="mi" data-v="done"><span>${hideDone ? '☐' : '☑'} Показывать закрытые чаты</span></button><button class="mi" data-v="off"><span>${hideAll ? '☐' : '☑'} Показывать чаты на доске</span></button><button class="mi" data-v="colall"><span>▁ Свернуть все в значки</span></button><button class="mi" data-v="lo"><span>☑ Чаты в задачнике</span></button></div>`, async v => {
+    if (v === 'new') chPlace210(true);
+    else if (v === 'review') chReview210();
+    else if (v.startsWith('go:')) { const c = byId(v.slice(3)); if (c) { S.sel = new Set([c.id]); render(); fitAll([c]); setTimeout(() => chpOpen210(c.id), 300); } }
+    else if (v === 'done') { LS.set('ch210done', hideDone ? 0 : 1); chVis210(); }
+    else if (v === 'off') { LS.set('ch210off', hideAll ? 0 : 1); chVis210(); }
+    else if (v === 'colall') { pushHist(); for (const c of all) c.col = true; changed(); }
+    else if (v === 'lo') { await loLoad(); S.loUi = S.loUi || {}; S.loUi.sp29 = '#board'; S.loUi.top29 = 'tasks'; S.loUi.mode = 'check'; S.loUi.page = 'chk'; loUiSave(); openLo('chk'); }
+  });
+}
+function chVis210() { document.body.classList.toggle('ch210nodone', !!LS.get('ch210done')); document.body.classList.toggle('ch210off', !!LS.get('ch210off')); }
+/* a click on a chat opens its thread (a drag does not) */
+const CHD = { id: '', x: 0, y: 0 };
+document.addEventListener('pointerdown', e => { const el = e.target.closest && e.target.closest('#world .tchat'); if (!el) { CHD.id = ''; return; } CHD.id = el.dataset.id; CHD.x = e.clientX; CHD.y = e.clientY; }, true);
+document.addEventListener('pointerup', e => { if (!CHD.id) return; const id = CHD.id; CHD.id = ''; if (Math.hypot(e.clientX - CHD.x, e.clientY - CHD.y) > 5) return; setTimeout(() => chpOpen210(id), 0); }, true);
+{ const o = menuItems; menuItems = () => { const l = o(), i = l.findIndex(x => x.id === 'filter'); l.splice(i >= 0 ? i + 1 : l.length, 0, { id: 'chat210', cat: 'board', icon: 'chat', label: 'Чаты на доске: новый, список, видимость…', key: '' }); return l; }; }
+{ const o = menuAction; menuAction = async v => { if (v === 'chat210') { S.menuQ = ''; const a = $('#btnMenu'); closePop(); return chMenu210(a); } return o(v); }; }
+{ const o = xdlg; xdlg = (...a) => { chpClose210(); return o(...a); }; }
+function chat210Setup() { chBtn210(); chVis210(); addEventListener('resize', () => { const it = CHP.id && byId(CHP.id); if (it) chpPlace210(it); }); }
+/* =========================================================
+   v2.10: each person has their own AI. ChatGPT, Claude API, Gemini, Groq,
+   OpenRouter, Qwen, Perplexity — instantly with a key kept on this device;
+   Claude by subscription — through Google Drive: Холст drops a task into
+   «Холст/Claude», a skill in Claude answers into «Холст/Входящие», and Холст
+   puts the answer where it was asked (the AI panel, a chat on the board).
+   The AI window is redrawn in the common design.
+   ========================================================= */
+Object.assign(AI_PROV, {
+  anthropic: { name: 'Claude API', url: 'https://api.anthropic.com/v1/messages', models: ['claude-sonnet-5-5', 'claude-opus-5-5', 'claude-haiku-5-5', 'claude-fable-5-1', 'claude-sonnet-4-5'], def: 'claude-sonnet-5-5', tools: true, keyUrl: 'https://console.anthropic.com/settings/keys', keyPh: 'sk-ant-…', note: 'Ключ Anthropic API: console.anthropic.com → API keys. Оплата по запросам — отдельно от подписки Claude.' },
+  gemini: { name: 'Gemini', url: 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', models: ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.5-flash-lite'], def: 'gemini-2.5-flash', tools: true, keyUrl: 'https://aistudio.google.com/apikey', keyPh: 'AIza…', note: 'Ключ Google AI Studio. Есть бесплатный уровень с лимитами.' },
+  groq: { name: 'Groq', url: 'https://api.groq.com/openai/v1/chat/completions', models: ['llama-3.3-70b-versatile', 'openai/gpt-oss-120b', 'qwen/qwen3-32b', 'moonshotai/kimi-k2-instruct'], def: 'llama-3.3-70b-versatile', tools: true, keyUrl: 'https://console.groq.com/keys', keyPh: 'gsk_…', note: 'Очень быстрые открытые модели. Бесплатный уровень с лимитами.' },
+  claudedrive: { name: 'Claude по подписке', note: 'Без ключа и оплаты API: задания уходят на ваш Google Диск, Claude отвечает в своём чате по команде «задания из Холста». Не мгновенно.', tools: false, drive: true },
+});
+const AI_LOOK = {
+  claude: ['C', '#d97757', 'внутри Claude', 'Холст открыт внутри Claude — ключ не нужен'],
+  openai: ['G', '#10a37f', 'платно · ключ', 'ChatGPT от OpenAI'],
+  anthropic: ['C', '#d97757', 'платно · ключ', 'Claude по API — мгновенно'],
+  gemini: ['G', '#4285f4', 'есть бесплатно', 'Gemini от Google'],
+  groq: ['Q', '#f55036', 'бесплатно · быстро', 'Открытые модели на Groq'],
+  openrouter: ['R', '#6467f2', 'один ключ — все', 'Любые модели одним ключом, есть бесплатные'],
+  qwen: ['Q', '#615ced', 'платно · ключ', 'Qwen от Alibaba'],
+  pplx: ['P', '#20808d', 'поиск в сети', 'Ответы с источниками'],
+  claudedrive: ['C', '#d97757', 'по подписке', 'Claude через Google Диск — с задержкой'],
+};
+TEAM_SECTIONS.claude = 'ИИ на доске';
+/* ---------- Claude API ---------- */
+function aiNsAnth210() {
+  const P = AI_PROV.anthropic, C = aiCfg(), key = C.keys.anthropic, model = C.models.anthropic || P.def; if (!key) return null;
+  const norm = turns => { const out = []; for (const t of turns) { const role = t.role === 'assistant' ? 'assistant' : 'user', c = String(t.content || ''); if (out.length && out[out.length - 1].role === role && typeof out[out.length - 1].content === 'string') out[out.length - 1].content += '\n\n' + c; else out.push({ role, content: c }); } if (out.length && out[0].role !== 'user') out.unshift({ role: 'user', content: '…' }); return out; };
+  const ns = async (turns, opt = {}) => {
+    const body = { model, max_tokens: opt.maxTokens || 2048, messages: norm(typeof turns === 'string' ? [{ role: 'user', content: turns }] : turns) };
+    if (opt.system) body.system = opt.system;
+    const tools = opt.tools || null; if (tools) body.tools = tools.map(t => ({ name: t.name, description: t.description || '', input_schema: t.inputSchema || { type: 'object', properties: {} } }));
+    let said = '';
+    for (let round = 0; round < 10; round++) {
+      let r;
+      try { r = await fetch(P.url, { method: 'POST', signal: opt.signal, headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' }, body: JSON.stringify(body) }); }
+      catch (e) { if (e && e.name === 'AbortError') throw { code: 'cancelled' }; throw { message: 'Claude API не отвечает: проверьте интернет.' }; }
+      let j = null; try { j = await r.json(); } catch (e) { j = null; }
+      if (!r.ok) { const m = (j && j.error && j.error.message) || r.statusText; if (r.status === 401 || r.status === 403) throw { message: `Ключ Claude API не подошёл: ${m}. ☰ → «Нейросети» — вставить другой.` }; if (r.status === 429 || r.status === 529) throw { code: 'rate_limited' }; throw { message: 'Claude API: ' + m }; }
+      const blocks = (j && j.content) || [], text = blocks.filter(b => b.type === 'text').map(b => b.text).join(''), uses = blocks.filter(b => b.type === 'tool_use');
+      if (tools && uses.length) {
+        body.messages.push({ role: 'assistant', content: blocks }); if (text) said += text + '\n\n';
+        const res = [];
+        for (const u of uses) { const t = tools.find(x => x.name === u.name); let out; try { out = t ? await t.execute(u.input || {}) : { error: 'no such tool' }; } catch (e) { out = { error: String((e && e.message) || e) }; } res.push({ type: 'tool_result', tool_use_id: u.id, content: JSON.stringify(out === undefined ? 'ok' : out).slice(0, 20000) }); }
+        body.messages.push({ role: 'user', content: res });
+        if (opt.onText) opt.onText({ text: said + '_Делаю на доске…_', delta: '' });
+        continue;
+      }
+      const full = said + text; if (opt.onText) opt.onText({ text: full, delta: full });
+      return { text: full, truncated: j.stop_reason === 'max_tokens' };
+    }
+    return { text: said + '_Остановился: слишком много шагов подряд._', truncated: true };
+  };
+  ns.limits = async () => ({ tools: true, images: false });
+  ns.json = async (input, opt) => { const r = await ns(input, opt); const m = /[[{][\s\S]*[\]}]/.exec(r.text); return JSON.parse(m ? m[0] : r.text); };
+  ns.prov = 'anthropic';
+  return ns;
+}
+{ const o = aiNs; aiNs = prov => prov === 'anthropic' ? aiNsAnth210() : prov === 'claudedrive' ? null : o(prov); }
+/* ---------- Claude by subscription: tasks through Google Drive ---------- */
+const CD210 = Object.assign({ asks: {} }, LS.get('cd210') || {});
+const cdSave210 = () => LS.set('cd210', CD210);
+async function cdDir210(name) {
+  await Drive.ensureRoot(); const k = 'cd_' + name; if (Drive.st[k]) return Drive.st[k];
+  const f = await Drive.findFolders(name, Drive.st.root); const id = f.length ? f[0].id : await Drive.write(() => Drive.makeFolder(name, Drive.st.root));
+  Drive.st[k] = id; Drive.persist(); return id;
+}
+async function cdAsk210(q) {
+  if (!Drive.active() || !Drive.ready()) { toast('Claude по подписке работает через Google Диск: подключите его — облако вверху справа'); return false; }
+  try {
+    const dir = await cdDir210('Claude'); await cdDir210('Входящие');
+    const id = 'ask-' + new Date().toISOString().slice(0, 10) + '-' + uid().slice(0, 6), fr = S.board ? items().filter(i => i.type === 'frame') : [];
+    const sel = S.board ? selItems() : [];
+    const body = { format: 'holst-ask', v: 1, id, kind: q.kind || 'panel', at: new Date().toISOString(), from: chMe().n, board: S.board ? { id: S.board.id, name: S.board.name } : null, chat: q.chat || '', text: q.text,
+      selected: sel.map(i => i.id), objects: S.board ? items().filter(i => i.type !== 'connector' && !isHid(i)).slice(0, 250).map(i => clObj(i, fr)) : [],
+      reply: { folder: 'Холст/Входящие', format: 'holst-reply', how: 'JSON {format:"holst-reply",v:1,ask,board,chat,text(markdown),add:[{type:"sticky"|"text"|"doc"|"task"|"chat",text,title,object_id,kind}]}' } };
+    await Drive.write(() => Drive.create(dir, id + '.json', 'application/json', JSON.stringify(body)));
+    CD210.asks[id] = { at: Date.now(), kind: body.kind, b: body.board && body.board.id, chat: body.chat, t: String(q.text).slice(0, 80) }; cdSave210();
+    return true;
+  } catch (e) { toast('Не получилось положить задание на Диск: ' + ((e && e.message) || e)); return false; }
+}
+/* answers from «Входящие» */
+function cdApply210(j) {
+  const ask = CD210.asks[j.ask] || {}, bid = j.board || ask.b, chat = j.chat || ask.chat, text = String(j.text || '').slice(0, 20000), adds = Array.isArray(j.add) ? j.add.slice(0, 40) : [];
+  const name = 'Claude';
+  if (bid) bdWrite(bid, list => {
+    let ch = false;
+    if (chat) { const c = list.find(i => i.id === chat && i.type === 'chat'); if (c && text) { c.msgs = (c.msgs || []).concat({ id: uid(), a: 'ai', n: name, ai: name, t: text, at: Date.now() }); ch = true; } }
+    let y = 0; const anchor = list.find(i => adds.some(a => a.object_id === i.id)), base = anchor ? bounds(anchor) : (S.board && S.board.id === bid ? viewCenter() : { x: 0, y: 0 });
+    for (const a of adds) {
+      const obj = a.object_id && list.find(i => i.id === a.object_id), b0 = obj ? bounds(obj) : null, x = b0 ? b0.x + b0.w + 14 : (base.x || 0) + 40, yy = b0 ? b0.y - 6 : (base.y || 0) + 40 + y; y += 140;
+      if (a.type === 'chat') { const c = mkChat210(x, yy, obj ? obj.id : '', CT210[a.kind] ? a.kind : 'review'); c.title = String(a.title || '').slice(0, 120); c.au = 'ai'; c.msgs = [{ id: uid(), a: 'ai', n: name, ai: name, t: String(a.text || ''), at: Date.now() }]; list.push(c); ch = true; }
+      else if (a.type === 'sticky') { const s = mkSticky(0, 0); s.x = r1(x); s.y = r1(yy); s.text = String(a.text || '').slice(0, 400); list.push(s); ch = true; }
+      else if (a.type === 'text' || a.type === 'doc') { const d = mkDoc(0, 0); Object.assign(d, { x: r1(x), y: r1(yy), w: 560, h: 420, title: String(a.title || 'Ответ Claude').slice(0, 120), html: docClean(mdToDoc ? mdToDoc(String(a.text || '')) : esc(a.text || '')) }); d.text = htmlToText(d.html); list.push(d); ch = true; }
+    }
+    return ch;
+  });
+  for (const a of adds) if (a.type === 'task') loNew('task', { title: String(a.title || a.text || 'Задача от Claude').slice(0, 200), notes: a.title ? String(a.text || '') : '', st: 'todo', tags: ['claude'] });
+  if (!chat && text) { CL.turns.push({ role: 'assistant', content: '**Ответ Claude по подписке**' + (ask.t ? ' на «' + ask.t + '»' : '') + ':\n\n' + text }); if ($('#cl24')) clDraw(); }
+  delete CD210.asks[j.ask]; cdSave210();
+  toast('Пришёл ответ Claude' + (chat ? ' в чат на доске' : ' — в панели ИИ'));
+  return { title: 'Ответ Claude' };
+}
+{ const o = cxImport; cxImport = j => j && j.format === 'holst-reply' ? cdApply210(j) : o(j); }
+{ const o = clSend; clSend = async function (text) {
+  if (aiProvNow() !== 'claudedrive') return o.call(this, text);
+  text = String(text || '').trim(); if (!text || CL.busy) return; const i = $('#clIn'); if (i) i.value = '';
+  clSay('user', text);
+  const ok = await cdAsk210({ kind: 'panel', text });
+  clSay('note', ok ? 'Задание отправлено Claude по подписке (Google Диск → «Холст/Claude»). Откройте любой чат Claude и скажите: «задания из Холста». Ответ появится здесь; проверить сейчас — «⟳ Ответы».' : 'Задание не отправлено: нужен подключённый Google Диск.');
+}; }
+/* ---------- the window: providers as cards ---------- */
+aiOpen = function () {
+  const d = xdlg('Нейросети', '<div class="ai210"></div>', true); d._dkey = 'ai210';
+  const draw = () => {
+    const C = aiCfg(), cur = aiProvNow(), acct = aiAcct(), open = d._open || cur;
+    const card = k => {
+      const P = AI_PROV[k], L = AI_LOOK[k] || ['•', '#8a90a0', '', ''], off = k === 'claude' ? !S.hosted : S.hosted, has = !!C.keys[k], on = cur === k;
+      const st = k === 'claude' ? (S.hosted ? 'доступен' : 'только внутри Claude') : k === 'claudedrive' ? (Drive.active() ? 'Диск подключён' : 'нужен Google Диск') : has ? 'ключ есть' : 'нет ключа';
+      return `<div class="ai210c${on ? ' on' : ''}${off ? ' off' : ''}${open === k ? ' open' : ''}" data-aic="${k}"><div class="ai210h"><span class="ai210l" style="--c:${L[1]}">${L[0]}</span><div class="ai210n"><b>${esc(P.name)}</b><small>${esc(L[3])}</small></div><span class="ai210t">${esc(L[2])}</span><span class="ai210s${has || (k === 'claudedrive' && Drive.active()) || (k === 'claude' && S.hosted) ? ' ok' : ''}">${esc(st)}</span>${on ? '<span class="ai210on">работает</span>' : off ? '' : `<button class="ob sm" data-aiu="${k}">Выбрать</button>`}</div>
+        ${open === k && !off ? `<div class="ai210b"><p class="sub">${esc(P.note || '')}</p>${P.url ? `<div class="ai210k"><input class="inp" type="password" data-aik="${k}" placeholder="${esc(P.keyPh || 'ключ')}" value="${esc(C.keys[k] || '')}" autocomplete="off"><input class="inp" data-aim="${k}" list="aiml-${k}" value="${esc(C.models[k] || P.def)}" title="Модель"><datalist id="aiml-${k}">${P.models.map(m => `<option value="${esc(m)}">`).join('')}</datalist></div><div class="btnrow"><a class="ob sm" href="${esc(P.keyUrl)}" target="_blank" rel="noopener">Где взять ключ ↗</a><button class="ob sm" data-ait="${k}">Проверить</button><span class="ai27r" data-air="${k}"></span></div>`
+          : k === 'claudedrive' ? `<ol class="steps"><li>Выберите этот вариант.</li><li>Пишите ИИ как обычно — задание уйдёт в «Холст/Claude» на вашем Google Диске.</li><li>В любом чате Claude: <b>«задания из Холста»</b> (навык «Задания из Холста»).</li><li>Ответ вернётся сюда, в чат на доске или на доску.</li></ol><div class="btnrow"><button class="ob sm" data-aiq="check">⟳ Проверить ответы сейчас</button><button class="ob sm" data-aiq="guide">Как это работает</button></div>` : ''}</div>` : ''}</div>`;
+    };
+    const fast = ['openai', 'anthropic', 'gemini', 'groq', 'openrouter', 'qwen', 'pplx'], free = (S.hosted ? ['claude'] : []).concat(['claudedrive']);
+    d.querySelector('.ai210').innerHTML = `<div class="ai210top"><div><b>У каждого — своя нейросеть</b><p class="sub">Аккаунт: <b>${acct === 'local' ? 'это устройство (вход в Google не выполнен)' : esc(acct)}</b>. Ключи хранятся только на этом устройстве и не попадают в общие доски: в команде каждый работает со своей нейросетью.</p></div><div class="ai210now"><small>Сейчас работает</small><b>${esc(AI_PROV[cur].name)}</b></div></div>
+      <h3>Мгновенно, с ключом</h3><div class="ai210g">${fast.map(card).join('')}</div><h3>Без ключа</h3><div class="ai210g">${free.map(card).join('')}</div>`;
+  };
+  d._draw = draw;
+  d.addEventListener('click', async e => {
+    const u = e.target.closest('[data-aiu]'); if (u) { e.stopPropagation(); aiSetCfg({ prov: u.dataset.aiu }); d._open = u.dataset.aiu; draw(); clHead(); return; }
+    const t = e.target.closest('[data-ait]');
+    if (t) { e.preventDefault(); const k = t.dataset.ait, out = d.querySelector(`[data-air="${k}"]`), ns = aiNs(k); if (!ns) { out.textContent = 'Сначала вставьте ключ.'; return; } out.textContent = 'Проверяю…'; out.className = 'ai27r'; t.disabled = true; try { const r = await ns('Ответь одним словом: работает', { maxTokens: 300 }); out.textContent = '✓ Отвечает: ' + r.text.slice(0, 60); out.className = 'ai27r ok'; } catch (er) { out.textContent = '✗ ' + ((er && (er.message || er.code)) || er); out.className = 'ai27r bad'; } finally { t.disabled = false; } return; }
+    const q = e.target.closest('[data-aiq]'); if (q) { if (q.dataset.aiq === 'check') { await cxDrive(true); } else { closeXdlg(); skillGuide210(); } return; }
+    const c = e.target.closest('[data-aic]'); if (c && !e.target.closest('input,a,button') && !c.classList.contains('off')) { d._open = d._open === c.dataset.aic ? '' : c.dataset.aic; draw(); }
+  });
+  d.addEventListener('change', e => {
+    const k = e.target.closest('[data-aik]'), m = e.target.closest('[data-aim]');
+    if (k) { const C = aiCfg(); C.keys[k.dataset.aik] = k.value.trim(); aiSetCfg({ keys: C.keys, prov: C.prov || k.dataset.aik }); draw(); clHead(); }
+    if (m) { const C = aiCfg(); C.models[m.dataset.aim] = m.value.trim(); aiSetCfg({ models: C.models }); }
+  });
+  draw();
+};
+/* ---------- the AI panel: «ИИ на доске», whose AI, quick switch ---------- */
+clHead = function () {
+  const p = $('#cl24'); if (!p) return; const cur = aiProvNow(), L = AI_LOOK[cur] || ['•', '#8a90a0'];
+  const h = p.querySelector('.clh b'); if (h) h.textContent = '✦ ИИ на доске';
+  let pill = p.querySelector('[data-aiset]'); if (!pill) { const x = p.querySelector('.clh .p24sp'); if (x) { x.insertAdjacentHTML('afterend', '<button class="ai210pill" data-aiset="1" title="Ваша нейросеть: сменить или настроить"></button>'); pill = p.querySelector('[data-aiset]'); } }
+  if (pill) { pill.innerHTML = `<span class="ai210l" style="--c:${L[1]}">${L[0]}</span>${esc(AI_PROV[cur].name)} ▾`; pill.className = 'ai210pill'; }
+  const tier = p.querySelector('#clTier'); if (tier) tier.hidden = cur !== 'claude';
+  let ck = p.querySelector('[data-cl210="check"]'); if (cur === 'claudedrive' && !ck) { const row = p.querySelector('.clin .btnrow'); if (row) row.insertAdjacentHTML('beforeend', '<button class="ob" data-cl210="check" title="Забрать ответы Claude с Google Диска">⟳ Ответы</button>'); } else if (cur !== 'claudedrive' && ck) ck.remove();
+  const b = $('#btn24claude'); if (b) { b.title = 'ИИ на доске — ваша нейросеть: ' + AI_PROV[cur].name; b.setAttribute('aria-label', b.title); }
+};
+function aiSwitchPop210(anchor) {
+  const C = aiCfg(), cur = aiProvNow(), ok = k => k === 'claude' ? S.hosted : k === 'claudedrive' ? !S.hosted : !S.hosted && !!C.keys[k];
+  openPop(anchor, `<div class="menu"><div class="vp-h">Ваша нейросеть</div>${Object.keys(AI_PROV).filter(ok).map(k => `<button class="mi${cur === k ? ' on' : ''}" data-v="${k}"><span><span class="ai210l sm" style="--c:${(AI_LOOK[k] || [])[1] || '#8a90a0'}">${(AI_LOOK[k] || ['•'])[0]}</span> ${esc(AI_PROV[k].name)}</span></button>`).join('')}<div class="msep"></div><button class="mi" data-v="+set"><span>⚙ Все нейросети и ключи…</span></button></div>`, v => { if (v === '+set') aiOpen(); else { aiSetCfg({ prov: v }); clHead(); } });
+}
+{ const o = clOpen; clOpen = (...a) => {
+  const r = o(...a); const p = $('#cl24');
+  if (p && !p._ai210) { p._ai210 = 1; p.classList.add('ai210panel'); p.addEventListener('click', e => { const s = e.target.closest('[data-aiset]'); if (s) { e.stopImmediatePropagation(); aiSwitchPop210(s); return; } if (e.target.closest('[data-cl210="check"]')) { e.stopPropagation(); cxDrive(true); } }, true); }
+  clHead(); return r;
+}; }
+{ const o = menuItems; menuItems = () => { const l = o(); for (const x of l) { if (x.id === 'claude') x.label = 'ИИ на доске: ' + aiName(); if (x.id === 'aiset') { x.label = 'Нейросети: ChatGPT, Claude, Gemini, Groq, OpenRouter…'; x.key = aiName(); } } const i = l.findIndex(x => x.id === 'aiset'); l.splice(i >= 0 ? i + 1 : l.length, 0, { id: 'skill210', cat: 'help', icon: 'help', label: isOwner210() ? 'Навыки Claude для Холста: как пользоваться' : 'Своя нейросеть и навыки: как подключить', key: '' }, { id: 'review210', cat: 'make', icon: 'chat', label: 'ИИ: замечания по доске — чатами у объектов', key: '' }); const g = l.find(x => x.id === 'gd29'); if (g) g.label = 'Все гайды: какие и как показывать…'; return l; }; }
+{ const o = menuAction; menuAction = async v => { if (v === 'skill210') { S.menuQ = ''; closePop(); return skillGuide210(); } if (v === 'review210') { S.menuQ = ''; closePop(); return chReview210(); } if (v === 'gd29') { S.menuQ = ''; closePop(); return gdDlg210(); } return o(v); }; }
+for (const T of Object.values(TOURS)) { if (T.name === 'Claude на доске') T.name = 'ИИ на доске'; } for (const T of Object.values(TOURS)) for (const st of T.steps || []) { if (st.t === 'Claude') st.t = 'ИИ на доске'; if (typeof st.x === 'string') st.x = st.x.replace(/^Панель Claude/, 'Панель ИИ — вашей нейросети —'); }
+function ai210Setup() { clHead(); const b = $('#btn24claude'); if (b) { b.title = 'ИИ на доске — ваша нейросеть: ' + aiName(); } }
+/* ---------- 2.10 glue ---------- */
+Object.assign(AREAS.ai[2], { chat: 'ИИ в чатах (AI in chats)', sub: 'Claude по подписке (Claude via Drive)' });
+AREAS.team = AREAS.team || ['Команда', 'Team', {}]; Object.assign(AREAS.team[2], { chat: 'Чаты на доске (Board chats)' });
+Object.assign(AREAS.cust[2], { learn: 'Обучение и ветки (Learning)', pins: 'Закреплённые кнопки (Pins)' });
+Object.assign(AREAS.plat[2], { pip: 'Отдельные окна (Widgets)' });
+/* the tour-guide board: every menu panel in frames by theme */
+const MENU_THEMES210 = { board: ['🧭', 'Доска', 'Всё про открытую доску: имя, фон, сетка, фильтры, история, экспорт.'], make: ['✚', 'Создать', 'Новые доски, документы, встраивания, страницы по ссылке, библиотеки, виджеты, ИИ-замечания.'], go: ['➜', 'Перейти', 'Доски, задачник, учёт времени, DEV, команда, поиск, ИИ на доске.'], io: ['⇅', 'Импорт и экспорт', 'Файлы досок, офлайн-версия, перенос из Notion и TickTick, буфер обмена.'], set: ['⚙', 'Настройки', 'Механики, оформление, стиль управления, панели, нейросети, клавиши, тема.'], sync: ['☁', 'Синхронизация и хранение', 'Google Диск, источники синхронизации, копии, корзина.'], help: ['?', 'Помощь и обучение', 'Гайды, демо, расширение браузера, навыки нейросетей, «Что нового».'] };
+for (const [k, [, l]] of Object.entries(MENU_THEMES210)) WIDGETS['menu:' + k] = ['Меню: ' + l, () => `<div class="wmenu">${menuItems().filter(x => x.cat === k).map(x => `<button class="ob" data-wmenu="${x.id}">${esc(x.label)}</button>`).join('')}</div>`];
+{ const o = demoBoard; demoBoard = async (...a) => {
+  await o(...a);
+  if (!S.board || S.board.id !== 'demo24' || items().some(i => i.m210)) return;
+  const its = items(), maxY = its.reduce((m, i) => Math.max(m, (i.y || 0) + (i.h || 0)), 0), y0 = maxY + 320, W = 980, H = 760, G = 120, out = [];
+  out.push({ id: uid(), type: 'text', x: 0, y: y0 - 180, w: 1600, h: 60, html: sanitizeHTML(mdToHtml('# Все панели меню — по темам\nКаждая кнопка открывает свою панель. Ветки и глубина — ☰ → «Версия · что нового» → «По веткам».')), text: 'Все панели меню — по темам', fs: 18, align: 'left', textColor: INK, m210: 1 });
+  Object.entries(MENU_THEMES210).forEach(([k, [ic2, l, desc]], n) => {
+    const x = (n % 3) * (W + G), y = y0 + Math.floor(n / 3) * (H + G), cnt = menuItems().filter(m => m.cat === k).length;
+    out.push({ id: uid(), type: 'frame', x, y, w: W, h: H, title: ic2 + ' ' + l, fill: '#ffffff', m210: 1 });
+    out.push({ id: uid(), type: 'sticky', x: x + 40, y: y + 80, w: 280, h: 240, color: '#e2d1ff', text: `${l}\n\n${desc}\n\nПунктов: ${cnt}`, fs: 'auto', align: 'left', bold: false, textColor: INK, m210: 1 });
+    out.push({ id: uid(), type: 'embed', kind: 'widget', provider: 'holst', wv: 'menu:' + k, title: 'Меню: ' + l, url: '', src: '', thumb: '', asset: '', vs: 'live', view: 'live', x: x + 360, y: y + 80, w: 580, h: Math.min(640, 120 + cnt * 44), m210: 1 });
+  });
+  pushHist(); S.board.items.push(...out); changed();
+}; }
+function wire210() { gd210Setup(); pan210Setup(); chat210Setup(); ai210Setup(); }
+Object.assign(TOURS, {
+  chat210: { name: 'Чаты на доске', steps: [
+    { el: '#btn210chat', t: 'Чаты', x: 'Кнопка 💬: новый чат, список открытых, видимость, замечания ИИ. Щёлкните «Новый чат» — потом по доске или по объекту.' },
+    { el: () => document.querySelector('#world .tchat') || document.querySelector('#btn210chat'), t: 'Чат на доске', x: 'Значок или превью. Щелчок — переписка: тип, тема, сообщения, «✦ Ответ ИИ», закрытие по сценарию типа.' },
+    { el: '#btnLife', t: 'В задачнике', x: 'Каждый чат — задача с меткой «чат». Закрыли в задачнике — закрылся на доске, и наоборот.' },
+  ] },
+  ai210: { name: 'Своя нейросеть', steps: [
+    { el: '#btn24claude', t: 'ИИ на доске', x: 'Ваша нейросеть: попросите сделать — она сама поставит объекты на доску.' },
+    { el: () => document.querySelector('#cl24 [data-aiset]') || document.querySelector('#btn24claude'), t: 'Какая нейросеть', x: 'Щелчок — сменить; «Все нейросети и ключи…» — ChatGPT, Claude API, Gemini, Groq, OpenRouter, Perplexity, Claude по подписке.' },
+  ] },
+  pin210: { name: 'Окна и кнопки', steps: [
+    { el: () => document.querySelector('.xdlg [data-x="pv29"]') || document.querySelector('#btnMenu'), t: 'Вид панели', x: '▣ → «В отдельном окне» — панель поверх всех окон, можно унести на другой монитор. «Закрепить кнопкой» — панель станет кнопкой наверху.' },
+    { el: '#tb210pins', t: 'Закреплённые', x: 'Отдельный тихий блок слева от главных кнопок. ＋ — закрепить пункт меню; правый щелчок — открепить.' },
+  ] },
+});
+Object.assign(FEAT_TOUR, { f210_chat: 'chat210', f210_chatai: 'chat210', f210_ai: 'ai210', f210_pip: 'pin210', f210_pin: 'pin210' });
+
+/* =========================================================
    Pointer interaction
    ========================================================= */
 function hitItemAt(w, exclude) {
@@ -19958,7 +21232,7 @@ function wire() {
   fbar.querySelector('[data-fa="reload"]').innerHTML = ic('reload') + '<span>Перезагрузить</span>';
   fbar.querySelector('[data-fa="full"]').innerHTML = ic('fit') + '<span>На весь монитор</span>';
   fbar.querySelector('[data-fa="close"]').innerHTML = ic('close') + '<span>Свернуть (Esc)</span>';
-  buildToolbar(); buildHelp(); wire23(); wire24(); wire24b(); wire25(); wire26(); wire27(); wire28(); wire29();
+  buildToolbar(); buildHelp(); wire23(); wire24(); wire24b(); wire25(); wire26(); wire27(); wire28(); wire29(); wire210();
 
   vp.addEventListener('pointerdown', onDown);
   vp.addEventListener('pointermove', onMove);
