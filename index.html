@@ -2805,6 +2805,92 @@ body.ch210pl #viewport{cursor:crosshair!important}
 .ag211mode button{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:2px 9px;font:600 11.5px var(--font);cursor:pointer}.ag211mode button:hover{border-color:var(--gd);color:var(--gd-ink)}
 #ctx [data-act="h:side"]{display:none!important}
 
+/* ---------- v2.12: networks — prices, models, checks ---------- */
+.ai212 h3 small.sub{font-weight:500;font-size:12px;margin-left:6px}
+.ai212top .ai212free{margin:8px -6px 0;padding:6px}
+.ai212top .ai212free b{font-size:13.5px}
+.ai212nm{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ai212ch{font-size:11.5px;color:var(--muted);max-width:280px;text-align:right;text-transform:none!important;letter-spacing:0!important;font-weight:500!important}
+.ai210now .ob{margin-top:6px}
+.ai212legend{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;font-size:12px;color:var(--muted);margin:8px 2px 0}
+.ai212legend .ai212b{margin-left:6px}
+.ai212legend .ai212b:first-child{margin-left:0}
+.ai212b{display:inline-flex;align-items:center;font:600 11px var(--font);padding:1px 7px;border-radius:999px;background:var(--hover);color:var(--muted);white-space:nowrap;line-height:17px}
+.ai212b.free{background:color-mix(in srgb,#2fa36b 16%,transparent);color:#1d8452}
+.ai212b.paid{background:color-mix(in srgb,#e8a33d 20%,transparent);color:#9a6210}
+.ai212b.tool{background:color-mix(in srgb,var(--gd) 15%,transparent);color:var(--gd-ink)}
+.ai212b.notool{background:color-mix(in srgb,#8a90a0 18%,transparent);color:var(--muted)}
+.ai212b.warn{background:color-mix(in srgb,#e5484d 15%,transparent);color:#c4363b}
+html[data-theme=dark] .ai212b.free{color:#5fd39a}
+html[data-theme=dark] .ai212b.paid{color:#f2c063}
+html[data-theme=dark] .ai212b.warn{color:#ff8a8d}
+.ai210t.ai212p-free,.ai210t.ai212p-tier{background:color-mix(in srgb,#2fa36b 16%,transparent);color:#1d8452}
+.ai210t.ai212p-mix{background:color-mix(in srgb,var(--gd) 15%,transparent);color:var(--gd-ink)}
+.ai210t.ai212p-paid,.ai210t.ai212p-trial{background:color-mix(in srgb,#e8a33d 20%,transparent);color:#9a6210}
+html[data-theme=dark] .ai210t.ai212p-free,html[data-theme=dark] .ai210t.ai212p-tier{color:#5fd39a}
+html[data-theme=dark] .ai210t.ai212p-paid,html[data-theme=dark] .ai210t.ai212p-trial{color:#f2c063}
+.ai212w{font:700 11px var(--font);color:#e5484d}
+.ai212w.muted{color:var(--muted)}
+.ai210n small code{font:11.5px ui-monospace,SFMono-Regular,Menlo,monospace}
+.ai212price{margin:10px 0 2px;border:1px solid var(--line);border-radius:12px;padding:7px 12px;background:var(--gd-soft)}
+.ai212price summary{cursor:pointer;font:700 13px var(--font);list-style-position:inside}
+.ai212price ul{margin:6px 0 4px;padding-left:18px;font-size:12.5px;line-height:1.5}
+.ai212price li{margin:2px 0}
+.ai212price small{color:var(--muted);font-size:11.5px}
+.ai212price a{color:var(--gd-ink)}
+.ai212row{display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:6px;align-items:center;margin:6px 0}
+.ai212row>span{font:600 12px var(--font);color:var(--muted)}
+.ai212row .inp{min-width:0;width:100%}
+.ai212row input[data-aim],.ai212row input[data-aiurl]{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px}
+.ai212mi{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-size:12.5px;color:var(--muted);margin:0 0 6px 78px;min-height:18px}
+.ai212mi b{color:var(--ink);font-weight:600}
+.ai212mi .bad,.ai212acc .bad{color:#e5484d;font-weight:600}
+.ai212mi .ob.sm,.ai212d .ob.sm{min-height:22px;padding:0 8px;font:600 11.5px ui-monospace,SFMono-Regular,Menlo,monospace}
+.ai212cnt{font-size:11.5px}
+.ai212pk{border:1px solid var(--line);border-radius:12px;margin:2px 0 8px 78px;overflow:hidden;background:var(--panel)}
+.ai212pkh{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:6px;border-bottom:1px solid var(--line);background:var(--hover)}
+.ai212pkh .inp{flex:1;min-width:170px}
+.ai212pkh .seg24{flex-wrap:wrap;max-width:100%}
+.ai212pkl{max-height:320px;overflow:auto;overscroll-behavior:contain}
+.ai212o{display:flex;width:100%;gap:10px;align-items:center;justify-content:space-between;padding:6px 10px;border:0;border-bottom:1px solid var(--line);background:none;color:var(--ink);text-align:left;cursor:pointer;font:13px var(--font)}
+.ai212o:last-child{border-bottom:0}
+.ai212o:hover{background:var(--hover)}
+.ai212o.on{background:var(--gd-soft);box-shadow:inset 3px 0 0 var(--gd)}
+.ai212oi{display:flex;flex-direction:column;min-width:0}
+.ai212oi b{font:600 12.5px ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-all}
+.ai212oi b i{font:700 10.5px var(--font);font-style:normal;color:var(--gd-ink);margin-left:4px}
+.ai212oi small{color:var(--muted);font-size:11.5px}
+.ai212ob{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;flex:none;max-width:58%}
+.ai212d{list-style:none;margin:6px 0 0;padding:0;font-size:12.5px;display:flex;flex-direction:column;gap:4px}
+.ai212d:empty{display:none}
+.ai212d li{position:relative;padding:6px 10px 6px 28px;border-radius:9px;background:var(--hover);line-height:1.5;word-break:break-word}
+.ai212d li::before{position:absolute;left:10px;top:6px;font-weight:800}
+.ai212d li.ok::before{content:'✓';color:#2fa36b}
+.ai212d li.bad{background:color-mix(in srgb,#e5484d 9%,var(--hover))}
+.ai212d li.bad::before{content:'✗';color:#e5484d}
+.ai212d li.warn::before{content:'!';color:#e8a33d}
+.ai212d li.wait{color:var(--muted)}
+.ai212d li.wait::before{content:'…';color:var(--muted);animation:ai212blink 1s infinite}
+@keyframes ai212blink{50%{opacity:.25}}
+.ai212acc{font-size:12.5px;color:var(--muted);margin-top:6px}
+.ai212acc b{color:var(--ink)}
+.ai212add{min-height:54px;border:1.5px dashed var(--line);border-radius:14px;background:none;color:var(--muted);font:600 13px var(--font);cursor:pointer}
+.ai212add:hover{border-color:var(--gd);color:var(--gd-ink)}
+.ai212pm{font:500 11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ai212last{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;padding:5px 12px;font-size:11.5px;color:var(--muted);border-bottom:1px solid var(--line)}
+.ai212last:empty{display:none}
+.ai212last code{font:11px ui-monospace,SFMono-Regular,Menlo,monospace}
+.ai212last button{border:0;background:none;color:#e5484d;font:600 11.5px var(--font);cursor:pointer;padding:0;text-align:left}
+.ai212last button:hover{text-decoration:underline}
+@media (max-width:700px){
+  .ai212row{grid-template-columns:minmax(0,1fr) auto}
+  .ai212row>span{grid-column:1/-1;margin-bottom:-3px}
+  .ai212mi,.ai212pk{margin-left:0}
+  .ai212ob{max-width:50%}
+  .ai212ch{text-align:left}
+  .ai212pm{display:none}
+}
+
 @media (max-width:700px){#statusText{display:none}#statusText.act{display:block;max-width:132px;white-space:normal;font-size:11.5px;line-height:1.25}#status{padding-left:12px}#boardName{width:120px}.fbtn span{display:none}.fdoc{padding:28px 24px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -4984,7 +5070,7 @@ const textToHtml = t => esc(t || '').replace(/\n/g, '<br>');
 const isPlainHtml = h => !/<(?!br\b|\/?div\b)[a-z]/i.test(h) && !/style=/i.test(h);
 function mdToHtml(md) {
   const inline = s => esc(s).replace(/\\([\\`*_{}[\]()#+\-.!&])/g, '$1')
-    .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/(^|[^*])\*(?!\s)(.+?)\*/g, '$1<i>$2</i>')
+    .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/(^|[^*])\*(?!\s)(.+?)\*/g, '$1<i>$2</i>').replace(/(^|[\s(])_(?![\s_])([^_]+?)_(?=$|[\s.,;:!?)…])/g, '$1<i>$2</i>')
     .replace(/==(.+?)==/g, '<mark>$1</mark>').replace(/~~(.+?)~~/g, '<s>$1</s>').replace(/`([^`]+)`/g, '<code>$1</code>')
     .replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
   const out = []; let list = null;
@@ -5912,7 +5998,7 @@ function installHelp() {
    v1.7: versions, feature catalog, tiny-object markers, pin zones, re-attach,
    nested frame tabs, Whimsical import that reads the whole board by sections
    ========================================================= */
-const APP_VERSION = '2.11';
+const APP_VERSION = '2.12';
 const CHANGELOG = [
   ['1.9', '6 октября 2026', ['Масштаб от 0,5%, свой диапазон и уровни: колесо и кнопки прыгают по уровням (Горячие клавиши → Масштаб)', 'Замок: закреплённый объект не двигается, не меняется и не удаляется', 'Выравнивание, равные промежутки, одинаковый размер и одинаковая длина линий для выделенного', 'Умные направляющие: при перемещении и растягивании объект прилипает к краям и центрам соседей (Alt отключает)', 'Выделенное можно открыть отдельно, как доску, с хлебными крошками', 'Резервная копия в папку на компьютере, в том числе в папку Яндекс Диска, с недельным архивом', 'История версий доски с поиском по дате: копии на устройстве и версии из Google Диска', 'Компактная панель статуса: цветные индикаторы, мигающий значит нужно ваше действие', 'Контуры при сильном отдалении: только у внешних объектов, нейтральным серым, точно по размеру', 'Импорт из Whimsical: секции как в оригинале, блок-схемы и прямоугольники, шрифт подбирается под каждое устройство']],
   ['1.8', '6 октября 2026', ['Импорт из Whimsical: майнд-карты снова переносятся, сбойные запросы повторяются, а не пропускаются', 'Картинки из Whimsical переносятся как картинки', 'Ссылки из Whimsical становятся текстом-ссылкой, а не пустой карточкой', 'Размер шрифта в перенесённых заголовках подбирается по настоящему шрифту, слова больше не рвутся', 'При сильном отдалении (1% и меньше) подсвечиваются контуры объектов вместо пятен', 'Копирование в другие приложения: обычный текст с форматированием, без служебного кода', 'Приложение само проверяет, есть ли на сайте новая версия, и предлагает обновиться']],
@@ -6387,7 +6473,7 @@ const AREAS = {
 };
 Object.assign(AREAS.canvas[2], { filter: 'Фильтры (Filters)' }); Object.assign(AREAS.org[2], { fhead: 'Шапка рамки (Frame header)' }); Object.assign(AREAS.obj[2], { docs: 'Документы (Documents)', html: 'HTML-инструменты (HTML tools)' }); Object.assign(AREAS.io[2], { web: 'Страница по ссылке (Web capture)', queue: 'Очередь импорта (Import queue)' }); Object.assign(AREAS.cust[2], { mech: 'Механики (Feature toggles)', panels: 'Панели (Panels)', menu: 'Меню (Menu)', drag: 'Перетаскивание (Drag)' }); Object.assign(AREAS.ws[2], { side: 'Панель досок слева (Boards sidebar)', smart: 'Умные доски (Smart boards)' }); Object.assign(AREAS.life[2], { time: 'Учёт времени (Time tracking)', src: 'Источники записей (Sources)' }); Object.assign(AREAS.plat[2], { audit: 'Аудит (Audit)' }); Object.assign(AREAS, { team: ['Команда', 'Team', { space: 'Командное пространство (Team space)', live: 'Кто на доске (Presence)' }], ai: ['Claude', 'AI', { board: 'Claude на доске (AI on board)' }], files: ['Файлы', 'Files', { drop: 'Файлы на доске (Files on board)', group: 'Групповое встраивание (Bulk embed)', lib: 'Библиотека файлов (File library)' }] }); Object.assign(AREAS.data[2], { trash: 'Корзина (Trash)', space: 'Объём (Storage usage)' }); Object.assign(AREAS.life[2], { modes: 'Режимы задачника (Task manager modes)' }); Object.assign(AREAS.plat[2], { guide: 'Гайды и демо (Guides)' }); AREAS.org[2].fhead = 'Табулятор рамки (Frame tabulator)';
 const areaLabel = c => { const [a, m] = String(c || '').split('.'), A = AREAS[a]; return A ? A[0] + (m && A[2][m] ? ' › ' + A[2][m].replace(/ \(.*\)$/, '') : '') : ''; };
-const VERS = [['2.11', '10 октября 2026'], ['2.10', '10 октября 2026'], ['2.9', '10 октября 2026'], ['2.8', '10 октября 2026'], ['2.7', '9 октября 2026'], ['2.6', '9 октября 2026'], ['2.5', '9 октября 2026'], ['2.4', '9 октября 2026'], ['2.3', '8 октября 2026'], ['2.2', '7 октября 2026'], ['2.1', '6 октября 2026'], ['2.0', '6 октября 2026'], ['1.9', '6 октября 2026'], ['1.8', '6 октября 2026'], ['1.7', '6 октября 2026'], ['1.6', '5 октября 2026'], ['1.5', '5 октября 2026'], ['1.4', '5 октября 2026'], ['1.3', '4 октября 2026'], ['1.2', '4 октября 2026'], ['1.0', '4 октября 2026']];
+const VERS = [['2.12', '10 октября 2026'], ['2.11', '10 октября 2026'], ['2.10', '10 октября 2026'], ['2.9', '10 октября 2026'], ['2.8', '10 октября 2026'], ['2.7', '9 октября 2026'], ['2.6', '9 октября 2026'], ['2.5', '9 октября 2026'], ['2.4', '9 октября 2026'], ['2.3', '8 октября 2026'], ['2.2', '7 октября 2026'], ['2.1', '6 октября 2026'], ['2.0', '6 октября 2026'], ['1.9', '6 октября 2026'], ['1.8', '6 октября 2026'], ['1.7', '6 октября 2026'], ['1.6', '5 октября 2026'], ['1.5', '5 октября 2026'], ['1.4', '5 октября 2026'], ['1.3', '4 октября 2026'], ['1.2', '4 октября 2026'], ['1.0', '4 октября 2026']];
 const KIND = { f: ['Новое', 'Feature'], i: ['Улучшение', 'Improvement'], x: ['Исправление', 'Bug fix'], b: ['Ожидается', 'Backlog'] };
 /* [id, version, area.module, kind, title, how to use, context] */
 const FEATS = [
@@ -6719,6 +6805,14 @@ const FEATS = [
 ['f29_ext','2.9','plat.ext','f','Расширение браузера: клиппер и виджеты','holst-extension.zip → chrome://extensions → «Загрузить распакованное».','Любая страница — в задачник или на доску; задачи поверх сайтов.'],
 ['f29_share','2.9','plat.ext','f','«Поделиться» → Холст на телефоне','Установите Холст как приложение → «Поделиться» в любом приложении.','Ссылки, текст, картинки и файлы — сразу в Холст.'],
 ['f29_cx','2.9','life.inbox','f','Отчёты из чатов Claude в задачник','Навык «Отчёт в Холст» в Claude → «отчёт в Холст» в конце чата.','Все отчёты и проекты чатов — в одном месте.'],
+['f212_models','2.12','ai.models','f','Живой список моделей у каждой нейросети','☰ → «Нейросети» → карточка → «Список ▾»: поиск, «Бесплатные», «⚒ Действуют».','Видно, что бесплатно, что умеет ставить объекты на доску и сколько стоит — без устаревших названий.'],
+['f212_check','2.12','ai.models','i','«Проверить» — как в чате','☰ → «Нейросети» → «✓ Проверить»: ключ и аккаунт, модель в списке, ответ, действия на доске, кто отвечает в чате.','«Работает» в проверке значит «работает в чате».'],
+['f212_fb','2.12','ai.limits','f','Запасная модель у каждой нейросети','В карточке нейросети — «Запасная»; по умолчанию «авто».','Модель сняли, перегрузили или кончился её лимит — отвечает запасная той же сети.'],
+['f212_free','2.12','ai.models','f','Только бесплатное','☰ → «Нейросети» → переключатель вверху.','Ни одного платного запроса: ChatGPT и Claude API пропускаются, в OpenRouter — только бесплатные модели.'],
+['f212_err','2.12','ai.prov','x','Понятные ошибки нейросетей','Само: в ошибке — сеть, модель, что случилось и что сделать.','Сразу видно, «Grok не существует» или «у Groq нет такой модели».'],
+['f212_price','2.12','ai.models','i','Цены и бесплатные лимиты каждой нейросети','☰ → «Нейросети» → карточка → «💰 Цена и лимиты».','Понятно, где бесплатно и на сколько хватит.'],
+['f212_custom','2.12','ai.prov','f','Любой OpenAI-совместимый сервис','☰ → «Нейросети» → «＋ Подключить другой сервис»: Cerebras, Mistral, DeepSeek, Grok, Hugging Face, NVIDIA, Cohere или свой адрес.','Бесплатные и дешёвые сервисы — без ожидания новой версии Холста.'],
+['f212_last','2.12','ai.board','i','Кто ответил — под шапкой панели ИИ','Само: «Ответила: OpenRouter · модель», предупреждение, если модели нет.','Видно, какая модель на самом деле работает.'],
 ['f211_gdsteps','2.11','cust.learn','i','«По шагам» в гайде ведёт по экрану','В гайде — «▶ По шагам на экране»; ☰ → «Все гайды» → «Как показывать».','Показывает, а не пересказывает.'],
 ['f211_gdblock','2.11','cust.learn','x','Пока открыт гайд, под ним ничего не нажимается','Само; меню гайда — поверх затемнения.','Обучение не мешает работе.'],
 ['f211_plate','2.11','obj.media','i','Плашка только у файлов не на Диске','Само; где лежит файл — «Исходник» на панели объекта.','Доска чище, проблемные файлы видно.'],
@@ -8049,6 +8143,9 @@ const DEV_X = [
   { id: 'T211-tips', it: '2.11', area: 'cust.ui', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'все кнопки на сайте должны снабжаться пояснялками во всплывашках', title: 'Подсказки у всех кнопок', report: R21('У каждой кнопки без подсказки она появляется сама: из названия, словаря значков (⋯, ✕, ＋, ▣, ↺…) и действий; у новых кнопок 2.10–2.11 — свои подробные подсказки.', 'Наведите на любую кнопку.', '') },
   { id: 'T211-chat', it: '2.11', area: 'team.chat', status: 'review', type: 'Улучшение', prio: 'Высокий', orig: 'ЧАТЫ: обозначения без масштабирования, фильтры, режим полотна, супер красивая панель, прилипание при зуминге, всплывающая версия с расположением, темы чата из проектов и направлений, иконка автора, механики референсов', title: 'Чаты 2.0', report: R21('Значок чата с аватаром автора — одного размера до 7%, держится за объект и едет вместе с ним; тянуть — переместить, щелчок — открыть. Вид: значок (с всплывающей панелью, которая держится за значок при масштабе и прокрутке) или полотно — вся переписка панелью на доске. ▣ в переписке: у значка, полотном, слева, справа, в отдельном окне, во весь экран, закрепить кнопкой. В шапке: участники, тема, тип, статус, ‹ › — соседние чаты; путь «рамка › объект»; «＋ Тема» — направление, проект, задача (по умолчанию из рамки и объекта), и чат попадает туда в задачнике. Реакции, ответ на сообщение, правка и удаление своих, @упоминания с подсказкой, «@ии», непрочитанные. 💬 → «Чаты доски»: мои, @меня, я участвую, непрочитанные, с ИИ; открытые и закрытые; по типу.', '1. 💬 → «Новый чат» → по стикеру.\n2. Отдалите и подвигайте — панель держится за значок.\n3. ▣ → «Полотном на доске».', '') },
   { id: 'T211-ag', it: '2.11', area: 'ai.agents', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'агентская среда: режимы работы нейронок, внутренний и внешний режимы, контроль токенов и подхват, метрики, споры нейросетей, структура команды нейронок', title: 'Агентская среда', report: R21('☰ → «Агенты» (и плашки в панели ✦): Режимы — доска или всё приложение (задачник, список досок), внутренний или внешний (чтение страниц по ссылке, поиск в сети через OpenRouter и Perplexity), что можно менять. Лимиты — расход токенов за день и месяц по каждой нейросети, дневной лимит Холста, цепочка подхвата: упёрлась одна — продолжает следующая и пишет, кто ответил. Команда агентов — роли, у каждой своя нейросеть, схемы: цепочка, параллельно со сводкой, спор с судьёй, лидер делит задачу; ход работы — в чате-полотне на доске, итог — документом. Спор — две нейросети по раундам и судья; коллеги добавляют ход своей нейросети в том же чате.', '1. ☰ → «Агенты» → «Спор»: ChatGPT против Gemini.\n2. «Команда агентов» → «Цепочка» → задача → «Запустить».\n3. «Лимиты» — расход.', 'Расход считается на этом устройстве по ответам сервисов; Perplexity и OpenRouter :online ищут в сети — остальные только читают страницы по ссылке.') },
+  { id: 'T212-or', it: '2.12', area: 'ai.prov', status: 'review', type: 'Баг', prio: 'Высокий', orig: 'подключил опен роутер и выдаёт что всё работает, но в чате пишет что грок модель не существует', title: 'OpenRouter: «Проверить» ок, а чат — «модели нет»', report: R21('Причины были три. «Проверить» проверял карточку без инструментов, а чат шлёт ~15 инструментов доски — многие модели их не умеют, и OpenRouter отвечает «No endpoints found», что читается как «модели нет». Чат работал с выбранной нейросетью и при ошибке уходил по цепочке в другую (например, Groq — «Грок»), а ошибка не называла ни сеть, ни модель. Списки моделей устарели. Теперь: проверка идёт как в чате (ответ + инструменты + кто отвечает в чате); модель сверяется с живым списком; без инструментов модель отвечает текстом, а пропавшую заменяет запасная; ошибка называет сеть, модель, причину и что сделать; под шапкой панели ИИ видно, кто ответил.', '1. ⚙ Нейросети → OpenRouter → модель x-ai/grok-4-fast:free → видно «⚠ модели нет» и похожие.\n2. «✓ Проверить» — пять строк проверки.\n3. Чат: ответит openrouter/free, внизу ответа — почему.', '') },
+  { id: 'T212-models', it: '2.12', area: 'ai.models', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'твои опции моделей не актуальны; гибкость и надёжность настройки опен роутер и всех бесплатных моделей', title: 'Живые списки моделей, запасная модель, «Только бесплатное»', report: R21('Списки моделей загружаются у самих сервисов (OpenRouter — даже без ключа; остальные — по ключу) и хранятся 12 часов. У каждой модели: бесплатно или цена за 1 млн токенов, ⚒ — умеет ли действовать на доске, контекст, дата снятия. Поиск и фильтры «Бесплатные», «⚒ Действуют». По умолчанию в OpenRouter — openrouter/free: роутер сам выбирает бесплатную модель, которая умеет инструменты. У каждой сети — «Запасная» модель (авто — лучшая бесплатная с ⚒). «Только бесплатное» не даёт вызвать платное. Короткие лимиты «подождите 7 с» Холст выжидает сам; слишком длинный запрос сокращает.', '⚙ Нейросети → Groq → «Список ▾» → «⚒ Действуют».', 'Цены и лимиты сервисов меняются; в карточках — дата проверки и ссылка на страницу сервиса.') },
+  { id: 'T212-price', it: '2.12', area: 'ai.models', status: 'review', type: 'Улучшение', prio: 'Высокий', orig: 'особенно платность и бесплатность каждой; актуальность настроек и нюансов подключения', title: 'Цены, бесплатные лимиты и нюансы каждой нейросети', report: R21('В каждой карточке — «💰 Цена и лимиты» (проверено 10.10.2026): OpenRouter — 20 в минуту и 50 в день бесплатно (1000 после $10), минус на счёте блокирует и бесплатные, приватность для бесплатных, поиск в сети платный; Gemini — лимиты Flash, Flash-Lite, Gemma, Pro только платно, 2.5 — только старым ключам; Groq — не Grok, лимиты в день и в минуту; ChatGPT и Claude API — только платно; Qwen — пробный период; Perplexity — платно. «Другие сервисы»: Cerebras, Mistral, DeepSeek, Grok (xAI), Hugging Face, NVIDIA, Cohere, Together и свой адрес.', '⚙ Нейросети → любая карточка → «💰 Цена и лимиты».', '') },
 ];
 
 
@@ -11924,7 +12021,7 @@ function docClean(html) {
   return tpl.innerHTML;
 }
 function mdToDoc(md) {
-  const inline = s => esc(s).replace(/!\[([^\]]*)\]\((https:[^)\s]+)\)/g, '<img src="$2" alt="">').replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/(^|[^*])\*(?!\s)(.+?)\*/g, '$1<i>$2</i>').replace(/__(.+?)__/g, '<b>$1</b>').replace(/~~(.+?)~~/g, '<s>$1</s>').replace(/==(.+?)==/g, '<mark>$1</mark>').replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2">$1</a>');
+  const inline = s => esc(s).replace(/!\[([^\]]*)\]\((https:[^)\s]+)\)/g, '<img src="$2" alt="">').replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/(^|[^*])\*(?!\s)(.+?)\*/g, '$1<i>$2</i>').replace(/(^|[\s(])_(?![\s_])([^_]+?)_(?=$|[\s.,;:!?)…])/g, '$1<i>$2</i>').replace(/__(.+?)__/g, '<b>$1</b>').replace(/~~(.+?)~~/g, '<s>$1</s>').replace(/==(.+?)==/g, '<mark>$1</mark>').replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2">$1</a>');
   const out = []; let list = null, code = null, tbl = null;
   const close = () => { if (list) { out.push(`</${list === 'chk' ? 'ul' : list}>`); list = null; } if (tbl) { out.push('<table>' + tbl.map((r, i) => '<tr>' + r.map(c => i === 0 ? `<th>${inline(c)}</th>` : `<td>${inline(c)}</td>`).join('') + '</tr>').join('') + '</table>'); tbl = null; } };
   for (const raw of String(md || '').split('\n')) {
@@ -13793,7 +13890,7 @@ const CL_QUICK = {
 function clQuick(k) { const t = CL_QUICK[k]; if (t) clSend(t); }
 async function clSend(text) {
   text = String(text || '').trim(); if (!text || CL.busy) return;
-  const ns = await clReady(); if (!ns) { clSay('note', 'Claude здесь недоступен.'); return; }
+  const ns = await clReady(); if (!ns) { clSay('note', S.hosted ? 'Claude здесь недоступен.' : 'Нейросеть не подключена: ☰ → «Нейросети» — вставьте ключ. Бесплатно: OpenRouter, Gemini, Groq.'); return; }
   $('#clIn').value = ''; clSay('user', text);
   const sel = selItems(), fr = items().filter(i => i.type === 'frame');
   const ctx = `Board «${S.board.name}», ${items().length} objects. ${sel.length ? `Selected (${sel.length}): ` + JSON.stringify(sel.slice(0, 30).map(i => clObj(i, fr))) : 'Nothing selected.'}`;
@@ -13811,7 +13908,7 @@ async function clSend(text) {
   } catch (e) {
     cur.content = (e && e.text) || '';
     const msg = { cancelled: 'Остановлено.', not_granted: 'Холсту не разрешено обращаться к Claude.', rate_limited: 'Слишком много запросов или исчерпан лимит: попробуйте позже.', refused: 'Claude отказался от этого запроса.', tools_unavailable: 'Здесь Claude может только отвечать, но не ставить объекты.' }[e && e.code] || 'Не получилось: ' + ((e && (e.code || e.message)) || e);
-    cur.content = (cur.content ? cur.content + '\n\n' : '') + '_' + msg + '_';
+    cur.content = (cur.content ? cur.content + '\n\n' : '') + (/[\n*]/.test(msg) ? msg : '*' + msg + '*');
   } finally {
     cur.made = (tools[0] && tools[0]._made || []).filter(id => byId(id));
     CL.busy = null; stop.hidden = true; go.disabled = false; clDraw();
@@ -20878,7 +20975,7 @@ function ui211Setup() { setInterval(tmTick211, 250); }
 const AG211 = Object.assign({ chain: ['openai', 'anthropic', 'gemini', 'groq', 'openrouter', 'qwen', 'pplx'], auto: 1, caps: {}, scope: 'board', ext: 0, web: 0, fetch: 1, edit: 1, tasks: 1 }, LS.get('ag211') || {});
 const agSave211 = () => LS.set('ag211', AG211);
 const AI_HOST211 = [['api.openai.com', 'openai'], ['api.anthropic.com', 'anthropic'], ['generativelanguage.googleapis.com', 'gemini'], ['api.groq.com', 'groq'], ['openrouter.ai', 'openrouter'], ['dashscope', 'qwen'], ['api.perplexity.ai', 'pplx']];
-const provOfUrl211 = u => { u = String(u || ''); const h = AI_HOST211.find(([k]) => u.includes(k)); return h ? h[1] : ''; };
+const provOfUrl211 = u => { u = String(u || ''); const h = AI_HOST211.find(([k]) => u.includes(k)); if (h) return h[1]; const c = Object.keys(AI_PROV).find(k => AI_PROV[k].custom && AI_PROV[k].url && u.startsWith(AI_PROV[k].url.replace(/\/chat\/completions.*$/, ''))); return c || ''; };
 const today211 = () => new Date().toISOString().slice(0, 10);
 const USE211 = () => LS.get('ai211use') || {};
 function useAdd211(p, inp, out, err) {
@@ -20894,11 +20991,10 @@ const limited211 = p => { const t = LIM211()[p]; if (t && t > Date.now()) return
 /* count tokens on the wire; web search through OpenRouter when allowed */
 { const of = window.fetch.bind(window); window.fetch = async (input, init) => {
   const url = typeof input === 'string' ? input : (input && input.url) || '', p = provOfUrl211(url);
-  if (!p) return of(input, init);
-  if (p === 'openrouter' && AG211.ext && AG211.web && init && typeof init.body === 'string') { try { const b = JSON.parse(init.body); if (b.model && !/:online$/.test(b.model)) { b.model += ':online'; init = Object.assign({}, init, { body: JSON.stringify(b) }); } } catch (e) { /* as is */ } }
+  if (!p || !init || String(init.method || 'GET').toUpperCase() !== 'POST') return of(input, init);
   const r = await of(input, init);
   try {
-    if (r.status === 429 || r.status === 402 || r.status === 529) { const L = LIM211(); L[p] = Date.now() + 10 * 60000; LS.set('ai211lim', L); useAdd211(p, 0, 0, 1); }
+    if (!r.ok) useAdd211(p, 0, 0, 1);
     else if (r.ok) r.clone().json().then(j => { const u = (j && j.usage) || {}; useAdd211(p, u.prompt_tokens || u.input_tokens || 0, u.completion_tokens || u.output_tokens || 0); }).catch(() => {});
   } catch (e) { /* counting never breaks a request */ }
   return r;
@@ -20966,7 +21062,7 @@ function agOpen211(tab) {
     if (tab === 'modes') body = `<p class="sub">Как работает ваша нейросеть — в панели ✦, в чатах на доске, в агентах.</p>
       <h3>Где работает</h3><div class="sty210g ag211g">${[['board', '▦ На доске', 'Видит и меняет только открытую доску'], ['app', '∞ Во всём приложении', 'Плюс задачник и список досок: найдёт задачи на сегодня, поменяет статус, перечислит доски']].map(([k, l, t]) => `<button class="sty210c${AG211.scope === k ? ' on' : ''}" data-agm="scope:${k}" title="${esc(t)}"><b>${l}</b><small>${esc(t)}</small></button>`).join('')}</div>
       <h3>Внутри или с интернетом</h3><div class="sty210g ag211g">${[[0, '🔒 Внутренний', 'Только ваши доски и задачи. Ничего не ищет в сети'], [1, '🌐 Внешний', 'Читает страницы по ссылкам; поиск в сети — через OpenRouter или Perplexity']].map(([k, l, t]) => `<button class="sty210c${+AG211.ext === k ? ' on' : ''}" data-agm="ext:${k}" title="${esc(t)}"><b>${l}</b><small>${esc(t)}</small></button>`).join('')}</div>
-      <h3>Тонкая настройка</h3>${[['edit', 'Менять доску', 'Ставить стикеры, рамки, документы, чаты; двигать и красить'], ['tasks', 'Менять задачник', 'Добавлять задачи и менять их статус'], ['fetch', 'Читать страницы по ссылке', 'Только во внешнем режиме'], ['web', 'Искать в интернете', 'Во внешнем режиме: OpenRouter добавляет поиск к любой модели; Perplexity ищет всегда']].map(([k, l, t]) => `<label class="mrow"><span class="sw2"><input type="checkbox" data-agk="${k}"${AG211[k] ? ' checked' : ''}><i></i></span><span><b>${l}</b><small>${esc(t)}</small></span></label>`).join('')}`;
+      <h3>Тонкая настройка</h3>${[['edit', 'Менять доску', 'Ставить стикеры, рамки, документы, чаты; двигать и красить'], ['tasks', 'Менять задачник', 'Добавлять задачи и менять их статус'], ['fetch', 'Читать страницы по ссылке', 'Только во внешнем режиме'], ['web', 'Искать в интернете', 'Во внешнем режиме: OpenRouter добавляет поиск к любой модели — это платно даже с бесплатными моделями (от $0,001 до $0,015 за запрос); Perplexity ищет всегда. При «Только бесплатное» поиск выключен']].map(([k, l, t]) => `<label class="mrow"><span class="sw2"><input type="checkbox" data-agk="${k}"${AG211[k] ? ' checked' : ''}><i></i></span><span><b>${l}</b><small>${esc(t)}</small></span></label>`).join('')}`;
     else if (tab === 'team') body = `<p class="sub">Несколько нейросетей с ролями работают над одной задачей. Ход работы — в чате на доске, итог — документом рядом.</p>
       <h3>Как работают вместе</h3><div class="sty210g ag211g">${Object.entries(AG_SCHEMES211).map(([k, [l, t]]) => `<button class="sty210c${T.scheme === k ? ' on' : ''}" data-ags="${k}" title="${esc(t)}"><b>${esc(l)}</b><small>${esc(t)}</small></button>`).join('')}</div>
       <h3>Роли</h3><div class="ag211roles">${T.roles.map((r, i) => `<div class="ag211role"><span class="ag211n">${i + 1}</span><input class="inp sm" data-agr="n:${i}" value="${esc(r.n)}" title="Название роли"><input class="inp sm ag211p" data-agr="p:${i}" value="${esc(r.p)}" title="Что делает эта роль"> ${provSel(r.prov, `data-agr="prov:${i}" title="Чья нейросеть играет роль"`)}<button class="ib sm" data-agx="${i}" title="Убрать роль">✕</button></div>`).join('')}<button class="ob sm" data-aga="addrole" title="Добавить роль">＋ Роль</button></div>
@@ -21079,6 +21175,648 @@ document.addEventListener('click', e => { const b = e.target.closest && e.target
 { const o = menuItems; menuItems = () => { const l = o(), i = l.findIndex(x => x.id === 'aiset'); l.splice(i >= 0 ? i + 1 : l.length, 0, { id: 'ag211', cat: 'set', icon: 'devic', label: 'Агенты: режимы ИИ, команды, споры, лимиты…', key: AG211.scope === 'app' ? 'всё приложение' : 'доска' }); return l; }; }
 { const o = menuAction; menuAction = async v => { if (v === 'ag211') { S.menuQ = ''; closePop(); return agOpen211(); } return o(v); }; }
 function agent211Setup() { /* nothing to start: counting and the chain work on demand */ }
+/* =========================================================
+   v2.12: networks you can rely on.
+   · Live model lists straight from each service (OpenRouter — even without a
+     key): what is free, what can act on the board, context, price per 1M.
+   · A model picker with search and filters; an id the service doesn't have
+     is caught before the request, with the nearest real ones offered.
+   · If a model is gone, overloaded or can't use tools, the same network
+     carries on with a reserve model or answers in text — and says so; the
+     panel shows which network and model really answered.
+   · «Проверить» checks the way the chat works: key and account (free
+     requests left on OpenRouter), the model in the list, an answer, actions
+     on the board, and which network the chat will really use.
+   · Clear errors: which network, which model, what happened, what to do.
+   · «Только бесплатное»: paid networks and models are never called.
+   · Prices and free tiers of every service, checked 10.10.2026.
+   · Any OpenAI-compatible service by its address: Cerebras, Mistral,
+     DeepSeek, Grok (xAI), Hugging Face, NVIDIA, Cohere and others.
+   ========================================================= */
+const AI_CHECKED212 = '10.10.2026';
+/* ---------- the static lists: only a start, the live list replaces them ---------- */
+Object.assign(AI_PROV.openrouter, { def: 'openrouter/free', models: ['openrouter/free', 'openrouter/auto', 'openai/gpt-oss-20b:free', 'x-ai/grok-4.7', 'openai/gpt-5-mini', 'anthropic/claude-sonnet-4.5', 'google/gemini-2.5-flash'], note: 'Один ключ — сотни моделей, среди них бесплатные. «openrouter/free» сам берёт бесплатную модель, которая умеет нужное: действовать на доске, отвечать JSON.' });
+Object.assign(AI_PROV.gemini, { def: 'gemini-3.5-flash-lite', models: ['gemini-3.5-flash-lite', 'gemini-3.6-flash', 'gemini-3.8-flash', 'gemini-3.1-flash-lite', 'gemini-3.1-pro-preview'], note: 'Ключ Google AI Studio. Бесплатный уровень без карты, с дневным лимитом на каждую модель.' });
+Object.assign(AI_PROV.groq, { models: ['llama-3.3-70b-versatile', 'openai/gpt-oss-120b', 'openai/gpt-oss-20b', 'llama-3.1-8b-instant', 'qwen/qwen3.8-27b'], note: 'Groq (с «q») — быстрые открытые модели, бесплатный план. Это не Grok от xAI: Grok — в OpenRouter (x-ai/…) или «Другой сервис» → Grok.' });
+Object.assign(AI_PROV.anthropic, { models: ['claude-sonnet-5-5', 'claude-haiku-5-5', 'claude-opus-5-5', 'claude-fable-5-1'] });
+Object.assign(AI_LOOK, {
+  openai: ['G', '#10a37f', 'платно', 'ChatGPT от OpenAI'],
+  anthropic: ['C', '#d97757', 'платно', 'Claude по API — мгновенно'],
+  gemini: ['G', '#4285f4', 'бесплатный уровень', 'Gemini от Google'],
+  groq: ['Q', '#f55036', 'бесплатно', 'Быстрые открытые модели (не Grok)'],
+  openrouter: ['R', '#6467f2', 'бесплатные + платные', 'Сотни моделей одним ключом, есть бесплатные'],
+  qwen: ['Q', '#615ced', 'пробный период', 'Qwen от Alibaba'],
+  pplx: ['P', '#20808d', 'платно · поиск', 'Ответы с источниками из интернета'],
+});
+/* ---------- what is free, what is paid ---------- */
+const AINFO212 = {
+  openrouter: { pay: 'mix', url: 'https://openrouter.ai/models?max_price=0', lines: [
+    'Бесплатно: модели с «:free» в конце и <b>openrouter/free</b> — роутер сам берёт бесплатную модель, которая умеет действовать на доске.',
+    'Лимит бесплатных: <b>20 запросов в минуту и 50 в день</b>; если когда-либо купили кредитов на $10 и больше — <b>1000 в день</b>. Лимит общий на аккаунт, новые ключи его не увеличивают.',
+    'Один шаг ИИ на доске — один запрос: ответ «поставил 5 стикеров и рамку» может стоить 2–4 запроса.',
+    'При минусе на счёте ошибка 402 приходит даже на бесплатных моделях.',
+    'Бесплатные поставщики могут учиться на запросах. Если в <a href="https://openrouter.ai/settings/privacy" target="_blank" rel="noopener">настройках приватности</a> это запрещено, бесплатные модели «не найдутся» — разрешите.',
+    'Бесплатные модели бывают перегружены у поставщика (ошибка 429) — Холст тогда сам переходит на запасную модель.',
+    'Платные модели — по цене за 1 млн токенов (видно в списке), нужен баланс. Поиск в сети через OpenRouter платный всегда, даже с бесплатной моделью: от $0,001 до $0,015 за запрос.',
+    'Grok от xAI — здесь: <b>x-ai/grok-…</b> (платно).',
+  ] },
+  gemini: { pay: 'tier', url: 'https://aistudio.google.com/rate-limit', lines: [
+    'Бесплатно в Google AI Studio, без карты, с лимитом на каждую модель в отдельности:',
+    'Flash (3.6, 3.5, 3, 2.5) — около <b>5 запросов в минуту и 20 в день</b>; Flash-Lite (3.5, 3.1) — около <b>15 в минуту и 500 в день</b>; Gemma 4 — 30 в минуту и 14 400 в день. Ваши точные лимиты — в AI Studio → Rate limit.',
+    'Pro-модели — только платно, с подключённым биллингом.',
+    'На бесплатном уровне Google может использовать запросы для улучшения моделей (кроме ЕС, Великобритании и Швейцарии).',
+    'Модели 2.5 открыты только тем, кто пользовался ими раньше — с новым ключом берите 3.x.',
+    'Gemini API работает не во всех странах: ошибка «User location is not supported» — тогда Gemini через OpenRouter (google/…).',
+  ] },
+  groq: { pay: 'free', url: 'https://console.groq.com/settings/limits', lines: [
+    '<b>Groq ≠ Grok.</b> Groq — сервис быстрых открытых моделей (Llama, GPT-OSS, Qwen). Grok — модель xAI: она в OpenRouter (x-ai/…) или в «Другой сервис» → Grok.',
+    'Бесплатный план без карты, лимиты на модель: Llama 3.3 70B — <b>1000 запросов в день, 12 000 токенов в минуту</b>; GPT-OSS 120B и 20B — 1000 в день, 8000 токенов в минуту; Llama 3.1 8B — 14 400 в день.',
+    'Лимит токенов в минуту маленький: большая доска и много шагов подряд в него упираются — Холст подождёт несколько секунд и продолжит, а слишком длинный запрос сократит.',
+    'Модели часто меняются — список загружается прямо из Groq.',
+  ] },
+  openai: { pay: 'paid', url: 'https://openai.com/api/pricing/', lines: [
+    'Только платно: пополните баланс на platform.openai.com. Подписка ChatGPT Plus не даёт доступа к API.',
+    'Цена — за 1 млн токенов; младшие модели (mini) в разы дешевле старших. Список моделей загружается по вашему ключу.',
+    'Ошибка 429 «insufficient_quota» — кончились деньги на счёте, а не лимит скорости.',
+    'Работает не во всех странах (ошибка «unsupported_country») — тогда модели OpenAI через OpenRouter (openai/…).',
+  ] },
+  anthropic: { pay: 'paid', url: 'https://www.anthropic.com/pricing#api', lines: [
+    'Только платно, отдельно от подписки Claude: пополните баланс в console.anthropic.com.',
+    'Самая дешёвая — Claude Haiku 5.5: $0,10 за 1 млн входящих и $0,50 за 1 млн исходящих токенов (для запросов до 100 тыс. токенов).',
+    'Без оплаты API — «Claude по подписке» через Google Диск (ниже). Через OpenRouter — тоже можно: anthropic/…',
+  ] },
+  qwen: { pay: 'trial', url: 'https://www.alibabacloud.com/help/en/model-studio/models', lines: [
+    'Пробный период: новым — 1 млн токенов на каждую модель на 90 дней (регион Сингапур), дальше платно.',
+    'Из браузера может не открыться — тогда Qwen через OpenRouter (qwen/…).',
+  ] },
+  pplx: { pay: 'paid', url: 'https://docs.perplexity.ai/getting-started/pricing', lines: [
+    'Платно: пополните баланс API в настройках Perplexity.',
+    'Ищет в интернете и даёт источники; действовать на доске не умеет — ответ кладётся на доску документом.',
+  ] },
+};
+const CUST_NOTE212 = 'Сервис должен пускать запросы с веб-страниц. Если «Проверить» пишет «не отвечает из браузера», значит не пускает — его модели почти всегда есть в OpenRouter.';
+const CUST212 = {
+  cerebras: { n: 'Cerebras', u: 'https://api.cerebras.ai/v1/chat/completions', m: 'gpt-oss-120b', k: 'https://cloud.cerebras.ai/', free: 1, c: '#f15a29', tag: 'бесплатно', d: 'Очень быстрые открытые модели', lines: ['Бесплатно: около 1 млн токенов в день, 5 запросов в минуту.', 'Модели: gpt-oss-120b, zai-glm-4.7, gemma-4-31b.'] },
+  mistral: { n: 'Mistral', u: 'https://api.mistral.ai/v1/chat/completions', m: 'mistral-small-latest', k: 'https://console.mistral.ai/api-keys', free: 1, c: '#fa520f', tag: 'бесплатный план', d: 'Модели Mistral', lines: ['Бесплатный план «Experiment»: нужен телефон и согласие, что Mistral учится на ваших запросах.', 'Из браузера часто не пускает — тогда через OpenRouter (mistralai/…).'] },
+  deepseek: { n: 'DeepSeek', u: 'https://api.deepseek.com/chat/completions', m: 'deepseek-chat', k: 'https://platform.deepseek.com/api_keys', free: 0, c: '#4d6bfe', tag: 'платно · дёшево', d: 'Модели DeepSeek напрямую', lines: ['Платно, но дёшево: пополнение баланса на platform.deepseek.com.', 'Через OpenRouter — deepseek/…'] },
+  xai: { n: 'Grok (xAI)', u: 'https://api.x.ai/v1/chat/completions', m: '', k: 'https://console.x.ai/', free: 0, c: '#1d1d1f', tag: 'платно', d: 'Grok напрямую от xAI', lines: ['Платно: баланс в console.x.ai. Модель выберите из списка — он загрузится по ключу.', 'Проще — через OpenRouter: x-ai/grok-… тем же ключом OpenRouter.'] },
+  hf: { n: 'Hugging Face', u: 'https://router.huggingface.co/v1/chat/completions', m: 'openai/gpt-oss-120b', k: 'https://huggingface.co/settings/tokens', free: 1, c: '#ff9d00', tag: 'немного бесплатно', d: 'Открытые модели через Hugging Face', lines: ['Бесплатно — $0,10 в месяц кредитов: хватит попробовать, не для работы.', 'Ключ — токен Hugging Face с правом «Inference Providers».'] },
+  nvidia: { n: 'NVIDIA NIM', u: 'https://integrate.api.nvidia.com/v1/chat/completions', m: 'openai/gpt-oss-120b', k: 'https://build.nvidia.com/', free: 1, c: '#76b900', tag: 'бесплатно', d: 'Открытые модели на NVIDIA', lines: ['Бесплатно: около 40 запросов в минуту, нужна проверка телефона.', 'Из браузера обычно не пускает — тогда через OpenRouter.'] },
+  cohere: { n: 'Cohere', u: 'https://api.cohere.ai/compatibility/v1/chat/completions', m: 'command-a-03-2025', k: 'https://dashboard.cohere.com/api-keys', free: 1, c: '#39594d', tag: 'пробный ключ', d: 'Модели Command', lines: ['Пробный ключ бесплатно: 1000 запросов в месяц, 20 в минуту.'] },
+  together: { n: 'Together AI', u: 'https://api.together.xyz/v1/chat/completions', m: '', k: 'https://api.together.ai/settings/api-keys', free: 0, c: '#0f6fff', tag: 'платно', d: 'Открытые модели', lines: ['Платно, по балансу.'] },
+  own: { n: 'Свой сервис', u: '', m: '', k: '', free: 0, c: '#7a8394', tag: 'свой адрес', d: 'Любой OpenAI-совместимый адрес', lines: ['Адрес вида https://…/v1/chat/completions, ключ и модель — как у сервиса.'] },
+};
+/* ---------- account settings: reserve models, own services, «only free» ---------- */
+{ const o = aiCfg; aiCfg = function () { const c = o(), A = aiAll()[aiAcct()] || {}; c.urls = A.urls || {}; c.fb = A.fb || {}; c.free = A.free ? 1 : 0; return c; }; }
+function custSync212() {
+  const U = aiCfg().urls || {};
+  for (const k of Object.keys(AI_PROV)) if (AI_PROV[k].custom && !U[k]) delete AI_PROV[k];
+  for (const [id, x] of Object.entries(U)) {
+    const pr = CUST212[x.pr] || CUST212.own;
+    AI_PROV[id] = Object.assign(AI_PROV[id] || {}, { name: x.n || pr.n, url: x.u || pr.u || '', models: pr.m ? [pr.m] : [], def: pr.m || '', tools: true, keyUrl: pr.k || '', keyPh: 'ключ', note: pr.d + '. ' + CUST_NOTE212, custom: 1, free: pr.free ? 1 : 0, pr: x.pr });
+    AI_LOOK[id] = [String(x.n || pr.n || '?')[0].toUpperCase(), pr.c || '#7a8394', pr.tag || 'свой сервис', pr.d || ''];
+  }
+}
+{ const o = aiSetCfg; aiSetCfg = function (patch) { o(patch); custSync212(); }; }
+const custIds212 = () => Object.keys(AI_PROV).filter(k => AI_PROV[k].custom);
+const infoOf212 = p => AINFO212[p] || (AI_PROV[p] && AI_PROV[p].custom ? { pay: AI_PROV[p].free ? 'free' : 'paid', url: (CUST212[AI_PROV[p].pr] || {}).k || '', lines: (CUST212[AI_PROV[p].pr] || {}).lines || [] } : null);
+const payOf212 = p => (infoOf212(p) || {}).pay || 'paid';
+const paidOnly212 = p => ['paid', 'trial'].includes(payOf212(p));
+/* ---------- live model lists ---------- */
+const MC212 = LS.get('mc212') || {}, MCL212 = {}, MK212 = {};
+const mcSave212 = () => { try { LS.set('mc212', MC212); } catch (e) { /* storage full: the list stays in memory */ } };
+function mcUrl212(p) {
+  const P = AI_PROV[p] || {};
+  if (p === 'openrouter') return 'https://openrouter.ai/api/v1/models';
+  if (p === 'anthropic') return 'https://api.anthropic.com/v1/models?limit=100';
+  if (p === 'pplx' || !P.url) return '';
+  return P.url.replace(/\/chat\/completions.*$/, '/models');
+}
+function hdr212(p, key, json) {
+  if (p === 'anthropic') return { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' };
+  const h = json ? { 'Content-Type': 'application/json' } : {}; if (key) h.Authorization = 'Bearer ' + key;
+  if (p === 'openrouter' && json) { h['HTTP-Referer'] = location.origin; h['X-Title'] = 'Holst'; }
+  return h;
+}
+function mcNorm212(p, m) {
+  if (!m || !m.id) return null;
+  const id = String(m.id).replace(/^models\//, ''), o = { id, n: m.name || m.display_name || '', f: null, t: null, c: m.context_length || m.context_window || 0, pi: null, po: null };
+  if (p === 'openrouter') {
+    const out = (m.architecture && m.architecture.output_modalities) || ['text']; if (!out.includes('text')) return null;
+    const pr = m.pricing || {}, a = +pr.prompt, b = +pr.completion;
+    o.f = /:free$/.test(id) || id === 'openrouter/free' || (a === 0 && b === 0 && !(+pr.request > 0)) ? 1 : 0;
+    if (a >= 0 && b >= 0) { o.pi = a * 1e6; o.po = b * 1e6; }
+    const sp = m.supported_parameters || []; o.t = sp.length ? (sp.includes('tools') ? 1 : 0) : (id === 'openrouter/free' || id === 'openrouter/auto' ? 1 : null);
+    o.c = m.context_length || (m.top_provider && m.top_provider.context_length) || 0;
+    if (m.expiration_date) o.x = String(m.expiration_date);
+    return o;
+  }
+  if (p === 'openai') { if (!/^(gpt|o\d|chatgpt)/.test(id) || /(audio|realtime|tts|transcribe|image|embedding|moderation|instruct|dall|whisper|search|computer|codex)/.test(id)) return null; o.f = 0; o.t = 1; return o; }
+  if (p === 'anthropic') { o.f = 0; o.t = 1; return o; }
+  if (p === 'gemini') { if (!/^(gemini|gemma)/.test(id) || /(embedding|tts|image|live|audio|veo|imagen|lyria|robotics|transcribe|aqa|banana|omni|research|antigravity|translate|computer|learnlm)/.test(id)) return null; o.f = /pro/.test(id) ? 0 : 1; o.t = /gemma/.test(id) ? null : 1; return o; }
+  if (p === 'groq') { if (/(whisper|orpheus|guard|tts|playai|distil|safeguard)/.test(id)) return null; o.f = 1; o.t = /compound/.test(id) ? 0 : 1; return o; }
+  if (p === 'qwen') { o.f = 0; o.t = 1; return o; }
+  o.f = (AI_PROV[p] || {}).free ? 1 : null; return o;
+}
+const verOf212 = id => (String(id).match(/\d+(\.\d+)?/g) || []).map(Number);
+function cmpVer212(a, b) { const x = verOf212(a), y = verOf212(b); for (let i = 0; i < Math.max(x.length, y.length); i++) { const d = (x[i] || 0) - (y[i] || 0); if (d) return d; } return 0; }
+async function mcLoad212(p, force) {
+  const old = MC212[p], key = aiCfg().keys[p], url = mcUrl212(p);
+  if (!url || (p !== 'openrouter' && !key)) return old || null;
+  if (!force && old && old.list && old.list.length && Date.now() - old.at < 12 * 3600e3) return old;
+  if (MCL212[p]) return MCL212[p];
+  return MCL212[p] = (async () => {
+    try {
+      const r = await fetch(url, { headers: hdr212(p, key, false) }); let j = null; try { j = await r.json(); } catch (e) { j = null; }
+      if (!r.ok) { const E = aiErr212(p, '', r.status, j, r.statusText); MC212[p] = { list: (old && old.list) || [], at: Date.now(), err: E.message, ek: E.kind }; }
+      else {
+        const list = ((j && (j.data || j.models)) || []).map(m => mcNorm212(p, m)).filter(Boolean).sort((a, b) => (b.f || 0) - (a.f || 0) || a.id.localeCompare(b.id));
+        MC212[p] = { list, at: Date.now(), err: list.length ? '' : 'Сервис вернул пустой список моделей', ek: list.length ? '' : 'other' };
+      }
+    } catch (e) { MC212[p] = { list: (old && old.list) || [], at: Date.now(), err: `${agName211(p)}: список моделей не загрузился — сервис не отвечает из браузера`, ek: 'net' }; }
+    finally { delete MCL212[p]; }
+    mcSave212(); return MC212[p];
+  })();
+}
+const listOf212 = p => { const c = MC212[p]; return c && c.list && c.list.length ? c.list : null; };
+function mInfo212(p, id) { const L = listOf212(p), m = L && L.find(x => x.id === id), k = MK212[p + '|' + id]; return m ? Object.assign({}, m, k || {}) : k ? Object.assign({ id }, k) : null; }
+function mMark212(p, id, patch) { MK212[p + '|' + id] = Object.assign(MK212[p + '|' + id] || {}, patch); }
+function mFree212(p, id) {
+  id = String(id || ''); if (p === 'groq') return 1;
+  if (p === 'openrouter') { if (id === 'openrouter/free' || /:free$/.test(id)) return 1; const m = mInfo212(p, id); return m && m.f === 1 ? 1 : 0; }
+  if (p === 'gemini') { const m = mInfo212(p, id); return m && m.f != null ? m.f : /pro/.test(id) ? 0 : 1; }
+  return paidOnly212(p) ? 0 : 1;
+}
+const REC212 = {
+  openrouter: ['openrouter/free'],
+  groq: ['llama-3.3-70b-versatile', 'openai/gpt-oss-120b', 'openai/gpt-oss-20b', /./],
+  gemini: [/^gemini-[\d.]+-flash-lite$/, /^gemini-[\d.]+-flash$/, /^gemini-/],
+  openai: ['gpt-5-mini', /^gpt-[\d.]+-(mini|luna)$/, /mini/, /^gpt-/],
+  anthropic: ['claude-sonnet-5-5', /sonnet/, /haiku/, /./],
+  qwen: ['qwen-plus', /./],
+};
+function recModel212(p, needTools, freeOnly) {
+  const P = AI_PROV[p] || {};
+  let list = listOf212(p) || (P.models || []).map(id => ({ id, f: mFree212(p, id), t: null }));
+  list = list.map(m => Object.assign({}, m, MK212[p + '|' + m.id] || {}));
+  if (needTools) list = list.filter(m => m.t !== 0);
+  if (freeOnly) list = list.filter(m => (m.f != null ? m.f : mFree212(p, m.id)) === 1);
+  for (const pat of (REC212[p] || [/./])) {
+    if (typeof pat === 'string') { if (list.some(m => m.id === pat) || (p === 'openrouter' && pat === 'openrouter/free')) return pat; continue; }
+    const hit = list.filter(m => pat.test(m.id)).sort((a, b) => cmpVer212(b.id, a.id)); if (hit.length) return hit[0].id;
+  }
+  return list[0] ? list[0].id : '';
+}
+function similar212(list, id) {
+  const tok = s => String(s).toLowerCase().split(/[-/:._\s]+/).filter(Boolean), T = tok(id);
+  return list.map(m => { const U = tok(m.id); let sc = 0; for (const t of T) { if (U.includes(t)) sc += t.length > 2 ? 2 : 1; else if (t.length > 2 && U.some(u => u.startsWith(t) || t.startsWith(u))) sc += 1; } return [sc, m]; })
+    .filter(x => x[0] > 1).sort((a, b) => b[0] - a[0] || cmpVer212(b[1].id, a[1].id)).slice(0, 4).map(x => x[1]);
+}
+function mCheck212(p, id) {
+  id = String(id || '').trim(); if (!id) return { st: 'empty' };
+  if (p === 'openrouter' && /^openrouter\/(free|auto)$/.test(id)) return { st: 'ok', m: Object.assign({ id, f: id === 'openrouter/free' ? 1 : 0, t: 1, n: id === 'openrouter/free' ? 'Бесплатные модели — роутер выберет сам' : 'Авто-выбор модели (платно)' }, MK212[p + '|' + id] || {}) };
+  const L = listOf212(p); if (!L) { const k = MK212[p + '|' + id]; return k && k.gone ? { st: 'missing', sugg: [] } : { st: 'unknown', m: k ? Object.assign({ id }, k) : null }; }
+  const m = mInfo212(p, id) || mInfo212(p, id.replace(/:(online|nitro|floor|exacto|thinking)$/, ''));
+  return m ? { st: 'ok', m } : { st: 'missing', sugg: similar212(L, id) };
+}
+const mShort212 = id => { const s = String(id || '').split('/').pop().replace(/:free$/, ' free'); return s.length > 24 ? s.slice(0, 23) + '…' : s; };
+const fmtP212 = v => v == null ? '?' : v === 0 ? '0' : v < 0.01 ? v.toFixed(3) : v < 10 ? (+v.toFixed(2)).toString() : String(Math.round(v));
+function mBadges212(p, m) {
+  if (!m) return '';
+  const b = [];
+  if (m.f === 1) b.push(`<span class="ai212b free">${p === 'gemini' ? 'бесплатный уровень' : 'бесплатно'}</span>`);
+  else if (m.f === 0) b.push(`<span class="ai212b paid">${m.pi != null ? '$' + fmtP212(m.pi) + ' / $' + fmtP212(m.po) + ' за 1М' : 'платно'}</span>`);
+  if (m.t === 1) b.push('<span class="ai212b tool" title="Умеет действовать на доске: ставит стикеры, рамки, документы, задачи">⚒ действует</span>');
+  else if (m.t === 0) b.push('<span class="ai212b notool" title="Не умеет вызывать инструменты: только отвечает текстом">только текст</span>');
+  if (m.c) b.push(`<span class="ai212b">${m.c >= 1e6 ? (+(m.c / 1e6).toFixed(1)) + 'M' : Math.round(m.c / 1000) + 'k'} контекст</span>`);
+  if (m.x) b.push(`<span class="ai212b warn" title="Сервис снимает модель с работы">уйдёт ${esc(m.x.slice(0, 10))}</span>`);
+  if (m.gone) b.push('<span class="ai212b warn">не отвечает</span>');
+  return b.join('');
+}
+/* ---------- errors: which network, which model, what happened, what to do ---------- */
+const WHY212 = { model: 'модель недоступна', tools: 'модель не умеет действовать на доске', limit: 'лимит', credit: 'нет денег на счёте', key: 'ключ не подошёл', region: 'недоступна в вашем регионе', net: 'не отвечает из браузера', busy: 'перегружена', size: 'слишком большой запрос', privacy: 'запрещено настройками приватности', other: 'ошибка' };
+function waitOf212(txt, ra) {
+  if (ra && !isNaN(+ra)) return +ra; let m;
+  if ((m = /try again in (\d+)m([\d.]+)s/i.exec(txt))) return +m[1] * 60 + +m[2];
+  if ((m = /(?:try again|retry) in ([\d.]+)\s*(ms|s)/i.exec(txt))) return m[2] === 'ms' ? +m[1] / 1000 : +m[1];
+  if ((m = /"retryDelay"\s*:\s*"([\d.]+)s"/.exec(txt))) return +m[1];
+  return 0;
+}
+function aiErr212(p, model, status, j, raw, ra) {
+  if (Array.isArray(j)) j = j[0] || {};
+  const P = AI_PROV[p] || { name: p }, e = (j && (j.error || j)) || {}, all = (() => { try { return JSON.stringify(j || {}); } catch (x) { return ''; } })();
+  const md = e.metadata || {}, upstream = md.raw ? ' [' + (md.provider_name ? md.provider_name + ': ' : '') + String(typeof md.raw === 'string' ? md.raw : JSON.stringify(md.raw)).slice(0, 160) + ']' : '';
+  const m = String((typeof e === 'string' ? e : e.message || e.code || (j && j.message)) || raw || '').slice(0, 300) + upstream;
+  const low = (m + ' ' + (e.code || '') + ' ' + (e.type || '') + ' ' + (e.status || '')).toLowerCase(), lowAll = all.toLowerCase();
+  let kind = 'other', ru = 'ошибка сервиса';
+  if (/support tool|tool use|tools? (are|is) not supported|does not support tools|function.?call(ing)? (is )?not|tool_choice|tool calling is not/.test(low)) { kind = 'tools'; ru = 'модель не умеет действовать на доске (вызывать инструменты)'; }
+  else if (/data policy|privacy setting/.test(low)) { kind = 'privacy'; ru = 'бесплатные модели запрещены настройками приватности OpenRouter: откройте openrouter.ai/settings/privacy и разрешите бесплатные модели (они могут учиться на запросах)'; }
+  else if (/location is not supported|unsupported_country|country, region|not available in your (country|region)|request not allowed|unsupported region/.test(low)) { kind = 'region'; ru = 'сервис не работает из вашей страны или региона'; }
+  else if (status === 401 || /api key not valid|invalid api key|invalid_api_key|incorrect api key|invalid x-api-key|authentication|unauthorized|no auth credentials|api_key_invalid|user not found/.test(low)) { kind = 'key'; ru = 'ключ не подошёл'; }
+  else if (P.custom && status === 404 && !/model/.test(low)) { kind = 'other'; ru = 'по этому адресу сервиса нет — проверьте адрес (обычно он кончается на /v1/chat/completions)'; }
+  else if (/not a valid model|does not exist|model_not_found|not found for api version|no endpoints found|decommissioned|deprecated|is not supported for generatecontent|unknown model|invalid model|model not found|no such model|not_found_error|model.*not found/.test(low) || status === 404) { kind = 'model'; ru = /no endpoints found/.test(low) ? 'у модели сейчас нет доступных поставщиков' : /decommission|deprecat/.test(low) ? 'модель снята с работы' : 'такой модели нет'; }
+  else if (status === 402 || /insufficient_quota|insufficient credits|credit balance|negative balance|payment required|more credits|requires more credits/.test(low) || (status !== 429 && /billing/.test(low))) { kind = 'credit'; ru = p === 'openrouter' ? 'на счёте OpenRouter нет денег: платные модели и поиск в сети не работают, а при минусе — даже бесплатные' : 'на счёте нет денег — API этого сервиса платный'; }
+  else if (status === 413 || /request too large|context.?length|maximum context|too many tokens|reduce the length|prompt is too long|input is too long/.test(low)) { kind = 'size'; ru = 'запрос больше, чем модель или бесплатный лимит пропускают за раз'; }
+  else if (status === 429 || /rate.?limit|resource_exhausted|too many requests|quota/.test(low)) { kind = 'limit'; ru = /per.?day|perday|daily|rpd|free-models-per-day/.test(lowAll) ? 'дневной лимит исчерпан' : /upstream|temporarily/.test(low) ? 'бесплатная модель перегружена у поставщика' : 'лимит запросов: слишком часто'; }
+  else if (status === 403) { kind = 'key'; ru = 'доступ запрещён: у ключа нет прав на эту модель или сервис'; }
+  else if (status >= 500 || /overloaded|unavailable|timeout|timed out/.test(low)) { kind = 'busy'; ru = 'сервис перегружен или сбой у него'; }
+  let wait = kind === 'limit' || kind === 'busy' ? waitOf212(m + ' ' + all, ra) : 0;
+  const daily = kind === 'limit' && /per.?day|perday|daily|rpd|free-models-per-day/.test(lowAll);
+  if (kind === 'limit' && !wait && !daily && /per.?min|rpm|tpm|per minute/.test(lowAll)) wait = 8;
+  const hint = {
+    model: 'Выберите модель из списка в ⚙ Нейросети — там только существующие.',
+    tools: 'Холст отвечает без действий на доске; чтобы ИИ ставил объекты — модель с ⚒.',
+    region: p === 'openrouter' ? '' : 'Подключите эти модели через OpenRouter.',
+    key: 'Вставьте ключ заново: ☰ → «Нейросети».',
+    credit: p === 'openrouter' ? 'Возьмите бесплатную модель (openrouter/free или с «:free») или пополните счёт.' : 'Пополните баланс или включите бесплатную нейросеть (OpenRouter, Gemini, Groq).',
+    size: 'Выделите меньше объектов или возьмите модель с бóльшим контекстом.',
+    limit: p === 'openrouter' ? 'Бесплатные: 20 в минуту и 50 в день (1000 — после покупки кредитов на $10).' : daily ? 'Завтра лимит обновится; пока ответит запасная нейросеть, если она есть.' : 'Подождите немного или подключите запасную нейросеть.',
+    busy: 'Повторите через минуту.', privacy: '', other: '',
+  }[kind];
+  return { kind, prov: p, model, status, raw: m, wait, daily, message: `${P.name}${model ? ' · ' + model : ''}: ${ru}${status ? ' (' + status + ')' : ''}.${hint ? ' ' + hint : ''}${m ? ' Ответ сервиса: «' + m.slice(0, 200) + '»' : ''}` };
+}
+const netErr212 = (p, model) => ({ kind: 'net', prov: p, model, message: `${agName211(p)}${model ? ' · ' + model : ''}: не отвечает из браузера — ${navigator.onLine === false ? 'нет интернета' : 'нет связи с сервисом, или он не пускает запросы с веб-страниц'}.${p === 'openrouter' ? ' Проверьте интернет.' : ' Подключите эти модели через OpenRouter: один ключ, те же модели.'}` });
+const sleep212 = (ms, signal) => new Promise((res, rej) => { const t = setTimeout(res, ms); if (signal) signal.addEventListener('abort', () => { clearTimeout(t); rej({ code: 'cancelled' }); }, { once: true }); });
+/* one request: short waits on «try again in 7 s», one retry when the service is busy */
+async function post212(p, model, url, headers, body, opt) {
+  for (let a = 0; ; a++) {
+    let r;
+    try { r = await fetch(url, { method: 'POST', signal: opt.signal, headers, body: JSON.stringify(body) }); }
+    catch (e) { if (e && (e.name === 'AbortError' || e.code === 'cancelled')) throw { code: 'cancelled' }; throw netErr212(p, model); }
+    let j = null; try { j = await r.json(); } catch (e) { j = null; }
+    const inner = j && !j.choices && !j.content && j.error;
+    if (r.ok && !inner) return j || {};
+    const E = aiErr212(p, model, r.ok ? +(j.error.code) || 502 : r.status, j, r.statusText, r.headers && r.headers.get && r.headers.get('retry-after'));
+    if (a < 2 && ((E.kind === 'limit' && E.wait && E.wait <= 25 && !E.daily) || (E.kind === 'busy' && a < 1))) {
+      const w = E.kind === 'busy' ? 2 : E.wait;
+      if (opt.onText) opt.onText({ text: `_${agName211(p)}: жду ${Math.ceil(w)} с — ${E.kind === 'busy' ? 'сервис перегружен' : 'лимит запросов в минуту'}…_`, delta: '' });
+      await sleep212(w * 1000 + 300, opt.signal); continue;
+    }
+    throw E;
+  }
+}
+/* ---------- one model of one network ---------- */
+function nsOne212(p, model) {
+  if (p === 'anthropic') return nsAnth212(model);
+  const P = AI_PROV[p], C = aiCfg(), key = C.keys[p];
+  const ns = async (turns, opt = {}) => {
+    const messages = typeof turns === 'string' ? [{ role: 'user', content: turns }] : turns.map(t => ({ role: t.role, content: String(t.content || '') }));
+    if (opt.system) messages.unshift({ role: 'system', content: opt.system });
+    const tools = opt.tools && P.tools ? opt.tools : null, body = { model, messages };
+    if (tools) body.tools = tools.map(t => ({ type: 'function', function: { name: t.name, description: t.description || '', parameters: t.inputSchema || { type: 'object', properties: {} } } }));
+    if (opt.maxTokens) body[P.maxk || 'max_tokens'] = opt.maxTokens;
+    if (opt._web) body.plugins = [{ id: 'web', max_results: 3 }];
+    let said = '', used = model;
+    for (let round = 0; round < 10; round++) {
+      const j = await post212(p, model, P.url, hdr212(p, key, true), body, opt);
+      if (j.model) used = j.model;
+      const ch = j.choices && j.choices[0], msg = ch && ch.message;
+      if (ch && ch.error) throw aiErr212(p, model, +ch.error.code || 502, { error: ch.error });
+      if (!msg) throw { kind: 'busy', prov: p, model, message: `${P.name} · ${model}: пустой ответ — повторите` };
+      if (tools && msg.tool_calls && msg.tool_calls.length) {
+        body.messages.push({ role: 'assistant', content: msg.content || null, tool_calls: msg.tool_calls });
+        if (msg.content) said += msg.content + '\n\n';
+        for (const tc of msg.tool_calls) {
+          const t = tools.find(x => x.name === (tc.function && tc.function.name)); let out;
+          try { const args = JSON.parse((tc.function && tc.function.arguments) || '{}'); out = t ? await t.execute(args) : { error: 'no such tool' }; } catch (e) { out = { error: String((e && e.message) || e) }; }
+          body.messages.push({ role: 'tool', tool_call_id: tc.id, content: JSON.stringify(out === undefined ? 'ok' : out).slice(0, 20000) });
+        }
+        if (opt.onText) opt.onText({ text: (said || '') + '_Делаю на доске…_', delta: '' });
+        continue;
+      }
+      let text = said + (msg.content || '');
+      const cites = j.citations || (j.search_results || []).map(x => x.url);
+      if (cites && cites.length) text += '\n\n**Источники:**\n' + cites.slice(0, 12).map((c, i) => `${i + 1}. ${typeof c === 'string' ? c : c.url || ''}`).join('\n');
+      if (opt.onText) opt.onText({ text, delta: text });
+      return { text, truncated: ch.finish_reason === 'length', model: used };
+    }
+    return { text: said + '_Остановился: слишком много шагов подряд._', truncated: true, model: used };
+  };
+  return ns;
+}
+function nsAnth212(model) {
+  const P = AI_PROV.anthropic, key = aiCfg().keys.anthropic;
+  const norm = turns => { const out = []; for (const t of turns) { const role = t.role === 'assistant' ? 'assistant' : 'user', c = String(t.content || ''); if (out.length && out[out.length - 1].role === role && typeof out[out.length - 1].content === 'string') out[out.length - 1].content += '\n\n' + c; else out.push({ role, content: c }); } if (out.length && out[0].role !== 'user') out.unshift({ role: 'user', content: '…' }); return out; };
+  return async (turns, opt = {}) => {
+    const body = { model, max_tokens: opt.maxTokens || 2048, messages: norm(typeof turns === 'string' ? [{ role: 'user', content: turns }] : turns) };
+    if (opt.system) body.system = opt.system;
+    const tools = opt.tools || null; if (tools) body.tools = tools.map(t => ({ name: t.name, description: t.description || '', input_schema: t.inputSchema || { type: 'object', properties: {} } }));
+    let said = '';
+    for (let round = 0; round < 10; round++) {
+      const j = await post212('anthropic', model, P.url, hdr212('anthropic', key, true), body, opt);
+      const blocks = j.content || [], text = blocks.filter(b => b.type === 'text').map(b => b.text).join(''), uses = blocks.filter(b => b.type === 'tool_use');
+      if (tools && uses.length) {
+        body.messages.push({ role: 'assistant', content: blocks }); if (text) said += text + '\n\n';
+        const res = [];
+        for (const u of uses) { const t = tools.find(x => x.name === u.name); let out; try { out = t ? await t.execute(u.input || {}) : { error: 'no such tool' }; } catch (e) { out = { error: String((e && e.message) || e) }; } res.push({ type: 'tool_result', tool_use_id: u.id, content: JSON.stringify(out === undefined ? 'ok' : out).slice(0, 20000) }); }
+        body.messages.push({ role: 'user', content: res });
+        if (opt.onText) opt.onText({ text: said + '_Делаю на доске…_', delta: '' });
+        continue;
+      }
+      const full = said + text; if (opt.onText) opt.onText({ text: full, delta: full });
+      return { text: full, truncated: j.stop_reason === 'max_tokens', model: j.model || model };
+    }
+    return { text: said + '_Остановился: слишком много шагов подряд._', truncated: true, model };
+  };
+}
+/* ---------- one network: its model, then the reserve; text when tools don't work ---------- */
+let AI212L = null;
+function mSeq212(p, needTools) {
+  const C = aiCfg(), P = AI_PROV[p], chosen = C.models[p] || P.def || '', fb = C.fb[p] || '', notes = [];
+  let seq = [chosen];
+  if (fb && fb !== '-') seq.push(fb);
+  if (!fb) { const r = recModel212(p, needTools, C.free); if (r) seq.push(r); }
+  if (C.free) { const f = seq.filter(m => mFree212(p, m)); if (f.length < seq.length && seq[0] !== f[0]) notes.push(`платная модель ${chosen} пропущена — включено «Только бесплатное»`); seq = f.length ? f : [recModel212(p, needTools, 1)].filter(Boolean); }
+  seq = seq.filter((m, i, a) => m && a.indexOf(m) === i).slice(0, 3);
+  return { seq, notes };
+}
+function compact212(turns) {
+  if (typeof turns === 'string') return turns.slice(0, 8000);
+  const cut = (t, n) => Object.assign({}, t, { content: String(t.content || '').slice(0, n) });
+  return turns.length <= 3 ? turns.map(t => cut(t, 6000)) : [cut(turns[0], 6000)].concat(turns.slice(-2).map(t => cut(t, 3000)));
+}
+function aiNsSmart212(p) {
+  const P = AI_PROV[p], C = aiCfg(); if (!P || !P.url || !C.keys[p]) return null;
+  const ns = async (turns, opt = {}) => {
+    const wantTools = !!(opt.tools && P.tools); let { seq, notes } = mSeq212(p, wantTools), last = null;
+    if (!seq.length) throw { kind: 'model', prov: p, message: `${P.name}: нет подходящей модели. Выберите модель в ⚙ Нейросети.` };
+    let web = p === 'openrouter' && AG211.ext && AG211.web && !C.free;
+    for (let i = 0; i < seq.length; i++) {
+      const m = seq[i], mi = mInfo212(p, m); let tools = wantTools && !(mi && mi.t === 0) ? opt.tools : null, tt = turns, compacted = false;
+      if (wantTools && !tools) notes.push(`${m} не умеет действовать на доске — ответ текстом`);
+      last = null;
+      for (let attempt = 0; attempt < 4; attempt++) {
+        try {
+          const r = await nsOne212(p, m)(tt, Object.assign({}, opt, { tools, _web: web }));
+          AI212L = { p, m: r.model || m, asked: seq[0], at: Date.now() }; lastShow212();
+          if (notes.length && !opt.quiet) r.text += `\n\n_${notes.join('; ')}._`;
+          r.prov = p; r.model = r.model || m; return r;
+        } catch (e) {
+          if (e && e.code === 'cancelled') throw e; last = e || { kind: 'other', message: String(e) };
+          if (last.kind === 'tools' && tools) { tools = null; mMark212(p, m, { t: 0 }); notes.push(`${m} не умеет действовать на доске — ответила текстом`); continue; }
+          if (last.kind === 'credit' && web) { web = false; notes.push('поиск в сети пропущен: он платный, а на счёте OpenRouter нет денег'); continue; }
+          if (last.kind === 'size' && !compacted) { compacted = true; tt = compact212(tt); notes.push('запрос сокращён под лимит модели'); continue; }
+          break;
+        }
+      }
+      if (last.kind === 'model') mMark212(p, m, { gone: 1 });
+      const next = seq[i + 1];
+      if (!next && last.kind === 'model' && !listOf212(p) && (C.fb[p] || '') !== '-') { await mcLoad212(p); const r = recModel212(p, wantTools, C.free); if (r && !seq.includes(r)) seq.push(r); }
+      const go = ['model', 'limit', 'busy', 'size'].includes(last.kind) || (last.kind === 'credit' && p === 'openrouter' && seq[i + 1] && mFree212(p, seq[i + 1]));
+      if (!go || !seq[i + 1]) break;
+      notes.push(`${m} — ${WHY212[last.kind] || 'ошибка'}, ответила ${seq[i + 1]}`);
+    }
+    throw last;
+  };
+  ns.limits = async () => { const { seq } = mSeq212(p, true); return { tools: !!P.tools && !seq.every(m => (mInfo212(p, m) || {}).t === 0), images: false }; };
+  ns.json = async (input, opt) => { const r = await ns(input, Object.assign({ quiet: 1 }, opt)); const m = /[[{][\s\S]*[\]}]/.exec(r.text); return JSON.parse(m ? m[0] : r.text); };
+  ns.prov = p;
+  return ns;
+}
+aiNs = p => p === 'claudedrive' ? null : aiNsSmart212(p);
+/* ---------- the chain of networks: the next one carries on, every reason is kept ---------- */
+function chainOrder212(first) {
+  const C = aiCfg();
+  let o = [first || aiProvNow()].concat(AG211.chain, custIds212()).filter((p, i, a) => a.indexOf(p) === i && AI_PROV[p] && AI_PROV[p].url && C.keys[p]);
+  if (C.free) o = o.filter(p => !paidOnly212(p));
+  return o;
+}
+aiChain211 = function (first) {
+  const C = aiCfg(), order = chainOrder212(first);
+  if (!order.length) {
+    if (C.free && Object.keys(C.keys).some(k => C.keys[k] && AI_PROV[k] && AI_PROV[k].url)) { const ns = async () => { throw { kind: 'other', message: 'Включено «Только бесплатное», а бесплатной нейросети с ключом нет: подключите OpenRouter, Gemini или Groq — ☰ → «Нейросети».' }; }; ns.limits = async () => ({ tools: false }); ns.json = ns; return ns; }
+    return null;
+  }
+  const ns = async (turns, opt = {}) => {
+    let note = ''; const errs = [];
+    if (C.free && first && first !== order[0] && paidOnly212(first)) note += `${agName211(first)} — пропущена: «Только бесплатное»; `;
+    for (const p of order) {
+      const lim = limited211(p);
+      if (lim && p !== order[order.length - 1]) { note += `${agName211(p)} — ${lim === 'cap' ? 'дневной лимит Холста' : 'лимит сервиса'}; `; continue; }
+      const one = aiNs(p); if (!one) continue;
+      try {
+        const o2 = Object.assign({}, opt); if (opt.tools && !AI_PROV[p].tools) delete o2.tools;
+        const r = await one(turns, o2); ns.provName = agName211(p); ns.prov = p; ns.model = r.model;
+        if (note && !opt.quiet) r.text = r.text + `\n\n_Ответила ${agName211(p)}: ${note.replace(/; $/, '')}._`;
+        return r;
+      } catch (e) {
+        if (e && e.code === 'cancelled') throw e;
+        errs.push(e);
+        if (!AG211.auto) throw e;
+        if (e && ((e.kind === 'limit' && e.daily) || e.kind === 'credit')) { const L = LIM211(); L[p] = Date.now() + 10 * 60000; LS.set('ai211lim', L); }
+        note += `${agName211(p)} — ${WHY212[(e && e.kind) || 'other'] || 'ошибка'}; `;
+        if (p !== order[order.length - 1]) toast(`${agName211(p)}: ${WHY212[(e && e.kind) || 'other'] || 'ошибка'} — продолжает следующая нейросеть`);
+      }
+    }
+    if (errs.length <= 1) throw errs[0] || { message: 'Все нейросети в цепочке на лимите: ☰ → «Агенты» → «Лимиты».' };
+    throw { message: 'Ни одна нейросеть не ответила:\n' + errs.map(e => '• ' + ((e && e.message) || e)).join('\n') };
+  };
+  ns.limits = async () => ({ tools: order.some(p => AI_PROV[p].tools), images: false });
+  ns.json = async (input, opt) => { const r = await ns(input, Object.assign({ quiet: 1 }, opt)); const m = /[[{][\s\S]*[\]}]/.exec(r.text); return JSON.parse(m ? m[0] : r.text); };
+  ns.prov = order[0]; ns.provName = agName211(order[0]);
+  return ns;
+};
+/* ---------- OpenRouter account: free requests left today ---------- */
+const ACC212 = {};
+async function orAcc212(force) {
+  const key = aiCfg().keys.openrouter; if (!key) return null;
+  if (!force && ACC212.or && Date.now() - ACC212.or.at < 60e3) return ACC212.or;
+  try {
+    const r = await fetch('https://openrouter.ai/api/v1/key', { headers: { Authorization: 'Bearer ' + key } }); let j = null; try { j = await r.json(); } catch (e) { j = null; }
+    ACC212.or = r.ok ? { at: Date.now(), d: (j && j.data) || {} } : { at: Date.now(), err: aiErr212('openrouter', '', r.status, j, r.statusText) };
+  } catch (e) { ACC212.or = { at: Date.now(), err: netErr212('openrouter', '') }; }
+  return ACC212.or;
+}
+function accHTML212() {
+  const a = ACC212.or; if (!a) return '';
+  if (a.err) return `<span class="bad">${esc(a.err.message)}</span>`;
+  const d = a.d, fm = d.free_model_daily_requests, out = [];
+  if (fm && fm.limit != null) out.push(`бесплатных запросов сегодня: <b>${fm.used != null ? fm.used : (fm.limit - (fm.remaining || 0))} из ${fm.limit}</b>`);
+  out.push(d.is_free_tier ? 'кредиты не покупались — 50 бесплатных в день (после покупки на $10 — 1000)' : 'кредиты покупались — 1000 бесплатных в день');
+  if (d.limit_remaining != null) out.push(`у ключа осталось $${(+d.limit_remaining).toFixed(2)}`);
+  if (d.usage_daily != null) out.push(`потрачено сегодня $${(+d.usage_daily).toFixed(3)}`);
+  return '📊 ' + out.join(' · ');
+}
+/* ---------- «Проверить»: the way the chat works ---------- */
+async function aiDiag212(k, box, save) {
+  const P = AI_PROV[k], C = aiCfg(), key = C.keys[k], model = C.models[k] || P.def, L = [];
+  const put = (cls, html) => { L.push(`<li class="${cls}">${html}</li>`); box.innerHTML = L.join(''); save(box.innerHTML); };
+  const wait = t => { box.innerHTML = L.join('') + `<li class="wait">${t}</li>`; };
+  if (!key) { put('bad', 'Сначала вставьте ключ.'); return; }
+  wait('Ключ и аккаунт…');
+  if (k === 'openrouter') {
+    const a = await orAcc212(true); if (a.err) { put('bad', esc(a.err.message)); if (a.err.kind === 'key' || a.err.kind === 'net') return; } else put('ok', 'Ключ работает · ' + accHTML212().replace(/^📊 /, ''));
+    await mcLoad212(k);
+  } else {
+    const c = await mcLoad212(k, true);
+    if (c && c.ek === 'key') { put('bad', esc(c.err)); return; }
+    if (c && c.err) put('warn', 'Список моделей не загрузился: ' + esc(c.err) + ' Проверю запросом.');
+    else if (c) put('ok', `Ключ работает · моделей в списке: ${c.list.length}${c.list.some(m => m.f === 1) ? ', из них бесплатных: ' + c.list.filter(m => m.f === 1).length : ''}`);
+    else put('warn', 'У этого сервиса нет списка моделей — проверю запросом.');
+  }
+  const ch = mCheck212(k, model);
+  if (ch.st === 'ok') put('ok', `Модель есть: <b>${esc(model)}</b> ${mBadges212(k, ch.m)}`);
+  else if (ch.st === 'missing') put('bad', `Модели <b>${esc(model)}</b> нет у ${esc(P.name)} — запрос с ней не пройдёт, в чате ответит запасная.${ch.sugg.length ? ' Похожие: ' + ch.sugg.map(m => `<button class="ob sm" data-aisetm="${esc(k + '|' + m.id)}">${esc(m.id)}</button>`).join(' ') : ''}`);
+  else put('warn', 'Не проверить по списку — проверю запросом.');
+  wait('Ответ текстом…'); let okText = false;
+  try {
+    const r = await nsOne212(k, model)('Ответь одним словом: работает', { maxTokens: 600 }); okText = true; mMark212(k, model, { gone: 0 });
+    put('ok', `Отвечает: «${esc((r.text || '').trim().slice(0, 60) || '…')}»${r.model && r.model !== model ? ` · ответила модель <b>${esc(r.model)}</b>` : ''}${r.truncated && !(r.text || '').trim() ? ' (ответ обрезан лимитом токенов — для «думающих» моделей это нормально)' : ''}`);
+  } catch (e) { if (e && e.kind === 'model') mMark212(k, model, { gone: 1 }); put('bad', esc((e && (e.message || e.code)) || e)); }
+  if (okText && P.tools) {
+    wait('Действия на доске (инструменты)…'); let called = false;
+    const tool = { name: 'holst_ping', description: 'Проверка связи с Холстом: вызови с ok=true', inputSchema: { type: 'object', properties: { ok: { type: 'boolean' } }, required: ['ok'] }, execute: async () => { called = true; return { pong: true }; } };
+    try {
+      await nsOne212(k, model)('Проверка Холста: вызови инструмент holst_ping с ok=true, потом ответь одним словом «готово».', { tools: [tool], maxTokens: 600 });
+      mMark212(k, model, { t: called ? 1 : null });
+      put(called ? 'ok' : 'warn', called ? 'Умеет действовать на доске: ставит объекты, двигает их, создаёт задачи.' : 'Инструменты принимает, но в проверке их не вызвала — на доске может действовать неуверенно.');
+    } catch (e) {
+      if (e && e.kind === 'tools') { mMark212(k, model, { t: 0 }); put('bad', `Модель <b>${esc(model)}</b> не умеет действовать на доске: в чате будет только отвечать текстом. Нужна модель с ⚒${k === 'openrouter' ? ' — или openrouter/free: он сам выберет такую' : ''}.`); }
+      else put('bad', esc((e && (e.message || e.code)) || e));
+    }
+  } else if (okText) put('warn', `${esc(P.name)} не умеет действовать на доске — её ответ кладётся на доску документом.`);
+  const cur = aiProvNow(), ord = chainOrder212(cur);
+  if (C.free && paidOnly212(k)) put('warn', 'Включено «Только бесплатное» — эта нейросеть в чате не используется.');
+  else if (cur === k) put('ok', `В чате отвечает эта нейросеть${ord.length > 1 ? '; если не ответит — ' + ord.slice(1).map(agName211).join(' → ') : ''}.`);
+  else put('warn', `Сейчас в чате отвечает <b>${esc(agName211(cur))}</b>, а не ${esc(P.name)}${ord.includes(k) ? ` (${esc(P.name)} — запасная, ${ord.indexOf(k) + 1}-я в цепочке)` : ''}. <button class="ob sm" data-aiu="${k}">Сделать основной</button>`);
+}
+/* ---------- the window ---------- */
+aiOpen = function (focus) {
+  custSync212();
+  const d = xdlg('Нейросети', '<div class="ai210 ai212"></div>', true); d._dkey = 'ai212';
+  if (typeof focus === 'string' && AI_PROV[focus]) d._open = focus;
+  const st = { pick: '', q: '', flt: 'all', diag: {}, seen: {} };
+  const fbOpts = k => {
+    const C = aiCfg(), P = AI_PROV[k], cur = C.fb[k] || '', ids = (listOf212(k) || (P.models || []).map(id => ({ id, f: mFree212(k, id) }))).slice(0, 250);
+    const rec = recModel212(k, true, C.free);
+    return `<option value=""${!cur ? ' selected' : ''}>авто: ${esc(rec || '—')}${k === 'openrouter' ? ' (лучшая бесплатная)' : ''}</option><option value="-"${cur === '-' ? ' selected' : ''}>нет — только основная</option>${cur && cur !== '-' && !ids.some(m => m.id === cur) ? `<option value="${esc(cur)}" selected>${esc(cur)}</option>` : ''}${ids.map(m => `<option value="${esc(m.id)}"${cur === m.id ? ' selected' : ''}>${esc(m.id)}${m.f === 1 ? ' · бесплатно' : ''}</option>`).join('')}`;
+  };
+  const miHTML = k => {
+    const C = aiCfg(), P = AI_PROV[k], model = C.models[k] || P.def || '', ch = mCheck212(k, model), cat = MC212[k], L = listOf212(k), out = [];
+    if (ch.st === 'ok') out.push(`<b>${esc(ch.m.n || ch.m.id)}</b> ${mBadges212(k, ch.m)}`);
+    else if (ch.st === 'missing') out.push(`<span class="bad">⚠ Модели «${esc(model)}» нет у ${esc(P.name)} — в чате ответит запасная.</span>${ch.sugg.length ? ' Похожие: ' + ch.sugg.map(m => `<button class="ob sm" data-aisetm="${esc(k + '|' + m.id)}">${esc(m.id)}</button>`).join(' ') : ''}`);
+    else if (ch.st === 'empty') out.push('<span class="bad">Модель не выбрана.</span>');
+    else if (ch.m) out.push(mBadges212(k, ch.m));
+    if (C.free && ch.m && ch.m.f === 0) out.push(`<span class="bad">Платная — при «Только бесплатное» вместо неё ответит ${esc(recModel212(k, true, 1) || '—')}.</span>`);
+    if (MCL212[k]) out.push('<span>Загружаю список моделей…</span>');
+    else if (L) out.push(`<span class="ai212cnt">В списке ${L.length}${L.some(m => m.f === 1) && L.some(m => m.f === 0) ? ' · бесплатных ' + L.filter(m => m.f === 1).length : ''}${L.some(m => m.t != null) ? ' · ⚒ ' + L.filter(m => m.t === 1).length : ''} · обновлён ${new Date(cat.at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>`);
+    if (cat && cat.err) out.push(`<span class="bad">${esc(cat.err)}</span>`);
+    else if (!L && !MCL212[k] && !C.keys[k] && k !== 'openrouter') out.push('<span>Вставьте ключ — загрузится список моделей.</span>');
+    return out.join(' ');
+  };
+  const rowsOf = k => {
+    const P = AI_PROV[k], C = aiCfg(), model = C.models[k] || P.def, rec = recModel212(k, true, C.free), q = st.q.trim().toLowerCase();
+    let L = (listOf212(k) || (P.models || []).map(id => ({ id, f: mFree212(k, id), t: null }))).map(m => Object.assign({}, m, MK212[k + '|' + m.id] || {}));
+    if (k === 'openrouter' && !L.some(m => m.id === 'openrouter/free')) L.unshift(mCheck212(k, 'openrouter/free').m);
+    if (q) L = L.filter(m => (m.id + ' ' + (m.n || '')).toLowerCase().includes(q));
+    if (st.flt === 'free' || st.flt === 'ft') L = L.filter(m => m.f === 1);
+    if (st.flt === 'tools' || st.flt === 'ft') L = L.filter(m => m.t === 1);
+    return L.sort((a, b) => (b.id === rec) - (a.id === rec) || (b.f === 1) - (a.f === 1) || (b.t === 1) - (a.t === 1) || cmpVer212(b.id, a.id) || a.id.localeCompare(b.id)).map(m => `<button class="ai212o${m.id === model ? ' on' : ''}" data-aisetm="${esc(k + '|' + m.id)}"><span class="ai212oi"><b>${esc(m.id)}${m.id === rec ? ' <i>★ советую</i>' : ''}</b>${m.n && m.n !== m.id ? `<small>${esc(m.n)}</small>` : ''}</span><span class="ai212ob">${mBadges212(k, m)}</span></button>`);
+  };
+  const listHTML = k => { const rows = rowsOf(k); return (rows.slice(0, 200).join('') || '<p class="sub" style="padding:8px 10px">Ничего не нашлось.</p>') + (rows.length > 200 ? `<p class="sub" style="padding:6px 10px">Показано 200 из ${rows.length} — уточните поиск.</p>` : ''); };
+  const picker = k => `<div class="ai212pk"><div class="ai212pkh"><input class="inp sm" data-aisrch="${k}" placeholder="Поиск: grok, llama, gemini, qwen…" value="${esc(st.q)}"><div class="seg24">${[['all', 'Все'], ['free', 'Бесплатные'], ['tools', '⚒ Действуют'], ['ft', 'Бесплатные ⚒']].map(([v, l]) => `<button class="${st.flt === v ? 'on' : ''}" data-aiflt="${v}">${l}</button>`).join('')}</div></div><div class="ai212pkl">${listHTML(k)}</div></div>`;
+  const card = k => {
+    const C = aiCfg(), cur = aiProvNow(), P = AI_PROV[k], L = AI_LOOK[k] || ['•', '#8a90a0', '', ''], I = infoOf212(k);
+    const off = k === 'claude' ? !S.hosted : S.hosted, has = !!C.keys[k], on = cur === k, isOpen = (d._open || cur) === k && !off;
+    const stt = k === 'claude' ? (S.hosted ? 'доступен' : 'только внутри Claude') : k === 'claudedrive' ? (Drive.active() ? 'Диск подключён' : 'нужен Google Диск') : has ? 'ключ есть' : 'нет ключа';
+    const model = C.models[k] || P.def || '', ch = P.url ? mCheck212(k, model) : null;
+    const pay = I ? I.pay : k === 'claudedrive' || k === 'claude' ? 'sub' : '';
+    const head = `<div class="ai210h"><span class="ai210l" style="--c:${L[1]}">${esc(L[0])}</span><div class="ai210n"><b>${esc(P.name)}</b><small>${esc(L[3])}${P.url && has ? ' · <code>' + esc(mShort212(model)) + '</code>' : ''}</small></div><span class="ai210t ai212p-${pay}">${esc(L[2])}</span><span class="ai210s${has || (k === 'claudedrive' && Drive.active()) || (k === 'claude' && S.hosted) ? ' ok' : ''}">${esc(stt)}</span>${ch && ch.st === 'missing' && has ? '<span class="ai212w" title="Такой модели нет в списке сервиса">⚠ модели нет</span>' : ''}${C.free && I && paidOnly212(k) ? '<span class="ai212w muted" title="Включено «Только бесплатное»">пропускается</span>' : ''}${on ? '<span class="ai210on">в чате</span>' : off ? '' : `<button class="ob sm" data-aiu="${k}">Выбрать</button>`}</div>`;
+    if (!isOpen) return `<div class="ai210c${on ? ' on' : ''}${off ? ' off' : ''}" data-aic="${k}">${head}</div>`;
+    const ids = listOf212(k) ? listOf212(k).slice(0, 300).map(m => m.id) : (P.models || []);
+    const price = I && I.lines && I.lines.length ? `<details class="ai212price"${st.px !== 0 ? ' open' : ''}><summary>💰 Цена и лимиты</summary><ul>${I.lines.map(l => `<li>${l}</li>`).join('')}</ul><small>Проверено ${AI_CHECKED212}. Условия меняются — точные цифры у сервиса${I.url ? `: <a href="${esc(I.url)}" target="_blank" rel="noopener">${esc(I.url.replace(/^https?:\/\//, '').split('/')[0])} ↗</a>` : ''}.</small></details>` : '';
+    const body = P.url ? `
+      ${P.custom ? `<label class="ai212row"><span>Адрес</span><input class="inp" data-aiurl="${k}" value="${esc(P.url)}" placeholder="https://…/v1/chat/completions" spellcheck="false"></label>` : ''}
+      <label class="ai212row"><span>Ключ</span><input class="inp" type="password" data-aik="${k}" placeholder="${esc(P.keyPh || 'ключ')}" value="${esc(C.keys[k] || '')}" autocomplete="off">${P.keyUrl ? `<a class="ob sm" href="${esc(P.keyUrl)}" target="_blank" rel="noopener">Где взять ↗</a>` : '<i></i>'}</label>
+      <label class="ai212row"><span>Модель</span><input class="inp" data-aim="${k}" list="aiml-${k}" value="${esc(model)}" spellcheck="false" title="Модель: выберите из списка или впишите id"><button class="ob sm" data-aipick="${k}" title="Список моделей этого сервиса: цена, бесплатно ли, умеет ли действовать на доске">${st.pick === k ? 'Скрыть ▴' : 'Список ▾'}</button><datalist id="aiml-${k}">${ids.map(m => `<option value="${esc(m)}">`).join('')}</datalist></label>
+      <div class="ai212mi" data-aimi="${k}">${miHTML(k)}</div>
+      ${st.pick === k ? picker(k) : ''}
+      <label class="ai212row"><span>Запасная</span><select class="inp" data-aifb="${k}" title="Если основная модель недоступна, перегружена или на лимите — ответит эта">${fbOpts(k)}</select><i></i></label>
+      <div class="btnrow"><button class="ob sm" data-ait="${k}" title="Проверить, как работает чат: ключ, модель, ответ, действия на доске. Тратит 2 запроса">✓ Проверить</button>${mcUrl212(k) ? `<button class="ob sm" data-aicat="${k}" title="Загрузить список моделей заново">⟳ Обновить список</button>` : ''}${P.custom ? `<button class="ob sm" data-aidel="${k}" title="Убрать этот сервис и его ключ">Удалить сервис</button>` : ''}</div>
+      <ul class="ai212d" data-air="${k}">${st.diag[k] || ''}</ul>
+      ${k === 'openrouter' && has ? `<div class="ai212acc" data-aiacc${st.diag[k] ? ' hidden' : ''}>${accHTML212()}</div>` : ''}${price}`
+      : k === 'claudedrive' ? `<p class="sub">${esc(P.note || '')}</p><ol class="steps"><li>Выберите этот вариант.</li><li>Пишите ИИ как обычно — задание уйдёт в «Холст/Claude» на вашем Google Диске.</li><li>В любом чате Claude: <b>«задания из Холста»</b> (навык «Задания из Холста»).</li><li>Ответ вернётся сюда, в чат на доске или на доску.</li></ol><div class="btnrow"><button class="ob sm" data-aiq="check">⟳ Проверить ответы сейчас</button><button class="ob sm" data-aiq="guide">Как это работает</button></div>`
+      : `<p class="sub">${esc(P.note || '')}</p>`;
+    return `<div class="ai210c open${on ? ' on' : ''}" data-aic="${k}">${head}<div class="ai210b">${P.url ? `<p class="sub">${esc(P.note || '')}</p>` : ''}${body}</div></div>`;
+  };
+  const draw = () => {
+    custSync212();
+    const C = aiCfg(), cur = aiProvNow(), acct = aiAcct(), P = AI_PROV[cur] || {}, ord = chainOrder212(cur), curM = P.url ? (C.models[cur] || P.def) : '';
+    const freeG = ['openrouter', 'gemini', 'groq'], paid = ['openai', 'anthropic', 'qwen', 'pplx'], cust = custIds212(), nokey = (S.hosted ? ['claude'] : []).concat(['claudedrive']);
+    const box = d.querySelector('.ai212'); if (!box) return;
+    box.innerHTML = `<div class="ai210top ai212top"><div><b>У каждого — своя нейросеть</b><p class="sub">Аккаунт: <b>${acct === 'local' ? 'это устройство (вход в Google не выполнен)' : esc(acct)}</b>. Ключи хранятся только на этом устройстве и не попадают в общие доски.</p>
+        <label class="mrow ai212free"><span class="sw2"><input type="checkbox" data-aifree${C.free ? ' checked' : ''}><i></i></span><span><b>Только бесплатное</b><small>Платные нейросети и модели не вызываются: в OpenRouter — только бесплатные модели, ChatGPT и Claude API пропускаются, поиск в сети выключен.</small></span></label></div>
+      <div class="ai210now"><small>Сейчас в чате</small><b>${esc(P.name || '—')}</b>${curM ? `<code class="ai212nm">${esc(curM)}</code>` : ''}${ord.length > 1 ? `<small class="ai212ch">Если не ответит: ${esc(ord.slice(1).map(agName211).join(' → '))}</small>` : ''}<button class="ob sm" data-aiag title="Порядок подхвата, дневные лимиты и расход токенов">Цепочка и лимиты</button></div></div>
+      <div class="ai212legend"><span class="ai212b free">бесплатно</span>без оплаты, с лимитами <span class="ai212b paid">платно</span>нужен баланс <span class="ai212b tool">⚒ действует</span>модель умеет ставить объекты на доску · цены и лимиты проверены ${AI_CHECKED212}</div>
+      <h3>Бесплатно, с лимитами</h3><div class="ai210g">${freeG.map(card).join('')}</div>
+      <h3>Платно, по ключу</h3><div class="ai210g">${paid.map(card).join('')}</div>
+      <h3>Другие сервисы <small class="sub">OpenAI-совместимые: Cerebras, Mistral, DeepSeek, Grok, Hugging Face…</small></h3><div class="ai210g">${cust.map(card).join('')}<button class="ai212add" data-aiadd>＋ Подключить другой сервис</button></div>
+      <h3>Без ключа</h3><div class="ai210g">${nokey.map(card).join('')}</div>`;
+    const k = d._open || cur;
+    if (AI_PROV[k] && AI_PROV[k].url && !st.seen[k]) {
+      st.seen[k] = 1; const before = (MC212[k] || {}).at;
+      if (mcUrl212(k) && (k === 'openrouter' || C.keys[k])) mcLoad212(k).then(() => { if ((MC212[k] || {}).at !== before) refresh(k); });
+      if (k === 'openrouter' && C.keys.openrouter) orAcc212().then(() => { const x = d.querySelector('[data-aiacc]'); if (x) x.innerHTML = accHTML212(); });
+      if (MCL212[k]) { const x = d.querySelector(`[data-aimi="${k}"]`); if (x) x.innerHTML = miHTML(k); }
+    }
+  };
+  const refresh = k => { if (!d.isConnected) return; const a = document.activeElement; if (a && d.contains(a) && a.matches('input,select')) { const x = d.querySelector(`[data-aimi="${k}"]`); if (x) x.innerHTML = miHTML(k); const l = d.querySelector('.ai212pkl'); if (l) l.innerHTML = listHTML(k); } else draw(); };
+  d._draw = draw;
+  const setModel = (k, id) => { const C = aiCfg(); C.models[k] = id; aiSetCfg({ models: C.models }); delete st.diag[k]; clHead(); };
+  d.addEventListener('click', async e => {
+    const t = e.target;
+    const u = t.closest('[data-aiu]'); if (u) { e.stopPropagation(); aiSetCfg({ prov: u.dataset.aiu }); d._open = u.dataset.aiu; draw(); clHead(); return; }
+    const sm = t.closest('[data-aisetm]'); if (sm) { e.preventDefault(); const [k, ...rest] = sm.dataset.aisetm.split('|'); setModel(k, rest.join('|')); st.pick = ''; draw(); toast('Модель: ' + rest.join('|')); return; }
+    const pk = t.closest('[data-aipick]'); if (pk) { e.preventDefault(); const k = pk.dataset.aipick; st.pick = st.pick === k ? '' : k; draw(); if (st.pick) { mcLoad212(k).then(() => refresh(k)); const s = d.querySelector('[data-aisrch]'); if (s) s.focus(); } return; }
+    const fl = t.closest('[data-aiflt]'); if (fl) { e.preventDefault(); st.flt = fl.dataset.aiflt; d.querySelectorAll('[data-aiflt]').forEach(b => b.classList.toggle('on', b === fl)); const l = d.querySelector('.ai212pkl'); if (l) l.innerHTML = listHTML(st.pick); return; }
+    const ts = t.closest('[data-ait]');
+    if (ts) { e.preventDefault(); const k = ts.dataset.ait, box = d.querySelector(`[data-air="${k}"]`); ts.disabled = true; try { await aiDiag212(k, box, h => { st.diag[k] = h; }); } finally { ts.disabled = false; const x = d.querySelector(`[data-aimi="${k}"]`); if (x) x.innerHTML = miHTML(k); const a = d.querySelector('[data-aiacc]'); if (a) a.innerHTML = accHTML212(); } return; }
+    const ct = t.closest('[data-aicat]'); if (ct) { e.preventDefault(); const k = ct.dataset.aicat; ct.disabled = true; const x = d.querySelector(`[data-aimi="${k}"]`); if (x) x.innerHTML = 'Загружаю список моделей…'; await mcLoad212(k, true); draw(); return; }
+    const dl = t.closest('[data-aidel]'); if (dl) { const k = dl.dataset.aidel, C = aiCfg(); delete C.urls[k]; delete C.keys[k]; delete C.models[k]; delete C.fb[k]; delete MC212[k]; mcSave212(); aiSetCfg({ urls: C.urls, keys: C.keys, models: C.models, fb: C.fb, prov: C.prov === k ? '' : C.prov }); d._open = ''; draw(); clHead(); return; }
+    const ad = t.closest('[data-aiadd]'); if (ad) { openPop(ad, `<div class="menu"><div class="vp-h">Подключить сервис</div>${Object.entries(CUST212).map(([id, x]) => `<button class="mi" data-v="${id}"><span><span class="ai210l sm" style="--c:${x.c}">${esc(x.n[0])}</span> ${esc(x.n)}</span><small>${esc(x.tag)}</small></button>`).join('')}</div>`, v => {
+      const C = aiCfg(), pr = CUST212[v]; if (!pr) return; let id = 'x:' + v; if (C.urls[id]) id = 'x:' + v + '-' + uid().slice(0, 4);
+      C.urls[id] = { pr: v, n: pr.n, u: pr.u }; if (pr.m) C.models[id] = pr.m; aiSetCfg({ urls: C.urls, models: C.models }); d._open = id; draw();
+      const f = d.querySelector(v === 'own' ? `[data-aiurl="${id}"]` : `[data-aik="${id}"]`); if (f) f.focus();
+    }); return; }
+    const ag = t.closest('[data-aiag]'); if (ag) { closeXdlg(); agOpen211('use'); return; }
+    const q = t.closest('[data-aiq]'); if (q) { if (q.dataset.aiq === 'check') await cxDrive(true); else { closeXdlg(); skillGuide210(); } return; }
+    if (t.closest('summary')) { setTimeout(() => { const x = d.querySelector('.ai212price'); st.px = x && x.open ? 1 : 0; }, 0); return; }
+    const c = t.closest('[data-aic]'); if (c && !t.closest('input,a,button,select,summary,details,label,.ai212pk') && !c.classList.contains('off')) { d._open = (d._open || aiProvNow()) === c.dataset.aic ? '-' : c.dataset.aic; st.pick = ''; draw(); }
+  });
+  d.addEventListener('input', e => { const s = e.target.closest('[data-aisrch]'); if (s) { st.q = s.value; const l = d.querySelector('.ai212pkl'); if (l) l.innerHTML = listHTML(s.dataset.aisrch); } });
+  d.addEventListener('change', e => {
+    const t = e.target, C = aiCfg();
+    const k = t.closest('[data-aik]'); if (k) { const p = k.dataset.aik; C.keys[p] = k.value.trim(); aiSetCfg({ keys: C.keys, prov: C.prov && C.prov !== p && C.keys[C.prov] ? C.prov : (C.keys[p] ? p : C.prov) }); delete st.diag[p]; st.seen[p] = 0; if (C.keys[p] && mcUrl212(p)) mcLoad212(p, true).then(() => refresh(p)); draw(); clHead(); return; }
+    const m = t.closest('[data-aim]'); if (m) { setModel(m.dataset.aim, m.value.trim()); const x = d.querySelector(`[data-aimi="${m.dataset.aim}"]`); if (x) x.innerHTML = miHTML(m.dataset.aim); return; }
+    const f = t.closest('[data-aifb]'); if (f) { C.fb[f.dataset.aifb] = f.value; aiSetCfg({ fb: C.fb }); return; }
+    const u = t.closest('[data-aiurl]'); if (u) { const p = u.dataset.aiurl; C.urls[p] = Object.assign({}, C.urls[p], { u: u.value.trim() }); delete MC212[p]; aiSetCfg({ urls: C.urls }); st.seen[p] = 0; draw(); return; }
+    const fr = t.closest('[data-aifree]'); if (fr) { aiSetCfg({ free: fr.checked ? 1 : 0 }); draw(); clHead(); return; }
+  });
+  draw();
+};
+/* ---------- the AI panel: which network and model answer, and what went wrong ---------- */
+function lastShow212() {
+  const p = $('#cl24'); if (!p) return; let ln = p.querySelector('.ai212last');
+  if (!ln) { const h = p.querySelector('.clh'); if (!h) return; h.insertAdjacentHTML('afterend', '<div class="ai212last"></div>'); ln = p.querySelector('.ai212last'); }
+  const cur = aiProvNow(), P = AI_PROV[cur] || {}; if (!P.url) { ln.innerHTML = ''; return; }
+  const C = aiCfg(), model = C.models[cur] || P.def, ch = mCheck212(cur, model), out = [];
+  if (C.free) out.push('<span class="ai212b free">только бесплатное</span>');
+  if (ch.st === 'missing' || (ch.m && ch.m.gone)) out.push(`<button data-ai212fix="${cur}" title="Открыть настройки и выбрать модель из списка">⚠ модели «${esc(mShort212(model))}» нет у ${esc(P.name)} — выбрать</button>`);
+  else if (ch.m && ch.m.t === 0) out.push(`<button data-ai212fix="${cur}" title="Эта модель только отвечает текстом">⚠ ${esc(mShort212(model))} не умеет действовать на доске — сменить</button>`);
+  if (AI212L && Date.now() - AI212L.at < 6 * 3600e3) out.push(`<span title="Кто ответил последним">Ответила: ${esc(agName211(AI212L.p))} · <code>${esc(AI212L.m)}</code>${AI212L.asked && AI212L.asked !== AI212L.m && !(AI212L.asked === 'openrouter/free') ? ` <i>вместо ${esc(mShort212(AI212L.asked))}</i>` : AI212L.asked === 'openrouter/free' ? ' <i>(выбрал openrouter/free)</i>' : ''}</span>`);
+  ln.innerHTML = out.join('');
+}
+{ const o = clHead; clHead = function () {
+  o(); const p = $('#cl24'); if (!p) return; const cur = aiProvNow(), P = AI_PROV[cur] || {}, L = AI_LOOK[cur] || ['•', '#8a90a0'];
+  const pill = p.querySelector('[data-aiset]'); if (pill && P.url) pill.innerHTML = `<span class="ai210l" style="--c:${L[1]}">${esc(L[0])}</span>${esc(P.name)} <small class="ai212pm">${esc(mShort212(aiCfg().models[cur] || P.def))}</small> ▾`;
+  lastShow212();
+}; }
+function ai212Setup() {
+  custSync212();
+  document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('[data-ai212fix]'); if (b) { e.preventDefault(); aiOpen(b.dataset.ai212fix); } });
+  /* a saved model the service doesn't have shows up in the panel by itself */
+  setTimeout(() => { const C = aiCfg(); if (C.keys.openrouter) mcLoad212('openrouter').then(lastShow212); }, 4000);
+}
 /* ---------- 2.10 glue ---------- */
 Object.assign(AREAS.ai[2], { chat: 'ИИ в чатах (AI in chats)', sub: 'Claude по подписке (Claude via Drive)' });
 AREAS.team = AREAS.team || ['Команда', 'Team', {}]; Object.assign(AREAS.team[2], { chat: 'Чаты на доске (Board chats)' });
@@ -21133,6 +21871,11 @@ Object.assign(TOURS, {
   ] },
 });
 Object.assign(FEAT_TOUR, { f211_fx: 'fx211', f211_agents: 'ag211', f211_debate: 'ag211', f211_limits: 'ag211', f211_modes: 'ag211' });
+/* ---------- 2.12 glue ---------- */
+Object.assign(AREAS.ai[2], { models: 'Модели и цены (Models & pricing)' });
+BR210.find(b => b[0] === 'ai')[4].push('ai.models');
+function wire212() { ai212Setup(); }
+Object.assign(FEAT_TOUR, { f212_models: 'ag211', f212_check: 'ag211' });
 
 /* =========================================================
    Pointer interaction
@@ -22099,7 +22842,7 @@ function wire() {
   fbar.querySelector('[data-fa="reload"]').innerHTML = ic('reload') + '<span>Перезагрузить</span>';
   fbar.querySelector('[data-fa="full"]').innerHTML = ic('fit') + '<span>На весь монитор</span>';
   fbar.querySelector('[data-fa="close"]').innerHTML = ic('close') + '<span>Свернуть (Esc)</span>';
-  buildToolbar(); buildHelp(); wire23(); wire24(); wire24b(); wire25(); wire26(); wire27(); wire28(); wire29(); wire210(); wire211();
+  buildToolbar(); buildHelp(); wire23(); wire24(); wire24b(); wire25(); wire26(); wire27(); wire28(); wire29(); wire210(); wire211(); wire212();
 
   vp.addEventListener('pointerdown', onDown);
   vp.addEventListener('pointermove', onMove);
