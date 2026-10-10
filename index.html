@@ -2663,6 +2663,147 @@ body.ch210pl #viewport{cursor:crosshair!important}
 .tourbar .ob,.tourbar button{border-color:color-mix(in srgb,var(--gd) 35%,var(--line))!important}
 .tourbar .ob:hover,.tourbar button:hover{border-color:var(--gd)!important;color:var(--gd-ink)!important}
 [data-tour],[data-ft]{--sel:var(--gd)}
+/* ===== 2.11: zoom visibility levels ===== */
+:root{--zl2cap:14.2857;--zl3cap:4}
+#world{--zl2:min(var(--iz,1),var(--zl2cap));--zl3:min(var(--iz,1),var(--zl3cap))}
+#world [data-hl]::after{transform:scale(var(--zl3))!important}
+.srcchip.src210{transform:scale(var(--zl2))!important;background:#fff4e5!important;color:#a35200!important;border-color:#f3c48a!important}
+html[data-theme=dark] .srcchip.src210{background:#3a2a12!important;color:#ffbf66!important;border-color:#6b4a1a!important}
+.up210>span{transform:scale(var(--zl3))!important}
+.up210{height:calc(4px * var(--zl3))!important}.up210>i,.up210::before{height:calc(4px * var(--zl3))!important}
+/* ===== guides: everything opened from a guide is above its dimming ===== */
+body.gd210on #pop{z-index:99995!important}
+#gd210 .gd210v button{font-size:12px}
+/* ===== frames: export, timer ===== */
+.fh211x,.fh211t{position:absolute;right:calc(-34px * var(--tk,1));top:0;width:calc(28px * var(--tk,1));height:calc(28px * var(--tk,1));border:1px solid var(--line);border-radius:calc(8px * var(--tk,1));background:var(--panel);color:var(--ink);font:700 calc(14px * var(--tk,1))/1 var(--font);cursor:pointer;display:grid;place-items:center;opacity:0;transition:opacity .15s;pointer-events:auto;box-shadow:0 2px 6px -2px rgba(0,0,0,.2)}
+.fh211t{right:calc(-68px * var(--tk,1));opacity:1;background:var(--gd);color:#fff;border-color:var(--gd)}
+.fh211t::before{content:'⏱'}
+.fhead:hover .fh211x,.it.sel~.fhead .fh211x,.fhead.sel .fh211x{opacity:1}
+.fhead{overflow:visible!important}
+.fx211g{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;margin:6px 0 10px}
+.fx211 .row{display:flex;gap:14px;flex-wrap:wrap;margin:6px 0}
+.fx211o{margin:4px 0 10px;padding-left:20px;max-height:180px;overflow:auto;font-size:13px;line-height:1.5;background:var(--hover);border-radius:10px;padding:8px 8px 8px 28px}
+.fx211 .btnrow .ob,.tm211d .ob,.tm211d .btn,.ag211 .ob,.ag211 .btn{display:inline-flex;align-items:center;gap:4px;min-height:32px;padding:0 12px;border-radius:9px;font:600 12.5px var(--font);cursor:pointer}
+.fx211 .ob,.tm211d .ob,.ag211 .ob{border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+.fx211 .ob:hover,.tm211d .ob:hover,.ag211 .ob:hover{border-color:var(--gd);color:var(--gd-ink)}
+.tm211d .btn,.ag211 .btn{border:0;background:var(--ink);color:var(--panel)}
+.tm211d .lk-r,.ag211 .lk-r{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0}.tm211d .lk-r>span,.ag211 .lk-r>span{color:var(--muted);font-size:12.5px;min-width:110px}
+#tm211{position:fixed;left:50%;top:calc(66px + var(--st,0px));transform:translateX(-50%);z-index:66;display:flex;align-items:center;gap:10px;padding:6px 8px 6px 12px;border-radius:999px;border:1px solid var(--line);box-shadow:0 10px 30px -10px rgba(0,0,0,.35)}
+#tm211 .tm211t{font:800 18px var(--font);font-variant-numeric:tabular-nums;min-width:56px;text-align:center}
+#tm211 .tm211n{font-size:12.5px;color:var(--muted);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#tm211 .ob{min-height:28px;padding:0 9px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;font:600 12px var(--font)}
+#tm211.warn .tm211t{color:var(--danger)}#tm211.paused{opacity:.75}
+.it.tm211cur{outline:calc(4px * var(--zl2)) solid var(--gd);outline-offset:calc(6px * var(--zl2));animation:tm211p 1.6s ease-in-out infinite}
+@keyframes tm211p{50%{outline-color:rgba(123,97,255,.35)}}
+@media (max-width:700px){#tm211{top:auto;bottom:calc(70px + var(--sb,0px));max-width:calc(100vw - 16px)}#tm211 .tm211n{max-width:40vw}}
+.ct211 h3{margin:16px 0 6px}.ct211 .lk-r{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0}.ct211 .lk-r>span{color:var(--muted);font-size:12.5px}.ct211 .lk-r b{min-width:22px;font-size:12.5px}
+/* ===== the source panel: clickable folders ===== */
+.crumbs211{display:flex;align-items:center;flex-wrap:wrap;gap:2px 4px;flex:1 1 300px;min-width:0}
+.crumbs211 i{font-style:normal;color:var(--muted);padding:0 2px}
+.crumb211{display:inline-flex;align-items:center;padding:3px 8px;border-radius:7px;font:600 13px var(--font);color:var(--ink);text-decoration:none;background:var(--panel);border:1px solid var(--line);max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+a.crumb211:hover{border-color:#1a73e8;color:#1a73e8}.crumb211.f{background:transparent;border-style:dashed}.crumb211.l{border:0;background:transparent;color:var(--muted)}
+.src210p .btnrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.src210p a.btn,.src210p a.ob{display:inline-flex;align-items:center;gap:4px;min-height:32px;padding:0 12px;border-radius:9px;font:600 12.5px var(--font);text-decoration:none}
+.src210p a.btn{background:#1a73e8;color:#fff;border:0}.src210p a.ob{border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+.src210p .pv29b{width:32px;height:32px;border:1px solid var(--line);border-radius:9px;background:var(--panel);display:grid;place-items:center;cursor:pointer}
+/* ===== chats 2.0 ===== */
+.it.tchat{z-index:7}
+.it.tchat.chicon{pointer-events:none}
+.it.tchat.ch211hid{display:none!important}
+.ch211m{position:absolute;left:0;top:-38px;height:38px;display:flex;align-items:center;gap:2px;padding:3px 7px 3px 3px;border-radius:19px 19px 19px 4px;background:var(--panel);border:2px solid var(--chc);box-shadow:0 6px 16px -6px rgba(0,0,0,.4);transform:scale(var(--zl2,1));transform-origin:0 38px;pointer-events:auto;cursor:pointer;white-space:nowrap;transition:box-shadow .15s}
+.ch211m:hover,.it.tchat.chopen .ch211m{box-shadow:0 0 0 4px color-mix(in srgb,var(--chc) 30%,transparent),0 8px 20px -6px rgba(0,0,0,.45)}
+.ch211m .ch211av{width:28px;height:28px;font-size:11px}
+.ch211mt{font-size:13px;line-height:1;margin-left:2px}.ch211mn{font:700 11px var(--font);color:var(--muted);margin-left:2px}
+.ch211dot{display:none;position:absolute;right:-3px;top:-3px;width:11px;height:11px;border-radius:50%;background:var(--danger);border:2px solid var(--panel)}
+.it.tchat.chunr .ch211dot,.ch211dot.on{display:block}.ch211dot.on{position:static}
+.it.tchat.chdone .ch211m{opacity:.55;border-style:dashed}
+.it.tchat.chdone .ch211m::after{content:'✓';font:800 11px var(--font);color:#2fa36b;margin-left:3px}
+.ch211av{display:inline-grid;place-items:center;width:26px;height:26px;flex:none;border-radius:50%;background:hsl(var(--ah,220) 62% 52%);color:#fff;font:700 10.5px var(--font);letter-spacing:.02em;border:2px solid var(--panel);box-sizing:border-box}
+.ch211av.ai{background:linear-gradient(135deg,#7b61ff,#b48cff)}.ch211av.more{background:var(--hover);color:var(--muted)}
+body.ch210pl #viewport{cursor:crosshair!important}
+/* the thread */
+.ch211p{position:fixed;z-index:58;width:400px;border-radius:18px;overflow:hidden;background:var(--panel);border:1px solid var(--line);box-shadow:0 30px 70px -24px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.06);transition:opacity .15s}
+.ch211p[hidden]{display:none}.ch211p.far{opacity:.35}
+.ch211x{height:100%}.ch211x .ch211t{height:100%;max-height:none}
+.ch211t{display:flex;flex-direction:column;max-height:min(72vh,680px);background:var(--panel);color:var(--ink);font:14px/1.45 var(--font);border-top:4px solid var(--chc)}
+.ch211t.canvas{max-height:none;border-radius:18px;overflow:hidden;border:2px solid var(--chc);box-shadow:0 12px 30px -16px rgba(0,0,0,.4)}
+.ch211t.canvas .ch211log{max-height:480px}
+.ch211h{display:flex;align-items:center;gap:10px;padding:12px 12px 8px}
+.ch211ppl{display:flex;flex:none}.ch211ppl .ch211av+.ch211av{margin-left:-9px}
+.ch211hc{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.ch211tl{border:0;background:transparent;font:700 15px var(--font);color:var(--ink);padding:2px 4px;border-radius:6px;min-width:0;width:100%}.ch211tl:hover,.ch211tl:focus{background:var(--hover);outline:none}
+.ch211meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:11.5px;color:var(--muted)}
+.ch211type{border:0;border-radius:999px;padding:2px 9px;background:color-mix(in srgb,var(--chc) 14%,transparent);color:var(--chc);font:700 11.5px var(--font);cursor:pointer}
+.ch211st{padding:1px 7px;border-radius:999px;background:color-mix(in srgb,#2fa36b 14%,transparent);color:#2fa36b;font-weight:700}.ch211st.done{background:var(--hover);color:var(--muted)}
+.ch211hb{display:flex;gap:2px;flex:none}.ch211hb button{width:28px;height:28px;border:0;border-radius:8px;background:transparent;color:var(--muted);font:700 14px var(--font);cursor:pointer}.ch211hb button:hover{background:var(--hover);color:var(--ink)}
+.ch211where{display:flex;align-items:center;gap:4px;flex-wrap:wrap;padding:0 12px 8px;font-size:12px}.ch211where>i{font-style:normal;color:var(--muted)}
+.ch211pl{border:0;background:var(--hover);color:var(--ink);border-radius:7px;padding:2px 8px;font:600 12px var(--font);cursor:pointer;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ch211pl.n{cursor:default;color:var(--muted)}
+.ch211sep{flex:1}
+.ch211lk{display:inline-flex;align-items:center;gap:3px;padding:2px 4px 2px 8px;border-radius:999px;background:var(--gd-soft);color:var(--gd-ink);font:600 11.5px var(--font)}.ch211lk button{border:0;background:transparent;color:inherit;cursor:pointer;font-size:13px;padding:0 3px}
+.ch211add{border:1px dashed var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:2px 9px;font:600 11.5px var(--font);cursor:pointer}.ch211add:hover{border-color:var(--gd);color:var(--gd-ink)}
+.ch211hint{margin:0 12px 6px;padding:7px 10px;border-radius:10px;background:var(--hover);font-size:12px;color:var(--muted)}.ch211hint.done{background:color-mix(in srgb,#2fa36b 10%,var(--panel));color:var(--ink)}
+.ch211log{flex:1;min-height:80px;overflow:auto;padding:8px 12px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.ch211empty{display:flex;flex-direction:column;align-items:center;gap:4px;padding:18px 8px;color:var(--muted);text-align:center;font-size:12.5px}.ch211empty b{color:var(--ink);font-size:14px}
+.ch211sys{align-self:center;font-size:11px;color:var(--muted);padding:2px 10px;border-radius:999px;background:var(--hover)}
+.ch211msg{position:relative;display:flex;gap:8px;align-items:flex-start;max-width:100%}
+.ch211msg.me{flex-direction:row-reverse}
+.ch211bub{min-width:0;max-width:calc(100% - 40px);padding:7px 11px 8px;border-radius:4px 14px 14px 14px;background:var(--hover)}
+.ch211msg.me .ch211bub{border-radius:14px 4px 14px 14px;background:color-mix(in srgb,var(--chc) 13%,var(--panel))}
+.ch211msg.ai .ch211bub{background:var(--gd-soft);box-shadow:inset 3px 0 0 var(--gd)}
+.ch211msg.ans .ch211bub{box-shadow:0 0 0 2px #2fa36b}
+.ch211mh{display:flex;align-items:baseline;gap:6px;font-size:11.5px;margin-bottom:2px}.ch211mh b{font-size:12.5px}.ch211mh small{color:var(--muted)}
+.ch211mt{overflow-wrap:anywhere}.ch211mt p{margin:3px 0}.ch211at{color:var(--accent);background:var(--accent-soft);border-radius:4px;padding:0 3px}
+.ch211q{font-size:12px;color:var(--muted);border-left:3px solid var(--line);padding-left:7px;margin:2px 0 4px}
+.ch211rx{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}.ch211rx button{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:1px 7px;font-size:12px;cursor:pointer}.ch211rx button.on{border-color:var(--accent);background:var(--accent-soft)}
+.ch211ma{position:absolute;top:-14px;right:6px;display:none;gap:1px;padding:2px;border-radius:9px;background:var(--panel);border:1px solid var(--line);box-shadow:0 4px 12px -4px rgba(0,0,0,.25)}
+.ch211msg.me .ch211ma{right:auto;left:6px}
+.ch211msg:hover .ch211ma{display:flex}.ch211ma button{border:0;background:transparent;width:24px;height:24px;border-radius:6px;cursor:pointer;font-size:12.5px}.ch211ma button:hover{background:var(--hover)}
+.ch211ed{width:100%;min-height:52px;box-sizing:border-box}.ch211edb{display:flex;gap:6px;margin-top:4px}
+.ch211dots{display:inline-flex;gap:3px}.ch211dots i{width:6px;height:6px;border-radius:50%;background:var(--gd);animation:ch211d 1s infinite}.ch211dots i:nth-child(2){animation-delay:.15s}.ch211dots i:nth-child(3){animation-delay:.3s}@keyframes ch211d{50%{opacity:.25}}
+.ch211in{position:relative;margin:4px 10px 10px;border:1px solid var(--line);border-radius:14px;background:var(--panel);transition:border-color .15s,box-shadow .15s}
+.ch211in:focus-within{border-color:var(--chc);box-shadow:0 0 0 3px color-mix(in srgb,var(--chc) 18%,transparent)}
+.ch211q2{width:100%;box-sizing:border-box;border:0;background:transparent;resize:none;padding:10px 12px 4px;font:14px/1.45 var(--font);color:var(--ink);min-height:44px;outline:none}
+.ch211rep{display:flex;align-items:center;gap:6px;margin:8px 10px 0;padding:4px 8px;border-radius:8px;background:var(--hover);font-size:12px;color:var(--muted)}.ch211rep button{margin-left:auto;border:0;background:transparent;cursor:pointer;font-size:14px;color:var(--muted)}
+.ch211tools{display:flex;align-items:center;gap:4px;padding:4px 6px 6px}
+.ch211tools button{border:0;background:transparent;height:30px;min-width:30px;padding:0 8px;border-radius:8px;color:var(--muted);font:700 13px var(--font);cursor:pointer}.ch211tools button:hover{background:var(--hover);color:var(--ink)}
+.ch211tools .ch211ai{color:var(--gd-ink)}
+.ch211tools .ch211send{background:var(--chc);color:#fff;width:34px;padding:0;border-radius:10px;font-size:14px}.ch211tools .ch211send:hover{background:var(--chc);filter:brightness(1.08);color:#fff}
+.ch211sg{position:absolute;left:8px;bottom:calc(100% + 4px);display:flex;flex-direction:column;min-width:180px;padding:4px;border-radius:10px;background:var(--panel);border:1px solid var(--line);box-shadow:0 10px 24px -8px rgba(0,0,0,.35);z-index:3}
+.ch211sg[hidden]{display:none}.ch211sg button{border:0;background:transparent;text-align:left;padding:6px 10px;border-radius:7px;font:600 13px var(--font);color:var(--ink);cursor:pointer}.ch211sg button:hover,.ch211sg button:first-child{background:var(--hover)}
+.ch211ft{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:8px 12px 12px;border-top:1px solid var(--line)}.ch211ft.hl{background:color-mix(in srgb,var(--chc) 8%,var(--panel))}
+.ch211ftn{font-size:12px;color:var(--muted);flex:1 1 140px}
+.ch211b1,.ch211b2{display:inline-flex;align-items:center;gap:4px;min-height:32px;padding:0 13px;border-radius:10px;font:700 12.5px var(--font);cursor:pointer}
+.ch211b1{border:0;background:var(--chc);color:#fff}.ch211b1:hover{filter:brightness(1.06)}
+.ch211b2{border:1px solid var(--line);background:var(--panel);color:var(--ink)}.ch211b2:hover{border-color:var(--chc)}
+.ch211b1.sm,.ch211b2.sm{min-height:26px;padding:0 9px;font-size:12px}
+.ch211lp .inp{margin:4px 8px 6px;width:calc(100% - 16px)}.ch211lp{max-height:60vh;overflow:auto}
+/* the list of chats */
+.ch211list .btnrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.ch211list .btn,.ch211list .ob{display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border-radius:9px;font:600 12.5px var(--font);cursor:pointer}.ch211list .btn{border:0;background:var(--ink);color:var(--panel)}.ch211list .ob{border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+.ch211fl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0}.ch211fl .seg24{flex-wrap:wrap}
+.ch211rows{display:flex;flex-direction:column;gap:2px;margin-top:6px}
+.ch211row{display:flex;align-items:center;gap:10px;padding:8px 10px;border:0;border-radius:12px;background:transparent;text-align:left;cursor:pointer;color:var(--ink);font:inherit}.ch211row:hover{background:var(--hover)}.ch211row.done{opacity:.6}
+.ch211rc{flex:1;min-width:0;display:flex;flex-direction:column}.ch211rc b{font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ch211rc small{color:var(--muted);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ch211rm{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:11.5px;flex:none}
+@media (max-width:700px){.ch211p{left:8px!important;right:8px;width:auto!important;border-radius:16px}}
+/* ===== agents ===== */
+.ag211tabs{margin-bottom:10px;flex-wrap:wrap}.ag211tabs button.on{background:var(--gd)!important;color:#fff!important}
+.ag211g{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.ag211roles{display:flex;flex-direction:column;gap:6px}.ag211role{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.ag211role .inp{min-width:0}.ag211role .ag211p{flex:1 1 220px}.ag211role select{max-width:200px}
+.ag211n{width:22px;height:22px;border-radius:50%;background:var(--gd);color:#fff;display:grid;place-items:center;font:700 11px var(--font);flex:none}
+.ag211task,.ag211topic{width:100%;box-sizing:border-box;margin:4px 0 8px}
+.ag211deb{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin:8px 0}.ag211deb label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.ag211log{display:flex;flex-direction:column;gap:4px;margin-top:8px;max-height:180px;overflow:auto}.ag211step{font-size:12.5px;padding:5px 9px;border-radius:8px;background:var(--hover)}.ag211step.ok{background:color-mix(in srgb,#2fa36b 14%,transparent)}.ag211step.bad{background:color-mix(in srgb,var(--danger) 14%,transparent)}
+.ag211use{display:flex;flex-direction:column;gap:6px}
+.ag211u{display:grid;grid-template-columns:18px 20px minmax(150px,1fr) minmax(80px,140px) 118px 96px 28px 28px;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:12px}
+.ag211nm{display:flex;flex-direction:column;min-width:0}.ag211nm small{color:var(--muted);font-size:11.5px}.ag211u.off{opacity:.55}.ag211u .inp{width:100%;box-sizing:border-box}
+.ag211ord{font:700 11px var(--font);color:var(--muted)}
+.ag211bar{height:8px;border-radius:5px;background:var(--hover);overflow:hidden}.ag211bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gd),#b48cff);border-radius:5px}
+.ag211st{font:700 11px var(--font);color:var(--muted)}.ag211st.ok{color:#2fa36b}.ag211st.bad{color:var(--danger)}
+@media (max-width:700px){.ag211u{grid-template-columns:18px 20px 1fr 28px 28px}.ag211u .ag211bar,.ag211u input,.ag211u .ag211st{grid-column:3/-1}}
+.ag211mode{display:flex;gap:4px;flex-wrap:wrap;padding:6px 12px;border-bottom:1px solid var(--line)}
+.ag211mode button{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:2px 9px;font:600 11.5px var(--font);cursor:pointer}.ag211mode button:hover{border-color:var(--gd);color:var(--gd-ink)}
+#ctx [data-act="h:side"]{display:none!important}
 
 @media (max-width:700px){#statusText{display:none}#statusText.act{display:block;max-width:132px;white-space:normal;font-size:11.5px;line-height:1.25}#status{padding-left:12px}#boardName{width:120px}.fbtn span{display:none}.fdoc{padding:28px 24px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -3657,7 +3798,7 @@ const canFocus = it => !!it && ['embed', 'image', 'sticky', 'text', 'shape', 'fr
 const items = () => S.board.items;
 function byId(id) { if (!id) return null; const a = S.board.items; for (let i = 0; i < a.length; i++) if (a[i].id === id) return a[i]; return null; }
 const selItems = () => [...S.sel].map(byId).filter(Boolean);
-const renderOrder = () => { const a = items(); return a.filter(i => i.type === 'frame').concat(a.filter(i => i.type !== 'frame')); };
+const renderOrder = () => frameOrder211(items());
 const center = t => ({ x: t.x + t.w / 2, y: t.y + t.h / 2 });
 
 function newBoard(name) {
@@ -4508,7 +4649,7 @@ function ctxExtra(sel, single) {
   if (sel.length > 1 && sel.every(i => i.cell) && !S.editing) g.push(cbtn('mx:props', 'Свойства ячеек', 'Статус, приоритет, метка и число', 'wide'));
   if (it && NEW_TYPES.has(it.type)) { const x = ctxNew(it); if (x) g.push(x); }
   if (it && it.type === 'connector' && it.from.id && it.to.id && byId(it.from.id) && byId(it.to.id) && byId(it.from.id).cell && byId(it.to.id).cell && byId(it.from.id).cell.m === byId(it.to.id).cell.m) g.push(cbtn('mx:route', it.route === 'direct' ? 'Напрямую' : 'По линиям', 'Как вести стрелку между ячейками', 'wide'));
-  if (it && it.type === 'frame') g.push(cbtn('fr:style', it.fstyle === 'section' ? 'Секция' : 'Рамка', 'Вид: рамка или секция', 'wide') + (Array.isArray(it.tabs) && it.tabs.length ? '' : cbtn('fr:tabs', 'Вкладки', 'Разбить рамку на вкладки', 'wide')));
+  if (it && it.type === 'frame') g.push(cbtn('fr:view', 'Вид: ' + frView211(it) + ' ▾', 'Вид рамки: обычная, секция, с вкладками, матрица', 'wide'));
   if (it && it.type !== 'connector' && it.type !== 'pen' && !S.editing) g.push(cbtn('k:fixed', 'Не масштабировать', 'Размер на экране не меняется при зуме', 'wide' + (it.fixed ? ' on' : '')));
   if (it && it.pin && !S.editing) g.push(cbtn('k:unpin', 'Отцепить', 'Отцепить от элемента', 'wide'));
   if (sel.length && !S.editing) g.push(cbtn('k:lock', ic('lock'), `${sel.some(i => !i.locked) ? 'Закрепить' : 'Открепить'} (${keyOf('lock')})`, sel.every(i => i.locked) ? 'on' : ''));
@@ -5771,7 +5912,7 @@ function installHelp() {
    v1.7: versions, feature catalog, tiny-object markers, pin zones, re-attach,
    nested frame tabs, Whimsical import that reads the whole board by sections
    ========================================================= */
-const APP_VERSION = '2.10';
+const APP_VERSION = '2.11';
 const CHANGELOG = [
   ['1.9', '6 октября 2026', ['Масштаб от 0,5%, свой диапазон и уровни: колесо и кнопки прыгают по уровням (Горячие клавиши → Масштаб)', 'Замок: закреплённый объект не двигается, не меняется и не удаляется', 'Выравнивание, равные промежутки, одинаковый размер и одинаковая длина линий для выделенного', 'Умные направляющие: при перемещении и растягивании объект прилипает к краям и центрам соседей (Alt отключает)', 'Выделенное можно открыть отдельно, как доску, с хлебными крошками', 'Резервная копия в папку на компьютере, в том числе в папку Яндекс Диска, с недельным архивом', 'История версий доски с поиском по дате: копии на устройстве и версии из Google Диска', 'Компактная панель статуса: цветные индикаторы, мигающий значит нужно ваше действие', 'Контуры при сильном отдалении: только у внешних объектов, нейтральным серым, точно по размеру', 'Импорт из Whimsical: секции как в оригинале, блок-схемы и прямоугольники, шрифт подбирается под каждое устройство']],
   ['1.8', '6 октября 2026', ['Импорт из Whimsical: майнд-карты снова переносятся, сбойные запросы повторяются, а не пропускаются', 'Картинки из Whimsical переносятся как картинки', 'Ссылки из Whimsical становятся текстом-ссылкой, а не пустой карточкой', 'Размер шрифта в перенесённых заголовках подбирается по настоящему шрифту, слова больше не рвутся', 'При сильном отдалении (1% и меньше) подсвечиваются контуры объектов вместо пятен', 'Копирование в другие приложения: обычный текст с форматированием, без служебного кода', 'Приложение само проверяет, есть ли на сайте новая версия, и предлагает обновиться']],
@@ -6246,7 +6387,7 @@ const AREAS = {
 };
 Object.assign(AREAS.canvas[2], { filter: 'Фильтры (Filters)' }); Object.assign(AREAS.org[2], { fhead: 'Шапка рамки (Frame header)' }); Object.assign(AREAS.obj[2], { docs: 'Документы (Documents)', html: 'HTML-инструменты (HTML tools)' }); Object.assign(AREAS.io[2], { web: 'Страница по ссылке (Web capture)', queue: 'Очередь импорта (Import queue)' }); Object.assign(AREAS.cust[2], { mech: 'Механики (Feature toggles)', panels: 'Панели (Panels)', menu: 'Меню (Menu)', drag: 'Перетаскивание (Drag)' }); Object.assign(AREAS.ws[2], { side: 'Панель досок слева (Boards sidebar)', smart: 'Умные доски (Smart boards)' }); Object.assign(AREAS.life[2], { time: 'Учёт времени (Time tracking)', src: 'Источники записей (Sources)' }); Object.assign(AREAS.plat[2], { audit: 'Аудит (Audit)' }); Object.assign(AREAS, { team: ['Команда', 'Team', { space: 'Командное пространство (Team space)', live: 'Кто на доске (Presence)' }], ai: ['Claude', 'AI', { board: 'Claude на доске (AI on board)' }], files: ['Файлы', 'Files', { drop: 'Файлы на доске (Files on board)', group: 'Групповое встраивание (Bulk embed)', lib: 'Библиотека файлов (File library)' }] }); Object.assign(AREAS.data[2], { trash: 'Корзина (Trash)', space: 'Объём (Storage usage)' }); Object.assign(AREAS.life[2], { modes: 'Режимы задачника (Task manager modes)' }); Object.assign(AREAS.plat[2], { guide: 'Гайды и демо (Guides)' }); AREAS.org[2].fhead = 'Табулятор рамки (Frame tabulator)';
 const areaLabel = c => { const [a, m] = String(c || '').split('.'), A = AREAS[a]; return A ? A[0] + (m && A[2][m] ? ' › ' + A[2][m].replace(/ \(.*\)$/, '') : '') : ''; };
-const VERS = [['2.10', '10 октября 2026'], ['2.9', '10 октября 2026'], ['2.8', '10 октября 2026'], ['2.7', '9 октября 2026'], ['2.6', '9 октября 2026'], ['2.5', '9 октября 2026'], ['2.4', '9 октября 2026'], ['2.3', '8 октября 2026'], ['2.2', '7 октября 2026'], ['2.1', '6 октября 2026'], ['2.0', '6 октября 2026'], ['1.9', '6 октября 2026'], ['1.8', '6 октября 2026'], ['1.7', '6 октября 2026'], ['1.6', '5 октября 2026'], ['1.5', '5 октября 2026'], ['1.4', '5 октября 2026'], ['1.3', '4 октября 2026'], ['1.2', '4 октября 2026'], ['1.0', '4 октября 2026']];
+const VERS = [['2.11', '10 октября 2026'], ['2.10', '10 октября 2026'], ['2.9', '10 октября 2026'], ['2.8', '10 октября 2026'], ['2.7', '9 октября 2026'], ['2.6', '9 октября 2026'], ['2.5', '9 октября 2026'], ['2.4', '9 октября 2026'], ['2.3', '8 октября 2026'], ['2.2', '7 октября 2026'], ['2.1', '6 октября 2026'], ['2.0', '6 октября 2026'], ['1.9', '6 октября 2026'], ['1.8', '6 октября 2026'], ['1.7', '6 октября 2026'], ['1.6', '5 октября 2026'], ['1.5', '5 октября 2026'], ['1.4', '5 октября 2026'], ['1.3', '4 октября 2026'], ['1.2', '4 октября 2026'], ['1.0', '4 октября 2026']];
 const KIND = { f: ['Новое', 'Feature'], i: ['Улучшение', 'Improvement'], x: ['Исправление', 'Bug fix'], b: ['Ожидается', 'Backlog'] };
 /* [id, version, area.module, kind, title, how to use, context] */
 const FEATS = [
@@ -6578,6 +6719,28 @@ const FEATS = [
 ['f29_ext','2.9','plat.ext','f','Расширение браузера: клиппер и виджеты','holst-extension.zip → chrome://extensions → «Загрузить распакованное».','Любая страница — в задачник или на доску; задачи поверх сайтов.'],
 ['f29_share','2.9','plat.ext','f','«Поделиться» → Холст на телефоне','Установите Холст как приложение → «Поделиться» в любом приложении.','Ссылки, текст, картинки и файлы — сразу в Холст.'],
 ['f29_cx','2.9','life.inbox','f','Отчёты из чатов Claude в задачник','Навык «Отчёт в Холст» в Claude → «отчёт в Холст» в конце чата.','Все отчёты и проекты чатов — в одном месте.'],
+['f211_gdsteps','2.11','cust.learn','i','«По шагам» в гайде ведёт по экрану','В гайде — «▶ По шагам на экране»; ☰ → «Все гайды» → «Как показывать».','Показывает, а не пересказывает.'],
+['f211_gdblock','2.11','cust.learn','x','Пока открыт гайд, под ним ничего не нажимается','Само; меню гайда — поверх затемнения.','Обучение не мешает работе.'],
+['f211_plate','2.11','obj.media','i','Плашка только у файлов не на Диске','Само; где лежит файл — «Исходник» на панели объекта.','Доска чище, проблемные файлы видно.'],
+['f211_zl','2.11','canvas.zl','f','Три уровня заметности при отдалении','☰ → «Стиль управления» → «Заметность меток при отдалении».','Чаты, метки и плашки видно на любом масштабе.'],
+['f211_frorder','2.11','org.frames','x','Новая рамка поверх рамки — сверху','Само.','Вложенные рамки и ячейки лежат как ожидаешь.'],
+['f211_frview','2.11','org.frames','i','Вид рамки: обычная, секция, вкладки, матрица','Выделите рамку → «Вид ▾».','Вернуть рамку в обычный вид — одним щелчком.'],
+['f211_fx','2.11','org.export','f','Экспорт рамки с группировкой','⇪ у рамки или «⇪ Экспорт» на панели: по ячейкам, строкам, столбцам, таблицей, по вкладкам, рамкам, заголовкам.','Telegram, Markdown, документ, снимок, задачи — из любой рамки.'],
+['f211_timer','2.11','org.timer','f','Таймер команды по объектам','Рамка → «⏱ Таймер»: время на каждый объект, по очереди или общее.','Все на доске видят, над чем работаем и сколько осталось.'],
+['f211_follow','2.11','cust.drag','i','Скорость доски у края: мин и макс','☰ → «Стиль управления» → «Доска за указателем».','По умолчанию плавнее: макс всего на 50% быстрее мин.'],
+['f211_crumbs','2.11','obj.media','f','Исходник: папки Диска по крошкам','Панель исходника: путь «Мой диск › Холст › Файлы» — щелчок открывает папку; «Открыть папку».','Легко попасть в папку файла на Диске.'],
+['f211_srcview','2.11','obj.media','i','Вид файла — значком, как у панелей','Панель исходника → ▣: сбоку, во весь экран, в окне, кнопкой.','Привычная кнопка вместо «Сбоку».'],
+['f211_tips','2.11','cust.ui','i','Подсказки у всех кнопок','Наведите на любую кнопку.','Понятно, что делает каждая кнопка.'],
+['f211_chmark','2.11','team.chat','f','Значок чата с аватаром автора — виден на любом масштабе','Само; тянуть значок — переместить, щелчок — открыть.','Как в Miro и FigJam.'],
+['f211_chview','2.11','team.chat','f','Чат: значок, полотно, всплывающая панель, сбоку, в окне','В переписке ▣ — где показывать; на панели чата — «Значок / Полотно».','Переписка там, где удобно.'],
+['f211_chstick','2.11','team.chat','x','Открытый чат держится за свой значок','Само при масштабе и прокрутке.','Не теряется от объекта.'],
+['f211_chfilt','2.11','team.chat','f','Фильтры чатов: мои, @меня, я участвую, непрочитанные, с ИИ','💬 наверху → «Чаты доски».','Видно своё.'],
+['f211_chtopic','2.11','team.chat','f','Чат знает, где он и о чём','В переписке: путь «рамка › объект» и «＋ Тема» — направление, проект, задача; подставляется из рамки и объекта.','Чат попадает в нужный проект задачника.'],
+['f211_chref','2.11','team.chat','f','Реакции, @упоминания, ответы, правка, непрочитанные','Наведите на сообщение; «@» в тексте; ‹ › — соседние чаты.','Как в референсах.'],
+['f211_modes','2.11','ai.modes','f','Режимы ИИ: доска или всё приложение, внутри или с интернетом','Панель ✦ → плашки режима; ☰ → «Агенты» → «Режимы».','Нейросеть видит и делает ровно то, что нужно.'],
+['f211_limits','2.11','ai.limits','f','Лимиты, расход токенов и подхват другой нейросетью','☰ → «Агенты» → «Лимиты и метрики».','Не упрётесь в лимит посреди работы.'],
+['f211_agents','2.11','ai.agents','f','Команда агентов','☰ → «Агенты» → «Команда агентов»: роли, нейросети, цепочка, параллельно, лидер.','Несколько нейросетей решают задачу вместе.'],
+['f211_debate','2.11','ai.agents','f','Спор нейросетей — и между людьми','☰ → «Агенты» → «Спор»; в чате спора — «⚔ Ход моей нейросети».','Взвешенное решение из разных мнений.'],
 ['f210_br','2.10','cust.learn','f','Знакомство по веткам и глубине','☰ → «Версия · что нового» → «По веткам»: глубина 1 — ветки, 2 — механики, 3 — нюансы; «Как вы работаете» — свои ветки.','Сначала целые механики, вглубь — когда нужно.'],
 ['f210_sty','2.10','cust.learn','f','Стили работы и пресеты','☰ → «Механики» → «Как вы работаете»: скетчи, задачи, системы, материалы, команда, ИИ, показ, всё сразу.','Одним щелчком включается нужное, лишние разделы прячутся.'],
 ['f210_sec','2.10','cust.mech','i','Разделы на экране — у каждого свои','☰ → «Механики» → «Разделы на экране»: задачник, DEV, ИИ, библиотека, импорт.','Видно только то, чем вы пользуетесь.'],
@@ -7876,6 +8039,16 @@ const DEV_X = [
   { id: 'T210-ai', it: '2.10', area: 'ai.prov', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'добавить все нейронки, платные и бесплатные; придумать для claude чтобы не только в облачной версии; кнопка нейронок осталась от claude; у каждого юзера своя нейронка; окно супер красивым', title: 'Своя нейросеть у каждого', report: R21('☰ → «Нейросети»: карточки — ChatGPT, Claude API, Gemini (есть бесплатно), Groq (бесплатно), OpenRouter, Qwen, Perplexity; без ключа — Claude по подписке (через Google Диск) и Claude внутри Claude. Ключ, модель, «Где взять ключ», «Проверить». Панель ИИ: «✦ ИИ на доске» и плашка вашей нейросети — щелчок меняет её. Тексты и подсказки — про «вашу нейросеть», не про Claude.', '1. ☰ → «Нейросети» → Groq → ключ → «Проверить».\n2. ✦ → плашка нейросети → сменить.', 'Режимы работы, лимиты, подхват при лимите, метрики токенов, споры и команды агентов — 2.11.') },
   { id: 'T210-cd', it: '2.10', area: 'ai.sub', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'придумай что-то для claude чтобы не только в облачной версии доски работало', title: 'Claude по подписке через Google Диск', report: R21('Нейросеть «Claude по подписке»: вопросы из панели ИИ и чатов на доске уходят заданием в «Холст/Claude» на вашем Google Диске (вместе со списком объектов доски). В любом чате Claude скажите «задания из Холста» (навык — карточка в чате) — Claude ответит и при необходимости добавит стикеры, документы, задачи, чаты. Ответ кладётся в «Холст/Входящие» — Холст сам ставит его в панель ИИ или в чат.', '1. ☰ → «Нейросети» → «Claude по подписке».\n2. ✦ → вопрос.\n3. В Claude: «задания из Холста».\n4. ✦ → «⟳ Ответы».', 'Не мгновенно: ответ приходит, когда вы запускаете навык в Claude.') },
   { id: 'T210-demo', it: '2.10', area: 'plat.guide', status: 'review', type: 'Улучшение', prio: 'Низкий', orig: 'на доске знакомства размести все панели меню по фреймам тематик', title: 'Демо-доска: меню по темам', report: R21('Внизу демо-доски — 7 рамок: Доска, Создать, Перейти, Импорт и экспорт, Настройки, Синхронизация, Помощь. В каждой — пояснение и виджет с кнопками всех панелей этой темы.', '☰ → «Демо-доска» → прокрутите вниз.', '') },
+  { id: 'T211-gd', it: '2.11', area: 'cust.learn', status: 'review', type: 'Баг', prio: 'Высокий', orig: 'по шагам должно вести по шагам на экране; многие нажатия срабатывают под режимом обучения', title: 'Гайды: шаги на экране, ничего под затемнением', report: R21('«▶ По шагам на экране» в гайде запускает тур с подсветкой прямо на экране (для каждой кнопки — свой или собранный из пунктов гайда). Выбор «По шагам на экране» запоминается: дальше гайды сразу ведут по экрану. Меню «⋯» гайда — поверх затемнения; пока гайд открыт, клавиши и нажатия под ним не срабатывают.', '1. ☰ → «Все гайды» → «↺ Показать заново».\n2. «Все доски» → гайд → «▶ По шагам на экране».\n3. В гайде «⋯» — меню над затемнением.', '') },
+  { id: 'T211-plate', it: '2.11', area: 'obj.media', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'плашка диска не имеет смысла; оставить только у несинхронизированных; останавливать масштабирование как у вкладок; три уровня заметности при зуминге', title: 'Плашка «не на Диске» и уровни заметности', report: R21('Плашки «☁ Диск» больше нет: где лежит файл — в «Исходнике» на панели объекта. Плашка «⚠ не на Диске · ☁ загрузить» — только у файлов, которые не загружены, когда Диск подключён. Три уровня заметности: 1 — всегда одного размера (курсоры, выделение), 2 — до 7%, как вкладки рамок (значки чатов, «не на Диске»), 3 — до 25% (метки H1–H3, полосы загрузки). Проценты меняются в «Стиле управления».', 'Отдалите доску до 10% — значки чатов и плашки того же размера; до 5% — уменьшаются.', '') },
+  { id: 'T211-frame', it: '2.11', area: 'org.frames', status: 'review', type: 'Баг', prio: 'Высокий', orig: 'при добавлении фреймов поверх фрейма они сзади; вид «обычная» в параметрах панели', title: 'Порядок рамок и вид рамки', report: R21('Рамка внутри другой рамки (и ячейки матриц) всегда лежит над внешней; среди равных — новая над старой. На панели рамки одна кнопка «Вид ▾»: обычная, секция, с вкладками, матрица — «Обычная» снимает матрицу и вкладки.', 'Нарисуйте рамку поверх рамки и поверх ячейки матрицы — она сверху. Матрица → «Вид ▾» → «Обычная».', '') },
+  { id: 'T211-fx', it: '2.11', area: 'org.export', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'на каждом фрейме кнопка экспорта; те же панели, что из задачника; настройки группировки, например ячейки матрицы', title: 'Экспорт рамки', report: R21('⇪ у каждой рамки (при наведении) и «⇪ Экспорт» на панели рамки. Группировка: как удобнее, по ячейкам, по строкам, по столбцам, таблицей (матрицы), по вкладкам, по вложенным рамкам, по заголовкам H1–H3, одним списком; картинки и схемы целиком, пустые разделы. Видна структура. Куда: текст для Telegram, Markdown, документ — посмотреть, .html, на доску, снимок, ячейки — в задачник.', 'Матрица → ⇪ → «По строкам» → «Документ — посмотреть».', '') },
+  { id: 'T211-timer', it: '2.11', area: 'org.timer', status: 'review', type: 'Фича', prio: 'Средний', orig: 'таймер командной работы: время на каждый объект в выбранной зоне', title: 'Таймер команды', report: R21('Рамка → «⏱ Таймер»: время на объект (30 с — 10 мин), по очереди или общее время, звук. Запуск — для всех на доске: сверху плашка с временем, текущий объект подсвечен фиолетовым, ◎ — показать его. Пауза, следующий, +30 с, стоп — в «⋯» плашки или ⏱ у рамки.', 'Рамка со стикерами → «⏱ Таймер» → 30 с → «Запустить».', 'Время у всех считается от общего старта, поэтому важно, чтобы часы устройств были верны.') },
+  { id: 'T211-follow', it: '2.11', area: 'cust.drag', status: 'review', type: 'Баг', prio: 'Средний', orig: 'при нажатой мышке передвижение за указателем стало слишком быстрым; мин и макс скорость регулируемыми; по умолчанию макс на 50% быстрее мин', title: 'Скорость доски у края', report: R21('Убрана вторая, лишняя прокрутка у края (из 2.9). Скорость растёт от «мин» к «макс» по мере приближения к краю; по умолчанию 6 и 9 — макс на 50% быстрее. ☰ → «Стиль управления» → «Доска за указателем»: режим (стоит, следует, у края) и оба ползунка.', 'Тяните стикер к краю — доска едет плавно.', '') },
+  { id: 'T211-src', it: '2.11', area: 'obj.media', status: 'review', type: 'Улучшение', prio: 'Высокий', orig: 'в панели исходника открытие на диске должно вести на папку, хлебные крошки кликабельные; кнопка «сбоку» ломает ожидания — значок расположения', title: 'Исходник: папки и вид', report: R21('«Где лежит» — путь по папкам Google Диска: «Мой диск › Холст › Файлы › файл», каждая папка открывается щелчком. Главная кнопка — «📂 Открыть папку» с файлом; рядом «Открыть файл», ссылки на файл и на папку. Вместо «Сбоку» — привычный значок вида ▣: сбоку слева или справа, во весь экран, в окне, кнопкой.', 'Картинка на Диске → «Исходник» → щёлкните «Холст» в пути.', 'Подсветить файл в папке Google Диск по ссылке не умеет — откроется папка, файл в ней.') },
+  { id: 'T211-tips', it: '2.11', area: 'cust.ui', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'все кнопки на сайте должны снабжаться пояснялками во всплывашках', title: 'Подсказки у всех кнопок', report: R21('У каждой кнопки без подсказки она появляется сама: из названия, словаря значков (⋯, ✕, ＋, ▣, ↺…) и действий; у новых кнопок 2.10–2.11 — свои подробные подсказки.', 'Наведите на любую кнопку.', '') },
+  { id: 'T211-chat', it: '2.11', area: 'team.chat', status: 'review', type: 'Улучшение', prio: 'Высокий', orig: 'ЧАТЫ: обозначения без масштабирования, фильтры, режим полотна, супер красивая панель, прилипание при зуминге, всплывающая версия с расположением, темы чата из проектов и направлений, иконка автора, механики референсов', title: 'Чаты 2.0', report: R21('Значок чата с аватаром автора — одного размера до 7%, держится за объект и едет вместе с ним; тянуть — переместить, щелчок — открыть. Вид: значок (с всплывающей панелью, которая держится за значок при масштабе и прокрутке) или полотно — вся переписка панелью на доске. ▣ в переписке: у значка, полотном, слева, справа, в отдельном окне, во весь экран, закрепить кнопкой. В шапке: участники, тема, тип, статус, ‹ › — соседние чаты; путь «рамка › объект»; «＋ Тема» — направление, проект, задача (по умолчанию из рамки и объекта), и чат попадает туда в задачнике. Реакции, ответ на сообщение, правка и удаление своих, @упоминания с подсказкой, «@ии», непрочитанные. 💬 → «Чаты доски»: мои, @меня, я участвую, непрочитанные, с ИИ; открытые и закрытые; по типу.', '1. 💬 → «Новый чат» → по стикеру.\n2. Отдалите и подвигайте — панель держится за значок.\n3. ▣ → «Полотном на доске».', '') },
+  { id: 'T211-ag', it: '2.11', area: 'ai.agents', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'агентская среда: режимы работы нейронок, внутренний и внешний режимы, контроль токенов и подхват, метрики, споры нейросетей, структура команды нейронок', title: 'Агентская среда', report: R21('☰ → «Агенты» (и плашки в панели ✦): Режимы — доска или всё приложение (задачник, список досок), внутренний или внешний (чтение страниц по ссылке, поиск в сети через OpenRouter и Perplexity), что можно менять. Лимиты — расход токенов за день и месяц по каждой нейросети, дневной лимит Холста, цепочка подхвата: упёрлась одна — продолжает следующая и пишет, кто ответил. Команда агентов — роли, у каждой своя нейросеть, схемы: цепочка, параллельно со сводкой, спор с судьёй, лидер делит задачу; ход работы — в чате-полотне на доске, итог — документом. Спор — две нейросети по раундам и судья; коллеги добавляют ход своей нейросети в том же чате.', '1. ☰ → «Агенты» → «Спор»: ChatGPT против Gemini.\n2. «Команда агентов» → «Цепочка» → задача → «Запустить».\n3. «Лимиты» — расход.', 'Расход считается на этом устройстве по ответам сервисов; Perplexity и OpenRouter :online ищут в сети — остальные только читают страницы по ссылке.') },
 ];
 
 
@@ -19400,24 +19573,30 @@ function gdPlace210(anchor) {
   if (y < 8) { y = clamp(r.top, 8, innerHeight - h - 8); x = r.right + 16 + w < innerWidth ? r.right + 16 : r.left - w - 16; }
   c.style.left = px(clamp(x, 8, innerWidth - w - 8)); c.style.top = px(clamp(y, 8, innerHeight - h - 8));
 }
-function gdShow210(g, anchor) {
+function gdTour210(g) {
   gdClose210();
+  if (g[5] && TOURS[g[5]]) { tourStart(g[5]); return; }
+  const id = 'gd:' + g[0], n = g[4].length;
+  TOURS[id] = { name: g[3], steps: g[4].map((x, i) => ({ el: () => document.querySelector(g[0]) || document.querySelector('#btnMenu'), t: g[3] + (n > 1 ? ` · шаг ${i + 1} из ${n}` : ''), x })) };
+  tourStart(id);
+}
+function gdShow210(g, anchor, force) {
+  gdClose210();
+  if (!force && GDS210.mode === 'steps' && (GDS210.intro || 0) >= 1) { GDS210.intro = (GDS210.intro || 0) + 1; gdSave210(); gdTour210(g); return; }
   const [sel, br, lv, t, lines, tour] = g, B = brById(br) || ['', '•', '', ''];
   const el = document.createElement('div'); el.id = 'gd210'; el.dataset.app = '';
-  GD_RUN.el = el; GD_RUN.g = g; GD_RUN.anchor = anchor; GD_RUN.step = GDS210.mode === 'steps' ? 0 : -1;
+  GD_RUN.el = el; GD_RUN.g = g; GD_RUN.anchor = anchor;
   document.body.appendChild(el); document.body.classList.add('gd210on');
   const first = (GDS210.intro || 0) < 3;
   const draw = () => {
-    const steps = GD_RUN.step >= 0, i = GD_RUN.step;
     el.innerHTML = `<div class="gd210d"></div><div class="gd210s"></div><div class="gd210k" role="dialog" aria-label="Режим обучения: ${esc(t)}">
       <div class="gd210t"><span class="gd210m">Режим обучения</span><span class="gd210b">${B[1]} ${esc(B[2] || '')}</span><span class="p24sp"></span><button class="ib sm" data-gd210="x" title="Закрыть гайд">${ic('close')}</button></div>
-      ${first ? '<p class="gd210f">Фиолетовым подсвечено, куда вы нажали и что тут можно. Гайд закрывается только кнопкой. Выключить — «⋯» внизу или ☰ → «Все гайды».</p>' : ''}
+      ${first ? '<p class="gd210f">Фиолетовым подсвечено, куда вы нажали и что тут можно. Пока открыт гайд, доска и кнопки под ним не нажимаются. Закрыть — кнопкой. Выключить — «⋯» внизу или ☰ → «Все гайды».</p>' : ''}
       <h3>${esc(t)} <small>${GD_LV210[lv] || ''}</small></h3>
-      <div class="seg24 gd210v"><button class="${steps ? '' : 'on'}" data-gd210="m:info">Пояснение</button><button class="${steps ? 'on' : ''}" data-gd210="m:steps">По шагам</button></div>
-      ${steps ? `<div class="gd210st"><b>Шаг ${i + 1} из ${lines.length}</b><p>${esc(lines[i])}</p></div><div class="btnrow"><button class="ob sm" data-gd210="prev"${i ? '' : ' disabled'}>← Назад</button>${i < lines.length - 1 ? '<button class="btn sm gd210go" data-gd210="next">Далее →</button>' : tour && TOURS[tour] ? '<button class="btn sm gd210go" data-gd210="tour">▶ Показать на экране</button>' : '<button class="btn sm gd210go" data-gd210="ok">Готово</button>'}</div>`
-        : `<ul>${lines.map(l => `<li>${esc(l)}</li>`).join('')}</ul>`}
+      <div class="seg24 gd210v" title="Как показывать гайды: кратко на карточке или по шагам прямо на экране"><button class="on" data-gd210="m:info" title="Кратко на этой карточке">Пояснение</button><button data-gd210="m:steps" title="Провести по шагам прямо на экране, с подсветкой каждого места">▶ По шагам на экране</button></div>
+      <ul>${lines.map(l => `<li>${esc(l)}</li>`).join('')}</ul>
       <div class="gd210chat"${GD_RUN.chat ? '' : ' hidden'}></div>
-      <div class="gd210ft"><button class="ob sm gd210ai" data-gd210="ai">✦ Спросить ИИ</button>${!steps && tour && TOURS[tour] ? '<button class="ob sm" data-gd210="tour">▶ По шагам на экране</button>' : ''}<span class="p24sp"></span><button class="btn sm gd210go" data-gd210="ok">Понятно</button><button class="ob sm" data-gd210="opt" title="Показывать ли гайды">⋯</button></div></div>`;
+      <div class="gd210ft"><button class="ob sm gd210ai" data-gd210="ai" title="Чат с вашей нейросетью об этой функции — прямо здесь">✦ Спросить ИИ</button><span class="p24sp"></span><button class="btn sm gd210go" data-gd210="ok" title="Закрыть гайд">Понятно</button><button class="ob sm" data-gd210="opt" title="Показывать ли гайды: этот, ветку, все">⋯</button></div></div>`;
     gdSpot210(anchor); gdPlace210(anchor); if (GD_RUN.chat) gdChatDraw210();
   };
   GD_RUN.draw = draw; draw();
@@ -19426,17 +19605,16 @@ function gdShow210(g, anchor) {
     const b = e.target.closest('[data-gd210]'); if (!b) return; e.stopPropagation();
     const a = b.dataset.gd210;
     if (a === 'x' || a === 'ok') gdClose210();
-    else if (a === 'm:info') { GDS210.mode = 'info'; gdSave210(); GD_RUN.step = -1; draw(); }
-    else if (a === 'm:steps') { GDS210.mode = 'steps'; gdSave210(); GD_RUN.step = 0; draw(); }
-    else if (a === 'next') { GD_RUN.step = Math.min(lines.length - 1, GD_RUN.step + 1); draw(); }
-    else if (a === 'prev') { GD_RUN.step = Math.max(0, GD_RUN.step - 1); draw(); }
-    else if (a === 'tour') { gdClose210(); tourStart(tour); }
+    else if (a === 'm:info') { GDS210.mode = 'info'; gdSave210(); }
+    else if (a === 'm:steps') { GDS210.mode = 'steps'; gdSave210(); gdTour210(g); }
     else if (a === 'ai') { gdAsk210(g); }
     else if (a === 'opt') gdOpt210(b, g);
   });
   el.addEventListener('keydown', e => { if (e.key === 'Escape') gdClose210(); e.stopPropagation(); });
   el.addEventListener('submit', e => { e.preventDefault(); const i = el.querySelector('.gd210q'); if (i && i.value.trim()) { gdChatSend210(i.value.trim()); i.value = ''; } });
 }
+/* while a guide is open, nothing under it reacts: keys go nowhere except the guide */
+addEventListener('keydown', e => { if (!GD_RUN.el || GD_RUN.el.contains(e.target) || (pop && !pop.hidden && pop.contains(e.target))) return; if (e.key === 'Escape') { gdClose210(); } e.stopImmediatePropagation(); e.preventDefault(); }, true);
 addEventListener('resize', () => { if (GD_RUN.el) { gdSpot210(GD_RUN.anchor); gdPlace210(GD_RUN.anchor); } });
 function gdOpt210(anchor, g) {
   const br = brById(g[1]) || ['', '', 'этой ветки'];
@@ -19451,7 +19629,7 @@ function gdOpt210(anchor, g) {
 }
 /* the AI answers right inside the guide */
 async function gdAsk210(g, about, brId) {
-  if (!g) { const B = brById(brId); g = ['', brId || 'look', 1, B ? B[2] : 'Вопрос по Холсту', [about || ''], '']; closeXdlg(); gdShow210(g, null); }
+  if (!g) { const B = brById(brId); g = ['', brId || 'look', 1, B ? B[2] : 'Вопрос по Холсту', [about || ''], '']; closeXdlg(); gdShow210(g, null, true); }
   GD_RUN.chat = GD_RUN.chat || [];
   GD_RUN.chatCtx = `Функция «${g[3]}»: ${g[4].join(' ')}`; GD_RUN.draw();
   if (!GD_RUN.chat.length) gdChatSend210('Объясни по шагам, как этим пользоваться, с одним живым примером.', true);
@@ -19488,9 +19666,9 @@ function gdDlg210() {
     const n = br => GD210.filter(g => g[1] === br).length;
     d.querySelector('.gd210all').innerHTML = `<p class="sub">Гайды — это режим обучения: экран темнеет, фиолетовым подсвечено, куда вы попали. Появляются при первом нажатии кнопки и закрываются только кнопкой.</p>
       <label class="mrow"><span class="sw2"><input type="checkbox" data-g2="all"${GDS210.off ? '' : ' checked'}><i></i></span><span><b>Показывать гайды</b><small>${GDS210.off ? 'выключены' : 'включены'}</small></span></label>
-      <div class="row"><span class="br210n">Как показывать</span><div class="seg24"><button class="${GDS210.mode !== 'steps' ? 'on' : ''}" data-g2="m:info">Пояснение</button><button class="${GDS210.mode === 'steps' ? 'on' : ''}" data-g2="m:steps">По шагам</button></div></div>
+      <div class="row"><span class="br210n">Как показывать</span><div class="seg24"><button class="${GDS210.mode !== 'steps' ? 'on' : ''}" data-g2="m:info" title="Карточка с кратким пояснением">Пояснение</button><button class="${GDS210.mode === 'steps' ? 'on' : ''}" data-g2="m:steps" title="Сразу вести по шагам на экране">По шагам на экране</button></div></div>
       <div class="row"><span class="br210n">Насколько глубоко</span><div class="seg24">${[[1, 'Только ветки'], [2, '+ механики'], [3, '+ нюансы']].map(([v, l]) => `<button class="${(GDS210.depth || 3) === v ? 'on' : ''}" data-g2="d:${v}">${l}</button>`).join('')}</div></div>
-      <h3>По веткам</h3><div class="gd210br">${BR210.filter(b => n(b[0]) || TOURS[b[6]]).map(b => `<div class="gd210r"><label class="l27ck"><input type="checkbox" data-g2="b:${b[0]}"${GDS210.br[b[0]] === 0 ? '' : ' checked'}${GDS210.off ? ' disabled' : ''}> ${b[1]} <b>${esc(b[2])}</b> <small>· ${n(b[0])}</small></label><span class="p24sp"></span>${GD210.filter(g => g[1] === b[0]).slice(0, 1).map(g => `<button class="ob sm" data-g2="show:${GD210.indexOf(g)}">Показать</button>`).join('')}${b[6] && TOURS[b[6]] ? `<button class="ob sm" data-g2="tour:${b[6]}">▶ По шагам</button>` : ''}</div>`).join('')}</div>
+      <h3>По веткам</h3><div class="gd210br">${BR210.filter(b => n(b[0]) || TOURS[b[6]]).map(b => `<div class="gd210r"><label class="l27ck"><input type="checkbox" data-g2="b:${b[0]}"${GDS210.br[b[0]] === 0 ? '' : ' checked'}${GDS210.off ? ' disabled' : ''}> ${b[1]} <b>${esc(b[2])}</b> <small>· ${n(b[0])}</small></label><span class="p24sp"></span>${GD210.filter(g => g[1] === b[0]).slice(0, 1).map(g => `<button class="ob sm" data-g2="show:${GD210.indexOf(g)}" title="Показать карточку гайда">Пояснение</button><button class="ob sm" data-g2="step:${GD210.indexOf(g)}" title="Провести по шагам на экране">▶ По шагам</button>`).join('')}${b[6] && TOURS[b[6]] && !GD210.some(g => g[1] === b[0]) ? `<button class="ob sm" data-g2="tour:${b[6]}" title="Провести по шагам на экране">▶ По шагам</button>` : ''}</div>`).join('')}</div>
       <div class="btnrow"><button class="ob" data-g2="reset">↺ Показать заново все просмотренные</button><button class="ob" data-g2="tours">Все гайды по шагам…</button><button class="ob" data-g2="skill">${isOwner210() ? '✦ Навыки Claude для Холста' : '✦ Своя нейросеть и навыки'}</button></div>`;
   };
   d.addEventListener('change', e => { const t = e.target, k = t.dataset.g2 || ''; if (k === 'all') GDS210.off = t.checked ? 0 : 1; else if (k.startsWith('b:')) GDS210.br[k.slice(2)] = t.checked ? 1 : 0; gdSave210(); draw(); });
@@ -19502,6 +19680,7 @@ function gdDlg210() {
     else if (k === 'tour') { closeXdlg(); tourStart(v); return; }
     else if (k === 'skill') { closeXdlg(); skillGuide210(); return; }
     else if (k === 'show') { const g = GD210[+v]; closeXdlg(); setTimeout(() => gdShow210(g, document.querySelector(g[0])), 60); return; }
+    else if (k === 'step') { const g = GD210[+v]; closeXdlg(); setTimeout(() => gdTour210(g), 60); return; }
     gdSave210(); draw();
   });
   draw();
@@ -19724,13 +19903,14 @@ function srcAddr210(it) {
 }
 { const o = srcChip; srcChip = (el, it) => {
   if (!srcKind210(it) && !it.srcUrl) return o(el, it);
-  const A = srcAddr210(it), sel = S.sel && S.sel.has(it.id), U = UP210.get(it.id);
+  /* files on Drive need no plate: where they live is in the object's «Исходник». Only files that are NOT on Drive get it */
+  const U = UP210.get(it.id), unsynced = srcKind210(it) && !it.driveId && (it.fid || it.asset || isFileIt(it)) && Drive.active();
   let c = el._src;
-  if (!A || (A.k === 'local' && !isFileIt(it) && !sel && !U)) { if (c) { c.remove(); el._src = null; } }
-  else {
+  if (!unsynced && !U) { if (c) { c.remove(); el._src = null; } }
+  else if (unsynced) {
     if (!c) { c = el._src = document.createElement('button'); c.className = 'srcchip src210'; c.dataset.src = it.id; el.appendChild(c); }
-    const t = A.s + (A.k === 'local' && Drive.active() ? ' · ☁ на Диск' : ''); if (c.textContent !== t) c.textContent = t; c.title = 'Где лежит: ' + A.t + '\nЩелчок — панель исходника'; c.dataset.k = A.k;
-  }
+    const t = '⚠ не на Диске · ☁ загрузить'; if (c.textContent !== t) c.textContent = t; c.title = 'Оригинал только на этом устройстве. Щелчок — панель исходника: загрузить на Google Диск и настроить, куда сохранять'; c.dataset.k = 'local';
+  } else if (c) { c.remove(); el._src = null; }
   let bar = el._up; if (!U) { if (bar) { bar.remove(); el._up = null; } return; }
   if (!bar) { bar = el._up = document.createElement('div'); bar.className = 'up210'; bar.innerHTML = '<i></i><span></span>'; el.appendChild(bar); }
   bar.classList.toggle('ind', U.p < 0); bar.classList.toggle('ok', U.st === 'ok'); bar.classList.toggle('err', U.st === 'err');
@@ -19783,29 +19963,62 @@ imgDriveUp = async () => { for (const it of items().filter(i => i.type === 'imag
 fileDriveUp = async () => { for (const it of items().filter(i => isFileIt(i) && !i.driveId && !(fileIdx()[i.fid] || {}).d && !UP210.has(i.id))) { if ((it.fsize || 0) > DRIVE_FILE_MAX()) continue; await srcUp210(it, true); } };
 /* ---------- the panel of the source ---------- */
 function storeSet210(path, v) { const s = LS.get('storecfg') || {}; const [a, b] = path.split('.'); s[a] = Object.assign({}, s[a], { [b]: v }); LS.set('storecfg', s); }
+/* the folder path of a Drive file: clickable crumbs */
+const PATH211 = new Map();
+const folderUrl211 = c => c.root ? 'https://drive.google.com/drive/my-drive' : 'https://drive.google.com/drive/folders/' + c.id;
+async function drivePath211(fid) {
+  if (PATH211.has(fid)) return PATH211.get(fid);
+  let out = null;
+  if (Drive.mode === 'rest' && Drive.token) {
+    try {
+      const l = []; let id = fid, n = 0;
+      while (id && n++ < 12) { const r = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(id)}?fields=id,name,parents,mimeType&supportsAllDrives=true`, { headers: { Authorization: 'Bearer ' + Drive.token } }); if (!r.ok) break; const j = await r.json(); l.unshift({ id: j.id, name: j.name, folder: j.mimeType === 'application/vnd.google-apps.folder', root: !(j.parents || []).length && j.mimeType === 'application/vnd.google-apps.folder' }); id = (j.parents || [])[0]; }
+      if (l.length > 1) out = l;
+    } catch (e) { out = null; }
+  }
+  if (!out) out = [{ id: 'root', name: 'Мой диск', folder: true, root: true }].concat(Drive.st && Drive.st.root ? [{ id: Drive.st.root, name: 'Холст', folder: true }] : [], Drive.st && Drive.st.files ? [{ id: Drive.st.files, name: 'Файлы', folder: true }] : [], [{ id: fid, name: '…', folder: false }]);
+  PATH211.set(fid, out); return out;
+}
+/* the file's own view options — the same as for panels */
+function srcView211(anchor, it) {
+  const id = it.driveId || driveId(it.srcUrl || ''), url = it.driveId ? driveLink(it.driveId) : it.srcUrl || '';
+  const prevUrl = id ? `https://drive.google.com/file/d/${id}/preview` : url;
+  openPop(anchor, `<div class="menu"><div class="vp-h">Как показывать файл</div><button class="mi" data-v="L" title="Колонка слева от доски"><span>⇤ Сбоку слева</span></button><button class="mi" data-v="R" title="Колонка справа от доски"><span>⇥ Сбоку справа</span></button><button class="mi" data-v="full" title="Поверх всего окна"><span>⤢ Во весь экран</span></button><button class="mi" data-v="pip" title="Окно поверх всех — можно унести на другой монитор"><span>⧉ В отдельном окне</span></button><div class="msep"></div><button class="mi" data-v="pin" title="Кнопка наверху открывает этот файл"><span>📌 Закрепить кнопкой</span></button></div>`, async v => {
+    if (v === 'L' || v === 'R') { closeXdlg(); S24.wantSide = v; try { srcOpen(Object.assign({}, it, { srcUrl: url })); } finally { setTimeout(() => { S24.wantSide = ''; }, 400); } }
+    else if (v === 'full') { closeXdlg(); const d = xdlg('Файл: ' + (it.fname || it.title || 'файл'), `<div class="s24pane obj210full"><div class="s24pb"><iframe src="${esc(prevUrl)}" allow="autoplay; fullscreen"></iframe></div></div>`, true); pvSet(d, 'full', false); }
+    else if (v === 'pip') { const pane = document.createElement('div'); pane.className = 's24pane pip210obj'; pane.innerHTML = `<div class="s24ph"><b>${esc(it.fname || it.title || 'Файл')}</b><span class="p24sp"></span><button class="ib sm" data-pip210="x" title="Закрыть окно">${ic('close')}</button></div><div class="s24pb"><iframe src="${esc(prevUrl)}" allow="autoplay; fullscreen"></iframe></div>`; document.body.appendChild(pane); const ok = await pipOpen210(pane, 720, 560, 'obj'); if (!ok) pane.remove(); }
+    else if (v === 'pin') pinAdd210({ k: 'obj', b: S.board.id, i: it.id, t: (it.fname || it.title || 'Файл').slice(0, 40), ic: '📎' });
+  });
+}
 function srcPanel210(it) {
   if (!it) return;
   const d = xdlg('Исходник: ' + (it.fname || it.title || TYPE_NAME[it.type] || 'объект'), '<div class="p24 src210p"></div>', true); d._dkey = 'src210';
-  const draw = () => {
-    const cur = byId(it.id) || it, A = srcAddr210(cur) || { t: '—', k: '' }, C = storeCfg(), U = UP210.get(cur.id), canUp = !cur.driveId && (cur.fid || cur.asset || isFileIt(cur));
+  const draw = async () => {
+    const cur = byId(it.id) || it, C = storeCfg(), U = UP210.get(cur.id), canUp = !cur.driveId && (cur.fid || cur.asset || isFileIt(cur));
     const id = cur.driveId || driveId(cur.srcUrl || ''), link = cur.driveId ? driveLink(cur.driveId) : cur.srcUrl || '';
-    d.querySelector('.src210p').innerHTML = `<div class="src210loc"><span>📍 Где лежит</span><b>${esc(A.t)}</b>${link ? `<button class="ob sm" data-s210="copy">⧉ Скопировать ссылку</button>` : ''}</div>
-      ${id ? `<div class="src210w"><div class="src210wh"><b>☁ Google Диск</b><span class="p24sp"></span><a class="ob sm" href="${esc(link)}" target="_blank" rel="noopener">Открыть в Диске ↗</a><button class="ob sm" data-s210="side">Сбоку</button></div><iframe class="src210fr" src="https://drive.google.com/file/d/${esc(id)}/preview" allow="autoplay; fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`
-        : link ? `<div class="src210w"><div class="src210wh"><b>↗ ${esc(A.s || 'Ссылка')}</b><span class="p24sp"></span><a class="ob sm" href="${esc(link)}" target="_blank" rel="noopener">Открыть ↗</a></div></div>` : ''}
-      <div class="btnrow">${canUp ? `<button class="btn" data-s210="up"${U && U.st === 'up' ? ' disabled' : ''}>☁ Загрузить оригинал на Диск</button>` : ''}<button class="ob" data-s210="link">✎ ${cur.srcUrl && !cur.driveId ? 'Изменить ссылку' : 'Своя ссылка на исходник'}…</button>${cur.srcUrl ? '<button class="ob" data-s210="unlink">✕ Убрать ссылку</button>' : ''}</div>
+    const path = id ? await drivePath211(id) : null; if (!d.isConnected) return;
+    if (path && path.length && path[path.length - 1].name === '…') path[path.length - 1].name = cur.fname || fileNameOf(cur) || 'файл';
+    const parent = path && path.length > 1 ? path[path.length - 2] : null;
+    const crumbs = path ? path.map((c, k) => c.folder ? `<a class="crumb211" href="${esc(folderUrl211(c))}" target="_blank" rel="noopener" title="Открыть папку «${esc(c.name)}» на Google Диске">${k === 0 ? '☁ ' : ''}${esc(c.name)}</a>` : `<a class="crumb211 f" href="${esc(link)}" target="_blank" rel="noopener" title="Открыть файл на Google Диске">${esc(c.name)}</a>`).join('<i>›</i>')
+      : link ? `<a class="crumb211 f" href="${esc(link)}" target="_blank" rel="noopener" title="Открыть ссылку">${esc(link.replace(/^https?:\/\//, '').slice(0, 70))}</a>` : `<span class="crumb211 l">📍 Только на этом устройстве (в браузере)</span>`;
+    d.querySelector('.src210p').innerHTML = `<div class="src210loc"><span>Где лежит</span><div class="crumbs211">${crumbs}</div></div>
+      <div class="btnrow">${parent ? `<a class="btn" href="${esc(folderUrl211(parent))}" target="_blank" rel="noopener" title="Папка на Google Диске, в которой лежит файл">📂 Открыть папку «${esc(parent.name)}»</a>` : ''}${link ? `<a class="ob" href="${esc(link)}" target="_blank" rel="noopener" title="Сам файл на Google Диске">↗ Открыть файл</a><button class="ob" data-s210="copy" title="Скопировать ссылку на файл">⧉ Ссылка на файл</button>` : ''}${parent ? `<button class="ob" data-s210="copyf" title="Скопировать ссылку на папку">⧉ Ссылка на папку</button>` : ''}${id || link ? `<button class="ib pv29b" data-s210="view" title="Как показывать файл: сбоку слева или справа, во весь экран, в отдельном окне, закрепить кнопкой"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M9.5 4.5v15"/></svg></button>` : ''}</div>
+      ${id ? `<div class="src210w"><iframe class="src210fr" src="https://drive.google.com/file/d/${esc(id)}/preview" allow="autoplay; fullscreen" referrerpolicy="strict-origin-when-cross-origin" title="Просмотр Google Диска"></iframe></div>` : ''}
+      <div class="btnrow">${canUp ? `<button class="btn" data-s210="up"${U && U.st === 'up' ? ' disabled' : ''} title="Загрузить оригинал в «Холст/Файлы» на Google Диске">☁ Загрузить оригинал на Диск</button>` : ''}<button class="ob" data-s210="link" title="Привязать ссылку на исходник: Figma, сайт, другой файл">✎ ${cur.srcUrl && !cur.driveId ? 'Изменить ссылку' : 'Своя ссылка на исходник'}…</button>${cur.srcUrl ? '<button class="ob" data-s210="unlink" title="Убрать ссылку на исходник">✕ Убрать ссылку</button>' : ''}</div>
       ${U ? `<div class="up210 big${U.p < 0 ? ' ind' : ''}${U.st === 'ok' ? ' ok' : U.st === 'err' ? ' err' : ''}"><i style="width:${U.p < 0 ? 0 : Math.round(U.p * 100)}%"></i><span>${U.st === 'ok' ? '✓ На Диске' : U.st === 'err' ? '✕ ' + esc(U.msg || 'не загрузилось') : 'Загружаю на Диск… ' + (U.p < 0 ? '' : Math.round(U.p * 100) + '%')}</span></div>` : ''}
       <h3>Куда сохранять оригиналы</h3>
       <label class="mrow"><span class="sw2"><input type="checkbox" data-s210c="drive.files"${C.drive.files ? ' checked' : ''}><i></i></span><span><b>На Google Диск, в «Холст/Файлы»</b><small>${Drive.active() ? 'Новые картинки и файлы загружаются сами, с полосой прогресса под объектом' : 'Google Диск не подключён: облако вверху справа'}</small></span></label>
       <label class="mrow"><span class="sw2"><input type="checkbox" data-s210c="pc.files"${C.pc.files ? ' checked' : ''}><i></i></span><span><b>В папку на компьютере</b><small>${typeof Backup !== 'undefined' && Backup.dir ? 'Папка выбрана' : 'Папка не выбрана: ☰ → «Резервная копия в папку»'}</small></span></label>
-      <p class="sub">Отсюда на Диск — до ${Math.round(DRIVE_FILE_MAX() / 1048576)} МБ на файл.${Drive.st && Drive.st.files ? ` <a href="https://drive.google.com/drive/folders/${esc(Drive.st.files)}" target="_blank" rel="noopener">Открыть папку «Файлы» ↗</a>` : ''}</p>
-      <div class="btnrow"><button class="ob" data-s210="sy">Источники синхронизации…</button><button class="ob" data-s210="st">Хранилище и копии…</button></div>`;
+      <p class="sub">Отсюда на Диск — до ${Math.round(DRIVE_FILE_MAX() / 1048576)} МБ на файл.${Drive.st && Drive.st.files ? ` <a href="https://drive.google.com/drive/folders/${esc(Drive.st.files)}" target="_blank" rel="noopener">Папка «Файлы» ↗</a>` : ''}</p>
+      <div class="btnrow"><button class="ob" data-s210="sy" title="Что и куда синхронизируется">Источники синхронизации…</button><button class="ob" data-s210="st" title="Хранилище, копии, корзина">Хранилище и копии…</button></div>`;
   };
   d._src210 = draw; draw();
   d.addEventListener('click', async e => {
     const b = e.target.closest('[data-s210]'); if (!b) return; const a = b.dataset.s210, cur = byId(it.id) || it;
-    if (a === 'copy') copyPlain(cur.driveId ? driveLink(cur.driveId) : cur.srcUrl, 'Ссылка скопирована');
-    else if (a === 'side') { closeXdlg(); srcOpen(Object.assign({}, cur, { srcUrl: cur.srcUrl || driveLink(cur.driveId) })); }
-    else if (a === 'up') { const p = srcUp210(cur); const t = setInterval(() => { if (d.isConnected) draw(); else clearInterval(t); }, 250); await p; clearInterval(t); if (d.isConnected) draw(); }
+    if (a === 'copy') copyPlain(cur.driveId ? driveLink(cur.driveId) : cur.srcUrl, 'Ссылка на файл скопирована');
+    else if (a === 'copyf') { const p = await drivePath211(cur.driveId || driveId(cur.srcUrl || '')); const f = p && p[p.length - 2]; if (f) copyPlain(folderUrl211(f), 'Ссылка на папку скопирована'); }
+    else if (a === 'view') srcView211(b, cur);
+    else if (a === 'up') { const p = srcUp210(cur); const t = setInterval(() => { if (d.isConnected) draw(); else clearInterval(t); }, 300); await p; clearInterval(t); PATH211.clear(); if (d.isConnected) draw(); }
     else if (a === 'link') { closeXdlg(); await srcLinkAsk(cur); }
     else if (a === 'unlink') { pushHist(); delete cur.srcUrl; changed(); draw(); }
     else if (a === 'sy') { closeXdlg(); menuAction('sy28'); }
@@ -19821,12 +20034,17 @@ document.addEventListener('click', e => {
 document.addEventListener('pointerdown', e => { if (e.target.closest && e.target.closest('.src210')) e.stopPropagation(); }, true);
 { const o = ctx24Act; ctx24Act = (b, sel) => { if ((b.dataset.act || '') === 'h:src' && sel.length === 1) { srcPanel210(sel[0]); return true; } return o(b, sel); }; }
 /* =========================================================
-   v2.10: chats on the board, as comments in Miro and Google Docs. A chat sits
-   at a place or at an object, folds into an icon or shows a preview, has a
-   type (discussion, task, question, idea, remark, decision) and closes by its
-   own scenario. Chats are board objects: they sync with the board, obey the
-   board filters and go to the task manager marked «чат». The AI answers in a
-   chat and can open chats itself (remarks on a board).
+   v2.11: chats on the board, like comments in Miro, FigJam and Google Docs.
+   · On the board a chat is a mark with its author's avatar that keeps its size
+     on screen down to 7% (zoom level 2) and follows its object. Or a «canvas»:
+     the whole conversation as a panel on the board.
+   · The mark opens a popover that sticks to it while you zoom and pan; the
+     popover can go to the left or right column, its own window, full screen,
+     or a pinned button — like every panel.
+   · Reactions, @mentions, replies, edit and delete, unread marks, the previous
+     and the next chat, filters: mine, where I am mentioned, where I take part.
+   · A chat knows where it is (frame › object) and what it is about (direction,
+     project, task) — taken from its frame and object, changeable.
    ========================================================= */
 const CT210 = {
   disc: ['💬', 'Обсуждение', '#3355ff', 'Закрывается кнопкой «Решено» — можно с итогом.'],
@@ -19836,47 +20054,75 @@ const CT210 = {
   review: ['🔎', 'Замечание', '#e5484d', 'Закрывается: «Исправлено» или «Не актуально».'],
   decision: ['⚖', 'Решение', '#7b61ff', 'Закрывается фиксацией: последнее сообщение — решение.'],
 };
+const CT_TIP211 = { disc: 'Свободное обсуждение', task: 'Поручение: кто-то должен сделать', q: 'Вопрос, на который ждут ответ', idea: 'Предложение — принять или отклонить', review: 'Замечание к объекту — исправить', decision: 'Зафиксировать договорённость' };
 NEW_TYPES.add('chat'); TYPE_CLS.chat = 'tchat'; TYPE_NAME.chat = 'Чат';
 const chMe = () => { const e = (typeof gtMeEmail === 'function' && gtMeEmail()) || ''; return { e: e || 'local', n: (GT.me && GT.me.name) || (e ? e.split('@')[0] : 'Я') }; };
-const chTime = t => { const d = new Date(t), now = new Date(); return d.toDateString() === now.toDateString() ? d.toTimeString().slice(0, 5) : fmtDay(d.toISOString().slice(0, 10)) + ' ' + d.toTimeString().slice(0, 5); };
+const chTime = t => { const d = new Date(t), now = new Date(); return d.toDateString() === now.toDateString() ? d.toTimeString().slice(0, 5) : fmtDay(d.toISOString().slice(0, 10)) + ', ' + d.toTimeString().slice(0, 5); };
+const chHue = s => { let h = 0; for (const c of String(s || '')) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
+const chInit = n => String(n || '?').trim().split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase() || '?';
+const chAv = (a, n, ai) => ai || a === 'ai' ? `<span class="ch211av ai" title="${esc(n || 'ИИ')}">✦</span>` : `<span class="ch211av" style="--ah:${chHue(a || n)}" title="${esc(n || a || '')}">${esc(chInit(n || a))}</span>`;
 function mkChat210(x, y, on, ct, first) {
   const me = chMe();
-  return { id: uid(), type: 'chat', x: r1(x), y: r1(y), w: 300, h: 120, ct: ct || 'disc', title: '', msgs: first ? [{ id: uid(), a: me.e, n: me.n, t: first, at: Date.now() }] : [], st: 'open', col: false, on: on || '', au: me.e, an: me.n, c: Date.now() };
+  return { id: uid(), type: 'chat', x: r1(x), y: r1(y), w: 40, h: 40, ct: ct || 'disc', title: '', msgs: first ? [{ id: uid(), a: me.e, n: me.n, t: first, at: Date.now() }] : [], st: 'open', view: 'icon', on: on || '', au: me.e, an: me.n, c: Date.now() };
 }
 const chCan210 = it => { const sp = S.board && S.board.space; if (!sp) return true; const me = chMe().e; try { return it.au === me || gtCan(sp, 'admin') || (it.ct === 'task' && it.who === me); } catch (e) { return true; } };
-/* ---------- on the board: an icon or a preview ---------- */
-{ const o = normalizeNew; normalizeNew = it => { if (it.type !== 'chat') return o(it); if (!Array.isArray(it.msgs)) it.msgs = []; if (!CT210[it.ct]) it.ct = 'disc'; if (it.st !== 'done') it.st = 'open'; }; }
-{ const o = createNewEl; createNewEl = (el, it) => { if (it.type !== 'chat') return o(el, it); el.innerHTML = '<div class="ch210"></div>'; }; }
+const chSeen211 = () => LS.get('ch211seen') || {};
+const chUnread211 = it => { const me = chMe().e, last = (it.msgs || []).filter(m => !m.sys && m.a !== me).slice(-1)[0]; return !!last && last.at > (chSeen211()[it.id] || 0); };
+function chMarkSeen211(it) { const s = chSeen211(); const last = (it.msgs || []).slice(-1)[0]; if (last && (s[it.id] || 0) < last.at) { s[it.id] = last.at; LS.set('ch211seen', s); const el = els.get(it.id); if (el) el.classList.remove('chunr'); } }
+const chMentionsMe211 = it => { const me = chMe(); return (it.msgs || []).some(m => (m.mn || []).includes(me.e) || (me.n && new RegExp('@' + me.n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i').test(m.t || ''))); };
+/* ---------- filters ---------- */
+const CHF211 = Object.assign({ who: 'all', st: 'open', ct: 'all' }, LS.get('chf211') || {});
+function chMatch211(it) {
+  const me = chMe().e;
+  if (LS.get('ch210off')) return false;
+  if (CHF211.st === 'open' && it.st === 'done') return false; if (CHF211.st === 'done' && it.st !== 'done') return false;
+  if (CHF211.ct !== 'all' && it.ct !== CHF211.ct) return false;
+  if (CHF211.who === 'mine' && it.au !== me) return false;
+  if (CHF211.who === 'ment' && !chMentionsMe211(it)) return false;
+  if (CHF211.who === 'part' && !(it.msgs || []).some(m => m.a === me) && it.au !== me) return false;
+  if (CHF211.who === 'ai' && !(it.msgs || []).some(m => m.ai)) return false;
+  if (CHF211.who === 'unr' && !chUnread211(it)) return false;
+  return true;
+}
+/* ---------- where the chat is and what it is about ---------- */
+function chFrameOf211(it) { const fr = items().filter(f => f.type === 'frame' && !isHid(f) && it.x >= f.x && it.x <= f.x + f.w && it.y >= f.y && it.y <= f.y + f.h).sort((a, b) => a.w * a.h - b.w * b.h); return fr[0] || null; }
+function chWhere211(it) {
+  const obj = it.on && byId(it.on), fr = obj && obj.type === 'frame' ? obj : chFrameOf211(it), out = [];
+  if (fr) out.push(['frame', fr.id, '▦ ' + (fr.title || (fr.cell ? 'Ячейка' : 'Рамка'))]);
+  if (obj && obj !== fr) out.push(['obj', obj.id, (bdTitle(obj) || TYPE_NAME[obj.type] || 'объект').slice(0, 40)]);
+  return out;
+}
+function chDefLinks211(obj, fr) { const s = new Set(); for (const x of [obj, fr]) for (const id of (x && x.lo) || []) s.add(id); if (fr && fr.cell) { const m = byId(fr.cell.m); for (const id of (m && m.lo) || []) s.add(id); } return [...s].filter(id => typeof loGet === 'function' && loGet(id)).slice(0, 4); }
+/* ---------- on the board: the mark, or the canvas ---------- */
+{ const o = normalizeNew; normalizeNew = it => { if (it.type !== 'chat') return o(it); if (!Array.isArray(it.msgs)) it.msgs = []; if (!CT210[it.ct]) it.ct = 'disc'; if (it.st !== 'done') it.st = 'open'; if (!it.view) it.view = it.col === false && it.w > 100 ? 'canvas' : 'icon'; }; }
+{ const o = createNewEl; createNewEl = (el, it) => { if (it.type !== 'chat') return o(el, it); el.innerHTML = '<div class="ch211box"></div>'; }; }
 { const o = updateNew; updateNew = (el, it) => {
   if (it.type !== 'chat') return o(el, it);
-  const T = CT210[it.ct] || CT210.disc, n = (it.msgs || []).length, last = (it.msgs || []).slice(-2), done = it.st === 'done';
+  const T = CT210[it.ct] || CT210.disc, n = (it.msgs || []).filter(m => !m.sys).length, done = it.st === 'done', view = it.view === 'canvas' ? 'canvas' : 'icon';
+  /* follow the object it is attached to */
+  const a = it.on && byId(it.on);
+  if (a && a.type !== 'connector') { const b = bounds(a); if (it._ax == null) { it._ax = b.x; it._ay = b.y; } else if (b.x !== it._ax || b.y !== it._ay) { it.x = r1(it.x + b.x - it._ax); it.y = r1(it.y + b.y - it._ay); it._ax = b.x; it._ay = b.y; } }
   el.style.left = px(it.x); el.style.top = px(it.y); el.style.setProperty('--chc', T[2]);
-  el.classList.toggle('chcol', !!it.col); el.classList.toggle('chdone', done); el.classList.toggle('chai', (it.msgs || []).some(m => m.ai));
-  const sig = JSON.stringify([it.col, it.ct, it.title, it.st, n, last.map(m => m.t.slice(0, 80)), it.res]);
+  el.classList.toggle('chdone', done); el.classList.toggle('chcanvas', view === 'canvas'); el.classList.toggle('chicon', view !== 'canvas');
+  el.classList.toggle('chunr', chUnread211(it)); el.classList.toggle('ch211hid', !chMatch211(it)); el.classList.toggle('chopen', CHP.id === it.id);
   const box = el.firstChild;
-  if (box._sig !== sig) {
-    box._sig = sig;
-    box.innerHTML = it.col ? `<span class="chi">${T[0]}</span>${n ? `<b class="chn">${n}</b>` : ''}`
-      : `<div class="chh"><span class="chi">${T[0]}</span><b>${esc(it.title || T[1])}</b>${done ? '<i class="chst">закрыт</i>' : ''}<span class="chn2">${n}</span></div>${last.map(m => `<div class="chm"><b>${esc(m.ai ? '✦ ' + m.ai : m.n || '')}</b> ${esc(m.t.length > 90 ? m.t.slice(0, 88) + '…' : m.t)}</div>`).join('') || '<div class="chm e">Пока нет сообщений</div>'}${done && it.res ? `<div class="chres">Итог: ${esc(it.res.slice(0, 120))}</div>` : ''}`;
+  if (view === 'icon') {
+    const sig = JSON.stringify(['i', it.ct, it.au, it.an, n, done, (it.msgs || []).some(m => m.ai)]);
+    if (box._sig !== sig) { box._sig = sig; box.innerHTML = `<div class="ch211m" title="${esc((T[1] + (it.title ? ': ' + it.title : '')) + ' · ' + n + ' сообщ. · щелчок — открыть, тянуть — переместить')}">${it.au === 'ai' ? chAv('ai', 'ИИ', true) : chAv(it.au, it.an)}<span class="ch211mt">${T[0]}</span>${n > 1 ? `<b class="ch211mn">${n}</b>` : ''}<i class="ch211dot"></i></div>`; }
+    el.style.width = px(40); el.style.height = px(40); if (it.w !== 40 || it.h !== 40) { it.w = 40; it.h = 40; }
+  } else {
+    if (it.w < 240) it.w = 360;
+    el.style.width = px(it.w); el.style.height = '';
+    chMount211(box, it.id, 'canvas');
+    const h = el.offsetHeight; if (h && Math.abs(h - it.h) > 0.5) it.h = h;
   }
-  el.style.width = px(it.col ? 40 : it.w); el.style.height = '';
-  if (it.col) { if (it.w !== 40 || it.h !== 40) { it.w = 40; it.h = 40; } }
-  else { if (it.w < 200) it.w = 300; const h = el.offsetHeight; if (h && Math.abs(h - it.h) > 0.5) it.h = h; }
-  if (CHP.id === it.id) chpDraw210();
+  chRefresh211(it.id);
 }; }
 { const o = updateEl; updateEl = (el, it) => { o(el, it); if (it.type === 'chat') updateNew(el, it); }; }
 { const o = newText; newText = it => it.type === 'chat' ? [it.title, ...(it.msgs || []).map(m => m.t), it.res].filter(Boolean).join(' ') : o(it); }
-{ const o = newClip; newClip = (it, html) => { if (it.type !== 'chat') return o(it, html); const t = (it.msgs || []).map(m => `${m.ai ? '✦ ' + m.ai : m.n}: ${m.t}`); return html ? `<p><b>${esc((CT210[it.ct] || CT210.disc)[1] + (it.title ? ': ' + it.title : ''))}</b></p><ul>${t.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : [it.title, ...t].filter(Boolean).join('\n'); }; }
-{ const o = drawNew; drawNew = async (g, it) => {
-  if (it.type !== 'chat') return o(g, it);
-  const T = CT210[it.ct] || CT210.disc; g.fillStyle = '#fff'; roundRectPath(g, it.x, it.y, it.w, it.h, 12); g.fill(); g.strokeStyle = T[2]; g.lineWidth = 2; g.stroke();
-  g.fillStyle = '#1c1d21'; g.font = '600 14px sans-serif'; g.fillText((it.col ? T[0] : T[0] + ' ' + (it.title || T[1])).slice(0, 40), it.x + 10, it.y + 24);
-}; }
-{ const o = ctxNew; ctxNew = it => {
-  if (!it || it.type !== 'chat') return o(it);
-  const T = CT210[it.ct] || CT210.disc;
-  return cbtn('ch:open', '💬 Открыть', 'Открыть переписку', 'wide') + cbtn('ch:type', T[0] + ' ' + T[1] + ' ▾', 'Тип чата: от него зависит, как он закрывается', 'wide') + cbtn('ch:col', it.col ? 'Развернуть' : 'Свернуть в значок', 'Чат на доске — значком или превью', 'wide') + cbtn('ch:ai', '✦ Ответ ИИ', 'Ваша нейросеть ответит в этом чате', 'wide') + cbtn('ch:st', it.st === 'done' ? '↺ Открыть снова' : '✓ Закрыть…', 'Закрыть по сценарию типа', 'wide');
-}; }
+{ const o = newClip; newClip = (it, html) => { if (it.type !== 'chat') return o(it, html); const t = (it.msgs || []).filter(m => !m.sys).map(m => `${m.ai ? '✦ ' + m.ai : m.n}: ${m.t}`); return html ? `<p><b>${esc((CT210[it.ct] || CT210.disc)[1] + (it.title ? ': ' + it.title : ''))}</b></p><ul>${t.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : [it.title, ...t].filter(Boolean).join('\n'); }; }
+{ const o = drawNew; drawNew = async (g, it) => { if (it.type !== 'chat') return o(g, it); const T = CT210[it.ct] || CT210.disc; g.fillStyle = T[2]; roundRectPath(g, it.x, it.y, Math.min(it.w, 300), Math.min(it.h, 60), 12); g.fill(); g.fillStyle = '#fff'; g.font = '600 14px sans-serif'; g.fillText((T[0] + ' ' + (it.title || T[1])).slice(0, 40), it.x + 10, it.y + 24); }; }
+{ const o = ctxNew; ctxNew = it => { if (!it || it.type !== 'chat') return o(it); const T = CT210[it.ct] || CT210.disc; return cbtn('ch:open', '💬 Открыть', 'Открыть переписку рядом со значком', 'wide') + cbtn('ch:type', T[0] + ' ' + T[1] + ' ▾', 'Тип чата: от него зависит, как он закрывается', 'wide') + cbtn('ch:view', it.view === 'canvas' ? '▢ Полотно' : '◉ Значок', 'Вид чата на доске: значок или полотно со всей перепиской', 'wide') + cbtn('ch:ai', '✦ Ответ ИИ', 'Ваша нейросеть ответит в этом чате', 'wide') + cbtn('ch:st', it.st === 'done' ? '↺ Открыть снова' : '✓ Закрыть…', 'Закрыть по сценарию типа', 'wide'); }; }
 { const o = ctx24Act; ctx24Act = (b, sel) => {
   const a = b.dataset.act || ''; if (!a.startsWith('ch:')) return o(b, sel);
   const it = sel[0]; if (!it) return true;
@@ -19884,68 +20130,144 @@ const chCan210 = it => { const sp = S.board && S.board.space; if (!sp) return tr
   if (it.type !== 'chat') return true;
   if (a === 'ch:open') chpOpen210(it.id);
   else if (a === 'ch:type') chTypePop210(b, it);
-  else if (a === 'ch:col') { pushHist(); it.col = !it.col; changed(); }
+  else if (a === 'ch:view') { pushHist(); it.view = it.view === 'canvas' ? 'icon' : 'canvas'; changed(); }
   else if (a === 'ch:ai') chAi210(it);
   else if (a === 'ch:st') { if (it.st === 'done') chReopen210(it); else chpOpen210(it.id, true); }
   return true;
 }; }
-/* a chat at any object: one button on its panel */
 { const o = ctx24Extra; ctx24Extra = (sel, single) => { const g = o(sel, single); if (sel.length === 1 && !S.editing && sel[0].type !== 'chat' && sel[0].type !== 'connector') g.push(cbtn('ch:new', '💬', 'Чат у этого объекта: обсуждение, вопрос, задача, идея, решение')); return g; }; }
 function chTypePop210(anchor, it) {
-  openPop(anchor, `<div class="menu"><div class="vp-h">Тип чата</div>${Object.entries(CT210).map(([k, [i, l, , h]]) => `<button class="mi${it.ct === k ? ' on' : ''}" data-v="${k}"><span>${i} <b>${l}</b><br><small>${esc(h)}</small></span></button>`).join('')}</div>`, v => { pushHist(); it.ct = v; changed(); if (CHP.id === it.id) chpDraw210(true); });
+  openPop(anchor, `<div class="menu"><div class="vp-h">Тип чата</div>${Object.entries(CT210).map(([k, [i, l, , h]]) => `<button class="mi${it.ct === k ? ' on' : ''}" data-v="${k}" title="${esc(CT_TIP211[k])}"><span>${i} <b>${l}</b><br><small>${esc(h)}</small></span></button>`).join('')}</div>`, v => { pushHist(); it.ct = v; changed(); chRefresh211(it.id, true); });
 }
-/* ---------- placing: the 💬 button, then a click on the board ---------- */
+/* ---------- creating: the 💬 button, then a click on the board ---------- */
 let ct210silent = false;
 function chNewAt210(obj, pt, ct, text) {
   if (!S.board) return null; let x, y, on = '';
-  if (obj) { const b = bounds(obj); x = b.x + b.w + 14; y = b.y - 6; on = obj.id; } else { x = pt.x; y = pt.y; }
-  for (let k = 0; k < 30 && items().some(i => i.type === 'chat' && Math.abs(i.x - x) < 24 && Math.abs(i.y - y) < 40); k++) y += 52;
-  const c = mkChat210(x, y, on, ct, text); pushHist(); S.board.items.push(c); S.sel = new Set([c.id]); changed();
+  if (obj) { const b = bounds(obj); x = b.x + b.w - 6; y = b.y - 6; on = obj.id; if (obj.type === 'frame') { x = b.x + b.w - 30; y = b.y + 30; } } else { x = pt.x; y = pt.y; }
+  for (let k = 0; k < 30 && items().some(i => i.type === 'chat' && Math.abs(i.x - x) < 24 && Math.abs(i.y - y) < 24); k++) x += 34;
+  const c = mkChat210(x, y, on, ct, text), fr = obj && obj.type === 'frame' ? obj : chFrameOf211(c);
+  c.lo = chDefLinks211(obj && obj.type !== 'frame' ? obj : null, fr);
+  if (obj) { const b = bounds(obj); c._ax = b.x; c._ay = b.y; }
+  pushHist(); S.board.items.push(c); changed();
   if (!text && !ct210silent) setTimeout(() => chpOpen210(c.id), 60);
   return c;
 }
-function chPlace210(on) { S.ch210place = !!on; document.body.classList.toggle('ch210pl', !!on); if (on) toast('Щёлкните по доске или по объекту — там появится чат. Esc — отмена'); }
+function chPlace210(on) { S.ch210place = !!on; document.body.classList.toggle('ch210pl', !!on); if (on) toast('Щёлкните по доске, рамке или объекту — там появится чат. Esc — отмена'); }
 document.addEventListener('pointerdown', e => {
   if (!S.ch210place || !e.isTrusted || !vp.contains(e.target)) return;
   e.preventDefault(); e.stopPropagation(); chPlace210(false);
-  const p = toWorld(e.clientX, e.clientY), under = items().filter(i => i.type !== 'frame' && i.type !== 'connector' && i.type !== 'chat' && !isHid(i)).reverse().find(i => { const b = bounds(i); return p.x >= b.x && p.x <= b.x + b.w && p.y >= b.y && p.y <= b.y + b.h; });
-  chNewAt210(under || null, p);
+  const p = toWorld(e.clientX, e.clientY), hit = i => { const b = bounds(i); return p.x >= b.x && p.x <= b.x + b.w && p.y >= b.y && p.y <= b.y + b.h; };
+  const under = items().filter(i => i.type !== 'frame' && i.type !== 'connector' && i.type !== 'chat' && !isHid(i)).reverse().find(hit);
+  const c = chNewAt210(null, p); if (!c) return;
+  if (under) { c.on = under.id; const b = bounds(under); c._ax = b.x; c._ay = b.y; c.lo = chDefLinks211(under, chFrameOf211(c)); }
+  else { const fr = chFrameOf211(c); if (fr) { c.on = fr.id; c._ax = fr.x; c._ay = fr.y; c.lo = chDefLinks211(null, fr); } }
+  changed();
 }, true);
 addEventListener('keydown', e => { if (e.key === 'Escape' && S.ch210place) chPlace210(false); });
-/* ---------- the thread ---------- */
-const CHP = { id: '', el: null, sig: '' };
+/* the mark: a click opens, a drag moves (at any zoom) */
+const CHD = { id: '', x: 0, y: 0, moved: false, ox: 0, oy: 0 };
+document.addEventListener('pointerdown', e => {
+  const m = e.target.closest && e.target.closest('#world .ch211m'); if (!m) return;
+  const el = m.closest('.tchat'), it = el && byId(el.dataset.id); if (!it) return;
+  e.stopPropagation(); e.preventDefault();
+  Object.assign(CHD, { id: it.id, x: e.clientX, y: e.clientY, moved: false, ox: it.x, oy: it.y });
+}, true);
+addEventListener('pointermove', e => {
+  if (!CHD.id) return; const it = byId(CHD.id); if (!it) { CHD.id = ''; return; }
+  const dx = e.clientX - CHD.x, dy = e.clientY - CHD.y; if (!CHD.moved && Math.hypot(dx, dy) < 4) return;
+  if (!CHD.moved) { CHD.moved = true; pushHist(); }
+  const z = V().z; it.x = r1(CHD.ox + dx / z); it.y = r1(CHD.oy + dy / z); const el = els.get(it.id); if (el) { el.style.left = px(it.x); el.style.top = px(it.y); }
+}, true);
+addEventListener('pointerup', () => {
+  if (!CHD.id) return; const id = CHD.id, moved = CHD.moved; CHD.id = '';
+  const it = byId(id); if (!it) return;
+  if (moved) { const a = it.on && byId(it.on); if (a) { const b = bounds(a); it._ax = b.x; it._ay = b.y; } changed(); return; }
+  if (CHP.id === id && !CHP.el.hidden) chpClose210(); else chpOpen210(id);
+}, true);
+/* the canvas: typing and buttons don't move the board object */
+document.addEventListener('pointerdown', e => { const t = e.target.closest && e.target.closest('#world .ch211t'); if (!t) return; if (e.target.closest('textarea, input, button, a, .ch211log, .ch211sg')) e.stopPropagation(); }, true);
+/* ---------- the thread: one renderer for the popover, the canvas, columns and windows ---------- */
+const CHP = { id: '', el: null, closing: false, busy: '', reply: {}, edit: {} };
+function chThreadHTML211(it, mode) {
+  const T = CT210[it.ct] || CT210.disc, done = it.st === 'done', can = chCan210(it), me = chMe().e, msgs = it.msgs || [];
+  const people = []; for (const m of msgs) if (!m.sys && !people.some(p => p.a === (m.ai ? 'ai' : m.a))) people.push({ a: m.ai ? 'ai' : m.a, n: m.ai ? m.ai : m.n, ai: !!m.ai });
+  if (!people.length && it.au) people.push({ a: it.au, n: it.an });
+  const where = chWhere211(it), links = (it.lo || []).map(id => loGet(id)).filter(Boolean);
+  const rep = CHP.reply[it.id] && msgs.find(m => m.id === CHP.reply[it.id]);
+  const closeBtns = done ? `<button class="ch211b2" data-cha="reopen" title="Вернуть чат в работу">↺ Открыть снова</button>`
+    : it.ct === 'task' ? `<button class="ch211b1" data-cha="done" title="Задача выполнена — чат закроется">✓ Выполнено</button>`
+    : it.ct === 'q' ? `<span class="ch211ftn">Отметьте ✓ у сообщения-ответа</span><button class="ch211b2" data-cha="done" title="Закрыть без отмеченного ответа">Закрыть без ответа</button>`
+    : it.ct === 'idea' ? `<button class="ch211b1" data-cha="totask" title="Идея станет задачей в задачнике">→ В задачи</button><button class="ch211b2" data-cha="reject" title="Отклонить идею">✕ Отклонить</button>`
+    : it.ct === 'review' ? `<button class="ch211b1" data-cha="fixed" title="Замечание исправлено">✓ Исправлено</button><button class="ch211b2" data-cha="moot" title="Замечание не актуально">Не актуально</button>`
+    : it.ct === 'decision' ? `<button class="ch211b1" data-cha="fix" title="Последнее сообщение станет решением">⚖ Зафиксировать решение</button>`
+    : `<button class="ch211b1" data-cha="solved" title="Обсуждение решено — можно написать итог">✓ Решено</button>`;
+  const msg = m => {
+    if (m.sys) return `<div class="ch211sys">${esc(m.t)} · ${esc(chTime(m.at))}</div>`;
+    const mine = m.a === me && !m.ai, q = m.re && msgs.find(x => x.id === m.re), rx = Object.entries(m.rx || {}).filter(([, l]) => l.length);
+    const text = m.ai ? sanitizeHTML(mdToHtml(m.t)) : esc(m.t).replace(/(^|\s)@([\wА-яЁё.-]+)/g, '$1<b class="ch211at">@$2</b>').replace(/\n/g, '<br>');
+    return `<div class="ch211msg${mine ? ' me' : ''}${m.ai ? ' ai' : ''}${it.ans === m.id ? ' ans' : ''}" data-mid="${m.id}">${chAv(m.a, m.ai ? m.ai : m.n, m.ai)}<div class="ch211bub"><div class="ch211mh"><b>${esc(m.ai ? '✦ ' + m.ai : m.n || '')}</b>${m.ai && m.by && S.board && S.board.space ? `<small>для ${esc(m.by)}</small>` : ''}<small>${esc(chTime(m.at))}${m.ed ? ' · изменено' : ''}</small></div>${q ? `<div class="ch211q">↩ ${esc((q.ai ? q.ai : q.n) + ': ' + q.t.slice(0, 90))}</div>` : ''}${CHP.edit[it.id] === m.id ? `<textarea class="inp ch211ed" data-edit="${m.id}">${esc(m.t)}</textarea><div class="ch211edb"><button class="ch211b1 sm" data-cha="edsave:${m.id}">Сохранить</button><button class="ch211b2 sm" data-cha="edx">Отмена</button></div>` : `<div class="ch211mt">${text}</div>`}${rx.length ? `<div class="ch211rx">${rx.map(([e2, l]) => `<button class="${l.includes(me) ? 'on' : ''}" data-cha="rx:${m.id}:${e2}" title="${esc(l.join(', '))}">${e2} ${l.length}</button>`).join('')}</div>` : ''}</div>
+      <div class="ch211ma">${['👍', '❤️', '✅', '👀'].map(e2 => `<button data-cha="rx:${m.id}:${e2}" title="Реакция ${e2}">${e2}</button>`).join('')}<button data-cha="re:${m.id}" title="Ответить на это сообщение">↩</button>${it.ct === 'q' && !done && m.a !== it.au ? `<button data-cha="ans:${m.id}" title="Это ответ — вопрос закроется">✓</button>` : ''}${mine ? `<button data-cha="ed:${m.id}" title="Изменить своё сообщение">✎</button><button data-cha="del:${m.id}" title="Удалить своё сообщение">🗑</button>` : ''}</div></div>`;
+  };
+  return `<div class="ch211t ${mode}${done ? ' done' : ''}" data-chth="${it.id}" style="--chc:${T[2]}">
+    <div class="ch211h"><div class="ch211ppl">${people.slice(0, 3).map(p => chAv(p.a, p.n, p.ai)).join('')}${people.length > 3 ? `<span class="ch211av more">+${people.length - 3}</span>` : ''}</div>
+      <div class="ch211hc"><input class="ch211tl" value="${esc(it.title || '')}" placeholder="${esc(T[1])}: тема" title="Тема чата"><div class="ch211meta"><button class="ch211type" data-cha="type" title="Тип чата: ${esc(CT_TIP211[it.ct])}. От типа зависит, как он закрывается">${T[0]} ${T[1]} ▾</button><span class="ch211st${done ? ' done' : ''}">${done ? 'закрыт' : 'открыт'}</span><span class="ch211cnt">${msgs.filter(m => !m.sys).length} сообщ.</span></div></div>
+      <div class="ch211hb"><button data-cha="prev" title="Предыдущий чат на доске">‹</button><button data-cha="next" title="Следующий чат на доске">›</button>${mode === 'canvas' ? '' : `<button data-cha="view" title="Где показывать чат: у значка, полотном на доске, сбоку, в отдельном окне, во весь экран, кнопкой">▣</button>`}<button data-cha="more" title="Ещё: в задачнике, ссылка, копировать, удалить">⋯</button>${mode === 'canvas' ? `<button data-cha="icon" title="Свернуть в значок">▁</button>` : `<button data-cha="x" title="Закрыть переписку (Esc)">✕</button>`}</div></div>
+    <div class="ch211where">${where.map(([k, id, l]) => `<button class="ch211pl" data-cha="go:${id}" title="Показать на доске">${k === 'frame' ? '' : '◎ '}${esc(l)}</button>`).join('<i>›</i>') || '<span class="ch211pl n">на доске</span>'}<span class="ch211sep"></span>${links.map(r => `<span class="ch211lk" title="${esc(LO_KINDS[r.k] ? LO_KINDS[r.k][0] : '')}">${LO_KINDS[r.k] ? LO_KINDS[r.k][1] : '•'} ${esc(loName(r).slice(0, 26))}<button data-cha="unlink:${r.id}" title="Отвязать">×</button></span>`).join('')}<button class="ch211add" data-cha="link" title="Привязать к направлению, проекту или задаче — чат попадёт туда в задачнике">＋ Тема</button></div>
+    ${done ? `<div class="ch211hint done">Закрыт${it.byn ? ' · ' + esc(it.byn) : ''}${it.at ? ' · ' + esc(chTime(it.at)) : ''}${it.res ? '<br><b>Итог:</b> ' + esc(it.res) : ''}</div>` : `<div class="ch211hint">${esc(T[3])}</div>`}
+    <div class="ch211log">${msgs.map(msg).join('') || '<div class="ch211empty"><b>Начните разговор</b><span>«@» — упомянуть человека, «@ии» — спросить вашу нейросеть.</span></div>'}${CHP.busy === it.id ? '<div class="ch211msg ai">' + chAv('ai', 'ИИ', true) + '<div class="ch211bub"><div class="ch211mt"><span class="ch211dots"><i></i><i></i><i></i></span></div></div></div>' : ''}</div>
+    <form class="ch211in">${rep ? `<div class="ch211rep">↩ ${esc((rep.ai ? rep.ai : rep.n) + ': ' + rep.t.slice(0, 80))}<button type="button" data-cha="rex" title="Не отвечать на сообщение">×</button></div>` : ''}<textarea class="ch211q2" rows="2" placeholder="${done ? 'Новое сообщение откроет чат снова' : 'Сообщение… Enter — отправить, Shift+Enter — строка'}"></textarea><div class="ch211sg" hidden></div>
+      <div class="ch211tools"><button type="button" data-cha="at" title="Упомянуть человека: он увидит чат в фильтре «Меня упомянули»">@</button><button type="button" class="ch211ai" data-cha="ai" title="Ответит ваша нейросеть: ${esc(aiName())}">✦ Ответ ИИ</button><span class="p24sp"></span><button type="submit" class="ch211send" data-cha="send" title="Отправить (Enter)">➤</button></div></form>
+    <div class="ch211ft${CHP.closing ? ' hl' : ''}">${can || done ? closeBtns : '<span class="ch211ftn">Закрыть может автор, исполнитель или администратор.</span><button class="ch211b2" data-cha="propose" title="Написать в чат, что его пора закрыть">Предложить закрыть</button>'}</div></div>`;
+}
+function chMount211(box, id, mode) {
+  const it = byId(id); if (!it || !box) return;
+  const sig = JSON.stringify([mode, it.ct, it.title, it.st, (it.msgs || []).map(m => [m.id, m.ed || 0, JSON.stringify(m.rx || {})]), it.res, it.lo, it.on, CHP.closing && CHP.id === id, CHP.busy === id, CHP.reply[id], CHP.edit[id], aiName()]);
+  if (box._sig === sig) return; box._sig = sig;
+  const ta = box.querySelector('.ch211q2'), draft = ta ? ta.value : '', foc = ta && ta.ownerDocument.activeElement === ta, pos = ta ? ta.selectionStart : 0;
+  const log0 = box.querySelector('.ch211log'), atBottom = !log0 || log0.scrollTop + log0.clientHeight >= log0.scrollHeight - 30;
+  box.innerHTML = chThreadHTML211(it, mode);
+  const t2 = box.querySelector('.ch211q2'); if (t2) { t2.value = draft; if (foc) { t2.focus(); t2.setSelectionRange(pos, pos); } }
+  const log = box.querySelector('.ch211log'); if (log && atBottom) log.scrollTop = log.scrollHeight;
+  if (mode !== 'canvas' || true) chMarkSeen211(it);
+}
+function chRefresh211(id, force) { for (const b of document.querySelectorAll('[data-chbox="' + id + '"]')) { if (force) b._sig = ''; chMount211(b, id, b.dataset.chmode || 'pop'); } if (force) { const el = els.get(id), box = el && el.firstChild; if (box && box.classList.contains('ch211box')) { box._sig = ''; } } }
+/* the popover: sticks to its mark */
 function chpOpen210(id, closing) {
+  const it = byId(id); if (!it) return;
   CHP.id = id; CHP.closing = !!closing;
-  if (!CHP.el) { CHP.el = document.createElement('div'); CHP.el.className = 'ch210p panel'; CHP.el.dataset.app = ''; document.body.appendChild(CHP.el); chpWire210(CHP.el); }
-  CHP.el.hidden = false; chpDraw210(true); setTimeout(() => { const i = CHP.el && CHP.el.querySelector('.chq'); if (i && !closing) i.focus(); }, 30);
+  if (!CHP.el) { CHP.el = document.createElement('div'); CHP.el.className = 'ch211p'; CHP.el.dataset.app = ''; CHP.el.dataset.chmode = 'pop'; document.body.appendChild(CHP.el); }
+  CHP.el.dataset.chbox = id; CHP.el.hidden = false; CHP.el._sig = ''; chMount211(CHP.el, id, 'pop');
+  for (const el of document.querySelectorAll('#world .tchat.chopen')) el.classList.remove('chopen'); const e2 = els.get(id); if (e2) e2.classList.add('chopen');
+  chpPlace210(); if (!CHP.raf) chpLoop211();
+  setTimeout(() => { const t = CHP.el && CHP.el.querySelector('.ch211q2'); if (t && !closing) t.focus(); }, 40);
 }
-function chpClose210() { CHP.id = ''; if (CHP.el) CHP.el.hidden = true; }
-function chpDraw210(force) {
-  const p = CHP.el, it = CHP.id && byId(CHP.id); if (!p) return; if (!it) { chpClose210(); return; }
-  const sig = JSON.stringify([it.ct, it.title, it.st, (it.msgs || []).length, it.res, CHP.closing, CHP.busy]); if (!force && sig === CHP.sig) return; CHP.sig = sig;
-  const T = CT210[it.ct] || CT210.disc, done = it.st === 'done', can = chCan210(it), me = chMe().e;
-  const draft = (p.querySelector('.chq') || {}).value || '';
-  const closeBtns = done ? `<button class="ob sm" data-ch="reopen">↺ Открыть снова</button>`
-    : it.ct === 'task' ? `<button class="btn sm" data-ch="done">✓ Выполнено</button>`
-    : it.ct === 'q' ? `<span class="sub">Отметьте ✓ у сообщения-ответа</span><button class="ob sm" data-ch="done">Закрыть без ответа</button>`
-    : it.ct === 'idea' ? `<button class="btn sm" data-ch="totask">→ В задачи</button><button class="ob sm" data-ch="reject">✕ Отклонить</button>`
-    : it.ct === 'review' ? `<button class="btn sm" data-ch="fixed">✓ Исправлено</button><button class="ob sm" data-ch="moot">Не актуально</button>`
-    : it.ct === 'decision' ? `<button class="btn sm" data-ch="fix">⚖ Зафиксировать решение</button>`
-    : `<button class="btn sm" data-ch="solved">✓ Решено</button>`;
-  p.style.setProperty('--chc', T[2]);
-  p.innerHTML = `<div class="chph"><button class="ob sm chpt" data-ch="type" title="Тип чата">${T[0]} ${T[1]} ▾</button><input class="inp sm chtl" value="${esc(it.title || '')}" placeholder="Тема (необязательно)"><button class="ib sm" data-ch="col" title="${it.col ? 'Развернуть на доске' : 'Свернуть в значок на доске'}">${it.col ? '▢' : '▁'}</button><button class="ib sm" data-ch="more" title="Ещё">⋯</button><button class="ib sm" data-ch="x" title="Закрыть переписку">${ic('close')}</button></div>
-    <div class="chhint">${done ? `<b>Закрыт</b>${it.byn ? ' · ' + esc(it.byn) : ''}${it.at ? ' · ' + esc(chTime(it.at)) : ''}${it.res ? '<br>Итог: ' + esc(it.res) : ''}` : esc(T[3])}${it.on && byId(it.on) ? ` · <a href="#" data-ch="obj">у объекта «${esc((bdTitle(byId(it.on)) || TYPE_NAME[byId(it.on).type] || '').slice(0, 30))}»</a>` : ''}</div>
-    <div class="chlog">${(it.msgs || []).map(m => `<div class="chmsg${m.a === me && !m.ai ? ' me' : ''}${m.ai ? ' ai' : ''}${m.sys ? ' sys' : ''}${it.ans === m.id ? ' ans' : ''}"><div class="chmh"><b>${esc(m.ai ? '✦ ' + m.ai : m.n || '')}</b><small>${esc(chTime(m.at))}</small>${it.ct === 'q' && !done && !m.sys && m.a !== it.au ? `<button class="ob sm" data-ch="ans:${m.id}" title="Это ответ — вопрос закроется">✓ Ответ</button>` : ''}</div><div class="chmt">${m.ai ? sanitizeHTML(mdToHtml(m.t)) : esc(m.t).replace(/\n/g, '<br>')}</div></div>`).join('') || '<p class="sub">Напишите первое сообщение. «@ии» в тексте — ответит ваша нейросеть.</p>'}${CHP.busy ? '<div class="chmsg ai"><div class="chmt">✦ Думаю…</div></div>' : ''}</div>
-    <form class="chin"><textarea class="inp chq" rows="2" placeholder="${done ? 'Новое сообщение откроет чат снова' : 'Сообщение… Enter — отправить, Shift+Enter — строка, @ии — спросить ИИ'}">${esc(draft)}</textarea><div class="btnrow"><button class="btn sm" data-ch="send">Отправить</button><button class="ob sm" data-ch="ai" title="Ответит ваша нейросеть: ${esc(aiName())}">✦ Ответ ИИ</button></div></form>
-    <div class="chcl${CHP.closing ? ' hl' : ''}">${can || done ? closeBtns : '<span class="sub">Закрыть может автор, исполнитель или администратор.</span><button class="ob sm" data-ch="propose">Предложить закрыть</button>'}</div>`;
-  chpPlace210(it); const log = p.querySelector('.chlog'); log.scrollTop = log.scrollHeight;
+function chpClose210() { const e2 = CHP.id && els.get(CHP.id); if (e2) e2.classList.remove('chopen'); CHP.id = ''; if (CHP.el) { CHP.el.hidden = true; CHP.el.dataset.chbox = ''; } if (CHP.raf) { cancelAnimationFrame(CHP.raf); CHP.raf = 0; } }
+function chpDraw210(force) { if (CHP.id) chRefresh211(CHP.id, force); }
+function chpPlace210() {
+  const p = CHP.el, it = CHP.id && byId(CHP.id); if (!p || p.hidden || !it) return;
+  const el = els.get(it.id), m = el && (el.querySelector('.ch211m') || el), r = m ? m.getBoundingClientRect() : { right: innerWidth / 2, left: innerWidth / 2, top: 120, bottom: 120, width: 0 };
+  const w = Math.min(400, innerWidth - 16), h = p.offsetHeight || 420, phone = innerWidth < 700;
+  if (phone) { p.style.left = '8px'; p.style.width = px(innerWidth - 16); p.style.top = px(Math.max(64, innerHeight - h - 8)); return; }
+  let x = r.right + 12; if (x + w > innerWidth - 8) x = r.left - w - 12; if (x < 8) x = clamp(r.left, 8, innerWidth - w - 8);
+  const y = clamp(r.top - 20, 64, Math.max(64, innerHeight - h - 12));
+  p.style.width = px(w); p.style.left = px(x); p.style.top = px(y);
+  const off = r.bottom < 0 || r.top > innerHeight || r.right < 0 || r.left > innerWidth; p.classList.toggle('far', off);
 }
-function chpPlace210(it) {
-  const p = CHP.el, el = els.get(it.id); if (!p) return;
-  const w = Math.min(380, innerWidth - 16), r = el ? el.getBoundingClientRect() : { right: innerWidth / 2, top: 120, left: innerWidth / 2 };
-  let x = r.right + 10; if (x + w > innerWidth - 8) x = r.left - w - 10; if (x < 8) x = (innerWidth - w) / 2;
-  p.style.width = px(w); p.style.left = px(clamp(x, 8, innerWidth - w - 8)); p.style.top = px(clamp(r.top, 64, Math.max(64, innerHeight - p.offsetHeight - 12)));
+function chpLoop211() { CHP.raf = requestAnimationFrame(() => { CHP.raf = 0; if (!CHP.id || !CHP.el || CHP.el.hidden) return; chpPlace210(); chpLoop211(); }); }
+/* the same panel elsewhere: columns, its own window, full screen, a pinned button, the canvas */
+function chView211(anchor, it, inDlg) {
+  openPop(anchor, `<div class="menu"><div class="vp-h">Где показывать чат</div><button class="mi" data-v="pop" title="Всплывающая панель у значка на доске"><span>◉ У значка на доске</span></button><button class="mi" data-v="canvas" title="Вся переписка — панелью прямо на доске"><span>▢ Полотном на доске</span></button><button class="mi" data-v="left" title="Колонка слева, доска видна"><span>⇤ Слева, за доской</span></button><button class="mi" data-v="right" title="Колонка справа, доска видна"><span>⇥ Справа, за доской</span></button><button class="mi" data-v="pip" title="Окно поверх всех — можно на другой монитор"><span>⧉ В отдельном окне</span></button><button class="mi" data-v="full" title="Во весь экран"><span>⤢ Во весь экран</span></button><div class="msep"></div><button class="mi" data-v="pin" title="Кнопка наверху открывает этот чат"><span>📌 Закрепить кнопкой</span></button></div>`, async v => {
+    if (v === 'pin') { pinAdd210({ k: 'obj', b: S.board.id, i: it.id, t: (it.title || (CT210[it.ct] || CT210.disc)[1]).slice(0, 30), ic: '💬' }); return; }
+    if (inDlg) { const d = inDlg.closest('.xdlg'); if (d && d.closest('.pip210r')) pipClose210(false); else if (d) { S.xdlg = d; closeXdlg(); } }
+    if (v === 'pop') { pushHist(); it.view = 'icon'; changed(); setTimeout(() => chpOpen210(it.id), 50); return; }
+    if (v === 'canvas') { chpClose210(); pushHist(); it.view = 'canvas'; changed(); return; }
+    chpClose210();
+    const d = xdlg('Чат: ' + (it.title || (CT210[it.ct] || CT210.disc)[1]), `<div class="ch211x" data-chbox="${it.id}" data-chmode="dlg"></div>`, true); d._dkey = 'chat:' + it.id; d._chat = it.id;
+    chMount211(d.querySelector('.ch211x'), it.id, 'dlg');
+    if (v === 'pip') pvPip210(d); else pvSet(d, v, false);
+  });
 }
+/* ---------- messages, reactions, mentions, closing ---------- */
 function chMsg210(it, t, extra) {
   const me = chMe(), m = Object.assign({ id: uid(), a: me.e, n: me.n, t: String(t).slice(0, 4000), at: Date.now() }, extra || {});
   pushHist(); it.msgs = (it.msgs || []).concat(m);
@@ -19954,76 +20276,112 @@ function chMsg210(it, t, extra) {
 }
 function chClose210(it, res, how) { const me = chMe(); pushHist(); it.st = 'done'; it.by = me.e; it.byn = me.n; it.at = Date.now(); if (res) it.res = String(res).slice(0, 600); else delete it.res; it.msgs = (it.msgs || []).concat({ id: uid(), sys: 1, a: '', n: 'Холст', t: `${me.n}: ${how || 'закрыл чат'}`, at: Date.now() }); changed(); CHP.closing = false; }
 function chReopen210(it) { const me = chMe(); pushHist(); it.st = 'open'; delete it.res; delete it.ans; it.msgs = (it.msgs || []).concat({ id: uid(), sys: 1, a: '', n: 'Холст', t: `${me.n} открыл чат снова`, at: Date.now() }); changed(); }
-function chpWire210(p) {
-  p.addEventListener('pointerdown', e => e.stopPropagation());
-  p.addEventListener('keydown', e => {
-    e.stopPropagation();
-    if (e.target.classList.contains('chq') && e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); chSend210(); }
-    if (e.key === 'Escape') chpClose210();
-  });
-  p.addEventListener('change', e => { if (!e.target.classList.contains('chtl')) return; const it = byId(CHP.id); if (!it) return; pushHist(); it.title = e.target.value.trim().slice(0, 120); changed(); });
-  p.addEventListener('submit', e => { e.preventDefault(); chSend210(); });
-  p.addEventListener('click', async e => {
-    const b = e.target.closest('[data-ch]'); if (!b) return; e.preventDefault(); const it = byId(CHP.id); if (!it) return; const a = b.dataset.ch;
-    if (a === 'x') chpClose210();
-    else if (a === 'send') chSend210();
-    else if (a === 'ai') chAi210(it);
-    else if (a === 'type') chTypePop210(b, it);
-    else if (a === 'col') { pushHist(); it.col = !it.col; changed(); }
-    else if (a === 'obj') { const o = byId(it.on); if (o) { S.sel = new Set([o.id]); render(); fitAll([o]); } }
-    else if (a.startsWith('ans:')) { const m = it.msgs.find(x => x.id === a.slice(4)); it.ans = m && m.id; chClose210(it, m && m.t, 'отметил ответ'); }
-    else if (a === 'done') chClose210(it, '', it.ct === 'task' ? 'задача выполнена' : 'закрыл');
-    else if (a === 'solved') { const r = await uiPrompt('Итог обсуждения (необязательно)', ''); if (r === null) return; chClose210(it, r, 'отметил «Решено»'); }
-    else if (a === 'fixed') chClose210(it, '', 'исправлено');
-    else if (a === 'moot') chClose210(it, 'Не актуально', 'не актуально');
-    else if (a === 'reject') { const r = await uiPrompt('Почему отклонена (необязательно)', ''); if (r === null) return; chClose210(it, 'Отклонено' + (r ? ': ' + r : ''), 'отклонил идею'); }
-    else if (a === 'totask') { await loLoad(); const t = loNew('task', { title: (it.title || (it.msgs[0] || {}).t || 'Идея').slice(0, 200), notes: it.msgs.map(m => (m.ai ? '✦ ' + m.ai : m.n) + ': ' + m.t).join('\n').slice(0, 3000), st: 'todo', tags: ['из чата'] }); loSave(); chClose210(it, 'Стала задачей: ' + t.title, 'принял идею в задачи'); toast('Идея стала задачей в задачнике'); }
-    else if (a === 'fix') { const last = [...it.msgs].reverse().find(m => !m.sys); const r = await uiPrompt('Решение', last ? last.t : ''); if (r === null) return; chClose210(it, r, 'зафиксировал решение'); }
-    else if (a === 'reopen') chReopen210(it);
-    else if (a === 'propose') chMsg210(it, 'Предлагаю закрыть этот чат', { sys: 1 });
-    else if (a === 'more') openPop(b, `<div class="menu"><button class="mi" data-v="lo"><span>☑ Открыть в задачнике</span></button><button class="mi" data-v="sel"><span>◎ Показать на доске</span></button><button class="mi" data-v="copy"><span>⧉ Скопировать переписку</span></button><div class="msep"></div><button class="mi" data-v="del"><span>🗑 Удалить чат</span></button></div>`, async v => {
-      if (v === 'lo') { await loLoad(); S.loUi = S.loUi || {}; S.loUi.sp29 = '#board'; S.loUi.top29 = 'tasks'; S.loSel = 'C' + S.board.id + '.' + it.id; loUiSave(); openLo(); }
-      else if (v === 'sel') { S.sel = new Set([it.id]); render(); fitAll([it]); }
-      else if (v === 'copy') copyPlain(newClip(it, false), 'Переписка скопирована');
-      else if (v === 'del') { if (!(await uiConfirm('Удалить чат со всей перепиской?'))) return; pushHist(); S.board.items = S.board.items.filter(i => i.id !== it.id); changed(); chpClose210(); }
-    });
+function chMembers211() { const sp = S.board && S.board.space, me = chMe(); const l = sp && typeof gtMembers === 'function' ? gtMembers(sp).map(m => ({ e: m.email, n: m.name || m.email.split('@')[0] })) : []; if (!l.some(x => x.e === me.e)) l.unshift({ e: me.e, n: me.n }); return l.concat([{ e: 'ai', n: 'ии' }]); }
+function chSend211(root, it) {
+  const ta = root.querySelector('.ch211q2'); if (!ta) return; const t = ta.value.trim(); if (!t) return; ta.value = '';
+  const mn = chMembers211().filter(x => x.e !== 'ai' && new RegExp('@' + x.n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i').test(t)).map(x => x.e);
+  const extra = {}; if (mn.length) extra.mn = mn; if (CHP.reply[it.id]) { extra.re = CHP.reply[it.id]; delete CHP.reply[it.id]; }
+  chMsg210(it, t, extra); chRefresh211(it.id, true);
+  if (/(^|\s)@(ии|ai)\b/i.test(t)) chAi210(it);
+}
+function chSuggest211(root) {
+  const ta = root.querySelector('.ch211q2'), box = root.querySelector('.ch211sg'); if (!ta || !box) return;
+  const before = ta.value.slice(0, ta.selectionStart), m = before.match(/(^|\s)@([\wА-яЁё.-]*)$/);
+  if (!m) { box.hidden = true; return; }
+  const q = m[2].toLowerCase(), l = chMembers211().filter(x => x.n.toLowerCase().startsWith(q) || x.e.toLowerCase().startsWith(q)).slice(0, 6);
+  if (!l.length) { box.hidden = true; return; }
+  box.hidden = false; box.innerHTML = l.map(x => `<button type="button" data-cha="pick:${esc(x.n)}" title="${esc(x.e === 'ai' ? 'Ваша нейросеть ответит в чате' : x.e)}">${x.e === 'ai' ? '✦ ' : '@'}${esc(x.n)}</button>`).join('');
+}
+async function chAct211(root, it, a, b) {
+  const [k, v, w] = a.split(':');
+  if (k === 'x') { const d = root.closest('.xdlg'); if (d && d.closest('.pip210r')) pipClose210(false); else if (d) { S.xdlg = d; closeXdlg(); } else chpClose210(); return; }
+  if (k === 'send') return chSend211(root, it);
+  if (k === 'ai') return chAi210(it);
+  if (k === 'at') { const ta = root.querySelector('.ch211q2'); ta.value += (ta.value && !/\s$/.test(ta.value) ? ' ' : '') + '@'; ta.focus(); chSuggest211(root); return; }
+  if (k === 'pick') { const ta = root.querySelector('.ch211q2'), pos = ta.selectionStart, before = ta.value.slice(0, pos).replace(/@([\wА-яЁё.-]*)$/, '@' + v + ' '); ta.value = before + ta.value.slice(pos); ta.focus(); ta.setSelectionRange(before.length, before.length); root.querySelector('.ch211sg').hidden = true; return; }
+  if (k === 'type') return chTypePop210(b, it);
+  if (k === 'view') return chView211(b, it, root.closest('.xdlg') ? root : null);
+  if (k === 'icon') { pushHist(); it.view = 'icon'; changed(); return; }
+  if (k === 'go') { const o = byId(v); if (o) { S.sel = new Set([o.id]); render(); fitAll([o]); } return; }
+  if (k === 'prev' || k === 'next') { const l = bdOrder(items().filter(i => i.type === 'chat' && chMatch211(i))); if (l.length < 2) { toast('Других чатов нет'); return; } const i = l.findIndex(x => x.id === it.id), n = l[(i + (k === 'next' ? 1 : -1) + l.length) % l.length]; fitAll([n]); setTimeout(() => chpOpen210(n.id), 250); return; }
+  if (k === 'rx') { const m = it.msgs.find(x => x.id === v); if (!m) return; const me = chMe().e; pushHist(); m.rx = Object.assign({}, m.rx); const l = new Set(m.rx[w] || []); if (l.has(me)) l.delete(me); else l.add(me); m.rx[w] = [...l]; changed(); return; }
+  if (k === 're') { CHP.reply[it.id] = v; chRefresh211(it.id, true); const t = root.querySelector('.ch211q2'); if (t) t.focus(); return; }
+  if (k === 'rex') { delete CHP.reply[it.id]; chRefresh211(it.id, true); return; }
+  if (k === 'ed') { CHP.edit[it.id] = v; chRefresh211(it.id, true); return; }
+  if (k === 'edx') { delete CHP.edit[it.id]; chRefresh211(it.id, true); return; }
+  if (k === 'edsave') { const m = it.msgs.find(x => x.id === v), t = root.querySelector('[data-edit="' + v + '"]'); if (m && t && t.value.trim()) { pushHist(); m.t = t.value.trim(); m.ed = Date.now(); delete CHP.edit[it.id]; changed(); } return; }
+  if (k === 'del') { if (!(await uiConfirm('Удалить сообщение?'))) return; pushHist(); it.msgs = it.msgs.filter(x => x.id !== v); changed(); return; }
+  if (k === 'ans') { const m = it.msgs.find(x => x.id === v); it.ans = m && m.id; chClose210(it, m && m.t, 'отметил ответ'); return; }
+  if (k === 'done') return chClose210(it, '', it.ct === 'task' ? 'задача выполнена' : 'закрыл');
+  if (k === 'solved') { const r = await uiPrompt('Итог обсуждения (необязательно)', ''); if (r === null) return; return chClose210(it, r, 'отметил «Решено»'); }
+  if (k === 'fixed') return chClose210(it, '', 'исправлено');
+  if (k === 'moot') return chClose210(it, 'Не актуально', 'не актуально');
+  if (k === 'reject') { const r = await uiPrompt('Почему отклонена (необязательно)', ''); if (r === null) return; return chClose210(it, 'Отклонено' + (r ? ': ' + r : ''), 'отклонил идею'); }
+  if (k === 'totask') { await loLoad(); const t = loNew('task', { title: (it.title || ((it.msgs || []).find(m => !m.sys) || {}).t || 'Идея').slice(0, 200), notes: it.msgs.filter(m => !m.sys).map(m => (m.ai ? '✦ ' + m.ai : m.n) + ': ' + m.t).join('\n').slice(0, 3000), st: 'todo', tags: ['из чата'], par: (it.lo || [])[0] || '' }); loSave(); chClose210(it, 'Стала задачей: ' + t.title, 'принял идею в задачи'); toast('Идея стала задачей в задачнике'); return; }
+  if (k === 'fix') { const last = [...it.msgs].reverse().find(m => !m.sys); const r = await uiPrompt('Решение', last ? last.t : ''); if (r === null) return; return chClose210(it, r, 'зафиксировал решение'); }
+  if (k === 'reopen') return chReopen210(it);
+  if (k === 'propose') return chMsg210(it, 'Предлагаю закрыть этот чат', { sys: 1 });
+  if (k === 'unlink') { pushHist(); it.lo = (it.lo || []).filter(x => x !== v); changed(); return; }
+  if (k === 'link') return chLinkPop211(b, it);
+  if (k === 'more') return openPop(b, `<div class="menu"><button class="mi" data-v="lo" title="Чат как задача в задачнике"><span>☑ Открыть в задачнике</span></button><button class="mi" data-v="sel" title="Показать значок чата на доске"><span>◎ Показать на доске</span></button><button class="mi" data-v="copy" title="Текст всей переписки"><span>⧉ Скопировать переписку</span></button><button class="mi" data-v="list" title="Все чаты доски с фильтрами"><span>💬 Все чаты доски…</span></button><div class="msep"></div><button class="mi" data-v="del" title="Удалить чат со всей перепиской"><span>🗑 Удалить чат</span></button></div>`, async v2 => {
+    if (v2 === 'lo') { await loLoad(); S.loUi = S.loUi || {}; S.loUi.sp29 = '#board'; S.loUi.top29 = 'tasks'; S.loSel = 'C' + S.board.id + '.' + it.id; loUiSave(); openLo(); }
+    else if (v2 === 'sel') { S.sel = new Set([it.id]); render(); fitAll([it]); }
+    else if (v2 === 'copy') copyPlain(newClip(it, false), 'Переписка скопирована');
+    else if (v2 === 'list') chList211();
+    else if (v2 === 'del') { if (!(await uiConfirm('Удалить чат со всей перепиской?'))) return; pushHist(); S.board.items = S.board.items.filter(i => i.id !== it.id); changed(); chpClose210(); }
   });
 }
-function chSend210() {
-  const it = byId(CHP.id), i = CHP.el && CHP.el.querySelector('.chq'); if (!it || !i) return; const t = i.value.trim(); if (!t) return;
-  i.value = ''; chMsg210(it, t); chpDraw210(true);
-  if (/(^|\s)@(ии|ai|ии,)/i.test(t)) chAi210(it);
+function chLinkPop211(anchor, it) {
+  loLoad().then(() => {
+    const want = ['area', 'project', 'epic', 'goal', 'task'], l = loAll().filter(r => want.includes(r.k) && r.st !== 'drop' && r.st !== 'done').sort((a, b) => want.indexOf(a.k) - want.indexOf(b.k) || loName(a).localeCompare(loName(b), 'ru')).slice(0, 200), cur = new Set(it.lo || []);
+    openPop(anchor, `<div class="menu ch211lp"><div class="vp-h">О чём чат: направление, проект, задача</div><input class="inp sm" data-chlq placeholder="Найти…" autocomplete="off">${l.map(r => `<button class="mi${cur.has(r.id) ? ' on' : ''}" data-v="${r.id}" data-t="${esc(loName(r).toLowerCase())}"><span>${cur.has(r.id) ? '☑' : '☐'} ${LO_KINDS[r.k] ? LO_KINDS[r.k][1] : ''} ${esc(loName(r))}<small> · ${esc(LO_KINDS[r.k] ? LO_KINDS[r.k][0] : '')}</small></span></button>`).join('') || '<p class="sub" style="padding:6px 10px">В задачнике пока нет направлений и проектов</p>'}</div>`, v => { pushHist(); const s = new Set(it.lo || []); if (s.has(v)) s.delete(v); else s.add(v); it.lo = [...s]; changed(); });
+    const q = pop.querySelector('[data-chlq]'); if (q) { q.focus(); q.addEventListener('input', () => { const t = q.value.toLowerCase(); pop.querySelectorAll('.mi[data-t]').forEach(m => { m.hidden = t && !m.dataset.t.includes(t); }); }); q.addEventListener('pointerdown', e => e.stopPropagation()); }
+  });
 }
+/* delegated: works in the popover, the canvas, columns and the widget window */
+document.addEventListener('click', e => {
+  const b = e.target.closest && e.target.closest('[data-cha]'); if (!b) return; const root = b.closest('[data-chth]'); if (!root) return;
+  e.preventDefault(); e.stopPropagation(); const it = byId(root.dataset.chth); if (!it) return;
+  chAct211(root, it, b.dataset.cha, b);
+});
+document.addEventListener('submit', e => { const root = e.target.closest && e.target.closest('[data-chth]'); if (!root) return; e.preventDefault(); const it = byId(root.dataset.chth); if (it) chSend211(root, it); });
+document.addEventListener('keydown', e => {
+  const root = e.target.closest && e.target.closest('[data-chth]'); if (!root) return;
+  if (e.target.classList.contains('ch211q2') && e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); const sg = root.querySelector('.ch211sg'); if (sg && !sg.hidden && sg.firstChild) { sg.firstChild.click(); return; } const it = byId(root.dataset.chth); if (it) chSend211(root, it); }
+  else if (e.key === 'Escape' && root.closest('.ch211p')) chpClose210();
+  e.stopPropagation();
+}, true);
+document.addEventListener('input', e => { if (e.target.classList && e.target.classList.contains('ch211q2')) { const root = e.target.closest('[data-chth]'); if (root) chSuggest211(root); } });
+document.addEventListener('change', e => { if (!e.target.classList || !e.target.classList.contains('ch211tl')) return; const root = e.target.closest('[data-chth]'), it = root && byId(root.dataset.chth); if (!it) return; pushHist(); it.title = e.target.value.trim().slice(0, 120); changed(); });
 /* ---------- the AI in a chat ---------- */
 async function chAi210(it) {
   if (!it || CHP.busy) return;
-  const obj = it.on && byId(it.on), T = CT210[it.ct] || CT210.disc;
-  const ctx = `Доска «${S.board.name}». Чат: ${T[1]}${it.title ? ' «' + it.title + '»' : ''}.${obj ? ` Чат у объекта (${TYPE_NAME[obj.type] || obj.type}): «${clTxt(obj)}».` : ''}\nПереписка:\n${(it.msgs || []).filter(m => !m.sys).slice(-20).map(m => `${m.ai ? 'ИИ' : m.n}: ${m.t}`).join('\n') || '(пусто — начни обсуждение по объекту)'}`;
+  const obj = it.on && byId(it.on), T = CT210[it.ct] || CT210.disc, links = (it.lo || []).map(loGet).filter(Boolean).map(r => loName(r));
+  const ctx = `Доска «${S.board.name}». Чат: ${T[1]}${it.title ? ' «' + it.title + '»' : ''}.${obj ? ` Чат у объекта (${TYPE_NAME[obj.type] || obj.type}): «${clTxt(obj)}».` : ''}${links.length ? ' Тема: ' + links.join(', ') + '.' : ''}\nПереписка:\n${(it.msgs || []).filter(m => !m.sys).slice(-20).map(m => `${m.ai ? 'ИИ' : m.n}: ${m.t}`).join('\n') || '(пусто — начни обсуждение по объекту)'}`;
   if (aiProvNow() === 'claudedrive') { const ok = await cdAsk210({ kind: 'chat', chat: it.id, text: ctx }); if (ok) chMsg210(it, 'Задание отправлено Claude по подписке. Ответ придёт сюда после «задания из Холста» в Claude.', { sys: 1 }); return; }
-  const ns = await clReady().catch(() => null);
+  const ns = await (typeof aiReady211 === 'function' ? aiReady211() : clReady()).catch(() => null);
   if (!ns) { chMsg210(it, 'Нейросеть не подключена: ☰ → «Нейросети».', { sys: 1 }); return; }
-  CHP.busy = true; if (CHP.id === it.id) chpDraw210(true);
+  CHP.busy = it.id; chRefresh211(it.id, true);
   try {
     const r = await ns([{ role: 'user', content: ctx + '\n\nОтветь в этом чате как участник обсуждения: по делу, коротко (до 120 слов), по-русски. Если это вопрос — дай ответ; задача — предложи шаги; идея — оцени и предложи, как проверить.' }], { maxTokens: 700 });
-    CHP.busy = false; chMsg210(it, r.text, { ai: aiName(), a: 'ai', n: aiName() });
-  } catch (e) { CHP.busy = false; chMsg210(it, 'ИИ не ответил: ' + ((e && (e.message || e.code)) || e), { sys: 1 }); }
-  if (CHP.id === it.id) chpDraw210(true);
+    CHP.busy = ''; chMsg210(it, r.text, { ai: (ns.provName || aiName()), a: 'ai', n: (ns.provName || aiName()), by: chMe().n });
+  } catch (e) { CHP.busy = ''; chMsg210(it, 'ИИ не ответил: ' + ((e && (e.message || e.code)) || e), { sys: 1 }); }
+  chRefresh211(it.id, true);
 }
-/* the board AI can open chats itself */
 { const o = clTools; clTools = () => {
   const l = o(), made = l[0] && l[0]._made;
   l.push(Object.assign({ name: 'add_chat', description: 'Opens a chat (a comment thread) on the board, next to an object or in a free spot: use it for remarks, questions, ideas, tasks or decisions about specific objects (e.g. when asked to review the board). kind: disc | task | q | idea | review | decision. Returns its id.', inputSchema: { type: 'object', properties: { object_id: { type: 'string' }, kind: { type: 'string', enum: Object.keys(CT210) }, title: { type: 'string' }, text: { type: 'string' } }, required: ['text'] }, execute: inp => {
-    const obj = inp.object_id && byId(inp.object_id); ct210silent = true; let c; try { c = chNewAt210(obj || null, obj ? null : clPlace(1, 300, 120), CT210[inp.kind] ? inp.kind : 'review', null); } finally { ct210silent = false; }
-    if (!c) throw new Error('no board'); c.title = String(inp.title || '').slice(0, 120); c.msgs = [{ id: uid(), a: 'ai', n: aiName(), ai: aiName(), t: String(inp.text || '').slice(0, 4000), at: Date.now() }]; c.au = 'ai'; changed(); if (made) made.push(c.id); return { id: c.id };
+    const obj = inp.object_id && byId(inp.object_id); ct210silent = true; let c; try { c = chNewAt210(obj || null, obj ? null : clPlace(1, 60, 60), CT210[inp.kind] ? inp.kind : 'review', null); } finally { ct210silent = false; }
+    if (!c) throw new Error('no board'); c.title = String(inp.title || '').slice(0, 120); c.msgs = [{ id: uid(), a: 'ai', n: aiName(), ai: aiName(), by: chMe().n, t: String(inp.text || '').slice(0, 4000), at: Date.now() }]; c.au = 'ai'; c.an = aiName(); changed(); if (made) made.push(c.id); return { id: c.id };
   } }, { _made: made }));
   return l;
 }; }
 function chReview210() { clOpen(); clSend('Пройдись по доске (get_board) и оставь замечания чатами (add_chat, kind review) прямо у объектов: что неясно, что противоречит, чего не хватает, что улучшить. До 8 самых важных. Ничего не меняй и не удаляй.'); }
-/* ---------- the task manager: chats are tasks marked «чат» ---------- */
+/* ---------- the task manager: chats are tasks marked «чат», under their topic ---------- */
 function chScan210(b, up) {
   for (const it of b.items) {
-    if (it.type !== 'chat') continue; const T = CT210[it.ct] || CT210.disc, id = 'C' + b.id + '.' + it.id, old = loGet(id);
-    up(id, { k: 'task', title: '💬 ' + (it.title || ((it.msgs || []).find(m => !m.sys) || {}).t || T[1]).slice(0, 160), st: it.st === 'done' ? 'done' : it.ct === 'task' ? (old && old.st !== 'done' ? old.st : 'todo') : (LO_ST.wait ? 'wait' : 'todo'), tags: ['чат', T[1].toLowerCase()], notes: (it.msgs || []).filter(m => !m.sys).slice(-4).map(m => (m.ai ? '✦ ' + m.ai : m.n) + ': ' + m.t).join('\n').slice(0, 1200), src: { b: b.id, i: it.id, bn: b.name, chat: 1 }, chat: { ct: it.ct, n: (it.msgs || []).length }, par: old ? old.par || '' : '' });
+    if (it.type !== 'chat') continue; const T = CT210[it.ct] || CT210.disc, id = 'C' + b.id + '.' + it.id, old = loGet(id), first = (it.msgs || []).find(m => !m.sys);
+    up(id, { k: 'task', title: '💬 ' + (it.title || (first && first.t) || T[1]).slice(0, 160), st: it.st === 'done' ? 'done' : it.ct === 'task' ? (old && old.st !== 'done' ? old.st : 'todo') : (LO_ST.wait ? 'wait' : 'todo'), tags: ['чат', T[1].toLowerCase()], notes: (it.msgs || []).filter(m => !m.sys).slice(-4).map(m => (m.ai ? '✦ ' + m.ai : m.n) + ': ' + m.t).join('\n').slice(0, 1200), src: { b: b.id, i: it.id, bn: b.name, chat: 1 }, chat: { ct: it.ct, n: (it.msgs || []).length, au: it.an || '' }, par: (it.lo || []).find(x => loGet(x)) || (old ? old.par || '' : '') });
   }
 }
 { const o = loToBoard; loToBoard = r => {
@@ -20033,34 +20391,42 @@ function chScan210(b, up) {
     if (r.st !== 'done' && it.st === 'done') { it.st = 'open'; delete it.res; return true; }
     return false; });
 }; }
-/* ---------- the 💬 button: new chat, the list, visibility, AI remarks ---------- */
+/* ---------- all chats of the board: filters and the list ---------- */
+function chList211() {
+  if (!S.board) return;
+  const d = xdlg('Чаты доски', '<div class="p24 ch211list"></div>', true); d._dkey = 'chlist';
+  const draw = () => {
+    const all = items().filter(i => i.type === 'chat'), l = bdOrder(all.filter(chMatch211)), me = chMe().e;
+    const f = (k, v, t, tip) => `<button class="${CHF211[k] === v ? 'on' : ''}" data-chf="${k}:${v}" title="${esc(tip)}">${t}</button>`;
+    d.querySelector('.ch211list').innerHTML = `<div class="btnrow"><button class="btn" data-chl="new" title="Щёлкните потом по доске, рамке или объекту">＋ Новый чат</button><button class="ob" data-chl="review" title="Ваша нейросеть пройдётся по доске и оставит замечания чатами у объектов">✦ Замечания ИИ по доске</button><span class="p24sp"></span><label class="l27ck" title="Показывать значки чатов на доске"><input type="checkbox" data-chl2="off"${LS.get('ch210off') ? '' : ' checked'}> Чаты на доске</label></div>
+      <div class="ch211fl"><span class="br210n">Чьи</span><div class="seg24">${f('who', 'all', 'Все', 'Все чаты')}${f('who', 'mine', 'Мои', 'Я создал')}${f('who', 'ment', '@ меня', 'Меня упомянули')}${f('who', 'part', 'Я участвую', 'Я писал в чате')}${f('who', 'unr', 'Непрочитанные', 'Есть новые сообщения')}${f('who', 'ai', 'С ИИ', 'Отвечала нейросеть')}</div></div>
+      <div class="ch211fl"><span class="br210n">Статус</span><div class="seg24">${f('st', 'open', 'Открытые', 'Только открытые')}${f('st', 'done', 'Закрытые', 'Только закрытые')}${f('st', 'all', 'Все', 'Открытые и закрытые')}</div></div>
+      <div class="ch211fl"><span class="br210n">Тип</span><div class="seg24">${f('ct', 'all', 'Все', 'Любой тип')}${Object.entries(CT210).map(([k, [i, n]]) => f('ct', k, i + ' ' + n, CT_TIP211[k])).join('')}</div></div>
+      <p class="sub">Показано ${l.length} из ${all.length}. Фильтры действуют и на доске.</p>
+      <div class="ch211rows">${l.map(c => { const T = CT210[c.ct] || CT210.disc, ms = (c.msgs || []).filter(m => !m.sys), last = ms.slice(-1)[0], first = ms[0]; return `<button class="ch211row${c.st === 'done' ? ' done' : ''}" data-chgo="${c.id}" title="Открыть чат">${c.au === 'ai' ? chAv('ai', 'ИИ', true) : chAv(c.au, c.an)}<span class="ch211rc"><b>${T[0]} ${esc((c.title || (first && first.t) || T[1]).slice(0, 80))}</b><small>${last ? esc((last.ai ? '✦ ' + last.ai : last.n) + ': ' + last.t.slice(0, 80)) : 'Нет сообщений'}</small></span><span class="ch211rm">${chUnread211(c) ? '<i class="ch211dot on"></i>' : ''}${c.st === 'done' ? 'закрыт' : esc(chTime((last || c).at || c.c || Date.now()))}</span></button>`; }).join('') || '<p class="sub">Под фильтр ничего не подходит.</p>'}</div>`;
+  };
+  d.addEventListener('click', e => {
+    const f = e.target.closest('[data-chf]'); if (f) { const [k, v] = f.dataset.chf.split(':'); CHF211[k] = v; LS.set('chf211', CHF211); draw(); render(); return; }
+    const g = e.target.closest('[data-chgo]'); if (g) { const c = byId(g.dataset.chgo); closeXdlg(); if (c) { fitAll([c]); setTimeout(() => chpOpen210(c.id), 280); } return; }
+    const a = e.target.closest('[data-chl]'); if (!a) return; closeXdlg(); if (a.dataset.chl === 'new') chPlace210(true); else chReview210();
+  });
+  d.addEventListener('change', e => { if (e.target.dataset.chl2 === 'off') { LS.set('ch210off', e.target.checked ? 0 : 1); render(); draw(); } });
+  draw();
+}
+const chMenu210 = anchor => chList211();
+function chVis210() { render && S.board && render(); }
 function chBtn210() {
   const tb = $('#topbar'); if (!tb || $('#btn210chat')) return;
-  const b = document.createElement('button'); b.className = 'ib tb210main'; b.id = 'btn210chat'; b.title = 'Чаты на доске: новый, список, видимость, замечания ИИ'; b.setAttribute('aria-label', 'Чаты на доске'); b.textContent = '💬';
+  const b = document.createElement('button'); b.className = 'ib tb210main'; b.id = 'btn210chat'; b.title = 'Чаты на доске: новый, все чаты с фильтрами, замечания ИИ'; b.setAttribute('aria-label', 'Чаты на доске'); b.textContent = '💬';
   const f = $('#btnFilter'); tb.insertBefore(b, f ? f.nextSibling : null);
-  b.addEventListener('click', e => { e.stopPropagation(); chMenu210(b); });
+  b.addEventListener('click', e => { e.stopPropagation(); chList211(); });
 }
-function chMenu210(anchor) {
-  if (!S.board) return; const all = items().filter(i => i.type === 'chat'), open = all.filter(i => i.st !== 'done'), hideDone = !!LS.get('ch210done'), hideAll = !!LS.get('ch210off');
-  openPop(anchor, `<div class="menu ch210m"><div class="vp-h">Чаты на доске · открыто ${open.length} из ${all.length}</div><button class="mi" data-v="new"><span>＋ Новый чат — щёлкните по доске или объекту</span></button><button class="mi" data-v="review"><span>✦ ИИ: замечания по доске — чатами у объектов</span></button><div class="msep"></div>${open.slice(0, 12).map(c => `<button class="mi" data-v="go:${c.id}"><span>${(CT210[c.ct] || CT210.disc)[0]} ${esc((c.title || ((c.msgs || [])[0] || {}).t || 'Чат').slice(0, 46))} <small>· ${(c.msgs || []).length}</small></span></button>`).join('') || '<p class="sub" style="padding:4px 10px">Открытых чатов нет</p>'}<div class="msep"></div><button class="mi" data-v="done"><span>${hideDone ? '☐' : '☑'} Показывать закрытые чаты</span></button><button class="mi" data-v="off"><span>${hideAll ? '☐' : '☑'} Показывать чаты на доске</span></button><button class="mi" data-v="colall"><span>▁ Свернуть все в значки</span></button><button class="mi" data-v="lo"><span>☑ Чаты в задачнике</span></button></div>`, async v => {
-    if (v === 'new') chPlace210(true);
-    else if (v === 'review') chReview210();
-    else if (v.startsWith('go:')) { const c = byId(v.slice(3)); if (c) { S.sel = new Set([c.id]); render(); fitAll([c]); setTimeout(() => chpOpen210(c.id), 300); } }
-    else if (v === 'done') { LS.set('ch210done', hideDone ? 0 : 1); chVis210(); }
-    else if (v === 'off') { LS.set('ch210off', hideAll ? 0 : 1); chVis210(); }
-    else if (v === 'colall') { pushHist(); for (const c of all) c.col = true; changed(); }
-    else if (v === 'lo') { await loLoad(); S.loUi = S.loUi || {}; S.loUi.sp29 = '#board'; S.loUi.top29 = 'tasks'; S.loUi.mode = 'check'; S.loUi.page = 'chk'; loUiSave(); openLo('chk'); }
-  });
-}
-function chVis210() { document.body.classList.toggle('ch210nodone', !!LS.get('ch210done')); document.body.classList.toggle('ch210off', !!LS.get('ch210off')); }
-/* a click on a chat opens its thread (a drag does not) */
-const CHD = { id: '', x: 0, y: 0 };
-document.addEventListener('pointerdown', e => { const el = e.target.closest && e.target.closest('#world .tchat'); if (!el) { CHD.id = ''; return; } CHD.id = el.dataset.id; CHD.x = e.clientX; CHD.y = e.clientY; }, true);
-document.addEventListener('pointerup', e => { if (!CHD.id) return; const id = CHD.id; CHD.id = ''; if (Math.hypot(e.clientX - CHD.x, e.clientY - CHD.y) > 5) return; setTimeout(() => chpOpen210(id), 0); }, true);
-{ const o = menuItems; menuItems = () => { const l = o(), i = l.findIndex(x => x.id === 'filter'); l.splice(i >= 0 ? i + 1 : l.length, 0, { id: 'chat210', cat: 'board', icon: 'chat', label: 'Чаты на доске: новый, список, видимость…', key: '' }); return l; }; }
-{ const o = menuAction; menuAction = async v => { if (v === 'chat210') { S.menuQ = ''; const a = $('#btnMenu'); closePop(); return chMenu210(a); } return o(v); }; }
+{ const o = menuItems; menuItems = () => { const l = o(), i = l.findIndex(x => x.id === 'filter'); l.splice(i >= 0 ? i + 1 : l.length, 0, { id: 'chat210', cat: 'board', icon: 'chat', label: 'Чаты на доске: новый, все чаты, фильтры…', key: '' }); return l; }; }
+{ const o = menuAction; menuAction = async v => { if (v === 'chat210') { S.menuQ = ''; closePop(); return chList211(); } return o(v); }; }
 { const o = xdlg; xdlg = (...a) => { chpClose210(); return o(...a); }; }
-function chat210Setup() { chBtn210(); chVis210(); addEventListener('resize', () => { const it = CHP.id && byId(CHP.id); if (it) chpPlace210(it); }); }
+function chat210Setup() { chBtn210(); addEventListener('resize', chpPlace210); }
+/* chats carry their topic in the thread, not as a Life OS card over the board */
+{ const o = loDecor; loDecor = (el, it) => { if (it.type === 'chat') { if (el._lo) { el._lo.remove(); el._lo = null; } return; } return o(el, it); }; }
 /* =========================================================
    v2.10: each person has their own AI. ChatGPT, Claude API, Gemini, Groq,
    OpenRouter, Qwen, Perplexity — instantly with a key kept on this device;
@@ -20228,6 +20594,491 @@ function aiSwitchPop210(anchor) {
 { const o = menuAction; menuAction = async v => { if (v === 'skill210') { S.menuQ = ''; closePop(); return skillGuide210(); } if (v === 'review210') { S.menuQ = ''; closePop(); return chReview210(); } if (v === 'gd29') { S.menuQ = ''; closePop(); return gdDlg210(); } return o(v); }; }
 for (const T of Object.values(TOURS)) { if (T.name === 'Claude на доске') T.name = 'ИИ на доске'; } for (const T of Object.values(TOURS)) for (const st of T.steps || []) { if (st.t === 'Claude') st.t = 'ИИ на доске'; if (typeof st.x === 'string') st.x = st.x.replace(/^Панель Claude/, 'Панель ИИ — вашей нейросети —'); }
 function ai210Setup() { clHead(); const b = $('#btn24claude'); if (b) { b.title = 'ИИ на доске — ваша нейросеть: ' + aiName(); } }
+/* =========================================================
+   v2.11: zoom visibility levels, frames (stacking, view, export with grouping,
+   team timer), the speed of the board at the edges, tooltips on every button.
+   ========================================================= */
+/* ---------- three levels of how marks obey the zoom ----------
+   1 — never scaled (always the same size on screen): team cursors, the selection;
+   2 — the same size down to 7% (like frame tabs): chat marks, «not on Drive»;
+   3 — the same size down to 25%: heading badges H1–H3, upload bars. */
+const ZL211 = Object.assign({ l2: 7, l3: 25 }, LS.get('zl211') || {});
+function zlApply211() { const r = document.documentElement.style; r.setProperty('--zl2cap', String(100 / clamp(ZL211.l2, 1, 90))); r.setProperty('--zl3cap', String(100 / clamp(ZL211.l3, 1, 90))); }
+zlApply211();
+/* ---------- the speed of the board at the edges while dragging: min and max ---------- */
+const FS211 = Object.assign({ min: 6, max: 9 }, LS.get('fs211') || {});
+followTick = function () {
+  S.fRaf = 0;
+  const d = S.drag, e = S.lastMv;
+  if (!d || !e || !S.board || !['move', 'resize', 'marquee', 'connect', 'cend', 'create'].includes(d.type)) return;
+  const mode = followMode(); if (mode === 1) return;
+  const L = S.leftInset || 0, W = innerWidth - L, H = innerHeight, cx = e.clientX - L, cy = e.clientY, lo = Math.max(1, +FS211.min || 6), hi = Math.max(lo, +FS211.max || lo * 1.5);
+  const sp = k => lo + (hi - lo) * clamp(k, 0, 1);
+  let vx = 0, vy = 0;
+  if (mode === 2) {
+    const zx = W * 0.3, zy = H * 0.3, ox = cx - W / 2, oy = cy - H / 2;
+    if (Math.abs(ox) > zx) vx = Math.sign(ox) * sp((Math.abs(ox) - zx) / (W / 2 - zx));
+    if (Math.abs(oy) > zy) vy = Math.sign(oy) * sp((Math.abs(oy) - zy) / (H / 2 - zy));
+  } else {
+    const m = 56;
+    if (cx < m) vx = -sp(1 - cx / m); else if (cx > W - m) vx = sp(1 - (W - cx) / m);
+    if (cy < m + 16) vy = -sp(1 - cy / (m + 16)); else if (cy > H - m) vy = sp(1 - (H - cy) / m);
+  }
+  if (d.type === 'move' && !d.list) return void (S.fRaf = requestAnimationFrame(followTick));
+  if (vx || vy) { const v = V(); v.x -= vx; v.y -= vy; applyView(); onMove(e); }
+  S.fRaf = requestAnimationFrame(followTick);
+};
+edgeTick = () => { EDGE.t = 0; };
+/* settings: in «Стиль управления» */
+{ const o = ctDlg; ctDlg = (...a) => {
+  const r = o(...a); const d = S.xdlg; if (!d || d._dkey !== 'ctrl29') return r;
+  const box = document.createElement('div'); box.className = 'p24 ct211'; d.querySelector('.ct29').after(box);
+  const draw = () => {
+    const fm = followMode();
+    box.innerHTML = `<h3>Доска за указателем при перетаскивании</h3><div class="lk-r"><span>Режим</span><div class="seg24">${[1, 2, 3].map(n => `<button class="${fm === n ? 'on' : ''}" data-fs211m="${n}" title="${esc(FOLLOW_NAMES[n])}">${['Стоит', 'Следует', 'У края'][n - 1]}</button>`).join('')}</div></div>
+      <div class="lk-r"><span>Скорость: мин</span><input type="range" min="1" max="30" value="${FS211.min}" data-fs211="min" title="Скорость у начала зоны, пикселей за кадр"><b>${FS211.min}</b><span>макс</span><input type="range" min="1" max="45" value="${FS211.max}" data-fs211="max" title="Скорость у самого края"><b>${FS211.max}</b></div><p class="sub">Чем ближе к краю — тем быстрее, от «мин» до «макс». По умолчанию макс на 50% быстрее мин.</p>
+      <h3>Заметность меток при отдалении</h3><p class="sub">Уровень 1 — всегда одного размера: курсоры участников, выделение. Уровень 2 — одного размера до ${ZL211.l2}%: значки чатов, «не на Диске», вкладки рамок. Уровень 3 — до ${ZL211.l3}%: метки заголовков H1–H3, полосы загрузки. Дальше метки уменьшаются вместе с доской.</p>
+      <div class="lk-r"><span>Уровень 2 — до</span><select class="inp sm" data-zl211="l2">${[3, 5, 7, 10, 15, 20].map(v => `<option${ZL211.l2 === v ? ' selected' : ''}>${v}</option>`).join('')}</select><span>%</span><span>Уровень 3 — до</span><select class="inp sm" data-zl211="l3">${[15, 20, 25, 33, 50].map(v => `<option${ZL211.l3 === v ? ' selected' : ''}>${v}</option>`).join('')}</select><span>%</span></div>`;
+  };
+  box.addEventListener('click', e => { const b = e.target.closest('[data-fs211m]'); if (!b) return; LS.set('follow', +b.dataset.fs211m); if (+b.dataset.fs211m > 1 && !mechOn('follow')) mechSet('follow', true); draw(); });
+  box.addEventListener('input', e => { const t = e.target; if (t.dataset.fs211) { FS211[t.dataset.fs211] = +t.value; if (FS211.max < FS211.min) FS211[t.dataset.fs211 === 'min' ? 'max' : 'min'] = +t.value; LS.set('fs211', FS211); draw(); } });
+  box.addEventListener('change', e => { const t = e.target; if (t.dataset.zl211) { ZL211[t.dataset.zl211] = +t.value; LS.set('zl211', ZL211); zlApply211(); draw(); } });
+  const edgeCk = d.querySelector('[data-ctx="edge"]'); if (edgeCk) edgeCk.closest('label').remove();
+  draw(); return r;
+}; }
+/* ---------- frames: a frame lies over the frames it is inside of, newer over older ---------- */
+const FO211 = { key: '', depth: new Map() };
+function frameOrder211(a) {
+  const frames = a.filter(i => i.type === 'frame'), rest = a.filter(i => i.type !== 'frame');
+  if (frames.length > 1) {
+    const key = frames.map(f => f.id + ':' + f.x + ',' + f.y + ',' + f.w + ',' + f.h).join('|');
+    if (key !== FO211.key) {
+      FO211.key = key; FO211.depth = new Map();
+      for (const f of frames) { let dpt = 0; for (const g of frames) if (g !== f && g.x <= f.x + 0.5 && g.y <= f.y + 0.5 && g.x + g.w >= f.x + f.w - 0.5 && g.y + g.h >= f.y + f.h - 0.5 && (g.w * g.h > f.w * f.h || (g.w * g.h === f.w * f.h && frames.indexOf(g) < frames.indexOf(f)))) dpt++; if (f.cell) dpt = Math.max(dpt, 1); FO211.depth.set(f.id, dpt); }
+    }
+    const idx = new Map(frames.map((f, i) => [f.id, i]));
+    frames.sort((p, q) => (FO211.depth.get(p.id) || 0) - (FO211.depth.get(q.id) || 0) || idx.get(p.id) - idx.get(q.id));
+  }
+  return frames.concat(rest);
+}
+/* ---------- the view of a frame: plain, section, tabs, matrix ---------- */
+const frView211 = it => it.mx ? 'Матрица' : Array.isArray(it.tabs) && it.tabs.length ? 'С вкладками' : it.fstyle === 'section' ? 'Секция' : 'Обычная';
+function frPlain211(it) {
+  pushHist();
+  if (it.mx) { mxRemove(it); }
+  if (Array.isArray(it.tabs)) { const ids = new Set(it.tabs.map(t => t.id)); for (const x of items()) if (x.ftab && ids.has(x.ftab)) delete x.ftab; delete it.tabs; delete it.tab; }
+  if (it.fstyle === 'section') { delete it.fstyle; it.fill = '#ffffff'; }
+  changed(); toast('Обычная рамка');
+}
+function frViewPop211(anchor, it) {
+  const cur = frView211(it);
+  openPop(anchor, `<div class="menu"><div class="vp-h">Вид рамки</div>${[['plain', 'Обычная', 'Просто рамка: всё внутри двигается вместе'], ['section', 'Секция', 'Мягкий фон без контура — для крупных зон'], ['tabs', 'С вкладками', 'Несколько слоёв в одной рамке'], ['mx', 'Матрица', 'Строки и столбцы с ячейками']].map(([k, l, t]) => `<button class="mi${cur === l ? ' on' : ''}" data-v="${k}" title="${esc(t)}"><span>${cur === l ? '● ' : ''}<b>${l}</b><br><small>${esc(t)}</small></span></button>`).join('')}</div>`, v => {
+    const fs = items().filter(i => i.type === 'frame' && (S.sel.has(i.id) || i.id === it.id));
+    if (v === 'plain') fs.forEach(frPlain211);
+    else if (v === 'section') { fs.forEach(f => { if (f.mx || (f.tabs || []).length) frPlain211(f); }); setProp(i => i.type === 'frame' && fs.includes(i), { fstyle: 'section', fill: '#eef2fb' }); }
+    else if (v === 'tabs') { if (it.mx) { toast('Сначала «Обычная»: у матрицы вкладок нет'); return; } if (!(it.tabs || []).length) tabsInit(it); }
+    else if (v === 'mx') { if (!it.mx) { const b = $('#ctx [data-act="mx:menu"]'); if (b) b.click(); } else mxMenu(anchor, it); }
+  });
+}
+{ const o = ctx24Act; ctx24Act = (b, sel) => {
+  const a = b.dataset.act || '';
+  if (a === 'fr:view') { frViewPop211(b, sel[0]); return true; }
+  if (a === 'fr:export') { frExport211(sel[0]); return true; }
+  if (a === 'fr:timer') { tmDlg211(sel[0]); return true; }
+  return o(b, sel);
+}; }
+{ const o = ctx24Extra; ctx24Extra = (sel, single) => { const g = o(sel, single); if (sel.length === 1 && sel[0].type === 'frame' && !S.editing) g.push(cbtn('fr:export', '⇪ Экспорт', 'Экспорт рамки: Telegram, Markdown, документ с картинками, снимок, задачи — с группировкой по ячейкам, строкам, вкладкам', 'wide') + cbtn('fr:timer', '⏱ Таймер', 'Таймер команды: время на каждый объект в рамке, по очереди', 'wide')); return g; }; }
+/* ---------- the export of a frame, grouped ---------- */
+const FX211 = Object.assign({ grp: 'auto', img: 1, empty: 0, names: 1 }, LS.get('fx211') || {});
+function frGroups211(F) {
+  const g = [['auto', 'Как удобнее', 'Матрица — по ячейкам, вкладки — по вкладкам, иначе — по рамкам внутри']];
+  if (F.mx) g.push(['cells', 'По ячейкам', 'Каждая ячейка — свой раздел'], ['rows', 'По строкам', 'Строка — раздел, ячейки — подразделы'], ['cols', 'По столбцам', 'Столбец — раздел, ячейки — подразделы'], ['table', 'Таблицей', 'Строки и столбцы — таблица']);
+  if ((F.tabs || []).length) g.push(['tabs', 'По вкладкам', 'Каждая вкладка — раздел']);
+  g.push(['frames', 'По рамкам внутри', 'Вложенные рамки — разделы'], ['heads', 'По заголовкам H1–H3', 'Объекты-заголовки начинают разделы'], ['flat', 'Одним списком', 'Без разделов, сверху вниз']);
+  return g;
+}
+function frInside211(F, ex) { const r = { x: F.x, y: F.y, w: F.w, h: F.h }; return items().filter(i => i !== F && !(ex && ex.has(i.id)) && i.type !== 'connector' && i.type !== 'chat' && !isHid(i) && bdIn(r, bdBox(i))); }
+/* sections: {t, items, sub} */
+function frStruct211(F, grp) {
+  if (grp === 'auto') grp = F.mx ? 'cells' : (F.tabs || []).length ? 'tabs' : 'frames';
+  const all = frInside211(F);
+  if (F.mx && ['cells', 'rows', 'cols', 'table'].includes(grp)) {
+    const cells = all.filter(i => i.cell && i.cell.m === F.id), rows = F.mx.rows || [], cols = F.mx.cols || [];
+    const cellAt = (c, r) => cells.find(x => x.cell.c === c.id && x.cell.r === r.id);
+    const inner = c => c ? bdOrder(items().filter(i => i !== c && i !== F && !(i.cell && i.cell.m === F.id) && i.type !== 'connector' && i.type !== 'chat' && bdIn({ x: c.x, y: c.y, w: c.w, h: c.h }, bdBox(i)))) : [];
+    const rn = (r, i) => r.name || 'Строка ' + (i + 1), cn = (c, i) => c.name || 'Столбец ' + (i + 1);
+    if (grp === 'table') return { table: rows.map((r, ri) => ({ t: rn(r, ri), cells: cols.map((c, ci) => ({ t: cn(c, ci), items: inner(cellAt(c, r)), title: (cellAt(c, r) || {}).title || '' })) })), cols: cols.map(cn) };
+    if (grp === 'cells') { const out = []; rows.forEach((r, ri) => cols.forEach((c, ci) => { const cell = cellAt(c, r); out.push({ t: (cell && cell.title) || [rows.length > 1 || r.name ? rn(r, ri) : '', cols.length > 1 || c.name ? cn(c, ci) : ''].filter(Boolean).join(' · ') || 'Ячейка', items: inner(cell) }); })); return { secs: out }; }
+    if (grp === 'rows') return { secs: rows.map((r, ri) => ({ t: rn(r, ri), sub: cols.map((c, ci) => ({ t: (cellAt(c, r) || {}).title || cn(c, ci), items: inner(cellAt(c, r)) })) })) };
+    return { secs: cols.map((c, ci) => ({ t: cn(c, ci), sub: rows.map((r, ri) => ({ t: (cellAt(c, r) || {}).title || rn(r, ri), items: inner(cellAt(c, r)) })) })) };
+  }
+  if (grp === 'tabs' && (F.tabs || []).length) return { secs: F.tabs.map(t => ({ t: t.name || 'Вкладка', items: bdOrder(all.filter(i => i.ftab === t.id)) })) };
+  if (grp === 'frames') {
+    const fr = all.filter(i => i.type === 'frame' && !all.some(g => g !== i && g.type === 'frame' && bdIn({ x: g.x, y: g.y, w: g.w, h: g.h }, bdBox(i))));
+    const owned = new Set(); const secs = fr.map(f => { const its = bdOrder(all.filter(i => i !== f && i.type !== 'frame' && bdIn({ x: f.x, y: f.y, w: f.w, h: f.h }, bdBox(i)))); its.forEach(i => owned.add(i.id)); return { t: f.title || 'Раздел', items: its, y: f.y, x: f.x }; });
+    const loose = bdOrder(all.filter(i => i.type !== 'frame' && !owned.has(i.id)));
+    secs.sort((p, q) => p.y - q.y || p.x - q.x);
+    return { lead: loose, secs };
+  }
+  const list = bdOrder(all.filter(i => i.type !== 'frame'));
+  if (grp === 'heads') { const secs = []; let cur = { t: '', items: [] }; for (const it of list) { if (it.hl) { if (cur.t || cur.items.length) secs.push(cur); cur = { t: bdTitle(it), items: [], lv: it.hl }; } else cur.items.push(it); } if (cur.t || cur.items.length) secs.push(cur); return { secs }; }
+  return { lead: list, secs: [] };
+}
+const fxLine211 = it => { const s = bdTitle(it) || (itemText(it) || '').trim(); if (it.type === 'tasks') return (it.rows || []).filter(r => r.k !== 'blk').map(r => (r.done ? '[x] ' : '[ ] ') + r.t); if (it.type === 'image') return FX211.img ? ['[картинка' + (it.name ? ': ' + it.name : '') + ']'] : []; return s ? [s.replace(/\s+/g, ' ')] : []; };
+function frText211(F, S2, kind) {
+  const b = kind === 'tg' ? (l => '• ' + l.replace(/^\[x\] /, '✅ ').replace(/^\[ \] /, '▫️ ')) : (l => '- ' + l);
+  const head = (t, lv) => kind === 'tg' ? (lv > 1 ? '▪️ ' + t : `**${t}**`) : '#'.repeat(lv + 1) + ' ' + t;
+  const out = [kind === 'tg' ? `**${F.title || 'Рамка'}**` : '# ' + (F.title || 'Рамка')];
+  const items = its => its.flatMap(fxLine211).map(b);
+  if (S2.table) { if (kind === 'md') { out.push('', '| | ' + S2.cols.join(' | ') + ' |', '|' + ' --- |'.repeat(S2.cols.length + 1)); for (const r of S2.table) out.push('| ' + r.t + ' | ' + r.cells.map(c => c.items.flatMap(fxLine211).join('; ').replace(/\|/g, '/')).join(' | ') + ' |'); } else for (const r of S2.table) { out.push('', head(r.t, 1)); for (const c of r.cells) { const l = items(c.items); if (l.length || FX211.empty) out.push(head(c.t, 2), ...l); } } return out.join('\n'); }
+  if ((S2.lead || []).length) out.push('', ...items(S2.lead));
+  for (const s of S2.secs || []) {
+    const l = items(s.items || []), subs = (s.sub || []).map(x => [x, items(x.items)]).filter(([, ll]) => ll.length || FX211.empty);
+    if (!l.length && !subs.length && !FX211.empty) continue;
+    out.push('', head(s.t || 'Раздел', 1), ...l);
+    for (const [x, ll] of subs) out.push(head(x.t, 2), ...ll);
+  }
+  return out.join('\n');
+}
+async function frHtml211(F, S2) {
+  const list = async its => FX211.img ? bdDocBody(its, S.board, 2) : its.map(it => `<p>${esc(fxLine211(it).join(' · '))}</p>`).join('');
+  bdIdx(items()); let body = '';
+  if (S2.table) { body += `<table><tr><th></th>${S2.cols.map(c => `<th>${esc(c)}</th>`).join('')}</tr>`; for (const r of S2.table) body += `<tr><th>${esc(r.t)}</th>${(await Promise.all(r.cells.map(async c => `<td>${c.title ? `<b>${esc(c.title)}</b>` : ''}${await list(c.items)}</td>`))).join('')}</tr>`; body += '</table>'; return bdDocWrap(F.title || 'Рамка', body); }
+  if ((S2.lead || []).length) body += await list(S2.lead);
+  for (const s of S2.secs || []) {
+    const has = (s.items || []).length || (s.sub || []).some(x => x.items.length); if (!has && !FX211.empty) continue;
+    body += `<section><h2>${esc(s.t || 'Раздел')}</h2>${await list(s.items || [])}`;
+    for (const x of s.sub || []) if (x.items.length || FX211.empty) body += `<h3>${esc(x.t)}</h3>${await list(x.items)}`;
+    body += '</section>';
+  }
+  return bdDocWrap(F.title || 'Рамка', body);
+}
+function frExport211(F) {
+  if (!F || F.type !== 'frame') return;
+  const d = xdlg('Экспорт рамки «' + (F.title || 'Рамка') + '»', '<div class="p24 fx211"></div>', true); d._dkey = 'fx211';
+  const groups = frGroups211(F); if (!groups.some(g => g[0] === FX211.grp)) FX211.grp = 'auto';
+  const draw = () => {
+    const S2 = frStruct211(F, FX211.grp), n = S2.table ? S2.table.length * S2.cols.length : (S2.secs || []).length;
+    const outline = S2.table ? S2.table.map(r => `<li><b>${esc(r.t)}</b> · ${r.cells.map(c => `${esc(c.t)} (${c.items.length})`).join(', ')}</li>`).join('') : ((S2.lead || []).length ? `<li>Без раздела (${S2.lead.length})</li>` : '') + (S2.secs || []).map(s => `<li><b>${esc(s.t || 'Раздел')}</b> (${(s.items || []).length}${s.sub ? ' · ' + s.sub.map(x => `${esc(x.t)}: ${x.items.length}`).join(', ') : ''})</li>`).join('');
+    d.querySelector('.fx211').innerHTML = `<h3>Как группировать</h3><div class="fx211g">${groups.map(([k, l, t]) => `<button class="sty210c${FX211.grp === k ? ' on' : ''}" data-fxg="${k}" title="${esc(t)}"><b>${esc(l)}</b><small>${esc(t)}</small></button>`).join('')}</div>
+      <div class="row"><label class="l27ck"><input type="checkbox" data-fxo="img"${FX211.img ? ' checked' : ''}> Картинки и схемы целиком</label><label class="l27ck"><input type="checkbox" data-fxo="empty"${FX211.empty ? ' checked' : ''}> Пустые разделы</label></div>
+      <h3>Структура · разделов: ${n}</h3><ol class="fx211o">${outline || '<li>Пусто</li>'}</ol>
+      <h3>Куда</h3><div class="btnrow"><button class="ob" data-fxa="tg" title="Текст с заголовками и пунктами — вставить в Telegram">✈ Текст для Telegram</button><button class="ob" data-fxa="md" title="Markdown: заголовки, списки, таблица">Ⓜ Markdown</button><button class="ob" data-fxa="prev" title="Документ с картинками и схемами — посмотреть">📄 Документ — посмотреть</button><button class="ob" data-fxa="doc" title="Скачать документ .html">⬇ Документ .html</button><button class="ob" data-fxa="board" title="Положить документ на доску рядом">▣ Документ на доску</button><button class="ob" data-fxa="shot" title="Картинка рамки: PNG, JPG, WebP">📷 Снимок</button>${F.mx ? '<button class="ob" data-fxa="lo" title="Каждая ячейка — задача в задачнике">☑ Ячейки — в задачник</button>' : ''}</div>`;
+  };
+  d.addEventListener('click', async e => {
+    const g = e.target.closest('[data-fxg]'); if (g) { FX211.grp = g.dataset.fxg; LS.set('fx211', FX211); draw(); return; }
+    const b = e.target.closest('[data-fxa]'); if (!b) return; const a = b.dataset.fxa, S2 = frStruct211(F, FX211.grp), title = F.title || 'Рамка';
+    if (a === 'tg') copyPlain(frText211(F, S2, 'tg'), 'Текст для Telegram скопирован');
+    else if (a === 'md') copyPlain(frText211(F, S2, 'md'), 'Markdown скопирован');
+    else if (a === 'shot') { closeXdlg(); S.sel = new Set([F.id]); render(); openSnap(); }
+    else if (a === 'lo') { pushHist(); F.mx.lo = Object.assign({}, F.mx.lo, { on: true }); changed(); if (typeof loScanSoon === 'function') loScanSoon(); toast('Ячейки стали задачами: задачник → «Эта доска»'); }
+    else { toast('Собираю документ…'); const html = await frHtml211(F, S2); if (a === 'prev') { closeXdlg(); bdDocPreview(html, title); } else if (a === 'doc') saveFile(new Blob([html], { type: 'text/html' }), safeName(title) + '.html', 'text/html'); else { closeXdlg(); bdDocToBoard(html, title); } }
+  });
+  d.addEventListener('change', e => { const c = e.target.closest('[data-fxo]'); if (!c) return; FX211[c.dataset.fxo] = c.checked ? 1 : 0; LS.set('fx211', FX211); draw(); });
+  draw();
+}
+/* the export button on every frame's tab */
+{ const o = post23; post23 = (el, it) => {
+  o(el, it);
+  if (it.type !== 'frame' || it.cell) return; const hd = el._fhead; if (!hd) return;
+  let b = hd.querySelector('.fh211x');
+  if (!b) { b = document.createElement('button'); b.className = 'fh211x'; b.dataset.fx211 = it.id; b.title = 'Экспорт рамки: Telegram, Markdown, документ, снимок — с группировкой'; b.textContent = '⇪'; hd.appendChild(b); }
+  const t = it.tm211 && !it.tm211.done; let tb = hd.querySelector('.fh211t');
+  if (t && !tb) { tb = document.createElement('button'); tb.className = 'fh211t'; tb.dataset.tm211 = it.id; tb.title = 'Таймер команды идёт — щёлкните, чтобы управлять'; hd.appendChild(tb); } else if (!t && tb) tb.remove();
+}; }
+document.addEventListener('pointerdown', e => { if (e.target.closest && e.target.closest('.fh211x,.fh211t')) e.stopPropagation(); }, true);
+document.addEventListener('click', e => {
+  const b = e.target.closest && e.target.closest('.fh211x,.fh211t'); if (!b) return; e.stopPropagation(); e.preventDefault();
+  const F = byId(b.dataset.fx211 || b.dataset.tm211); if (!F) return; if (b.classList.contains('fh211x')) frExport211(F); else tmDlg211(F);
+}, true);
+/* ---------- the team timer: time for every object of a frame, one after another ---------- */
+const TM211 = { iv: 0, cur: '', beep: '' };
+function tmState211(F) {
+  const T = F && F.tm211; if (!T || T.done) return null;
+  const now = T.pausedAt || Date.now(), el = Math.max(0, now - T.start), per = T.per * 1000, n = T.ids.length, total = per * n;
+  if (el >= total) return { T, done: true, idx: n - 1, left: 0, totalLeft: 0, n };
+  const idx = T.mode === 'all' ? -1 : Math.floor(el / per);
+  return { T, idx, left: T.mode === 'all' ? total - el : per - (el % per), totalLeft: total - el, n };
+}
+const mmss = ms => { const s = Math.ceil(ms / 1000); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+function tmDlg211(F) {
+  if (!F) return;
+  const objs = F.mx ? bdOrder(frInside211(F).filter(i => i.cell && i.cell.m === F.id)) : bdOrder(frInside211(F).filter(i => i.type !== 'frame'));
+  const run = tmState211(F);
+  const d = xdlg('Таймер команды · ' + (F.title || 'Рамка'), '<div class="p24 tm211d"></div>'); d._dkey = 'tm211';
+  const C = Object.assign({ per: 120, mode: 'seq', beep: 1 }, LS.get('tm211') || {});
+  const draw = () => {
+    const tot = C.per * objs.length;
+    d.querySelector('.tm211d').innerHTML = run ? `<p class="sub">Таймер идёт: ${run.idx >= 0 ? `объект ${run.idx + 1} из ${run.n}, осталось ${mmss(run.left)}` : 'общее время'}, всего осталось ${mmss(run.totalLeft)}.</p><div class="btnrow"><button class="btn" data-tm="pause" title="${run.T.pausedAt ? 'Продолжить' : 'Пауза для всех'}">${run.T.pausedAt ? '▶ Продолжить' : '⏸ Пауза'}</button><button class="ob" data-tm="next" title="Перейти к следующему объекту">⏭ Следующий</button><button class="ob" data-tm="plus" title="Добавить 30 секунд текущему">+30 с</button><button class="ob" data-tm="stop" title="Остановить таймер для всех">■ Стоп</button></div>`
+      : `<p class="sub">Все участники доски увидят таймер и подсветку объекта, над которым сейчас работают. В рамке объектов: <b>${objs.length}</b>.</p>
+        <div class="lk-r"><span>Время на объект</span><select class="inp sm" data-tmc="per">${[[30, '30 с'], [60, '1 мин'], [90, '1,5 мин'], [120, '2 мин'], [180, '3 мин'], [300, '5 мин'], [600, '10 мин']].map(([v, l]) => `<option value="${v}"${C.per === v ? ' selected' : ''}>${l}</option>`).join('')}</select></div>
+        <div class="lk-r"><span>Как идти</span><div class="seg24"><button class="${C.mode === 'seq' ? 'on' : ''}" data-tmm="seq" title="Объекты по очереди, у каждого своё время, текущий подсвечен">По очереди</button><button class="${C.mode === 'all' ? 'on' : ''}" data-tmm="all" title="Одно общее время на все объекты рамки">Общее время</button></div></div>
+        <label class="l27ck"><input type="checkbox" data-tmc="beep"${C.beep ? ' checked' : ''}> Звук при смене объекта и в конце</label>
+        <p class="sub">Всего: <b>${mmss(tot * 1000)}</b></p><div class="btnrow"><button class="btn" data-tm="go"${objs.length ? '' : ' disabled'} title="Запустить для всех на доске">▶ Запустить</button></div>`;
+  };
+  d.addEventListener('click', e => {
+    const m = e.target.closest('[data-tmm]'); if (m) { C.mode = m.dataset.tmm; LS.set('tm211', C); draw(); return; }
+    const b = e.target.closest('[data-tm]'); if (!b) return; const a = b.dataset.tm;
+    pushHist();
+    if (a === 'go') { F.tm211 = { per: C.per, mode: C.mode, beep: C.beep ? 1 : 0, ids: objs.map(i => i.id), start: Date.now(), by: chMe().n }; toast('Таймер запущен для всех на доске'); }
+    else if (a === 'pause') { const T = F.tm211; if (T.pausedAt) { T.start += Date.now() - T.pausedAt; delete T.pausedAt; } else T.pausedAt = Date.now(); }
+    else if (a === 'next') { const st = tmState211(F); if (st && st.idx >= 0) F.tm211.start -= st.left; }
+    else if (a === 'plus') { F.tm211.start += 30000; }
+    else if (a === 'stop') { delete F.tm211; }
+    changed(); closeXdlg(); tmTick211();
+  });
+  d.addEventListener('change', e => { const t = e.target; if (t.dataset.tmc === 'per') C.per = +t.value; else if (t.dataset.tmc === 'beep') C.beep = t.checked ? 1 : 0; LS.set('tm211', C); draw(); });
+  draw();
+}
+function cellName211(c) { if (c.title) return c.title; const F = byId(c.cell.m), r = F && F.mx && F.mx.rows.find(x => x.id === c.cell.r), k = F && F.mx && F.mx.cols.find(x => x.id === c.cell.c); return [r && r.name, k && k.name].filter(Boolean).join(' · ') || 'Ячейка'; }
+function tmBeep211() { try { const A = new (window.AudioContext || window.webkitAudioContext)(), o = A.createOscillator(), g = A.createGain(); o.frequency.value = 880; g.gain.value = 0.08; o.connect(g); g.connect(A.destination); o.start(); o.stop(A.currentTime + 0.18); setTimeout(() => A.close(), 400); } catch (e) { /* no sound */ } }
+function tmTick211() {
+  const F = S.board && items().find(i => i.type === 'frame' && i.tm211 && !i.tm211.done);
+  let bar = $('#tm211');
+  if (!F) { if (bar) bar.remove(); document.querySelectorAll('.tm211cur').forEach(x => x.classList.remove('tm211cur')); TM211.cur = ''; return; }
+  const st = tmState211(F);
+  if (!st || st.done) { if (st && st.done && !F.tm211.done) { if (F.tm211.beep) tmBeep211(); F.tm211.done = 1; toast('Таймер команды: время вышло'); changed(); } if (bar) bar.remove(); document.querySelectorAll('.tm211cur').forEach(x => x.classList.remove('tm211cur')); return; }
+  if (!bar) { bar = document.createElement('div'); bar.id = 'tm211'; bar.className = 'panel'; bar.dataset.app = ''; document.body.appendChild(bar); bar.addEventListener('click', e => { const b = e.target.closest('[data-tmb]'); if (!b) return; const G = items().find(i => i.type === 'frame' && i.tm211 && !i.tm211.done); if (!G) return; if (b.dataset.tmb === 'open') tmDlg211(G); else if (b.dataset.tmb === 'go') { const it = byId(G.tm211.ids[Math.max(0, tmState211(G).idx)]); if (it) fitAll([it]); } }); }
+  const id = st.idx >= 0 ? F.tm211.ids[st.idx] : '', it = id && byId(id), warn = st.left < 10000;
+  bar.classList.toggle('warn', warn); bar.classList.toggle('paused', !!F.tm211.pausedAt);
+  bar.innerHTML = `<span class="tm211i">⏱</span><b class="tm211t">${mmss(st.left)}</b><span class="tm211n">${esc(F.title || 'Рамка')}${st.idx >= 0 ? ` · ${st.idx + 1} из ${st.n}${it ? ' · ' + esc((it.cell ? cellName211(it) : bdTitle(it) || TYPE_NAME[it.type] || '').slice(0, 30)) : ''}` : ' · общее время'} · всего ${mmss(st.totalLeft)}${F.tm211.pausedAt ? ' · пауза' : ''}</span>${it ? '<button class="ob sm" data-tmb="go" title="Показать текущий объект">◎</button>' : ''}<button class="ob sm" data-tmb="open" title="Пауза, следующий, +30 с, стоп">⋯</button>`;
+  if (TM211.cur !== id) { document.querySelectorAll('.tm211cur').forEach(x => x.classList.remove('tm211cur')); if (TM211.cur && F.tm211.beep && !F.tm211.pausedAt) tmBeep211(); TM211.cur = id; }
+  const el = id && els.get(id); if (el && !el.classList.contains('tm211cur')) el.classList.add('tm211cur');
+}
+/* ---------- tooltips on every button ---------- */
+const TIP211 = { '⋯': 'Ещё действия', '…': 'Ещё действия', '✕': 'Закрыть', '×': 'Закрыть', '＋': 'Добавить', '+': 'Добавить', '−': 'Убрать', '-': 'Уменьшить', '▣': 'Вид панели: где и как показывать', '↺': 'Сбросить или вернуть как было', '✎': 'Переименовать или изменить', '⇄': 'Переместить', '⤢': 'Во весь экран', '▾': 'Свернуть', '▸': 'Развернуть', '←': 'Назад', '→': 'Далее', '◎': 'Показать на доске', '⟳': 'Обновить', '★': 'В избранное', '☆': 'В избранное', '🗑': 'Удалить', '📌': 'Закрепить', '✦': 'Спросить ИИ', '💬': 'Чаты', '⇪': 'Экспорт', '⏱': 'Таймер команды', 'H': 'Уровень заголовка' };
+const TIPX211 = { close: 'Закрыть (Esc)', pv29: 'Вид панели: поверх, слева, справа, в окне, закрепить кнопкой', dock: 'Прикрепить панель слева', pfull: 'Во весь экран', pclose: 'Закрыть панель', pmove: 'Переместить панель на другую сторону' };
+function tipFor211(b) {
+  const al = b.getAttribute('aria-label'); if (al) return al;
+  const ds = b.dataset || {}; for (const k of ['x', 's24', 'cl', 'la']) if (ds[k] && TIPX211[ds[k]]) return TIPX211[ds[k]];
+  const t = (b.textContent || '').replace(/\s+/g, ' ').trim();
+  if (!t) return ds.act ? 'Действие с выделенным' : '';
+  if (TIP211[t]) return TIP211[t];
+  const first = t.split(' ')[0]; if (t.length <= 3 && TIP211[first]) return TIP211[first];
+  return t.length > 60 ? t.slice(0, 58) + '…' : t;
+}
+document.addEventListener('pointerover', e => {
+  const b = e.target.closest && e.target.closest('button, a.ob, a.btn, [role="button"]'); if (!b || b.title || b._tip211) return;
+  b._tip211 = 1; const t = tipFor211(b); if (t) b.title = t;
+}, true);
+function ui211Setup() { setInterval(tmTick211, 250); }
+/* =========================================================
+   v2.11: an agent environment inside Холст.
+   · Modes of the AI: where it works (this board or the whole app), inside
+     (only your data) or outside (reads pages, searches the web), what it may
+     change (the board, the task manager).
+   · Tokens of every network are counted; daily caps; when one network hits
+     its limit the next in the chain carries on — and says so.
+   · A debate of two networks (yours and a colleague's too: each one's AI
+     takes its turn in the same chat), with a judge.
+   · A team of agents for any task: roles, each with its network, and how they
+     work together — a chain, in parallel with a merge, a debate, a lead who
+     splits the task. Everything goes into a chat on the board.
+   ========================================================= */
+const AG211 = Object.assign({ chain: ['openai', 'anthropic', 'gemini', 'groq', 'openrouter', 'qwen', 'pplx'], auto: 1, caps: {}, scope: 'board', ext: 0, web: 0, fetch: 1, edit: 1, tasks: 1 }, LS.get('ag211') || {});
+const agSave211 = () => LS.set('ag211', AG211);
+const AI_HOST211 = [['api.openai.com', 'openai'], ['api.anthropic.com', 'anthropic'], ['generativelanguage.googleapis.com', 'gemini'], ['api.groq.com', 'groq'], ['openrouter.ai', 'openrouter'], ['dashscope', 'qwen'], ['api.perplexity.ai', 'pplx']];
+const provOfUrl211 = u => { u = String(u || ''); const h = AI_HOST211.find(([k]) => u.includes(k)); return h ? h[1] : ''; };
+const today211 = () => new Date().toISOString().slice(0, 10);
+const USE211 = () => LS.get('ai211use') || {};
+function useAdd211(p, inp, out, err) {
+  const U = USE211(), d = today211(); U[p] = U[p] || {}; const x = U[p][d] = U[p][d] || { in: 0, out: 0, n: 0, err: 0 };
+  x.in += inp || 0; x.out += out || 0; x.n += 1; if (err) x.err += 1;
+  for (const k of Object.keys(U[p])) if (k < new Date(Date.now() - 62 * 864e5).toISOString().slice(0, 10)) delete U[p][k];
+  LS.set('ai211use', U);
+}
+const useDay211 = (p, d) => { const x = ((USE211()[p] || {})[d || today211()]) || { in: 0, out: 0, n: 0, err: 0 }; return x; };
+const useMonth211 = p => { const m = today211().slice(0, 7); let t = { in: 0, out: 0, n: 0 }; for (const [d, x] of Object.entries(USE211()[p] || {})) if (d.startsWith(m)) { t.in += x.in; t.out += x.out; t.n += x.n; } return t; };
+const LIM211 = () => LS.get('ai211lim') || {};
+const limited211 = p => { const t = LIM211()[p]; if (t && t > Date.now()) return 'limit'; const cap = +AG211.caps[p] || 0; if (cap && (useDay211(p).in + useDay211(p).out) >= cap) return 'cap'; return ''; };
+/* count tokens on the wire; web search through OpenRouter when allowed */
+{ const of = window.fetch.bind(window); window.fetch = async (input, init) => {
+  const url = typeof input === 'string' ? input : (input && input.url) || '', p = provOfUrl211(url);
+  if (!p) return of(input, init);
+  if (p === 'openrouter' && AG211.ext && AG211.web && init && typeof init.body === 'string') { try { const b = JSON.parse(init.body); if (b.model && !/:online$/.test(b.model)) { b.model += ':online'; init = Object.assign({}, init, { body: JSON.stringify(b) }); } } catch (e) { /* as is */ } }
+  const r = await of(input, init);
+  try {
+    if (r.status === 429 || r.status === 402 || r.status === 529) { const L = LIM211(); L[p] = Date.now() + 10 * 60000; LS.set('ai211lim', L); useAdd211(p, 0, 0, 1); }
+    else if (r.ok) r.clone().json().then(j => { const u = (j && j.usage) || {}; useAdd211(p, u.prompt_tokens || u.input_tokens || 0, u.completion_tokens || u.output_tokens || 0); }).catch(() => {});
+  } catch (e) { /* counting never breaks a request */ }
+  return r;
+}; }
+/* ---------- the chain: the next network carries on ---------- */
+const agName211 = p => (AI_PROV[p] || {}).name || p;
+function agAvail211() { const C = aiCfg(); return Object.keys(AI_PROV).filter(k => AI_PROV[k].url && C.keys[k]); }
+function aiChain211(first) {
+  const C = aiCfg(), order = [first || aiProvNow()].concat(AG211.chain).filter((p, i, a) => a.indexOf(p) === i && AI_PROV[p] && AI_PROV[p].url && C.keys[p]);
+  if (!order.length) return null;
+  const ns = async (turns, opt = {}) => {
+    let note = '', lastErr = null;
+    for (const p of order) {
+      if (limited211(p) && p !== order[order.length - 1]) { note += `${agName211(p)} — ${limited211(p) === 'cap' ? 'дневной лимит Холста' : 'лимит сервиса'}; `; continue; }
+      const one = aiNs(p); if (!one) continue;
+      try {
+        const o2 = Object.assign({}, opt); if (opt.tools && !AI_PROV[p].tools) delete o2.tools;
+        const r = await one(turns, o2); ns.provName = agName211(p); ns.prov = p;
+        if (note && !(opt && opt.quiet)) r.text = r.text + `\n\n_Ответила ${agName211(p)}: ${note.replace(/; $/, '')}._`;
+        return r;
+      } catch (e) {
+        lastErr = e; const code = e && e.code, msg = String((e && e.message) || '');
+        if (!AG211.auto) throw e;
+        if (code === 'cancelled') throw e;
+        if (code === 'rate_limited' || /лимит|quota|limit|insufficient|billing|402|429|не отвечает|не подошёл/i.test(msg)) { const L = LIM211(); L[p] = Date.now() + 10 * 60000; LS.set('ai211lim', L); note += `${agName211(p)} — ${code === 'rate_limited' ? 'лимит' : 'не ответила'}; `; toast(`${agName211(p)}: лимит или ошибка — продолжает следующая нейросеть`); continue; }
+        throw e;
+      }
+    }
+    throw lastErr || { message: 'Все нейросети в цепочке недоступны: ☰ → «Агенты» → «Лимиты».' };
+  };
+  ns.limits = async () => ({ tools: order.some(p => AI_PROV[p].tools), images: false });
+  ns.json = async (input, opt) => { const r = await ns(input, Object.assign({ quiet: 1 }, opt)); const m = /[[{][\s\S]*[\]}]/.exec(r.text); return JSON.parse(m ? m[0] : r.text); };
+  ns.prov = order[0]; ns.provName = agName211(order[0]);
+  return ns;
+}
+function aiReady211() { const p = aiProvNow(); if (p === 'claude' || p === 'claudedrive') return clReady(); return Promise.resolve(aiChain211(p)); }
+{ const o = clReady; clReady = () => { const p = aiProvNow(); if (p === 'claude' || p === 'claudedrive') return o(); const ns = aiChain211(p); CL.ns = ns; CL.ready = null; return Promise.resolve(ns); }; }
+/* ---------- modes: what the AI may see and do ---------- */
+{ const o = clTools; clTools = () => {
+  let l = o(); const made = l[0] && l[0]._made;
+  const EDIT = new Set(['add_stickies', 'add_text', 'add_document', 'add_checklist', 'update_text', 'arrange', 'group_into_frame', 'connect', 'set_color', 'add_chat']);
+  if (!AG211.edit) l = l.filter(t => !EDIT.has(t.name));
+  if (!AG211.tasks) l = l.filter(t => t.name !== 'add_lifeos_task');
+  const add = t => l.push(Object.assign(t, { _made: made }));
+  if (AG211.scope === 'app') {
+    add({ name: 'list_tasks', description: 'Lists tasks from the person\'s task manager (Life OS): open tasks with due dates, status, project. Filter: today | overdue | week | all; optional text query.', inputSchema: { type: 'object', properties: { when: { type: 'string', enum: ['today', 'overdue', 'week', 'all'] }, query: { type: 'string' } } }, execute: async inp => { await loLoad(); const t = loToday(), wk = loAddDays(7), q = String(inp.query || '').toLowerCase(); return loAll().filter(r => r.k === 'task' && r.st !== 'done' && r.st !== 'drop').filter(r => { const d = loDue(r); if (inp.when === 'today') return d === t; if (inp.when === 'overdue') return d && d < t; if (inp.when === 'week') return d && d <= wk; return true; }).filter(r => !q || loName(r).toLowerCase().includes(q)).slice(0, 80).map(r => ({ id: r.id, title: loName(r), due: loDue(r) || '', st: r.st, project: r.par && loGet(r.par) ? loName(loGet(r.par)) : '' })); } });
+    add({ name: 'list_boards', description: 'Lists the person\'s boards (names, last change).', inputSchema: { type: 'object', properties: {} }, execute: () => [...S.index].sort((a, b) => b.updatedAt - a.updatedAt).slice(0, 80).map(x => ({ id: x.id, name: x.name, changed: new Date(x.updatedAt).toISOString().slice(0, 10) })) });
+    if (AG211.tasks) add({ name: 'update_task', description: 'Changes a task in the task manager: status (todo, doing, done), due date YYYY-MM-DD, title.', inputSchema: { type: 'object', properties: { id: { type: 'string' }, status: { type: 'string' }, due: { type: 'string' }, title: { type: 'string' } }, required: ['id'] }, execute: async inp => { await loLoad(); const r = loGet(inp.id); if (!r) return { error: 'no such task' }; const p = {}; if (inp.status) p.st = inp.status; if (inp.due && /^\d{4}-\d{2}-\d{2}$/.test(inp.due)) p.due = inp.due; if (inp.title) p.title = String(inp.title).slice(0, 200); loSet(r.id, p); loSave(); return { ok: true }; } });
+  }
+  if (AG211.ext && AG211.fetch) add({ name: 'fetch_url', description: 'Reads a web page by its URL and returns its text (Markdown). Use for links on the board or ones the person gives.', inputSchema: { type: 'object', properties: { url: { type: 'string' } }, required: ['url'] }, execute: async inp => { const u = String(inp.url || ''); if (!/^https?:\/\//.test(u)) return { error: 'bad url' }; try { const r = await fetch('https://r.jina.ai/' + u, { headers: { Accept: 'text/plain' } }); const t = await r.text(); return { url: u, text: t.slice(0, 15000) }; } catch (e) { return { error: 'не открылась' }; } } });
+  return l;
+}; }
+/* ---------- the panel: modes, team, debate, limits ---------- */
+const AG_ROLES211 = [['Планировщик', 'Разбей задачу на шаги и критерии готовности. Коротко.'], ['Исполнитель', 'Сделай задачу по плану. Конкретно, с примерами.'], ['Критик', 'Найди слабые места, риски и пропуски. Предложи правки.'], ['Сводящий', 'Собери лучшее из ответов в один итог: ясный, по пунктам.']];
+const AG_SCHEMES211 = { chain: ['Цепочка', 'Каждый следующий работает с результатом предыдущего'], parallel: ['Параллельно → сводка', 'Все отвечают независимо, последний сводит лучшее'], debate: ['Спор', 'Двое спорят по раундам, третий — судья'], lead: ['Лидер', 'Первый делит задачу на части, остальные делают, лидер собирает'] };
+const TEAM211 = () => Object.assign({ scheme: 'chain', roles: AG_ROLES211.slice(0, 3).map(([n, p], i) => ({ n, p, prov: '' })), rounds: 2, ctx: 'sel', out: 'chat' }, LS.get('ag211team') || {});
+function agOpen211(tab) {
+  const d = xdlg('Агенты и нейросети', '<div class="p24 ag211"></div>', true); d._dkey = 'ag211'; d._tab = tab || LS.get('ag211tab') || 'modes';
+  const avail = agAvail211();
+  const provSel = (v, attr) => `<select class="inp sm" ${attr}><option value="">— ваша основная (${esc(aiName())}) —</option>${avail.map(p => `<option value="${p}"${v === p ? ' selected' : ''}>${esc(agName211(p))}</option>`).join('')}</select>`;
+  const draw = () => {
+    const tab = d._tab, T = TEAM211();
+    const tabs = [['modes', '⚙ Режимы'], ['team', '👥 Команда агентов'], ['debate', '⚔ Спор нейросетей'], ['use', '📊 Лимиты и метрики']].map(([k, l]) => `<button class="${tab === k ? 'on' : ''}" data-agt="${k}">${l}</button>`).join('');
+    let body = '';
+    if (tab === 'modes') body = `<p class="sub">Как работает ваша нейросеть — в панели ✦, в чатах на доске, в агентах.</p>
+      <h3>Где работает</h3><div class="sty210g ag211g">${[['board', '▦ На доске', 'Видит и меняет только открытую доску'], ['app', '∞ Во всём приложении', 'Плюс задачник и список досок: найдёт задачи на сегодня, поменяет статус, перечислит доски']].map(([k, l, t]) => `<button class="sty210c${AG211.scope === k ? ' on' : ''}" data-agm="scope:${k}" title="${esc(t)}"><b>${l}</b><small>${esc(t)}</small></button>`).join('')}</div>
+      <h3>Внутри или с интернетом</h3><div class="sty210g ag211g">${[[0, '🔒 Внутренний', 'Только ваши доски и задачи. Ничего не ищет в сети'], [1, '🌐 Внешний', 'Читает страницы по ссылкам; поиск в сети — через OpenRouter или Perplexity']].map(([k, l, t]) => `<button class="sty210c${+AG211.ext === k ? ' on' : ''}" data-agm="ext:${k}" title="${esc(t)}"><b>${l}</b><small>${esc(t)}</small></button>`).join('')}</div>
+      <h3>Тонкая настройка</h3>${[['edit', 'Менять доску', 'Ставить стикеры, рамки, документы, чаты; двигать и красить'], ['tasks', 'Менять задачник', 'Добавлять задачи и менять их статус'], ['fetch', 'Читать страницы по ссылке', 'Только во внешнем режиме'], ['web', 'Искать в интернете', 'Во внешнем режиме: OpenRouter добавляет поиск к любой модели; Perplexity ищет всегда']].map(([k, l, t]) => `<label class="mrow"><span class="sw2"><input type="checkbox" data-agk="${k}"${AG211[k] ? ' checked' : ''}><i></i></span><span><b>${l}</b><small>${esc(t)}</small></span></label>`).join('')}`;
+    else if (tab === 'team') body = `<p class="sub">Несколько нейросетей с ролями работают над одной задачей. Ход работы — в чате на доске, итог — документом рядом.</p>
+      <h3>Как работают вместе</h3><div class="sty210g ag211g">${Object.entries(AG_SCHEMES211).map(([k, [l, t]]) => `<button class="sty210c${T.scheme === k ? ' on' : ''}" data-ags="${k}" title="${esc(t)}"><b>${esc(l)}</b><small>${esc(t)}</small></button>`).join('')}</div>
+      <h3>Роли</h3><div class="ag211roles">${T.roles.map((r, i) => `<div class="ag211role"><span class="ag211n">${i + 1}</span><input class="inp sm" data-agr="n:${i}" value="${esc(r.n)}" title="Название роли"><input class="inp sm ag211p" data-agr="p:${i}" value="${esc(r.p)}" title="Что делает эта роль"> ${provSel(r.prov, `data-agr="prov:${i}" title="Чья нейросеть играет роль"`)}<button class="ib sm" data-agx="${i}" title="Убрать роль">✕</button></div>`).join('')}<button class="ob sm" data-aga="addrole" title="Добавить роль">＋ Роль</button></div>
+      ${T.scheme === 'debate' ? `<div class="lk-r"><span>Раундов</span><select class="inp sm" data-agrounds>${[1, 2, 3, 4].map(n => `<option${T.rounds === n ? ' selected' : ''}>${n}</option>`).join('')}</select></div>` : ''}
+      <h3>Задача</h3><textarea class="inp ag211task" rows="3" placeholder="Например: придумай план урока по аккордам для новичков на 45 минут">${esc(d._task || '')}</textarea>
+      <div class="lk-r"><span>Контекст</span><div class="seg24">${[['sel', 'Выделенное'], ['board', 'Вся доска'], ['none', 'Без доски']].map(([k, l]) => `<button class="${T.ctx === k ? 'on' : ''}" data-agc="${k}">${l}</button>`).join('')}</div></div>
+      <div class="btnrow"><button class="btn" data-aga="run"${S.board ? '' : ' disabled'} title="Запустить команду: ход работы появится в чате на доске">▶ Запустить команду</button><button class="ob" data-aga="save" title="Сохранить роли и схему как свою команду">★ Запомнить команду</button></div><div class="ag211log"></div>`;
+    else if (tab === 'debate') body = `<p class="sub">Две нейросети спорят по раундам, третья (или ваша основная) подводит итог. Спор идёт в чате на доске — коллеги могут добавить ход своей нейросети кнопкой «⚔ Ход моей нейросети».</p>
+      <div class="ag211deb"><label>Сторона А ${provSel(d._a || avail[0] || '', 'data-agd="a"')}</label><label>Сторона Б ${provSel(d._b || avail[1] || '', 'data-agd="b"')}</label><label>Судья ${provSel(d._j || '', 'data-agd="j"')}</label></div>
+      <textarea class="inp ag211topic" rows="2" placeholder="Тема спора: например, «Учить теорию до игры по слуху или после?»">${esc(d._topic || '')}</textarea>
+      <div class="lk-r"><span>Раундов</span><select class="inp sm" data-agdr>${[1, 2, 3, 4].map(n => `<option${(d._rounds || 2) === n ? ' selected' : ''}>${n}</option>`).join('')}</select></div>
+      <div class="btnrow"><button class="btn" data-aga="debate"${S.board ? '' : ' disabled'} title="Начать спор — он появится чатом на доске">⚔ Начать спор</button></div><div class="ag211log"></div>`;
+    else body = `<p class="sub">Токены считаются по ответам сервисов на этом устройстве. Дневной лимит Холста — чтобы не выйти за бюджет: когда он достигнут или сервис ответил «лимит», работу продолжает следующая нейросеть цепочки.</p>
+      <label class="mrow"><span class="sw2"><input type="checkbox" data-agk="auto"${AG211.auto ? ' checked' : ''}><i></i></span><span><b>Подхватывать при лимите</b><small>Следующая нейросеть цепочки продолжает и пишет, кто ответил</small></span></label>
+      <h3>Цепочка и расход</h3><div class="ag211use">${AG211.chain.filter(p => AI_PROV[p] && AI_PROV[p].url).map((p, i) => { const dd = useDay211(p), m = useMonth211(p), cap = +AG211.caps[p] || 0, used = dd.in + dd.out, has = !!aiCfg().keys[p], lim = limited211(p), L = AI_LOOK[p] || ['•', '#8a90a0']; return `<div class="ag211u${has ? '' : ' off'}"><span class="ag211ord">${i + 1}</span><span class="ai210l sm" style="--c:${L[1]}">${L[0]}</span><div class="ag211nm"><b>${esc(agName211(p))}</b><small>сегодня ${used.toLocaleString('ru-RU')} ток. · ${dd.n} запр.${dd.err ? ` · ошибок ${dd.err}` : ''} · за месяц ${(m.in + m.out).toLocaleString('ru-RU')}</small></div><span class="ag211bar" title="Сегодня: ${used} токенов${cap ? ' из ' + cap : ''}"><i style="width:${cap ? Math.min(100, used / cap * 100) : Math.min(100, used / 2000)}%"></i></span><input class="inp sm" type="number" min="0" step="1000" placeholder="лимит в день" value="${cap || ''}" data-agcap="${p}" title="Дневной лимит токенов в Холсте; пусто — без лимита"><span class="ag211st ${lim ? 'bad' : has ? 'ok' : ''}">${!has ? 'нет ключа' : lim === 'limit' ? 'лимит сервиса' : lim === 'cap' ? 'дневной лимит' : 'готова'}</span><button class="ib sm" data-agup="${i}" title="Выше в цепочке"${i ? '' : ' disabled'}>↑</button><button class="ib sm" data-agdn="${i}" title="Ниже в цепочке">↓</button></div>`; }).join('')}</div>
+      <div class="btnrow"><button class="ob" data-aga="unlim" title="Снять отметки «лимит сервиса»">↺ Снять отметки лимита</button><button class="ob" data-aga="keys" title="Ключи и модели">Нейросети и ключи…</button></div>`;
+    d.querySelector('.ag211').innerHTML = `<div class="seg24 ag211tabs">${tabs}</div>${body}`;
+  };
+  const team = () => TEAM211(), saveTeam = T => LS.set('ag211team', T);
+  d.addEventListener('click', async e => {
+    const b = e.target.closest('button'); if (!b) return; const ds = b.dataset;
+    if (ds.agt) { d._task = (d.querySelector('.ag211task') || {}).value || d._task; d._topic = (d.querySelector('.ag211topic') || {}).value || d._topic; d._tab = ds.agt; LS.set('ag211tab', ds.agt); draw(); return; }
+    if (ds.agm) { const [k, v] = ds.agm.split(':'); AG211[k] = k === 'ext' ? +v : v; agSave211(); draw(); return; }
+    if (ds.ags) { const T = team(); T.scheme = ds.ags; if (ds.ags === 'debate' && T.roles.length < 3) T.roles = [{ n: 'За', p: 'Защищай первую позицию', prov: '' }, { n: 'Против', p: 'Защищай противоположную позицию', prov: '' }, { n: 'Судья', p: 'Взвесь доводы и вынеси итог', prov: '' }]; if (ds.ags === 'lead' && T.roles[0]) T.roles[0].n = 'Лидер'; saveTeam(T); d._task = (d.querySelector('.ag211task') || {}).value; draw(); return; }
+    if (ds.agc) { const T = team(); T.ctx = ds.agc; saveTeam(T); d._task = (d.querySelector('.ag211task') || {}).value; draw(); return; }
+    if (ds.agx != null) { const T = team(); T.roles.splice(+ds.agx, 1); saveTeam(T); draw(); return; }
+    if (ds.agup != null || ds.agdn != null) { const i = +(ds.agup != null ? ds.agup : ds.agdn), j = ds.agup != null ? i - 1 : i + 1, l = AG211.chain.filter(p => AI_PROV[p] && AI_PROV[p].url); if (j < 0 || j >= l.length) return; [l[i], l[j]] = [l[j], l[i]]; AG211.chain = l; agSave211(); draw(); return; }
+    const a = ds.aga; if (!a) return;
+    if (a === 'addrole') { const T = team(); const r = AG_ROLES211[T.roles.length] || ['Роль ' + (T.roles.length + 1), 'Опишите, что делает роль']; T.roles.push({ n: r[0], p: r[1], prov: '' }); saveTeam(T); draw(); }
+    else if (a === 'save') { toast('Команда запомнена: откроется так же'); }
+    else if (a === 'unlim') { LS.set('ai211lim', {}); draw(); }
+    else if (a === 'keys') { closeXdlg(); aiOpen(); }
+    else if (a === 'run') { const task = d.querySelector('.ag211task').value.trim(); if (!task) { toast('Напишите задачу'); return; } d._task = task; agRun211(team(), task, d.querySelector('.ag211log')); }
+    else if (a === 'debate') { const topic = d.querySelector('.ag211topic').value.trim(); if (!topic) { toast('Напишите тему спора'); return; } d._topic = topic; agDebate211({ a: d.querySelector('[data-agd="a"]').value, b: d.querySelector('[data-agd="b"]').value, j: d.querySelector('[data-agd="j"]').value, rounds: +d.querySelector('[data-agdr]').value || 2, topic }, d.querySelector('.ag211log')); }
+  });
+  d.addEventListener('change', e => {
+    const t = e.target, ds = t.dataset;
+    if (ds.agk) { AG211[ds.agk] = t.checked ? 1 : 0; agSave211(); draw(); }
+    else if (ds.agcap) { AG211.caps[ds.agcap] = +t.value || 0; agSave211(); draw(); }
+    else if (ds.agr) { const [k, i] = ds.agr.split(':'), T = team(); T.roles[+i][k] = t.value; saveTeam(T); }
+    else if (ds.agrounds != null) { const T = team(); T.rounds = +t.value; saveTeam(T); }
+    else if (ds.agd) d['_' + ds.agd] = t.value;
+    else if (ds.agdr != null) d._rounds = +t.value;
+  });
+  draw();
+}
+/* ---------- running: every turn goes into a chat on the board ---------- */
+function agCtx211(kind) {
+  if (!S.board || kind === 'none') return '';
+  const fr = items().filter(i => i.type === 'frame'), list = kind === 'sel' && selItems().length ? clScope() : items().filter(i => i.type !== 'connector' && i.type !== 'chat' && !isHid(i));
+  return `Доска «${S.board.name}». Объекты (${list.length}):\n` + list.slice(0, 120).map(i => { const o = clObj(i, fr); return `- [${o.type}] ${o.text}`; }).filter(x => x.length > 12).join('\n');
+}
+function agChat211(title, ct) { const p = clPlace(1, 380, 400); ct210silent = true; let c; try { c = chNewAt210(null, p, ct || 'disc', null); } finally { ct210silent = false; } c.title = title.slice(0, 120); c.view = 'canvas'; c.w = 380; changed(); return c; }
+function agPost211(c, prov, role, text) { const n = (prov ? agName211(prov) : aiName()) + (role ? ' · ' + role : ''); c.msgs = (c.msgs || []).concat({ id: uid(), a: 'ai', n, ai: n, by: chMe().n, t: String(text || '').slice(0, 6000), at: Date.now() }); changed(); }
+async function agAsk211(prov, sys, user, log) {
+  const ns = prov ? (aiNs(prov) ? aiChain211(prov) : null) : await aiReady211(); if (!ns) throw { message: 'Нейросеть ' + (prov ? agName211(prov) : '') + ' не подключена' };
+  if (log) log.insertAdjacentHTML('beforeend', `<div class="ag211step">… ${esc(prov ? agName211(prov) : aiName())} думает</div>`);
+  const r = await ns([{ role: 'user', content: user }], { system: sys, maxTokens: 1400, quiet: 1 });
+  return { text: r.text, prov: ns.prov || prov };
+}
+async function agRun211(T, task, log) {
+  if (!S.board) return; const ctx = agCtx211(T.ctx), roles = T.roles.filter(r => r.n);
+  if (!roles.length) { toast('Добавьте роли'); return; }
+  const c = agChat211('Команда: ' + task, 'task'); c.agent = { scheme: T.scheme, task }; changed();
+  c.msgs.push({ id: uid(), sys: 1, a: '', n: 'Холст', t: `Команда агентов · ${AG_SCHEMES211[T.scheme][0]}: ${roles.map(r => r.n + ' (' + (r.prov ? agName211(r.prov) : aiName()) + ')').join(', ')}`, at: Date.now() }); changed();
+  log.innerHTML = '<div class="ag211step">▶ Запущено — ход работы в чате на доске</div>'; fitAll([c]);
+  const base = `Задача: ${task}\n${ctx ? '\n' + ctx : ''}`, sys = r => `Ты — агент «${r.n}» в команде нейросетей. Твоя роль: ${r.p}. Пиши по-русски, по делу, до 250 слов.`;
+  try {
+    let last = '', outs = [];
+    if (T.scheme === 'chain') { for (const r of roles) { const x = await agAsk211(r.prov, sys(r), base + (last ? `\n\nРезультат предыдущего агента:\n${last}` : ''), log); agPost211(c, x.prov, r.n, x.text); last = x.text; } }
+    else if (T.scheme === 'parallel') { const work = roles.slice(0, -1).length ? roles.slice(0, -1) : roles; const res = await Promise.all(work.map(r => agAsk211(r.prov, sys(r), base, log).then(x => (agPost211(c, x.prov, r.n, x.text), x.text)).catch(e => `(${r.n}: ${e.message || e})`))); const m = roles[roles.length - 1]; if (roles.length > 1) { const x = await agAsk211(m.prov, sys(m), base + '\n\nОтветы команды:\n' + res.map((t, i) => `— ${work[i].n}: ${t}`).join('\n\n'), log); agPost211(c, x.prov, m.n, x.text); last = x.text; } else last = res[0]; }
+    else if (T.scheme === 'lead') { const L = roles[0], rest = roles.slice(1); const plan = await agAsk211(L.prov, sys(L) + ' Раздели задачу на ' + Math.max(1, rest.length) + ' части для команды. Ответь списком «1. …».', base, log); agPost211(c, plan.prov, L.n, plan.text); const parts = plan.text.split(/\n\s*\d+[.)]\s+/).map(s => s.trim()).filter(Boolean).slice(-Math.max(1, rest.length)); for (let i = 0; i < rest.length; i++) { const x = await agAsk211(rest[i].prov, sys(rest[i]), base + `\n\nТвоя часть: ${parts[i] || parts[parts.length - 1] || task}`, log); agPost211(c, x.prov, rest[i].n, x.text); outs.push(rest[i].n + ': ' + x.text); } const fin = await agAsk211(L.prov, sys(L) + ' Собери части в один итог.', base + '\n\nЧасти:\n' + outs.join('\n\n'), log); agPost211(c, fin.prov, L.n + ' · итог', fin.text); last = fin.text; }
+    else { await agDebateIn211(c, { a: roles[0].prov, b: (roles[1] || roles[0]).prov, j: (roles[2] || {}).prov || '', na: roles[0].n, nb: (roles[1] || roles[0]).n, nj: (roles[2] || { n: 'Судья' }).n, rounds: T.rounds || 2, topic: task, ctx }, log); last = (c.res || ''); }
+    if (last) { c.res = last.slice(0, 600); const dd = mkDoc(0, 0); Object.assign(dd, { x: r1(c.x + 420), y: r1(c.y), w: 560, h: 480, title: 'Итог команды: ' + task.slice(0, 60), html: docClean(mdToDoc(last)) }); dd.text = htmlToText(dd.html); pushHist(); S.board.items.push(dd); changed(); }
+    log.insertAdjacentHTML('beforeend', '<div class="ag211step ok">✓ Готово: переписка в чате, итог — документом рядом</div>');
+  } catch (e) { c.msgs.push({ id: uid(), sys: 1, a: '', n: 'Холст', t: 'Команда остановилась: ' + ((e && (e.message || e.code)) || e), at: Date.now() }); changed(); log.insertAdjacentHTML('beforeend', `<div class="ag211step bad">✕ ${esc((e && (e.message || e.code)) || String(e))}</div>`); }
+}
+async function agDebateIn211(c, D, log) {
+  const ctx = D.ctx || '', pro = `Тема спора: ${D.topic}${ctx ? '\n' + ctx : ''}`;
+  const sA = `Ты — участник спора «${D.na || 'Сторона А'}». Отстаивай одну позицию по теме, отвечай на доводы оппонента. По-русски, до 150 слов.`, sB = `Ты — участник спора «${D.nb || 'Сторона Б'}». Отстаивай противоположную позицию, разбирай доводы оппонента. По-русски, до 150 слов.`;
+  let hist = '';
+  for (let r = 1; r <= (D.rounds || 2); r++) {
+    const a = await agAsk211(D.a, sA, pro + (hist ? '\n\nХод спора:\n' + hist : '') + `\n\nРаунд ${r}: твой ход.`, log); agPost211(c, a.prov, (D.na || 'А') + ' · раунд ' + r, a.text); hist += `\n${D.na || 'А'}: ${a.text}`;
+    const b = await agAsk211(D.b, sB, pro + '\n\nХод спора:\n' + hist + `\n\nРаунд ${r}: твой ход.`, log); agPost211(c, b.prov, (D.nb || 'Б') + ' · раунд ' + r, b.text); hist += `\n${D.nb || 'Б'}: ${b.text}`;
+  }
+  const j = await agAsk211(D.j, `Ты — судья спора. Кратко: сильные доводы каждой стороны, где правда, итоговая рекомендация. По-русски, до 200 слов.`, pro + '\n\nХод спора:\n' + hist, log);
+  agPost211(c, j.prov, D.nj || 'Судья', j.text); c.res = j.text.slice(0, 600); changed();
+}
+async function agDebate211(D, log) {
+  if (!S.board) return;
+  const c = agChat211('Спор: ' + D.topic, 'decision'); c.debate = { topic: D.topic, rounds: D.rounds }; c.msgs.push({ id: uid(), sys: 1, a: '', n: 'Холст', t: `Спор: ${D.a ? agName211(D.a) : aiName()} против ${D.b ? agName211(D.b) : aiName()}, судья — ${D.j ? agName211(D.j) : aiName()}. Коллеги могут добавить ход своей нейросети: «⚔ Ход моей нейросети».`, at: Date.now() }); changed(); fitAll([c]);
+  log.innerHTML = '<div class="ag211step">⚔ Спор идёт — в чате на доске</div>';
+  try { await agDebateIn211(c, Object.assign({ na: 'Сторона А', nb: 'Сторона Б', nj: 'Судья' }, D), log); log.insertAdjacentHTML('beforeend', '<div class="ag211step ok">✓ Спор окончен, итог судьи — в чате</div>'); }
+  catch (e) { c.msgs.push({ id: uid(), sys: 1, a: '', n: 'Холст', t: 'Спор остановился: ' + ((e && (e.message || e.code)) || e), at: Date.now() }); changed(); log.insertAdjacentHTML('beforeend', `<div class="ag211step bad">✕ ${esc((e && (e.message || e.code)) || String(e))}</div>`); }
+}
+/* a colleague's AI takes its turn in a debate chat */
+async function agTurn211(it) {
+  const ns = await aiReady211(); if (!ns) { toast('Нейросеть не подключена: ☰ → «Нейросети»'); return; }
+  const hist = (it.msgs || []).filter(m => !m.sys).slice(-12).map(m => `${m.ai ? m.ai : m.n}: ${m.t}`).join('\n');
+  CHP.busy = it.id; chRefresh211(it.id, true);
+  try { const r = await ns([{ role: 'user', content: `Тема спора: ${(it.debate || {}).topic || it.title}\n\nХод спора:\n${hist}\n\nТвой ход: займи свою позицию (можно новую), ответь на сильнейший довод выше. По-русски, до 150 слов.` }], { maxTokens: 600, quiet: 1 }); CHP.busy = ''; const n = (ns.provName || aiName()) + ' · ' + chMe().n; chMsg210(it, r.text, { ai: n, a: 'ai', n, by: chMe().n }); }
+  catch (e) { CHP.busy = ''; chMsg210(it, 'ИИ не ответил: ' + ((e && (e.message || e.code)) || e), { sys: 1 }); }
+  chRefresh211(it.id, true);
+}
+{ const o = chThreadHTML211; chThreadHTML211 = (it, mode) => { const h = o(it, mode); return it.debate ? h.replace('<button type="button" class="ch211ai"', '<button type="button" class="ch211ai" data-cha="turn" title="Ваша нейросеть делает ход в споре">⚔ Ход моей нейросети</button><button type="button" class="ch211ai"') : h; }; }
+{ const o = chAct211; chAct211 = (root, it, a, b) => a === 'turn' ? agTurn211(it) : o(root, it, a, b); }
+/* the AI panel shows its mode; menu entries */
+{ const o = clHead; clHead = () => { o(); const p = $('#cl24'); if (!p) return; let m = p.querySelector('.ag211mode'); if (!m) { const h = p.querySelector('.clh'); if (!h) return; h.insertAdjacentHTML('afterend', '<div class="ag211mode"></div>'); m = p.querySelector('.ag211mode'); } m.innerHTML = `<button data-ag211o="modes" title="Где работает нейросеть: только доска или всё приложение">${AG211.scope === 'app' ? '∞ Всё приложение' : '▦ Доска'}</button><button data-ag211o="modes" title="Внутренний — только ваши данные; внешний — читает страницы и ищет в сети">${AG211.ext ? '🌐 С интернетом' : '🔒 Внутри'}</button><button data-ag211o="use" title="Цепочка нейросетей, лимиты и расход токенов">📊 ${AG211.auto ? 'Подхват вкл' : 'Подхват выкл'}</button><button data-ag211o="team" title="Команда агентов и споры нейросетей">👥 Агенты</button>`; }; }
+document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('[data-ag211o]'); if (!b) return; e.stopPropagation(); agOpen211(b.dataset.ag211o); });
+{ const o = menuItems; menuItems = () => { const l = o(), i = l.findIndex(x => x.id === 'aiset'); l.splice(i >= 0 ? i + 1 : l.length, 0, { id: 'ag211', cat: 'set', icon: 'devic', label: 'Агенты: режимы ИИ, команды, споры, лимиты…', key: AG211.scope === 'app' ? 'всё приложение' : 'доска' }); return l; }; }
+{ const o = menuAction; menuAction = async v => { if (v === 'ag211') { S.menuQ = ''; closePop(); return agOpen211(); } return o(v); }; }
+function agent211Setup() { /* nothing to start: counting and the chain work on demand */ }
 /* ---------- 2.10 glue ---------- */
 Object.assign(AREAS.ai[2], { chat: 'ИИ в чатах (AI in chats)', sub: 'Claude по подписке (Claude via Drive)' });
 AREAS.team = AREAS.team || ['Команда', 'Team', {}]; Object.assign(AREAS.team[2], { chat: 'Чаты на доске (Board chats)' });
@@ -20266,6 +21117,22 @@ Object.assign(TOURS, {
   ] },
 });
 Object.assign(FEAT_TOUR, { f210_chat: 'chat210', f210_chatai: 'chat210', f210_ai: 'ai210', f210_pip: 'pin210', f210_pin: 'pin210' });
+/* ---------- 2.11 glue ---------- */
+Object.assign(AREAS.org[2], { export: 'Экспорт рамки (Frame export)', timer: 'Таймер команды (Team timer)' });
+Object.assign(AREAS.ai[2], { agents: 'Агенты и споры (Agents)', limits: 'Лимиты и подхват (Limits & fallback)', modes: 'Режимы ИИ (AI modes)' });
+Object.assign(AREAS.canvas[2], { zl: 'Заметность при отдалении (Zoom levels)' });
+BR210.find(b => b[0] === 'ai')[4].push('ai.agents', 'ai.limits', 'ai.modes');
+function wire211() { ui211Setup(); agent211Setup(); }
+Object.assign(TOURS, {
+  fx211: { name: 'Экспорт рамки', steps: [
+    { el: () => document.querySelector('.fh211x') || document.querySelector('#btnMenu'), t: 'Экспорт рамки', x: 'Кнопка ⇪ у каждой рамки: Telegram, Markdown, документ с картинками, снимок, задачи — с группировкой по ячейкам, строкам, столбцам, вкладкам.' },
+  ] },
+  ag211: { name: 'Агенты и нейросети', steps: [
+    { el: '#btn24claude', t: 'Ваша нейросеть', x: 'Панель ИИ: сверху — режим (доска или всё приложение, внутри или с интернетом), подхват при лимите и агенты.' },
+    { el: () => document.querySelector('.ag211mode') || document.querySelector('#btn24claude'), t: 'Режимы и агенты', x: '«👥 Агенты» — команда нейросетей с ролями и спор двух нейросетей; «📊» — цепочка, лимиты и расход токенов.' },
+  ] },
+});
+Object.assign(FEAT_TOUR, { f211_fx: 'fx211', f211_agents: 'ag211', f211_debate: 'ag211', f211_limits: 'ag211', f211_modes: 'ag211' });
 
 /* =========================================================
    Pointer interaction
@@ -21232,7 +22099,7 @@ function wire() {
   fbar.querySelector('[data-fa="reload"]').innerHTML = ic('reload') + '<span>Перезагрузить</span>';
   fbar.querySelector('[data-fa="full"]').innerHTML = ic('fit') + '<span>На весь монитор</span>';
   fbar.querySelector('[data-fa="close"]').innerHTML = ic('close') + '<span>Свернуть (Esc)</span>';
-  buildToolbar(); buildHelp(); wire23(); wire24(); wire24b(); wire25(); wire26(); wire27(); wire28(); wire29(); wire210();
+  buildToolbar(); buildHelp(); wire23(); wire24(); wire24b(); wire25(); wire26(); wire27(); wire28(); wire29(); wire210(); wire211();
 
   vp.addEventListener('pointerdown', onDown);
   vp.addEventListener('pointermove', onMove);
