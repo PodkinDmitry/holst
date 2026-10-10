@@ -2269,6 +2269,129 @@ details.gt-how27>summary{font-weight:600;cursor:pointer}
 .gt-how27 b{display:inline}
 .rl-ov,.rl-meth{align-items:start}
 
+/* ===== 2.8: design pass — centred controls, focus, sizes, scrollbars ===== */
+.seg24>button,.seg24>.ob{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:4px;line-height:1.15!important;min-height:28px;height:auto!important;white-space:nowrap;vertical-align:middle}
+#pop .seg24>.ob,#pop .seg24>.ob.sm{padding:4px 10px!important}
+.ctxlb{display:inline-flex;align-items:center;justify-content:center;height:28px;padding:0 10px;line-height:1}
+.btn,.ib.wide,.lochip,.stpill{line-height:1.15}
+.xdlg .ob,.lo .ob{justify-content:center;line-height:1.15}
+#pop .row>.ob{display:inline-flex;align-items:center;justify-content:center;line-height:1.15}
+.btn.sm{height:30px;padding:0 11px;font-size:12.5px;border-radius:8px}
+.inp.sm{height:30px;min-height:30px;padding:0 9px;font-size:12.5px;border-radius:8px}
+select.inp{cursor:pointer}
+.inp.bad{border-color:var(--danger)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--danger) 18%,transparent)!important}
+:where(button,.ob,.btn,.ib,.mi,.swb,summary,[tabindex]):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+:where(input,select,textarea):focus-visible{outline:none}
+.ob:disabled,.btn:disabled{opacity:.45;cursor:default}
+*{scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--muted) 40%,transparent) transparent}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--muted) 35%,transparent);border-radius:10px;border:3px solid transparent;background-clip:padding-box}::-webkit-scrollbar-track{background:transparent}
+html[data-theme=dark] .inp{background:var(--panel);color:var(--ink)}
+.xhead h2{line-height:1.25}
+.xdlg h3{margin:18px 0 8px;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+details.clipf>summary{cursor:pointer;padding:6px 0;font-weight:600}
+@media (pointer:coarse){.ib{min-width:40px;min-height:40px}.xdlg .ob,.lo .ob{min-height:38px}.seg24>button{min-height:36px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* ===== interface palettes, accent, rounding ===== */
+html[data-ui=warm]{--canvas:#f5f0e6;--panel:#fffcf5;--line:#e7dfcf;--hover:#f2eadb;--muted:#7a6e5d;--ink:#2a251d}
+html[data-ui=mint]{--canvas:#eef6f2;--panel:#fbfffd;--line:#d7e8df;--hover:#e6f2ec;--muted:#5f756a}
+html[data-ui=dusk]{--canvas:#eef0f7;--panel:#fbfbff;--line:#dcdff0;--hover:#e9ebf6;--muted:#666b85;--accent:#5a5ff0;--accent-soft:#e6e7fd}
+html[data-ui=contrast]{--canvas:#ffffff;--panel:#ffffff;--line:#7d828f;--hover:#e9ebef;--muted:#30343c;--ink:#000000}
+html[data-theme=dark][data-ui=warm]{--canvas:#16130f;--panel:#221d17;--line:#3a3127;--hover:#2c251d;--muted:#ab9f8c;--ink:#efe7da}
+html[data-theme=dark][data-ui=mint]{--canvas:#0f1513;--panel:#18211d;--line:#2a3832;--hover:#1f2a25;--muted:#93aa9e}
+html[data-theme=dark][data-ui=dusk]{--canvas:#0f1018;--panel:#1a1c28;--line:#2c2f44;--hover:#232638;--muted:#9a9fbd;--accent:#8b8ff8;--accent-soft:#2b2d52}
+html[data-theme=dark][data-ui=contrast]{--canvas:#000000;--panel:#0b0b0b;--line:#8a8f9c;--hover:#1d1d1d;--muted:#d0d3da;--ink:#ffffff}
+html[data-rad=sharp] :is(.btn,.ob,.inp,.ib,.mi,.seg24,.seg24>button,.swb,.ctxl,.ctxlb,.stpill,.lochip){border-radius:3px!important}
+html[data-rad=sharp] :is(.xbox,#pop,.panel,.qbox,#ctx,#toolbar){border-radius:5px!important}
+html[data-rad=round] :is(.btn,.ob,.inp,.seg24,.seg24>button,.ctxl,.ctxlb,.stpill,.lochip){border-radius:999px!important}
+html[data-rad=round] :is(.xbox,#pop,.panel,.qbox,#ctx,#toolbar){border-radius:20px!important}
+/* ===== colour picker ===== */
+.cp28{width:min(330px,86vw);display:flex;flex-direction:column;gap:8px}
+.cp28t{display:flex;flex-wrap:wrap;gap:3px}
+.cp28t button{border:0;background:var(--hover);color:var(--muted);font:600 11.5px var(--font);height:24px;padding:0 8px;border-radius:7px;cursor:pointer;display:inline-flex;align-items:center}
+.cp28t button.on{background:var(--sel);color:var(--sel-ink)}
+.cp28g{display:grid!important;grid-template-columns:repeat(8,30px);gap:4px}
+.cp28h{font:600 11px var(--font);color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.cp28f{display:flex;gap:6px;align-items:center}.cp28f .inp{flex:1;font-family:ui-monospace,Menlo,Consolas,monospace}
+/* ===== sync sources ===== */
+.sy28 .sy-r{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;margin:6px 0;background:var(--panel)}
+.sy28 .sy-r.off{background:var(--hover)}
+.sy28 .sy-n{flex:1;min-width:0;display:flex;flex-direction:column}.sy28 .sy-n small{color:var(--muted)}
+.sy28 .sy-r select{flex:none;width:auto;max-width:190px}
+.sy-sw{position:relative;flex:none;width:38px;height:22px;cursor:pointer}.sy-sw input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.sy-sw i{position:absolute;inset:0;border-radius:22px;background:#c4c8d2;transition:background .15s}.sy-sw i::after{content:'';position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+.sy-sw input:checked+i{background:#2fa36b}.sy-sw input:checked+i::after{transform:translateX(16px)}
+.sy-sw input:focus-visible+i{outline:2px solid var(--accent);outline-offset:2px}
+.sy-def{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px;border-radius:10px;background:var(--hover);font-size:12.5px;color:var(--muted)}.sy-def select{width:auto}
+.sy-pols{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;margin:10px 0}
+.sy-pol{display:flex;flex-direction:column;gap:4px;text-align:left;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);cursor:pointer;font:inherit}
+.sy-pol small{color:var(--muted);line-height:1.35}.sy-pol.on{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+#syblock{position:fixed;left:50%;top:calc(var(--st) + 64px);transform:translateX(-50%);z-index:45;display:flex;align-items:center;gap:12px;max-width:min(720px,94vw);padding:10px 12px 10px 14px;border-radius:12px;background:#2a1215;color:#fff;box-shadow:var(--shadow)}
+#syblock .syb-t{display:flex;flex-direction:column;min-width:0}#syblock small{opacity:.8}
+#syblock .ob{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
+#syblock .btn{background:#fff;color:#1c1d21}
+#syblock.shake{animation:sy-shake .35s}
+@keyframes sy-shake{20%,60%{transform:translateX(calc(-50% - 6px))}40%,80%{transform:translateX(calc(-50% + 6px))}}
+body.sy-ro #toolbar{opacity:.4;pointer-events:none}
+body.sy-ro #world{cursor:grab}
+/* ===== instant mode and cursors ===== */
+#cur28{position:absolute;inset:0;pointer-events:none;z-index:6;overflow:hidden}
+.cur28{position:absolute;left:0;top:0;transition:transform .09s linear;will-change:transform}
+.cur28.slow{transition:transform 2.8s linear}
+#cur28.still .cur28{transition:none}
+.cur28 svg{display:block;fill:var(--c);stroke:#fff;stroke-width:1.2;filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+.cur28 span{position:absolute;left:14px;top:16px;padding:2px 7px;border-radius:5px;background:var(--c);color:#fff;font:600 11.5px var(--font);white-space:nowrap;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.rt28p{font-size:13px;padding:0 4px;cursor:help}.rt28p[data-s=on]{color:#d99a00}.rt28p[data-s=off],.rt28p[data-s=err]{opacity:.45}
+.rt-f{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.rt-f .inp{flex:1 1 220px}
+.rt28s code{font-size:12px;background:var(--hover);padding:1px 5px;border-radius:4px;word-break:break-all}
+/* ===== look window ===== */
+.look28 .lk-r{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:8px 0}.look28 .lk-r>span:first-child{width:110px;color:var(--muted);font-size:12.5px}
+.look28 input[type=range]{flex:1;max-width:260px;accent-color:var(--accent)}
+.bsty28{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px}
+.bsty{display:flex;flex-direction:column;gap:6px;padding:6px;border:1px solid var(--line);border-radius:10px;background:var(--panel);cursor:pointer;font:600 12px var(--font);color:var(--ink)}
+.bsty i{display:block;height:56px;border-radius:7px;border:1px solid var(--line);position:relative;background-image:radial-gradient(circle,rgba(128,128,128,.35) 1px,transparent 1.4px)!important;background-size:10px 10px!important;background-color:var(--b)!important}
+.bsty em{position:absolute;left:10px;top:10px;width:26px;height:22px;border-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.bsty:hover{border-color:var(--accent)}
+.pal28r{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--line)}.pal28r b{min-width:110px}.pal28r span{flex:1;display:flex;flex-wrap:wrap;gap:3px}.pal28r i{width:18px;height:18px;border-radius:4px;border:1px solid rgba(0,0,0,.08)}
+/* ===== full screen panels ===== */
+.xbox.pfull{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;max-width:none!important;max-height:none!important;border-radius:0!important;margin:0!important;transform:none!important}
+.xdlg.pfullx{padding:0!important}
+#cl24.pfull{position:fixed!important;inset:0!important;width:auto!important;height:auto!important;max-width:none!important;max-height:none!important;border-radius:0!important;z-index:60}
+.pfb.on{color:var(--accent)}
+/* ===== several boards ===== */
+#bside .bs-b.msel{background:var(--sel-soft)!important;box-shadow:inset 3px 0 0 var(--sel)}
+#bsel28{position:sticky;bottom:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:8px;border-top:1px solid var(--line);background:var(--panel);z-index:2}
+#bsel28 .danger{color:var(--danger)}
+/* ===== tasks on the right ===== */
+#td28{position:fixed;right:calc(var(--sr) + 12px);top:calc(var(--st) + 72px);bottom:calc(var(--sb) + 72px);width:min(320px,86vw);z-index:24;display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:14px;background:var(--panel);box-shadow:var(--shadow);border:1px solid var(--line)}
+#td28 .td-h{display:flex;align-items:center;gap:6px}#td28 .td-h b{font-size:14px}
+#td28 .td-sp{font-size:11.5px;color:var(--muted);background:var(--hover);padding:2px 7px;border-radius:6px}
+#td28 .td-tabs{display:flex;width:100%}#td28 .td-tabs button{flex:1}
+#td28 .td-l{flex:1;overflow:auto;display:flex;flex-direction:column;gap:2px;margin:0 -4px;padding:0 4px}
+#td28 .td-r{display:flex;align-items:flex-start;gap:8px;padding:7px 6px;border-radius:9px}
+#td28 .td-r:hover{background:var(--hover)}
+#td28 .td-r input{margin:3px 0 0;width:16px;height:16px;flex:none;accent-color:#2fa36b;cursor:pointer}
+#td28 .td-t{flex:1;min-width:0;border:0;background:transparent;text-align:left;padding:0;cursor:pointer;color:var(--ink);display:flex;flex-direction:column;gap:3px}
+#td28 .td-t span{font-size:13px;line-height:1.3;overflow-wrap:anywhere}
+#td28 .td-t small{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+#td28 .td-t em{font-style:normal;font-size:11px;color:var(--muted);background:var(--hover);padding:1px 6px;border-radius:5px}
+#td28 .td-t em.bad{color:#fff;background:var(--danger)}#td28 .td-t em.now{color:#1c1d21;background:var(--sel)}
+#td28 .td-r.doing .td-t span::before{content:'● ';color:#f76b15}
+#td28 .td-p{width:8px;height:8px;border-radius:50%;background:var(--c);display:inline-block}
+#td28 .td-f{display:flex;gap:6px}
+.td-btn{gap:6px}.td-btn .td-n{font-style:normal;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--danger);color:#fff;font-size:11px;display:inline-flex;align-items:center;justify-content:center}
+@media (max-width:700px){#td28{left:12px;right:12px;width:auto;top:auto;height:55vh}}
+.acct28{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 10px;margin-bottom:8px;border-radius:10px;background:var(--hover)}.acct28 p{margin:0;flex:1;min-width:220px}
+.xhead>h2{flex:1;min-width:0}
+.td-btn{display:inline-flex!important;align-items:center;white-space:nowrap}
+.xdlg{grid-template-columns:minmax(0,1fr)}
+.xbox{max-width:100%;justify-self:center}
+.xbody{overflow-wrap:anywhere}
+.sy-def select,.sy28 .sy-r select{flex:0 0 auto;width:auto;min-width:150px}
+:is(#td28,#bsel28,.cp28f) .ob{min-height:28px;padding:0 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);cursor:pointer;font:600 12.5px var(--font);display:inline-flex;align-items:center;justify-content:center;gap:5px}
+:is(#td28,#bsel28,.cp28f) .ob:hover{background:var(--hover)}
+@media (max-width:700px){.td-btn .td-lb{display:none}}
+.xdlg .p24{width:auto;max-width:100%;max-height:none;overflow:visible}
+
 @media (max-width:700px){#statusText{display:none}#statusText.act{display:block;max-width:132px;white-space:normal;font-size:11.5px;line-height:1.25}#status{padding-left:12px}#boardName{width:120px}.fbtn span{display:none}.fdoc{padding:28px 24px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -2924,7 +3047,7 @@ const Drive = {
         this.client = google.accounts.oauth2.initTokenClient({ client_id: this.cid, scope: GSCOPE, callback: r => this.onToken(r), error_callback: e => this.onTokenError(e) });
         this.clientFor = this.cid;
       }
-      this.client.requestAccessToken({ prompt: LS.get('gconsent2') ? '' : 'consent' });
+      this.client.requestAccessToken(Object.assign({ prompt: LS.get('gconsent2') ? '' : 'consent' }, gHint()));
     } catch (e) { toast('Google не принял Client ID. Проверьте его в окне «Google Диск»'); }
   },
   onToken(r) {
@@ -3170,6 +3293,7 @@ const Drive = {
       for (const [bid, f] of remote) {
         const m = this.st.meta[bid];
         if (m && m.rev === f.rev) continue;
+        if (syBoardOff(bid) || syDirOf(bid) === 'push') continue;
         const lb = await Backend.loadBoard(bid).catch(() => null);
         if (!lb) { await this.pull(f); changed = true; continue; }
         const h = boardHash(lb);
@@ -3177,13 +3301,14 @@ const Drive = {
         const data = f.data || await this.fetchJSON(f.id), src = (data && data.board) || {};
         const tmp = normalizeBoard({ name: src.name, items: clone(src.items || []) }, false);
         if (boardHash(tmp) === h) { this.st.meta[bid] = Object.assign({}, m, { fileId: f.id, rev: f.rev, hash: h, u: lb.updatedAt }); continue; }
-        await this.conflict(lb, f, data); changed = true;
+        await syOnConflict(this, lb, f, data); changed = true;
       }
       // this copy → Drive
       let removed = 0;
       for (const e of [...S.index].filter(x => !x.space)) {
         const bid = e.id, f = remote.get(bid), m = this.st.meta[bid];
-        if (f && m && m.rev !== f.rev) continue;
+        if (syBoardOff(bid) || syDirOf(bid) === 'pull') continue;
+        if (f && m && m.rev !== f.rev && syDirOf(bid) !== 'push') continue;
         if (f && m && m.u === e.updatedAt && !(m.pendingTrash && f.stale.length)) continue;
         const lb = await Backend.loadBoard(bid).catch(() => null); if (!lb) continue;
         const h = m && m.u === lb.updatedAt && m.hash ? m.hash : boardHash(lb);
@@ -3208,6 +3333,7 @@ const Drive = {
       this.running = false;
       const c = e && e.code;
       if (e && e.status === 401) { this.token = null; LS.set('gtok', null); this.setState('auth'); }
+      else if (c === 'acct') { this.halted = c; this.setState('error', e.note); }
       else if (c === 'needs_reauth') { this.halted = c; this.setState('auth', 'Переподключите Google Диск в настройках Claude: Настройки → Коннекторы'); }
       else if (c === 'server_not_connected' || c === 'server_not_found') { this.halted = c; this.setState('error', 'Добавьте коннектор Google Диск в настройках Claude: Настройки → Коннекторы'); }
       else if (c === 'not_in_manifest' || c === 'consent_required' || c === 'not_granted' || c === 'capability_disabled' || c === 'blocked_by_policy') { this.halted = c; this.setState('error', 'Доступ этой страницы к Google Диску не разрешён. Нажмите «Синхронизировать», чтобы спросить снова'); }
@@ -3939,7 +4065,7 @@ async function applyRemote() {
   await ensureAssets(S.board.items);
   S.sel = new Set([...S.sel].filter(id => byId(id)));
   dirty = !!mdiff; render(); if (mdiff) scheduleSave();
-  toast('Доска обновилась');
+  if (Date.now() - (S.remToast || 0) > 60000) { S.remToast = Date.now(); toast('Доска обновилась'); }
   Drive.noteSave(S.board);
 }
 async function ensureAssets(list) {
@@ -5372,7 +5498,7 @@ function installHelp() {
    v1.7: versions, feature catalog, tiny-object markers, pin zones, re-attach,
    nested frame tabs, Whimsical import that reads the whole board by sections
    ========================================================= */
-const APP_VERSION = '2.7';
+const APP_VERSION = '2.8';
 const CHANGELOG = [
   ['1.9', '6 октября 2026', ['Масштаб от 0,5%, свой диапазон и уровни: колесо и кнопки прыгают по уровням (Горячие клавиши → Масштаб)', 'Замок: закреплённый объект не двигается, не меняется и не удаляется', 'Выравнивание, равные промежутки, одинаковый размер и одинаковая длина линий для выделенного', 'Умные направляющие: при перемещении и растягивании объект прилипает к краям и центрам соседей (Alt отключает)', 'Выделенное можно открыть отдельно, как доску, с хлебными крошками', 'Резервная копия в папку на компьютере, в том числе в папку Яндекс Диска, с недельным архивом', 'История версий доски с поиском по дате: копии на устройстве и версии из Google Диска', 'Компактная панель статуса: цветные индикаторы, мигающий значит нужно ваше действие', 'Контуры при сильном отдалении: только у внешних объектов, нейтральным серым, точно по размеру', 'Импорт из Whimsical: секции как в оригинале, блок-схемы и прямоугольники, шрифт подбирается под каждое устройство']],
   ['1.8', '6 октября 2026', ['Импорт из Whimsical: майнд-карты снова переносятся, сбойные запросы повторяются, а не пропускаются', 'Картинки из Whimsical переносятся как картинки', 'Ссылки из Whimsical становятся текстом-ссылкой, а не пустой карточкой', 'Размер шрифта в перенесённых заголовках подбирается по настоящему шрифту, слова больше не рвутся', 'При сильном отдалении (1% и меньше) подсвечиваются контуры объектов вместо пятен', 'Копирование в другие приложения: обычный текст с форматированием, без служебного кода', 'Приложение само проверяет, есть ли на сайте новая версия, и предлагает обновиться']],
@@ -5847,7 +5973,7 @@ const AREAS = {
 };
 Object.assign(AREAS.canvas[2], { filter: 'Фильтры (Filters)' }); Object.assign(AREAS.org[2], { fhead: 'Шапка рамки (Frame header)' }); Object.assign(AREAS.obj[2], { docs: 'Документы (Documents)', html: 'HTML-инструменты (HTML tools)' }); Object.assign(AREAS.io[2], { web: 'Страница по ссылке (Web capture)', queue: 'Очередь импорта (Import queue)' }); Object.assign(AREAS.cust[2], { mech: 'Механики (Feature toggles)', panels: 'Панели (Panels)', menu: 'Меню (Menu)', drag: 'Перетаскивание (Drag)' }); Object.assign(AREAS.ws[2], { side: 'Панель досок слева (Boards sidebar)', smart: 'Умные доски (Smart boards)' }); Object.assign(AREAS.life[2], { time: 'Учёт времени (Time tracking)', src: 'Источники записей (Sources)' }); Object.assign(AREAS.plat[2], { audit: 'Аудит (Audit)' }); Object.assign(AREAS, { team: ['Команда', 'Team', { space: 'Командное пространство (Team space)', live: 'Кто на доске (Presence)' }], ai: ['Claude', 'AI', { board: 'Claude на доске (AI on board)' }], files: ['Файлы', 'Files', { drop: 'Файлы на доске (Files on board)', group: 'Групповое встраивание (Bulk embed)', lib: 'Библиотека файлов (File library)' }] }); Object.assign(AREAS.data[2], { trash: 'Корзина (Trash)', space: 'Объём (Storage usage)' }); Object.assign(AREAS.life[2], { modes: 'Режимы задачника (Task manager modes)' }); Object.assign(AREAS.plat[2], { guide: 'Гайды и демо (Guides)' }); AREAS.org[2].fhead = 'Табулятор рамки (Frame tabulator)';
 const areaLabel = c => { const [a, m] = String(c || '').split('.'), A = AREAS[a]; return A ? A[0] + (m && A[2][m] ? ' › ' + A[2][m].replace(/ \(.*\)$/, '') : '') : ''; };
-const VERS = [['2.7', '9 октября 2026'], ['2.6', '9 октября 2026'], ['2.5', '9 октября 2026'], ['2.4', '9 октября 2026'], ['2.3', '8 октября 2026'], ['2.2', '7 октября 2026'], ['2.1', '6 октября 2026'], ['2.0', '6 октября 2026'], ['1.9', '6 октября 2026'], ['1.8', '6 октября 2026'], ['1.7', '6 октября 2026'], ['1.6', '5 октября 2026'], ['1.5', '5 октября 2026'], ['1.4', '5 октября 2026'], ['1.3', '4 октября 2026'], ['1.2', '4 октября 2026'], ['1.0', '4 октября 2026']];
+const VERS = [['2.8', '10 октября 2026'], ['2.7', '9 октября 2026'], ['2.6', '9 октября 2026'], ['2.5', '9 октября 2026'], ['2.4', '9 октября 2026'], ['2.3', '8 октября 2026'], ['2.2', '7 октября 2026'], ['2.1', '6 октября 2026'], ['2.0', '6 октября 2026'], ['1.9', '6 октября 2026'], ['1.8', '6 октября 2026'], ['1.7', '6 октября 2026'], ['1.6', '5 октября 2026'], ['1.5', '5 октября 2026'], ['1.4', '5 октября 2026'], ['1.3', '4 октября 2026'], ['1.2', '4 октября 2026'], ['1.0', '4 октября 2026']];
 const KIND = { f: ['Новое', 'Feature'], i: ['Улучшение', 'Improvement'], x: ['Исправление', 'Bug fix'], b: ['Ожидается', 'Backlog'] };
 /* [id, version, area.module, kind, title, how to use, context] */
 const FEATS = [
@@ -6140,6 +6266,25 @@ const FEATS = [
 ['f27_crawl','2.7','io.crawl','f','Сайт целиком на доску','Ссылка на доске → «🌐 Весь сайт».','Структура и тексты сайта — для анализа и работы.'],
 ['f27_rel','2.7','dev.rel','f','DEV → Релиз: стратегия, роадмап, готовность, метрики','DEV → «Релиз».','Путь продукта к широкой аудитории на одном экране.'],
 ['f27_ai','2.7','ai.prov','f','Своя нейросеть у каждого аккаунта: ChatGPT, Qwen, Perplexity','Меню → «Нейросеть аккаунта…».','ИИ на доске работает у каждого со своим ключом.'],
+['f28_src','2.8','data.src','f','Источники синхронизации: выключить и включить','☰ Меню → «Источники синхронизации», или «⋯» у доски.','Диск, папку, командное пространство или одну доску можно отключить, не теряя работы.'],
+['f28_pol','2.8','data.src','f','Правила включения обратно','В «Источниках» у каждого источника: слить, доска главная, источник главный, обе версии или спросить.','Сами решаете, чья версия главнее после паузы.'],
+['f28_dir','2.8','data.src','i','Только получать или только отправлять','«Источники» → направление у Диска и у каждой личной доски.','Можно смотреть чужие правки, не отправляя свои, и наоборот.'],
+['f28_merge','2.8','data.sync','x','Доски больше не раздваиваются','Само: если доску меняли в двух местах, правки сливаются по объектам.','Одна вкладка синхронизирует за раз; конфликт сливается, а не плодит копии.'],
+['f28_block','2.8','team.space','f','Командная доска без связи — только просмотр','Само; администратор может разрешить работу без связи в окне пространства.','Никто не работает «в пустоту» с отвалившейся синхронизацией.'],
+['f28_renew','2.8','data.sync','i','Вход в Google продлевается сам','Само: при первом щелчке после почти истёкшего часа.','Синхронизация не обрывается раз в час.'],
+['f28_acct','2.8','data.sync','i','Видно, каким аккаунтом Google вы входили','Наведите на облако, кнопки входа и окно «Google Диск».','Не нужно вспоминать, какой адрес был.'],
+['f28_turbo','2.8','team.space','i','Командная доска обновляется за 2–3 секунды','Само, когда на доске есть кто-то ещё.','Видно правки команды почти сразу.'],
+['f28_rt','2.8','data.rt','f','Мгновенный режим и курсоры как в Figma','Окно пространства → «⚡ Мгновенный режим» (настраивает администратор один раз).','Правки и курсоры доходят за доли секунды.'],
+['f28_col','2.8','canvas.look','f','Палитры в каждом выборе цвета','Любой цвет объекта → вкладки: Пастель, Яркие, Земля, Неон, Серые, Тёмные, Доска, свои; #hex и пипетка.','Цветов сколько угодно, свои наборы — из списка hex.'],
+['f28_look','2.8','cust.look','f','Оформление: тема, палитра, акцент, скругления','☰ Меню → «Оформление».','Интерфейс под себя.'],
+['f28_bsty','2.8','ws.look','f','Стили досок','«Оформление» → «Стиль этой доски»: Пастель, Тетрадь, Чертёж, Крафт, Мята, Ночь, Неон, Минимал.','Фон, сетка, цвет стикеров и палитра одним щелчком.'],
+['f28_grid','2.8','canvas.look','i','Тихая сетка: яркость, линии, бледнеет при отдалении','«Оформление» → «Сетка досок»; у доски — в выборе фона.','Точки больше не рябят.'],
+['f28_btn','2.8','cust.ui','x','Подписи в кнопках по центру','Само.','Ровнее и аккуратнее во всех панелях.'],
+['f28_full','2.8','plat.win','f','Любая панель — во весь экран, Esc — обратно','Кнопка ⤢ в шапке панели или двойной щелчок по названию.','Как с объектами на доске.'],
+['f28_bsel','2.8','ws.boards','f','Несколько досок сразу','В панели досок Ctrl- или Shift-щелчок (на телефоне — долгое нажатие).','Удалить, переложить, покрасить, выключить синхронизацию разом.'],
+['f28_mx','2.8','org.matrix','i','Матрица растягивается вместе с содержимым','Тяните край всей матрицы.','Содержимое ячеек масштабируется и остаётся по центру, не вылезая.'],
+['f28_files','2.8','obj.media','i','Исходники файлов и картинок на Диске','Само: «Файлы» в источнике синхронизации; ссылка — в «↗ Исходник».','Оригинал всегда под рукой.'],
+['f28_td','2.8','life.dock','f','Задачи справа от доски','Кнопка «☑ Задачи» вверху справа.','Ближайшие, этой доски, мои и важные — не выходя с доски.'],
 ['b_types','backlog','obj.struct','b','Остальные виды объектов Miro, Whimsical, Excalidraw','Остались: диаграмма последовательности, вайрфреймы, таймлайн, комментарии','Нужен порядок: что важнее для переезда.'],
 ['b_miro','backlog','io.imp','b','Импорт из Miro','Будет как импорт из Whimsical.','Отложено: жду полного удовлетворения импортом из Whimsical; возможно, перенесу вручную — досок там мало.'],
 ['b_drivew','backlog','obj.media','b','Виджет папки Google Диска','Папка Диска на доске с перетаскиванием файлов.','Отложено ради исправлений.'],
@@ -7367,6 +7512,31 @@ const DEV_X = [
   { id: 'A27-rel', it: '2.7', area: 'dev.rel', status: 'action', type: 'Документация', prio: 'Средний', owner: 'Я', title: 'Поправить стратегию и этап в «Релизе»', need: '1. DEV → «Релиз» → «Стратегия»: перепишите черновик ИИ своими словами (видение, аудитория, позиционирование, деньги).\n2. Вверху отметьте текущий этап (сейчас стоит «Закрытая бета»).\n3. «Готовность»: поправьте статусы пунктов, которые я оценил неточно, и уберите ненужные.' },
   { id: 'A27-site', it: '2.7', area: 'plat.rel', status: 'action', type: 'Документация', prio: 'Высокий', owner: 'Я', title: 'Выложить 2.7 на сайт', need: '1. Скачайте holst-app.zip из чата.\n2. На GitHub в репозитории holst замените файлы содержимым архива (как в прошлый раз).\n3. Откройте сайт, обновите страницу дважды — внизу меню должна быть версия 2.7.' },
   { id: 'U27-inv', it: '2.7', area: 'team.space', status: 'review', type: 'Документация', prio: 'Высокий', orig: 'я не нашел нигде инструкцию добавления участников на доску. напиши мне сюда текстом сперва. весь механизм как это работает и что где нажать кому', title: 'Инструкция: как добавить участников в командное пространство', report: R21('Инструкция по шагам для владельца и приглашённого: в окне пространства (⚙) — блок «Как пригласить человека — по шагам», открыт, пока в пространстве только вы; отдельное окно ☰ Меню → «Как пригласить людей в команду»; кнопка «Как пригласить?» в панели досок и в списке пространств; тур «Командные пространства» дополнен двумя шагами. Текст есть и в «Как установить.txt».', '1. ☰ Меню → наберите «пригласить» → «Как пригласить людей в команду».\n2. «Все доски» → ⚙ у пространства → раскройте «Как пригласить человека».', 'Сам вход приглашённых по-прежнему требует добавить их в Test users Google Cloud, пока приложение не опубликовано.') },
+  { id: 'U28-lat', it: '2.8', area: 'team.space', status: 'review', type: 'Документация', prio: 'Высокий', orig: 'самым первым напиши мне все способы минимизировать задержку командной работы. от лучшей к худшей', title: 'Способы уменьшить задержку командной работы', report: R21('Список от лучшего к худшему отправлен в чат: сервер реального времени (Firebase), гибрид «Диск + канал событий», прямая связь браузеров, «Турбо-Диск», прежний опрос раз в 20 с, ручная синхронизация. Выбран путь «Турбо-Диск + Firebase»: оба сделаны в 2.8.', 'Сравните: командная доска с двумя людьми обновляется за 2–3 с без настройки; с «⚡ Мгновенным режимом» — сразу.', 'Firebase нужно один раз создать (задача «Настроить мгновенный режим»).') },
+  { id: 'U28-cut', it: '2.8', area: 'data.src', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'нужно сделать функцию обрубания синхронизаций на конкретных источниках. по конкретным доскам и в целом по пространству личному и по пространству командному.', title: 'Выключать синхронизацию по источникам и доскам', report: R21('Окно «Источники синхронизации» (☰ Меню, окно «Google Диск», «⋯» у доски): выключатели для личного Google Диска, папки на компьютере, каждого командного пространства, его мгновенного режима и каждой доски. Выключенная доска не отправляет и не получает правки; личные доски дополнительно умеют «только получать» и «только отправлять». Несколько досок — разом из панели досок (Ctrl/Shift-щелчок).', '1. ☰ Меню → «Источники синхронизации» → выключите Google Диск — в строке состояния «Синхронизация с Диском выключена вами».\n2. «⋯» у доски → «Выключить синхронизацию доски».', 'Командная доска с выключенной синхронизацией — только просмотр (так попросила команда); администратор может разрешить работу без связи.') },
+  { id: 'U28-pol', it: '2.8', area: 'data.src', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'при обратном включении источников синхронизации нужна настройка как именно это произойдет. например источник подчинится тому что было на доске и не будет вносить свои коррективы. и так далее. сделай гибко.', title: 'Правила включения источника обратно', report: R21('Пять правил: «Слить по объектам» (общая версия берётся из истории Диска, спорный объект — по более поздней доске), «Доска главная» (источник получает то, что на доске), «Источник главный» (ваша версия — отдельной доской), «Обе версии», «Спросить при включении» (показывает, сколько изменилось с каждой стороны). Правило по умолчанию, своё у каждого источника и доски, отдельное правило для конфликтов при обычной работе.', '1. Выключите Диск, поменяйте доску здесь и на другом устройстве.\n2. Включите: выберите правило в окне — проверьте результат.', 'Слияние без общей версии (старше ~30 дней в истории Диска) оставляет всё с обеих сторон.') },
+  { id: 'U28-des', it: '2.8', area: 'cust.ui', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'проработай дизайн по всех панелях и везде на сайте. должно быть по всем стандартам.', title: 'Дизайн-проход по всем панелям', report: R21('Единые правила для кнопок и полей: подписи по центру, одинаковые высоты маленьких кнопок и полей, видимое кольцо фокуса с клавиатуры, тонкие полосы прокрутки, крупнее цели касания на телефоне, учёт «уменьшить движение», заголовки разделов в окнах единым стилем. Любая панель разворачивается во весь экран.', 'Пройдитесь по окнам (Источники, Оформление, пространство, Life OS, DEV) в светлой и тёмной теме и с Tab на клавиатуре.', 'Это первый общий проход: отдельные редкие окна могут потребовать точечной доводки — присылайте скриншоты тикетом ✎.') },
+  { id: 'U28-sty', it: '2.8', area: 'cust.look', status: 'review', type: 'Фича', prio: 'Средний', orig: 'сделай как можно больше настроек стиля досок, тем и выбора цветов для объектов. вставь функционал вдохновившись референсами в том числе.', title: 'Стили досок, темы и цвета', report: R21('Окно «Оформление»: тема, 5 палитр интерфейса, акцентный цвет (свой — любой), скругления, вид и яркость сетки, 9 стилей досок (фон + сетка + цвет стикеров + палитра, по желанию перекрасить доску), свои палитры (вставить hex списком). В каждом выборе цвета — вкладки палитр, цвета доски, недавние, поле #hex, пипетка. Фон доски — точные цвета и любой свой.', '1. ☰ Меню → «Оформление» → «Стиль этой доски» → «Пастель».\n2. Выделите стикер → цвет → вкладка «Пастель».', '') },
+  { id: 'T28-btn', it: '2.8', area: 'cust.ui', status: 'review', type: 'Баг', prio: 'Средний', orig: 'Контент внутри кнопок не центрирован по вертикали особенно когда в жёлтеньком видно', title: 'Подписи в кнопках не по центру', report: R21('Переключатели-сегменты, кнопки слоёв «Объект/Текст» и кнопки во всплывающих окнах выравнивают подпись по центру гибкой раскладкой с ровной высотой строки.', 'Выделите несколько объектов → «Расположить» → посмотрите «Как есть / В строку / В столбец / Сеткой».', '') },
+  { id: 'T28-cur', it: '2.8', area: 'data.rt', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'Нужен курсор пользователя как в Figma', title: 'Курсоры участников как в Figma', report: R21('Курсоры с именем и цветом участника на командной доске. С мгновенным режимом — плавно, 10–15 раз в секунду; без него — через Google Диск раз в ~3 с с плавным переездом.', 'Откройте одну командную доску с двух аккаунтов и подвигайте мышью.', 'На телефоне свой курсор не отправляется (нет мыши).') },
+  { id: 'T28-sync', it: '2.8', area: 'data.sync', status: 'review', type: 'Фича', prio: 'Критично', orig: 'Сделать так, чтобы синхронизация не отваливалась никогда и была не более 2 секунд задержка', title: 'Синхронизация не отваливается, задержка ≤ 2 с', report: R21('Причина «отваливания» — вход Google живёт час. Теперь он продлевается сам при первом щелчке, когда до конца меньше 8 минут (или если уже истёк); на долю секунды мелькнёт окно Google. Командная доска при людях на ней опрашивается каждые 2,5 с, свои правки уходят через 0,4 с. Мгновенный режим (Firebase) даёт доли секунды и сам держит вход без часового лимита.', '1. Оставьте Холст открытым больше часа и щёлкните — синхронизация продолжится.\n2. С двух аккаунтов правьте одну доску.', 'Через один Google Диск меньше ~2 с не выйдет — для этого мгновенный режим.') },
+  { id: 'T28-dots', it: '2.8', area: 'canvas.look', status: 'review', type: 'Улучшение', prio: 'Высокий', orig: 'Слишком контрастно, прозрачность точечек фона доски уменьшить бы значительнее. очень контрастно, прозрачность точечек надо уменьшить, особенно например при таком масштабе', title: 'Тише точки сетки', report: R21('Точки по умолчанию вдвое бледнее и ещё бледнеют при отдалении. Яркость — ползунком, вид — точки, линии или нет (для всех досок или одной).', '☰ Меню → «Оформление» → «Сетка досок». Отдалите доску — точки не рябят.', '') },
+  { id: 'T28-col', it: '2.8', area: 'canvas.look', status: 'review', type: 'Фича', prio: 'Средний', orig: 'хочу чтоб цветов было больше например пастельные чувачки #D9FFE6 #E3F4FF #FFDEDE #D9DCFF #FFF9E3', title: 'Больше цветов, пастельные', report: R21('Пастель (с вашими пятью цветами), Яркие, Земля, Неон, Серые, Тёмные — в каждом выборе цвета объекта; пять пастельных добавлены в цвета стикеров. Фон доски — пастельные и тёмные «точные» цвета, которые не темнеют в тёмной теме, и любой свой.', 'Цвет стикера → «Пастель»; фон доски → «Точные цвета».', '') },
+  { id: 'T28-tasks', it: '2.8', area: 'life.dock', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'задачам стоит выделить больше внимания т.к. одна вот эта кнопка без подписи не вайбик жёсткий. мне кажется, что отлично она впишется в область справа. там можно сделать превью задач, т.е. ближайшие что нужно выполнить глобально и ближайшие что нужно выполнить частно / либо превью задач по приоритетности либо гибкую настройку задач', title: 'Задачи справа от доски', report: R21('Кнопка «☑ Задачи» с числом на сегодня/просроченных открывает список справа: «Ближайшие» (по всему задачнику), «Эта доска», «Мои», «Важные». Галочка — готово, щелчок — открыть, «+ Задача», ⚙ — сколько, горизонт, порядок, статусы. Ярлык «⇄ N» у названия доски теперь подписан.', 'Нажмите «☑ Задачи» вверху справа.', '') },
+  { id: 'A28-ai', it: '2.8', area: 'ai.prov', status: 'review', type: 'Фича', prio: 'Средний', orig: 'Неужели нельзя добавить работу с нейронками не из клод версии? придумай способ чтобы работало откуда угодно гибко', title: 'Нейросети не только в Claude', report: R21('Сделано в 2.7: у каждого аккаунта своя нейросеть — ChatGPT, Qwen, Perplexity или OpenRouter — работает на сайте и в файле, без Claude.', '☰ Меню → «Нейросеть аккаунта».', 'Нужен ключ выбранного сервиса.') },
+  { id: 'A28-acct', it: '2.8', area: 'data.sync', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'подпись какой аккаунт гугла был. в местах синхронизации и прочих местах куда надо заходить через аккаунты - я постоянно забываю через какие я захожу. так что должна быть подсказка при наведении в какой заходилось в прошлый раз.', title: 'Подсказка, каким аккаунтом Google входили', report: R21('Адрес запоминается после входа: виден при наведении на облако, на кнопки «Войти в Google», в окне «Google Диск», в «Источниках» и на плашке блокировки командной доски. Google сам подставляет этот адрес при входе.', 'Наведите на облако вверху справа.', '') },
+  { id: 'A28-block', it: '2.8', area: 'team.space', status: 'review', type: 'Фича', prio: 'Критично', orig: 'в командной работе происходит очень сильный недочет. у нас ведь синхронизация по гугл драйву который отваливается постоянно. так вот человек сидел работал и не видел что у него драйв давно уже отвалился. теперь в командных досках нужно блокировать работу пользователю пока он не включит синхронизацию', title: 'Блокировать командную доску без синхронизации', report: R21('Если вход Google истёк, нет сети, Диск команды не отвечает дольше 30 с или синхронизация выключена — командная доска переходит в «только просмотр» с красной плашкой и кнопкой «Войти в Google» / «Повторить» / «Включить». Двигать и масштабировать можно, править — нет.', 'Выключите синхронизацию командной доски («⋯» у доски) — появится плашка, правка не проходит.', 'Администратор может разрешить работу без связи в окне пространства.') },
+  { id: 'A28-dup', it: '2.8', area: 'data.sync', status: 'review', type: 'Баг', prio: 'Критично', orig: 'я не знаю что происходит но у меня сама по себе дублируется одна страница личная. это стало происходить после того как я завел туду объект. дублируются они так что в дубль попадают ровно на 1 объект меньше. а именно все кроме последнего мной добавленного. а еще я сейчас увидел подпись что доска обновилась с другого устройства, хотя нигде не пользуюсь больше', title: 'Личная доска сама дублируется', report: R21('Главная причина (нашли вы): синхронизация шла в два аккаунта Google. Войдя другим аккаунтом, Холст не видел папку первого, считал её удалённой, заводил вторую и забывал, что уже синхронизировано, — при каждом переключении изменённые доски сохранялись «вашей версией» отдельной доской. Теперь устройство привязано к одному аккаунту, а другой аккаунт останавливает синхронизацию и спрашивает. Вторая причина — две вкладки синхронизировали каждая со своей памятью: теперь синхронизирует одна вкладка за раз. Настоящий конфликт сливается по объектам, а не плодит копию.', 'Откройте Холст в двух вкладках, добавляйте объекты в одной — копий не появляется.', 'Старые копии «(версия с …)» удалите вручную — массовое удаление в панели досок.') },
+  { id: 'A28-bsel', it: '2.8', area: 'ws.boards', status: 'review', type: 'Фича', prio: 'Средний', orig: 'добавь возможность в списке досок выделять несколько и действовать с ними массово. например я хочу удалить.', title: 'Несколько досок сразу', report: R21('В панели досок Ctrl- или Shift-щелчок (на телефоне — долгое нажатие) выделяет доски; внизу панель: «В группу», «Цвет», «Синхронизация», «Удалить» (в корзину, одним подтверждением). Esc снимает выделение.', 'Выделите две доски-копии и удалите.', '') },
+  { id: 'A28-mx', it: '2.8', area: 'org.matrix', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'сделай чтобы в матричных досках при растягивании всей доски контент внутри доски так же растягивался и центрировался так же как он был изначально. чтобы всегда при этом не выходил за пределы своей ячейки.', title: 'Матрица растягивается с содержимым', report: R21('Когда тянете всю матрицу, содержимое каждой ячейки масштабируется пропорционально, сохраняет своё место относительно ячейки и не выходит за её края; размер текста меняется вместе с объектом.', 'Сделайте матрицу со стикерами в ячейках и потяните её угол.', 'Изменение одной колонки или строки по-прежнему только двигает содержимое.') },
+  { id: 'A28-files', it: '2.8', area: 'obj.media', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'файлы на доске должны попадать в папку файлов в источниках синхронизации в исходном виде. ссылка на них автоматически должна генериться как на исходник. внутри параметров объекта', title: 'Исходники файлов на Диске со ссылкой', report: R21('Файлы и теперь картинки (в исходном виде, без сжатия) копируются в «Файлы» источника синхронизации — личного Диска или командного пространства; ссылка на копию сама становится «Исходником» объекта (кнопка «↗ Исходник», ярлык «◭ Диск»).', 'Вставьте картинку файлом, подождите пару секунд — у объекта появится «◭ Диск».', 'Картинки, вставленные до 2.8, хранятся только в сжатом виде.') },
+  { id: 'A28-full', it: '2.8', area: 'plat.win', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'из любого режима отображения панели должно быть возможно развернуть ее на полный экран и свернуть по esc. ну короче ровно так как это с объектами на доске', title: 'Панели во весь экран и обратно по Esc', report: R21('В шапке каждого окна — кнопка ⤢ (или двойной щелчок по названию), из любого режима, в том числе закреплённого слева; Esc возвращает как было. У панели ИИ — тоже.', 'Откройте «Источники синхронизации» → ⤢ → Esc.', '') },
+  { id: 'U28-acct', it: '2.8', area: 'data.sync', status: 'review', type: 'Баг', prio: 'Критично', orig: 'я нашел причину дублирования досок. каким то образом у меня синхронизации хранятся в двух аккаунтах гугла. в какой то момент я случайно зашел по другим аккаунтом и начался их конфликт между собой. во первых учти это в системе и инструкциях. во вторых дай знать как мне сейчас оптимальным образом оставить все только в одном аккаунте (podkindmitrii@gmail.com) не удалив важных вещей. и как отсоединить второй (dmitry-08.91@mail.ru)', title: 'Один аккаунт Google на устройство', report: R21('Устройство запоминает аккаунт синхронизации. Вход другим аккаунтом ставит синхронизацию на паузу (во второй Диск ничего не пишется) и спрашивает: «Войти как прежний», «Перейти на новый» (слияние по объектам, без копий) или «Не синхронизировать». В окне «Google Диск» видно аккаунт устройства и есть «Сменить аккаунт…»; Google сам подставляет нужный адрес при входе. Инструкция по переезду на один аккаунт — в чате, в задаче «Оставить один аккаунт Google» и в «Как установить.txt».', '1. Облако → строка «Синхронизация этого устройства — с аккаунтом …».\n2. «Сменить аккаунт…» → войдите другим → появится окно выбора, во второй Диск ничего не записано.', 'Внутри Claude аккаунт задаёт коннектор Google Диска в настройках Claude.') },
+  { id: 'A28-one', it: '2.8', area: 'data.sync', status: 'action', type: 'Баг', prio: 'Критично', owner: 'Я', title: 'Оставить один аккаунт Google (podkindmitrii@gmail.com)', need: '0. Подстраховка: drive.google.com под каждым аккаунтом → правый щелчок по папке «Холст» → «Скачать».\n1. Выложите 2.8 на сайт.\n2. Компьютер: облако → если устройство на mail.ru — «Синхронизировать сейчас»; если на gmail — «Сменить аккаунт…» → mail.ru → «Перейти на dmitry-08.91@mail.ru». Дождитесь «Сохранено в Google Диске». Пространства, созданные из mail.ru: пригласите gmail «Администратором» и в Диске передайте папку «Холст · …» во владение gmail.\n3. «Сменить аккаунт…» → podkindmitrii@gmail.com → «Перейти на podkindmitrii@gmail.com» → дождитесь синхронизации.\n4. Доски «(версия с …)»: проверьте, перенесите нужное, выделите Ctrl-щелчком → «Удалить».\n5. Телефон и другие устройства: войдите gmail → «Перейти на podkindmitrii@gmail.com».\n6. Отключить mail.ru: Google Cloud → Audience → Test users → удалить dmitry-08.91@mail.ru; myaccount.google.com под mail.ru → Безопасность → подключения к сторонним приложениям → «Холст» → удалить; выйти из mail.ru в браузере. Папку «Холст» в его Диске удалить через 2–4 недели.' },
+  { id: 'A28-chats', it: 'backlog', area: 'life.db', status: 'draft', type: 'Фича', prio: 'Высокий', orig: 'Можешь интегрировать в наш задачник все наши чаты и проекты? каждый чат имеет свою сущность в задачнике. они группируются в проекты задачника. за каждым чатом закреплены артефакты которые тоже сущности задачника. каждый чат по результату работы отправляет отчет. и он должен быть отдельной задачей в задачнике. так я смогу в одном месте контролировать все отчеты и сразу работать удобно во всех проектах.', title: 'Чаты, проекты и отчёты Claude в задачнике', desc: 'План 2.9: навык «Отчёт в Холст» — в конце чата Claude кладёт отчёт, ссылку на чат и артефакты во «Входящие» на Диске; Холст раскладывает их по проектам задачника.' },
+  { id: 'A28-ext', it: 'backlog', area: 'plat.install', status: 'draft', type: 'Фича', prio: 'Высокий', orig: 'создай расширение для браузеров. в первую очередь для chrome vivaldi comet. функция будет похожа на notion web clipper. я смогу добавлять любую страничку из браузера прямо в задачник. с выбором его свойств и с выбором чего именно из странички нужно добавлять и куда. для смартфона это нужно встроить в приложение холста. чтобы на кнопки шеринга внутри любого приложения, была иконка холста и панели деталей добавления. так же в расширении браузера должна быть возможность вытаскивания любых панелей как виджет поверх сайта. в режиме отображения на всем сайте и на отдельной страничке. виджет должно быть удобно двигать и растягивать как угодно. должна быть переключалка между режимом контента который строго закреплен за данной ссылкой или режим где свободная форма и весь задачник целиком.', title: 'Расширение браузера, «Поделиться» на телефоне, виджеты', desc: 'План 2.9: расширение для Chromium (Chrome, Vivaldi, Comet), кнопка «Поделиться» в установленном приложении на Android, виджеты панелей поверх сайтов.' },
+  { id: 'A28-fb', it: '2.8', area: 'data.rt', status: 'action', type: 'Фича', prio: 'Высокий', owner: 'Я', title: 'Настроить мгновенный режим (Firebase)', need: '1. Холст на сайте → «Все доски» → ⚙ у пространства агентства → блок «⚡ Мгновенный режим» → «Как настроить Firebase».\n2. Пройдите 7 шагов (около 10 минут): проект Firebase в том же проекте Google Cloud, вход через Google, домен podkindmitry.github.io, Realtime Database, правила из Холста.\n3. Вставьте Web API Key и адрес базы → «Проверить и включить».\n4. Откройте командную доску с двух аккаунтов: правки и курсоры — сразу, у пространства значок ⚡.' },
+  { id: 'A28-site', it: '2.8', area: 'plat.rel', status: 'action', type: 'Документация', prio: 'Высокий', owner: 'Я', title: 'Выложить 2.8 на сайт', need: '1. Скачайте holst-app.zip из чата.\n2. На GitHub в репозитории holst замените index.html и sw.js файлами из архива (как в прошлый раз).\n3. Откройте сайт, обновите страницу дважды — внизу меню должна быть версия 2.8.\n4. Удалите старые доски-копии «(версия с …)»: в панели досок Ctrl-щелчок по ним → «Удалить».' },
 ];
 
 /* =========================================================
@@ -7463,13 +7633,13 @@ function mxLayout(F, list) {
   if (!Array.isArray(M.cols) || !M.cols.length || !Array.isArray(M.rows) || !M.rows.length) { delete F.mx; return; }
   const dr = S.drag, moving = dr && dr.type === 'move' && dr.list ? new Set(dr.list.map(m => m.it.id)) : null;
   const cells = list.filter(i => i.cell && i.cell.m === F.id);
-  let G = mxGeom(F);
+  let G = mxGeom(F), mxScaled = false;
   if (M.W && M.H && !(moving && moving.has(F.id))) {
     const sw = M.cols.reduce((a, c) => a + c.w, 0), sh = M.rows.reduce((a, r) => a + r.h, 0), fixW = G.W - sw, fixH = G.H - sh;
     let ch = false;
     if (Math.abs(F.w - M.W) > 0.5) { const k = Math.max(0.02, (F.w - fixW) / Math.max(1, sw)); M.cols.forEach(c => { c.w = Math.max(60, r1(c.w * k)); }); ch = true; }
     if (Math.abs(F.h - M.H) > 0.5) { const k = Math.max(0.02, (F.h - fixH) / Math.max(1, sh)); M.rows.forEach(r => { r.h = Math.max(50, r1(r.h * k)); }); ch = true; }
-    if (ch) G = mxGeom(F);
+    if (ch) { G = mxGeom(F); mxScaled = true; }
   }
   const dw = new Map(), dh = new Map();
   for (const c of cells) {
@@ -7485,7 +7655,8 @@ function mxLayout(F, list) {
     if (moving && moving.has(c.id)) continue;
     const r = G.rect(c); if (!r) continue;
     const dx = r.x - c.x, dy = r.y - c.y;
-    if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) moves.push([dx, dy, MX_FRESH.has(c) ? [c] : withFrameContents([c]).filter(x => x === c || !(x.cell && x.cell.m === F.id))]);
+    if (mxScaled && !MX_FRESH.has(c) && (Math.abs(r.w - c.w) > 0.5 || Math.abs(r.h - c.h) > 0.5)) mxScaleIn(c, F, r);
+    else if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) moves.push([dx, dy, MX_FRESH.has(c) ? [c] : withFrameContents([c]).filter(x => x === c || !(x.cell && x.cell.m === F.id))]);
     c.w = r1(r.w); c.h = r1(r.h); MX_FRESH.delete(c); MX_LAST.set(c, { w: c.w, h: c.h });
   }
   for (const [dx, dy, l] of moves) mxShift(l, dx, dy);
@@ -8084,7 +8255,7 @@ function renderBoards() {
   const chip = b => `<button class="bp-chip${b.id === now ? ' cur' : ''}" data-open="${b.id}"><span class="bp-dot" style="--c:${bmOf(b.id).col || bmOf(b.id).bg || '#c9cdd6'}"></span>${esc(b.name)}</button>`;
   const fav = boards.filter(b => bmOf(b.id).fav && match(b)), rec = boards.filter(match).slice(0, 6);
   $('#bpStrips').innerHTML = (fav.length ? `<div class="bp-strip"><b>★ Избранное</b>${fav.map(chip).join('')}</div>` : '') + `<div class="bp-strip"><b>Недавние</b>${rec.map(chip).join('') || '<span class="sub">Ничего не найдено</span>'}</div>`;
-  const row = b => { const m = bmOf(b.id); return `<div class="bp-b${b.id === now ? ' cur' : ''}" draggable="true" data-bid="${b.id}"><span class="bp-dot" style="--c:${m.col || m.bg || '#c9cdd6'}"></span><div class="bp-bi"><div class="bp-bn">${esc(b.name)}</div><div class="bp-bm">${b.count || 0} ${plural(b.count || 0, 'объект', 'объекта', 'объектов')} · ${esc(fmtDate(b.updatedAt))}</div></div><button class="bp-star${m.fav ? ' on' : ''}" data-star="${b.id}" title="${m.fav ? 'Убрать из избранного' : 'В избранное'}">${m.fav ? '★' : '☆'}</button><button class="bp-more" data-bmore="${b.id}" title="Ещё">⋯</button></div>`; };
+  const row = b => { const m = bmOf(b.id); return `<div class="bp-b${b.id === now ? ' cur' : ''}" draggable="true" data-bid="${b.id}"><span class="bp-dot" style="--c:${m.col || String(m.bg || '').replace(/^x:/, '') || '#c9cdd6'}"></span><div class="bp-bi"><div class="bp-bn">${esc(b.name)}</div><div class="bp-bm">${b.count || 0} ${plural(b.count || 0, 'объект', 'объекта', 'объектов')} · ${esc(fmtDate(b.updatedAt))}</div></div><button class="bp-star${m.fav ? ' on' : ''}" data-star="${b.id}" title="${m.fav ? 'Убрать из избранного' : 'В избранное'}">${m.fav ? '★' : '☆'}</button><button class="bp-more" data-bmore="${b.id}" title="Ещё">⋯</button></div>`; };
   const inG = id => sortB(boards.filter(b => gid(b) === id && match(b)));
   const kids = id => groups.filter(g => (g.parent || '') === (id || '')).sort((a, b) => (a.order || 0) - (b.order || 0));
   const count = id => { let n = inG(id).length; for (const k of kids(id)) n += count(k.id); return n; };
@@ -8422,7 +8593,7 @@ function applyBoardBg() {
   const m = bgEff(S.board.id), dark = document.documentElement.dataset.theme === 'dark';
   let bg = m.bg || '', base = '', grad = '';
   if (/^g:/.test(bg)) { const [c1, c2] = bg.slice(2).split(','); const a = dark ? darkOf(c1) : c1, b = dark ? darkOf(c2) : c2; base = a; grad = `linear-gradient(135deg,${a},${b})`; }
-  else if (bg) base = dark ? darkOf(bg) : bg;
+  else if (bg) base = /^x:#/.test(bg) ? bg.slice(2) : dark ? darkOf(bg) : bg;
   const ref = base || (dark ? '#111216' : '#f4f5f7'), lum = lumOf(ref);
   vp.style.backgroundColor = base;
   vp.style.setProperty('--dot', base ? mixHex(ref, lum > 0.5 ? '#1c1d21' : '#ffffff', lum > 0.5 ? 0.22 : 0.2) : '');
@@ -10566,7 +10737,7 @@ function bsRender(reveal) {
   const T = bsTree(), col = bsCol(), q = (S.bsq || '').trim().toLowerCase(), now = S.board && S.board.id;
   if (reveal && now) { let g = T.groups.find(x => x.id === T.gid({ id: now })), ch = false, n = 0; while (g && n++ < 40) { if (col.delete(g.id)) ch = true; g = T.groups.find(x => x.id === g.parent); } if (ch) bsSaveCol(col); }
   const hl = s => { const t = esc(s); if (!q) return t; const i = s.toLowerCase().indexOf(q); return i < 0 ? t : esc(s.slice(0, i)) + '<mark>' + esc(s.slice(i, i + q.length)) + '</mark>' + esc(s.slice(i + q.length)); };
-  const brow = (b, d, path) => { const m = bmOf(b.id); return `<div class="bs-b${b.id === now ? ' cur' : ''}" data-bid="${b.id}" draggable="true" tabindex="0" style="--d:${d}"><span class="bp-dot" style="--c:${m.col || m.bg || '#c9cdd6'}"></span><span class="bs-n">${hl(b.name || 'Без названия')}${path ? `<small>${esc(path)}</small>` : ''}</span><i class="bs-c">${b.count || ''}</i><button class="bs-a${m.fav ? ' on' : ''}" data-star="${b.id}" title="${m.fav ? 'Убрать из избранного' : 'В избранное'}">${m.fav ? '★' : '☆'}</button><button class="bs-a" data-bmore="${b.id}" title="Переименовать, цвет, группа, удалить">⋯</button></div>`; };
+  const brow = (b, d, path) => { const m = bmOf(b.id); return `<div class="bs-b${b.id === now ? ' cur' : ''}" data-bid="${b.id}" draggable="true" tabindex="0" style="--d:${d}"><span class="bp-dot" style="--c:${m.col || String(m.bg || '').replace(/^x:/, '') || '#c9cdd6'}"></span><span class="bs-n">${hl(b.name || 'Без названия')}${path ? `<small>${esc(path)}</small>` : ''}</span><i class="bs-c">${b.count || ''}</i><button class="bs-a${m.fav ? ' on' : ''}" data-star="${b.id}" title="${m.fav ? 'Убрать из избранного' : 'В избранное'}">${m.fav ? '★' : '☆'}</button><button class="bs-a" data-bmore="${b.id}" title="Переименовать, цвет, группа, удалить">⋯</button></div>`; };
   const count = id => T.inG(id).length + T.kids(id).reduce((s, k) => s + count(k.id), 0);
   const grow = (g, d) => `<div class="bs-g${col.has(g.id) ? ' closed' : ''}" data-gid="${g.id}" draggable="true" tabindex="0" style="--d:${d};--c:${g.color || '#8a90a0'}"><button class="bs-t" data-gt="${g.id}" title="Свернуть или развернуть">${col.has(g.id) ? '▸' : '▾'}</button><span class="bp-dot" style="--c:${g.color || '#8a90a0'}"></span><span class="bs-n">${hl(g.name)}</span><i class="bs-c">${count(g.id)}</i><button class="bs-a" data-newin="${g.id}" title="Новая доска в эту группу">+</button><button class="bs-a" data-gmore="${g.id}" title="Переименовать, цвет, подгруппа, удалить">⋯</button></div>`;
   let h = '';
@@ -14747,7 +14918,7 @@ async function gtPushBoards() {
       const st = gtSt(id), f = st.b[bid] || (st.b[bid] = {}), by = gtByName(await GTX.list(id));
       st.names = Object.fromEntries(Object.entries(by).map(([n, x]) => [n, { id: x.id, mt: x.mt }]));
       const cur = Object.values(by).find(x => { const m = GT_BOARD_RE.exec(x.name); return m && m[1] === bid; });
-      if (cur && f.mt && cur.mt !== f.mt) {
+      if (cur && f.mt && cur.mt !== f.mt && !syForceLocal(bid)) {
         const j = JSON.parse(await GTX.read(cur.id)), jb = j.board || {};
         for (const aid of j.assets || []) if (b.assets[aid] == null && st.names['asset-' + aid + '.txt']) { try { b.assets[aid] = await GTX.read(st.names['asset-' + aid + '.txt'].id); } catch (e) { /* later */ } }
         const merged = gtMergeItems(b, { items: jb.items || [], iu: jb.iu, tomb: jb.tomb });
@@ -14968,7 +15139,7 @@ async function gtOpen(id) {
       ${admin ? `<h3>Пригласить</h3><div class="gt-inv"><input class="inp" data-gi="email" placeholder="адрес Google: name@gmail.com" autocomplete="off"><select class="inp sm" data-gi="role">${Object.entries(GT_ROLES).filter(([k]) => k !== 'owner').map(([k, [l]]) => `<option value="${k}"${k === 'member' ? ' selected' : ''}>${l}</option>`).join('')}</select><button class="btn" data-gm="invite">Пригласить</button></div>
         <p class="sub">Google Диск сам пришлёт письмо с доступом к папке и ссылкой на Холст. Ссылка-приглашение: <button class="ob sm" data-gm="copy">Скопировать</button></p>
         ${Drive.mode === 'rest' ? `<details class="clipf"><summary>Если участник видит «Приложение не проверено» или «Доступ заблокирован»</summary><div class="note"><p>Вход в Холст идёт через ваш проект Google Cloud (тот, где вы создавали Client ID для Диска).</p><ol class="steps"><li>Откройте <a href="https://console.cloud.google.com/apis/credentials/consent" target="_blank" rel="noopener">Google Cloud → OAuth consent screen</a>.</li><li>Раздел «Test users» → «Add users» → впишите адреса участников (до 100) — или нажмите «Publish app».</li><li>Участник снова открывает ссылку-приглашение и входит.</li></ol></div></details>` : ''}` : ''}
-      ${gtHowHTML(admin, mem.length < 2)}<h3>Как устроено</h3><div class="note gt-how"><p><b>Где лежит:</b> всё пространство — одна папка на Google Диске владельца: доски, задачи, присутствие и время каждого участника. Доступ к папке = доступ к пространству.</p><p><b>Кто что видит:</b> задачи пространства видны всем участникам во всех трёх режимах задачника; у каждого — «Мои задачи» по исполнителю. Личные доски и Life OS каждого остаются личными.</p><p><b>Одновременная работа:</b> изменения доходят за 20 секунд; разные объекты и задачи не мешают друг другу, при правке одного и того же побеждает более поздняя.</p><p><b>Без интернета:</b> работаете с копией на устройстве, при подключении всё сольётся.</p></div>
+      ${rtSpaceHTML(id, admin)}${gtHowHTML(admin, mem.length < 2)}<h3>Как устроено</h3><div class="note gt-how"><p><b>Где лежит:</b> всё пространство — одна папка на Google Диске владельца: доски, задачи, присутствие и время каждого участника. Доступ к папке = доступ к пространству.</p><p><b>Кто что видит:</b> задачи пространства видны всем участникам во всех трёх режимах задачника; у каждого — «Мои задачи» по исполнителю. Личные доски и Life OS каждого остаются личными.</p><p><b>Одновременная работа:</b> изменения доходят за 20 секунд; разные объекты и задачи не мешают друг другу, при правке одного и того же побеждает более поздняя.</p><p><b>Без интернета:</b> работаете с копией на устройстве, при подключении всё сольётся.</p></div>
       <div class="btnrow">${admin ? `<button class="ob" data-gm="rename">Переименовать</button>` : ''}<button class="ob" data-gm="sync">Обновить сейчас</button><button class="ob danger" data-gm="leave">Покинуть пространство</button></div>`;
   };
   d.addEventListener('change', async e => { const s = e.target.closest('[data-gr]'); if (!s) return; const data = clone(GT.data[id] || {}); const m = (data.members || {})[s.dataset.gr]; if (!m) return; m.role = s.value; try { await gtWriteSpace(id, data); toast('Роль изменена'); } catch (er) { toast('Не сохранилось'); } draw(); });
@@ -16745,7 +16916,7 @@ const GT_TEST_USERS = 'https://console.cloud.google.com/apis/credentials/consent
 function gtHowSteps(admin) {
   const site = 'podkindmitry.github.io/holst';
   const own = [
-    'Откройте Холст <b>на сайте</b> (' + site + ') и войдите в Google. Командные пространства работают только на сайте, с интернетом.',
+    'Откройте Холст <b>на сайте</b> (' + site + ') и войдите в Google — всегда одним и тем же аккаунтом: другой аккаунт означает другую папку «Холст». Командные пространства работают только на сайте, с интернетом.',
     '«Все доски» слева → «👥 Командные пространства» → <b>«+»</b> → название и заготовка → «Создать». На вашем Google Диске появится папка пространства.',
     'В окне пространства (<b>⚙</b> у его названия) — блок «Пригласить»: адрес Google человека, роль → <b>«Пригласить»</b>. Google Диск сам пришлёт ему письмо с доступом к папке и ссылкой на Холст.',
     'Пока приложение Google в тестовом режиме, добавьте адрес в <a href="' + GT_TEST_USERS + '" target="_blank" rel="noopener">Google Cloud → OAuth consent screen (Audience) → Test users</a> (до 100 человек) — иначе при входе будет «Приложение не проверено» или «Доступ заблокирован». Или нажмите там «Publish app».',
@@ -16796,6 +16967,1032 @@ Object.assign(TOURS, {
   ] },
 });
 Object.assign(FEAT_TOUR, { f27_lay: 'sel27', f27_frame: 'sel27', f27_ge: 'sel27', f27_rel: 'rel27' });
+
+/* =========================================================
+   v2.8: sync control. Every source can be cut off — one board, the whole
+   personal space, a team space, the folder on the computer, the instant mode —
+   and turned back on by a chosen rule. Team boards stop (view only) while
+   their sync is down. The Google sign-in renews itself before the hour runs
+   out. One tab syncs at a time, so a board no longer splits into copies.
+   ========================================================= */
+const SY_POL = {
+  merge: ['Слить по объектам', 'Правки с обеих сторон объединяются. Если один объект меняли и тут, и там, побеждает более поздняя версия доски.'],
+  local: ['Доска главная', 'Источник получит ровно то, что сейчас на доске. Его правки за паузу отбросятся (в истории версий Диска они останутся).'],
+  remote: ['Источник главный', 'Доска примет версию источника. Ваши правки за паузу сохранятся отдельной доской-копией.'],
+  copy: ['Обе версии', 'Если версии разошлись, ваша станет отдельной доской, основная примет версию источника.'],
+  ask: ['Спросить при включении', 'При включении покажу, что изменилось с каждой стороны, и вы выберете.'],
+};
+const SY_DIR = { both: ['⇅ Обмен', 'Отправлять свои правки и получать чужие'], pull: ['↓ Только получать', 'Свои правки остаются на этом устройстве, чужие приходят'], push: ['↑ Только отправлять', 'Источник получает ваши правки, чужие сюда не приходят'] };
+const SY = Object.assign({ off: {}, dir: {}, pol: {}, conflict: 'merge' }, LS.get('sy28') || {});
+const sySave = () => LS.set('sy28', { off: SY.off, dir: SY.dir, pol: SY.pol, conflict: SY.conflict });
+const syOff = k => !!SY.off[k];
+const sySpaceOf = bid => (typeof gtSpaceOf === 'function' ? gtSpaceOf(bid) : '') || '';
+function syBoardOff(bid) { const sp = sySpaceOf(bid); return !!(SY.off['b:' + bid] || (sp ? SY.off['gt:' + sp] : SY.off.drive)); }
+const syDirOf = bid => SY.dir['b:' + bid] || SY.dir.drive || 'both';
+const syPolOf = k => SY.pol[k] || SY.pol.def || 'merge';
+const syKeyName = k => k === 'drive' ? 'Личное пространство · Google Диск' : k === 'pc' ? 'Папка на компьютере' : k.startsWith('gt:') ? 'Пространство «' + gtName(k.slice(3)) + '»' : k.startsWith('rt:') ? 'Мгновенный режим «' + gtName(k.slice(3)) + '»' : k.startsWith('b:') ? 'Доска «' + ((S.index.find(x => x.id === k.slice(2)) || {}).name || 'доска') + '»' : k;
+
+/* ---------- merging two versions of a board, object by object ---------- */
+function syMerge(local, remote, base, localNewer) {
+  const L = new Map(local.map(i => [i.id, i])), R = new Map(remote.map(i => [i.id, i])), out = [], seen = new Set();
+  const B = base ? new Map(base.map(i => [i.id, JSON.stringify(i)])) : null;
+  const pick = (l, r) => {
+    if (l && r) { const ls = JSON.stringify(l), rs = JSON.stringify(r); if (ls === rs) return l; if (B) { const b = B.get(l.id); if (b === ls) return r; if (b === rs) return l; } return localNewer ? l : r; }
+    const x = l || r, b = B && B.get(x.id); return b && b === JSON.stringify(x) ? null : x;
+  };
+  for (const l of local) { const r = R.get(l.id), w = pick(l, r); seen.add(l.id); if (w) out.push(w); }
+  for (const r of remote) { if (seen.has(r.id)) continue; const w = pick(null, r); if (w) out.push(w); }
+  return out;
+}
+/* the version both sides started from: the Drive revision we synced last */
+async function syDriveBase(m) {
+  if (Drive.mode !== 'rest' || !m || !m.rev) return null;
+  const [fid, mt] = [m.rev.slice(0, m.rev.indexOf('@')), m.rev.slice(m.rev.indexOf('@') + 1)];
+  try {
+    const r = await Drive.rest('GET', `files/${fid}/revisions?fields=revisions(id,modifiedTime)&pageSize=200`);
+    const v = (r.revisions || []).find(x => x.modifiedTime === mt); if (!v) return null;
+    const x = await fetch(GAPI + `files/${fid}/revisions/${v.id}?alt=media`, { headers: { Authorization: 'Bearer ' + Drive.token } });
+    if (!x.ok) return null; const j = await x.json(); return ((j && j.board) || j || {}).items || null;
+  } catch (e) { return null; }
+}
+async function syApplyItems(bid, items, name) {
+  const b = await Backend.loadBoard(bid).catch(() => null); if (!b) return null;
+  b.items = items; b.updatedAt = Date.now(); normalizeBoard(b, false);
+  if (S.board && S.board.id === bid) { pushHist(); S.board.items = b.items; S.sel = new Set([...S.sel].filter(id => byId(id))); render(); }
+  await Backend.saveBoardRaw(b); return b;
+}
+async function syCopyOf(lb, label) {
+  const c = clone(lb); c.id = 'b' + uid(); delete c.welcome; delete c.space; delete c.team;
+  c.name = `${lb.name} (${label}, ${fmtDate(Date.now())})`; c.createdAt = c.updatedAt = Date.now();
+  await Backend.saveBoardRaw(c); upsertIndex(c); return c;
+}
+/* a real conflict in the personal Drive: both sides changed the same board */
+async function syOnConflict(D, lb, f, data) {
+  const pol = SY.pol['b:' + lb.id] || SY.conflict || 'merge';
+  if (pol === 'copy') return D.conflict(lb, f, data);
+  const src = (data && data.board) || data || {}, m = D.st.meta[lb.id];
+  if (pol === 'remote') { if (boardHash(lb) !== boardHash(normalizeBoard({ name: src.name, items: clone(src.items || []) }, false))) await syCopyOf(lb, 'моя версия'); return D.pull(f, true, data); }
+  if (pol === 'local') { D.st.meta[lb.id] = Object.assign({}, m, { fileId: f.id, rev: f.rev, hash: 'x' }); return; }
+  const base = await syDriveBase(m), merged = syMerge(lb.items || [], src.items || [], base, (lb.updatedAt || 0) >= (src.updatedAt || 0));
+  await syApplyItems(lb.id, merged);
+  D.st.meta[lb.id] = Object.assign({}, m, { fileId: f.id, rev: f.rev, hash: 'x' });
+  toast(`«${lb.name}» меняли в двух местах — правки слиты по объектам${base ? '' : ' (без общей версии: всё, что было с обеих сторон, осталось)'}`);
+}
+
+/* ---------- gates in the personal Drive sync ---------- */
+{ const o = Drive.sync; Drive.sync = async function (gesture) {
+  if (syOff('drive')) { if (this.state !== 'paused') this.setState('paused', 'Выключено вами — включается в «Источниках синхронизации»'); return; }
+  if (this.state === 'paused') { this.state = 'ok'; this.note = ''; }
+  if (navigator.locks && !this._inLock) {
+    /* one tab at a time, each with the state the other tabs left */
+    return navigator.locks.request('holst-drive-sync', async () => {
+      this._inLock = 1;
+      try { if (!this.running) { const st = await this.loadState(); if (st) { Object.assign(this.st, st); this.st.meta = this.st.meta || {}; this.st.assetMap = this.st.assetMap || {}; this.st.deleted = this.st.deleted || []; this.st.bidOf = this.st.bidOf || {}; } } return await o.call(this, gesture); }
+      finally { this._inLock = 0; }
+    });
+  }
+  return o.call(this, gesture);
+}; }
+{ const o = Backup.run; Backup.run = async function (...a) { if (syOff('pc')) return; return o.apply(this, a); }; }
+
+/* ---------- turning a source back on ---------- */
+async function syReconcileDrive(bids, pol) {
+  if (!Drive.active() || !Drive.ready()) { Drive.sync(true); return; }
+  for (let i = 0; i < 40 && Drive.running; i++) await new Promise(r => setTimeout(r, 250));
+  let remote; try { await Drive.ensureRoot(); remote = await Drive.remoteBoards(); } catch (e) { toast('Диск не ответил: включу, как появится связь'); return; }
+  let n = 0;
+  for (const e of S.index.filter(x => !x.space && (!bids || bids.includes(x.id)))) {
+    const f = remote.get(e.id), m = Drive.st.meta[e.id]; if (!f || !m) continue;
+    const lb = await Backend.loadBoard(e.id).catch(() => null); if (!lb) continue;
+    if (m.rev === f.rev || boardHash(lb) === m.hash) continue; /* one side only: the usual sync handles it */
+    const data = await Drive.fetchJSON(f.id).catch(() => null); if (!data) continue;
+    if (pol === 'copy') await Drive.conflict(lb, f, data);
+    else { const keep = SY.pol['b:' + e.id]; SY.pol['b:' + e.id] = pol; try { await syOnConflict(Drive, lb, f, data); } finally { if (keep) SY.pol['b:' + e.id] = keep; else delete SY.pol['b:' + e.id]; } }
+    n++;
+  }
+  await Drive.persist(); Drive.sync(true);
+  if (n) toast(`Разошедшихся досок: ${n} — применено «${SY_POL[pol][0]}»`);
+}
+async function syReconcileTeam(sp, bids, pol) {
+  const open = S.board && S.board.space === sp ? S.board.id : null;
+  for (const bid of bids || S.index.filter(x => x.space === sp).map(x => x.id)) {
+    if (pol === 'local') { (SY.force || (SY.force = new Set())).add(bid); GT.dirtyB.set(bid, sp); continue; }
+    if (pol === 'merge') { GT.dirtyB.set(bid, sp); continue; }
+    let rb = null; try { rb = await gtFetchBoard(sp, bid); } catch (e) { rb = null; }
+    if (!rb) continue;
+    const lb = bid === open ? S.board : await Store.get('gtb:' + bid).catch(() => null);
+    if (lb && JSON.stringify(lb.items) !== JSON.stringify(rb.items)) await syCopyOf(lb, 'моя версия');
+    if (bid === open) { pushHist(); S.board.items = rb.items; teamBaseSet(rb.items); render(); }
+    Store.set('gtb:' + bid, rb).catch(() => {}); GT.dirtyB.delete(bid);
+  }
+  gtSyncSpace(sp); if (GT.dirtyB.size) gtPushBoards();
+}
+/* what changed on each side while paused (for «ask») */
+async function syDiffSummary(k) {
+  const bids = k === 'drive' ? S.index.filter(x => !x.space).map(x => x.id) : k.startsWith('b:') ? [k.slice(2)] : S.index.filter(x => x.space === k.slice(3)).map(x => x.id);
+  let here = 0, there = 0;
+  if (!k.startsWith('gt:') && !(k.startsWith('b:') && sySpaceOf(k.slice(2)))) {
+    let remote = new Map(); try { remote = await Drive.remoteBoards(); } catch (e) { /* offline */ }
+    for (const bid of bids) { const m = Drive.st.meta[bid], f = remote.get(bid), lb = await Backend.loadBoard(bid).catch(() => null); if (lb && m && boardHash(lb) !== m.hash) here++; if (f && m && f.rev !== m.rev) there++; }
+  } else { const sp = k.startsWith('gt:') ? k.slice(3) : sySpaceOf(k.slice(2)), st = gtSt(sp); for (const bid of bids) { const f = st.b[bid] || {}; if (f.rmt && f.mt && f.rmt !== f.mt) there++; if (SY.pend && SY.pend.has(bid)) here++; } }
+  return { here, there, n: bids.length };
+}
+async function syResume(k, pol) {
+  pol = pol || syPolOf(k);
+  if (pol === 'ask') return syAskDlg(k);
+  delete SY.off[k]; sySave();
+  if (k === 'pc') { Backup.touched && Backup.touched(300); }
+  else if (k.startsWith('rt:')) { if (typeof rtSync === 'function') rtSync(); }
+  else if (k.startsWith('gt:')) await syReconcileTeam(k.slice(3), null, pol);
+  else if (k.startsWith('b:') && sySpaceOf(k.slice(2))) await syReconcileTeam(sySpaceOf(k.slice(2)), [k.slice(2)], pol);
+  else if (!syOff('drive')) await syReconcileDrive(k === 'drive' ? null : [k.slice(2)], pol);
+  if (SY.pend) for (const bid of [...SY.pend]) if (!syBoardOff(bid)) SY.pend.delete(bid);
+  syRefresh(); toast(syKeyName(k) + ': синхронизация включена');
+}
+function syPause(k) { SY.off[k] = Date.now(); sySave(); if (k === 'drive') Drive.setState('paused', 'Выключено вами — включается в «Источниках синхронизации»'); if (k.startsWith('rt:') && typeof rtSync === 'function') rtSync(); syRefresh(); toast(syKeyName(k) + ': синхронизация выключена'); }
+function syToggle(k, ask) { if (syOff(k)) return ask ? syAskDlg(k, true) : syResume(k); return syPause(k); }
+function syAskDlg(k, choose) {
+  const d = xdlg('Включить: ' + syKeyName(k), `<div class="p24 sy28"><p class="sub sy-sum">Смотрю, что изменилось…</p>
+    <div class="sy-pols">${Object.entries(SY_POL).filter(([p]) => p !== 'ask').map(([p, [l, t]]) => `<button class="sy-pol${p === (syPolOf(k) === 'ask' ? 'merge' : syPolOf(k)) ? ' on' : ''}" data-syp="${p}"><b>${l}</b><small>${t}</small></button>`).join('')}</div>
+    <label class="l27ck"><input type="checkbox" data-syrem> Запомнить для этого источника</label>
+    <div class="btnrow"><button class="btn" data-sygo="1">Включить</button><button class="ob" data-x="close">Отмена</button></div></div>`);
+  syDiffSummary(k).then(s => { const e = d.querySelector('.sy-sum'); if (e) e.textContent = `Пока синхронизация была выключена: изменилось здесь — ${s.here}, в источнике — ${s.there} (из ${s.n} ${plural(s.n, 'доски', 'досок', 'досок')}).`; }).catch(() => {});
+  let pick = syPolOf(k) === 'ask' ? 'merge' : syPolOf(k);
+  d.addEventListener('click', e => {
+    const p = e.target.closest('[data-syp]'); if (p) { pick = p.dataset.syp; d.querySelectorAll('[data-syp]').forEach(x => x.classList.toggle('on', x === p)); return; }
+    if (e.target.closest('[data-x="close"]')) { closeXdlg(); return; }
+    if (e.target.closest('[data-sygo]')) { if (d.querySelector('[data-syrem]').checked) { SY.pol[k] = pick; sySave(); } closeXdlg(); syResume(k, pick); }
+  });
+}
+
+/* ---------- team: pause gates ---------- */
+{ const o = gtSyncSpace; gtSyncSpace = async id => { if (syOff('gt:' + id)) return; return o(id); }; }
+{ const o = gtPullOpen; gtPullOpen = async (id, bid) => { if (syBoardOff(bid)) return; return o(id, bid); }; }
+{ const o = gtSaveBoard; gtSaveBoard = async b => {
+  const bid = b && b.id, off = bid && syBoardOff(bid);
+  if (!off) { const r = await o(b); if (gtOthersHere(b.space || sySpaceOf(bid))) { clearTimeout(GT.bt); GT.bt = setTimeout(gtPushBoards, 400); } return r; }
+  b.team = 'gt'; if (!b.space) b.space = sySpaceOf(bid); try { await Store.set('gtb:' + bid, b); } catch (e) { /* memory */ } upsertIndex(b);
+  (SY.pend || (SY.pend = new Set())).add(bid);
+}; }
+{ const o = gtPushBoards; gtPushBoards = async () => {
+  if (GT.pushing) { GT.pushAgain = 1; return; }
+  for (const [bid] of [...GT.dirtyB]) if (syBoardOff(bid)) { GT.dirtyB.delete(bid); (SY.pend || (SY.pend = new Set())).add(bid); }
+  GT.pushing = 1; try { return await o(); } finally { GT.pushing = 0; if (SY.force) SY.force.clear(); if (GT.pushAgain) { GT.pushAgain = 0; clearTimeout(GT.bt); GT.bt = setTimeout(gtPushBoards, 300); } }
+}; }
+const syForceLocal = bid => !!(SY.force && SY.force.has(bid));
+{ const o = gtLoadBoard; gtLoadBoard = async bid => { if (syBoardOff(bid)) { const b = await Store.get('gtb:' + bid).catch(() => null); if (b) { b.space = sySpaceOf(bid); b.team = 'gt'; return b; } } return o(bid); }; }
+{ const o = gtPresence; gtPresence = async id => { if (syOff('gt:' + id)) return; return o(id); }; }
+
+/* ---------- team: faster when others are on the same board ---------- */
+function gtOthersHere(sp) {
+  if (!sp || !S.board) return false; const P = GT.ppl[sp]; if (!P) return false; const me = gtMeEmail();
+  return Object.values(P.pres || {}).some(p => p.email !== me && p.board && p.board.id === S.board.id && Date.now() - p.at < 180000);
+}
+GT.fastAt = {}; GT.presFast = {};
+async function syFastTick() {
+  if (document.visibilityState !== 'visible' || !S.board || !S.board.space) return;
+  const sp = S.board.space; if (syOff('gt:' + sp) || !Drive.ready()) return;
+  const rtLive = typeof RT !== 'undefined' && RT.live && RT.bid === S.board.id, others = gtOthersHere(sp);
+  const every = rtLive ? 10000 : others ? 2500 : 20000, now = Date.now();
+  if (now - (GT.fastAt[sp] || 0) >= every) { GT.fastAt[sp] = now; gtSyncSpace(sp).catch(() => {}); }
+  /* presence (with the cursor when there is no instant mode) and the others' presence */
+  const pe = others && !rtLive ? 3000 : 30000;
+  if (now - (GT.presFast[sp] || 0) >= pe) { GT.presFast[sp] = now; gtPresence(sp).catch(() => {}); gtPeople(sp, true).then(() => { if (typeof curDrive === 'function') curDrive(sp); }).catch(() => {}); }
+}
+
+/* ---------- team: no work while the sync is down ---------- */
+GT.errAt = {};
+function syBlockWhy(sp) {
+  if (!sp) return '';
+  if (syBoardOff(S.board.id)) return 'off';
+  if (!navigator.onLine) return 'offline';
+  if (!Drive.ready()) return 'auth';
+  if (GT.err[sp]) { GT.errAt[sp] = GT.errAt[sp] || Date.now(); if (Date.now() - GT.errAt[sp] > 30000) return 'err'; } else GT.errAt[sp] = 0;
+  return '';
+}
+function syBlockCheck() {
+  const sp = S.board && S.board.space, set = ((GT.data[sp] || {}).settings || {});
+  const why = sp && gtCan(sp, 'write') && set.offline !== 1 ? syBlockWhy(sp) : '';
+  document.body.classList.toggle('sy-ro', !!why);
+  let el = $('#syblock');
+  if (!why) { if (el) el.hidden = true; return; }
+  if (!el) { el = document.createElement('div'); el.id = 'syblock'; el.dataset.app = ''; document.body.appendChild(el); el.addEventListener('click', e => { const b = e.target.closest('[data-syb]'); if (!b) return; const a = b.dataset.syb; if (a === 'login') Drive.connect(); else if (a === 'on') syToggle(syOff('b:' + S.board.id) ? 'b:' + S.board.id : 'gt:' + S.board.space, true); else if (a === 'retry') { GT.err[S.board.space] = ''; GT.errAt[S.board.space] = 0; gtSyncSpace(S.board.space); setTimeout(syBlockCheck, 1500); } else if (a === 'src') syDlg(); }); }
+  const acct = (LS.get('gacct') || {}).email;
+  const T = { off: ['Синхронизация этой доски выключена', 'Пока она выключена, командная доска только для просмотра — чтобы ваши правки не разошлись с командой.', '<button class="btn sm" data-syb="on">Включить…</button>'],
+    auth: ['Связь с Google прервалась', 'Вход в Google истёк. Пока его нет, командная доска только для просмотра.', `<button class="btn sm" data-syb="login" title="${acct ? 'В прошлый раз: ' + esc(acct) : ''}">Войти в Google${acct ? ' · ' + esc(acct) : ''}</button>`],
+    offline: ['Нет интернета', 'Командная доска только для просмотра, пока нет сети.', ''],
+    err: ['Диск команды не отвечает', esc(String(GT.err[sp] || '')) + ' — доска только для просмотра, пока связь не вернётся.', '<button class="btn sm" data-syb="retry">Повторить</button>'] }[why];
+  el.hidden = false; el.innerHTML = `<span class="syb-i">⛔</span><span class="syb-t"><b>${T[0]}</b><small>${T[1]}</small></span>${T[2]}<button class="ob sm" data-syb="src">Источники…</button>`;
+}
+/* view only: panning and zooming work, editing does not */
+const syRO = () => document.body.classList.contains('sy-ro') || document.body.classList.contains('gt-view');
+function syGuard(e) {
+  if (!syRO() || !S.board || !e.target || !e.target.closest) return;
+  if (e.target.closest('#syblock, .xdlg, #pop, #bside, #td28, #cl24, .lo, input, textarea, select, [contenteditable="true"]:not(#world *)')) return;
+  if (e.type === 'keydown') {
+    const k = e.key; if (/^(Arrow|Page|Home|End|Escape|Tab|F\d)/.test(k) || k === ' ' || ((e.ctrlKey || e.metaKey) && /^[0-9=+\-fkpc]$/i.test(k))) return;
+    if (k.length === 1 || k === 'Delete' || k === 'Backspace' || k === 'Enter' || ((e.ctrlKey || e.metaKey) && /^[zyvxd]$/i.test(k))) { e.stopImmediatePropagation(); e.preventDefault(); syNudge(); }
+    return;
+  }
+  if (!world.contains(e.target) && e.target !== vp) return;
+  if (e.type === 'pointerdown' && e.button === 0 && S.tool !== 'hand' && !S.space) { e.stopImmediatePropagation(); e.preventDefault(); syPan(e); syNudge(); return; }
+  if (e.type === 'dblclick' || e.type === 'paste' || e.type === 'drop') { e.stopImmediatePropagation(); e.preventDefault(); syNudge(); }
+}
+function syPan(e) {
+  const v = V(), x0 = e.clientX, y0 = e.clientY, vx = v.x, vy = v.y;
+  const mv = ev => { v.x = vx + ev.clientX - x0; v.y = vy + ev.clientY - y0; applyView(); };
+  const up = () => { removeEventListener('pointermove', mv); removeEventListener('pointerup', up); };
+  addEventListener('pointermove', mv); addEventListener('pointerup', up);
+}
+let syNudgeAt = 0;
+function syNudge() { const el = $('#syblock'); if (el && !el.hidden) { el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); } if (Date.now() - syNudgeAt > 4000 && (!el || el.hidden)) { syNudgeAt = Date.now(); toast('Только просмотр'); } }
+{ const o = gtApplyAccess; gtApplyAccess = (...a) => { o(...a); syBlockCheck(); }; }
+
+/* ---------- the Google sign-in: remembered account, renewed before it runs out ---------- */
+const gAcct = () => LS.get('gacct') || null;
+function gHint() { const e = (Drive.st && Drive.st.acct) || (gAcct() || {}).email; return e ? { login_hint: e, hint: e } : {}; }
+{ const o = Drive.onToken; Drive.onToken = function (r) {
+  const silent = this._silent; this._silent = 0; o.call(this, r);
+  if (r && r.access_token) fetch(GAPI + 'about?fields=user(displayName,emailAddress)', { headers: { Authorization: 'Bearer ' + r.access_token } }).then(x => x.ok ? x.json() : null).then(j => { if (j && j.user && j.user.emailAddress) { LS.set('gacct', { email: j.user.emailAddress.toLowerCase(), name: j.user.displayName || '', at: Date.now() }); renderStatus(); } }).catch(() => {});
+  if (silent) syBlockCheck();
+}; }
+{ const o = Drive.onTokenError; Drive.onTokenError = function (e) { if (this._silent) { this._silent = 0; return; } return o.call(this, e); }; }
+function syRenew(e) {
+  if (Drive.mode !== 'rest' || !Drive.active() || !navigator.onLine || !LS.get('gconsent2') || (e && e.target && e.target.closest && e.target.closest('[data-gtx="login"],[data-syb="login"],#dSync,#btnCloud'))) return;
+  const left = (Drive.exp || 0) - Date.now(); if (Drive.token && left > 8 * 60000) return;
+  if (Date.now() - (Drive._renewAt || 0) < 120000) return;
+  Drive._renewAt = Date.now(); Drive._silent = 1; Drive.connect();
+}
+document.addEventListener('pointerdown', syRenew, true);
+document.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') syRenew(); }, true);
+{ const o = renderStatus; renderStatus = (...a) => {
+  o(...a); const c = $('#btnCloud'), a2 = gAcct();
+  if (Drive.state === 'paused' || syOff('drive')) { const t = $('#statusText'); if (t) t.textContent = 'Синхронизация с Диском выключена вами'; if (c) { c.dataset.d = 'off'; c.title = 'Синхронизация выключена · щёлкните, чтобы управлять источниками'; } }
+  if (c && a2 && a2.email && !/Аккаунт Google/.test(c.title)) c.title += `\nАккаунт Google: ${a2.email}`;
+}; }
+
+/* ---------- «Источники синхронизации»: one window for all of it ---------- */
+function syRow(k, label, sub, extra) {
+  const on = !syOff(k);
+  return `<div class="sy-r${on ? '' : ' off'}"><label class="sy-sw" title="${on ? 'Выключить' : 'Включить'}"><input type="checkbox" data-syk="${esc(k)}"${on ? ' checked' : ''}><i></i></label><span class="sy-n"><b>${esc(label)}</b>${sub ? `<small>${sub}</small>` : ''}</span>${extra || ''}<select class="inp sm" data-sypol="${esc(k)}" title="Как включать обратно">${Object.entries(SY_POL).map(([p, [l]]) => `<option value="${p}"${(SY.pol[k] || '') === p ? ' selected' : ''}>${l}</option>`).join('')}<option value=""${SY.pol[k] ? '' : ' selected'}>Как по умолчанию</option></select></div>`;
+}
+function syDlg() {
+  const d = xdlg('Источники синхронизации', '<div class="p24 sy28"></div>', true); d._dkey = 'sy28';
+  const draw = () => {
+    const a = gAcct(), personal = S.index.filter(x => !x.space).sort((x, y) => (x.name || '').localeCompare(y.name || ''));
+    const dirSel = k => `<select class="inp sm" data-sydir="${esc(k)}" title="Направление">${Object.entries(SY_DIR).map(([v, [l, t]]) => `<option value="${v}" title="${esc(t)}"${(SY.dir[k] || 'both') === v ? ' selected' : ''}>${l}</option>`).join('')}</select>`;
+    const brow = (b, k0) => syRow('b:' + b.id, b.name || 'Доска', syBoardOff(b.id) && !syOff('b:' + b.id) ? 'выключено выше' : '', k0 === 'drive' ? dirSel('b:' + b.id) : '');
+    d.querySelector('.sy28').innerHTML = `<p class="sub">Выключенный источник не получает и не отдаёт правки. Включая обратно, выберите правило — что делать, если за паузу изменилось и тут, и там.${Drive.st && Drive.st.acct ? ` Аккаунт синхронизации: <b>${esc(Drive.st.acct)}</b>.` : a && a.email ? ` Вход в Google: <b>${esc(a.email)}</b>.` : ''}</p>
+      <div class="sy-def"><span>Правило по умолчанию</span><select class="inp sm" data-sydef>${Object.entries(SY_POL).map(([p, [l]]) => `<option value="${p}"${(SY.pol.def || 'merge') === p ? ' selected' : ''}>${l}</option>`).join('')}</select><span>Если доску меняли в двух местах</span><select class="inp sm" data-sycf>${['merge', 'copy', 'local', 'remote'].map(p => `<option value="${p}"${(SY.conflict || 'merge') === p ? ' selected' : ''}>${SY_POL[p][0]}</option>`).join('')}</select></div>
+      <h3>Личное пространство</h3>
+      ${Drive.active() ? syRow('drive', 'Google Диск', Drive.state === 'auth' ? 'нужно войти в Google' : esc(({ ok: 'работает', syncing: 'синхронизируется', offline: 'нет сети', error: 'ошибка', paused: 'выключено' })[Drive.state] || ''), dirSel('drive')) : '<p class="sub">Google Диск не подключён: облако вверху справа.</p>'}
+      ${Backup.ok() && Backup.dir ? syRow('pc', 'Папка на компьютере «' + (Backup.name || '') + '»', 'копии досок и файлов', '') : ''}
+      ${Drive.active() && personal.length ? `<details class="clipf"><summary>Отдельные доски · ${personal.length}</summary>${personal.map(b => brow(b, 'drive')).join('')}</details>` : ''}
+      ${GT.list.length ? '<h3>Командные пространства</h3>' : ''}
+      ${GT.list.map(s => { const bs = S.index.filter(x => x.space === s.id); const rc = (typeof rtCfg === 'function') && rtCfg(s.id); return syRow('gt:' + s.id, gtName(s.id), GT.err[s.id] ? 'ошибка: ' + esc(String(GT.err[s.id])) : 'Google Диск команды', '') + (rc ? syRow('rt:' + s.id, '⚡ Мгновенный режим', typeof RT !== 'undefined' && RT.sp === s.id && RT.live ? 'на связи' : 'Firebase', '') : '') + (bs.length ? `<details class="clipf"><summary>Доски пространства · ${bs.length}</summary>${bs.map(b => brow(b, 'gt')).join('')}</details>` : ''); }).join('')}
+      <p class="sub">Командная доска с выключенной синхронизацией — только для просмотра (так правки не разойдутся с командой). Администратор может разрешить работу без связи в окне пространства.</p>`;
+  };
+  d.addEventListener('change', e => {
+    const t = e.target;
+    if (t.dataset.syk) { const k = t.dataset.syk; t.checked = !t.checked; syToggle(k, syPolOf(k) === 'ask'); return; }
+    if (t.dataset.sypol != null) { if (t.value) SY.pol[t.dataset.sypol] = t.value; else delete SY.pol[t.dataset.sypol]; sySave(); return; }
+    if (t.dataset.sydir) { if (t.value === 'both') delete SY.dir[t.dataset.sydir]; else SY.dir[t.dataset.sydir] = t.value; sySave(); Drive.sync(true); return; }
+    if (t.dataset.sydef != null) { SY.pol.def = t.value; sySave(); return; }
+    if (t.dataset.sycf != null) { SY.conflict = t.value; sySave(); }
+  });
+  S.syDraw = draw; d._onclose = () => { S.syDraw = null; }; draw();
+}
+function syRefresh() { if (S.syDraw) S.syDraw(); syBlockCheck(); renderStatus(); if (typeof bsRender === 'function') bsRender(); }
+
+/* ---------- a board's ⋯ menu: its own switch ---------- */
+{ const o = boardMenu; boardMenu = (anchor, bid) => {
+  o(anchor, bid); const m = $('#pop .menu'); if (!m) return;
+  const on = !syBoardOff(bid), own = syOff('b:' + bid);
+  m.insertAdjacentHTML('beforeend', `<div class="msep"></div><button class="mi" data-sy28="1"><span>${on ? '⏸ Выключить синхронизацию доски' : own ? '▶ Включить синхронизацию доски…' : '⏸ Синхронизация выключена выше'}</span></button><button class="mi" data-sy28="src"><span>⇅ Источники синхронизации…</span></button>`);
+  m.querySelectorAll('[data-sy28]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); closePop(); if (b.dataset.sy28 === 'src') syDlg(); else if (on || own) syToggle('b:' + bid, true); else syDlg(); }, true));
+}; }
+
+function sySetup() {
+  { const o = Drive.setState; Drive.setState = function (...a) { const r = o.apply(this, a); syBlockCheck(); return r; }; }
+  vp.addEventListener('pointerdown', syGuard, true);
+  window.addEventListener('keydown', syGuard, true);
+  for (const t of ['dblclick', 'paste', 'drop']) document.addEventListener(t, syGuard, true);
+  setInterval(syFastTick, 1000); setInterval(syBlockCheck, 3000);
+  addEventListener('online', syBlockCheck); addEventListener('offline', syBlockCheck);
+}
+
+/* ---------- one Google account per device: the sync is bound to the account it started with ----------
+   Signing in with another account used to look like «the Holst folder was deleted»: the device
+   started a second folder in the other account, and every switch made conflict copies. Now the
+   device remembers its account and stops, asking, when another one signs in. */
+const ACC = { tok: '', email: '' };
+async function acctNow() {
+  if (Drive.mode !== 'rest' || !Drive.token) return '';
+  if (ACC.tok === Drive.token) return ACC.email;
+  try { const r = await fetch(GAPI + 'about?fields=user(displayName,emailAddress)', { headers: { Authorization: 'Bearer ' + Drive.token } }); if (!r.ok) return ''; const j = await r.json(); const e = String((j.user || {}).emailAddress || '').toLowerCase(); ACC.tok = Drive.token; ACC.email = e; if (e) LS.set('gacct', { email: e, name: (j.user || {}).displayName || '', at: Date.now() }); return e; }
+  catch (e) { return ''; }
+}
+function acctErr(me, bound) { const e = new Error('acct'); e.code = 'acct'; e.me = me; e.bound = bound; e.note = `Вы вошли как ${me}, а синхронизация этого устройства привязана к ${bound || 'другому аккаунту'}`; return e; }
+{ const o = Drive.ensureRoot; Drive.ensureRoot = async function (...a) {
+  if (syOff('drive')) { const e = new Error('paused'); e.code = 'paused'; throw e; }
+  if (this.mode === 'rest' && this.halted === 'acct') throw acctErr(ACC.email, this.st.acct);
+  if (this.mode === 'rest') {
+    const me = await acctNow();
+    if (me) {
+      if (!this.st.acct) {
+        if (this.st.root) { const s = await this.status(this.st.root); if (s.st === 'ok') { this.st.acct = me; this.persist(); } else { const e = acctErr(me, ''); acctAsk(e); throw e; } }
+        else { this.st.acct = me; }
+      } else if (this.st.acct !== me) { const e = acctErr(me, this.st.acct); acctAsk(e); throw e; }
+    }
+  }
+  return o.apply(this, a);
+}; }
+{ const o = gtReady; gtReady = async ask => { if (Drive.halted === 'acct') { if (ask) toast('Сначала решите, каким аккаунтом Google синхронизироваться'); return false; } return o(ask); }; }
+let acctAskAt = 0;
+function acctAsk(e) { if (document.querySelector('.acct28d')) return; acctAskAt = Date.now(); setTimeout(() => acctDlg(e.me, e.bound), 50); }
+function acctLogin(hint) { if (Drive.mode !== 'rest' || !Drive.client) { Drive.connect(); return; } Drive.halted = ''; try { Drive.client.requestAccessToken(Object.assign({ prompt: 'select_account' }, hint ? { login_hint: hint, hint } : {})); } catch (er) { Drive.connect(); } }
+async function acctMove(me) {
+  Object.assign(Drive.st, { root: null, assets: null, files: null, meta: {}, assetMap: {}, deleted: [], bidOf: {}, mm: {}, acct: me });
+  await Drive.persist(); GT.me = null; LS.set('gtme', null); const keep = SY.conflict; SY.conflict = 'merge';
+  Drive.halted = ''; Drive.writeBlocked = false; toast('Синхронизация переезжает на ' + me + '. Доски сливаются по объектам, без копий');
+  try { await Drive.sync(true); } finally { SY.conflict = keep; }
+}
+function acctDlg(me, bound) {
+  const d = xdlg('Другой аккаунт Google', `<div class="p24 acct28d"><p>Сейчас вы вошли как <b>${esc(me)}</b>, а синхронизация этого устройства ${bound ? `привязана к <b>${esc(bound)}</b> — его папка «Холст» лежит там` : 'шла с другим аккаунтом: её папку «Холст» этот аккаунт не видит'}.</p>
+    <p class="sub">Если просто продолжить, у вас будут две папки «Холст» в двух аккаунтах, и при каждом переключении доски начнут конфликтовать — так появлялись дубли. Синхронизация на паузе, пока вы не выберете.</p>
+    <div class="sy-pols"><button class="sy-pol on" data-ac="back"><b>Войти как ${esc(bound || 'прежний аккаунт')}</b><small>Обычный случай: случайно выбрали не тот аккаунт.</small></button>
+    <button class="sy-pol" data-ac="move"><b>Перейти на ${esc(me)}</b><small>Все доски этого устройства сольются с папкой «Холст» аккаунта ${esc(me)} (по объектам, без копий). ${bound ? esc(bound) : 'Прежний аккаунт'} отсюда больше не обновляется — его папка остаётся как есть.</small></button>
+    <button class="sy-pol" data-ac="pause"><b>Не синхронизировать сейчас</b><small>Работа сохраняется на устройстве. Включить — «Источники синхронизации».</small></button></div></div>`);
+  d.addEventListener('click', async e => {
+    const b = e.target.closest('[data-ac]'); if (!b) return; const a = b.dataset.ac;
+    if (a === 'back') { closeXdlg(); acctLogin(bound); }
+    else if (a === 'move') { if (!(await uiConfirm(`Перенести синхронизацию этого устройства на ${me}?`, { sub: 'Доски с этого устройства и из Диска ' + me + ' сольются. Ничего не удаляется: папка прежнего аккаунта остаётся в его Диске.' }))) return; closeXdlg(); acctMove(me); }
+    else { closeXdlg(); Drive.halted = ''; syPause('drive'); }
+  });
+}
+{ const o = renderStatus; renderStatus = (...a) => { o(...a); if (Drive.halted === 'acct') { const t = $('#statusText'); if (t) { t.textContent = 'Вошли другим аккаунтом Google — синхронизация на паузе'; t.classList.add('act'); } } }; }
+document.addEventListener('click', e => { if (Drive.halted !== 'acct') return; const t = e.target.closest && e.target.closest('#statusText,#btnCloud'); if (!t) return; e.stopImmediatePropagation(); e.preventDefault(); acctNow().then(me => acctDlg(me, Drive.st.acct)); }, true);
+/* =========================================================
+   v2.8: instant mode for team boards — Firebase Realtime Database over its
+   REST streaming API (no SDK). Each change goes out object by object within
+   a fraction of a second; everyone's cursors move like in Figma. Google Drive
+   stays the storage: the board file is still written there. Without the
+   instant mode the cursors travel through the Drive presence files (every
+   ~3 seconds, smoothed).
+   ========================================================= */
+const RT = { sp: '', bid: '', url: '', key: '', tok: '', exp: 0, live: false, err: '', es: null, ces: null, sid: 's' + uid().slice(0, 9), sent: new Map(), q: 0, first: true, pend: new Map(), curAt: 0 };
+const rtCfg = sp => { const r = ((GT.data[sp] || {}).settings || {}).rt; return r && r.key && r.url ? r : null; };
+const rtEk = e => String(e || '').toLowerCase().replace(/\./g, ',');
+const rtOn = () => !!(RT.es && RT.es.readyState !== 2 && RT.tok && RT.bid);
+const rtUrl = p => RT.url.replace(/\/+$/, '') + '/' + p + '.json?auth=' + encodeURIComponent(RT.tok);
+const RT_RULES = JSON.stringify({ rules: {
+  m: { $sp: { '.read': "auth != null && data.child(auth.token.email.replace('.', ',')).exists()", '.write': "auth != null && (!data.exists() || data.child(auth.token.email.replace('.', ',')).child('r').val() === 'owner' || data.child(auth.token.email.replace('.', ',')).child('r').val() === 'admin')" } },
+  rt: { $sp: { '.read': "auth != null && root.child('m').child($sp).child(auth.token.email.replace('.', ',')).exists()",
+    b: { '.write': "auth != null && root.child('m').child($sp).child(auth.token.email.replace('.', ',')).exists() && root.child('m').child($sp).child(auth.token.email.replace('.', ',')).child('r').val() !== 'viewer'" },
+    c: { '.write': "auth != null && root.child('m').child($sp).child(auth.token.email.replace('.', ',')).exists()" } } },
+} }, null, 2);
+function rtErrText(j) {
+  const m = String((j && j.error && (j.error.message || j.error)) || j || '');
+  if (/API key not valid|API_KEY_INVALID/i.test(m)) return 'Web API Key не подошёл';
+  if (/OPERATION_NOT_ALLOWED/i.test(m)) return 'В Firebase не включён вход через Google (Authentication → Sign-in method → Google)';
+  if (/INVALID_IDP_RESPONSE|invalid_token|audience/i.test(m)) return 'Firebase не принял вход Google: добавьте Client ID Холста в «Safelist client IDs» у входа через Google';
+  if (/Permission denied/i.test(m)) return 'Нет доступа: вставьте правила базы из Холста и опубликуйте их';
+  return m || 'ошибка';
+}
+async function rtToken(cfg, force) {
+  if (!force && RT.tok && RT.key === cfg.key && Date.now() < RT.exp - 120000) return RT.tok;
+  const T = LS.get('rt28') || {};
+  if (!force && T.key === cfg.key && T.r) {
+    try {
+      const r = await fetch('https://securetoken.googleapis.com/v1/token?key=' + encodeURIComponent(cfg.key), { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'grant_type=refresh_token&refresh_token=' + encodeURIComponent(T.r) });
+      if (r.ok) { const j = await r.json(); RT.tok = j.id_token; RT.exp = Date.now() + (+j.expires_in || 3600) * 1000; RT.key = cfg.key; LS.set('rt28', Object.assign({}, T, { r: j.refresh_token || T.r })); return RT.tok; }
+    } catch (e) { /* sign in again below */ }
+  }
+  if (Drive.mode !== 'rest' || !Drive.ready()) throw new Error('Войдите в Google');
+  const r = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithIdp?key=' + encodeURIComponent(cfg.key), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ postBody: 'access_token=' + Drive.token + '&providerId=google.com', requestUri: location.protocol === 'https:' ? location.origin : 'http://localhost', returnSecureToken: true, returnIdpCredential: true }) });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok || !j.idToken) throw new Error(rtErrText(j));
+  RT.tok = j.idToken; RT.exp = Date.now() + (+j.expiresIn || 3600) * 1000; RT.key = cfg.key;
+  LS.set('rt28', { key: cfg.key, r: j.refreshToken, email: String(j.email || '').toLowerCase() });
+  return RT.tok;
+}
+/* the members list the database rules check (written by the owner or an admin) */
+async function rtMembers(sp) {
+  if (!gtCan(sp, 'admin')) return;
+  const d = GT.data[sp] || {}, mem = {};
+  for (const m of gtMembers(sp)) mem[rtEk(m.email)] = { r: m.role || 'member' };
+  if (d.owner) mem[rtEk(d.owner)] = { r: 'owner' };
+  const sig = JSON.stringify(mem); if (LS.get('rt28m:' + sp) === sig) return;
+  const r = await fetch(rtUrl('m/' + sp), { method: 'PUT', body: sig });
+  if (!r.ok) throw new Error(rtErrText(await r.json().catch(() => ({}))));
+  LS.set('rt28m:' + sp, sig);
+}
+function rtWant() {
+  const sp = S.board && S.board.space; if (!sp || !rtCfg(sp) || syOff('rt:' + sp) || syBoardOff(S.board.id) || Drive.mode !== 'rest') return null;
+  return { sp, bid: S.board.id, cfg: rtCfg(sp) };
+}
+function rtClose() {
+  if (RT.es) RT.es.close(); if (RT.ces) RT.ces.close(); RT.es = RT.ces = null;
+  if (RT.live && RT.sp && RT.bid && RT.tok) fetch(rtUrl(`rt/${RT.sp}/c/${RT.bid}/${RT.sid}`), { method: 'DELETE', keepalive: true }).catch(() => {});
+  RT.live = false; RT.bid = ''; RT.pend.clear(); for (const k of [...CUR.map.keys()]) if (!k.startsWith('d:')) CUR.map.delete(k); curRender(); rtStatus();
+}
+let rtBusy = false;
+async function rtSync() {
+  const w = rtWant();
+  if (!w) { if (RT.es) rtClose(); return; }
+  if (RT.es && RT.sp === w.sp && RT.bid === w.bid && RT.url === w.cfg.url && RT.es.readyState !== 2) return;
+  if (rtBusy) return; rtBusy = true;
+  try {
+    rtClose(); RT.sp = w.sp; RT.bid = w.bid; RT.url = w.cfg.url; RT.err = '';
+    try { await rtToken(w.cfg); } catch (e) { RT.err = e.message || String(e); rtStatus(); return; }
+    if (!S.board || S.board.id !== w.bid) return;
+    RT.sent = new Map(items().map(i => [i.id, JSON.stringify(i)])); RT.first = true;
+    rtMembers(w.sp).catch(e => { RT.err = e.message; rtStatus(); });
+    const es = RT.es = new EventSource(rtUrl(`rt/${w.sp}/b/${w.bid}/o`));
+    es.addEventListener('put', ev => rtOps(ev, false)); es.addEventListener('patch', ev => rtOps(ev, true));
+    es.addEventListener('auth_revoked', rtReauth); es.addEventListener('cancel', () => { RT.err = 'Нет доступа к базе: администратору нужно один раз открыть пространство (он пропишет участников), и проверьте правила'; RT.live = false; es.close(); rtStatus(); });
+    es.onopen = () => { RT.live = true; RT.err = ''; rtStatus(); };
+    es.onerror = () => { RT.live = false; rtStatus(); if (Date.now() > RT.exp - 120000) rtReauth(); };
+    const ces = RT.ces = new EventSource(rtUrl(`rt/${w.sp}/c/${w.bid}`));
+    ces.addEventListener('put', rtCurs); ces.addEventListener('patch', rtCurs);
+  } finally { rtBusy = false; }
+}
+async function rtReauth() { const w = rtWant(); if (!w) return; try { await rtToken(w.cfg, true); } catch (e) { RT.err = e.message; } if (RT.es) { RT.es.close(); RT.es = null; } rtSync(); }
+/* incoming objects */
+function rtOps(ev, patch) {
+  let m; try { m = JSON.parse(ev.data); } catch (e) { return; }
+  const path = m.path || '/', parts = path.split('/').filter(Boolean); let entries = {};
+  if (!parts.length) entries = m.data || {};
+  else if (parts.length === 1) entries[parts[0]] = m.data;
+  else return;
+  const full = !parts.length && !patch, mt = Date.parse((S.board && S.board._mt) || '') || 0, list = [];
+  for (const [id, e] of Object.entries(entries)) {
+    if (!e || e.s === RT.sid) continue;
+    if (full && RT.first && mt && e.at && e.at < mt - 3000) continue;
+    list.push([id, e]);
+  }
+  if (full) { if (RT.first) rtPrune(entries); RT.first = false; RT.live = true; rtStatus(); }
+  if (list.length) rtApply(list);
+}
+function rtApply(list) {
+  if (!S.board || S.board.id !== RT.bid) return;
+  const busy = new Set([S.editing, ...(S.drag ? S.sel : [])].filter(Boolean));
+  let ch = 0, assets = false;
+  for (const [id, e] of list) {
+    if (busy.has(id)) { RT.pend.set(id, e); continue; }
+    const i = S.board.items.findIndex(x => x.id === id);
+    if (e.j == null) { if (i >= 0) { if (S.teamBase) S.teamBase.set(id, JSON.stringify(S.board.items[i])); S.board.items.splice(i, 1); S.sel.delete(id); ch++; } RT.sent.delete(id); continue; }
+    let it; try { it = JSON.parse(e.j); } catch (er) { continue; }
+    normalizeItem(it);
+    if (i >= 0) S.board.items[i] = it; else S.board.items.push(it);
+    const js = JSON.stringify(it); if (S.teamBase) S.teamBase.set(id, js); RT.sent.set(id, js); ch++;
+    if (assetIdsOf([it]).some(a => S.board.assets[a] == null)) assets = true;
+  }
+  if (RT.pend.size && !RT.pt) RT.pt = setTimeout(() => { RT.pt = 0; const p = [...RT.pend]; RT.pend.clear(); rtApply(p); }, 500);
+  if (ch) { requestRender(); clearTimeout(RT.st); RT.st = setTimeout(() => { if (S.board && S.board.space) Store.set('gtb:' + S.board.id, S.board).catch(() => {}); }, 3000); }
+  if (assets && S.board.space) { GT.fastAt[S.board.space] = 0; setTimeout(() => gtPullOpen(S.board.space, S.board.id), 1500); }
+}
+function rtPrune(entries) {
+  const old = Date.now() - 15 * 60000, out = {}; let n = 0;
+  for (const [id, e] of Object.entries(entries || {})) if (e && e.at && e.at < old && n < 300) { out[id] = null; n++; }
+  if (n) fetch(rtUrl(`rt/${RT.sp}/b/${RT.bid}/o`), { method: 'PATCH', body: JSON.stringify(out) }).catch(() => {});
+}
+/* outgoing objects: what differs from what was sent or received */
+function rtSoon(ms) { if (!rtOn() || RT.q) return; RT.q = setTimeout(rtEmit, ms); }
+async function rtEmit() {
+  RT.q = 0; if (!rtOn() || !S.board || S.board.id !== RT.bid || !gtCan(RT.sp, 'write') || syRO()) return;
+  const only = S.drag ? new Set(S.sel) : null, now = new Set(), out = {}; let n = 0;
+  for (const it of items()) {
+    if (only && !only.has(it.id)) continue;
+    const j = JSON.stringify(it); now.add(it.id);
+    if (RT.sent.get(it.id) !== j) { out[it.id] = { j, s: RT.sid, at: { '.sv': 'timestamp' } }; n++; }
+  }
+  if (!only) for (const id of RT.sent.keys()) if (!now.has(id)) { out[id] = { j: null, s: RT.sid, at: { '.sv': 'timestamp' } }; n++; }
+  if (!n || n > 500) { if (n) RT.sent = new Map(items().map(i => [i.id, JSON.stringify(i)])); return; }
+  for (const [id, v] of Object.entries(out)) { if (v.j == null) RT.sent.delete(id); else RT.sent.set(id, v.j); }
+  try { const r = await fetch(rtUrl(`rt/${RT.sp}/b/${RT.bid}/o`), { method: 'PATCH', body: JSON.stringify(out) }); if (r.status === 401) rtReauth(); else if (!r.ok) { RT.err = rtErrText(await r.json().catch(() => ({}))); rtStatus(); } }
+  catch (e) { RT.live = false; rtStatus(); }
+}
+{ const o = changed; changed = (...a) => { const r = o(...a); if (rtOn()) rtSoon(40); return r; }; }
+{ const o = loadBoard; loadBoard = (...a) => { const r = o(...a); setTimeout(rtSync, 0); CUR.map.clear(); curRender(); return r; }; }
+
+/* ---------- cursors ---------- */
+const CUR = { map: new Map(), me: null, sent: 0, el: null };
+const curColor = e => PRES_COLORS[Math.abs(cyrb53(String(e || ''))) % PRES_COLORS.length];
+function rtCurs(ev) {
+  let m; try { m = JSON.parse(ev.data); } catch (e) { return; }
+  const parts = (m.path || '/').split('/').filter(Boolean); let ent = {};
+  if (!parts.length) ent = m.data || {}; else if (parts.length === 1) ent[parts[0]] = m.data; else return;
+  if (!parts.length && ev.type === 'put') for (const k of [...CUR.map.keys()]) if (!k.startsWith('d:')) CUR.map.delete(k);
+  for (const [sid, c] of Object.entries(ent)) {
+    if (sid === RT.sid) continue;
+    if (!c) { CUR.map.delete(sid); continue; }
+    CUR.map.set(sid, { x: c.x, y: c.y, n: c.n || '', c: c.c || curColor(c.n), t: Date.now(), slow: 0 });
+  }
+  curRender();
+}
+function curMove(e) {
+  if (!S.board || !S.board.space || e.pointerType === 'touch') return;
+  const p = toWorld(e.clientX, e.clientY); CUR.me = { x: r1(p.x), y: r1(p.y), bid: S.board.id };
+  if (!rtOn() || Date.now() - CUR.sent < 70) return; CUR.sent = Date.now();
+  const me = gtMeEmail(), name = (GT.me && GT.me.name) || (me || '').split('@')[0];
+  fetch(rtUrl(`rt/${RT.sp}/c/${RT.bid}/${RT.sid}`), { method: 'PUT', body: JSON.stringify({ x: CUR.me.x, y: CUR.me.y, n: name, c: curColor(me), at: { '.sv': 'timestamp' } }) }).catch(() => {});
+}
+function curDrive(sp) {
+  const P = GT.ppl[sp]; if (!P || !S.board || S.board.space !== sp) return; const me = gtMeEmail();
+  for (const k of [...CUR.map.keys()]) if (k.startsWith('d:')) CUR.map.delete(k);
+  if (!(RT.live && RT.bid === S.board.id)) for (const p of Object.values(P.pres || {})) {
+    if (p.email === me || !p.cur || p.cur.bid !== S.board.id || Date.now() - p.at > 20000) continue;
+    CUR.map.set('d:' + p.email, { x: p.cur.x, y: p.cur.y, n: p.name || p.email.split('@')[0], c: curColor(p.email), t: Date.now(), slow: 1 });
+  }
+  curRender();
+}
+function curRender() {
+  let L = CUR.el; if (!L) { L = CUR.el = document.createElement('div'); L.id = 'cur28'; vp.appendChild(L); }
+  if (!S.board) { L.innerHTML = ''; return; }
+  const v = V(), now = Date.now(), seen = new Set();
+  for (const [k, c] of CUR.map) {
+    if (now - c.t > (c.slow ? 25000 : 12000)) { CUR.map.delete(k); continue; }
+    seen.add(k); let el = L.querySelector(`[data-cur="${CSS.escape(k)}"]`);
+    if (!el) { el = document.createElement('div'); el.className = 'cur28' + (c.slow ? ' slow' : ''); el.dataset.cur = k; el.innerHTML = '<svg viewBox="0 0 16 16" width="18" height="18"><path d="M2 1.5l11.5 6-5 1.4-2.2 4.9z"/></svg><span></span>'; L.appendChild(el); }
+    el.style.setProperty('--c', c.c); el.querySelector('span').textContent = c.n;
+    el.style.transform = `translate(${v.x + c.x * v.z}px,${v.y + c.y * v.z}px)`;
+  }
+  for (const el of [...L.children]) if (!seen.has(el.dataset.cur)) el.remove();
+}
+{ const o = applyView; applyView = (...a) => { const r = o(...a); if (CUR.map.size) { if (CUR.el) CUR.el.classList.add('still'); curRender(); clearTimeout(CUR.vt); CUR.vt = setTimeout(() => CUR.el && CUR.el.classList.remove('still'), 120); } return r; }; }
+setInterval(() => { if (CUR.map.size) curRender(); }, 4000);
+/* the Drive presence carries the cursor too (used when there is no instant mode) */
+gtPresence = async id => {
+  if (syOff('gt:' + id)) return;
+  const me = gtMeEmail(); if (!me || !gtCan(id, 'write')) return;
+  const st = gtSt(id), name = `presence-${me}.json`, f = st.names[name];
+  const b = S.board && S.board.space === id ? { id: S.board.id, name: S.board.name } : null;
+  const doing = Object.values((GT.stores[id] || {}).recs || {}).filter(r => r.k === 'task' && r.who === me && r.st === 'doing').map(r => r.title).slice(0, 5);
+  const cur = b && CUR.me && CUR.me.bid === b.id ? { x: CUR.me.x, y: CUR.me.y, bid: b.id } : null;
+  const r = await GTX.write(id, name, JSON.stringify({ email: me, name: (GT.me && GT.me.name) || '', at: Date.now(), board: b, doing, cur }), f && f.id);
+  st.names[name] = { id: r.id, mt: r.mt };
+};
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden' && RT.live && RT.tok) fetch(rtUrl(`rt/${RT.sp}/c/${RT.bid}/${RT.sid}`), { method: 'DELETE', keepalive: true }).catch(() => {}); else if (document.visibilityState === 'visible') rtSync(); });
+
+/* ---------- status, settings in the space window ---------- */
+function rtStatus() {
+  const el = $('#gtwho'); if (el) { let b = el.querySelector('.rt28p'); const sp = S.board && S.board.space, on = sp && RT.sp === sp && RT.bid === (S.board && S.board.id);
+    if (!sp || !rtCfg(sp)) { if (b) b.remove(); } else { if (!b) { b = document.createElement('span'); b.className = 'rt28p'; el.prepend(b); } b.dataset.s = on && RT.live ? 'on' : RT.err ? 'err' : 'off'; b.textContent = on && RT.live ? '⚡' : '⚡̸'; b.title = on && RT.live ? 'Мгновенный режим: правки и курсоры доходят сразу' : 'Мгновенный режим не на связи' + (RT.err ? ': ' + RT.err : '') + ' — правки идут через Google Диск'; } }
+  for (const w of document.querySelectorAll('.rt28w')) if (!w.contains(document.activeElement)) w.innerHTML = rtSpaceInner(w.dataset.rtw, gtCan(w.dataset.rtw, 'admin'));
+}
+const rtSpaceHTML = (id, admin) => `<div class="rt28w" data-rtw="${esc(id)}">${rtSpaceInner(id, admin)}</div>`;
+function rtSpaceInner(id, admin) {
+  const c = rtCfg(id), set = (GT.data[id] || {}).settings || {}, on = RT.sp === id && RT.live;
+  const pill = !c ? '<span class="stpill">Не настроен — правки идут через Google Диск за 2–4 секунды</span>' : on ? '<span class="stpill on">⚡ На связи: правки и курсоры — за доли секунды</span>' : RT.sp === id && RT.err ? `<span class="stpill err">${esc(RT.err)}</span>` : '<span class="stpill">Настроен · включится, когда откроете доску пространства</span>';
+  const steps = ['Откройте <a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a> → «Создать проект» → выберите <b>тот же проект Google Cloud</b>, где Client ID Холста. Аналитику можно выключить.',
+    `«Build → Authentication» → «Get started» → «Sign-in method» → <b>Google</b> → включить → сохранить. В настройках Google → «Safelist client IDs from external projects» добавьте Client ID Холста${Drive.cid ? `: <code>${esc(Drive.cid)}</code>` : ''}.`,
+    '«Authentication → Settings → Authorized domains» → «Add domain» → <code>podkindmitry.github.io</code>.',
+    '«Build → Realtime Database» → «Create database» → регион <b>Europe (europe-west1)</b> → «Start in locked mode».',
+    'Вкладка «Rules» → удалите всё → вставьте правила (кнопка ниже) → «Publish».',
+    'Скопируйте адрес базы со вкладки «Data» (вида <code>https://…europe-west1.firebasedatabase.app</code>) и Web API Key: ⚙ «Project settings» → «General».',
+    'Вставьте оба сюда → «Проверить и включить». Участникам ничего делать не нужно: настройка придёт им сама.'];
+  return `<h3>⚡ Мгновенный режим</h3><div class="rt28s" data-rtsp="${esc(id)}"><div class="gt-top">${pill}</div>
+    ${admin ? `<div class="rt-f"><input class="inp sm" data-rtk placeholder="Web API Key (AIza…)" value="${esc((c || {}).key || '')}" autocomplete="off"><input class="inp sm" data-rtu placeholder="https://….firebasedatabase.app" value="${esc((c || {}).url || '')}" autocomplete="off"><button class="btn sm" data-rt="save">Проверить и включить</button>${c ? '<button class="ob sm" data-rt="off">Отключить</button>' : ''}</div>
+    <details class="clipf"${c ? '' : ' open'}><summary>Как настроить Firebase — бесплатно, ~10 минут</summary><div class="note"><ol class="steps">${steps.map(x => `<li>${x}</li>`).join('')}</ol><button class="ob sm" data-rt="rules">Скопировать правила базы</button></div></details>
+    <label class="l27ck"><input type="checkbox" data-rt="offline"${set.offline === 1 ? ' checked' : ''}> Разрешить работу без синхронизации (иначе командная доска становится «только просмотр», пока связь не вернётся)</label>` : `<p class="sub">${c ? 'Настроил администратор — работает само.' : 'Настраивает владелец или администратор пространства.'}</p>`}</div>`;
+}
+document.addEventListener('click', async e => {
+  const b = e.target.closest && e.target.closest('[data-rt]'); if (!b || !b.closest('.rt28s')) return;
+  const box = b.closest('.rt28s'), sp = box.dataset.rtsp, a = b.dataset.rt; if (a === 'offline') return;
+  if (a === 'rules') { try { await navigator.clipboard.writeText(RT_RULES); toast('Правила скопированы — вставьте их во вкладку Rules'); } catch (er) { uiPrompt('Правила базы', RT_RULES); } return; }
+  const data = clone(GT.data[sp] || {}); data.settings = Object.assign({}, data.settings);
+  if (a === 'off') { delete data.settings.rt; await gtWriteSpace(sp, data); rtSync(); toast('Мгновенный режим отключён'); rtStatus(); return; }
+  if (a === 'save') {
+    const key = box.querySelector('[data-rtk]').value.trim(), url = box.querySelector('[data-rtu]').value.trim().replace(/\/+$/, '');
+    if (!/^AIza/.test(key) || !/^https:\/\/[^/]+\.(firebasedatabase\.app|firebaseio\.com)$/i.test(url)) { toast('Нужны Web API Key (начинается с AIza) и адрес базы https://….firebasedatabase.app'); return; }
+    b.disabled = true; b.textContent = 'Проверяю…';
+    try { RT.url = url; RT.sp = sp; await rtToken({ key, url }, true); LS.set('rt28m:' + sp, ''); await rtMembers(sp); data.settings.rt = { key, url }; await gtWriteSpace(sp, data); RT.err = ''; toast('⚡ Мгновенный режим включён'); setTimeout(rtSync, 100); }
+    catch (er) { RT.err = er.message || String(er); toast('Не получилось: ' + RT.err); }
+    b.disabled = false; b.textContent = 'Проверить и включить'; rtStatus();
+  }
+});
+document.addEventListener('change', async e => {
+  const c = e.target.closest && e.target.closest('.rt28s [data-rt="offline"]'); if (!c) return;
+  const sp = c.closest('.rt28s').dataset.rtsp, data = clone(GT.data[sp] || {}); data.settings = Object.assign({}, data.settings, { offline: c.checked ? 1 : 0 });
+  try { await gtWriteSpace(sp, data); toast(c.checked ? 'Работа без связи разрешена: правки сольются, когда связь вернётся' : 'Без связи командные доски — только просмотр'); syBlockCheck(); } catch (er) { toast('Не сохранилось'); }
+});
+{ const o = gtWriteSpace; gtWriteSpace = async (id, data) => { const r = await o(id, data); GT.data[id] = data; if (rtCfg(id) && gtCan(id, 'admin') && RT.tok) rtMembers(id).catch(() => {}); return r; }; }
+function rtSetup() {
+  vp.addEventListener('pointermove', curMove, { passive: true });
+  addEventListener('pointermove', () => { if (S.drag && rtOn()) rtSoon(70); }, { passive: true });
+  setInterval(() => { if (document.visibilityState === 'visible') rtSync(); }, 5000);
+}
+/* =========================================================
+   v2.8: look — many more colours (pastel and other palettes, your own
+   palettes, any hex, the eyedropper, the colours of this board), board styles,
+   grid styles and a much quieter grid, interface palettes, accent colour and
+   corner rounding. One window: ☰ Меню → «Оформление».
+   ========================================================= */
+const PAL28 = {
+  pastel: ['Пастель', ['#d9ffe6', '#e3f4ff', '#ffdede', '#d9dcff', '#fff9e3', '#ffe8d6', '#f3e8ff', '#dff7f4', '#fce4ec', '#eef7e1', '#fff0c9', '#e6e9f0']],
+  bright: ['Яркие', ['#ff4d4f', '#ff8a00', '#ffc400', '#2ecc71', '#00b8d9', '#3355ff', '#7b61ff', '#e83e8c', '#00c2a8', '#1c1d21', '#ffffff', '#8a90a0']],
+  earth: ['Земля', ['#8b5e3c', '#a47148', '#c19a6b', '#d9c3a0', '#6b705c', '#a5a58d', '#b7b7a4', '#cb997e', '#ddbea9', '#ffe8d6', '#3f4238', '#7f5539']],
+  neon: ['Неон', ['#39ff14', '#00f0ff', '#ff00e6', '#fff700', '#ff3131', '#bc13fe', '#00ff9c', '#ff6ec7', '#1f51ff', '#ff9933']],
+  gray: ['Серые', ['#ffffff', '#f4f5f7', '#e3e5ea', '#c6cad3', '#a0a5b1', '#8a90a0', '#6b7080', '#4a4f5a', '#33363c', '#26282e', '#1c1d21', '#000000']],
+  dark: ['Тёмные', ['#1e2a3a', '#2b2140', '#1f3328', '#3a2a1e', '#3a1e28', '#22313f', '#2e2e38', '#14213d', '#283618', '#3d2c2e', '#2f3e46', '#1b1b1b']],
+};
+for (const c of PAL28.pastel[1].slice(0, 5)) if (!STICKY.includes(c)) STICKY.push(c);
+const palMine = () => LS.get('pal28') || [];
+const hexOk = v => /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(String(v || '').trim());
+const hexNorm = v => { let h = String(v || '').trim().toLowerCase(); if (!h.startsWith('#')) h = '#' + h; if (/^#[0-9a-f]{3}$/.test(h)) h = '#' + h.slice(1).split('').map(x => x + x).join(''); return hexOk(h) ? h : ''; };
+const hexList = t => [...new Set((String(t || '').match(/#?[0-9a-f]{6}\b|#[0-9a-f]{3}\b/gi) || []).map(hexNorm).filter(Boolean))];
+function boardColors() {
+  const n = new Map();
+  for (const it of items()) for (const k of ['color', 'fill', 'stroke', 'textColor', 'bg']) { const v = it[k]; if (typeof v === 'string' && hexOk(v)) n.set(v.toLowerCase(), (n.get(v.toLowerCase()) || 0) + 1); }
+  return [...n].sort((a, b) => b[1] - a[1]).map(x => x[0]).slice(0, 24);
+}
+/* the colour picker of every object: the set it came with, plus every palette */
+colorPop = function (anchor, colors, cur, onPick, kind = '') {
+  const own = palMine(), tabs = [['set', 'Набор']].concat(Object.entries(PAL28).map(([k, [l]]) => [k, l]), [['board', 'Доска']], own.map((p, i) => ['m' + i, p.name]));
+  let tab = S.cp28tab || LS.get('cp28tab') || 'set'; if (!tabs.some(t => t[0] === tab)) tab = 'set';
+  const recent = (S.settings.ccol || []).slice(0, 8);
+  const list = tab === 'set' ? colors : tab === 'board' ? boardColors() : tab[0] === 'm' ? (own[+tab.slice(1)] || {}).cols || [] : PAL28[tab][1];
+  const sw = c => `<button class="swb ${String(c).toLowerCase() === String(cur || '').toLowerCase() ? 'on' : ''}" data-v="${c}" title="${c === 'transparent' ? 'Без цвета' : c}"><span class="sw ${kind} ${c === 'transparent' ? 'tr' : ''}" style="--c:${c}"></span></button>`;
+  openPop(anchor, `<div class="cp28"><div class="cp28t">${tabs.map(([k, l]) => `<button class="${k === tab ? 'on' : ''}" data-v="t:${k}">${esc(l)}</button>`).join('')}</div>
+    <div class="grid cp28g">${list.length ? list.map(sw).join('') : `<p class="sub">${tab === 'board' ? 'На доске пока нет своих цветов' : 'Пусто'}</p>`}</div>
+    ${recent.length ? `<div class="cp28h">Недавние</div><div class="grid cp28g">${recent.map(sw).join('')}</div>` : ''}
+    <div class="cp28f"><input class="inp sm" data-cphex placeholder="#d9ffe6" value="${hexOk(cur) ? esc(cur) : ''}" maxlength="7" spellcheck="false"><label class="swb addc" title="Палитра системы"><input type="color" data-cpnat value="${hexOk(cur) ? cur : '#3355ff'}"><span>+</span></label>${'EyeDropper' in window ? '<button class="ob sm" data-cpeye title="Пипетка: взять цвет с экрана">💧</button>' : ''}<button class="ob sm" data-v="t:+" title="Своя палитра">★</button></div></div>`, v => {
+    if (v.startsWith('t:')) { const k = v.slice(2); if (k === '+') { setTimeout(() => palEdit(), 0); return; } S.cp28tab = k; LS.set('cp28tab', k); setTimeout(() => colorPop(anchor, colors, cur, onPick, kind), 0); return; }
+    cpUse(v, onPick);
+  });
+  const hex = pop.querySelector('[data-cphex]'), nat = pop.querySelector('[data-cpnat]'), eye = pop.querySelector('[data-cpeye]');
+  hex.addEventListener('keydown', e => { if (e.key === 'Enter') { const h = hexNorm(hex.value); if (h) { closePop(); cpUse(h, onPick); } else hex.classList.add('bad'); } });
+  hex.addEventListener('input', () => { hex.classList.toggle('bad', !!hex.value && !hexNorm(hex.value)); });
+  nat.addEventListener('change', () => { closePop(); cpUse(nat.value, onPick); });
+  if (eye) eye.addEventListener('click', async e => { e.stopPropagation(); try { const r = await new EyeDropper().open(); closePop(); cpUse(r.sRGBHex, onPick); } catch (er) { /* cancelled */ } });
+};
+function cpUse(c, onPick) { if (hexOk(c)) { S.settings.ccol = [c.toLowerCase()].concat((S.settings.ccol || []).filter(x => x !== c.toLowerCase())).slice(0, 12); saveSettings(); } onPick(c); }
+async function palEdit(i) {
+  const own = palMine(), p = i != null ? own[i] : null;
+  const r = await uiAsk({ msg: p ? 'Палитра «' + p.name + '»' : 'Новая палитра', sub: 'Вставьте цвета как угодно — списком, через запятую, прямо из сообщения: #D9FFE6 #E3F4FF #FFDEDE…', fields: [{ label: 'Название', value: p ? p.name : 'Моя палитра ' + (own.length + 1) }, { label: 'Цвета', value: p ? p.cols.join(' ') : boardColors().slice(0, 8).join(' '), long: true }], ok: 'Сохранить' });
+  if (!r) return; const cols = hexList(r[1]); if (!cols.length) { toast('Не нашёл ни одного цвета вида #RRGGBB'); return; }
+  const v = { name: (r[0] || '').trim() || 'Палитра', cols }; if (p) own[i] = v; else own.push(v); LS.set('pal28', own);
+  S.cp28tab = 'm' + (p ? i : own.length - 1); LS.set('cp28tab', S.cp28tab); toast(`Палитра «${v.name}»: ${cols.length} ${plural(cols.length, 'цвет', 'цвета', 'цветов')}`); if (S.lookDraw) S.lookDraw();
+}
+
+/* ---------- board background: exact colours (not darkened in the dark theme), any colour ---------- */
+const BG28_EXACT = ['#fff9f2', '#d9ffe6', '#e3f4ff', '#ffdede', '#d9dcff', '#fff9e3', '#f3e8ff', '#eaf7f1', '#e8d9bf', '#ffffff'];
+const BG28_DARK = ['#14161c', '#0f2a4a', '#1e2a3a', '#2b2140', '#1f3328', '#3a2a1e', '#0b0b12', '#26282e'];
+{ const o = bgPop; bgPop = (anchor, bid) => {
+  o(anchor, bid); bid = bid || S.board.id; const box = $('#pop .bgp'); if (!box) return;
+  const cur = bmOf(bid).bg || '';
+  const sw = c => `<button class="swb${'x:' + c === cur ? ' on' : ''}" data-v="c:x:${c}" title="${c} — точно этот цвет и в тёмной теме"><span class="sw sq" style="--c:${c}"></span></button>`;
+  const rows = box.querySelectorAll('.row'); const last = rows[rows.length - 1];
+  last.insertAdjacentHTML('afterend', `<div class="vp-h">Точные цвета · не темнеют в тёмной теме</div><div class="row">${BG28_EXACT.map(sw).join('')}</div><div class="row">${BG28_DARK.map(sw).join('')}<label class="swb addc" title="Свой цвет фона"><input type="color" data-bg28 value="${/^x:#/.test(cur) ? cur.slice(2) : '#fff9f2'}"><span>+</span></label></div>
+    <div class="vp-h">Сетка этой доски</div><div class="row">${Object.entries(GRID28).map(([k, l]) => `<button class="ob sm${(bmOf(bid).grid || '') === k ? ' on' : ''}" data-v="g:${k}">${l}</button>`).join('')}<button class="ob sm${bmOf(bid).grid ? '' : ' on'}" data-v="g:">Как везде</button></div>`);
+  const inp = box.querySelector('[data-bg28]'); inp.addEventListener('change', () => { bmSet(bid, { bg: 'x:' + inp.value }); applyBoardBg(); if (S.bpan) renderBoards(); });
+  const pick = pop._pick; pop._pick = v => { if (v.startsWith('g:')) { bmSet(bid, { grid: v.slice(2) }); applyBoardBg(); setTimeout(() => bgPop(anchor, bid), 0); return; } pick(v); };
+}; }
+
+/* ---------- the grid: dots, lines or none; quieter, and fading when zoomed out ---------- */
+const GRID28 = { dots: 'Точки', lines: 'Линии', none: 'Нет' };
+const L28 = Object.assign({ grid: 'dots', dot: 40, fade: 1, ui: '', acc: '', rad: '' }, LS.get('look28') || {});
+const lookSave = () => LS.set('look28', L28);
+const gridStyle = () => (S.board && bmOf(S.board.id).grid) || L28.grid || 'dots';
+const GRID28_LINES = 'linear-gradient(to right,var(--dot) 1px,transparent 1px),linear-gradient(to bottom,var(--dot) 1px,transparent 1px)';
+let dot28 = { ref: '#f4f5f7', ink: '#1c1d21', k: 0.22, sig: '' };
+{ const o = applyBoardBg; applyBoardBg = (...a) => {
+  if (!S.board) return o(...a);
+  const m = bgEff(S.board.id), dark = document.documentElement.dataset.theme === 'dark', bg = m.bg || '';
+  const r = o(...a);
+  let base = ''; if (/^x:#/.test(bg)) base = bg.slice(2);
+  else if (/^g:/.test(bg)) base = dark ? darkOf(bg.slice(2).split(',')[0]) : bg.slice(2).split(',')[0];
+  else if (bg) base = dark ? darkOf(bg) : bg;
+  const ref = base || (dark ? '#111216' : '#f4f5f7'), lum = lumOf(ref);
+  dot28 = { ref, ink: lum > 0.5 ? '#1c1d21' : '#ffffff', k: (lum > 0.5 ? 0.22 : 0.2) * (L28.dot / 100) * 1.25, sig: '' };
+  const gs = gridStyle(), img = vp.style.backgroundImage || '';
+  if (gs === 'none' && S.settings.grid) { vp.style.backgroundImage = img.replace(GRID_IMG + ',', '').replace(GRID_IMG, '') || 'none'; S.bgLayers.grid = false; }
+  else if (gs === 'lines' && S.settings.grid) { vp.style.backgroundImage = img.replace(GRID_IMG, GRID28_LINES); S.bgLayers.lines = true; }
+  if (S.bgLayers) S.bgLayers.lines = gs === 'lines' && S.settings.grid;
+  dotApply(true); applyView(); return r;
+}; }
+function dotApply(force) {
+  if (!S.board) return;
+  const v = V(); let step = 24; while (step * v.z < 12) step *= 4; while (step * v.z > 96) step /= 4;
+  const gs = step * v.z, f = L28.fade ? clamp((gs - 12) / 12, 0.4, 1) : 1, k = Math.round(dot28.k * f * 1000) / 1000, sig = dot28.ref + k;
+  if (!force && sig === dot28.sig) return; dot28.sig = sig;
+  vp.style.setProperty('--dot', mixHex(dot28.ref, dot28.ink, k));
+}
+{ const o = bgLayerGeom; bgLayerGeom = (gs, v) => { const [sz, ps] = o(gs, v); if (!(S.bgLayers && S.bgLayers.lines)) return [sz, ps]; const s = sz.split(','), p = ps.split(','); return [[s[0], ...s].join(','), [p[0], ...p].join(',')]; }; }
+{ const o = applyView; applyView = (...a) => { const r = o(...a); dotApply(false); return r; }; }
+
+/* ---------- interface: palette, accent, rounding ---------- */
+const UI28 = { '': 'Обычная', warm: 'Тёплая', mint: 'Мята', dusk: 'Сумерки', contrast: 'Контраст' };
+const ACC28 = ['#ffd84d', '#3355ff', '#7b61ff', '#2fa36b', '#ff7a59', '#e83e8c', '#00b8d9'];
+const RAD28 = { sharp: 'Острые', '': 'Обычные', round: 'Круглые' };
+function lookApply() {
+  const R = document.documentElement; R.dataset.ui = L28.ui || ''; R.dataset.rad = L28.rad || '';
+  if (L28.acc && hexOk(L28.acc)) { R.style.setProperty('--sel', L28.acc); R.style.setProperty('--sel-soft', mixHex(L28.acc, '#ffffff', 0.72)); R.style.setProperty('--sel-ink', lumOf(L28.acc) > 0.58 ? '#1c1d21' : '#ffffff'); }
+  else for (const k of ['--sel', '--sel-soft', '--sel-ink']) R.style.removeProperty(k);
+  if (S.board) applyBoardBg();
+}
+/* ---------- board styles: background, grid, sticky colour and palette at once ---------- */
+const BSTY28 = {
+  classic: ['Классика', { bg: '', pat: '', grid: '' }, '#fff3a0'],
+  pastel: ['Пастель', { bg: 'x:#fff9f2', pat: '', grid: 'dots' }, '#ffdede', 'pastel'],
+  notebook: ['Тетрадь', { bg: 'x:#fffef8', pat: '', grid: 'lines' }, '#fff9e3'],
+  blueprint: ['Чертёж', { bg: 'x:#0f2a4a', pat: '', grid: 'lines' }, '#e3f4ff'],
+  kraft: ['Крафт', { bg: 'x:#e8d9bf', pat: '', grid: 'dots' }, '#ffe8d6', 'earth'],
+  mint: ['Мята', { bg: 'x:#eaf7f1', pat: 'leaves', grid: 'dots' }, '#d9ffe6'],
+  night: ['Ночь', { bg: 'x:#14161c', pat: '', grid: 'dots' }, '#d9dcff', 'dark'],
+  neon: ['Неон', { bg: 'x:#0b0b12', pat: 'space', grid: 'none' }, '#fff700', 'neon'],
+  minimal: ['Минимал', { bg: 'x:#ffffff', pat: '', grid: 'none' }, '#e9eaee', 'gray'],
+};
+function bstyApply(k, bid, recolor) {
+  const s = BSTY28[k]; if (!s) return; bid = bid || S.board.id;
+  bmSet(bid, s[1]); if (s[2]) { S.opts.sticky = s[2]; saveSettings(); }
+  if (s[3]) { S.cp28tab = s[3]; LS.set('cp28tab', s[3]); }
+  if (recolor && S.board && S.board.id === bid && s[3]) {
+    const P = PAL28[s[3]][1]; const near = c => { const a = hexRGB(c); let best = P[0], d = 1e9; for (const p of P) { const b = hexRGB(p), x = (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2; if (x < d) { d = x; best = p; } } return best; };
+    pushHist(); let n = 0; for (const it of items()) { if (it.type === 'sticky' && hexOk(it.color)) { it.color = near(it.color); n++; } else if (it.type === 'shape' && hexOk(it.fill)) { it.fill = near(it.fill); n++; } }
+    if (n) changed();
+  }
+  applyBoardBg(); if (typeof bsRender === 'function') bsRender(); toast('Стиль доски: ' + s[0]);
+}
+
+/* ---------- the window ---------- */
+function lookDlg() {
+  const d = xdlg('Оформление', '<div class="p24 look28"></div>', true); d._dkey = 'look28';
+  const seg = (k, opts, cur) => `<div class="seg24">${Object.entries(opts).map(([v, l]) => `<button class="${String(cur) === v ? 'on' : ''}" data-lk28="${k}" data-lv="${v}">${l}</button>`).join('')}</div>`;
+  const draw = () => {
+    const bid = S.board && S.board.id, own = palMine();
+    d.querySelector('.look28').innerHTML = `
+      <h3>Интерфейс</h3>
+      <div class="lk-r"><span>Тема</span>${seg('theme', { auto: 'Как в системе', light: 'Светлая', dark: 'Тёмная' }, S.settings.theme || 'auto')}</div>
+      <div class="lk-r"><span>Палитра</span>${seg('ui', UI28, L28.ui || '')}</div>
+      <div class="lk-r"><span>Акцент</span><div class="row">${ACC28.map(c => `<button class="swb${(L28.acc || '#ffd84d') === c ? ' on' : ''}" data-lacc="${c}" title="${c}"><span class="sw" style="--c:${c}"></span></button>`).join('')}<label class="swb addc" title="Свой акцент"><input type="color" data-laccc value="${L28.acc || '#ffd84d'}"><span>+</span></label></div></div>
+      <div class="lk-r"><span>Скругления</span>${seg('rad', RAD28, L28.rad || '')}</div>
+      <h3>Сетка досок</h3>
+      <div class="lk-r"><span>Вид</span>${seg('grid', GRID28, L28.grid || 'dots')}</div>
+      <div class="lk-r"><span>Яркость</span><input type="range" min="5" max="100" step="5" value="${L28.dot}" data-ldot><b class="lk-v">${L28.dot}%</b></div>
+      <label class="l27ck"><input type="checkbox" data-lfade${L28.fade ? ' checked' : ''}> Бледнеть при отдалении, чтобы мелкая сетка не рябила</label>
+      ${bid ? `<h3>Стиль этой доски</h3><div class="bsty28">${Object.entries(BSTY28).map(([k, [n, o]]) => { const bg = String(o.bg || '').replace(/^x:/, '') || 'var(--canvas)'; return `<button class="bsty" data-bsty="${k}" style="--b:${bg}"><i style="background:${bg}"><em style="background:${BSTY28[k][2]}"></em></i><span>${n}</span></button>`; }).join('')}</div>
+      <label class="l27ck"><input type="checkbox" data-brec> Перекрасить стикеры и фигуры доски в палитру стиля</label>` : ''}
+      <h3>Мои палитры</h3>
+      <div class="pal28">${own.map((p, i) => `<div class="pal28r"><b>${esc(p.name)}</b><span>${p.cols.map(c => `<i style="background:${c}" title="${c}"></i>`).join('')}</span><button class="ob sm" data-pale="${i}">Изменить</button><button class="ib sm" data-pald="${i}" title="Удалить">${ic('close')}</button></div>`).join('') || '<p class="sub">Свои наборы цветов появятся во всех палитрах объектов отдельной вкладкой. Можно вставить цвета прямо из сообщения.</p>'}<button class="ob" data-palnew>+ Палитра</button></div>`;
+  };
+  d.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return; const ds = b.dataset;
+    if (ds.lk28) { const k = ds.lk28, v = ds.lv; if (k === 'theme') setTheme(v); else { L28[k] = v; lookSave(); lookApply(); } draw(); return; }
+    if (ds.lacc) { L28.acc = ds.lacc === '#ffd84d' ? '' : ds.lacc; lookSave(); lookApply(); draw(); return; }
+    if (ds.bsty) { bstyApply(ds.bsty, S.board.id, d.querySelector('[data-brec]') && d.querySelector('[data-brec]').checked); return; }
+    if (ds.palnew != null) { palEdit(); return; }
+    if (ds.pale != null) { palEdit(+ds.pale); return; }
+    if (ds.pald != null) { const own = palMine(); own.splice(+ds.pald, 1); LS.set('pal28', own); draw(); }
+  });
+  d.addEventListener('input', e => { if (e.target.dataset.ldot != null) { L28.dot = +e.target.value; lookSave(); dot28.k = (lumOf(dot28.ref) > 0.5 ? 0.22 : 0.2) * (L28.dot / 100) * 1.25; dotApply(true); const v = d.querySelector('.lk-v'); if (v) v.textContent = L28.dot + '%'; } });
+  d.addEventListener('change', e => {
+    const t = e.target;
+    if (t.dataset.laccc != null) { L28.acc = t.value; lookSave(); lookApply(); draw(); }
+    else if (t.dataset.lfade != null) { L28.fade = t.checked ? 1 : 0; lookSave(); dotApply(true); }
+  });
+  S.lookDraw = draw; d._onclose = () => { S.lookDraw = null; }; draw();
+}
+/* =========================================================
+   v2.8: panels open to the full screen from any mode (Esc returns);
+   several boards in the list at once; a matrix stretched as a whole keeps
+   its content scaled and centred in the cells; original files and pictures
+   go to the «Файлы» folder of the sync source, linked as the source;
+   tasks get their own place on the right of the board.
+   ========================================================= */
+/* ---------- full screen for every panel ---------- */
+const PF_SVG = '<svg class="i" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+function pfInit(d) {
+  if (!d || d._pf) return; d._pf = 1;
+  const head = d.querySelector('.xhead'); if (!head || d.querySelector('.dvbox') || head.querySelector('[data-x="pfull"]')) return;
+  const b = document.createElement('button'); b.className = 'ib pfb'; b.dataset.x = 'pfull'; b.title = 'Во весь экран · Esc — обратно'; b.setAttribute('aria-label', 'Во весь экран'); b.innerHTML = PF_SVG;
+  head.insertBefore(b, head.querySelector('[data-x="close"]')); b.addEventListener('click', e => { e.stopPropagation(); pfToggle(d); });
+  const h2 = head.querySelector('h2'); if (h2) h2.addEventListener('dblclick', () => pfToggle(d));
+}
+function pfToggle(d, on) {
+  const box = d.querySelector('.xbox'); if (!box) return; on = on == null ? !box.classList.contains('pfull') : on;
+  if (on && d.classList.contains('dock')) dockApply(d, false);
+  box.classList.toggle('pfull', on); d.classList.toggle('pfullx', on);
+  const b = d.querySelector('[data-x="pfull"]'); if (b) b.classList.toggle('on', on);
+}
+function pfClInit() {
+  const p = $('#cl24'); if (!p || p._pf) return; const h = p.querySelector('.clh'); if (!h) return; p._pf = 1;
+  const b = document.createElement('button'); b.className = 'ib sm pfb'; b.title = 'Во весь экран · Esc — обратно'; b.innerHTML = PF_SVG; h.appendChild(b);
+  b.addEventListener('click', e => { e.stopPropagation(); p.classList.toggle('pfull'); b.classList.toggle('on', p.classList.contains('pfull')); });
+}
+function pfEsc(e) {
+  if (e.key !== 'Escape' || document.querySelector('.qdlg') || !$('#pop').hidden) return;
+  const x = document.querySelector('.xbox.pfull'), c = document.querySelector('#cl24.pfull');
+  if (x) { e.preventDefault(); e.stopImmediatePropagation(); pfToggle(x.closest('.xdlg'), false); }
+  else if (c) { e.preventDefault(); e.stopImmediatePropagation(); c.classList.remove('pfull'); const b = c.querySelector('.pfb'); if (b) b.classList.remove('on'); }
+}
+
+/* ---------- several boards at once ---------- */
+const BSEL = new Set();
+function bselRows() { return [...document.querySelectorAll('#bside .bs-b[data-bid]')]; }
+function bselDraw() {
+  for (const r of bselRows()) r.classList.toggle('msel', BSEL.has(r.dataset.bid));
+  const side = $('#bside'); if (!side) return; let bar = side.querySelector('#bsel28');
+  document.body.classList.toggle('bsel28', BSEL.size > 0);
+  if (!BSEL.size) { if (bar) bar.remove(); return; }
+  if (!bar) { bar = document.createElement('div'); bar.id = 'bsel28'; side.appendChild(bar); bar.addEventListener('click', bselAct); }
+  const offAll = [...BSEL].every(syBoardOff);
+  bar.innerHTML = `<b>Выбрано ${BSEL.size}</b><span class="p24sp"></span><button class="ob sm" data-bsa="grp" title="Переложить в группу">В группу…</button><button class="ob sm" data-bsa="col" title="Цвет метки">Цвет…</button><button class="ob sm" data-bsa="sync" title="Синхронизация выбранных досок">${offAll ? '▶ Синхр.' : '⏸ Синхр.'}</button><button class="ob sm danger" data-bsa="del">Удалить</button><button class="ib sm" data-bsa="none" title="Снять выделение (Esc)">${ic('close')}</button>`;
+}
+async function bselAct(e) {
+  const b = e.target.closest('[data-bsa]'); if (!b) return; e.stopPropagation(); const a = b.dataset.bsa, ids = [...BSEL];
+  if (a === 'none') { BSEL.clear(); bselDraw(); return; }
+  if (a === 'grp') { const gs = orgGroups(); openPop(b, `<div class="menu"><div class="vp-h">В группу</div><button class="mi" data-v="">Без группы</button>${gs.map(g => `<button class="mi" data-v="${g.id}"><span>${esc(g.name)}</span></button>`).join('')}</div>`, v => { for (const id of ids) bmSet(id, { g: v }); bsRender(); bselDraw(); toast(`Переложено: ${ids.length}`); }); return; }
+  if (a === 'col') { colorPop(b, CARD_COLORS, '', c => { for (const id of ids) bmSet(id, { col: c }); bsRender(); bselDraw(); }); return; }
+  if (a === 'sync') { const offAll = ids.every(syBoardOff); for (const id of ids) { if (offAll) { if (syOff('b:' + id)) await syResume('b:' + id, syPolOf('b:' + id) === 'ask' ? 'merge' : syPolOf('b:' + id)); } else if (!syOff('b:' + id)) { SY.off['b:' + id] = Date.now(); } } sySave(); syRefresh(); toast(offAll ? 'Синхронизация досок включена' : `Синхронизация выключена: ${ids.length}`); bselDraw(); return; }
+  if (a === 'del') {
+    if (!(await uiConfirm(`Удалить ${ids.length} ${plural(ids.length, 'доску', 'доски', 'досок')}? Они попадут в корзину — вернуть можно в «Хранилище и копии → Корзина».`))) return;
+    let ok = 0, bad = 0; const cur = S.board && S.board.id;
+    for (const id of ids) { try { await trashBoard(id); await Backend.deleteBoard(id); Drive.forget(id); S.index = S.index.filter(x => x.id !== id); ok++; } catch (er) { bad++; } }
+    BSEL.clear();
+    if (cur && ids.includes(cur) && !S.index.some(x => x.id === cur)) { S.board = null; const next = [...S.index].sort((x, y) => y.updatedAt - x.updatedAt)[0]; const nb = next ? await Backend.loadBoard(next.id).catch(() => null) : null; loadBoard(nb || newBoard('Новая доска')); if (!nb) await saveNow(); }
+    bsRender(); renderDrawer(); bselDraw(); toast(`Удалено: ${ok}${bad ? ` · не удалось: ${bad} (командные доски удаляет администратор)` : ''}`);
+  }
+}
+document.addEventListener('click', e => {
+  const row = e.target.closest && e.target.closest('#bside .bs-b[data-bid]'); if (!row) return;
+  const multi = e.ctrlKey || e.metaKey || e.shiftKey || BSEL.size > 0 && document.body.classList.contains('bsel28') && BSEL.touch;
+  if (!multi) { if (BSEL.size) { BSEL.clear(); bselDraw(); } return; }
+  if (e.target.closest('button')) return;
+  e.stopPropagation(); e.preventDefault(); const id = row.dataset.bid;
+  if (e.shiftKey && BSEL.last) { const rows = bselRows().map(r => r.dataset.bid), a = rows.indexOf(BSEL.last), z = rows.indexOf(id); if (a >= 0 && z >= 0) for (const x of rows.slice(Math.min(a, z), Math.max(a, z) + 1)) BSEL.add(x); }
+  else if (BSEL.has(id)) BSEL.delete(id); else BSEL.add(id);
+  BSEL.last = id; bselDraw();
+}, true);
+/* touch: a long press starts choosing */
+document.addEventListener('pointerdown', e => {
+  const row = e.target.closest && e.target.closest('#bside .bs-b[data-bid]'); if (!row || e.pointerType === 'mouse') return;
+  const t = setTimeout(() => { BSEL.touch = 1; BSEL.add(row.dataset.bid); BSEL.last = row.dataset.bid; bselDraw(); if (navigator.vibrate) navigator.vibrate(15); }, 550);
+  const end = () => { clearTimeout(t); removeEventListener('pointerup', end, true); removeEventListener('pointercancel', end, true); removeEventListener('pointermove', mv, true); };
+  const x0 = e.clientX, y0 = e.clientY, mv = ev => { if (Math.abs(ev.clientX - x0) + Math.abs(ev.clientY - y0) > 10) end(); };
+  addEventListener('pointerup', end, true); addEventListener('pointercancel', end, true); addEventListener('pointermove', mv, true);
+}, true);
+{ const o = bsRender; bsRender = (...a) => { const r = o(...a); if (BSEL.size) { for (const id of [...BSEL]) if (!S.index.some(x => x.id === id)) BSEL.delete(id); bselDraw(); } return r; }; }
+
+/* ---------- matrices: stretching the whole matrix scales what is inside each cell ---------- */
+function mxScaleIn(c, F, r) {
+  const k = Math.min(r.w / Math.max(1, c.w), r.h / Math.max(1, c.h));
+  const inside = withFrameContents([c]).filter(x => x !== c && !(x.cell && x.cell.m === F.id));
+  const map = (x, y) => ({ x: r.x + ((x - c.x) / Math.max(1, c.w)) * r.w, y: r.y + ((y - c.y) / Math.max(1, c.h)) * r.h });
+  for (const it of inside) {
+    if (it.type === 'connector') { for (const e of ['from', 'to']) if (it[e] && !it[e].id) { const p = map(it[e].x, it[e].y); it[e].x = r1(p.x); it[e].y = r1(p.y); } continue; }
+    if (it.type === 'pen' && Array.isArray(it.pts)) { const p = map(it.x + it.w / 2, it.y + it.h / 2); it.x = r1(p.x - it.w / 2); it.y = r1(p.y - it.h / 2); continue; }
+    if (!(it.w > 0 && it.h > 0)) { const p = map(it.x, it.y); it.x = r1(p.x); it.y = r1(p.y); continue; }
+    const p = map(it.x + it.w / 2, it.y + it.h / 2), w = Math.max(8, it.w * k), h = Math.max(8, it.h * k);
+    let x = p.x - w / 2, y = p.y - h / 2;
+    x = clamp(x, r.x, Math.max(r.x, r.x + r.w - w)); y = clamp(y, r.y, Math.max(r.y, r.y + r.h - h));
+    it.x = r1(x); it.y = r1(y); it.w = r1(w); it.h = r1(h);
+    if (typeof it.fs === 'number') it.fs = Math.max(6, r1(it.fs * k));
+    if (it.type === 'mindmap') { it.rx = r1(it.x); it.ry = r1(it.y); }
+  }
+  c.x = r1(r.x); c.y = r1(r.y);
+}
+
+/* ---------- original files and pictures → «Файлы» of the sync source, linked as the source ---------- */
+const driveLink = id => 'https://drive.google.com/file/d/' + id + '/view';
+{ const o = insertImages; insertImages = async (files, at) => {
+  const list = [...(files || [])], before = new Set(items().map(i => i.id)); await o(files, at);
+  const added = items().filter(i => !before.has(i.id) && i.type === 'image'); let n = 0;
+  for (const it of added) { const f = list.find(x => (x.name || '') === (it.name || '')); if (!f || !(f instanceof Blob)) continue; const fid = 'f' + uid(); try { await Store.set('file:' + fid, f); Object.assign(it, { fid, fname: f.name || 'image', fsize: f.size, fmime: f.type }); n++; } catch (er) { /* the picture stays as it is */ } }
+  if (n) { changed(); fileSyncSoon(); }
+}; }
+async function imgDriveUp() {
+  const mine = items().filter(i => i.type === 'image' && i.fid && !i.driveId && !(fileIdx()[i.fid] || {}).d); if (!mine.length) return;
+  const folder = await fileDriveFolder(); let n = 0;
+  for (const it of mine) {
+    if ((it.fsize || 0) > DRIVE_FILE_MAX()) continue;
+    let b = null; try { b = await Store.get('file:' + it.fid); } catch (e) { b = null; } if (!(b instanceof Blob)) continue;
+    const d = await blobDataUrl(b), b64 = d.slice(d.indexOf(',') + 1);
+    const r = await Drive.write(() => Drive.create(folder, it.fname || fileNameOf(it), it.fmime || b.type || 'image/png', null, b64));
+    if (r && r.id) { it.driveId = r.id; fileIdxSet(it.fid, { n: it.fname, s: it.fsize, m: it.fmime, k: 'img', b: S.board.id, i: it.id, d: r.id }); n++; }
+  }
+  if (n) toast(n === 1 ? 'Картинка в исходном виде — в «Файлах» на Диске' : `Картинок в исходном виде на Диске: ${n}`);
+}
+function srcLinks() { let ch = 0; for (const it of items()) if (it.driveId && !it.srcUrl && (isFileIt(it) || it.type === 'image')) { it.srcUrl = driveLink(it.driveId); ch++; } if (ch) changed(); }
+{ const o = fileSyncRun; fileSyncRun = async (...a) => {
+  const r = await o(...a);
+  try { if (storeCfg().drive.files && Drive.active() && Drive.ready() && !Drive.writeBlocked && !syOff('drive') && !(S.board && syBoardOff(S.board.id))) await imgDriveUp(); } catch (e) { /* next time */ }
+  if (S.board) srcLinks(); return r;
+}; }
+
+/* ---------- tasks on the right of the board ---------- */
+const TD = Object.assign({ open: 0, tab: 'near', n: 10, days: 14, st: ['inbox', 'todo', 'doing', 'wait'], sort: 'due' }, LS.get('td28') || {});
+const tdSave = () => LS.set('td28', TD);
+const TD_TABS = { near: ['Ближайшие', 'Срок в ближайшие дни и то, что в работе — по всему задачнику'], board: ['Эта доска', 'Задачи из объектов этой доски и связанные с ними'], mine: ['Мои', 'Назначенные вам (в командном пространстве) и без исполнителя'], prio: ['Важные', 'Высокий и средний приоритет'] };
+function tdList() {
+  const L = S.lo; if (!L || !L.recs) return [];
+  let list = Object.values(L.recs).filter(r => r && r.k === 'task' && TD.st.includes(r.st || 'todo'));
+  const me = (typeof gtMeEmail === 'function' && gtMeEmail()) || '', today = loToday();
+  if (TD.tab === 'board' && S.board) { const lk = new Set(); for (const it of items()) for (const x of it.lo || []) lk.add(x); list = list.filter(r => (r.src && r.src.b === S.board.id) || lk.has(r.id) || (r.par && lk.has(r.par))); }
+  if (TD.tab === 'mine') list = list.filter(r => !r.who || r.who === me);
+  if (TD.tab === 'prio') list = list.filter(r => r.pr === 'p1' || r.pr === 'p2');
+  if (TD.tab === 'near') { const h = TD.days ? new Date(Date.now() + TD.days * 864e5).toISOString().slice(0, 10) : '9999'; list = list.filter(r => r.st === 'doing' || (r.due && r.due <= h)); }
+  const pr = r => ({ p1: 0, p2: 1, p3: 2 })[r.pr] ?? 3, due = r => r.due || '9999';
+  list.sort(TD.sort === 'prio' ? (a, b) => pr(a) - pr(b) || due(a).localeCompare(due(b)) : (a, b) => due(a).localeCompare(due(b)) || pr(a) - pr(b) || (a.st === 'doing' ? -1 : 0));
+  return list.slice(0, TD.n).map(r => Object.assign({ late: r.due && r.due < today, today: r.due === today }, r));
+}
+function tdDueText(r) {
+  if (!r.due) return ''; const d = Math.round((Date.parse(r.due) - Date.parse(loToday())) / 864e5);
+  return d < 0 ? `просрочено ${-d} дн.` : d === 0 ? 'сегодня' : d === 1 ? 'завтра' : d < 7 ? `через ${d} дн.` : r.due.slice(8, 10) + '.' + r.due.slice(5, 7);
+}
+function tdRender() {
+  let el = $('#td28'); document.body.classList.toggle('td28on', !!TD.open);
+  if (!TD.open) { if (el) el.hidden = true; return; }
+  if (!el) { el = document.createElement('aside'); el.id = 'td28'; el.className = 'panel'; el.dataset.app = ''; document.body.appendChild(el); el.addEventListener('click', tdClick); el.addEventListener('change', tdChange); }
+  el.hidden = false;
+  if (!S.lo) { el.innerHTML = '<div class="td-h"><b>Задачи</b></div><p class="sub">Загружаю задачник…</p>'; loLoad().then(tdRender).catch(() => {}); return; }
+  const list = tdList(), space = S.lo.space ? gtName(S.lo.space) : 'Личные';
+  el.innerHTML = `<div class="td-h"><b>Задачи</b><span class="td-sp" title="Чей задачник">${esc(space)}</span><span class="p24sp"></span><button class="ib sm" data-td="set" title="Настроить">⚙</button><button class="ib sm" data-td="open" title="Открыть Life OS">↗</button><button class="ib sm" data-td="close" title="Скрыть (кнопка «Задачи» вверху вернёт)">${ic('close')}</button></div>
+    <div class="seg24 td-tabs">${Object.entries(TD_TABS).map(([k, [l, t]]) => `<button class="${TD.tab === k ? 'on' : ''}" data-tdt="${k}" title="${esc(t)}">${l}</button>`).join('')}</div>
+    <div class="td-l">${list.map(r => `<div class="td-r${r.late ? ' late' : ''}${r.st === 'doing' ? ' doing' : ''}"><input type="checkbox" data-tdd="${r.id}" title="Готово"><button class="td-t" data-loopen="${r.id}"><span>${esc(r.title || 'Без названия')}</span><small>${r.pr ? `<i class="td-p" style="--c:${LO_PR[r.pr][1]}" title="${LO_PR[r.pr][0]}"></i>` : ''}${r.st === 'doing' ? '<em>в работе</em>' : ''}${r.due ? `<em class="${r.late ? 'bad' : r.today ? 'now' : ''}">${tdDueText(r)}</em>` : ''}${r.par && loGet(r.par) ? `<em class="td-par">${esc(loName(loGet(r.par)))}</em>` : ''}</small></button></div>`).join('') || `<p class="sub">${TD.tab === 'board' ? 'На этой доске нет задач. Карточки, списки задач и объекты со связью с задачником появятся здесь.' : 'Ничего на ближайшее время.'}</p>`}</div>
+    <div class="td-f"><button class="ob sm" data-td="add">+ Задача</button></div>`;
+}
+function tdClick(e) {
+  const b = e.target.closest('[data-td],[data-tdt]'); if (!b) return; e.stopPropagation();
+  if (b.dataset.tdt) { TD.tab = b.dataset.tdt; tdSave(); tdRender(); return; }
+  const a = b.dataset.td;
+  if (a === 'close') { TD.open = 0; tdSave(); tdRender(); tdBtn(); return; }
+  if (a === 'open') { openLo(); return; }
+  if (a === 'add') { uiPrompt('Новая задача', '').then(t => { if (!t || !t.trim()) return; const id = loId(); loPut({ id, k: 'task', title: t.trim(), st: 'todo', due: TD.tab === 'near' ? loToday() : '', u: Date.now() }); tdRender(); toast('Задача добавлена'); }); return; }
+  if (a === 'set') {
+    openPop(b, `<div class="vp td-set"><div class="vp-h">Сколько показывать</div><div class="row">${[5, 10, 20, 40].map(n => `<button class="ob sm${TD.n === n ? ' on' : ''}" data-v="n:${n}">${n}</button>`).join('')}</div>
+      <div class="vp-h">«Ближайшие» — на сколько дней вперёд</div><div class="row">${[1, 3, 7, 14, 30, 0].map(n => `<button class="ob sm${TD.days === n ? ' on' : ''}" data-v="d:${n}">${n || 'все'}</button>`).join('')}</div>
+      <div class="vp-h">Порядок</div><div class="row"><button class="ob sm${TD.sort === 'due' ? ' on' : ''}" data-v="s:due">По сроку</button><button class="ob sm${TD.sort === 'prio' ? ' on' : ''}" data-v="s:prio">По приоритету</button></div>
+      <div class="vp-h">Статусы</div><div class="row">${Object.entries(LO_ST).filter(([k]) => k !== 'drop').map(([k, [l]]) => `<button class="ob sm${TD.st.includes(k) ? ' on' : ''}" data-v="t:${k}">${l}</button>`).join('')}</div></div>`, v => {
+      const [k, x] = [v[0], v.slice(2)];
+      if (k === 'n') TD.n = +x; else if (k === 'd') TD.days = +x; else if (k === 's') TD.sort = x; else if (k === 't') TD.st = TD.st.includes(x) ? TD.st.filter(y => y !== x) : TD.st.concat(x);
+      tdSave(); tdRender(); setTimeout(() => tdClick({ target: b, stopPropagation() {} }), 0);
+    });
+  }
+}
+function tdChange(e) { const c = e.target.closest('[data-tdd]'); if (!c) return; loSet(c.dataset.tdd, { st: 'done' }); loSave(); toast('Готово ✓'); setTimeout(tdRender, 250); }
+function tdBtn() {
+  let b = $('#btnTasks28'); const host = $('#btnCloud') && $('#btnCloud').parentElement; if (!host) return;
+  if (!b) { b = document.createElement('button'); b.id = 'btnTasks28'; b.className = 'ib wide td-btn'; host.insertBefore(b, host.firstChild); b.addEventListener('click', () => { TD.open = TD.open ? 0 : 1; tdSave(); tdRender(); tdBtn(); }); }
+  const n = S.lo && S.lo.recs ? Object.values(S.lo.recs).filter(r => r && r.k === 'task' && r.st !== 'done' && r.st !== 'drop' && r.due && r.due <= loToday()).length : 0;
+  b.classList.toggle('on', !!TD.open); b.innerHTML = `☑<span class="td-lb"> Задачи</span>${n ? `<i class="td-n" title="На сегодня и просроченные">${n}</i>` : ''}`; b.title = 'Задачи справа от доски: ближайшие, этой доски, мои, важные';
+}
+{ const o = loTopChips; loTopChips = (...a) => { const r = o(...a); const n = document.querySelector('#loChips .lochip.n'); if (n) { const k = (n.textContent.match(/\d+/) || [''])[0]; n.textContent = `☑ ${k} ${plural(+k || 0, 'объект', 'объекта', 'объектов')} в задачнике`; n.title = 'Объекты этой доски, связанные с задачником (Life OS). Щёлкните — открыть список'; } clearTimeout(S.tdT); S.tdT = setTimeout(() => { if (TD.open) tdRender(); tdBtn(); }, 120); return r; }; }
+
+function ui28Setup() {
+  new MutationObserver(ms => { for (const m of ms) for (const n of m.addedNodes) if (n.nodeType === 1) { if (n.classList.contains('xdlg')) setTimeout(() => pfInit(n), 0); if (n.id === 'cl24') setTimeout(pfClInit, 0); } }).observe(document.body, { childList: true });
+  window.addEventListener('keydown', pfEsc, true);
+  window.addEventListener('keydown', e => { if (e.key === 'Escape' && BSEL.size && !document.querySelector('.qdlg')) { BSEL.clear(); bselDraw(); } });
+  tdBtn(); if (TD.open) setTimeout(tdRender, 800);
+}
+/* ---------- 2.8 glue ---------- */
+Object.assign(AREAS.data[2], { rt: 'Мгновенный режим (Realtime)', src: 'Источники синхронизации (Sync sources)' });
+Object.assign(AREAS.cust[2], { look: 'Оформление интерфейса (Theming)', ui: 'Дизайн панелей (UI design)' });
+Object.assign(AREAS.life[2], { dock: 'Задачи у доски (Task dock)' });
+{ const o = menuItems; menuItems = () => {
+  const l = o(), at = id => l.findIndex(x => x.id === id), ins = (after, ...xs) => { const i = at(after); l.splice(i >= 0 ? i + 1 : l.length, 0, ...xs); };
+  ins('storage', { id: 'sy28', cat: 'sync', icon: 'cloud', label: 'Источники синхронизации: выключить, включить, правила…', key: '' });
+  ins('mech', { id: 'look28', cat: 'set', icon: 'moon', label: 'Оформление: темы, палитры, сетка, стиль доски…', key: '' });
+  ins('team', { id: 'td28', cat: 'go', icon: 'tasks', label: 'Задачи справа от доски', key: '' });
+  return l;
+}; }
+{ const o = menuAction; menuAction = async v => {
+  if (v === 'sy28') { S.menuQ = ''; closePop(); return syDlg(); }
+  if (v === 'look28') { S.menuQ = ''; closePop(); return lookDlg(); }
+  if (v === 'td28') { S.menuQ = ''; closePop(); TD.open = 1; tdSave(); tdRender(); tdBtn(); return; }
+  return o(v);
+}; }
+/* the Drive window: who is signed in, and the sources */
+{ const o = renderDriveDlg; renderDriveDlg = (...a) => {
+  const r = o(...a); const body = $('#driveBody'); if (!body || driveDlg.hidden) return r;
+  const row = body.querySelector('.btnrow');
+  if (row && !row.querySelector('[data-sy28d]')) { row.insertAdjacentHTML('beforeend', '<button class="btn ghost" data-sy28d="1">Источники синхронизации…</button>'); row.querySelector('[data-sy28d]').addEventListener('click', () => { driveDlg.hidden = true; syDlg(); }); }
+  const a2 = gAcct(), bound = Drive.st && Drive.st.acct;
+  if (Drive.mode === 'rest' && (bound || (a2 && a2.email)) && !body.querySelector('.acct28')) {
+    body.insertAdjacentHTML('afterbegin', `<div class="acct28"><p class="sub">Синхронизация этого устройства — с аккаунтом <b>${esc(bound || a2.email)}</b>${a2 && a2.email && bound && a2.email !== bound ? ` · сейчас вошли как <b>${esc(a2.email)}</b>` : ''}. Входите всегда им: другой аккаунт — это другая папка «Холст».</p><button class="ob sm" data-acsw="1">Сменить аккаунт…</button></div>`);
+    body.querySelector('[data-acsw]').addEventListener('click', () => { driveDlg.hidden = true; acctLogin(''); });
+  }
+  const s = $('#dSync'); if (s && a2 && a2.email) s.title = 'В прошлый раз: ' + a2.email;
+  return r;
+}; }
+{ const o = gtSideHTML; gtSideHTML = (...a) => { const a2 = gAcct(); const h = o(...a); return a2 && a2.email ? h.replace(/data-gtx="login"/g, `data-gtx="login" title="В прошлый раз: ${esc(a2.email)}"`) : h; }; }
+function wire28() { sySetup(); rtSetup(); ui28Setup(); lookApply(); syBlockCheck(); }
+Object.assign(TOURS, {
+  sync28: { name: 'Источники синхронизации', steps: [
+    { el: '#btnCloud', t: 'Облако', x: 'Здесь видно, с каким аккаунтом Google вы вошли (наведите). В окне — кнопка «Источники синхронизации».' },
+    { el: () => document.querySelector('#btnMenu'), t: 'Источники', x: '☰ Меню → «Источники синхронизации»: выключить Диск, папку, командное пространство или отдельную доску, выбрать направление и правило включения: слить, доска главная, источник главный, обе версии или спросить.' },
+    { el: () => document.querySelector('#btnBoards'), t: 'Отдельная доска', x: '«⋯» у доски в панели — «Выключить синхронизацию доски». Ctrl/Shift-щелчок по доскам выделяет несколько: удалить, переложить, выключить синхронизацию разом.' },
+  ] },
+  look28: { name: 'Оформление и цвета', steps: [
+    { el: () => document.querySelector('#btnMenu'), t: 'Оформление', x: '☰ Меню → «Оформление»: тема, палитра интерфейса, акцент, скругления, вид и яркость сетки, стиль доски и свои палитры.' },
+    { el: () => document.querySelector('#ctx') || document.querySelector('#btnMenu'), t: 'Цвет объекта', x: 'В любом выборе цвета теперь вкладки: Набор, Пастель, Яркие, Земля, Неон, Серые, Тёмные, цвета этой доски и ваши палитры. Внизу — поле #hex, системная палитра и пипетка.' },
+  ] },
+  td28: { name: 'Задачи у доски', steps: [
+    { el: () => document.querySelector('#btnTasks28') || document.querySelector('#btnMenu'), t: 'Задачи', x: 'Кнопка «Задачи» вверху справа открывает список рядом с доской: ближайшие по сроку, задачи этой доски, мои, важные. Галочка — готово, щелчок — открыть в Life OS, ⚙ — сколько и какие показывать.' },
+  ] },
+});
+Object.assign(FEAT_TOUR, { f28_src: 'sync28', f28_pol: 'sync28', f28_bsel: 'sync28', f28_col: 'look28', f28_look: 'look28', f28_td: 'td28' });
 
 /* =========================================================
    Pointer interaction
@@ -17763,7 +18960,7 @@ function wire() {
   fbar.querySelector('[data-fa="reload"]').innerHTML = ic('reload') + '<span>Перезагрузить</span>';
   fbar.querySelector('[data-fa="full"]').innerHTML = ic('fit') + '<span>На весь монитор</span>';
   fbar.querySelector('[data-fa="close"]').innerHTML = ic('close') + '<span>Свернуть (Esc)</span>';
-  buildToolbar(); buildHelp(); wire23(); wire24(); wire24b(); wire25(); wire26(); wire27();
+  buildToolbar(); buildHelp(); wire23(); wire24(); wire24b(); wire25(); wire26(); wire27(); wire28();
 
   vp.addEventListener('pointerdown', onDown);
   vp.addEventListener('pointermove', onMove);
