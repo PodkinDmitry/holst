@@ -2392,6 +2392,89 @@ body.sy-ro #world{cursor:grab}
 @media (max-width:700px){.td-btn .td-lb{display:none}}
 .xdlg .p24{width:auto;max-width:100%;max-height:none;overflow:visible}
 
+/* ===== 2.9: task manager structure ===== */
+.lo29on>.lo-side{display:none!important}
+.lo29{position:sticky;top:-18px;z-index:5;margin:-18px -24px 14px;padding:10px 16px 10px;background:var(--panel);border-bottom:1px solid var(--line);box-shadow:0 6px 14px -12px rgba(0,0,0,.25);border-top:3px solid var(--sys,#7b61ff)}
+.lo29h{display:flex;align-items:center;gap:6px;min-height:30px}.lo29h>b{font-size:15px}
+.lo29cr{display:flex;flex-wrap:wrap;align-items:center;gap:4px;font:600 12.5px var(--font);min-width:0}.lo29cr i{font-style:normal;color:var(--muted);padding:0 2px}
+.lo29cr{background:var(--hover);padding:3px 10px;border-radius:8px}
+.lo29r{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:5px 0 0 22px;position:relative}
+.lo29r::before{content:'';position:absolute;left:10px;top:0;bottom:-2px;width:2px;background:var(--line);border-radius:2px}
+.lo29r .lo29n{width:96px;flex:none;font:700 10.5px var(--font);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.lo29r .seg24{flex-wrap:wrap}
+.lo29r.cur .seg24{box-shadow:0 0 0 2px var(--sel)}
+.lo29hint{margin:6px 0 2px 128px;padding:7px 10px;border-radius:9px;background:var(--sel-soft);font-size:12.5px;max-width:520px}
+.lo29.col .lo29h{margin:0}.lo29 .lo29x{min-height:26px!important;padding:0 8px!important}
+.lo-main.lo29wait>*:not(.lo29){display:none}
+#loDet.lo29hide{display:none!important}
+.ck29{max-width:760px;display:flex;flex-direction:column;gap:2px}.ck29qa{margin-bottom:8px}
+.ck29r{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:9px;cursor:pointer}.ck29r:hover{background:var(--hover)}.ck29r.sel{background:var(--accent-soft)}
+.ck29r .ck29t{flex:1;min-width:0;font-size:14px}.ck29r.dn .ck29t{text-decoration:line-through;color:var(--muted)}
+.ck29r em{font-style:normal;font-size:11.5px;color:var(--muted);background:var(--hover);padding:1px 7px;border-radius:6px}.ck29r em.bad{background:var(--danger);color:#fff}.ck29r em.now{background:var(--sel);color:#1c1d21}.ck29r .ck29s{background:transparent;border:1px solid var(--line)}
+.ck29d{margin-top:10px}.ck29d summary{cursor:pointer;color:var(--muted);font-weight:600;padding:6px 8px}
+/* ===== board → tasks and documents ===== */
+#world [data-hl]::after{content:'H' attr(data-hl);position:absolute;left:-1px;top:-18px;font:700 10px var(--font);padding:1px 5px;border-radius:5px;background:#7b61ff;color:#fff;pointer-events:none;transform:scale(var(--iz,1));transform-origin:0 100%}
+.bd29st{pointer-events:auto!important;cursor:pointer;border:0;font:inherit}.bd29st.ghost{opacity:.55;background:transparent!important;color:var(--muted)!important;box-shadow:inset 0 0 0 1px var(--line)}
+.bd29st:hover{filter:brightness(1.05);opacity:1}
+.bd29doc{display:flex;flex-direction:column;gap:10px;height:min(78vh,900px)}.bd29fr{flex:1;width:100%;border:1px solid var(--line);border-radius:10px;background:#fff}
+.bd29c{margin-top:12px;border-top:1px solid var(--line);padding-top:8px}.bd29cb{font-size:13px;overflow-wrap:anywhere}.bd29subs{display:flex;flex-direction:column;gap:4px;margin:6px 0 10px}.bd29subs label{display:flex;gap:8px;align-items:flex-start}
+/* ===== panels: board panels look like the toolbars, system panels like panels ===== */
+#bside{--panel:#1c1d21;--ink:#f1f2f4;--muted:#9aa0ab;--hover:#2b2e35;--line:#33363c;--accent-soft:#2f3446;--accent:#a8b6ff;--sel-soft:#3d3516;background:var(--panel);color:var(--ink)}
+html[data-theme=dark] #bside{--panel:#ffffff;--ink:#1c1d21;--muted:#6b7080;--hover:#f1f2f5;--line:#e3e5ea;--accent-soft:#e8ecff;--accent:#3355ff;--sel-soft:#fff3bf}
+#bside .inp{background:var(--hover);color:var(--ink);border-color:var(--line)}
+#bside .ib{color:var(--ink)}
+:root{--sys:#7b61ff}
+#side24,#side24r{gap:8px;padding:8px;background:transparent!important;box-shadow:none!important}
+#side24r{position:fixed;right:0;top:0;bottom:0;display:flex;z-index:40}#side24r[hidden]{display:none}
+#side24 .s24col,#side24r .s24col{border:0!important;background:transparent;gap:8px}
+.s24pane{border-radius:12px;background:var(--panel);box-shadow:0 1px 2px rgba(0,0,0,.08),0 10px 30px -14px rgba(0,0,0,.35);border:1px solid var(--line)}
+.s24pane+.s24pane{border-top:1px solid var(--line)!important}
+.s24pane[data-kind=sys]{border-top:3px solid var(--sys)}
+.s24pane[data-kind=board]>.s24ph,.s24pane[data-kind=board] .xhead{--ink:#f1f2f4;--muted:#9aa0ab;background:#1c1d21;color:#f1f2f4}
+html[data-theme=dark] .s24pane[data-kind=board]>.s24ph,html[data-theme=dark] .s24pane[data-kind=board] .xhead{background:#ffffff;color:#1c1d21;--ink:#1c1d21}
+.s24ch{border-radius:10px;background:var(--panel);border:1px solid var(--line)!important}
+.s24cn{font:600 11.5px var(--font);color:var(--muted)}
+.xbox.full,.xbox.wide{border-top:3px solid var(--sys)}
+html body #status,html body #zoombar{margin-right:calc(var(--s24wr,0px) + var(--dkwr,0px))}
+body:not(.s24r){--s24wr:0px}body:not(.dvsideR){--dkwr:0px}
+.xdlg.dvsideR{inset:0 0 0 auto!important;width:var(--dkwr,520px);background:none;padding:0;display:block}
+.xdlg.dvsideR .xbox{width:100%!important;height:100vh!important;max-height:100vh!important;border-radius:0;box-shadow:-6px 0 30px -12px rgba(0,0,0,.35)}
+html body .xdlg .xhead [data-x="dock"],html body .xdlg .xhead [data-x="pfull"],html body #side24 .s24pane .xdlg .xhead [data-x="dock"]{display:none!important}
+.pv29 .mi.on{background:var(--accent-soft)}
+/* ===== the toolbar on three edges ===== */
+body.tb29-right #toolbar{left:auto!important;right:calc(12px + var(--sr) + var(--s24wr,0px) + var(--dkwr,0px));margin-left:0!important}
+body.tb29-bottom #toolbar{left:50%!important;top:auto!important;bottom:calc(12px + var(--sb));transform:translateX(-50%)!important;flex-direction:row!important;max-width:calc(100% - 420px);max-height:none;overflow-x:auto;overflow-y:hidden;margin-left:0!important}
+body.tb29-bottom #toolbar .tsep,body.tb29-bottom #toolbar hr{width:1px!important;height:24px!important;margin:0 4px!important}
+@media (max-width:700px){body.tb29-bottom #toolbar{max-width:calc(100% - 24px);bottom:calc(64px + var(--sb))}}
+/* ===== control presets, guides, version, share ===== */
+.ct29p{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin:10px 0}
+.ct29 .lk-r{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0}.ct29 .lk-r>span{color:var(--muted);font-size:12.5px}.ct29 select{width:auto;flex:none}
+#gd29{position:fixed;z-index:75;width:min(340px,92vw);padding:12px 14px;border-radius:14px;background:var(--panel);box-shadow:0 18px 50px -16px rgba(0,0,0,.45);border:1px solid var(--line);border-top:3px solid var(--sel)}
+#gd29 .gd-h{display:flex;align-items:center;gap:8px}#gd29 .gd-h b{flex:1}#gd29 .gd-c{font:700 10px var(--font);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--hover);padding:2px 6px;border-radius:5px}
+#gd29 ul{margin:8px 0;padding-left:18px;font-size:13px;line-height:1.45}#gd29 li{margin:3px 0}#gd29 .gd-f{display:flex;gap:6px;align-items:center}
+#gd29 .ob{min-height:28px;padding:0 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);cursor:pointer;font:600 12.5px var(--font)}
+.gd29c{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:2px 12px;margin:6px 0 4px 20px}.gd29c small{color:var(--muted)}
+#ver29{position:fixed;left:50%;bottom:calc(70px + var(--sb));transform:translateX(-50%);z-index:70;display:flex;align-items:center;gap:10px;padding:8px 8px 8px 14px;border-radius:12px;box-shadow:var(--shadow)}
+#updBar .ob{min-height:30px;padding:0 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);cursor:pointer;font:600 12.5px var(--font)}
+.vn29{padding-left:18px}.vn29 li{margin:6px 0}.vn29 small{display:block;color:var(--muted)}
+.sh29 .lk-r{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0}.sh29 .lk-r>span{width:60px;color:var(--muted);font-size:12.5px}
+/* ===== frame tabs: shrink with the frame instead of disappearing ===== */
+.fhead{--tk:var(--tkn,min(var(--iz,1),var(--tkmax,99)))!important}
+.fhead.annex{--tk:var(--tkn,min(var(--hz,var(--iz,1)),var(--tkmax,99)))!important}
+.fhead.annex.tiny .ftabzone:not(:empty){display:flex!important}
+.ftabzone .frow{min-width:0;max-width:100%;overflow:hidden;flex-wrap:nowrap}
+.ftabzone .ftab{flex:0 1 auto;min-width:calc(12px * var(--tk))!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* the task manager structure on a phone */
+.lo29h>b,.lo29h .ob{white-space:nowrap}
+@media (max-width:700px){
+.lo29{padding:8px 10px}.lo29h{flex-wrap:wrap;row-gap:4px}.lo29h .t29l{display:none}
+.lo29r{padding-left:14px;gap:4px 8px}.lo29r::before{left:4px}.lo29r .lo29n{width:100%}
+.lo29hint{margin-left:14px}
+}
+#bside .ob{background:var(--hover);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:2px 8px;cursor:pointer;font:600 12px var(--font)}#bside .ob:hover{background:var(--accent-soft)}
+@media (max-width:700px){.lo29h .pv29b{display:none}}
+.sh29 .ds-l{display:flex;flex-direction:column;gap:4px;margin:8px 0}.sh29 .inp,.sh29 select{min-height:38px;padding:6px 10px;width:100%;box-sizing:border-box;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:14px var(--font)}.sh29 textarea.inp{min-height:76px}
+
 @media (max-width:700px){#statusText{display:none}#statusText.act{display:block;max-width:132px;white-space:normal;font-size:11.5px;line-height:1.25}#status{padding-left:12px}#boardName{width:120px}.fbtn span{display:none}.fdoc{padding:28px 24px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -4240,7 +4323,7 @@ function ctxExtra(sel, single) {
   if (it && it.pin && !S.editing) g.push(cbtn('k:unpin', 'Отцепить', 'Отцепить от элемента', 'wide'));
   if (sel.length && !S.editing) g.push(cbtn('k:lock', ic('lock'), `${sel.some(i => !i.locked) ? 'Закрепить' : 'Открепить'} (${keyOf('lock')})`, sel.every(i => i.locked) ? 'on' : ''));
   if (sel.length > 1 && !S.editing) g.push(cbtn('k:align', 'Расположить', `Расположить: выровнять, вплотную или с промежутком, строками и столбцами, обернуть в рамку (${keyOf('align')})`, 'wide') + cbtn('k:isol', ic('expand'), 'Открыть выделенное отдельно, как доску'));
-  if (sel.length && !S.editing) g.push(cbtn('k:snap', ic('cam'), `Снимок: PNG, JPG, WebP, с обрезкой (${S.keys ? keyOf('snap') : ''})`));
+  if (sel.length && !S.editing) g.push(cbtn('k:snap', ic('copy'), `Копировать: снимок, текст для Telegram, документ с картинками (${S.keys ? keyOf('snap') : ''} — снимок)`));
   if (it && it.type === 'connector') g.push(cbtn('c:label', 'Подпись', 'Подпись на линии', 'wide') + cbtn('c:shead', headIcon(it.start ? it.shead || 'arrow' : 'none', true), 'Вид начала') + cbtn('c:ehead', headIcon(it.end ? it.ehead || 'arrow' : 'none'), 'Вид конца'));
   if (it && it.type === 'embed' && it.kind !== 'file') g.push(cbtn('e:view', VIEW_NAMES[viewOf(it)], 'Как показывать ссылку', 'wide') + cbtn('e:cap', 'Подпись', 'Название и подпись', 'wide'));
   if (sel.length > 1) { const same = sel[0].grp && sel.every(i => i.grp === sel[0].grp); g.push(same ? cbtn('g:un', 'Разгруппировать', `Разгруппировать (${MOD}+Shift+G)`, 'wide') : cbtn('g:do', 'Сгруппировать', `Сгруппировать (${MOD}+G)`, 'wide')); }
@@ -5498,7 +5581,7 @@ function installHelp() {
    v1.7: versions, feature catalog, tiny-object markers, pin zones, re-attach,
    nested frame tabs, Whimsical import that reads the whole board by sections
    ========================================================= */
-const APP_VERSION = '2.8';
+const APP_VERSION = '2.9';
 const CHANGELOG = [
   ['1.9', '6 октября 2026', ['Масштаб от 0,5%, свой диапазон и уровни: колесо и кнопки прыгают по уровням (Горячие клавиши → Масштаб)', 'Замок: закреплённый объект не двигается, не меняется и не удаляется', 'Выравнивание, равные промежутки, одинаковый размер и одинаковая длина линий для выделенного', 'Умные направляющие: при перемещении и растягивании объект прилипает к краям и центрам соседей (Alt отключает)', 'Выделенное можно открыть отдельно, как доску, с хлебными крошками', 'Резервная копия в папку на компьютере, в том числе в папку Яндекс Диска, с недельным архивом', 'История версий доски с поиском по дате: копии на устройстве и версии из Google Диска', 'Компактная панель статуса: цветные индикаторы, мигающий значит нужно ваше действие', 'Контуры при сильном отдалении: только у внешних объектов, нейтральным серым, точно по размеру', 'Импорт из Whimsical: секции как в оригинале, блок-схемы и прямоугольники, шрифт подбирается под каждое устройство']],
   ['1.8', '6 октября 2026', ['Импорт из Whimsical: майнд-карты снова переносятся, сбойные запросы повторяются, а не пропускаются', 'Картинки из Whimsical переносятся как картинки', 'Ссылки из Whimsical становятся текстом-ссылкой, а не пустой карточкой', 'Размер шрифта в перенесённых заголовках подбирается по настоящему шрифту, слова больше не рвутся', 'При сильном отдалении (1% и меньше) подсвечиваются контуры объектов вместо пятен', 'Копирование в другие приложения: обычный текст с форматированием, без служебного кода', 'Приложение само проверяет, есть ли на сайте новая версия, и предлагает обновиться']],
@@ -5514,12 +5597,12 @@ async function checkServerVersion(manual) {
   if (S.hosted || IS_FILE || PANE || !navigator.onLine) return;
   try {
     const r = await fetch(location.pathname + '?vcheck=' + Date.now(), { cache: 'no-store' });
-    const m = (await r.text()).match(/APP_VERSION = '([\d.]+)'/);
+    const tx29 = await r.text(); S.serverText = tx29; const m = tx29.match(/APP_VERSION = '([\d.]+)'/);
     S.serverVersion = m ? m[1] : null;
     if (S.serverVersion && S.serverVersion !== APP_VERSION) {
       let bar = $('#updBar');
       if (!bar) { bar = document.createElement('div'); bar.id = 'updBar'; bar.className = 'panel'; document.body.appendChild(bar); }
-      bar.innerHTML = `<span>На сайте версия ${esc(S.serverVersion)}, у вас ${APP_VERSION}</span><button class="btn">Обновить</button>`;
+      bar.innerHTML = `<span>На сайте версия ${esc(S.serverVersion)}, у вас ${APP_VERSION}</span><button class="btn">Обновить</button><button class="ob" data-upd29="1">Что нового</button>`;
       bar.querySelector('button').onclick = async () => { try { const reg = await navigator.serviceWorker.getRegistration(); if (reg) await reg.update(); } catch (e) { /* ignore */ } location.reload(); };
     } else if (manual) toast(`У вас последняя версия: ${APP_VERSION}`);
   } catch (e) { if (manual) toast('Не удалось проверить: нет связи с сайтом'); }
@@ -5527,7 +5610,7 @@ async function checkServerVersion(manual) {
 function checkVersion() {
   setTimeout(() => checkServerVersion(false), 3000);
   const seen = LS.get('seenVersion');
-  if (seen !== APP_VERSION) { LS.set('seenVersion', APP_VERSION); if (seen) setTimeout(() => toast(`Холст обновлён до версии ${APP_VERSION}. Что нового: меню ⋯ → версия`), 1200); }
+  if (seen !== APP_VERSION) { LS.set('seenVersion', APP_VERSION); if (seen) setTimeout(() => verUpdated(), 1200); }
 }
 
 /* ---------- markers for objects too small to see ---------- */
@@ -5973,7 +6056,7 @@ const AREAS = {
 };
 Object.assign(AREAS.canvas[2], { filter: 'Фильтры (Filters)' }); Object.assign(AREAS.org[2], { fhead: 'Шапка рамки (Frame header)' }); Object.assign(AREAS.obj[2], { docs: 'Документы (Documents)', html: 'HTML-инструменты (HTML tools)' }); Object.assign(AREAS.io[2], { web: 'Страница по ссылке (Web capture)', queue: 'Очередь импорта (Import queue)' }); Object.assign(AREAS.cust[2], { mech: 'Механики (Feature toggles)', panels: 'Панели (Panels)', menu: 'Меню (Menu)', drag: 'Перетаскивание (Drag)' }); Object.assign(AREAS.ws[2], { side: 'Панель досок слева (Boards sidebar)', smart: 'Умные доски (Smart boards)' }); Object.assign(AREAS.life[2], { time: 'Учёт времени (Time tracking)', src: 'Источники записей (Sources)' }); Object.assign(AREAS.plat[2], { audit: 'Аудит (Audit)' }); Object.assign(AREAS, { team: ['Команда', 'Team', { space: 'Командное пространство (Team space)', live: 'Кто на доске (Presence)' }], ai: ['Claude', 'AI', { board: 'Claude на доске (AI on board)' }], files: ['Файлы', 'Files', { drop: 'Файлы на доске (Files on board)', group: 'Групповое встраивание (Bulk embed)', lib: 'Библиотека файлов (File library)' }] }); Object.assign(AREAS.data[2], { trash: 'Корзина (Trash)', space: 'Объём (Storage usage)' }); Object.assign(AREAS.life[2], { modes: 'Режимы задачника (Task manager modes)' }); Object.assign(AREAS.plat[2], { guide: 'Гайды и демо (Guides)' }); AREAS.org[2].fhead = 'Табулятор рамки (Frame tabulator)';
 const areaLabel = c => { const [a, m] = String(c || '').split('.'), A = AREAS[a]; return A ? A[0] + (m && A[2][m] ? ' › ' + A[2][m].replace(/ \(.*\)$/, '') : '') : ''; };
-const VERS = [['2.8', '10 октября 2026'], ['2.7', '9 октября 2026'], ['2.6', '9 октября 2026'], ['2.5', '9 октября 2026'], ['2.4', '9 октября 2026'], ['2.3', '8 октября 2026'], ['2.2', '7 октября 2026'], ['2.1', '6 октября 2026'], ['2.0', '6 октября 2026'], ['1.9', '6 октября 2026'], ['1.8', '6 октября 2026'], ['1.7', '6 октября 2026'], ['1.6', '5 октября 2026'], ['1.5', '5 октября 2026'], ['1.4', '5 октября 2026'], ['1.3', '4 октября 2026'], ['1.2', '4 октября 2026'], ['1.0', '4 октября 2026']];
+const VERS = [['2.9', '10 октября 2026'], ['2.8', '10 октября 2026'], ['2.7', '9 октября 2026'], ['2.6', '9 октября 2026'], ['2.5', '9 октября 2026'], ['2.4', '9 октября 2026'], ['2.3', '8 октября 2026'], ['2.2', '7 октября 2026'], ['2.1', '6 октября 2026'], ['2.0', '6 октября 2026'], ['1.9', '6 октября 2026'], ['1.8', '6 октября 2026'], ['1.7', '6 октября 2026'], ['1.6', '5 октября 2026'], ['1.5', '5 октября 2026'], ['1.4', '5 октября 2026'], ['1.3', '4 октября 2026'], ['1.2', '4 октября 2026'], ['1.0', '4 октября 2026']];
 const KIND = { f: ['Новое', 'Feature'], i: ['Улучшение', 'Improvement'], x: ['Исправление', 'Bug fix'], b: ['Ожидается', 'Backlog'] };
 /* [id, version, area.module, kind, title, how to use, context] */
 const FEATS = [
@@ -6285,6 +6368,26 @@ const FEATS = [
 ['f28_mx','2.8','org.matrix','i','Матрица растягивается вместе с содержимым','Тяните край всей матрицы.','Содержимое ячеек масштабируется и остаётся по центру, не вылезая.'],
 ['f28_files','2.8','obj.media','i','Исходники файлов и картинок на Диске','Само: «Файлы» в источнике синхронизации; ссылка — в «↗ Исходник».','Оригинал всегда под рукой.'],
 ['f28_td','2.8','life.dock','f','Задачи справа от доски','Кнопка «☑ Задачи» вверху справа.','Ближайшие, этой доски, мои и важные — не выходя с доски.'],
+['f29_lo','2.9','life.struct','f','Задачник: структура сверху вниз','J → режим, пространство, категория, стиль, вид; ▾ сворачивает в строку.','Видно, где вы, и ничего не прячется в боковом меню.'],
+['f29_check','2.9','life.struct','f','Стиль «Чек-лист» и «Эта доска»','Задачник → Стиль «Чек-лист»; Пространство «Эта доска» или «Все пространства».','Самый простой список; задачи доски — прямо в задачнике.'],
+['f29_dash','2.9','life.struct','i','Витрина стала «Дашбордом» — отдельный режим','Задачник → Режим «Дашборд».','Сводка отдельно от работы со списками.'],
+['f29_intro','2.9','life.struct','i','Знакомство с задачником по шагам','Само при первом входе; ⋯ → «Знакомство».','Уровни открываются по одному.'],
+['f29_cells','2.9','life.cells','f','Ячейки матрицы — задачи','Матрица ▾ → «Ячейки — задачи»: заголовок, содержимое, разделы, подзадачи.','Хаос на доске сам раскладывается в задачи.'],
+['f29_st','2.9','life.cells','f','Кнопка статуса в ячейке и цвет по статусу','Щелчок по статусу над ячейкой; правый щелчок — выбрать.','Статус видно издалека.'],
+['f29_hl','2.9','life.cells','f','Заголовки H1–H3 на доске','Выделите текст → «H».','Доска читается по уровням — в задачи и документ.'],
+['f29_doc','2.9','io.doc','f','Доска, рамка или выделенное — документом','Кнопка копирования → «Как документ»; ☰ → «Доска как документ».','Документ с картинками и схемами целиком, .html или на доску.'],
+['f29_copy','2.9','io.doc','i','Одна кнопка копирования','Объект → значок копирования; в задачнике — «Копировать ▾».','Снимок, Telegram, Markdown, документ — в одном месте.'],
+['f29_pv','2.9','plat.panels','f','Вид панели одной кнопкой','▣ в шапке панели: поверх, слева или справа, колонка слева или справа, во весь экран, ширина, раскладки.','Панели где удобно, и это запоминается.'],
+['f29_right','2.9','plat.panels','f','Панели справа и слева одновременно','▣ → «Справа, за доской» или «В колонку справа»; у колонки ⇥ — на другую сторону.','Любая раскладка.'],
+['f29_bside','2.9','plat.panels','i','Список досок — как панель инструментов','Само.','Видно, что относится к доске, а что — к системе.'],
+['f29_tb','2.9','cust.tb','f','Панель инструментов слева, справа или снизу','Правый щелчок по панели или ☰ → «Панель инструментов».','Под руку и под экран.'],
+['f29_ctrl','2.9','cust.ctrl','f','Стиль управления по пресетам','☰ → «Стиль управления»: Холст, Miro, Figma, Whimsical, Яндекс, Excalidraw, только мышь, тачпад.','Колесо, масштаб к указателю или к центру, прокрутка у краёв, инерция — одним щелчком.'],
+['f29_gd','2.9','cust.guide','f','Гайды при первом нажатии','Само; ☰ → «Гайды» — выключить все или по разделам.','Сразу понятно, куда попали и что тут можно.'],
+['f29_ver','2.9','plat.rel','i','«Что нового» из уведомления о версии','Кнопка «Что нового» на плашке обновления.','Видно, что изменилось.'],
+['f29_tabs','2.9','org.fhead','x','Вкладки рамки сжимаются при отдалении','Само.','Не уходят за края рамки.'],
+['f29_ext','2.9','plat.ext','f','Расширение браузера: клиппер и виджеты','holst-extension.zip → chrome://extensions → «Загрузить распакованное».','Любая страница — в задачник или на доску; задачи поверх сайтов.'],
+['f29_share','2.9','plat.ext','f','«Поделиться» → Холст на телефоне','Установите Холст как приложение → «Поделиться» в любом приложении.','Ссылки, текст, картинки и файлы — сразу в Холст.'],
+['f29_cx','2.9','life.inbox','f','Отчёты из чатов Claude в задачник','Навык «Отчёт в Холст» в Claude → «отчёт в Холст» в конце чата.','Все отчёты и проекты чатов — в одном месте.'],
 ['b_types','backlog','obj.struct','b','Остальные виды объектов Miro, Whimsical, Excalidraw','Остались: диаграмма последовательности, вайрфреймы, таймлайн, комментарии','Нужен порядок: что важнее для переезда.'],
 ['b_miro','backlog','io.imp','b','Импорт из Miro','Будет как импорт из Whimsical.','Отложено: жду полного удовлетворения импортом из Whimsical; возможно, перенесу вручную — досок там мало.'],
 ['b_drivew','backlog','obj.media','b','Виджет папки Google Диска','Папка Диска на доске с перетаскиванием файлов.','Отложено ради исправлений.'],
@@ -7533,10 +7636,20 @@ const DEV_X = [
   { id: 'A28-full', it: '2.8', area: 'plat.win', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'из любого режима отображения панели должно быть возможно развернуть ее на полный экран и свернуть по esc. ну короче ровно так как это с объектами на доске', title: 'Панели во весь экран и обратно по Esc', report: R21('В шапке каждого окна — кнопка ⤢ (или двойной щелчок по названию), из любого режима, в том числе закреплённого слева; Esc возвращает как было. У панели ИИ — тоже.', 'Откройте «Источники синхронизации» → ⤢ → Esc.', '') },
   { id: 'U28-acct', it: '2.8', area: 'data.sync', status: 'review', type: 'Баг', prio: 'Критично', orig: 'я нашел причину дублирования досок. каким то образом у меня синхронизации хранятся в двух аккаунтах гугла. в какой то момент я случайно зашел по другим аккаунтом и начался их конфликт между собой. во первых учти это в системе и инструкциях. во вторых дай знать как мне сейчас оптимальным образом оставить все только в одном аккаунте (podkindmitrii@gmail.com) не удалив важных вещей. и как отсоединить второй (dmitry-08.91@mail.ru)', title: 'Один аккаунт Google на устройство', report: R21('Устройство запоминает аккаунт синхронизации. Вход другим аккаунтом ставит синхронизацию на паузу (во второй Диск ничего не пишется) и спрашивает: «Войти как прежний», «Перейти на новый» (слияние по объектам, без копий) или «Не синхронизировать». В окне «Google Диск» видно аккаунт устройства и есть «Сменить аккаунт…»; Google сам подставляет нужный адрес при входе. Инструкция по переезду на один аккаунт — в чате, в задаче «Оставить один аккаунт Google» и в «Как установить.txt».', '1. Облако → строка «Синхронизация этого устройства — с аккаунтом …».\n2. «Сменить аккаунт…» → войдите другим → появится окно выбора, во второй Диск ничего не записано.', 'Внутри Claude аккаунт задаёт коннектор Google Диска в настройках Claude.') },
   { id: 'A28-one', it: '2.8', area: 'data.sync', status: 'action', type: 'Баг', prio: 'Критично', owner: 'Я', title: 'Оставить один аккаунт Google (podkindmitrii@gmail.com)', need: '0. Подстраховка: drive.google.com под каждым аккаунтом → правый щелчок по папке «Холст» → «Скачать».\n1. Выложите 2.8 на сайт.\n2. Компьютер: облако → если устройство на mail.ru — «Синхронизировать сейчас»; если на gmail — «Сменить аккаунт…» → mail.ru → «Перейти на dmitry-08.91@mail.ru». Дождитесь «Сохранено в Google Диске». Пространства, созданные из mail.ru: пригласите gmail «Администратором» и в Диске передайте папку «Холст · …» во владение gmail.\n3. «Сменить аккаунт…» → podkindmitrii@gmail.com → «Перейти на podkindmitrii@gmail.com» → дождитесь синхронизации.\n4. Доски «(версия с …)»: проверьте, перенесите нужное, выделите Ctrl-щелчком → «Удалить».\n5. Телефон и другие устройства: войдите gmail → «Перейти на podkindmitrii@gmail.com».\n6. Отключить mail.ru: Google Cloud → Audience → Test users → удалить dmitry-08.91@mail.ru; myaccount.google.com под mail.ru → Безопасность → подключения к сторонним приложениям → «Холст» → удалить; выйти из mail.ru в браузере. Папку «Холст» в его Диске удалить через 2–4 недели.' },
-  { id: 'A28-chats', it: 'backlog', area: 'life.db', status: 'draft', type: 'Фича', prio: 'Высокий', orig: 'Можешь интегрировать в наш задачник все наши чаты и проекты? каждый чат имеет свою сущность в задачнике. они группируются в проекты задачника. за каждым чатом закреплены артефакты которые тоже сущности задачника. каждый чат по результату работы отправляет отчет. и он должен быть отдельной задачей в задачнике. так я смогу в одном месте контролировать все отчеты и сразу работать удобно во всех проектах.', title: 'Чаты, проекты и отчёты Claude в задачнике', desc: 'План 2.9: навык «Отчёт в Холст» — в конце чата Claude кладёт отчёт, ссылку на чат и артефакты во «Входящие» на Диске; Холст раскладывает их по проектам задачника.' },
-  { id: 'A28-ext', it: 'backlog', area: 'plat.install', status: 'draft', type: 'Фича', prio: 'Высокий', orig: 'создай расширение для браузеров. в первую очередь для chrome vivaldi comet. функция будет похожа на notion web clipper. я смогу добавлять любую страничку из браузера прямо в задачник. с выбором его свойств и с выбором чего именно из странички нужно добавлять и куда. для смартфона это нужно встроить в приложение холста. чтобы на кнопки шеринга внутри любого приложения, была иконка холста и панели деталей добавления. так же в расширении браузера должна быть возможность вытаскивания любых панелей как виджет поверх сайта. в режиме отображения на всем сайте и на отдельной страничке. виджет должно быть удобно двигать и растягивать как угодно. должна быть переключалка между режимом контента который строго закреплен за данной ссылкой или режим где свободная форма и весь задачник целиком.', title: 'Расширение браузера, «Поделиться» на телефоне, виджеты', desc: 'План 2.9: расширение для Chromium (Chrome, Vivaldi, Comet), кнопка «Поделиться» в установленном приложении на Android, виджеты панелей поверх сайтов.' },
+  { id: 'A28-chats', it: '2.9', area: 'life.db', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'Можешь интегрировать в наш задачник все наши чаты и проекты? каждый чат имеет свою сущность в задачнике. они группируются в проекты задачника. за каждым чатом закреплены артефакты которые тоже сущности задачника. каждый чат по результату работы отправляет отчет. и он должен быть отдельной задачей в задачнике. так я смогу в одном месте контролировать все отчеты и сразу работать удобно во всех проектах.', title: 'Чаты, проекты и отчёты Claude в задачнике', report: R21('Навык «Отчёт в Холст» для Claude (предложен в чате): в конце любого чата скажите «отчёт в Холст» — Claude положит JSON в «Холст/Входящие» на Google Диске. Холст забирает его при синхронизации: проект (по проекту Claude или «Чаты Claude») → чат (эпик со ссылкой) → «Отчёт: …» в статусе «ждёт проверки» с полями «сделано · как проверить · ограничения» → следующие шаги отдельными задачами → артефакты материалами чата. Вручную: задачник ⋯ → «Отчёты из чатов Claude…» → «Проверить сейчас» или вставить JSON.', '1. Сохраните навык из карточки в чате.\n2. В любом чате: «отчёт в Холст».\n3. Задачник → проект «Чаты Claude».', 'Ссылку на чат Claude сам не знает — вставьте её, если нужна (навык попросит).') },
+  { id: 'A28-ext', it: '2.9', area: 'plat.install', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'создай расширение для браузеров. в первую очередь для chrome vivaldi comet. функция будет похожа на notion web clipper. я смогу добавлять любую страничку из браузера прямо в задачник. с выбором его свойств и с выбором чего именно из странички нужно добавлять и куда. для смартфона это нужно встроить в приложение холста. чтобы на кнопки шеринга внутри любого приложения, была иконка холста и панели деталей добавления. так же в расширении браузера должна быть возможность вытаскивания любых панелей как виджет поверх сайта. в режиме отображения на всем сайте и на отдельной страничке. виджет должно быть удобно двигать и растягивать как угодно. должна быть переключалка между режимом контента который строго закреплен за данной ссылкой или режим где свободная форма и весь задачник целиком.', title: 'Расширение браузера, «Поделиться» на телефоне, виджеты', report: R21('holst-extension.zip — расширение для Chromium (Chrome, Vivaldi, Comet, Edge, Arc). Значок или Alt+Shift+H: задача во Входящие или проект, на доску или оба; что взять — ссылку, выделенное, описание, весь текст статьи, снимок экрана; срок, приоритет, метки. Правый щелчок по странице, ссылке, картинке. Виджет задач поверх сайта: двигается, растягивается, сворачивается; «эта страница» или «весь задачник»; на всём сайте или на одной странице; галочки и добавление. Телефон: установленный Холст появляется в «Поделиться» — текст, ссылки, картинки и файлы задачей или на доску.', '1. chrome://extensions → «Режим разработчика» → «Загрузить распакованное» → папка расширения.\n2. На любой странице — значок Холста → «Добавить».\n3. Правый щелчок → «Холст: виджет задач на этом сайте».', 'Холст должен быть открыт во вкладке (расширение само откроет закреплённую). На iPhone «Поделиться» в веб-приложения Safari не пускает.') },
   { id: 'A28-fb', it: '2.8', area: 'data.rt', status: 'action', type: 'Фича', prio: 'Высокий', owner: 'Я', title: 'Настроить мгновенный режим (Firebase)', need: '1. Холст на сайте → «Все доски» → ⚙ у пространства агентства → блок «⚡ Мгновенный режим» → «Как настроить Firebase».\n2. Пройдите 7 шагов (около 10 минут): проект Firebase в том же проекте Google Cloud, вход через Google, домен podkindmitry.github.io, Realtime Database, правила из Холста.\n3. Вставьте Web API Key и адрес базы → «Проверить и включить».\n4. Откройте командную доску с двух аккаунтов: правки и курсоры — сразу, у пространства значок ⚡.' },
   { id: 'A28-site', it: '2.8', area: 'plat.rel', status: 'action', type: 'Документация', prio: 'Высокий', owner: 'Я', title: 'Выложить 2.8 на сайт', need: '1. Скачайте holst-app.zip из чата.\n2. На GitHub в репозитории holst замените index.html и sw.js файлами из архива (как в прошлый раз).\n3. Откройте сайт, обновите страницу дважды — внизу меню должна быть версия 2.8.\n4. Удалите старые доски-копии «(версия с …)»: в панели досок Ctrl-щелчок по ним → «Удалить».' },
+  { id: 'T29-ctrl', it: '2.9', area: 'cust.ctrl', status: 'review', type: 'Фича', prio: 'Средний', orig: 'сделай настройки стиля управления по пресетам как в референсных сервисах. сюда попадут все настройки по скролингам зумингам, следованию экрана указателю мышки и всякое такое что я еще мог забыть', title: 'Стиль управления по пресетам', report: R21('☰ → «Стиль управления»: восемь наборов — Холст, Miro, Figma и FigJam, Whimsical, Яндекс Доски, Excalidraw и tldraw, «Только мышь», «Тачпад». В наборе: что делают колесо, Shift и Ctrl + колесо, масштаб к указателю или к центру экрана, плавно или ступенями, скорость колеса, тачпада и прокрутки, доска едет за указателем у края при перетаскивании, инерция после перетаскивания доски, горячие клавиши сервиса. Любую настройку можно поправить и сохранить своим набором.', '1. ☰ → «Стиль управления» → «Figma и FigJam»: колесо прокручивает, Ctrl + колесо — масштаб.\n2. «Только мышь»: масштаб ступенями к центру экрана.\n3. Тяните стикер к краю экрана — доска поедет.', '') },
+  { id: 'T29-pan', it: '2.9', area: 'plat.panels', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'ПЕРЕРАБАТЫВАЕМ ЗАКРЕПЛЕНИЕ ПАНЕЛЕЙ. основная панель списка досок должна иметь стиль как у панелей инструментов. разумеется во всех темах. дело в том что сейчас логически пользователь теряется из за визуального сходства с задачником. единая кнопка вариантов отображения панелей — на первом слое кнопок располагать вариации одной функции это логически ломает пользовательское мышление. прячь все во второй слой. следи за такой структурой везде на сайте, сделай стандартом. разумеется за некоторыми исключениями которые по логике важны: например все виды синхронизации должны быть на первом слое чтобы юзер всегда видел где что актуально. внутри второго слоя этой кнопки сделай как можно более гибкие варианты настройки, запоминания, пресетов и так далее. сделай доп панели немного отличающимися от основной панели списка досок. нужно чтобы юзер видел что касается доски а что касается чего то внутри системы в целом или других разделов. по этой же логике отдели друг от друга визуально все 6 блоков закрепления. сделай возможность расположения не только слева но и справа. любой набор вариаций должен быть возможен. включая одновременно и слева и справа для разных панелей.', title: 'Закрепление панелей: стиль, одна кнопка вида, слева и справа', report: R21('Список досок оформлен как панель инструментов (тёмный в светлой теме, светлый в тёмной); системные панели — обычные, с фиолетовой полосой сверху; панели доски в колонках — с тёмной шапкой. Кнопки «закрепить» и «во весь экран» заменены одной ▣: поверх экрана, слева или справа за доской, в колонку слева или справа, во весь экран; ширина; «открывать так всегда»; «так — для всех панелей»; сохранённые раскладки и сброс. Колонки конструктора — отдельные карточки с промежутками, каждую можно перенести на другую сторону (⇥/⇤); слева и справа одновременно. Стандарт «вариации одной функции — во втором слое» применён к панелям и копированию; синхронизация осталась на первом слое.', '1. Откройте DEV или Хранилище → ▣ → «Справа, за доской».\n2. Другую панель → ▣ → «В колонку слева».\n3. ▣ → «Сохранить текущую раскладку…».', 'Старые панели в колонках после применения раскладки открываются кнопкой «Открыть здесь».') },
+  { id: 'T29-lo', it: '2.9', area: 'life.struct', status: 'review', type: 'Фича', prio: 'Критично', orig: 'ИСПРАВЛЯЕМ НЕЙРОСЛОП РЕЖИМА ЗАДАЧНИКА. плашка о количестве объектов в задачнике касается задачника. поэтому она должна быть в той зоне где кнопка задач. иконка задач должна быть крайней справа, после которой будет эта плашка. а кнопка ai пускай будет самой левой. знакомство с задачником при первом попадании в него — панели должны появляться по мере его прогресса. структура подразделов задачника: общий блок, уровни сверху вниз, кнопки выбора пространств с доп параметрами справа, все пространства сразу и эта доска; второй уровень — все, мои, по направлениям, по проектам; третий уровень — стили отображения, первым — простейший минималистичный чек лист. витрину назови дашбордом, отдельный уровень — переключение между дашбордом и задачами. всю структуру спрячь в горизонтальное меню сверху, которое при сворачивании отображает все выбранные варианты в одну строчку. боковые менюшки должны исчезнуть в задачнике.', title: 'Задачник: структура сверху вниз вместо бокового меню', report: R21('Боковое меню убрано. Сверху — структура уровнями: Режим (Задачи · Дашборд) → Пространство (Личное, каждое командное, «Все пространства», «Эта доска», ⋯ — создать, войти, участники) → Категория (Все, Мои, Направление ▾, Проект ▾) → Стиль (Чек-лист, To-do, Lean, Life OS) → Вид (страницы стиля). ▾ сворачивает всё в одну строку с выбранными значениями. Служебное (база, время, перенос, корзина, надёжность, отчёты чатов, знакомство) — в ⋯. Первый вход: уровни открываются по одному с подсказкой, задачи появляются в конце; «Пропустить» и выключатель есть. На верхней панели доски: ИИ ✦ первым, задачник последним, число объектов доски в задачнике — сразу после него. «Витрина» переименована в «Дашборд».', '1. Нажмите задачник (последняя кнопка вверху) — пройдите знакомство.\n2. «Эта доска» + «Чек-лист».\n3. ▾ слева — структура в одну строку.', 'В «Все пространства» задачу из другого пространства открывает переключение на её пространство; галочка работает сразу.') },
+  { id: 'T29-td', it: '2.9', area: 'life.struct', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'задачи справа интегрируй в основной задачник. мне не нравится что мы плодим сущности да еще и в разных местах интерфейса', title: 'Задачи справа — внутрь задачника', report: R21('Отдельная панель «Задачи» справа и её кнопка убраны. То же самое теперь в задачнике: пространство «Эта доска» и стиль «Чек-лист»; щелчок по числу рядом с кнопкой задачника открывает их сразу.', 'Щёлкните число справа от кнопки задачника.', '') },
+  { id: 'T29-cells', it: '2.9', area: 'life.cells', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'ячейки матричной доски могут попадать в задачник как опция. два варианта считывания заголовка: заголовки ячеек являются заголовками задач; дефолтный — самый верхний текстовый объект внутри ячейки будет заголовком. остальное попадает списком отдельными блоками, любые объекты, включая картинки флоучарты встройки. пресет расположения контента по типу объекта, не только сплошной лист но и колонки. объединяющие фреймы — отдельные секции. туду лист — подзадачи. любой текстовый объект можно сделать заголовком, задачник считывает структуру по уровням. снабди ячейки полезными свойствами задачника: кнопка статуса, фон ячейки подчиняется цветам статусов. придумай то что я не догадался придумать.', title: 'Ячейки матрицы и заголовки — в задачник', report: R21('Матрица ▾ → «Ячейки — задачи»: каждая ячейка — задача (в «Эта доска»). Заголовок — верхний текст ячейки (заголовок H1–H3 важнее) или название ячейки. Остальное — содержимое задачи блоками: тексты, стикеры, документы, картинки, схемы (рисуются картинкой), встройки ссылками; рамки внутри — разделы; чек-листы — подзадачи с галочками в обе стороны. Раскладка: списком, по типам, колонками. Статус ячейки — кнопкой над ней (щелчок — следующий, правый — выбрать), фон ячейки красится по статусу; статус, приоритет и метка ячейки = поля задачи, правки из задачника возвращаются на доску. Любой текст/стикер/фигура — заголовок H1–H3 (кнопка «H»), это же задаёт уровни документа. Добавлено от себя: метка ячейки становится меткой задачи, приоритет — приоритетом, переход «На доске ↗» из задачи к ячейке.', '1. Сделайте матрицу 2×2, в ячейки — текст, картинку, чек-лист.\n2. «Матрица ▾» → «Ячейки — задачи».\n3. J → «Эта доска» → выберите задачу: справа содержимое ячейки.', 'Схемы рисуются картинкой, только когда доска открыта; иначе — подписью.') },
+  { id: 'T29-copy', it: '2.9', area: 'io.doc', status: 'review', type: 'Фича', prio: 'Средний', orig: 'там где кнопки копирования в телеграм и скриншот — сделай еще одну кнопку сохранения в документ. чтобы картинки и прочие нетекстовые объекты полностью сохранились в полном виде. и вообще все это должно быть одной кнопкой значка копирования и после чего доп кнопки вариантов копирования. так же должен быть не только режим задач но и режим документа где по похожей логике весь контент внутри будет организовываться в текстовый документ', title: 'Одна кнопка копирования и режим документа', report: R21('В задачнике «В Telegram» и «Снимок» объединены в «Копировать ▾»: текст для Telegram, картинка, Markdown, документ .html (с содержимым ячеек и картинками), документ на доску. У объектов на доске камера стала значком копирования: снимок, текст для Telegram, «как документ» (просмотр), документ .html, документ на доску. Режим документа: доска, рамка или выделенное читаются сверху вниз — рамки становятся разделами, заголовки H1–H3 — уровнями, картинки и схемы сохраняются целиком; ☰ → «Доска как документ».', '1. Выделите рамку → значок копирования → «Как документ».\n2. ☰ → «Доска как документ» → «Скачать .html».', '') },
+  { id: 'T29-ver', it: '2.9', area: 'plat.rel', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'на дисклеймере о новой версии должно быть упоминание и кнопка перехода на раздел что нового', title: '«Что нового» на уведомлении о версии', report: R21('После обновления — плашка «Холст обновлён до версии … · Что нового» (открывает раздел на нужной версии). Плашка «На сайте версия …» — кнопка «Что нового»: список новых функций с сайта до обновления.', 'Откройте сайт после выкладки 2.9 — внизу плашка с кнопкой.', '') },
+  { id: 'T29-tabs', it: '2.9', area: 'org.fhead', status: 'review', type: 'Баг', prio: 'Средний', orig: 'вкладки внутри фрейма сейчас пропадают за его границы при зумауте. сделай чтобы они не пропадали а сужались', title: 'Вкладки рамки сужаются при отдалении', report: R21('Вкладки пересчитывают ширину при каждом масштабе и не выходят за края рамки: сначала уменьшаются, потом сужаются с многоточием.', 'Рамка с 4–5 вкладками → отдалите до 20%.', '') },
+  { id: 'T29-tb', it: '2.9', area: 'cust.tb', status: 'review', type: 'Фича', prio: 'Средний', orig: 'панель инструментов должно быть возможно разместить по любым 3 краям экрана. кроме верхнего потому что там и так много места занимают основные кнопки меню и так далее', title: 'Панель инструментов: слева, справа, снизу', report: R21('Правый щелчок по панели инструментов или ☰ → «Панель инструментов»: слева, справа или снизу (горизонтально). Списки вариантов инструментов открываются в сторону доски.', 'Правый щелчок по панели → «Снизу».', '') },
+  { id: 'T29-gd', it: '2.9', area: 'cust.guide', status: 'review', type: 'Фича', prio: 'Средний', orig: 'гайды по нажатию кнопок. первое нажатие на любую кнопку первого экрана должны запускать гайды поясняющие куда попал юзер и что тут можно делать. всегда должна быть кнопка отключения всех гайдов или только частей гайдов по категориям которые ты должен структурировать', title: 'Гайды при первом нажатии кнопок', report: R21('Первое нажатие на кнопки главного экрана (доски, задачник, ИИ, фильтр, меню, облако, папка, масштаб, история, число задач, команда, основные инструменты) показывает карточку: куда попали и что тут можно, «Показать по шагам» там, где есть пошаговый гайд. Разделы: доски и навигация, задачник, ИИ, синхронизация и хранение, инструменты, вид и управление, команда. «Гайды…» на карточке и ☰ → «Гайды»: выключить все или по разделам, показать заново.', 'Нажмите «Все доски» впервые — появится карточка.', '') },
 ];
 
 /* =========================================================
@@ -7706,7 +7819,7 @@ function mxRender(el, F) {
     const r = G.rect(c); if (!r) continue;
     const P = c.props || {}, ch = [];
     if (M.chips !== false) {
-      if (P.st && MX_ST[P.st]) ch.push(`<b class="mxchip" style="--c:${MX_ST[P.st][1]}">${MX_ST[P.st][0]}</b>`);
+      ch.push(bdStChip(c, P));
       if (P.pr && MX_PR[P.pr]) ch.push(`<b class="mxchip" style="--c:${MX_PR[P.pr][1]}">${MX_PR[P.pr][0]}</b>`);
       if (P.tag) ch.push(`<b class="mxchip" style="--c:#7b61ff">#${esc(P.tag)}</b>`);
       if (P.n != null && P.n !== '') ch.push(`<b class="mxchip" style="--c:#0b8fa8">${esc(String(P.n))}</b>`);
@@ -9386,7 +9499,7 @@ function loScanSoon() { if (!S.lo || !S.loUi || !S.loUi.sync) return; clearTimeo
 function loScanBoard(bo) {
   if (!S.lo || !S.loUi.sync || PANE) return;
   if (!bo && (!S.board || S.isol)) return;
-  const b = bo || S.board, seen = new Set();
+  const b = bo || S.board, seen = new Set(), bdc = bdCellMap(b);
   if (b.virtual) return;
   S.loApplying = true;
   try {
@@ -9399,10 +9512,10 @@ function loScanBoard(bo) {
     for (const it of b.items) {
       const links = Array.isArray(it.lo) ? it.lo.filter(loGet) : [];
       const src = { b: b.id, i: it.id, bn: b.name };
-      if (it.type === 'card') {
+      if (it.type === 'card' && !bdc.inside.has(it.id)) {
         const id = 'B' + b.id + '.' + it.id, old = loGet(id);
         up(id, { k: 'task', title: loObjTitle(it) || 'Карточка', notes: it.desc || '', due: it.due || '', tags: (it.tags || []).slice(), st: it.lst || (old && old.st) || 'todo', src, par: links[0] || '', on: links.slice(1) });
-      } else if (it.type === 'tasks') {
+      } else if (it.type === 'tasks' && !bdc.inside.has(it.id)) {
         for (const r of it.rows) {
           if (r.k === 'blk' || !String(r.t || '').trim()) continue;
           const id = 'B' + b.id + '.' + it.id + '.' + r.id, old = loGet(id);
@@ -9412,6 +9525,7 @@ function loScanBoard(bo) {
         if (links.length) up('R' + b.id + '.' + it.id, { k: 'ref', title: loObjTitle(it) || 'Чек-лист', par: links[0], on: links, src, ty: it.type });
       } else if (links.length) up('R' + b.id + '.' + it.id, { k: 'ref', title: loObjTitle(it), par: links[0], on: links, src, ty: it.type });
     }
+    bdScanCells(b, up, bdc);
     for (const r of loAll()) if (r.src && r.src.b === b.id && !seen.has(r.id)) loDel(r.id, true);
   } finally { S.loApplying = false; }
   if (S.loT) { clearTimeout(S.loT); S.loT = setTimeout(loWrite, 300); }
@@ -9594,7 +9708,7 @@ function loDashHTML() {
   const st = loSafeState();
   const card = (title, body, cls = '') => `<section class="lo-w ${cls}"><h3>${title}</h3>${body}</section>`;
   const task = r => loTaskRow(r, true);
-  return `<div class="lo-dash"><div class="lo-hero"><div><h1>Витрина</h1><p>${new Date().toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' })} · открыто задач: ${open.length} · сделано за неделю: ${doneWeek}</p></div>
+  return `<div class="lo-dash"><div class="lo-hero"><div><h1>Дашборд</h1><p>${new Date().toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' })} · открыто задач: ${open.length} · сделано за неделю: ${doneWeek}</p></div>
     <form class="lo-qa" data-qa="1"><input class="inp" name="q" placeholder="Быстро добавить задачу: «Купить струны завтра !1 #музыка @Проект»" autocomplete="off"><button class="btn">Добавить</button></form></div>
     <div class="lo-grid">
     ${card('Сферы жизни', `<div class="lo-areas">${areas.map(a => { const [dn, n] = loProgress(a.id), pj = loKids(a.id).filter(x => LO_CONT.includes(x.k)).length; return `<button class="lo-area" data-lp="ent:${a.id}" style="--c:${a.color || '#3355ff'}"><b>${esc(a.title)}</b><span>${pj ? pj + ' ' + plural(pj, 'проект', 'проекта', 'проектов') : 'без проектов'} · ${n - dn} ${plural(n - dn, 'задача', 'задачи', 'задач')}</span><i style="width:${n ? Math.round(dn / n * 100) : 0}%"></i></button>`; }).join('')}</div>`, 'wide')}
@@ -13339,7 +13453,7 @@ function lo24Kan(cols, field, list, opts) {
   return `<div class="lo-kan lo24k">${Object.entries(cols).map(([k, [l, c]]) => { const l2 = list.filter(r => (r[field] || opts.def) === k); return `<div class="lo-kc" data-l24col="${field}|${k}"><div class="lo-kh" style="--c:${c}"><i class="mxdot" style="--c:${c}"></i>${esc(l)} <b>${l2.length}</b>${opts.pts ? ` <span class="mchip">${l2.reduce((s, r) => s + (+r.pts || 0), 0)} б.</span>` : ''}</div>${opts.add ? `<form class="lo24qa" data-l24qa="${field}|${k}"><input class="inp sm" name="q" placeholder="+ задача" autocomplete="off"></form>` : ''}${l2.map(r => lo24Card(r)).join('')}</div>`; }).join('')}</div>`;
 }
 function lo24Head(title, sub, btns) { return `<div class="lo-head"><h1>${esc(title)}</h1><span class="lo-flex"></span>${btns || ''}${lo24Share()}</div>${sub ? `<p class="lo-hint">${sub}</p>` : ''}`; }
-const lo24Share = () => '<button class="ob" data-l24="tg" title="Красивый текст для чата Telegram — скопируется">В Telegram</button><button class="ob" data-l24="shot" title="Картинка списка — скопируется или скачается">Снимок</button>';
+const lo24Share = () => '';
 const LO24_PAGES = {
   backlog: () => { const l = loTasks().filter(r => !r.sp && r.st !== 'done').sort((a, b) => (a.pr || 'p9').localeCompare(b.pr || 'p9') || (+b.pts || 0) - (+a.pts || 0)); const sps = loAll().filter(r => r.k === 'sprint' && r.st !== 'done'); return lo24Head('Бэклог продукта', 'Всё, что ещё не взято в спринт. Перетащите задачу в спринт справа или выберите спринт у задачи.', '<button class="btn" data-l24="newsprint">+ Спринт</button>') + `<div class="lo24two"><div><form class="lo-qa" data-l24qa="sp|"><input class="inp" name="q" placeholder="+ Пользовательская история или задача" autocomplete="off"></form>${l.map(r => lo24Card(r)).join('') || '<p class="lo-hint">Бэклог пуст.</p>'}</div><div>${sps.map(s => `<div class="lo-kc" data-l24col="sp|${s.id}"><div class="lo-kh">⟳ ${esc(s.title)} <b>${loTasks().filter(r => r.sp === s.id).length}</b></div><p class="lo-hint">${esc(s.start || '')} — ${esc(s.due || '')}</p></div>`).join('') || '<p class="lo-hint">Спринтов нет: «+ Спринт».</p>'}</div></div>`; },
   sprint: () => { const s = loCurSprint(); if (!s) return lo24Head('Текущий спринт') + '<p class="lo-hint">Спринта нет. <button class="btn" data-l24="newsprint">+ Спринт</button></p>'; const l = loTasks().filter(r => r.sp === s.id), done = l.filter(r => r.st === 'done'), pts = l.reduce((a, r) => a + (+r.pts || 0), 0), dpts = done.reduce((a, r) => a + (+r.pts || 0), 0); return lo24Head('Спринт: ' + s.title, `Цель: ${esc(s.notes || 'не задана')} · ${esc(s.start || '')} — ${esc(s.due || '')} · сделано ${dpts} из ${pts} баллов`, `<button class="ob" data-lsel="${s.id}">Цель и даты</button><button class="ob" data-l24="endsprint:${s.id}">Завершить спринт</button>`) + `<div class="lo-prog"><span class="lo-bar"><i style="width:${pts ? Math.round(dpts / pts * 100) : 0}%"></i></span><em>${dpts} из ${pts} баллов</em></div>` + lo24Kan({ todo: ['К выполнению', '#3355ff'], doing: ['В работе', '#f76b15'], review: ['На проверке', '#d99a00'], done: ['Готово', '#2fa36b'] }, 'st', l, { def: 'todo', pts: true }) + `<h3>Обзор и ретро</h3>${lo24Retro(s)}`; },
@@ -15287,7 +15401,7 @@ function tmTodoDash() {
   const t = loToday(), tasks = loAll().filter(tmOpenT), done7 = loAll().filter(r => r.k === 'task' && r.st === 'done' && (r.done || 0) > Date.now() - 7 * 864e5).length;
   const over = tasks.filter(r => r.due && r.due < t), today = tasks.filter(r => r.due === t), inbox = tasks.filter(r => !r.par && !r.due), week = tasks.filter(r => r.due && r.due > t && r.due <= loAddDays(7));
   const projs = loAll().filter(r => (r.k === 'project' || r.k === 'epic') && r.st !== 'done' && r.st !== 'drop').map(r => [r, loProgress(r.id)]).filter(([, [, n]]) => n).sort((a, b) => (b[1][1] - b[1][0]) - (a[1][1] - a[1][0])).slice(0, 10);
-  return tmHead('Витрина', 'Что сделать сегодня и что на подходе.')
+  return tmHead('Дашборд', 'Что сделать сегодня и что на подходе.')
     + tmCards([[today.length, 'на сегодня'], [over.length, 'просрочено', over.length ? 'bad' : ''], [inbox.length, 'во входящих'], [week.length, 'на неделе'], [done7, 'сделано за 7 дней', 'good']])
     + `<form class="lo-qa" data-qa="1"><input class="inp" name="q" placeholder="+ Задача: «название завтра !1 #метка @проект»" autocomplete="off"><button class="btn">Добавить</button></form>`
     + `<div class="lo24two"><div><h3>Сегодня и просрочено</h3>${over.concat(today).map(r => loTaskRow(r)).join('') || '<p class="lo-hint">На сегодня ничего — хороший день.</p>'}</div><div><h3>Проекты</h3>${projs.map(([r, [d, n]]) => `<button class="tm-prow" data-lp="ent:${r.id}"><span>${LO_KINDS[r.k][1]} ${esc(loName(r))}</span>${tmBar(d, n)}<i>${d}/${n}</i></button>`).join('') || '<p class="lo-hint">Проектов с задачами пока нет.</p>'}</div></div>`
@@ -15320,7 +15434,7 @@ function tmLeanDash() {
   const stage = ['inbox', 'todo', 'doing', 'review', 'wait', 'rework'].map(k => [k, open.filter(r => r.st === k).length]);
   const tot = stage.reduce((a, [, n]) => a + n, 0) || 1;
   const vs = firsts.map(d => { const ids = loDesc(d.id), l = s.tasks.filter(r => ids.has(r.id)); return [d, l.filter(tmOpenT).length, l.filter(r => r.st === 'doing').length, l.filter(r => r.st === 'done' && r.done > Date.now() - 30 * 864e5).length]; });
-  return tmHead('Витрина Lean', 'Поток работы: сколько в работе, что застряло, с какой скоростью идёт и кто чем занят.')
+  return tmHead('Дашборд Lean', 'Поток работы: сколько в работе, что застряло, с какой скоростью идёт и кто чем занят.')
     + tmCards([[`${s.doing.length}<small> / ${s.lim}</small>`, 'в работе (WIP / лимит)', s.doing.length > s.lim ? 'bad' : ''], [s.done7, 'готово за 7 дней', 'good'], [s.med == null ? '—' : (s.med < 1 ? '<1' : Math.round(s.med)) + '<small> дн</small>', 'время цикла, медиана'], [s.blocked.length, 'в блоке', s.blocked.length ? 'bad' : ''], [s.aging.length, 'дольше 7 дней в работе', s.aging.length ? 'warn' : ''], [hyp.filter(h => h.hs === 'test').length, 'гипотез в проверке']])
     + `<div class="lo24two"><div><h3>Пропускная способность: готово по неделям</h3><div class="tt-days tm-thr">${s.thr.map((n, i) => `<div title="${n} за неделю"><i style="height:${Math.round(n / mx * 100)}%"></i><span>${i === 7 ? 'эта' : '−' + (7 - i)}</span></div>`).join('')}</div>
       <h3>Где сейчас работа</h3><div class="tm-flowbar">${stage.filter(([, n]) => n).map(([k, n]) => `<i style="flex:${n};--c:${TM_STC[k]}" title="${esc(LO_ST[k][0])}: ${n}">${n}</i>`).join('')}</div><div class="tm-legend">${stage.map(([k, n]) => `<span><i class="mxdot" style="--c:${TM_STC[k]}"></i>${esc(LO_ST[k][0])} ${n}</span>`).join('')}</div></div>
@@ -15374,7 +15488,7 @@ function tmLifeDash() {
   const cnt = Object.keys(TM_STC).map(k => [k, tasks.filter(r => r.st === k).length]);
   const act = tasks.filter(r => r.st === 'wait'), rev = tasks.filter(r => r.st === 'review');
   const il = iter ? tasks.filter(r => r.it === iter.id) : [];
-  return tmHead('Витрина Life OS', 'Как в DEV: что ждёт вашего действия, что ждёт проверки, как идут сферы и текущая итерация.')
+  return tmHead('Дашборд Life OS', 'Как в DEV: что ждёт вашего действия, что ждёт проверки, как идут сферы и текущая итерация.')
     + `<div class="tm-stc">${cnt.map(([k, n]) => `<button class="tm-stb" data-lp="lstat" style="--c:${TM_STC[k]}"><b>${n}</b><span>${esc(LO_ST[k][0])}</span></button>`).join('')}</div>`
     + `<div class="lo24two"><div><h3>⚑ Нужно ваше действие · ${act.length}</h3>${act.slice(0, 8).map(r => tmCard(r)).join('') || '<p class="lo-hint">Ничего не ждёт.</p>'}<h3>Ждёт проверки · ${rev.length}</h3>${rev.slice(0, 8).map(r => tmCard(r)).join('') || '<p class="lo-hint">Пусто.</p>'}</div>
       <div><h3>${esc(TM_KIND.life)}ы</h3>${firsts.map(d => { const ids = loDesc(d.id), l = tasks.filter(r => ids.has(r.id)), op = l.filter(tmOpenT).length, dn = l.filter(r => r.st === 'done' && r.done > Date.now() - 30 * 864e5).length; return `<button class="tm-prow" data-lp="ent:${d.id}"><span><i class="mxdot" style="--c:${d.color || '#3355ff'}"></i> ${esc(loName(d))}</span>${tmBar(dn, dn + op, d.color)}<i>открыто ${op} · за 30 дн ${dn}</i></button>`; }).join('') || `<p class="lo-hint"><button class="ob sm" data-tm="preset">Преднастроить сферы</button></p>`}
@@ -17995,6 +18109,891 @@ Object.assign(TOURS, {
 Object.assign(FEAT_TOUR, { f28_src: 'sync28', f28_pol: 'sync28', f28_bsel: 'sync28', f28_col: 'look28', f28_look: 'look28', f28_td: 'td28' });
 
 /* =========================================================
+   v2.9: the task manager is one structure, top to bottom, in a horizontal
+   menu that folds into one line: mode (tasks · dashboard) → space (personal,
+   team spaces, all at once, this board) → category (all, mine, a direction,
+   a project) → display style (checklist, To-do, Lean, Life OS) → view.
+   No side menu. The first visit walks the levels one by one.
+   ========================================================= */
+{ const old = Object.assign({}, LO_MODES); for (const k of Object.keys(LO_MODES)) delete LO_MODES[k]; Object.assign(LO_MODES, { check: ['Чек-лист', 'Простейший список: галочка и название'] }, old); }
+TM_PAGES.check = [['dash', '◫', 'Дашборд'], ['chk', '☑', 'Чек-лист']];
+TM_ST.check = TM_ST.todo; TM_KIND.check = TM_KIND.todo;
+for (const m of Object.keys(TM_PAGES)) for (const p of TM_PAGES[m]) p[2] = p[2].replace(/^Витрина/, 'Дашборд');
+const LO29_DASH = { check: 'dash', todo: 'dash', lean: 'ldash', life: 'lifedash' };
+const LO29_CAT = { all: 'Все', mine: 'Мои' };
+const lo29In = () => Object.assign({ done: 0, off: 0, step: 0 }, LS.get('lo29intro') || {});
+const lo29Intro = () => { const I = lo29In(); return !I.done && !I.off; };
+/* ---------- which records are shown: a view over the stores ---------- */
+function lo29Stores() { const out = [['', S.loPersonal || (S.lo && !S.lo.space ? S.lo : null)]]; for (const s of GT.list) if (GT.stores[s.id]) out.push([s.id, GT.stores[s.id]]); return out.filter(x => x[1]); }
+function lo29StoreOf(id) { for (const [sid, L] of lo29Stores()) if (L.recs && L.recs[id]) return [sid, L]; return null; }
+function lo29BoardIds() {
+  const ids = new Set(); if (!S.board) return ids;
+  for (const it of items()) { for (const x of it.lo || []) ids.add(x); }
+  return ids;
+}
+function lo29View(real) {
+  const U = S.loUi || {}; if (!real) return null;
+  const cat = U.cat || 'all', agg = U.sp29 === '*', bf = U.sp29 === '#board';
+  if (cat === 'all' && !agg && !bf) return null;
+  const recs = Object.assign({}, real.recs);
+  if (agg) for (const [sid, L] of lo29Stores()) if (L !== real) for (const [id, r] of Object.entries(L.recs || {})) if (!recs[id]) recs[id] = Object.assign({ _sp: sid }, r);
+  let under = null;
+  if (cat.startsWith('dir:') || cat.startsWith('proj:')) { const id = cat.slice(cat.indexOf(':') + 1); under = new Set([id]); let grew = true; const all = Object.values(recs); while (grew) { grew = false; for (const r of all) if (r.par && under.has(r.par) && !under.has(r.id)) { under.add(r.id); grew = true; } } }
+  const linked = bf ? lo29BoardIds() : null, bid = S.board && S.board.id;
+  const keep = r => {
+    if (r.k !== 'task') return true;
+    if (cat === 'mine' && !tmMine(r)) return false;
+    if (under && !under.has(r.id)) return false;
+    if (bf && !((r.src && r.src.b === bid) || linked.has(r.id) || (r.par && linked.has(r.par)))) return false;
+    return true;
+  };
+  return Object.assign({}, real, { recs: Object.fromEntries(Object.entries(recs).filter(([, r]) => keep(r))) });
+}
+const lo29Virt = fn => function (...a) { const real = S.lo, V = lo29View(real); if (!V) return fn.apply(this, a); S.lo = V; try { return fn.apply(this, a); } finally { S.lo = real; } };
+for (const k of Object.keys(TM_RENDER)) TM_RENDER[k] = lo29Virt(TM_RENDER[k]);
+loListHTML = lo29Virt(loListHTML);
+/* edits of a record from another space (in «all spaces») go to its own store */
+{ const o = loSet; loSet = (id, patch, quiet) => {
+  if (S.lo && S.lo.recs && !S.lo.recs[id]) { const f = lo29StoreOf(id); if (f && f[1] !== S.lo) { const r = tmWithStore(f[1], () => o(id, patch, quiet)); if (f[0]) gtLoDirty(f[0]); if (S.loOpen) renderLo(); return r; } }
+  return o(id, patch, quiet);
+}; }
+/* ---------- the simplest style: a checklist ---------- */
+function tmCheckHTML() {
+  const all = loAll(), t = loToday(), open = all.filter(tmOpenT).sort((a, b) => (loDue(a) || '9999').localeCompare(loDue(b) || '9999') || (a.pr || 'p9').localeCompare(b.pr || 'p9') || (b.u || 0) - (a.u || 0));
+  const done = all.filter(r => r.k === 'task' && r.st === 'done').sort((a, b) => (b.done || 0) - (a.done || 0)).slice(0, 20);
+  const row = r => { const d = loDue(r), over = d && d < t && r.st !== 'done'; return `<div class="ck29r${r.st === 'done' ? ' dn' : ''}${S.loSel === r.id ? ' sel' : ''}" data-lsel="${r.id}"><button class="lo-ck" data-lck="${r.id}" style="--c:${r.pr ? LO_PR[r.pr][1] : '#9aa1ad'}">${r.st === 'done' ? '✓' : ''}</button><span class="ck29t">${esc(r.title || 'Без названия')}</span>${r._sp != null ? `<em class="ck29s">${esc(r._sp ? gtName(r._sp) : 'Личное')}</em>` : ''}${d ? `<em class="${over ? 'bad' : d === t ? 'now' : ''}">${d === t ? 'сегодня' : d === loAddDays(1) ? 'завтра' : esc(fmtDay(d))}</em>` : ''}</div>`; };
+  return `<div class="ck29"><form class="lo-qa ck29qa" data-qa="1"><input class="inp" name="q" placeholder="Новый пункт и Enter — можно «завтра !1 #метка»" autocomplete="off"></form>${open.map(row).join('') || '<p class="lo-hint">Всё сделано.</p>'}${done.length ? `<details class="ck29d"><summary>Готово · ${done.length}</summary>${done.map(row).join('')}</details>` : ''}</div>`;
+}
+TM_RENDER.chk = lo29Virt(tmCheckHTML);
+/* ---------- the structure menu ---------- */
+function lo29Bar() {
+  const U = S.loUi, m = tmMode(), sp = (S.lo && S.lo.space) || '', I = lo29In(), intro = lo29Intro(), step = intro ? I.step : 9;
+  const top = U.top29 || 'tasks', spSel = U.sp29 === '*' ? '*' : U.sp29 === '#board' ? '#board' : sp, cat = U.cat || 'all';
+  const b = (k, v, l, on, t) => `<button class="${on ? 'on' : ''}" data-l29="${k}:${esc(v)}"${t ? ` title="${esc(t)}"` : ''}>${l}</button>`;
+  const catName = cat.startsWith('dir:') || cat.startsWith('proj:') ? (loGet(cat.slice(cat.indexOf(':') + 1)) ? loName(loGet(cat.slice(cat.indexOf(':') + 1))) : '') : '';
+  const pages = TM_PAGES[m].filter(p => p[0] !== LO29_DASH[m]);
+  const rows = [
+    ['Режим', `<div class="seg24">${b('top', 'tasks', '☑ Задачи', top === 'tasks')}${b('top', 'dash', '◫ Дашборд', top === 'dash', 'Сводка: сегодня, проекты, прогресс')}</div>`],
+    ['Пространство', `<div class="seg24">${b('sp', '', '👤 Личное', spSel === '')}${GT.list.map(s => b('sp', s.id, '👥 ' + esc(gtName(s.id)), spSel === s.id)).join('')}${GT.list.length ? b('sp', '*', '∑ Все пространства', spSel === '*') : ''}${S.board ? b('sp', '#board', '▣ Эта доска', spSel === '#board', 'Задачи из объектов открытой доски') : ''}</div><button class="ob sm lo29x" data-l29="spmore:" title="Пространства: создать, войти по ссылке, участники">⋯</button>`],
+    ['Категория', `<div class="seg24">${b('cat', 'all', 'Все', cat === 'all')}${b('cat', 'mine', 'Мои', cat === 'mine')}${b('catpick', 'dir', cat.startsWith('dir:') ? '◎ ' + esc(catName) + ' ▾' : 'Направление ▾', cat.startsWith('dir:'))}${b('catpick', 'proj', cat.startsWith('proj:') ? '▣ ' + esc(catName) + ' ▾' : 'Проект ▾', cat.startsWith('proj:'))}</div>`],
+    ['Стиль', `<div class="seg24">${Object.entries(LO_MODES).map(([k, [l, t]]) => b('mode', k, l, m === k, t)).join('')}</div>`],
+  ];
+  if (top === 'tasks' && pages.length > 1) rows.push(['Вид', `<div class="seg24">${pages.map(([k, i2, l]) => b('page', k, `${i2} ${esc(l)}`, U.page === k)).join('')}</div>`]);
+  const hint = ['Сначала режим: «Задачи» — работать со списками, «Дашборд» — сводка на сегодня.', 'Чьи задачи: личные, командного пространства, все сразу или только с этой доски.', 'Что показать: все задачи, только ваши, одно направление или проект.', 'Как показать: простой чек-лист, To-do, поток Lean или Life OS со статусами и отчётами.'];
+  const crumbs = [top === 'dash' ? 'Дашборд' : 'Задачи', spSel === '*' ? 'Все пространства' : spSel === '#board' ? 'Эта доска' : spSel ? gtName(spSel) : 'Личное', catName || LO29_CAT[cat] || 'Все', LO_MODES[m][0]].concat(top === 'tasks' && pages.length > 1 ? [(pages.find(p => p[0] === U.page) || ['', '', ''])[2]] : []);
+  const col = !!U.col29 && !intro;
+  return `<div class="lo29${col ? ' col' : ''}${intro ? ' intro' : ''}"><div class="lo29h"><button class="ib sm" data-l29="col:" title="${col ? 'Развернуть структуру' : 'Свернуть в одну строку'}">${col ? '▸' : '▾'}</button><b>Задачник</b>${col ? `<span class="lo29cr">${crumbs.map(esc).join('<i>›</i>')}</span>` : ''}<span class="lo-flex"></span>${intro ? '<button class="ob sm" data-l29="skip:" title="Показать всё сразу; включить снова — ⋯ → «Знакомство»">Пропустить<span class="t29l"> знакомство</span></button>' : ''}<button class="ob sm lo29cp" data-l29="copy:" title="Скопировать то, что на странице: текст для Telegram, картинка, Markdown, документ с картинками">⧉<span class="t29l"> Копировать</span> ▾</button><button class="ob sm" data-l29="svc:" title="База, учёт времени, перенос, корзина, надёжность, знакомство">⋯</button><button class="ib sm pv29b" data-l29="view:" title="Как показывать панель">▣</button><button class="ib sm" data-la="close" title="Закрыть (Esc)">${ic('close')}</button></div>
+    ${col ? '' : rows.map(([n, h], i) => i > step ? '' : `<div class="lo29r${intro && i === step ? ' cur' : ''}" data-lv="${i}"><span class="lo29n">${n}</span>${h}</div>${intro && i === step ? `<div class="lo29hint">${hint[i] || ''}</div>` : ''}`).join('')}</div>`;
+}
+function lo29Apply() {
+  const M = $('#loMain'), root = $('#lo'); if (!M || !root) return;
+  root.classList.add('lo29on');
+  const old = M.querySelector('.lo29'); if (old) old.remove();
+  M.insertAdjacentHTML('afterbegin', lo29Bar());
+  const intro = lo29Intro(), I = lo29In(); M.classList.toggle('lo29wait', intro && I.step < 4);
+  const det = $('#loDet'); if (det) det.classList.toggle('lo29hide', intro && I.step < 4);
+}
+{ const o = renderLo; renderLo = function (...a) {
+  const U = S.loUi; if (U) { const m = tmMode(), top = U.top29 || 'tasks', SV = ['db', 'time', 'trash', 'safe'];
+    if (!SV.includes(U.page) && !(U.page || '').startsWith('ent:')) { if (top === 'dash') U.page = LO29_DASH[m]; else if (!U.page || U.page === LO29_DASH[m] || !TM_PAGES[m].some(p => p[0] === U.page)) U.page = (TM_PAGES[m].find(p => p[0] !== LO29_DASH[m]) || TM_PAGES[m][0])[0]; } }
+  const r = o.apply(this, a); lo29Apply(); return r;
+}; }
+function lo29Step(lv) { const I = lo29In(); if (!lo29Intro() || lv !== I.step) return; I.step++; if (I.step >= 4) { I.done = 1; toast('Структура задачника — вся перед вами. Знакомство снова — ⋯ → «Знакомство»'); } LS.set('lo29intro', I); }
+async function lo29Click(e) {
+  const b = e.target.closest && e.target.closest('[data-l29]'); if (!b || !b.closest('#lo')) return;
+  e.stopPropagation(); e.preventDefault();
+  const [k, v] = [b.dataset.l29.slice(0, b.dataset.l29.indexOf(':')), b.dataset.l29.slice(b.dataset.l29.indexOf(':') + 1)], U = S.loUi;
+  const lv = +((b.closest('.lo29r') || {}).dataset || {}).lv;
+  if (k === 'top') { U.top29 = v; U.page = v === 'dash' ? LO29_DASH[tmMode()] : ''; }
+  else if (k === 'sp') {
+    U.sp29 = v === '*' || v === '#board' ? v : '';
+    if (v === '*') { for (const s of GT.list) if (!GT.stores[s.id]) gtStore(s.id).then(L => { tmMigrate(L); if (S.loOpen) renderLo(); }).catch(() => {}); }
+    else if (v === '#board') { const want = (S.board && S.board.space) || ''; if (((S.lo && S.lo.space) || '') !== want) await tmUseStore(want); }
+    else if (((S.lo && S.lo.space) || '') !== v) await tmUseStore(v);
+  }
+  else if (k === 'spmore') { tmSpacesPop(b); return; }
+  else if (k === 'cat') U.cat = v;
+  else if (k === 'catpick') { lo29CatPop(b, v); return; }
+  else if (k === 'mode') { U.mode = v; U.page = (U.top29 || 'tasks') === 'dash' ? LO29_DASH[v] : ''; }
+  else if (k === 'page') U.page = v;
+  else if (k === 'col') U.col29 = !U.col29;
+  else if (k === 'skip') { LS.set('lo29intro', Object.assign(lo29In(), { done: 1 })); }
+  else if (k === 'svc') { lo29Svc(b); return; }
+  else if (k === 'view') { if (typeof pv29Menu === 'function') pv29Menu(b, b.closest('.xdlg')); return; }
+  else if (k === 'copy') { lo29Copy(b); return; }
+  if (!isNaN(lv)) lo29Step(lv);
+  loUiSave(); renderLo(); const M = $('#loMain'); if (M && k !== 'col') M.scrollTop = 0;
+}
+function lo29CatPop(anchor, kind) {
+  const all = loAll(), want = kind === 'dir' ? ['area'] : ['project', 'epic', 'goal', 'vision'];
+  const list = all.filter(r => want.includes(r.k) && r.st !== 'drop').sort((a, b) => loPath(a).map(loName).concat(loName(a)).join('/').localeCompare(loPath(b).map(loName).concat(loName(b)).join('/'), 'ru'));
+  openPop(anchor, `<div class="menu lo29m"><div class="vp-h">${kind === 'dir' ? 'Направление' : 'Проект'}</div>${list.map(r => `<button class="mi" data-v="${r.id}"><span style="padding-left:${loPath(r).filter(x => want.includes(x.k)).length * 12}px">${LO_KINDS[r.k][1]} ${esc(loName(r))}</span></button>`).join('') || '<p class="sub" style="padding:6px 10px">Пока нет</p>'}<div class="msep"></div><button class="mi" data-v="+new"><span>＋ ${kind === 'dir' ? 'Новое направление' : 'Новый проект'}</span></button>${kind === 'dir' && !tmHasPreset() ? `<button class="mi" data-v="+preset"><span>✦ Преднастроить по ${esc(LO_MODES[tmMode()][0])}</span></button>` : ''}${(S.loUi.cat || '').startsWith(kind === 'dir' ? 'dir:' : 'proj:') ? '<button class="mi" data-v="+page"><span>↗ Страница выбранного</span></button><button class="mi" data-v="+all"><span>✕ Снять выбор</span></button>' : ''}</div>`, v => {
+    const U = S.loUi;
+    if (v === '+new') { const r = loNew(kind === 'dir' ? 'area' : 'project', { title: kind === 'dir' ? 'Новое направление' : 'Новый проект', modes: kind === 'dir' ? [tmMode()] : undefined }); U.cat = (kind === 'dir' ? 'dir:' : 'proj:') + r.id; S.loSel = r.id; }
+    else if (v === '+preset') { const n = tmPreset(S.lo, tmMode()); loSave(); toast(n ? `Добавлено направлений: ${n}` : 'Направления уже на месте'); }
+    else if (v === '+page') { U.page = 'ent:' + U.cat.slice(U.cat.indexOf(':') + 1); }
+    else if (v === '+all') U.cat = 'all';
+    else U.cat = (kind === 'dir' ? 'dir:' : 'proj:') + v;
+    lo29Step(2); loUiSave(); renderLo();
+  });
+}
+function lo29Svc(anchor) {
+  const U = S.loUi, I = lo29In();
+  openPop(anchor, `<div class="menu"><div class="vp-h">Служебное</div><button class="mi" data-v="p:db"><span>▦ База — все записи таблицей</span></button><button class="mi" data-v="p:time"><span>⏱ Учёт времени</span></button><button class="mi" data-v="tick"><span>⇣ Перенос из TickTick</span></button><button class="mi" data-v="p:trash"><span>🗑 Корзина</span></button><button class="mi" data-v="p:safe"><span>🛡 Надёжность и перенос</span></button><button class="mi" data-v="inbox"><span>⇣ Отчёты из чатов Claude…</span></button><div class="msep"></div><button class="mi" data-v="col"><span>${U.col29 ? '▾ Развернуть структуру' : '▸ Свернуть структуру в строку'}</span></button><button class="mi" data-v="intro"><span>${I.off ? '☐' : '☑'} Знакомство при первом входе</span></button><button class="mi" data-v="again"><span>↺ Пройти знакомство заново</span></button></div>`, v => {
+    if (v.startsWith('p:')) U.page = v.slice(2);
+    else if (v === 'tick') { const x = document.querySelector('#lo [data-l23="tick"]'); if (x) x.click(); else if (typeof lo23Tick === 'function') lo23Tick(); return; }
+    else if (v === 'inbox') { if (typeof cxDlg === 'function') cxDlg(); return; }
+    else if (v === 'col') U.col29 = !U.col29;
+    else if (v === 'intro') LS.set('lo29intro', Object.assign(I, { off: I.off ? 0 : 1 }));
+    else if (v === 'again') LS.set('lo29intro', { done: 0, off: 0, step: 0 });
+    loUiSave(); renderLo();
+  });
+}
+/* ---------- one copy button: Telegram text, a picture, a document ---------- */
+function lo29Copy(anchor) {
+  openPop(anchor, `<div class="menu"><div class="vp-h">Скопировать то, что на странице</div><button class="mi" data-v="tg"><span>✈ Текст для Telegram</span></button><button class="mi" data-v="shot"><span>📷 Картинка списка</span></button><button class="mi" data-v="md"><span>Ⓜ Markdown</span></button><button class="mi" data-v="doc"><span>📄 Документ (.html) — с картинками и содержимым задач</span></button><button class="mi" data-v="board"><span>▣ Документ на доску</span></button></div>`, async v => {
+    const l = lo24Visible(), title = ((document.querySelector('#loMain .lo-head h1') || {}).textContent || [...document.querySelectorAll('#loMain .lo29 .on')].slice(1).map(e => e.textContent.replace(/^[^\wА-яЁё]+/, '')).join(' · ') || 'Задачи');
+    if (!l.length) { toast('На странице нет задач'); return; }
+    if (v === 'tg') copyPlain(loTgText(l, title), 'Текст для Telegram скопирован');
+    else if (v === 'shot') await loShot(l, title);
+    else if (v === 'md') copyPlain(lo29Md(l, title), 'Markdown скопирован');
+    else { const html = await lo29DocHTML(l, title); if (v === 'doc') saveFile(new Blob([html], { type: 'text/html' }), safeName(title) + '.html', 'text/html'); else bdDocToBoard(html, title); }
+  });
+}
+function lo29Md(list, title) { return `# ${title}\n\n` + list.map(r => `- [${r.st === 'done' ? 'x' : ' '}] ${loName(r)}${loDue(r) ? ' — ' + fmtDay(loDue(r)) : ''}${r.notes ? '\n  ' + String(r.notes).split('\n')[0] : ''}${(r.subs || []).map(s => `\n  - [${s.done ? 'x' : ' '}] ${s.title}`).join('')}`).join('\n'); }
+async function lo29DocHTML(list, title) {
+  let body = '';
+  for (const r of list) {
+    body += `<h2>${r.st === 'done' ? '☑' : '☐'} ${esc(loName(r))}</h2><p class="m">${[loDue(r) ? 'Срок: ' + esc(fmtDay(loDue(r))) : '', r.pr ? esc(LO_PR[r.pr][0]) + ' приоритет' : '', LO_ST[r.st] ? esc(LO_ST[r.st][0]) : ''].filter(Boolean).join(' · ')}</p>`;
+    if (r.notes) body += `<p>${esc(r.notes).replace(/\n/g, '<br>')}</p>`;
+    if ((r.subs || []).length) body += `<ul class="c">${r.subs.map(s => `<li>${s.done ? '☑' : '☐'} ${esc(s.title)}</li>`).join('')}</ul>`;
+    if (r.cell && typeof bdTaskContentHTML === 'function') body += await bdTaskContentHTML(r, true);
+  }
+  return bdDocWrap(title, body);
+}
+/* ---------- the board bar: AI first, the task manager last with its count right after ---------- */
+function lo29TopOrder() {
+  const tb = $('#topbar'); if (!tb || tb._o29) return; tb._o29 = 1;
+  const ai = $('#btn24claude'), fl = $('#btnFilter'), life = $('#btnLife'), chips = $('#loChips');
+  if (ai && fl) tb.insertBefore(ai, fl);
+  if (life) tb.appendChild(life); if (chips) tb.appendChild(chips);
+}
+/* tasks next to the board now live inside the task manager (space «Эта доска», style «Чек-лист») */
+tdBtn = () => { const b = $('#btnTasks28'); if (b) b.remove(); };
+tdRender = () => { const el = $('#td28'); if (el) el.remove(); document.body.classList.remove('td28on'); };
+TD.open = 0;
+{ const o = loTopChips; loTopChips = (...a) => { const r = o(...a); const n = document.querySelector('#loChips .lochip.n'); if (n) { const k = (n.textContent.match(/\d+/) || [''])[0]; n.textContent = `☑ ${k}`; n.title = `${k} ${plural(+k || 0, 'объект', 'объекта', 'объектов')} этой доски в задачнике — щёлкните, чтобы открыть их`; n.dataset.loopen = 'board29'; } return r; }; }
+document.addEventListener('click', e => { const c = e.target.closest && e.target.closest('[data-loopen="board29"]'); if (!c) return; e.preventDefault(); e.stopImmediatePropagation(); S.loUi = S.loUi || {}; S.loUi.sp29 = '#board'; S.loUi.top29 = 'tasks'; S.loUi.mode = 'check'; S.loUi.page = 'chk'; loUiSave(); openLo('chk').then(() => tmUseStore((S.board && S.board.space) || '')); }, true);
+function lo29Setup() {
+  lo29TopOrder();
+  document.addEventListener('click', lo29Click, true);
+}
+/* =========================================================
+   v2.9: from the free board to lists and documents. Any text object can be a
+   heading (H1–H3); the board is read top to bottom — frames become sections,
+   headings make levels. Matrix cells can become tasks of the task manager:
+   the title is the cell's title or its topmost text, everything else in the
+   cell is the task's content (pictures, schemes, embeds…), inner frames are
+   sections, checklists are subtasks. Cells get a status button and take its
+   colour. The same reading makes a document of a board, a frame or a selection.
+   ========================================================= */
+const BD_TEXT = new Set(['text', 'sticky', 'shape', 'card', 'doc', 'code']);
+const BD_GFX = new Set(['shape', 'connector', 'pen', 'mindmap', 'icon']);
+const MX2LO = { todo: 'todo', doing: 'doing', pause: 'paused', done: 'done' }, LO2MX = { todo: 'todo', inbox: 'todo', doing: 'doing', paused: 'pause', wait: 'pause', review: 'doing', rework: 'doing', done: 'done', drop: 'done' };
+const PR2LO = { hi: 'p1', mid: 'p2', lo: 'p3' }, LO2PR = { p1: 'hi', p2: 'mid', p3: 'lo' };
+/* ---------- geometry without the current board ---------- */
+let BD_IDX = null;
+const bdIdx = list => { BD_IDX = new Map((list || []).map(i => [i.id, i])); };
+function bdBox(it) {
+  if (it.type === 'connector') {
+    const end = e => { e = e || {}; const t = e.id ? (BD_IDX && BD_IDX.get(e.id)) || byId(e.id) : null; return t && typeof t.w === 'number' ? { x: t.x + t.w / 2, y: t.y + (t.h || 0) / 2 } : e.x != null ? e : null; };
+    const a = end(it.from), b = end(it.to); if (!a || !b) return null; return { x: Math.min(a.x, b.x), y: Math.min(a.y, b.y), w: Math.abs(a.x - b.x), h: Math.abs(a.y - b.y) };
+  }
+  return typeof it.w === 'number' && typeof it.x === 'number' ? { x: it.x, y: it.y, w: it.w, h: it.h || 0 } : null;
+}
+const bdIn = (r, b) => b && b.x + b.w / 2 >= r.x && b.x + b.w / 2 <= r.x + r.w && b.y + b.h / 2 >= r.y && b.y + b.h / 2 <= r.y + r.h;
+function bdOrder(list) {
+  const L = list.map(it => [it, bdBox(it)]).filter(x => x[1]).sort((a, b) => a[1].y - b[1].y || a[1].x - b[1].x);
+  const rows = []; for (const p of L) { const r = rows[rows.length - 1]; if (r && p[1].y < r.bottom - Math.min(24, p[1].h / 2)) { r.list.push(p); r.bottom = Math.max(r.bottom, p[1].y + p[1].h); } else rows.push({ list: [p], bottom: p[1].y + p[1].h }); }
+  return rows.flatMap(r => r.list.sort((a, b) => a[1].x - b[1].x).map(x => x[0]));
+}
+const bdTitle = it => (it.type === 'doc' ? (it.title || htmlToText(it.html || '').split('\n')[0]) : loObjTitle(it)) || '';
+/* ---------- the cells of matrices that go to the task manager ---------- */
+function bdCellMap(b) {
+  const out = { inside: new Set(), cells: [] }; if (!b || !b.items) return out; bdIdx(b.items);
+  for (const F of b.items) {
+    if (F.type !== 'frame' || !F.mx || !(F.mx.lo && F.mx.lo.on)) continue;
+    const cells = b.items.filter(i => i.cell && i.cell.m === F.id);
+    for (const c of cells) {
+      const r = { x: c.x, y: c.y, w: c.w, h: c.h };
+      const inner = b.items.filter(i => i !== c && !(i.cell && i.cell.m === F.id) && i.id !== F.id && bdIn(r, bdBox(i)));
+      for (const i of inner) out.inside.add(i.id);
+      out.cells.push({ F, c, inner: bdOrder(inner) });
+    }
+  }
+  return out;
+}
+function bdCellTask(b, F, c, inner) {
+  const mode = (F.mx.lo || {}).title || 'top', P = c.props || {};
+  const texts = inner.filter(i => BD_TEXT.has(i.type) && bdTitle(i));
+  const head = texts.slice().sort((a, b) => (a.hl || 9) - (b.hl || 9))[0] && texts.some(i => i.hl) ? texts.filter(i => i.hl).sort((a, b) => a.hl - b.hl)[0] : texts[0];
+  const titleIt = mode === 'cell' && c.title ? null : head;
+  const title = mode === 'cell' && c.title ? c.title : (head ? bdTitle(head) : c.title || 'Ячейка');
+  const frames = inner.filter(i => i.type === 'frame');
+  const secOf = it => { const f = frames.find(fr => fr !== it && bdIn({ x: fr.x, y: fr.y, w: fr.w, h: fr.h }, bdBox(it))); return f ? f.id : ''; };
+  const blocks = [], subs = [];
+  for (const it of inner) {
+    if (it === titleIt) continue;
+    if (it.type === 'tasks') { for (const r of it.rows || []) if (r.k !== 'blk' && String(r.t || '').trim()) subs.push({ l: it.id, r: r.id, t: r.t, d: !!r.done }); continue; }
+    blocks.push({ i: it.id, t: it.type, x: (itemText(it) || bdTitle(it) || '').replace(/\s+/g, ' ').trim().slice(0, 400), lv: it.hl || 0, sec: it.type === 'frame' ? '' : secOf(it), ft: it.type === 'frame' ? (it.title || 'Раздел') : undefined });
+  }
+  return { title, titleIt: titleIt ? titleIt.id : '', blocks, subs, st: MX2LO[P.st] || '', pr: PR2LO[P.pr] || '', tag: P.tag || '' };
+}
+function bdScanCells(b, up, bdc) {
+  for (const { F, c, inner } of bdc.cells) {
+    const T = bdCellTask(b, F, c, inner), id = 'X' + b.id + '.' + c.id, old = loGet(id);
+    const links = (Array.isArray(c.lo) ? c.lo : Array.isArray(F.lo) ? F.lo : []).filter(loGet);
+    up(id, { k: 'task', title: T.title, st: T.st || (old && old.st) || 'todo', pr: T.pr || (old && old.pr) || undefined, tags: T.tag ? [T.tag] : old ? old.tags || [] : [], notes: T.blocks.filter(x => x.x && x.t !== 'frame').map(x => x.x).join('\n').slice(0, 1200), src: { b: b.id, i: c.id, bn: b.name, cell: 1 }, cell: { m: F.id, ti: T.titleIt, mode: (F.mx.lo || {}).title || 'top' }, blocks: T.blocks, subs: T.subs, par: links[0] || (old ? old.par || '' : '') });
+  }
+}
+/* task manager → the cell: status, priority, title, subtasks */
+{ const o = loToBoard; loToBoard = r => {
+  if (!r || !r.cell || !r.src) return o(r);
+  const s = r.src;
+  const apply = list => {
+    const c = list.find(i => i.id === s.i); if (!c) return false; let ch = false;
+    const p = Object.assign({}, c.props), st = LO2MX[r.st] || 'todo';
+    if ((p.st || 'todo') !== st) { if (st === 'todo' && !c.props?.st) { /* nothing */ } else { p.st = st; ch = true; } }
+    if ((LO2PR[r.pr] || '') !== (p.pr || '')) { if (LO2PR[r.pr]) p.pr = LO2PR[r.pr]; else delete p.pr; ch = true; }
+    if (ch) c.props = p;
+    if (r.cell.mode === 'cell' && c.title && c.title !== r.title) { c.title = r.title; ch = true; }
+    else if (r.cell.ti) { const t = list.find(i => i.id === r.cell.ti); if (t && bdTitle(t) !== r.title) { if (t.type === 'doc') t.title = r.title; else { t.text = r.title; delete t.html; } ch = true; } }
+    return ch;
+  };
+  bdWrite(s.b, apply);
+}; }
+function bdWrite(bid, apply) {
+  S.loQ = (S.loQ || Promise.resolve()).then(async () => {
+    S.loApplying = true;
+    try {
+      if (S.board && S.board.id === bid) { const snap = snapshot(); if (apply(S.board.items)) { pushHist(snap); changed(); } }
+      else { const b = await Backend.loadBoard(bid).catch(() => null); if (b && apply(b.items)) { b.updatedAt = Date.now(); await Backend.saveBoard(b); } }
+    } catch (e) { /* the record keeps the change */ } finally { S.loApplying = false; }
+  });
+}
+function bdSubToggle(rid, l, rr) {
+  const r = loGet(rid); if (!r) return;
+  const subs = (r.subs || []).map(x => x.l === l && x.r === rr ? Object.assign({}, x, { d: !x.d }) : x), now = subs.find(x => x.l === l && x.r === rr);
+  loSet(rid, { subs });
+  bdWrite(r.src.b, list => { const it = list.find(i => i.id === l), row = it && (it.rows || []).find(x => x.id === rr); if (!row || !!row.done === !!(now && now.d)) return false; row.done = !!(now && now.d); return true; });
+}
+/* ---------- cells: a status button, and the colour of the status ---------- */
+function bdStChip(c, P) {
+  const st = P.st && MX_ST[P.st], F = byId(c.cell && c.cell.m); if (!st && !(F && F.mx && F.mx.lo && F.mx.lo.on)) return '';
+  return `<button class="mxchip bd29st${st ? '' : ' ghost'}" data-bd29st="${c.id}" style="--c:${st ? st[1] : '#8a90a0'}" title="Статус ячейки: щелчок — следующий, правый щелчок — выбрать">${st ? st[0] : '○ статус'}</button>`;
+}
+function bdStSet(c, st) { pushHist(); const p = Object.assign({}, c.props); if (st) p.st = st; else delete p.st; c.props = p; if (!Object.keys(p).length) delete c.props; changed(); }
+{ const o = layoutMatrices; layoutMatrices = (...a) => {
+  const r = o(...a); if (!S.board) return r;
+  for (const F of items()) if (F.type === 'frame' && F.mx && (F.mx.stcol || (F.mx.lo && F.mx.lo.on && F.mx.stcol !== false))) {
+    for (const c of items()) if (c.cell && c.cell.m === F.id) { const st = c.props && c.props.st; const want = st && MX_ST[st] ? mixHex(MX_ST[st][1], '#ffffff', st === 'todo' ? 0.9 : 0.82) : (c.fill0 || '#ffffff'); if (st && c.fill0 == null && c.fill !== want) c.fill0 = c.fill || '#ffffff'; if (c.fill !== want) c.fill = want; if (!st && c.fill0 != null) delete c.fill0; }
+  }
+  return r;
+}; }
+/* matrix menu: the task manager section */
+{ const o = mxMenu; mxMenu = (anchor, F) => {
+  o(anchor, F); if (!F.mx) return; const box = $('#pop .vp'); if (!box) return;
+  const L = F.mx.lo || {}, b = (v, l, on) => `<button class="ob${on ? ' on' : ''}" data-v="${v}">${l}</button>`;
+  box.insertAdjacentHTML('beforeend', `<div class="vp-h">Задачник</div><div class="row">${b('bd:on', L.on ? '☑ Ячейки — задачи' : '☐ Ячейки — задачи', L.on)}${b('bd:stcol', 'Цвет по статусу', F.mx.stcol || (L.on && F.mx.stcol !== false))}</div>
+    ${L.on ? `<div class="row"><span class="vp-n" style="margin:0">Заголовок задачи:</span>${b('bd:t:top', 'Верхний текст ячейки', (L.title || 'top') === 'top')}${b('bd:t:cell', 'Название ячейки', L.title === 'cell')}</div>
+    <div class="row"><span class="vp-n" style="margin:0">Содержимое в задаче:</span>${b('bd:l:list', 'Списком', (L.lay || 'list') === 'list')}${b('bd:l:type', 'По типам', L.lay === 'type')}${b('bd:l:cols', 'Колонками', L.lay === 'cols')}</div>
+    <div class="vp-n">Остальное в ячейке — содержимое задачи: тексты, картинки, схемы, встройки. Рамки внутри — разделы, чек-листы — подзадачи. Заголовки H1–H3 задают уровни.</div>` : ''}`);
+  const pick = pop._pick; pop._pick = v => {
+    if (!v.startsWith('bd:')) return pick(v);
+    const [, k, x] = v.split(':'); pushHist(); const lo = F.mx.lo = Object.assign({}, F.mx.lo);
+    if (k === 'on') { lo.on = !lo.on; toast(lo.on ? 'Ячейки стали задачами задачника: J → «Эта доска»' : 'Ячейки больше не задачи'); }
+    else if (k === 'stcol') F.mx.stcol = !(F.mx.stcol || (lo.on && F.mx.stcol !== false));
+    else if (k === 't') lo.title = x; else if (k === 'l') lo.lay = x;
+    changed(); if (typeof loScanSoon === 'function') loScanSoon(); setTimeout(() => mxMenu(anchor, F), 0);
+  };
+}; }
+
+/* ---------- headings: any text object can be H1–H3 ---------- */
+const BD_HL_T = new Set(['text', 'sticky', 'shape', 'card', 'doc']);
+{ const o = ctx24Extra; ctx24Extra = (sel, single) => { const g = o(sel, single); if (!S.editing && sel.length && sel.every(i => BD_HL_T.has(i.type))) { const h = sel[0].hl || 0; g.push(cbtn('bd:hl', h ? 'H' + h : 'H', 'Уровень заголовка: делает объект заголовком при чтении доски в задачи и документ')); } return g; }; }
+{ const o = ctx24Act; ctx24Act = (b, sel) => {
+  const a = b.dataset.act || '';
+  if (a === 'bd:hl') { openPop(b, `<div class="menu"><div class="vp-h">Заголовок при чтении доски</div><button class="mi" data-v="0"><span>Обычный текст</span></button><button class="mi" data-v="1"><span><b>H1</b> — заголовок</span></button><button class="mi" data-v="2"><span><b>H2</b> — подзаголовок</span></button><button class="mi" data-v="3"><span><b>H3</b> — малый заголовок</span></button></div>`, v => { pushHist(); for (const it of sel) { if (+v) it.hl = +v; else delete it.hl; } changed(); }); return true; }
+  if (a === 'k:snap') { bdCopyMenu(b, sel); return true; }
+  return o(b, sel);
+}; }
+function bdAfterRender() {
+  if (!S.board) return;
+  for (const it of items()) { const el = els.get(it.id); if (!el) continue; const want = it.hl ? String(it.hl) : ''; if ((el.dataset.hl || '') !== want) { if (want) el.dataset.hl = want; else delete el.dataset.hl; } }
+}
+{ const o = render; render = (...a) => { const r = o(...a); bdAfterRender(); return r; }; }
+document.addEventListener('pointerdown', e => {
+  const b = e.target.closest && e.target.closest('[data-bd29st]'); if (!b) return;
+  e.stopPropagation(); e.preventDefault(); const c = byId(b.dataset.bd29st); if (!c) return;
+  if (e.button === 2) { openPop(b, `<div class="menu"><div class="vp-h">Статус ячейки</div>${Object.entries(MX_ST).map(([k, [l, col]]) => `<button class="mi" data-v="${k}"><span><i class="mxdot" style="--c:${col}"></i> ${l}</span></button>`).join('')}<button class="mi" data-v=""><span>Без статуса</span></button></div>`, v => bdStSet(c, v)); return; }
+  const ks = Object.keys(MX_ST), cur = (c.props || {}).st, i = ks.indexOf(cur); bdStSet(c, i < 0 ? 'doing' : ks[(i + 1) % ks.length] === 'todo' ? '' : ks[(i + 1) % ks.length]);
+}, true);
+document.addEventListener('contextmenu', e => { if (e.target.closest && e.target.closest('[data-bd29st]')) e.preventDefault(); }, true);
+
+/* ---------- reading a board into a document ---------- */
+async function bdBlockHTML(it, b, live) {
+  const asset = a => (b && b.assets && b.assets[a]) || '';
+  const tx = s => esc(s || '').replace(/\n/g, '<br>');
+  switch (it.type) {
+    case 'text': return it.hl ? `<h${it.hl + 1}>${tx(bdTitle(it))}</h${it.hl + 1}>` : `<p>${it.html ? docClean(it.html) : tx(it.text)}</p>`;
+    case 'sticky': return it.hl ? `<h${it.hl + 1}>${tx(it.text)}</h${it.hl + 1}>` : `<div class="st" style="background:${esc(it.color || '#fff3a0')}">${tx(it.text)}</div>`;
+    case 'card': return `<div class="card"><b>${tx(bdTitle(it))}</b>${it.desc ? `<p>${tx(it.desc)}</p>` : ''}${it.due ? `<small>Срок: ${esc(it.due)}</small>` : ''}</div>`;
+    case 'doc': return `<div class="doc">${it.title ? `<h3>${tx(it.title)}</h3>` : ''}${docClean(it.html || '')}</div>`;
+    case 'code': return `<pre>${esc(it.text || it.code || '')}</pre>`;
+    case 'tasks': return `<ul class="c">${(it.rows || []).filter(r => r.k !== 'blk').map(r => `<li>${r.done ? '☑' : '☐'} ${tx(r.t)}</li>`).join('')}</ul>`;
+    case 'table': return `<table>${(it.rows || []).map(r => `<tr>${r.map(c => `<td>${tx(htmlToText(c || ''))}</td>`).join('')}</tr>`).join('')}</table>`;
+    case 'image': { const src = asset(it.asset); return src ? `<figure><img src="${src}" alt=""></figure>` : '<p class="m">[картинка — на доске]</p>'; }
+    case 'embed': { const u = it.url || it.src || ''; return `<p class="emb">↗ <a href="${esc(/^https?:/.test(u) ? u : '#')}">${tx(it.title || u || 'Встройка')}</a>${it.sub ? ' — ' + tx(it.sub) : ''}</p>`; }
+    case 'frame': return `<h3>${tx(it.title || 'Раздел')}</h3>`;
+    default: {
+      if (live) { try { const cv = await renderCanvas([it], 2, '#ffffff'); if (cv) return `<figure><img src="${cv.toDataURL('image/png')}" alt=""></figure>`; } catch (e) { /* fall through */ } }
+      const t = itemText(it).trim(); return t ? `<p>${tx(t)}</p>` : '';
+    }
+  }
+}
+/* frames are sections; graphic neighbours (a flowchart) become one picture */
+async function bdDocBody(list, b, depth) {
+  const live = b === S.board, frames = list.filter(i => i.type === 'frame' && !list.some(f => f !== i && f.type === 'frame' && bdIn({ x: f.x, y: f.y, w: f.w, h: f.h }, bdBox(i))));
+  const inF = new Map(); for (const it of list) { if (it.type === 'frame') continue; const f = frames.find(fr => bdIn({ x: fr.x, y: fr.y, w: fr.w, h: fr.h }, bdBox(it))); if (f) { if (!inF.has(f.id)) inF.set(f.id, []); inF.get(f.id).push(it); } }
+  const owned = new Set([...inF.values()].flat().map(i => i.id));
+  const top = bdOrder(list.filter(i => !owned.has(i.id) && (i.type !== 'frame' || frames.includes(i))));
+  let html = '', gfx = [];
+  const flush = async () => { if (!gfx.length) return; if (live && gfx.length > 1) { try { const cv = await renderCanvas(gfx, 2, '#ffffff'); if (cv) html += `<figure><img src="${cv.toDataURL('image/png')}" alt=""></figure>`; } catch (e) { /* skip */ } } else for (const g of gfx) html += await bdBlockHTML(g, b, live); gfx = []; };
+  for (const it of top) {
+    if (it.type === 'frame') { await flush(); const kids = (inF.get(it.id) || []).concat(list.filter(i => i.type === 'frame' && i !== it && bdIn({ x: it.x, y: it.y, w: it.w, h: it.h }, bdBox(i)))); html += `<section><h${Math.min(6, depth + 2)}>${esc(it.title || 'Раздел')}</h${Math.min(6, depth + 2)}>${await bdDocBody(kids, b, depth + 1)}</section>`; continue; }
+    if (BD_GFX.has(it.type) && !(it.type === 'shape' && it.hl)) { gfx.push(it); continue; }
+    await flush(); html += await bdBlockHTML(it, b, live);
+  }
+  await flush(); return html;
+}
+const BD_CSS = 'body{font:16px/1.55 -apple-system,"Segoe UI",Roboto,sans-serif;color:#1c1d21;max-width:860px;margin:32px auto;padding:0 20px}h1{font-size:30px}h2{font-size:23px;margin-top:28px}h3{font-size:19px}h4{font-size:17px}img{max-width:100%;border-radius:8px}figure{margin:14px 0}.st{padding:12px 14px;border-radius:6px;margin:10px 0;white-space:pre-wrap}.card{border:1px solid #e3e5ea;border-left:4px solid #3355ff;border-radius:8px;padding:10px 14px;margin:10px 0}.m{color:#6b7080;font-size:14px}ul.c{list-style:none;padding-left:4px}table{border-collapse:collapse;margin:12px 0}td{border:1px solid #d5d8de;padding:6px 10px}pre{background:#f4f5f7;padding:12px;border-radius:8px;overflow:auto}section{border-left:3px solid #e3e5ea;padding-left:16px;margin:18px 0}.cols{columns:2;column-gap:28px}.cols>*{break-inside:avoid}.grp{color:#6b7080;font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin-top:20px}';
+const bdDocWrap = (title, body) => `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><style>${BD_CSS}</style></head><body><h1>${esc(title)}</h1>${body}<p class="m">Собрано в Холсте · ${esc(new Date().toLocaleString('ru-RU'))}</p></body></html>`;
+async function bdDocOf(list, title) { bdIdx(items()); return bdDocWrap(title, await bdDocBody(list, S.board, 0)); }
+function bdDocToBoard(html, title) {
+  const body = (html.match(/<body>([\s\S]*)<\/body>/) || [, html])[1].replace(/<p class="m">Собрано в Холсте[^<]*<\/p>$/, '');
+  const d = mkDoc(0, 0), c = viewCenter(); Object.assign(d, { x: r1(c.x - 320), y: r1(c.y - 300), w: 640, h: 600, title, html: docClean(body.replace(/<section>|<\/section>/g, '')) }); d.text = htmlToText(d.html);
+  pushHist(); S.board.items.push(d); S.sel = new Set([d.id]); changed(); toast('Документ на доске');
+}
+function bdDocPreview(html, title) {
+  const d = xdlg('Документ: ' + title, `<div class="bd29doc"><div class="btnrow"><button class="btn" data-bdd="dl">Скачать .html</button><button class="ob" data-bdd="board">На доску</button><button class="ob" data-bdd="copy">Скопировать текст</button></div><iframe sandbox="allow-same-origin" class="bd29fr"></iframe></div>`, true);
+  const fr = d.querySelector('iframe'); fr.srcdoc = html;
+  d.addEventListener('click', e => { const b = e.target.closest('[data-bdd]'); if (!b) return; const a = b.dataset.bdd; if (a === 'dl') saveFile(new Blob([html], { type: 'text/html' }), safeName(title) + '.html', 'text/html'); else if (a === 'board') { closeXdlg(); bdDocToBoard(html, title); } else copyPlain(htmlToText(html.replace(/<style[\s\S]*?<\/style>/, '')), 'Текст скопирован'); });
+}
+/* one copy button for objects: picture, text for Telegram, document */
+function bdScope(sel) { const ids = new Set(sel.map(i => i.id)); const extra = sel.filter(i => i.type === 'frame').flatMap(f => items().filter(i => !ids.has(i.id) && bdIn({ x: f.x, y: f.y, w: f.w, h: f.h }, bdBox(i)))); return sel.concat(extra); }
+function bdCopyMenu(anchor, sel) {
+  openPop(anchor, `<div class="menu"><div class="vp-h">Скопировать выделенное</div><button class="mi" data-v="shot"><span>📷 Снимок: PNG, JPG, WebP, обрезка…</span></button><button class="mi" data-v="tg"><span>✈ Текст для Telegram</span></button><button class="mi" data-v="prev"><span>📄 Как документ — посмотреть</span></button><button class="mi" data-v="doc"><span>⬇ Документ (.html) — картинки и схемы целиком</span></button><button class="mi" data-v="board"><span>▣ Документ на доску</span></button><button class="mi" data-v="lo"><span>☑ Ячейки и заголовки — в задачник</span></button></div>`, async v => {
+    const list = bdScope(sel), title = (sel.length === 1 && bdTitle(sel[0])) || S.board.name;
+    if (v === 'shot') return openSnap();
+    if (v === 'tg') { const t = bdOrder(list).map(it => { const s = bdTitle(it); return !s ? '' : it.hl ? `\n**${s}**` : it.type === 'tasks' ? (it.rows || []).map(r => (r.done ? '✅ ' : '▫️ ') + r.t).join('\n') : '• ' + s; }).filter(Boolean).join('\n'); copyPlain(`**${title}**\n${t}`.trim(), 'Текст для Telegram скопирован'); return; }
+    if (v === 'lo') { const F = sel.find(i => i.type === 'frame' && i.mx); if (F) { mxMenu(anchor, F); return; } toast('Выделите матрицу: «Матрица ▾» → «Ячейки — задачи». Отдельные объекты связываются с задачником кнопкой «Life OS»'); return; }
+    toast('Собираю документ…'); const html = await bdDocOf(list, title);
+    if (v === 'prev') bdDocPreview(html, title); else if (v === 'doc') saveFile(new Blob([html], { type: 'text/html' }), safeName(title) + '.html', 'text/html'); else bdDocToBoard(html, title);
+  });
+}
+async function bdBoardDoc() { if (!S.board) return; const html = await bdDocOf(items().filter(i => !i.cell || true), S.board.name); bdDocPreview(html, S.board.name); }
+/* ---------- a cell task's content in the task manager ---------- */
+const BD_BOARDS = new Map();
+async function bdBoard(bid) { if (S.board && S.board.id === bid) return S.board; const c = BD_BOARDS.get(bid); if (c && Date.now() - c.at < 20000) return c.b; const b = await Backend.loadBoard(bid).catch(() => null); if (b) BD_BOARDS.set(bid, { b, at: Date.now() }); return b; }
+async function bdTaskContentHTML(r, forDoc) {
+  const b = await bdBoard(r.src.b); if (!b) return '<p class="lo-hint">Доска недоступна на этом устройстве.</p>';
+  const live = b === S.board, byid = new Map(b.items.map(i => [i.id, i])), F = byid.get(r.cell.m), lay = (F && F.mx && F.mx.lo && F.mx.lo.lay) || 'list';
+  const blocks = (r.blocks || []).map(x => byid.get(x.i)).filter(Boolean);
+  let html = '';
+  const secs = new Map(); for (const x of r.blocks || []) { if (x.sec) { if (!secs.has(x.sec)) secs.set(x.sec, []); secs.get(x.sec).push(x.i); } }
+  const loose = blocks.filter(it => it.type !== 'frame' && !(r.blocks.find(x => x.i === it.id) || {}).sec);
+  const render1 = async list => { let h = ''; if (lay === 'type') { const G = [['Тексты', i => BD_TEXT.has(i.type) && i.type !== 'shape'], ['Картинки', i => i.type === 'image'], ['Схемы и рисунки', i => BD_GFX.has(i.type)], ['Ссылки и встройки', i => i.type === 'embed'], ['Прочее', () => true]]; const used = new Set(); for (const [n, f] of G) { const l = list.filter(i => !used.has(i.id) && f(i)); l.forEach(i => used.add(i.id)); if (l.length) { h += `<div class="grp">${n}</div>`; for (const it of l) h += await bdBlockHTML(it, b, live); } } } else for (const it of list) h += await bdBlockHTML(it, b, live); return lay === 'cols' ? `<div class="cols">${h}</div>` : h; };
+  html += await render1(loose);
+  for (const [fid, ids] of secs) { const f = byid.get(fid); html += `<section><h3>${esc((f && f.title) || 'Раздел')}</h3>${await render1(ids.map(i => byid.get(i)).filter(Boolean))}</section>`; }
+  if (!forDoc && (r.subs || []).length) html = `<div class="bd29subs">${r.subs.map(s => `<label><input type="checkbox" data-bd29sub="${esc(r.id)}|${esc(s.l)}|${esc(s.r)}"${s.d ? ' checked' : ''}> ${esc(s.t)}</label>`).join('')}</div>` + html;
+  return html || '<p class="lo-hint">В ячейке больше ничего нет.</p>';
+}
+{ const o = renderLoDet; renderLoDet = (...a) => {
+  const r0 = o(...a); const det = $('#loDet'), r = S.loSel && loGet(S.loSel);
+  if (det && !det.hidden && r && r.cell && !det.querySelector('.bd29c')) {
+    const box = document.createElement('div'); box.className = 'bd29c'; box.innerHTML = `<div class="lo-sh">Содержимое ячейки<span class="lo-flex"></span><button class="ob sm" data-bd29go="${esc(r.src.b)}|${esc(r.src.i)}">На доске ↗</button></div><div class="bd29cb"><p class="lo-hint">Загружаю…</p></div>`; det.appendChild(box);
+    bdTaskContentHTML(r, false).then(h => { const cb = box.querySelector('.bd29cb'); if (cb) cb.innerHTML = `<style>.bd29cb img{max-width:100%;border-radius:6px}.bd29cb .st{padding:8px 10px;border-radius:6px;margin:6px 0}.bd29cb .cols{columns:2;column-gap:14px}.bd29cb section{border-left:3px solid var(--line);padding-left:10px;margin:10px 0}.bd29cb .grp{font-size:11px;color:var(--muted);text-transform:uppercase;margin-top:10px}</style>` + h; });
+  }
+  return r0;
+}; }
+document.addEventListener('change', e => { const c = e.target.closest && e.target.closest('[data-bd29sub]'); if (!c) return; const [rid, l, rr] = c.dataset.bd29sub.split('|'); bdSubToggle(rid, l, rr); });
+document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('[data-bd29go]'); if (!b) return; e.stopPropagation(); const [bid, id] = b.dataset.bd29go.split('|'); closeXdlg(); (S.board && S.board.id === bid ? Promise.resolve() : openBoard(bid)).then(() => { const it = byId(id); if (it) { S.sel = new Set([id]); fitAll([it]); render(); } }); }, true);
+/* =========================================================
+   v2.9: panels. One «view» button per panel (▣) with everything about where
+   it lives in a second layer: over the screen, docked left or right behind the
+   board, in a column of the side constructor on the left or the right, full
+   screen; width; remembered per panel; saved layouts. Board panels look like
+   the toolbars, system panels look like panels — so it is clear what belongs
+   to the board. The toolbar can sit on the left, the right or at the bottom.
+   ========================================================= */
+const PV = Object.assign({ by: {}, w: {}, def: '' }, LS.get('pv29') || {});
+const pvSave = () => LS.set('pv29', PV);
+const pvKey = d => (d && d._lo ? 'lo' : d && d._dev ? 'dev' : d && d._bp ? 'bp' : (d && (d._dkey || ((d.querySelector('.xhead h2') || {}).textContent || '')).slice(0, 40)) || 'panel');
+const PV_MODES = { over: 'Поверх экрана', left: 'Слева, за доской', right: 'Справа, за доской', colL: 'В колонку слева', colR: 'В колонку справа', full: 'Во весь экран' };
+function pvMode(d) {
+  if (!d) return 'over'; const box = d.querySelector('.xbox');
+  if (box && box.classList.contains('pfull')) return 'full';
+  if (d.closest('#side24')) return 'colL'; if (d.closest('#side24r')) return 'colR';
+  if (d.classList.contains('dvsideR')) return 'right'; if (d.classList.contains('dvside')) return 'left';
+  return 'over';
+}
+/* docked on the right, behind the board */
+function dockR(d, on) {
+  if (!d) return; if (on && d.classList.contains('dvside')) dockApply(d, false);
+  const w = PV.w[pvKey(d)] || 520;
+  document.documentElement.style.setProperty('--dkwr', on ? px(clamp(w, 300, innerWidth - 240)) : '0px');
+  d.classList.toggle('dvsideR', !!on); d.classList.toggle('dock', !!on); document.body.classList.toggle('dvsideR', !!on);
+}
+function pvSet(d, mode, remember) {
+  if (!d) return; const key = pvKey(d), cur = pvMode(d);
+  if (cur === mode) return;
+  if (cur === 'full') pfToggle(d, false);
+  if (cur === 'left') dockApply(d, false); if (cur === 'right') dockR(d, false);
+  if ((cur === 'colL' || cur === 'colR') && mode !== cur) { const p = d.closest('.s24pane'); if (p) s24Undock(p.dataset.key); }
+  if (mode === 'left') dockApply(d, true);
+  else if (mode === 'right') dockR(d, true);
+  else if (mode === 'full') pfToggle(d, true);
+  else if (mode === 'colL' || mode === 'colR') { S24.wantSide = mode === 'colR' ? 'R' : 'L'; s24AddDlg(d).finally(() => { S24.wantSide = ''; }); }
+  if (remember !== false) { PV.by[key] = mode; pvSave(); const st = dockSt(); st.by[dockKey(d)] = mode === 'left' ? 'left' : 'over'; LS.set('dock', st); }
+}
+function pvWidth(d, w) {
+  const key = pvKey(d), m = pvMode(d), W = w === 'half' ? Math.round(innerWidth / 2) : +w; PV.w[key] = W; pvSave();
+  if (m === 'left') { const st = dockSt(); st.w[dockKey(d)] = W; LS.set('dock', st); document.documentElement.style.setProperty('--dkw', px(clamp(W, 300, innerWidth - 240))); dockInsets(); if (S.board) applyView(); }
+  else if (m === 'right') document.documentElement.style.setProperty('--dkwr', px(clamp(W, 300, innerWidth - 240)));
+  else if (m === 'colL' || m === 'colR') { const p = d.closest('.s24pane'), s = s24St(); for (const c of s.cols) if (c.top === (p && p.dataset.key) || c.bot === (p && p.dataset.key)) c.w = W; s24Save(s); s24Layout(); }
+  else { const box = d.querySelector('.xbox'); if (box) box.style.width = px(Math.min(W, innerWidth - 32)); }
+}
+function pv29Menu(anchor, d) {
+  d = d || (anchor && anchor.closest('.xdlg')) || S.xdlg; if (!d) return;
+  const key = pvKey(d), m = pvMode(d), lays = LS.get('pv29lay') || [];
+  openPop(anchor, `<div class="menu pv29"><div class="vp-h">Где показывать</div>${Object.entries(PV_MODES).map(([k, l]) => `<button class="mi${m === k ? ' on' : ''}" data-v="m:${k}"><span>${m === k ? '● ' : ''}${l}</span></button>`).join('')}
+    <div class="vp-h">Ширина</div><div class="row" style="padding:0 6px">${[['380', 'Узко'], ['520', 'Средне'], ['760', 'Широко'], ['half', 'Половина']].map(([v, l]) => `<button class="ob sm" data-v="w:${v}">${l}</button>`).join('')}</div>
+    <div class="msep"></div><button class="mi" data-v="rem"><span>${PV.by[key] ? '☑' : '☐'} Открывать эту панель так всегда</span></button><button class="mi" data-v="def"><span>${PV.def === m ? '☑' : '☐'} Так — для всех панелей по умолчанию</span></button>
+    <div class="vp-h">Раскладки</div>${lays.map((l, i) => `<button class="mi" data-v="la:${i}"><span>▦ ${esc(l.name)}</span><span class="k" data-v="ld:${i}" title="Удалить">✕</span></button>`).join('')}<button class="mi" data-v="ls"><span>＋ Сохранить текущую раскладку…</span></button><button class="mi" data-v="lr"><span>↺ Сбросить: все панели поверх экрана</span></button></div>`, async v => {
+    const [k, x] = [v.slice(0, v.indexOf(':') < 0 ? v.length : v.indexOf(':')), v.slice(v.indexOf(':') + 1)];
+    if (k === 'm') pvSet(d, x, !!PV.by[key] || true);
+    else if (k === 'w') pvWidth(d, x);
+    else if (k === 'rem') { if (PV.by[key]) delete PV.by[key]; else PV.by[key] = m; pvSave(); }
+    else if (k === 'def') { PV.def = PV.def === m ? '' : m; pvSave(); toast(PV.def ? 'Новые панели будут открываться: ' + PV_MODES[m].toLowerCase() : 'Панели открываются как обычно'); }
+    else if (k === 'ls') { const n = await uiPrompt('Название раскладки', 'Раскладка ' + (lays.length + 1)); if (!n) return; lays.push({ name: n.trim(), side: s24St(), pv: clone(PV), dock: dockSt() }); LS.set('pv29lay', lays); toast('Раскладка сохранена'); }
+    else if (k === 'la') { const L = lays[+x]; if (!L) return; s24Save(L.side); LS.set('dock', L.dock); Object.assign(PV, L.pv); pvSave(); s24Layout(); toast('Раскладка «' + L.name + '»: панели откроются на своих местах'); }
+    else if (k === 'ld') { lays.splice(+x, 1); LS.set('pv29lay', lays); }
+    else if (k === 'lr') { s24Save({ cols: [], last: {} }); PV.by = {}; PV.def = ''; pvSave(); LS.set('dock', { def: 'over', by: {}, w: {} }); s24Layout(); toast('Все панели — поверх экрана'); }
+  });
+}
+/* one button instead of «dock» and «full screen»; the panel opens the way it was left */
+function pvInit(d) {
+  if (!d || d._pv29) return; d._pv29 = 1;
+  const head = d.querySelector('.xhead'); if (!head) return;
+  if (!head.querySelector('[data-x="pv29"]')) { const b = document.createElement('button'); b.className = 'ib pv29b'; b.dataset.x = 'pv29'; b.title = 'Как показывать панель: поверх, слева или справа за доской, в колонке, во весь экран, ширина, раскладки'; b.setAttribute('aria-label', 'Вид панели'); b.innerHTML = '<svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M9.5 4.5v15M14.5 9h3M14.5 12h3"/></svg>'; head.insertBefore(b, head.querySelector('[data-x="close"]')); b.addEventListener('click', e => { e.stopPropagation(); pv29Menu(b, d); }); }
+  if (d.closest('#side24,#side24r')) return;
+  const want = PV.by[pvKey(d)] || PV.def;
+  if (want && want !== 'over' && want !== 'left') setTimeout(() => { if (d.isConnected && pvMode(d) === 'over') pvSet(d, want, false); }, 30);
+}
+{ const o = closeXdlg; closeXdlg = (...a) => { const d = S.xdlg; if (d && d.classList.contains('dvsideR')) dockR(d, false); return o(...a); }; }
+
+/* ---------- the side constructor on both sides ---------- */
+{ const o = s24Place; s24Place = (s, key) => {
+  const want = S24.wantSide || (s.last[key] && s.last[key].side) || 'L';
+  if (S24.wantSide) { if (s.cols.length < 3) { s.cols.push({ w: 420, side: want }); return { c: s.cols.length - 1, p: 'top', side: want }; } for (let c = 0; c < 3; c++) if (s.cols[c] && (s.cols[c].side || 'L') === want) { if (!s.cols[c].top) return { c, p: 'top' }; if (!s.cols[c].bot) return { c, p: 'bot' }; } }
+  const at = o(s, key); if (at && s.cols[at.c] && !s.cols[at.c].side) s.cols[at.c].side = want; return at;
+}; }
+s24Layout = function () {
+  const el = s24Ensure(), s = s24St(), mounts = S24.mounts || {};
+  let er = document.getElementById('side24r'); if (!er) { er = document.createElement('div'); er.id = 'side24r'; er.dataset.app = ''; document.body.appendChild(er); }
+  s.cols = s.cols.filter(c => c.top || c.bot); s24Save(s);
+  const on = s.cols.length > 0; document.body.classList.toggle('s24', s.cols.some(c => (c.side || 'L') === 'L')); document.body.classList.toggle('s24r', s.cols.some(c => c.side === 'R'));
+  const W = c => (c.col ? 34 : clamp(c.w || 420, 260, Math.max(300, innerWidth - 300)));
+  let tl = 0, tr = 0; for (const c of s.cols) { if (c.side === 'R') tr += W(c) + 8; else tl += W(c) + 8; }
+  document.documentElement.style.setProperty('--s24w', px(tl ? tl + 6 : 0)); document.documentElement.style.setProperty('--s24wr', px(tr ? tr + 6 : 0));
+  const keep = new Map([...el.querySelectorAll('.s24pane'), ...er.querySelectorAll('.s24pane')].map(p => [p.dataset.key, p]));
+  const fl = document.createDocumentFragment(), fr = document.createDocumentFragment();
+  s.cols.forEach((c, ci) => {
+    const R = c.side === 'R', col = document.createElement('div'); col.className = 's24col' + (c.col ? ' col' : '') + (R ? ' r' : ''); col.style.width = px(W(c)); col.dataset.ci = ci;
+    col.innerHTML = `<div class="s24ch"><button class="ib sm" data-s24="col:${ci}" title="${c.col ? 'Развернуть колонку' : 'Свернуть колонку: всё останется внутри'}">${c.col ? (R ? '‹' : '›') : (R ? '›' : '‹')}</button>${c.col ? `<span class="s24vt">${esc([c.top, c.bot].filter(Boolean).map(s24Title).join(' · '))}</span>` : `<span class="s24cn">Колонка ${ci + 1} · ${R ? 'справа' : 'слева'}</span><span class="p24sp"></span><button class="ib sm" data-s24="side:${ci}" title="Перенести колонку на ${R ? 'левую' : 'правую'} сторону">${R ? '⇤' : '⇥'}</button><button class="ib sm" data-s24="closecol:${ci}" title="Закрыть колонку">${ic('close')}</button>`}</div>`;
+    for (const p of ['top', 'bot']) {
+      const k = c[p]; if (!k) continue;
+      let pane = keep.get(k);
+      if (!pane) { pane = document.createElement('div'); pane.className = 's24pane'; pane.dataset.key = k; const m = mounts[k]; if (m) m(pane); else s24Restore(k, pane); }
+      keep.delete(k); pane.classList.toggle('half', !!(c.top && c.bot)); pane.dataset.kind = /^(obj:|dlg:bp|vf)/.test(k) ? 'board' : 'sys'; col.appendChild(pane);
+    }
+    const h = document.createElement('div'); h.className = 's24rz'; h.title = 'Потяните, чтобы изменить ширину колонки'; col.appendChild(h);
+    h.addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); const x0 = e.clientX, w0 = col.getBoundingClientRect().width; const mv = ev => { col.style.width = px(clamp(w0 + (R ? x0 - ev.clientX : ev.clientX - x0), 260, innerWidth - 300)); }; const up = () => { removeEventListener('pointermove', mv); removeEventListener('pointerup', up); const st = s24St(); if (st.cols[ci]) { st.cols[ci].w = Math.round(col.getBoundingClientRect().width); s24Save(st); } s24Layout(); }; addEventListener('pointermove', mv); addEventListener('pointerup', up); });
+    (R ? fr : fl).appendChild(col);
+  });
+  for (const [k, p] of keep) s24Dispose(k, p);
+  el.innerHTML = ''; el.appendChild(fl); el.hidden = !s.cols.some(c => (c.side || 'L') === 'L');
+  er.innerHTML = ''; er.appendChild(fr); er.hidden = !s.cols.some(c => c.side === 'R');
+  dockInsets(); if (S.board) applyView();
+};
+/* the right container forwards its clicks to the same handler */
+function s24rWire() {
+  document.addEventListener('click', e => {
+    const b = e.target.closest && e.target.closest('#side24r [data-s24], #side24 [data-s24^="side:"]'); if (!b) return;
+    const [a, i] = b.dataset.s24.split(':');
+    if (a === 'side') { e.stopPropagation(); const s = s24St(); if (s.cols[+i]) { s.cols[+i].side = s.cols[+i].side === 'R' ? 'L' : 'R'; s24Save(s); s24Layout(); } return; }
+    if (!b.closest('#side24r')) return; e.stopPropagation();
+    const pane = b.closest('.s24pane');
+    if (a === 'col') { const s = s24St(); s.cols[+i].col = !s.cols[+i].col; s24Save(s); s24Layout(); }
+    else if (a === 'closecol') s24CloseCol(+i);
+    else if (a === 'pclose' && pane) s24ClosePane(pane.dataset.key);
+    else if (a === 'pmove' && pane) s24MovePop(b, pane.dataset.key);
+    else if (a === 'pover' && pane) s24Undock(pane.dataset.key);
+  }, true);
+  document.addEventListener('click', e => {
+    const x = e.target.closest && e.target.closest('#side24r .s24pane .xdlg [data-x="close"]'); if (x) { e.stopPropagation(); e.preventDefault(); s24ClosePane(x.closest('.s24pane').dataset.key); }
+  }, true);
+}
+s24MovePop = function (anchor, key) {
+  const s = s24St(), opts = []; for (let c = 0; c < 3; c++) for (const p of ['top', 'bot']) { const k = s.cols[c] && s.cols[c][p]; if (k !== key) opts.push([c, p, k, (s.cols[c] && s.cols[c].side) || 'L']); }
+  openPop(anchor, `<div class="menu"><div class="vp-h">Переместить «${esc(s24Title(key))}»</div>${opts.map(([c, p, k, sd]) => `<button class="mi" data-v="${c}|${p}"><span>Колонка ${c + 1} (${s.cols[c] ? (sd === 'R' ? 'справа' : 'слева') : 'новая'}), ${p === 'top' ? 'сверху' : 'снизу'}${k ? ` — поменяться с «${esc(s24Title(k))}»` : ''}</span></button>`).join('')}</div>`, v => {
+    const [c, p] = v.split('|'), st = s24St(); let from = null; st.cols.forEach((col, ci) => ['top', 'bot'].forEach(pp => { if (col[pp] === key) from = { c: ci, p: pp }; }));
+    while (st.cols.length <= +c) st.cols.push({ w: 420, side: from ? st.cols[from.c].side : 'L' });
+    const other = st.cols[+c][p]; st.cols[+c][p] = key; if (from) st.cols[from.c][from.p] = other || null; st.last[key] = { c: +c, p, side: st.cols[+c].side }; if (other && from) st.last[other] = from; s24Save(st); s24Layout();
+  });
+};
+
+/* ---------- the toolbar on any of three edges ---------- */
+const TB29 = { left: 'Слева', right: 'Справа', bottom: 'Снизу' };
+function tbApply() { const v = LS.get('tb29') || 'left'; document.body.classList.toggle('tb29-right', v === 'right'); document.body.classList.toggle('tb29-bottom', v === 'bottom'); }
+function tbPop(anchor) { optPop(anchor, Object.entries(TB29), LS.get('tb29') || 'left', v => { LS.set('tb29', v); tbApply(); toast('Панель инструментов: ' + TB29[v].toLowerCase()); }); }
+function flyPos29(fly, tb, r) {
+  const v = LS.get('tb29') || 'left';
+  if (v === 'right') { fly.style.left = px(Math.max(8, tb.left - fly.offsetWidth - 8)); fly.style.top = px(clamp(r.top + r.height / 2 - fly.offsetHeight / 2, 8, innerHeight - fly.offsetHeight - 8)); }
+  else if (v === 'bottom') { fly.style.left = px(clamp(r.left + r.width / 2 - fly.offsetWidth / 2, 8, innerWidth - fly.offsetWidth - 8)); fly.style.top = px(Math.max(8, tb.top - fly.offsetHeight - 8)); }
+  else { fly.style.left = px(tb.right + 8); fly.style.top = px(clamp(r.top + r.height / 2 - fly.offsetHeight / 2, 8, innerHeight - fly.offsetHeight - 8)); }
+}
+function panel29Setup() {
+  new MutationObserver(ms => { for (const m of ms) for (const n of m.addedNodes) if (n.nodeType === 1 && n.classList.contains('xdlg')) setTimeout(() => pvInit(n), 0); }).observe(document.body, { childList: true });
+  s24rWire(); tbApply();
+  const tb = $('#toolbar'); if (tb) tb.addEventListener('contextmenu', e => { if (e.target.closest('[data-tool]')) return; e.preventDefault(); tbPop(tb); });
+  if (s24St().cols.some(c => c.side === 'R')) s24Layout();
+}
+/* =========================================================
+   v2.9: control style presets (scroll, zoom, following the pointer, edges,
+   inertia — like in Miro, Figma, Whimsical…); the update notice leads to
+   «Что нового»; guides on the first press of every first-screen button, with
+   switches for all guides or by category.
+   ========================================================= */
+const CTRL29 = {
+  holst: ['Холст', 'Колесо — масштаб к указателю, Shift — вбок, Ctrl — вверх-вниз', { kp: 'holst', wheel: { plain: 'zoom', shift: 'panX', ctrl: 'panY' }, z: { smooth: true, step: false, speed: 5, sx: 5, sy: 5, pad: 5 }, to: 'cursor', edge: 1, inertia: 0 }],
+  miro: ['Miro', 'Колесо — масштаб, Shift — вбок; пробел или правая кнопка — рука', { kp: 'miro', wheel: { plain: 'zoom', shift: 'panX', ctrl: 'zoom' }, z: { smooth: true, step: false, speed: 5, sx: 5, sy: 5, pad: 5 }, to: 'cursor', edge: 1, inertia: 0 }],
+  figma: ['Figma и FigJam', 'Колесо — прокрутка, Ctrl + колесо — масштаб к указателю', { kp: 'holst', wheel: { plain: 'panY', shift: 'panX', ctrl: 'zoom' }, z: { smooth: true, step: false, speed: 6, sx: 5, sy: 5, pad: 6 }, to: 'cursor', edge: 1, inertia: 0 }],
+  whimsical: ['Whimsical', 'Колесо — прокрутка, Ctrl — масштаб, сочетания Whimsical', { kp: 'whimsical', wheel: { plain: 'panY', shift: 'panX', ctrl: 'zoom' }, z: { smooth: true, step: false, speed: 5, sx: 5, sy: 5, pad: 5 }, to: 'cursor', edge: 1, inertia: 0 }],
+  yandex: ['Яндекс Доски', 'Колесо — масштаб, Shift — вбок', { kp: 'yandex', wheel: { plain: 'zoom', shift: 'panX', ctrl: 'zoom' }, z: { smooth: true, step: false, speed: 5, sx: 5, sy: 5, pad: 5 }, to: 'cursor', edge: 1, inertia: 0 }],
+  excal: ['Excalidraw и tldraw', 'Колесо — прокрутка, Ctrl — масштаб, мягкая скорость', { kp: 'holst', wheel: { plain: 'panY', shift: 'panX', ctrl: 'zoom' }, z: { smooth: true, step: false, speed: 4, sx: 4, sy: 4, pad: 5 }, to: 'cursor', edge: 1, inertia: 0 }],
+  mouse: ['Только мышь', 'Колесо — масштаб ступенями к центру экрана, автопрокрутка у краёв', { kp: 'holst', wheel: { plain: 'zoom', shift: 'panX', ctrl: 'panY' }, z: { smooth: false, step: true, speed: 5, sx: 6, sy: 6, pad: 5 }, to: 'center', edge: 1, inertia: 0 }],
+  pad: ['Тачпад', 'Два пальца — двигать, щипок — масштаб, доска катится по инерции', { kp: 'holst', wheel: { plain: 'panY', shift: 'panX', ctrl: 'zoom' }, z: { smooth: true, step: false, speed: 5, sx: 5, sy: 5, pad: 7 }, to: 'cursor', edge: 1, inertia: 1 }],
+};
+const CT = Object.assign({ p: '', to: 'cursor', edge: 1, inertia: 0 }, LS.get('ctrl29') || {});
+const ctSave = () => LS.set('ctrl29', CT);
+function ctApply(k) {
+  const P = (CTRL29[k] || [])[2] || (LS.get('ctrl29own') || {})[k]; if (!P) return;
+  S.keyPreset = P.kp in PRESETS ? P.kp : 'holst'; S.keys = presetKeys(S.keyPreset); S.wheel = Object.assign({}, P.wheel); saveKeys();
+  const c = Object.assign({}, zoomCfg(), P.z); S.zoomCfg = c; LS.set('zoomcfg', c); S._zminFor = null;
+  Object.assign(CT, { p: k, to: P.to || 'cursor', edge: P.edge ? 1 : 0, inertia: P.inertia ? 1 : 0 }); ctSave();
+  toast('Стиль управления: ' + ((CTRL29[k] || [k])[0]));
+}
+function ctDlg() {
+  const d = xdlg('Стиль управления', '<div class="p24 ct29"></div>', true); d._dkey = 'ctrl29';
+  const own = () => LS.get('ctrl29own') || {};
+  const draw = () => {
+    const c = zoomCfg(), W = S.wheel || {}, sel = (k, cur) => `<select class="inp sm" data-ctw="${k}">${Object.entries(WHEEL_NAMES).map(([v, l]) => `<option value="${v}"${cur === v ? ' selected' : ''}>${l[0].toUpperCase() + l.slice(1)}</option>`).join('')}</select>`;
+    const O = own();
+    d.querySelector('.ct29').innerHTML = `<p class="sub">Как ведут себя колесо, тачпад, масштаб и прокрутка — одним щелчком, как в привычном сервисе. Потом можно подправить.</p>
+      <div class="ct29p">${Object.entries(CTRL29).map(([k, [n, t]]) => `<button class="sy-pol${CT.p === k ? ' on' : ''}" data-ctp="${k}"><b>${n}</b><small>${t}</small></button>`).join('')}${Object.keys(O).map(k => `<button class="sy-pol${CT.p === k ? ' on' : ''}" data-ctp="${esc(k)}"><b>★ ${esc(k)}</b><small>Ваш набор</small></button>`).join('')}</div>
+      <h3>Колесо мыши</h3><div class="lk-r"><span>Колесо</span>${sel('plain', W.plain)}<span>Shift + колесо</span>${sel('shift', W.shift)}<span>${MOD} + колесо</span>${sel('ctrl', W.ctrl)}</div>
+      <h3>Масштаб</h3><div class="lk-r"><span>Куда приближать</span><div class="seg24"><button class="${CT.to !== 'center' ? 'on' : ''}" data-ctto="cursor">К указателю мыши</button><button class="${CT.to === 'center' ? 'on' : ''}" data-ctto="center">К центру экрана</button></div></div>
+      <label class="l27ck"><input type="checkbox" data-ctz="smooth"${c.smooth !== false ? ' checked' : ''}> Плавно</label><label class="l27ck"><input type="checkbox" data-ctz="step"${c.step ? ' checked' : ''}> Ступенями по уровням</label>
+      <div class="lk-r"><span>Скорость колеса</span><input type="range" min="1" max="9" value="${c.speed || 5}" data-ctr="speed"><span>Тачпада</span><input type="range" min="1" max="9" value="${c.pad || 5}" data-ctr="pad"></div>
+      <h3>Прокрутка</h3><div class="lk-r"><span>По вертикали</span><input type="range" min="1" max="9" value="${c.sy || 5}" data-ctr="sy"><span>По горизонтали</span><input type="range" min="1" max="9" value="${c.sx || 5}" data-ctr="sx"></div>
+      <label class="l27ck"><input type="checkbox" data-ctx="edge"${CT.edge ? ' checked' : ''}> Доска едет за указателем у края экрана, когда тянете объект или рамку выделения</label>
+      <label class="l27ck"><input type="checkbox" data-ctx="inertia"${CT.inertia ? ' checked' : ''}> Инерция: отпущенная доска плавно докатывается</label>
+      <div class="btnrow"><button class="ob" data-ctsave="1">★ Запомнить как свой набор…</button><button class="ob" data-ctkeys="1">Горячие клавиши…</button></div>`;
+  };
+  d.addEventListener('click', async e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.ctp) { const k = b.dataset.ctp; if (CTRL29[k]) ctApply(k); else { const P = own()[k]; if (P) { CTRL29.__tmp = [k, '', P]; ctApply('__tmp'); delete CTRL29.__tmp; CT.p = k; ctSave(); } } draw(); }
+    else if (b.dataset.ctto) { CT.to = b.dataset.ctto; CT.p = ''; ctSave(); draw(); }
+    else if (b.dataset.ctsave) { const n = await uiPrompt('Название набора', 'Мой стиль'); if (!n) return; const O = own(); O[n.trim()] = { kp: S.keyPreset, wheel: Object.assign({}, S.wheel), z: (({ smooth, step, speed, sx, sy, pad }) => ({ smooth, step, speed, sx, sy, pad }))(zoomCfg()), to: CT.to, edge: CT.edge, inertia: CT.inertia }; LS.set('ctrl29own', O); CT.p = n.trim(); ctSave(); draw(); }
+    else if (b.dataset.ctkeys) { closeXdlg(); openKeys(); }
+  });
+  d.addEventListener('change', e => {
+    const t = e.target, c = Object.assign({}, zoomCfg());
+    if (t.dataset.ctw) { S.wheel = Object.assign({}, S.wheel, { [t.dataset.ctw]: t.value }); saveKeys(); CT.p = ''; ctSave(); }
+    else if (t.dataset.ctz) { c[t.dataset.ctz] = t.checked; S.zoomCfg = c; LS.set('zoomcfg', c); CT.p = ''; ctSave(); }
+    else if (t.dataset.ctr) { c[t.dataset.ctr] = +t.value; S.zoomCfg = c; LS.set('zoomcfg', c); CT.p = ''; ctSave(); }
+    else if (t.dataset.ctx) { CT[t.dataset.ctx] = t.checked ? 1 : 0; CT.p = ''; ctSave(); }
+  });
+  draw();
+}
+{ const o = wheelZoom; wheelZoom = (cx, cy, delta) => { if (CT.to === 'center') { cx = innerWidth / 2; cy = innerHeight / 2; } const r = o(cx, cy, delta); if (CT.to === 'center' && zoomCfg().smooth !== false && !zoomCfg().step) S.zAnchor = { x: cx, y: cy }; return r; }; }
+/* the board follows the pointer at the edges while dragging */
+const EDGE = { pid: 1, t: 0 };
+function edgeTick() {
+  EDGE.t = 0; if (!CT.edge || !S.drag || !S.board || !S.mouse || !['move', 'marquee', 'connect', 'create', 'place', 'resize'].includes(S.drag.type)) return;
+  const m = 36, x = S.mouse.x, y = S.mouse.y, sp = 14; let dx = 0, dy = 0;
+  if (x < m) dx = sp; else if (x > innerWidth - m) dx = -sp; if (y < m) dy = sp; else if (y > innerHeight - m) dy = -sp;
+  if (!dx && !dy) return;
+  const v = V(); v.x += dx; v.y += dy; applyView();
+  vp.dispatchEvent(new PointerEvent('pointermove', { clientX: x, clientY: y, pointerId: EDGE.pid, pointerType: 'mouse', buttons: 1, bubbles: true }));
+  EDGE.t = requestAnimationFrame(edgeTick);
+}
+/* inertia after panning */
+const INR = { pts: [], raf: 0 };
+function inertiaStart() {
+  const p = INR.pts.filter(x => performance.now() - x.t < 90); INR.pts = []; if (p.length < 2) return;
+  const a = p[0], b = p[p.length - 1], dt = Math.max(8, b.t - a.t); let vx = (b.x - a.x) / dt * 16, vy = (b.y - a.y) / dt * 16;
+  if (Math.hypot(vx, vy) < 2) return;
+  const step = () => { if (!S.board || S.drag) return; vx *= 0.92; vy *= 0.92; if (Math.hypot(vx, vy) < 0.4) return; const v = V(); v.x += vx; v.y += vy; applyView(); INR.raf = requestAnimationFrame(step); };
+  INR.raf = requestAnimationFrame(step);
+}
+/* ---------- the update notice leads to «Что нового» ---------- */
+function verNews(ver) {
+  const tx = S.serverText || '', re = new RegExp(`\\['[^']+','${ver.replace('.', '\\.')}','[^']+','[a-z]','([^']+)','([^']*)'`, 'g'), out = []; let m;
+  while ((m = re.exec(tx))) out.push([m[1], m[2]]);
+  const d = xdlg('Что нового в ' + ver, `<div class="p24"><p class="sub">Сейчас у вас ${APP_VERSION}. После обновления всё это появится — и подробно, с гайдами, в «Что нового».</p>${out.length ? `<ul class="vn29">${out.map(([t, h]) => `<li><b>${esc(t)}</b><small>${esc(h)}</small></li>`).join('')}</ul>` : '<p class="sub">Список изменений откроется после обновления.</p>'}<div class="btnrow"><button class="btn" data-vn="upd">Обновить сейчас</button></div></div>`);
+  d.addEventListener('click', async e => { if (!e.target.closest('[data-vn="upd"]')) return; try { const reg = await navigator.serviceWorker.getRegistration(); if (reg) await reg.update(); } catch (er) { /* ignore */ } location.reload(); });
+}
+function verOpenNew() { const op = new Set(LS.get('hopen') || []); op.add('v' + APP_VERSION); LS.set('hopen', [...op]); LS.set('hgroup', 'ver'); openVersions(); }
+function verUpdated() {
+  let bar = $('#ver29'); if (bar) bar.remove(); bar = document.createElement('div'); bar.id = 'ver29'; bar.className = 'panel'; bar.dataset.app = '';
+  bar.innerHTML = `<span>Холст обновлён до версии <b>${APP_VERSION}</b></span><button class="btn sm" data-v29="news">Что нового</button><button class="ib sm" data-v29="x" title="Закрыть">${ic('close')}</button>`;
+  document.body.appendChild(bar); bar.addEventListener('click', e => { const b = e.target.closest('[data-v29]'); if (!b) return; bar.remove(); if (b.dataset.v29 === 'news') verOpenNew(); });
+  setTimeout(() => bar.remove(), 25000);
+}
+document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('[data-upd29]'); if (b) { e.stopPropagation(); verNews(S.serverVersion || ''); } });
+
+/* ---------- guides on the first press of first-screen buttons ---------- */
+const GD_CAT = { boards: 'Доски и навигация', tasks: 'Задачник', ai: 'ИИ на доске', sync: 'Синхронизация и хранение', tools: 'Инструменты доски', look: 'Вид и управление', team: 'Команда' };
+const GD = [
+  ['#btnBoards', 'boards', 'Все доски', ['Слева — список досок: группы, избранное, недавние, умные доски.', 'Ctrl/Shift-щелчок выделяет несколько досок; «⋯» у доски — переименовать, перенести, выключить синхронизацию.', 'Сверху — командные пространства.'], 'side'],
+  ['#btnLife', 'tasks', 'Задачник', ['Сверху вниз: режим (задачи или дашборд) → пространство → категория → стиль показа.', 'Стили: чек-лист, To-do, Lean, Life OS — одни и те же задачи.', '«Эта доска» — задачи из объектов открытой доски.'], 'modes'],
+  ['#btn24claude', 'ai', 'ИИ на доске', ['Задайте вопрос — ответ встанет на доску стикерами, документами, задачами.', '«⚙ Нейросеть» — ChatGPT, Qwen, Perplexity или свой ключ у каждого аккаунта.'], 'claude'],
+  ['#btnFilter', 'boards', 'Фильтры доски', ['Показать только нужное: по типу, цвету, тексту, статусу.', 'Фильтр не удаляет объекты — только прячет.'], 'filters'],
+  ['#btnMenu', 'look', 'Меню', ['Всё остальное: поиск по командам, оформление, стиль управления, источники синхронизации, гайды, «Что нового».', 'Начните печатать — меню найдёт пункт.'], ''],
+  ['#btnCloud', 'sync', 'Синхронизация', ['Облако — Google Диск: цвет показывает, всё ли сохранено.', 'Внутри — аккаунт устройства, «Сменить аккаунт…» и «Источники синхронизации».'], 'sync28'],
+  ['#btnBackup', 'sync', 'Папка на компьютере', ['Копии досок и файлов в выбранную папку — ещё одна страховка.'], 'store'],
+  ['#zoomLbl', 'look', 'Масштаб', ['Щёлкните процент — переход к 100%, «Показать всё», скорость колеса и тачпада.', 'Стиль управления «как в Miro / Figma» — в меню.'], ''],
+  ['#btnHistC', 'boards', 'История версий', ['Снимки доски по времени: вернуть любую версию или достать из неё объект.'], ''],
+  ['#loChips', 'tasks', 'Доска в задачнике', ['Сколько объектов этой доски связано с задачником. Щелчок — откроет их чек-листом.'], ''],
+  ['#gtwho', 'team', 'Командная доска', ['Кто сейчас на доске; ⚡ — мгновенный режим.', 'Щелчок — окно пространства: участники, роли, приглашения.'], 'spaces'],
+  ['#toolbar [data-tool="sticky"]', 'tools', 'Стикеры', ['Щёлкните по доске — стикер. Цвет — в панели объекта, там же вкладки палитр.'], ''],
+  ['#toolbar [data-tool="frame"]', 'tools', 'Рамки', ['Обведите область — всё внутри двигается вместе. «Матрица» делит рамку на ячейки; ячейки могут стать задачами.'], 'matrix'],
+  ['#toolbar [data-tool="text"]', 'tools', 'Текст', ['Подписи и заголовки. Кнопка «H» в панели делает текст заголовком — так доска читается в документ и задачи.'], ''],
+];
+const GDS = Object.assign({ off: 0, cats: {}, seen: {} }, LS.get('gd29') || {});
+const gdSave = () => LS.set('gd29', GDS);
+function gdShow(g, anchor) {
+  const [sel, cat, t, lines, tour] = g; let el = $('#gd29'); if (el) el.remove();
+  el = document.createElement('div'); el.id = 'gd29'; el.className = 'panel'; el.dataset.app = '';
+  el.innerHTML = `<div class="gd-h"><span class="gd-c">${esc(GD_CAT[cat])}</span><b>${esc(t)}</b><button class="ib sm" data-gd="x" title="Закрыть">${ic('close')}</button></div><ul>${lines.map(l => `<li>${esc(l)}</li>`).join('')}</ul><div class="gd-f">${tour && TOURS[tour] ? '<button class="btn sm" data-gd="tour">Показать по шагам</button>' : ''}<button class="ob sm" data-gd="ok">Понятно</button><span class="p24sp"></span><button class="ob sm" data-gd="off" title="Какие гайды показывать">Гайды…</button></div>`;
+  document.body.appendChild(el);
+  const r = anchor.getBoundingClientRect(), w = el.offsetWidth, h = el.offsetHeight;
+  let x = r.left + r.width / 2 - w / 2, y = r.bottom + 10; if (y + h > innerHeight - 8) y = r.top - h - 10; if (r.left < 90 && r.width < 60 && r.height < 60 && r.top > 80) { x = r.right + 12; y = r.top + r.height / 2 - h / 2; }
+  el.style.left = px(clamp(x, 8, innerWidth - w - 8)); el.style.top = px(clamp(y, 8, innerHeight - h - 8));
+  el.addEventListener('click', e => { const b = e.target.closest('[data-gd]'); if (!b) return; e.stopPropagation(); el.remove(); const a = b.dataset.gd; if (a === 'tour') tourStart(tour); else if (a === 'off') gdDlg(); });
+  clearTimeout(gdShow.t); gdShow.t = setTimeout(() => el.isConnected && el.remove(), 20000);
+}
+function gdClick(e) {
+  if (GDS.off || !e.isTrusted || document.querySelector('.tour24,#tour')) return;
+  for (const g of GD) {
+    const el = e.target.closest && e.target.closest(g[0]); if (!el) continue;
+    const key = g[0]; if (GDS.seen[key] || GDS.cats[g[1]] === 0) return;
+    GDS.seen[key] = Date.now(); gdSave(); setTimeout(() => { if (el.isConnected) gdShow(g, el); }, 450); return;
+  }
+}
+function gdDlg() {
+  const d = xdlg('Гайды', '<div class="p24 gd29d"></div>'); d._dkey = 'gd29';
+  const draw = () => {
+    d.querySelector('.gd29d').innerHTML = `<p class="sub">Гайд появляется при первом нажатии на кнопку главного экрана: куда вы попали и что тут можно. Выключите все или только часть.</p>
+      <label class="l27ck"><input type="checkbox" data-gdall${GDS.off ? '' : ' checked'}> Показывать гайды</label>
+      <div class="gd29c">${Object.entries(GD_CAT).map(([k, l]) => `<label class="l27ck"><input type="checkbox" data-gdc="${k}"${GDS.cats[k] === 0 ? '' : ' checked'}${GDS.off ? ' disabled' : ''}> ${esc(l)} <small>· ${GD.filter(g => g[1] === k).length}</small></label>`).join('')}</div>
+      <div class="btnrow"><button class="ob" data-gdr="1">Показать заново все просмотренные</button><button class="ob" data-gdt="1">Гайды по шагам…</button></div>`;
+  };
+  d.addEventListener('change', e => { const t = e.target; if (t.dataset.gdall != null) GDS.off = t.checked ? 0 : 1; else if (t.dataset.gdc) GDS.cats[t.dataset.gdc] = t.checked ? 1 : 0; gdSave(); draw(); });
+  d.addEventListener('click', e => { if (e.target.closest('[data-gdr]')) { GDS.seen = {}; gdSave(); toast('Гайды снова появятся при первом нажатии'); } else if (e.target.closest('[data-gdt]')) { closeXdlg(); runAction('tour'); } });
+  draw();
+}
+function misc29Setup() {
+  document.addEventListener('click', gdClick, true);
+  vp.addEventListener('pointermove', e => { if (e.isTrusted) EDGE.pid = e.pointerId; if (S.drag && CT.edge && !EDGE.t) EDGE.t = requestAnimationFrame(edgeTick); if (S.drag && S.drag.type === 'pan' && CT.inertia) { const v = V(); INR.pts.push({ x: v.x, y: v.y, t: performance.now() }); if (INR.pts.length > 12) INR.pts.shift(); } }, true);
+  addEventListener('pointerdown', () => { if (INR.raf) { cancelAnimationFrame(INR.raf); INR.raf = 0; } INR.pts = []; }, true);
+  addEventListener('pointerup', () => { if (CT.inertia && INR.pts.length) setTimeout(inertiaStart, 0); }, true);
+}
+/* =========================================================
+   v2.9: from outside into Холст.
+   · The browser extension (Chrome, Vivaldi, Comet…) talks to an open Холст tab
+     through window messages: a clipped page becomes a task or a board object;
+     widgets on sites read and tick tasks.
+   · «Поделиться» on the phone (installed app): text, links and files arrive here.
+   · Reports of Claude chats: a skill in Claude drops a JSON into «Холст/Входящие»
+     on Google Drive; Холст turns it into project → chat → report → next steps.
+   ========================================================= */
+const EXT29 = { ready: false };
+async function extHandle(op, d) {
+  await loLoad();
+  if (op === 'ping') return { v: APP_VERSION, board: S.board ? { id: S.board.id, name: S.board.name } : null };
+  if (op === 'projects') return loAll().filter(r => ['area', 'project', 'epic', 'goal'].includes(r.k) && r.st !== 'drop').map(r => ({ id: r.id, k: r.k, t: loPath(r).map(loName).concat(loName(r)).join(' › ') })).slice(0, 300);
+  if (op === 'boards') return [...S.index].filter(x => !x.space || gtCan(x.space, 'write')).sort((a, b) => b.updatedAt - a.updatedAt).slice(0, 60).map(x => ({ id: x.id, n: x.name }));
+  if (op === 'list') {
+    const host = u => { try { return new URL(u).hostname; } catch (e) { return ''; } };
+    let l = loAll().filter(r => r.k === 'task' && r.st !== 'drop');
+    if (d.mode === 'page') l = l.filter(r => r.src && r.src.url && (d.scope === 'site' ? host(r.src.url) === host(d.url) : r.src.url === d.url));
+    else l = l.filter(r => r.st !== 'done');
+    return l.sort((a, b) => (a.st === 'done') - (b.st === 'done') || (loDue(a) || '9999').localeCompare(loDue(b) || '9999')).slice(0, 200).map(r => ({ id: r.id, t: loName(r), st: r.st, due: loDue(r), pr: r.pr || '', par: r.par && loGet(r.par) ? loName(loGet(r.par)) : '', url: (r.src && r.src.url) || '' }));
+  }
+  if (op === 'set') { const r = loGet(d.id); if (!r) return { ok: false }; loSet(d.id, d.patch || {}); return { ok: true }; }
+  if (op === 'clip') return extClip(d);
+  return { ok: false, err: 'unknown' };
+}
+function extClip(d) {
+  const title = String(d.title || d.url || 'Без названия').slice(0, 300), notes = [d.text || '', d.url || ''].filter(Boolean).join('\n\n');
+  let made = [];
+  if (d.kind === 'task' || !d.kind) {
+    const patch = { title, notes, st: 'todo', due: d.due || '', pr: d.pr || undefined, tags: d.tags || [], src: { url: d.url || '', clip: 1, site: d.site || '' } };
+    if (d.dest && d.dest !== 'inbox') patch.par = d.dest;
+    const r = loNew('task', patch); made.push(r.id); if (S.loOpen) renderLo();
+  }
+  if (d.kind === 'board' && S.board) {
+    const c = viewCenter(), add = [];
+    if (d.image) { const aid = 'a' + uid(); S.board.assets[aid] = d.image; add.push({ id: uid(), type: 'image', x: r1(c.x - 240), y: r1(c.y - 160), w: 480, h: 300, asset: aid, name: title, srcUrl: d.url || undefined }); }
+    if (d.url) { const sp = parseEmbed(d.url); if (sp) { createEmbed(sp, { x: c.x + 280, y: c.y }); } }
+    if (d.text) { const doc = mkDoc(0, 0); Object.assign(doc, { x: r1(c.x - 300), y: r1(c.y + 180), w: 600, h: 400, title, html: docClean((d.html || '').trim() || esc(d.text).replace(/\n/g, '<br>')), srcUrl: d.url || undefined }); doc.text = htmlToText(doc.html); add.push(doc); }
+    if (add.length) { pushHist(); S.board.items.push(...add); S.sel = new Set(add.map(i => i.id)); changed(); made = made.concat(add.map(i => i.id)); }
+  }
+  toast(made.length ? 'Добавлено из браузера: ' + title.slice(0, 60) : 'Ничего не добавлено');
+  return { ok: !!made.length, ids: made };
+}
+addEventListener('message', async e => {
+  const m = e.data; if (e.source !== window || !m || m.__holst !== 'ext' || !m.id) return;
+  let data = null, ok = true; try { data = await extHandle(m.op, m.data || {}); } catch (er) { ok = false; data = String(er && er.message || er); }
+  window.postMessage({ __holst: 'app', id: m.id, ok, data }, location.origin === 'null' ? '*' : location.origin);
+});
+
+/* ---------- «Поделиться» on the phone ---------- */
+async function shareIn() {
+  const q = new URLSearchParams(location.search); if (!q.has('share')) return;
+  history.replaceState(null, '', location.pathname + location.hash);
+  let meta = { title: q.get('title') || '', text: q.get('text') || '', url: q.get('url') || '', files: [] }, files = [];
+  try { const c = await caches.open('holst-share'); const r = await c.match('./__share/meta'); if (r) { meta = await r.json(); for (const f of meta.files || []) { const x = await c.match(f.key); if (x) files.push(new File([await x.blob()], f.name, { type: f.type })); } } await caches.delete('holst-share'); } catch (e) { /* GET share */ }
+  const url = meta.url || ((meta.text || '').match(/https?:\/\/\S+/) || [''])[0], title = meta.title || (meta.text || '').split('\n')[0].slice(0, 120) || url || (files[0] && files[0].name) || 'Из другого приложения';
+  await loLoad();
+  const projs = loAll().filter(r => ['area', 'project', 'epic'].includes(r.k) && r.st !== 'drop');
+  const d = xdlg('Добавить в Холст', `<div class="p24 sh29"><label class="ds-l">Название<input class="inp" data-sh="t" value="${esc(title)}"></label>
+    ${meta.text && meta.text !== url ? `<label class="ds-l">Текст<textarea class="inp" rows="3" data-sh="x">${esc(meta.text)}</textarea></label>` : ''}${url ? `<p class="sub">🔗 ${esc(url)}</p>` : ''}${files.length ? `<p class="sub">📎 ${files.map(f => esc(f.name)).join(', ')}</p>` : ''}
+    <div class="lk-r"><span>Куда</span><div class="seg24"><button class="on" data-shk="task">☑ Задача</button><button data-shk="board">▣ На доску</button><button data-shk="both">Оба</button></div></div>
+    <label class="ds-l">Проект<select class="inp" data-sh="p"><option value="">Входящие</option>${projs.map(r => `<option value="${r.id}">${esc(loPath(r).map(loName).concat(loName(r)).join(' › '))}</option>`).join('')}</select></label>
+    <div class="lk-r"><span>Срок</span><div class="seg24"><button class="on" data-shd="">Без срока</button><button data-shd="${loToday()}">Сегодня</button><button data-shd="${loAddDays(1)}">Завтра</button></div></div>
+    <div class="btnrow"><button class="btn" data-shgo="1">Добавить</button></div></div>`);
+  let kind = 'task', due = '';
+  d.addEventListener('click', async e => {
+    const k = e.target.closest('[data-shk]'), du = e.target.closest('[data-shd]');
+    if (k) { kind = k.dataset.shk; d.querySelectorAll('[data-shk]').forEach(x => x.classList.toggle('on', x === k)); return; }
+    if (du) { due = du.dataset.shd; d.querySelectorAll('[data-shd]').forEach(x => x.classList.toggle('on', x === du)); return; }
+    if (!e.target.closest('[data-shgo]')) return;
+    const t = d.querySelector('[data-sh="t"]').value.trim() || title, x = (d.querySelector('[data-sh="x"]') || {}).value || '', p = d.querySelector('[data-sh="p"]').value;
+    closeXdlg();
+    if (kind !== 'board') extClip({ kind: 'task', title: t, text: x, url, due, dest: p || 'inbox' });
+    if (kind !== 'task') { const img = files.find(f => /^image\//.test(f.type)); extClip({ kind: 'board', title: t, text: x, url, image: img ? await blobDataUrl(img) : '' }); const rest = files.filter(f => f !== img); if (rest.length && typeof grpAddFiles === 'function') grpAddFiles(rest); }
+  });
+}
+
+/* ---------- reports of Claude chats ---------- */
+const CX_DIR = 'Входящие';
+function cxFind(k, title, par, tag) { return loAll().find(r => r.k === k && (r.title || '').trim().toLowerCase() === String(title || '').trim().toLowerCase() && (par == null || (r.par || '') === par) && (!tag || (r.tags || []).includes(tag))); }
+function cxImport(j) {
+  if (!j || (j.format !== 'holst-report' && !j.report)) throw new Error('Это не отчёт Холста');
+  const chat = j.chat || {}, rep = j.report || {}, P = chat.project || 'Чаты Claude';
+  const proj = cxFind('project', P, null, 'claude') || loNew('project', { title: P, tags: ['claude'] });
+  const ct = chat.title || rep.title || 'Чат';
+  const ch = cxFind('epic', ct, proj.id) || loNew('epic', { title: ct, par: proj.id, tags: ['чат'], notes: chat.url || '' });
+  if (chat.url && !ch.notes) loSet(ch.id, { notes: chat.url });
+  const st = LO_ST.review ? 'review' : 'wait', did = rep.did || rep.done || '', chk = rep.check || '', lim = rep.lim || rep.limits || '';
+  const r = loNew('task', { title: 'Отчёт: ' + (rep.title || ct), par: ch.id, st, notes: [did && 'Сделано: ' + did, chk && 'Как проверить: ' + chk, lim && 'Ограничения: ' + lim, chat.url && 'Чат: ' + chat.url].filter(Boolean).join('\n\n'), rep: { did, check: chk, lim }, tags: ['отчёт'], src: { url: chat.url || '', claude: 1 } });
+  for (const n of rep.next || j.next || []) loNew('task', { title: String(n).slice(0, 200), par: ch.id, st: 'todo' });
+  for (const a of j.artifacts || []) if (a && (a.title || a.url)) { if (!loAll().some(x => x.k === 'resource' && x.par === ch.id && x.notes === (a.url || ''))) loNew('resource', { title: a.title || a.url, par: ch.id, notes: a.url || '', tags: [a.kind || 'артефакт'] }); }
+  return r;
+}
+async function cxDrive(manual) {
+  if (!Drive.active() || !Drive.ready() || syOff('drive') || Drive.halted) { if (manual) toast('Нужен подключённый Google Диск'); return 0; }
+  try {
+    await Drive.ensureRoot(); let dir = Drive.st.cxdir;
+    if (!dir) { const f = await Drive.findFolders(CX_DIR, Drive.st.root); dir = f.length ? f[0].id : await Drive.write(() => Drive.makeFolder(CX_DIR, Drive.st.root)); Drive.st.cxdir = dir; Drive.persist(); }
+    const files = (await Drive.listFolder(dir)).filter(f => /\.json$/i.test(f.title || '')); let n = 0;
+    await loLoad();
+    for (const f of files) { try { const j = await Drive.fetchJSON(f.id); tmWithStore(S.loPersonal || S.lo, () => cxImport(j)); n++; await Drive.write(() => Drive.trash(f.id)); } catch (e) { /* not a report — stays */ } }
+    if (n) { loSave(); if (S.loOpen) renderLo(); toast(`Отчётов из чатов: ${n} — в задачнике, проект «Чаты Claude»`); } else if (manual) toast('Новых отчётов нет');
+    return n;
+  } catch (e) { if (manual) toast('Не получилось проверить «Входящие»'); return 0; }
+}
+function cxDlg() {
+  const d = xdlg('Отчёты из чатов Claude', `<div class="p24"><p class="sub">Каждый чат с Claude может отправить отчёт сюда: проект → чат → отчёт «ждёт проверки» и следующие шаги отдельными задачами, артефакты — материалами чата.</p>
+    <ol class="steps"><li>Добавьте в Claude навык <b>«Отчёт в Холст»</b> (его предложит Claude в чате сборки Холста).</li><li>В конце любого чата напишите: <b>«отчёт в Холст»</b>. Claude положит файл в папку «Холст/Входящие» на Google Диске.</li><li>Холст заберёт его при синхронизации (или кнопкой ниже).</li></ol>
+    <div class="btnrow"><button class="btn" data-cx="drive">Проверить «Входящие» сейчас</button></div>
+    <label class="ds-l">Или вставьте отчёт (JSON из чата)<textarea class="inp" rows="6" data-cx="txt" placeholder='{"format":"holst-report","chat":{"title":"…","project":"…"},"report":{"title":"…","did":"…","check":"…","lim":"…","next":["…"]}}'></textarea></label>
+    <div class="btnrow"><button class="ob" data-cx="paste">Добавить из текста</button></div></div>`);
+  d.addEventListener('click', async e => {
+    const b = e.target.closest('[data-cx]'); if (!b) return;
+    if (b.dataset.cx === 'drive') { b.disabled = true; await cxDrive(true); b.disabled = false; }
+    else if (b.dataset.cx === 'paste') { const t = d.querySelector('[data-cx="txt"]').value; const m = t.match(/\{[\s\S]*\}/); try { await loLoad(); const r = tmWithStore(S.loPersonal || S.lo, () => cxImport(JSON.parse(m ? m[0] : t))); loSave(); toast('Отчёт добавлен: ' + r.title); closeXdlg(); openLo(); } catch (er) { toast('Не похоже на отчёт: ' + (er.message || er)); } }
+  });
+}
+{ const o = Drive.sync; Drive.sync = async function (...a) { const r = await o.apply(this, a); if (this.state === 'ok' && Date.now() - (EXT29.cxAt || 0) > 120000) { EXT29.cxAt = Date.now(); cxDrive(false); } return r; }; }
+function ext29Setup() { setTimeout(shareIn, 1500); }
+/* ---------- 2.9 glue ---------- */
+Object.assign(AREAS.life[2], { struct: 'Структура задачника (Navigation)', cells: 'Доска → задачи (Board to tasks)', inbox: 'Отчёты чатов (Chat reports)' });
+Object.assign(AREAS.cust[2], { ctrl: 'Стиль управления (Control presets)', guide: 'Гайды (Guides)' });
+Object.assign(AREAS.plat[2], { ext: 'Расширение и «Поделиться» (Extension & Share)', panels: 'Панели (Panels)' });
+Object.assign(AREAS.io[2], { doc: 'Документ из доски (Board to document)' });
+{ const o = menuItems; menuItems = () => {
+  const l = o().filter(x => x.id !== 'td28'), at = id => l.findIndex(x => x.id === id), ins = (after, ...xs) => { const i = at(after); l.splice(i >= 0 ? i + 1 : l.length, 0, ...xs); };
+  ins('look28', { id: 'ctrl29', cat: 'set', icon: 'kbd', label: 'Стиль управления: как в Miro, Figma, Whimsical…', key: CT.p && CTRL29[CT.p] ? CTRL29[CT.p][0] : '' }, { id: 'tb29', cat: 'set', icon: 'boards', label: 'Панель инструментов: слева, справа или снизу…', key: TB29[LS.get('tb29') || 'left'] }, { id: 'gd29', cat: 'help', icon: 'help', label: 'Гайды: какие показывать…', key: GDS.off ? 'выкл' : '' });
+  ins('team', { id: 'cx29', cat: 'go', icon: 'chat', label: 'Отчёты из чатов Claude → задачник…', key: '' }, { id: 'doc29', cat: 'make', icon: 'doc', label: 'Доска как документ: по заголовкам и рамкам…', key: '' }, { id: 'ext29', cat: 'help', icon: 'web', label: 'Расширение браузера и «Поделиться» на телефоне…', key: '' });
+  return l;
+}; }
+{ const o = menuAction; menuAction = async v => {
+  const go = f => { S.menuQ = ''; closePop(); return f(); };
+  if (v === 'ctrl29') return go(ctDlg); if (v === 'tb29') return go(() => tbPop($('#btnMenu'))); if (v === 'gd29') return go(gdDlg);
+  if (v === 'cx29') return go(cxDlg); if (v === 'doc29') return go(bdBoardDoc); if (v === 'ext29') return go(extHelp);
+  return o(v);
+}; }
+function extHelp() {
+  xdlg('Расширение и «Поделиться»', `<div class="p24"><h3>Расширение для Chrome, Vivaldi, Comet, Edge, Arc</h3><ol class="steps"><li>Распакуйте архив <b>holst-extension.zip</b> в папку.</li><li>Откройте <code>chrome://extensions</code> (в Vivaldi — <code>vivaldi://extensions</code>), включите «Режим разработчика».</li><li>«Загрузить распакованное» → выберите папку. Закрепите значок Холста на панели.</li></ol>
+    <p class="sub"><b>Значок или Alt+Shift+H</b> — добавить страницу: задачей во Входящие или в проект, на доску, или оба; выбрать, что взять — ссылку, выделенный текст, описание, весь текст статьи, снимок. <b>Правый щелчок</b> по странице, ссылке, картинке — то же быстрее. <b>Виджет</b> — список задач поверх сайта: двигается, растягивается, «эта страница» или «весь задачник», на всём сайте или только на странице. Холст должен быть открыт во вкладке — расширение само откроет закреплённую.</p>
+    <h3>«Поделиться» на телефоне</h3><p class="sub">Установите Холст как приложение (Chrome на Android → меню → «Установить приложение»). Потом в любом приложении «Поделиться» → Холст: текст, ссылки, картинки и файлы — задачей или на доску. На iPhone Safari такого пока не позволяет: используйте копирование и вставку.</p></div>`, true);
+}
+function wire29() { lo29Setup(); panel29Setup(); misc29Setup(); ext29Setup(); }
+Object.assign(TOURS, {
+  lo29: { name: 'Задачник: структура сверху вниз', steps: [
+    { el: '#btnLife', t: 'Задачник', x: 'Откройте задачник — кнопка справа на верхней панели; число рядом — сколько объектов этой доски в задачнике.', wait: () => !!xdOf('_lo') },
+    { el: () => document.querySelector('.lo29r[data-lv="0"]') || document.querySelector('#btnLife'), t: 'Режим', x: '«Задачи» — работать со списками, «Дашборд» — сводка.' },
+    { el: () => document.querySelector('.lo29r[data-lv="1"]') || document.querySelector('#btnLife'), t: 'Пространство', x: 'Личное, командное, все сразу или «Эта доска» — задачи из объектов открытой доски.' },
+    { el: () => document.querySelector('.lo29r[data-lv="2"]') || document.querySelector('#btnLife'), t: 'Категория', x: 'Все, мои, одно направление или проект.' },
+    { el: () => document.querySelector('.lo29r[data-lv="3"]') || document.querySelector('#btnLife'), t: 'Стиль', x: 'Чек-лист, To-do, Lean, Life OS — одни и те же задачи по-разному. ▾ слева сворачивает всё в одну строку.' },
+  ] },
+  bd29: { name: 'Доска → задачи и документ', steps: [
+    { el: () => document.querySelector('#ctx [data-act="bd:hl"]') || document.querySelector('#btnMenu'), t: 'Заголовки', x: 'Выделите текст или стикер → «H» → H1–H3. Так доска читается по уровням.' },
+    { el: () => document.querySelector('#ctx [data-act="k:snap"]') || document.querySelector('#btnMenu'), t: 'Копировать', x: 'Одна кнопка: снимок, текст для Telegram, документ с картинками и схемами, документ на доску.' },
+    { el: () => document.querySelector('#btnMenu'), t: 'Ячейки — задачи', x: 'Матрица → «Матрица ▾» → «Ячейки — задачи». Заголовок — верхний текст или название ячейки, остальное — содержимое задачи, чек-листы — подзадачи, статус — кнопкой в ячейке.' },
+  ] },
+  pv29: { name: 'Панели: где и как', steps: [
+    { el: () => document.querySelector('.xdlg [data-x="pv29"]') || document.querySelector('#btnMenu'), t: 'Вид панели', x: 'Одна кнопка ▣: поверх экрана, слева или справа за доской, в колонку слева или справа, во весь экран, ширина, «открывать так всегда», раскладки.' },
+  ] },
+});
+Object.assign(FEAT_TOUR, { f29_lo: 'lo29', f29_check: 'lo29', f29_cells: 'bd29', f29_hl: 'bd29', f29_doc: 'bd29', f29_copy: 'bd29', f29_pv: 'pv29' });
+
+/* =========================================================
    Pointer interaction
    ========================================================= */
 function hitItemAt(w, exclude) {
@@ -18363,8 +19362,7 @@ function renderFlyout() {
   if (!h) { fly.hidden = true; return; }
   fly.innerHTML = h; fly.dataset.cols = cols; fly.hidden = false;
   const btn = $(`#toolbar [data-tool="${t}"]`); if (!btn) { fly.hidden = true; return; } const tb = $('#toolbar').getBoundingClientRect(), r = btn.getBoundingClientRect();
-  fly.style.left = px(tb.right + 8);
-  fly.style.top = px(clamp(r.top + r.height / 2 - fly.offsetHeight / 2, 8, innerHeight - fly.offsetHeight - 8));
+  flyPos29(fly, tb, r);
 }
 
 /* ---------- popovers ---------- */
@@ -18960,7 +19958,7 @@ function wire() {
   fbar.querySelector('[data-fa="reload"]').innerHTML = ic('reload') + '<span>Перезагрузить</span>';
   fbar.querySelector('[data-fa="full"]').innerHTML = ic('fit') + '<span>На весь монитор</span>';
   fbar.querySelector('[data-fa="close"]').innerHTML = ic('close') + '<span>Свернуть (Esc)</span>';
-  buildToolbar(); buildHelp(); wire23(); wire24(); wire24b(); wire25(); wire26(); wire27(); wire28();
+  buildToolbar(); buildHelp(); wire23(); wire24(); wire24b(); wire25(); wire26(); wire27(); wire28(); wire29();
 
   vp.addEventListener('pointerdown', onDown);
   vp.addEventListener('pointermove', onMove);
