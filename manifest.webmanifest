@@ -48,5 +48,19 @@
         }
       ]
     }
-  }
+  },
+  "shortcuts": [
+    {
+      "name": "Быстрый ввод — ИИ разберёт",
+      "short_name": "Быстрый ввод",
+      "url": "./?cap=1",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
 }
