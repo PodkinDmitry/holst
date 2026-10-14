@@ -4170,6 +4170,197 @@ button.ld217::after,.mi.ld217::after{content:"";position:absolute;right:6px;top:
 .ln217b{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:linear-gradient(135deg,color-mix(in srgb,var(--gd,var(--accent)) 14%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,var(--gd,var(--accent)) 30%,var(--line));margin:0 0 12px}
 .ln217b>div{flex:1;min-width:0}.ln217b b{display:block;font-size:14px}.ln217b p{margin:2px 0 0;font-size:12px;color:var(--muted);line-height:1.35}
 .ln217bi{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--gd,var(--accent));color:#fff;flex:none}.ln217bi svg{width:20px;height:20px}
+/* ---------- 2.18: the block of a source ---------- */
+.it.blk218>.fbody,.it.blk218{box-shadow:0 1px 0 rgba(0,0,0,.02)}
+.it.blk218{outline:1.5px solid color-mix(in srgb,var(--sel,#ffd84d) 70%,#d9a300);outline-offset:0;border-radius:14px}
+.it.blkp218{cursor:default}
+.it.blkp218 .lockb,.it.blkp218 .lk24{display:none!important}
+.it.srcref218::after{content:"";position:absolute;right:-5px;top:-5px;width:10px;height:10px;border-radius:50%;background:#d9a300;box-shadow:0 0 0 2px #fff}
+.it.stage218{filter:drop-shadow(0 18px 30px rgba(20,22,30,.28));opacity:.97}
+.it.blk218.stage218{outline:2px dashed #d9a300;outline-offset:4px}
+#stg218{position:absolute;left:0;top:0;pointer-events:none;z-index:9001}
+.stg218b{position:absolute;display:flex;align-items:center;gap:8px;height:44px;white-space:nowrap;transform-origin:left top;transform:scale(var(--iz,1)) translateY(-100%);padding:0 6px 0 4px;border-radius:12px;background:#fff8d6;border:1.5px solid #e6c34a;box-shadow:0 8px 24px -10px rgba(0,0,0,.35);pointer-events:auto;font:600 13px var(--font);color:#5c4700;box-sizing:border-box}
+.stg218b .stg218h{width:34px;height:34px;border-radius:9px;border:0;background:#ffe68a;color:#5c4700;cursor:grab;display:grid;place-items:center}
+.stg218b .stg218h:active{cursor:grabbing}
+.stg218b .btn{background:var(--sel,#ffd84d);color:var(--sel-ink,#1c1d21);border-color:transparent}
+.cm218m{margin:0 0 4px!important;font-size:12px!important;color:#7a8090!important}
+/* ---------- the network on the board: underlines and the margin ---------- */
+mark.ann218{background:transparent;color:inherit;border-bottom:2px solid #7c3aed;padding:0 1px;cursor:pointer;border-radius:2px}
+mark.ann218.k-idea{border-color:#d9a300;background:rgba(255,216,77,.16)}
+mark.ann218.k-q{border-color:#2e6fd8}
+mark.ann218.k-task{border-color:#2fa36b}
+mark.ann218.k-note,mark.ann218.k-sugg{border-color:#7c3aed;background:rgba(124,58,237,.06)}
+mark.ann218.k-contra{border-color:#e5484d;background:rgba(229,72,77,.08)}
+mark.ann218.k-support{border-color:#2fa36b}
+mark.ann218.k-add{border-color:#2e6fd8;border-bottom-style:dashed}
+mark.ann218.k-fact.v-ok{border-color:#2fa36b}
+mark.ann218.k-fact.v-mixed{border-color:#d9a300}
+mark.ann218.k-fact.v-no{border-color:#e5484d;background:rgba(229,72,77,.08)}
+mark.ann218.k-fact.v-na{border-color:#8a90a0;border-bottom-style:dotted}
+mark.ann218.done{border-bottom-width:1px;background:transparent}
+mark.hl218{background:rgba(255,216,77,.55);color:inherit;border-radius:3px;padding:0 1px}
+mark.hl218.n{box-shadow:inset 0 -2px 0 #d9a300}
+mark.flash{animation:flash218 1.2s ease}
+@keyframes flash218{0%,60%{box-shadow:0 0 0 4px rgba(124,58,237,.35)}100%{box-shadow:none}}
+#ann218{position:absolute;left:0;top:0;z-index:9000;pointer-events:none}
+.ann218b{position:absolute;width:250px;pointer-events:auto;background:#fff;border:1px solid #e3e5ea;border-left:3px solid var(--c);border-radius:10px;padding:6px 8px 7px;box-shadow:0 6px 18px -10px rgba(0,0,0,.35);font:13px/1.4 var(--font);color:#23252b;cursor:pointer;box-sizing:border-box}
+.ann218b .ann218h{display:flex;align-items:center;gap:4px;font-size:11.5px;color:var(--c)}
+.ann218b .ann218h svg.i{width:14px;height:14px}
+.ann218b .ann218h .ib{width:24px;height:24px;color:#555b66}
+.ann218b p{margin:3px 0 0}
+.ann218b.open{z-index:2;box-shadow:0 12px 30px -12px rgba(0,0,0,.45)}
+.ann218r{display:flex;flex-direction:column;gap:3px;margin-top:6px}
+.ann218r a{display:flex;align-items:center;gap:5px;font-size:12px;color:#2e6fd8;text-decoration:none}
+.ann218r a svg.i{width:13px;height:13px}
+.ann218s{color:#7c3aed}
+.ai218by{font-size:11px;color:#8a90a0;margin-top:10px}
+.crd218{border:1px solid #e3e5ea;border-radius:10px;padding:8px 10px;margin:8px 0}
+.crd218 p{margin:2px 0}
+/* «Что дальше» */
+.nx218{min-width:290px}
+.nx218 .mi.done218 span{color:var(--muted)}
+.nx218 .nx218ok{margin-left:auto;color:#2fa36b}
+.nx218 .nx218c{margin-left:auto;opacity:.6;transition:transform .15s}
+.nx218 .mi.open .nx218c{transform:rotate(90deg)}
+.nx218s{display:flex;flex-direction:column;padding:0 0 4px 26px;border-left:2px solid #ffe68a;margin:0 0 4px 16px}
+.nx218s .mi{font-size:13px;padding:5px 8px}
+.nx218h{margin:4px 8px 2px;font-size:11.5px;color:var(--muted);max-width:280px;line-height:1.35}
+/* ---------- sources: one field for everything ---------- */
+.kb218add{display:flex;flex-direction:column;gap:12px}
+.kb218in{position:relative;border-radius:12px;transition:box-shadow .15s}
+.kb218in textarea{width:100%;box-sizing:border-box;min-height:96px;padding-right:46px;resize:vertical}
+.kb218in.over{box-shadow:0 0 0 3px var(--sel,#ffd84d)}
+.kb218f{position:absolute;right:6px;top:6px}
+.kb218rec{display:flex;flex-direction:column;gap:6px}
+.kb218r{display:flex;align-items:center;gap:10px;padding:7px 8px 7px 10px;border-radius:10px;background:#fff8d6;border:1px solid #f0dc8c}
+.kb218r>svg.i{flex:none;color:#7a5d00}
+.kb218rt{display:flex;flex-direction:column;min-width:0;flex:1}
+.kb218rt small{color:#7a5d00;font-weight:600;font-size:11.5px}
+.kb218rt b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.kb218rt .inp{margin-top:3px}
+.kb218empty{margin:0}
+.kb218o{border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:10px}
+.kb218o h4{margin:0;font:700 11px var(--font);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.kb218g{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.kb218w{display:flex;align-items:center;gap:8px}.kb218w input{flex:1}.kb218w b{min-width:28px;text-align:right;color:#7a5d00}
+.kb218c{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.kb218c .chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:4px 10px;border-radius:999px;cursor:pointer;font:600 12px var(--font)}
+.kb218c .chip.on{background:var(--sel,#ffd84d);border-color:#e6c34a;color:var(--sel-ink,#1c1d21)}
+.kb218add .seg24 button.on,.kb214 .seg24 button.on{background:var(--sel,#ffd84d)!important;color:var(--sel-ink,#1c1d21)!important}
+.kb218go .btn:not(:disabled){background:var(--sel,#ffd84d);color:var(--sel-ink,#1c1d21);border-color:#e6c34a}
+/* ---------- guides: collections, two groups ---------- */
+.ln218col{margin:0 0 14px}
+.ln218col h3{display:flex;align-items:center;gap:7px;margin:4px 0 8px;font-size:15px}
+.ln218cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+.ln218c{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:14px;padding:12px;cursor:pointer;font:inherit;transition:border-color .15s,transform .15s}
+.ln218c:hover{border-color:#a855f7;transform:translateY(-1px)}
+.ln218ci{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff}
+.ln218c b{font-size:14px}.ln218c p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.4}.ln218c small{font-weight:700;color:#7c3aed;font-size:11.5px}
+.ln218grp{margin:8px 0}
+.ln218grp h5{display:flex;align-items:center;gap:6px;margin:0 0 6px;font:700 11.5px var(--font);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.ln218grp h5 svg.i{width:15px;height:15px}
+.ln218none{margin-top:6px}
+.ln218hy{display:flex;gap:8px;align-items:flex-start;margin:10px 0 4px;padding:9px 11px;border-radius:10px;background:rgba(124,58,237,.08);color:#4c1d95;font-size:13px;line-height:1.45}
+.ln218hy svg.i{flex:none;margin-top:1px}
+.ln216chip.on{background:var(--sel,#ffd84d)!important;border-color:#e6c34a!important;color:var(--sel-ink,#1c1d21)!important}
+/* the big panel over a dimmed screen */
+.col218{position:fixed;inset:0;z-index:92;background:rgba(14,15,19,0);display:grid;place-items:center;padding:3vh 3vw;transition:background .16s}
+.col218.on{background:rgba(14,15,19,.62)}
+.col218box{width:min(1180px,100%);max-height:94vh;display:flex;flex-direction:column;background:var(--panel,#fff);color:var(--ink);border-radius:20px;box-shadow:0 40px 100px -30px rgba(0,0,0,.6);overflow:hidden;transform:translateY(12px) scale(.985);opacity:0;transition:transform .18s,opacity .18s}
+.col218.on .col218box{transform:none;opacity:1}
+.col218h{display:flex;align-items:center;gap:12px;padding:16px 18px;background:linear-gradient(100deg,#7c3aed,#a855f7);color:#fff}
+.col218h h2{margin:0;font-size:20px;color:#fff}.col218h p{margin:2px 0 0;font-size:13px;opacity:.9}
+.col218h .ib{color:#fff}
+.col218i{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.18);display:grid;place-items:center}
+.col218b{overflow:auto;padding:16px 18px 20px}
+.col218b .w215g{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+/* ---------- the focus mode ---------- */
+#fc218{position:fixed;inset:0;z-index:90;display:flex;flex-direction:column;background:#fbfaf7;color:#1f2026;opacity:0;transition:opacity .16s;--fc-line:#e7e4dc;--fc-mut:#7b7d86;--fc-pan:#ffffff}
+#fc218.on{opacity:1}
+#fc218.th-sepia{background:#f4ecd8;color:#3b3226;--fc-line:#e2d6b9;--fc-mut:#857659;--fc-pan:#faf4e4}
+#fc218.th-dark{background:#17181c;color:#e7e8ec;--fc-line:#2d2f36;--fc-mut:#9a9eaa;--fc-pan:#202227}
+body.fc218on #pop{z-index:96}
+.fc218h{position:relative;display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid var(--fc-line);flex:none}
+.fc218h .ib{color:inherit}
+.fc218tt{display:flex;flex-direction:column;min-width:0;max-width:38vw}
+.fc218tt b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14.5px}
+.fc218tt a{font-size:12px;color:var(--fc-mut);text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fc218m button{display:inline-flex;align-items:center;gap:6px}
+.fc218m button.on{background:var(--sel,#ffd84d)!important;color:var(--sel-ink,#1c1d21)!important}
+.fc218pr{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:transparent}
+.fc218pr>i{display:block;height:100%;width:0;background:#d9a300;transition:width .1s}
+.fc218rd{flex:1;display:grid;grid-template-columns:minmax(150px,230px) 1fr minmax(220px,300px);min-height:0}
+.fc218toc{overflow:auto;padding:22px 12px 22px 18px;display:flex;flex-direction:column;gap:2px;font-size:13px;border-right:1px solid var(--fc-line)}
+.fc218toc>b{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--fc-mut);margin-bottom:6px}
+.fc218toc a{cursor:pointer;color:var(--fc-mut);padding:3px 6px;border-radius:6px;line-height:1.35}
+.fc218toc a.t1{font-weight:700}.fc218toc a.t3{padding-left:18px}
+.fc218toc a:hover{color:inherit;background:rgba(127,127,127,.08)}
+.fc218toc a.on{color:inherit;background:rgba(255,216,77,.35)}
+.fc218main{overflow:auto;min-height:0;scroll-behavior:auto}
+.fc218a{max-width:var(--w);margin:0 auto;padding:34px 28px 30vh;font:400 var(--fs)/1.68 Georgia,'Iowan Old Style','PT Serif',serif}
+.fc218a h1{font:700 1.6em/1.25 var(--font);margin:.2em 0 .6em}
+.fc218a h2{font:700 1.18em/1.3 var(--font);margin:1.6em 0 .5em}
+.fc218a h2 small{font-weight:500;font-size:.75em;color:var(--fc-mut)}
+.fc218a h2 small a{color:inherit}
+.fc218a h3{font:700 1.02em/1.3 var(--font);margin:1.3em 0 .4em}
+.fc218a p{margin:0 0 .9em}
+.fc218a blockquote{margin:0 0 1em;padding:.2em 0 .2em 1em;border-left:3px solid #d9a300}
+.fc218a a{color:#2e6fd8}
+.fc218s{margin-bottom:2.2em}
+.fc218s.ai{border-left:3px solid #7c3aed;padding-left:16px}
+.fc218why{display:flex;gap:10px;padding:12px 14px;border-radius:12px;background:rgba(255,216,77,.28);margin:0 0 1.6em;font:500 .9em/1.5 var(--font)}
+.fc218why p{margin:0}
+.fc218img{margin:0 0 1.6em}.fc218img img{max-width:100%;border-radius:10px;border:1px solid var(--fc-line)}.fc218img figcaption{font:12px var(--font);color:var(--fc-mut);margin-top:4px}
+.fc218cm{font:14.5px/1.5 var(--font);border-left:3px solid #8a90a0;padding:6px 0 6px 12px;margin:0 0 12px}
+.fc218cm.l1{margin-left:28px;border-color:#c9cdd6}
+.fc218cm b{margin-right:8px}.fc218cm small{color:var(--fc-mut)}.fc218cm p{margin:3px 0 0}
+.fc218mg{overflow:auto;padding:22px 16px;border-left:1px solid var(--fc-line);display:flex;flex-direction:column;gap:8px;font:13px/1.45 var(--font)}
+.fc218mg>b{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--fc-mut)}
+.fc218n{position:relative;padding:8px 10px;border-radius:10px;background:var(--fc-pan);border:1px solid var(--fc-line);cursor:pointer}
+.fc218n.hl{border-left:3px solid #d9a300}
+.fc218n.ann{border-left:3px solid var(--c)}
+.fc218n q{display:block;font-style:italic;color:var(--fc-mut)}
+.fc218n p{margin:4px 0 0}.fc218n small{font-weight:700;font-size:11px;color:var(--c,#7a5d00)}
+.fc218n a{display:flex;align-items:center;gap:4px;font-size:12px;color:#2e6fd8;text-decoration:none;margin-top:4px}
+.fc218na{position:absolute;right:4px;top:4px;display:none;gap:2px;background:var(--fc-pan);border-radius:8px}
+.fc218n:hover .fc218na{display:flex}
+.fc218na .ib{color:inherit}
+#fcsel218{position:fixed;z-index:97;display:flex;gap:2px;padding:4px;border-radius:12px;background:#1f2026;color:#fff;box-shadow:0 12px 30px -10px rgba(0,0,0,.5)}
+#fcsel218 .ib{color:#fff}
+#fcsel218 .ib:hover{background:rgba(255,216,77,.25)}
+#fcsel218 .inp{background:#2a2c33;color:#fff;border-color:#3a3d46}
+.fc218vd{flex:1;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(320px,1fr);min-height:0}
+.fc218pl{display:flex;flex-direction:column;min-height:0;padding:16px;gap:12px;border-right:1px solid var(--fc-line)}
+.fc218fr{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;flex:none}
+.fc218fr iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.fc218vn{display:flex;flex-direction:column;gap:8px;min-height:0;flex:1}
+.fc218vn .row{display:flex;gap:6px}.fc218vn .inp{flex:1}
+.fc218vl{overflow:auto;display:flex;flex-direction:column;gap:6px;font:13px/1.45 var(--font)}
+.fc218vl .fc218n{display:flex;gap:8px;align-items:flex-start}
+.fc218vl .fc218n p{margin:0}
+.fc218ts{border:0;background:#ffe68a;color:#5c4700;border-radius:6px;padding:1px 6px;font:700 12px var(--font);cursor:pointer;flex:none}
+.fc218vt{overflow:auto;min-height:0}
+.fc218vt .fc218a{padding:20px 22px 30vh}
+.fc218rv{flex:1;display:grid;place-items:center;padding:20px;overflow:auto}
+.fc218card,.fc218rv0{width:min(620px,100%);background:var(--fc-pan);border:1px solid var(--fc-line);border-radius:18px;padding:26px 28px;box-shadow:0 20px 50px -30px rgba(0,0,0,.4);display:flex;flex-direction:column;gap:14px}
+.fc218card>small{color:var(--fc-mut);font-weight:700;font-size:12px}
+.fc218f{font:600 21px/1.4 Georgia,'PT Serif',serif}
+.fc218b{font:17px/1.55 Georgia,'PT Serif',serif;padding-top:12px;border-top:1px dashed var(--fc-line)}
+.fc218card .row,.fc218rv0 .row{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.fc218card .btn{background:var(--sel,#ffd84d);color:var(--sel-ink,#1c1d21);border-color:#e6c34a}
+.fc218rv0{align-items:center;text-align:center}.fc218rv0>svg.i{width:36px;height:36px;color:#d9a300}.fc218rv0 p{margin:0;color:var(--fc-mut)}
+.fc218aa .row{display:flex;align-items:center;gap:8px;justify-content:space-between;margin:6px 4px}
+@media (max-width:900px){.fc218rd{grid-template-columns:1fr}.fc218toc,.fc218mg{display:none}.fc218vd{grid-template-columns:1fr;grid-template-rows:auto 1fr}.fc218pl{border-right:0;border-bottom:1px solid var(--fc-line)}.fc218tt{max-width:30vw}.fc218m button span{display:none}}
+html[data-theme=dark] .ann218b{background:#23252b;color:#e7e8ec;border-color:#363944}
+html[data-theme=dark] .kb218r{background:#2e2a17;border-color:#5c4f1f}
+html[data-theme=dark] .kb218rt small,html[data-theme=dark] .kb218r>svg.i{color:#f0d77a}
+html[data-theme=dark] .ln218hy{background:rgba(168,85,247,.16);color:#e9d5ff}
+html[data-theme=dark] .stg218b{background:#2e2a17;color:#f0d77a;border-color:#5c4f1f}
+.it.blkp218 .dtxt>:is(h1,h2):first-child{display:none}
+#pop .nx218{max-height:calc(100vh - 32px);overflow:auto}
+.xdlg.pinfo213 .seg24 button.on,.gp215 .seg24 button.on{background:var(--sel,#ffd84d)!important;color:var(--sel-ink,#1c1d21)!important}
+@media (max-width:600px){.stg218b>span:not(.p24sp){display:none}}
+@media (max-width:600px){.fc218tt a{display:none}.fc218h>.ib[data-fc="close"]:first-child,.fc218h [data-fc="next"]{display:none}.fc218tt{max-width:none;flex:1}.fc218h>.p24sp{display:none}}
 
 @media (max-width:700px){#statusText{display:none}#statusText.act{display:block;max-width:132px;white-space:normal;font-size:11.5px;line-height:1.25}#status{padding-left:12px}#boardName{width:120px}.fbtn span{display:none}.fdoc{padding:28px 24px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -7278,7 +7469,7 @@ function installHelp() {
    v1.7: versions, feature catalog, tiny-object markers, pin zones, re-attach,
    nested frame tabs, Whimsical import that reads the whole board by sections
    ========================================================= */
-const APP_VERSION = '2.17';
+const APP_VERSION = '2.18';
 const CHANGELOG = [
   ['1.9', '6 октября 2026', ['Масштаб от 0,5%, свой диапазон и уровни: колесо и кнопки прыгают по уровням (Горячие клавиши → Масштаб)', 'Замок: закреплённый объект не двигается, не меняется и не удаляется', 'Выравнивание, равные промежутки, одинаковый размер и одинаковая длина линий для выделенного', 'Умные направляющие: при перемещении и растягивании объект прилипает к краям и центрам соседей (Alt отключает)', 'Выделенное можно открыть отдельно, как доску, с хлебными крошками', 'Резервная копия в папку на компьютере, в том числе в папку Яндекс Диска, с недельным архивом', 'История версий доски с поиском по дате: копии на устройстве и версии из Google Диска', 'Компактная панель статуса: цветные индикаторы, мигающий значит нужно ваше действие', 'Контуры при сильном отдалении: только у внешних объектов, нейтральным серым, точно по размеру', 'Импорт из Whimsical: секции как в оригинале, блок-схемы и прямоугольники, шрифт подбирается под каждое устройство']],
   ['1.8', '6 октября 2026', ['Импорт из Whimsical: майнд-карты снова переносятся, сбойные запросы повторяются, а не пропускаются', 'Картинки из Whimsical переносятся как картинки', 'Ссылки из Whimsical становятся текстом-ссылкой, а не пустой карточкой', 'Размер шрифта в перенесённых заголовках подбирается по настоящему шрифту, слова больше не рвутся', 'При сильном отдалении (1% и меньше) подсвечиваются контуры объектов вместо пятен', 'Копирование в другие приложения: обычный текст с форматированием, без служебного кода', 'Приложение само проверяет, есть ли на сайте новая версия, и предлагает обновиться']],
@@ -7753,7 +7944,7 @@ const AREAS = {
 };
 Object.assign(AREAS.canvas[2], { filter: 'Фильтры (Filters)' }); Object.assign(AREAS.org[2], { fhead: 'Шапка рамки (Frame header)' }); Object.assign(AREAS.obj[2], { docs: 'Документы (Documents)', html: 'HTML-инструменты (HTML tools)' }); Object.assign(AREAS.io[2], { web: 'Страница по ссылке (Web capture)', queue: 'Очередь импорта (Import queue)' }); Object.assign(AREAS.cust[2], { mech: 'Механики (Feature toggles)', panels: 'Панели (Panels)', menu: 'Меню (Menu)', drag: 'Перетаскивание (Drag)' }); Object.assign(AREAS.ws[2], { side: 'Панель досок слева (Boards sidebar)', smart: 'Умные доски (Smart boards)' }); Object.assign(AREAS.life[2], { time: 'Учёт времени (Time tracking)', src: 'Источники записей (Sources)' }); Object.assign(AREAS.plat[2], { audit: 'Аудит (Audit)' }); Object.assign(AREAS, { team: ['Команда', 'Team', { space: 'Командное пространство (Team space)', live: 'Кто на доске (Presence)' }], ai: ['Claude', 'AI', { board: 'Claude на доске (AI on board)' }], files: ['Файлы', 'Files', { drop: 'Файлы на доске (Files on board)', group: 'Групповое встраивание (Bulk embed)', lib: 'Библиотека файлов (File library)' }] }); Object.assign(AREAS.data[2], { trash: 'Корзина (Trash)', space: 'Объём (Storage usage)' }); Object.assign(AREAS.life[2], { modes: 'Режимы задачника (Task manager modes)' }); Object.assign(AREAS.plat[2], { guide: 'Гайды и демо (Guides)' }); AREAS.org[2].fhead = 'Табулятор рамки (Frame tabulator)';
 const areaLabel = c => { const [a, m] = String(c || '').split('.'), A = AREAS[a]; return A ? A[0] + (m && A[2][m] ? ' › ' + A[2][m].replace(/ \(.*\)$/, '') : '') : ''; };
-const VERS = [['2.17', '14 октября 2026'], ['2.16', '13 октября 2026'], ['2.15', '12 октября 2026'], ['2.14', '11 октября 2026'], ['2.13', '11 октября 2026'], ['2.12', '10 октября 2026'], ['2.11', '10 октября 2026'], ['2.10', '10 октября 2026'], ['2.9', '10 октября 2026'], ['2.8', '10 октября 2026'], ['2.7', '9 октября 2026'], ['2.6', '9 октября 2026'], ['2.5', '9 октября 2026'], ['2.4', '9 октября 2026'], ['2.3', '8 октября 2026'], ['2.2', '7 октября 2026'], ['2.1', '6 октября 2026'], ['2.0', '6 октября 2026'], ['1.9', '6 октября 2026'], ['1.8', '6 октября 2026'], ['1.7', '6 октября 2026'], ['1.6', '5 октября 2026'], ['1.5', '5 октября 2026'], ['1.4', '5 октября 2026'], ['1.3', '4 октября 2026'], ['1.2', '4 октября 2026'], ['1.0', '4 октября 2026']];
+const VERS = [['2.18', '14 октября 2026'], ['2.17', '14 октября 2026'], ['2.16', '13 октября 2026'], ['2.15', '12 октября 2026'], ['2.14', '11 октября 2026'], ['2.13', '11 октября 2026'], ['2.12', '10 октября 2026'], ['2.11', '10 октября 2026'], ['2.10', '10 октября 2026'], ['2.9', '10 октября 2026'], ['2.8', '10 октября 2026'], ['2.7', '9 октября 2026'], ['2.6', '9 октября 2026'], ['2.5', '9 октября 2026'], ['2.4', '9 октября 2026'], ['2.3', '8 октября 2026'], ['2.2', '7 октября 2026'], ['2.1', '6 октября 2026'], ['2.0', '6 октября 2026'], ['1.9', '6 октября 2026'], ['1.8', '6 октября 2026'], ['1.7', '6 октября 2026'], ['1.6', '5 октября 2026'], ['1.5', '5 октября 2026'], ['1.4', '5 октября 2026'], ['1.3', '4 октября 2026'], ['1.2', '4 октября 2026'], ['1.0', '4 октября 2026']];
 const KIND = { f: ['Новое', 'Feature'], i: ['Улучшение', 'Improvement'], x: ['Исправление', 'Bug fix'], b: ['Ожидается', 'Backlog'] };
 /* [id, version, area.module, kind, title, how to use, context] */
 const FEATS = [
@@ -8085,6 +8276,23 @@ const FEATS = [
 ['f29_ext','2.9','plat.ext','f','Расширение браузера: клиппер и виджеты','holst-extension.zip → chrome://extensions → «Загрузить распакованное».','Любая страница — в задачник или на доску; задачи поверх сайтов.'],
 ['f29_share','2.9','plat.ext','f','«Поделиться» → Холст на телефоне','Установите Холст как приложение → «Поделиться» в любом приложении.','Ссылки, текст, картинки и файлы — сразу в Холст.'],
 ['f29_cx','2.9','life.inbox','f','Отчёты из чатов Claude в задачник','Навык «Отчёт в Холст» в Claude → «отчёт в Холст» в конце чата.','Все отчёты и проекты чатов — в одном месте.'],
+['f218_blk','2.18','obj.media','f','Блок источника — всё со страницы одним блоком','Что пришло из клиппера, ложится на доску по одному стандарту для любых опций: слева карточка страницы, снимки и «Зачем это мне», справа тексты — выделенное, текст страницы, транскрипт, комментарии, конспект. Блок не разъединить: части закреплены и двигаются с ним, удаляется он только целиком. Часть можно скопировать (Ctrl+D) — копия свободна и помнит первоисточник: на её панели «К первоисточнику».','Всё, что принадлежит одному источнику, не растаскивается по системе.'],
+['f218_place','2.18','obj.media','f','Свободное место и «поверх доски»','Из клиппера на доску — на свободное место рядом с тем, что на экране, ничего не перекрывая. Выбрана рамка — свободное место в ней (рамка растёт, если не хватает). «Положить: поверх доски» — блок висит над доской, его двигают за шесть точек и кладут кнопкой «Утвердить».','Новое не ложится на старое.'],
+['f218_yt','2.18','kb.yt','f','YouTube: транскрипт абзацами и комментарии карточками','Клиппер на видео: «Транскрипт» — не фразы с таймкодами, а цельные абзацы, заголовки — по главам видео (или каждые несколько минут), у заголовка — ссылка на момент. «Комментарии» — каждый отдельной карточкой: автор, дата, лайки, текст; ответы — под ним со сдвигом, автор канала отмечен. Транскрипт и комментарии нельзя менять — это запись источника.','Видео читается как статья.'],
+['f218_ann','2.18','ai.','f','Нейросеть на полях — как в Google Docs','Разметка, сверка с вашими источниками и фактчекинг — прямо на тексте на доске: подчёркивание и заметка на полях. Ключевая мысль, вопрос, действие, противоречие источникам, подтверждение, дополнение, проверка факта. Каждую — принять, убрать или сделать задачей.','Работа нейросети видна там, где вы с текстом работаете.'],
+['f218_next','2.18','ai.','f','«Что дальше» — стандартные шаги работы с материалом','Кнопка на панели текста или блока: конспект в форме (резюме, тезисы, по разделам, идеи и цитаты, план действий, вопросы, глоссарий, для урока, карточки, критический разбор), разметка, сверка с источниками, фактчекинг (научный консенсус, позиция профсообщества, актуальность, логика и манипуляции, цифры), свойства, задачи из текста, в источники, режим фокуса. Сделанное — с галочкой.','Нейросеть делает работу, вы решаете.'],
+['f218_focus','2.18','cust.learn','f','Режим фокуса: чтение, видео, повторение','Двойной щелчок по тексту блока, кнопка на панели документа или «Что дальше». Чтение — чистый текст, оглавление, поля с выделениями и заметками нейросети; выделите фразу — выделить, заметка, объяснить, в источники, в задачи. Видео — плеер и транскрипт рядом, заметки с моментом. Повторение — карточки из выделений и конспекта «Карточки». Шрифт, ширина, фон — ваши; место чтения запоминается.','Работать со скоростью мысли, как в Readwise Reader и Kindle.'],
+['f218_kbtext','2.18','kb.src','f','Любой текст на доске — в источники','Панель текста, стикера, карточки или документа → «Текст — в источники». Выделенный кусок текста в редакторе — только он. В режиме фокуса — выделите фразу → «В источники».',''],
+['f218_kbadd','2.18','kb.src','f','Добавить источник — одно поле для всего','Источники → «Добавить»: вставьте ссылку, несколько ссылок (по одной в строке), текст или перетащите файлы. Холст показывает, что распознал: видео, канал, плейлист, Telegram, статья, текст, файл. Эксперт, вес, компетенции и доверие (как истина / как акценты) — один раз для всех.',''],
+['f218_alipov','2.18','kb.src','i','Пример: Владимир Алипов в источниках','Эксперт с биографией, весом, компетенциями и акцентами; его YouTube-канал (кнопка «Загрузить видео канала»), Telegram, интервью «БИЗНЕС Online» с тезисами и цитатами, четыре видео — расшифруются по кнопке.','Видно, как устроены эксперт, источники и акценты.'],
+['f218_ytapi','2.18','kb.yt','x','YouTube: «Channel not found» — понятное объяснение','Если у аккаунта Google нет канала YouTube, подписки и плейлисты взять нельзя — Холст так и говорит, показывает то, что удалось получить, и предлагает «Другой аккаунт» (бренд-канал) или путь без входа — через расширение на странице подписок.',''],
+['f218_clip','2.18','plat.ext','f','Клиппер: одна панель, универсальное и для сайта','Кнопка браузера, кнопка в плеере YouTube, «В Холст» в меню ⋮ под видео и список видео страницы — одна и та же панель. «Что взять»: универсальное для любых сайтов (ссылка, текст страницы, выделенное, описание, снимок) и отдельное для сайта (YouTube: транскрипт, комментарии, главы). Снимок — одна группа: экран, вся страница, область, кадр видео. Выбранное — жёлтым; фиолетовый — только для информации.','Один клиппер, а не четыре.'],
+['f218_shot','2.18','plat.ext','x','Снимок всей страницы — в настоящих пропорциях','Снимок всей страницы больше не растягивается вширь: на доске он ложится с настоящими пропорциями, как и любые снимки.',''],
+['f218_tabs','2.18','plat.ext','f','Вкладки: все, выделенные, группа, этот сайт','Настройки расширения → «Вкладки — сразу несколько»: все вкладки окна, выделенные (Ctrl или Cmd + щелчок), группа этой вкладки, все вкладки этого сайта — каждая материалом в задачник.',''],
+['f218_widget','2.18','plat.ext','i','Виджет: по умолчанию только эта страница','Новый виджет показывается только на этой странице; кнопка «Весь задачник» — слева, как фильтры задачника в Холсте.',''],
+['f218_cols','2.18','plat.panels','i','Колонки подстраиваются под панель','Колонка боковой панели расширяется настолько, чтобы не было горизонтальной прокрутки (доске остаётся не меньше 560 пикселей). Ширина, выставленная руками, запоминается для этой панели; двойной щелчок по краю — снова по содержимому.',''],
+['f218_coll','2.18','cust.learn','f','Подборки гайдов в «Основах»','Обучение → «Основы»: подборки — основы Холста слайдами, «Устройства», «Работа с материалом». Подборка открывается большой панелью над затемнённым экраном. Вкладки теперь: «Основы», «Новое», «Все».',''],
+['f218_used','2.18','cust.learn','i','«Чем вы пользовались раньше?» — доски и задачники','Две группы: доски (Miro, FigJam, Whimsical, Excalidraw, tldraw, Яндекс Доски, Mural, Lucidspark, Canva, Milanote, Obsidian Canvas, Freeform, Microsoft Whiteboard) и задачники (TickTick, Notion, Todoist, Things, Microsoft To Do, Google Tasks, Trello, Asana, ClickUp, Jira, Яндекс Трекер, Kaiten, Weeek, Битрикс24). Холст — гибрид: с каждой стороны объяснено, чем он отличается.',''],
 ['f217_clip','2.17','plat.ext','f','Клиппер, продуманный как лучшие','Значок расширения: карточка страницы (обложка, сайт, автор, дата, минуты чтения), «Что взять» (ссылка, текст статьи, выделенное, описание, снимок экрана, всей страницы, области), «Куда» (Задачник, Доска, Источники), «Сохранить как» — любая сущность, «Связать» — с чем угодно по структуре системы, важность 1–11, блок «Нейросеть». Alt+Shift+S — сохранить сразу, как для этого сайта.','Notion Web Clipper, Pocket, Raindrop, Readwise — всё лучшее в одном окне.'],
 ['f217_ytcard','2.17','obj.media','f','YouTube и статьи — красивой карточкой на доске','YouTube → кнопка в плеере → «На доску — красивой карточкой»; или окно расширения → «Куда: Доска». Обложка, аватарка и канал, длительность, просмотры, дата, главы; у статей — сайт, автор, дата, минуты чтения.','Карточка читается без открытия ссылки.'],
 ['f217_widget','2.17','plat.ext','f','Виджет страницы: всё о ней, любые сущности','Виджет на сайте: «Эта страница» — задачи, заметки, материалы, с важностью и цитатами; внизу — что добавить: задача, заметка, материал, проект, цель, привычка.','Раньше только задачи.'],
@@ -9674,6 +9882,35 @@ const DEV_X = [
   { id: 'T217-dfrv', it: '2.17', area: 'files.group', status: 'review', type: 'Фича', prio: 'Средний', parent: 'T217-dfr', orig: 'сами файлы по размеру одинаковые, чтобы визуально не разрушить структуру на доске. так же перед началом процесса юзер может выбирать как видеть файлы. например замороженые или уже открытые или просто ссылка, формат файла и название и так далее. этот режим должен предлагаться при выборе опций встраивания.', title: 'Как видеть файлы папки', report: R21('Перед началом: обложка (заморожено — ничего не грузится), карточка (формат и название), ссылка-строка, открытые (с предупреждением для большой папки); глубина — все уровни или 1–3. Файлы одного размера. Предлагается во «Встроить» (ссылка на папку), в «Групповом встраивании» и в меню.', '«Встроить» → вставьте ссылку на папку Диска.', '') },
   { id: 'T217-dev', it: '2.17', area: 'plat.ways', status: 'review', type: 'Баг', prio: 'Высокий', orig: 'почему если я в меню выбираю панель устройств то вылазит какое то старое меню, которое намного хуже чем основная панель где все устроства и их подробности? исправляй', title: 'Меню «Устройства» — новая панель', report: R21('Меню → «Устройства» и «Установить в другой браузер» открывают «Обучение» → «Устройства» на нужной карточке.', 'Меню → Настройки → «Устройства».', '') },
   { id: 'T217-folder', it: '2.17', area: 'plat.ext', status: 'review', type: 'Баг', prio: 'Высокий', parent: 'T217-dev', orig: 'тут вообще нет этой кнопки В Холсте: шапочка → «Устройства» → «Расширение браузера» → «В папку Холста».', title: '«В папку Холста» — всегда видна', report: R21('Кнопка есть всегда. Где браузер не даёт писать в папки, она неактивна и сказано почему, рядом — «Архив .zip». Текст шагов совпадает с кнопками.', 'Шапочка → «Устройства» → «Расширение браузера».', '') },
+  { id: 'T218-free', it: '2.18', area: 'obj.media', status: 'review', type: 'Улучшение', prio: 'Высокий', orig: 'сделай чтобы при добавлении из клипера на доску он искал свободное место, а не накладывал на другие объекты. разумеется если я выбираю фрейм куда положить то он кладет в него и уже в нем ищет свободное место.', title: 'Клиппер: свободное место, в рамке — свободное место в ней', report: R21('Блок ищет свободное место рядом с центром экрана, ничего не перекрывая. Выбрана рамка — свободное место внутри неё; не помещается — рамка растёт вниз ровно настолько, сколько нужно.', 'Клиппер → «Куда: Доска» → «Рамка или ячейка» — выберите рамку → «Сохранить в Холст».', '') },
+  { id: 'T218-shot', it: '2.18', area: 'plat.ext', status: 'review', type: 'Баг', prio: 'Высокий', orig: 'скриншот всей страницы получается с неправильным соотношением сторон. растянут вширь и ужат по вертикали.', title: 'Снимок всей страницы — в настоящих пропорциях', report: R21('Снимок на доске ложится с настоящими пропорциями (раньше — фиксированные 480×300). Масштаб склейки берётся из ширины настоящих снимков экрана.', 'Клиппер → «Снимок» → «Вся страница» → «Доска».', '') },
+  { id: 'T218-btn', it: '2.18', area: 'plat.ext', status: 'review', type: 'Баг', prio: 'Критично', orig: 'кнопка на браузере вообще не работает. а вот кнопка по трем точкам работает но вызывает старую панель. ведь по трем точкам нет отдельных функций? наверное нужно одну панель для всех вариантов', title: 'Одна панель клиппера для всех входов', report: R21('Кнопка браузера, кнопка в плеере YouTube, «В Холст» в меню ⋮ и кнопка списка видео открывают одну и ту же панель (внутри страницы — в рамке, с крестиком). Любая ошибка панели теперь видна красной строкой с подсказкой, а не молча.', 'YouTube → кнопка Холста в плеере или ⋮ под видео → «В Холст».', 'После обновления расширения один раз нажмите ⟳ у «Холст» на chrome://extensions — старая копия могла остаться в памяти.') },
+  { id: 'T218-yellow', it: '2.18', area: 'plat.ext', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'фиолетовый это цвет информации. а желтый это цвет метрик и выбранных опций. в клипере в основном все должно быть желтым', title: 'Клиппер: выбранное — жёлтым, фиолетовый — для информации', report: R21('Выбранные варианты, важность и счётчики — жёлтые; фиолетовый остался только у подсказок и блока «Нейросеть». То же в «Добавить источник», в «Обучении» и в режиме фокуса.', 'Откройте клиппер и выберите варианты.', '') },
+  { id: 'T218-widget', it: '2.18', area: 'plat.ext', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'дефолтная настройка виджета - только эта страница. а еще расположи кнопку весь задачник слева а не справа. по той же логике как мы делали кнопки задачника в холсте, где опция открытого фильтра всегда слева а не справа.', title: 'Виджет: по умолчанию эта страница, «Весь задачник» слева', report: R21('Новый виджет — только для этой страницы (и из меню правой кнопки тоже). В виджете и в настройках «Весь задачник» стоит слева.', 'Клиппер → шестерёнка → «Виджет задач».', '') },
+  { id: 'T218-tabs', it: '2.18', area: 'plat.ext', status: 'review', type: 'Фича', prio: 'Средний', orig: 'сделай функцию не только для всех вкладок, но еще для выделенных вкладок. а еще в идеале чтобы для групп вкладок, а еще для всех вкладок которые принадлежат одному сайту.', title: 'Вкладки: все, выделенные, группа, этот сайт', report: R21('Четыре кнопки со счётчиками: все вкладки окна, выделенные (Ctrl/Cmd + щелчок по вкладкам), группа этой вкладки (с её названием), все вкладки этого сайта. Метка — название группы или сайта.', 'Клиппер → шестерёнка → «Вкладки — сразу несколько».', 'Для групп расширение просит разрешение «tabGroups».') },
+  { id: 'T218-colfit', it: '2.18', area: 'plat.panels', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'сделай функцию корректировки ширины столбца под функционал конкретной панели. чтобы горизонтальный скролинг не нужно было делать.', title: 'Колонка подстраивается под панель', report: R21('Если содержимому панели тесно и появляется прокрутка вбок, колонка расширяется ровно настолько, чтобы её не было; доске остаётся не меньше 560 пикселей.', 'Источники → «Компетенции и веса» в колонке.', '') },
+  { id: 'T218-colmem', it: '2.18', area: 'plat.panels', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'а еще запоминание ширины столбца которую пользователь сделал вручную', title: 'Ширина колонки руками — запоминается для панели', report: R21('Потянули край колонки — ширина запомнилась для этой панели и вернётся при следующем открытии. Двойной щелчок по краю — снова по содержимому.', 'Потяните край колонки, закройте и откройте панель.', '') },
+  { id: 'T218-cm', it: '2.18', area: 'kb.yt', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'сделай функцию парсинга комментариев. на доску они должны падать в таком виде чтобы каждый коммент был отдельным блоком по стандартному шаблону, имя юзера, дата и все такое. иерархию визуально тоже соблюдай, когда комменты внутри комментов.', title: 'Комментарии YouTube — карточками, с ответами', report: R21('Клиппер → «Для YouTube: Комментарии»: до 40 веток, у каждой до 12 ответов. Каждый — карточка: автор, дата, лайки, текст. Ответы — под своим комментарием со сдвигом вправо, автор канала отмечен красным.', 'Видео → клиппер → «Комментарии» → «Доска».', 'Берутся комментарии, которые YouTube подгрузил на странице (клиппер немного прокручивает их сам).') },
+  { id: 'T218-fixed', it: '2.18', area: 'kb.yt', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'транскрипты и комменты должно быть нельзя редактировать, они фиксированные.', title: 'Транскрипт и комментарии нельзя менять', report: R21('Это часть блока источника: двойной щелчок открывает режим фокуса для чтения, а не редактор. Менять можно копию (Ctrl+D) — она помнит первоисточник.', 'Дважды щёлкните по транскрипту в блоке.', '') },
+  { id: 'T218-frame', it: '2.18', area: 'plat.ext', status: 'review', type: 'Фича', prio: 'Средний', orig: 'среди опций чего взять на странице - сделай еще скриншот текущего кадра (внутри видео). а еще объедини все виды скриншота в группу с подвыбором внутри', title: 'Снимок — одна группа: экран, страница, область, кадр видео', report: R21('«Снимок» — один вариант, внутри выбор: экран, вся страница, область, кадр видео (если на странице есть видео). Кадр ложится с моментом в названии.', 'Видео → клиппер → «Снимок» → «Кадр видео».', '') },
+  { id: 'T218-split', it: '2.18', area: 'plat.ext', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'раздели опции чего взять на универсальные для всех сайтов и отдельные для конкретных. например на ютубе появятся опции для ютуба.', title: '«Что взять»: универсальное и для этого сайта', report: R21('Сверху — для любого сайта: ссылка, текст страницы, выделенное, описание, снимок. Ниже, под заголовком «Для YouTube», — транскрипт, комментарии, главы.', 'Откройте клиппер на YouTube и на любой статье.', '') },
+  { id: 'T218-pagetext', it: '2.18', area: 'plat.ext', status: 'review', type: 'Улучшение', prio: 'Низкий', orig: 'опция текста статьи на ютубе копирует текст со страницы. во первых назови эту опцию именно так… название универсальное должно быть для всех сайтов, если это не фича для одного сайта.', title: '«Текст статьи» → «Текст страницы»', report: R21('Универсальное название для любого сайта. Текст видео — отдельная кнопка «Транскрипт».', 'Клиппер → «Что взять».', '') },
+  { id: 'T218-tr', it: '2.18', area: 'kb.yt', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'во вторых мне нужна кнопка транскрипта видео. а еще красивое форматирование а не сырой текст. например на основе разделов видео сделать заголовки, а сам текст структурировать не фразами с таймкодами как обычно, как более цельно абзацами, насколько это возможно спарсить.', title: 'Транскрипт — абзацами, с заголовками по главам', report: R21('Клиппер берёт субтитры плеера (если не вышло — панель расшифровки YouTube, если и так нет — Холст скачает сам). Фразы склеиваются в абзацы по предложениям и паузам; заголовки — главы видео со ссылкой на момент, без глав — «Часть 1, 2…» каждые несколько минут.', 'Видео → клиппер → «Транскрипт» → «Доска».', 'Если у видео нет субтитров, транскрипта не будет — Холст так и скажет.') },
+  { id: 'T218-forms', it: '2.18', area: 'ai.', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'в опциях нейро конспектирования придумай разные формы отталкиваясь от типичных сценариев дальнейшей работы с текстом. например резюме и так далее.', title: 'Формы конспекта', report: R21('Резюме, тезисы, по разделам, идеи и цитаты, план действий, вопросы, глоссарий, для урока, карточки (для повторения), критический разбор. Выбор — в клиппере и в «Что дальше»; конспект ложится в блок источника и заметкой в задачник.', 'Клиппер → «Нейросеть» → «Конспект» → форма.', '') },
+  { id: 'T218-block', it: '2.18', area: 'obj.media', status: 'review', type: 'Фича', prio: 'Критично', orig: 'общий блок всего что попало на доску должен быть красиво и логично оформлен, а не кучей объектов друг на друге. сделай стандарт для всех сценариев и наборов опций нажатых в клиппере. этот блок должно быть невозможно разъединить, чтобы все что принадлежит одному источнику не растаскать по системе. можно только копировать и дальше уже видоизменять. но у новых объектов будет ссылка на первоисточник', title: 'Блок источника — стандарт для любых опций', report: R21('Слева: карточка страницы, снимки, «Зачем это мне». Справа: выделенное, конспект, текст страницы, транскрипт, комментарии. Части закреплены, двигаются с блоком, удаляются только с ним. Ctrl+D по части — свободная копия с отметкой и кнопкой «К первоисточнику».', 'Сохраните любую страницу на доску с разными опциями.', '') },
+  { id: 'T218-ann', it: '2.18', area: 'ai.', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'при нейро анализе я ожидаю увидеть работу нейронок прямо на доске, по типу того как это выглядит в документах гугла, где подчеркивается текст, сбоку комментарий, правки, предложения и всякое такое.', title: 'Нейросеть на полях, как в Google Docs', report: R21('Подчёркивание в тексте, заметка на полях справа от блока: ключевая мысль, вопрос, действие, комментарий, противоречие, подтверждение, дополнение, проверка факта. Принять, убрать, «В задачи». Те же пометки — в режиме фокуса.', 'Клиппер → «Нейросеть» → «Разметить» → «Доска»; или «Что дальше» → «Разметить нейросетью».', '') },
+  { id: 'T218-next', it: '2.18', area: 'ai.', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'продумай сценарии дальнейшей работы с текстом которые обычно возникают… нужно будет нам с тобой стандартизировать дальнейшие шаги работы с информацией.', title: '«Что дальше» — стандарт шагов работы с информацией', report: R21('Конспект в форме → разметка → сверка с источниками → фактчекинг → свойства (тэгинг, форминг, ранкинг) → задачи из текста → в источники → режим фокуса. Сделанные шаги отмечаются у блока.', 'Выделите блок или текст → панель → «Что дальше».', '') },
+  { id: 'T218-anytext', it: '2.18', area: 'kb.src', status: 'review', type: 'Фича', prio: 'Средний', orig: 'кстати любая часть текста на доске внутри любого объекта должна быть возможна для добавления в источники', title: 'Любой текст на доске — в источники', report: R21('Панель объекта → «Текст — в источники». В редакторе — выделенный кусок. В режиме фокуса — выделите фразу → «В источники».', 'Выделите стикер → «Текст — в источники».', '') },
+  { id: 'T218-over', it: '2.18', area: 'obj.media', status: 'review', type: 'Фича', prio: 'Средний', orig: 'еще одна опция куда на доске добавить материал - это когда за выбранным фреймом или в свободном месте доски материал поверх доски… и дальше можно утвердить… еще должна быть возможность при размещении поменять положение на доске вручную. через ту же кнопку 6 точек как обычно.', title: '«Поверх доски»: шесть точек и «Утвердить»', report: R21('Клиппер → «Положить: поверх доски». Блок висит над доской (рядом с выбранной рамкой или на свободном месте), подсвечен; над ним — полоса с шестью точками (перетащить), «Утвердить» и крестиком.', 'Клиппер → «Доска» → «Поверх доски».', '') },
+  { id: 'T218-src', it: '2.18', area: 'kb.src', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'еще сценарий - это дальнейший анализ содержания через призму источников. то есть поиск противоречий с базой источников, дополнений и так далее.', title: 'Сверка с источниками', report: R21('Холст ищет в вашей базе фрагменты к каждому абзацу, нейросеть отмечает: противоречит, подтверждают, добавляют — с весом источника и ссылками на фрагменты.', '«Что дальше» → «Сверить с источниками».', 'Нужны источники в базе: без них сверять не с чем.') },
+  { id: 'T218-fact', it: '2.18', area: 'ai.', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'еще сценарий - это факт чекинг содержания. продумай разные его режимы, например научность или солидарность проф сообщества или что то еще.', title: 'Фактчекинг в режимах', report: R21('Научный консенсус, позиция профсообщества, актуальность, логика и манипуляции, цифры и статистика. Вердикт у каждого утверждения: подтверждается, спорно, не подтверждается, нет данных — и почему.', '«Что дальше» → «Фактчекинг» → режим.', 'Нейросеть проверяет по своим знаниям, без поиска в интернете, — и пишет, где не уверена.') },
+  { id: 'T218-kbadd', it: '2.18', area: 'kb.src', status: 'review', type: 'Улучшение', prio: 'Высокий', orig: 'сделай функционал удобного доавбления источников', title: 'Добавить источник — одно поле', report: R21('Ссылка, несколько ссылок, текст или файлы — в одно поле; Холст показывает, что распознал. Эксперт (или новый), вес, компетенции, доверие — для всех сразу.', 'Источники → «Добавить».', '') },
+  { id: 'T218-ytapi', it: '2.18', area: 'kb.yt', status: 'review', type: 'Баг', prio: 'Высокий', orig: 'я подключил ютуб апи, в итоге наше приложение пишет Channel not found.', title: 'YouTube: «Channel not found»', report: R21('Ошибка YouTube значит: у выбранного аккаунта Google нет канала YouTube, а подписки и плейлисты хранятся у канала. Холст это объясняет, показывает то, что получилось, и даёт «Другой аккаунт» — выбрать бренд-канал. Без входа — youtube.com/feed/channels → кнопка расширения «В Холст: веса каналов».', 'Источники → «YouTube» → «Подключить».', '') },
+  { id: 'T218-alipov', it: '2.18', area: 'kb.src', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'сам добавь Владимира алипова как источник. заполни все что можно внутри нашего приложения, чтобы продемонстрировать функционал.', title: 'Владимир Алипов — пример источника', report: R21('Эксперт: биография, вес 75, компетенции (психология, здоровье, развитие), четыре акцента, тезисы. Его канал YouTube, Telegram, интервью «БИЗНЕС Online» с тезисами и дословными цитатами, четыре видео.', 'Источники → «Владимир Алипов».', 'Видео и канал расшифруются по кнопкам — нужно расширение Холста.') },
+  { id: 'T218-coll', it: '2.18', area: 'cust.learn', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'сделай устройства как подборку и внутри начала, а не отдельной вкладкой… будет открываться большая панель и затемняться экран.', title: 'Устройства — подборкой в «Основах»', report: R21('Вкладки «Устройства» больше нет: в «Основах» — подборки (основы Холста, устройства, работа с материалом). Подборка открывается большой панелью над затемнённым экраном; Esc или щелчок мимо — закрыть.', 'Шапочка → «Основы» → «Устройства».', '') },
+  { id: 'T218-used', it: '2.18', area: 'cust.learn', status: 'review', type: 'Улучшение', prio: 'Средний', orig: 'вы пользовались досками раньше должны содержать все референсные сервисы. а еще раздели на сервисы которые не доски, типа тик тик и ноушн. это категория задачников.', title: '«Чем вы пользовались раньше?» — доски и задачники', report: R21('13 досок и 14 задачников, у каждого — чем Холст отличается и словарь «их слова → слова Холста». Отмеченные с обеих сторон ведут к мысли, что Холст — гибрид.', 'Шапочка → «Основы».', '') },
+  { id: 'T218-tabsn', it: '2.18', area: 'cust.learn', status: 'review', type: 'Улучшение', prio: 'Низкий', orig: 'вкладку гайды переименуй в "все". вкладку что нового в "новое". вкладку начало в "основы"', title: 'Вкладки обучения: Основы, Новое, Все', report: R21('Переименованы.', 'Шапочка.', '') },
+  { id: 'T218-focus', it: '2.18', area: 'cust.learn', status: 'review', type: 'Фича', prio: 'Высокий', orig: 'я хочу иметь удобный интерфейс и механики работы с любым контентом… вдохновись… ридвайз, приложения чтения книг… разные вариации в зависимости от jobs to be done… назовем это режимом фокуса.', title: 'Режим фокуса v1: чтение, видео, повторение', report: R21('Чтение (понять и сохранить), Видео (смотреть и конспектировать), Повторение (запомнить). Выделения, заметки, объяснения нейросети, в источники, в задачи — из одной панели над выделенной фразой; клавиши H, N, 1–3, Esc.', 'Дважды щёлкните по тексту блока источника.', 'Следующие режимы — письмо по источникам, исследование темы, сравнение источников.') },
 ];
 
 
@@ -26467,6 +26704,7 @@ const SHOTS_DATA214 = {"cap": {"w": 1200, "h": 750, "pins": [[96.1, 88.7], [72.5
 const SHOTS_DATA215 = {"hints215": {"w": 1200, "h": 750, "pins": [[26, 18], [26, 4], [35.6, 57.6]]}, "ways215": {"w": 1200, "h": 750, "pins": [[50, 19.6], [64.1, 52.8], [29.5, 100.9]]}, "wel215": {"w": 1200, "h": 750, "pins": [[50, 40.2], [50, 58.6], [28.6, 80.7]]}, "fj215": {"w": 1200, "h": 750, "pins": [[50, 47.4], [50, 65.3]]}, "vote215": {"w": 1200, "h": 750, "pins": [[44.3, 10.5], [61.4, 10.5]]}, "voice215": {"w": 1200, "h": 750, "pins": [[45.1, 89.1], [52.3, 89.1]]}, "imp215": {"w": 1200, "h": 750, "pins": [[50, 27], [50, 72.5], [74.3, 60.7]]}, "speed215": {"w": 1200, "h": 750, "pins": [[50, 25.2], [50, 60]]}};
 const SHOTS_DATA216 = {"learn216": {"w": 1200, "h": 750, "pins": [[84.9, 34.3], [84.9, 64.9], [51.3, 4]]}, "from216": {"w": 1200, "h": 750, "pins": [[84.9, 39.3], [79.1, 43], [84.9, 92.1]]}, "menu216": {"w": 1200, "h": 750, "pins": [[40.9, 16.9], [63.4, 18.8], [75.3, 14.3]]}, "speed216": {"w": 1200, "h": 750, "pins": [[84.9, 36.8], [84.9, 41], [80.7, 25.3]]}, "props216": {"w": 1200, "h": 750, "pins": [[84.9, 27.8], [84.9, 51.9], [73.7, 63.7]]}, "ctx216": {"w": 1200, "h": 750, "pins": [[84.9, 38.1], [84.9, 50.1], [84.9, 87.4]]}, "acc216": {"w": 1200, "h": 750, "pins": [[84.9, 39.6], [84.9, 54.7], [77.3, 47.5]]}, "clip216": {"w": 1200, "h": 750, "pins": [[56.7, 4], [56.7, 12.2], [58.6, 18.4]]}, "pcur216": {"w": 1200, "h": 750, "pins": [[53.8, 4], [53.8, 18.2], [53.8, 94.3]]}, "img216": {"w": 1200, "h": 750, "pins": [[28.7, 29.7], [66.9, 35.6], [50, 95.8]]}};
 const SHOTS_DATA217 = {"b217_board": {"w": 1200, "h": 750, "pins": [[2.2, 26.2], [18.5, 41.9], [91.5, 96.1]]}, "b217_frames": {"w": 1200, "h": 750, "pins": [[2.2, 62.4], [51.4, 21.2], [19, 39.1]]}, "b217_docs": {"w": 1200, "h": 750, "pins": [[26.5, 44.9], [74.8, 28.5], [2.2, 39.9]]}, "b217_embed": {"w": 1200, "h": 750, "pins": [[46.6, 39.9], [50, 44.5], [65.1, 39.7]]}, "b217_boards": {"w": 1200, "h": 750, "pins": [[54.8, 4], [9.8, 7.3], [9.8, 14]]}, "b217_lo": {"w": 1200, "h": 750, "pins": [[7, 18.2], [3.3, 97.2], [25.2, 25.6]]}, "b217_ai": {"w": 1200, "h": 750, "pins": [[72.8, 14.7], [35.7, 40.9], [24.2, 4]]}, "b217_store": {"w": 1200, "h": 750, "pins": [[50, 10.7], [50, 21.2], [97.4, 4]]}, "b217_panels": {"w": 1200, "h": 750, "pins": [[2.1, 3], [25, 9.8], [84.9, 20.8]]}, "b217_pins": {"w": 1200, "h": 750, "pins": [[58.7, 4], [58.7, 13.9], [42.8, 20.8]]}, "arch217": {"w": 1200, "h": 750, "pins": [[12.8, 38.5], [50, 52.9], [23.8, 44.8]]}, "dfr217": {"w": 1200, "h": 750, "pins": [[51.4, 19.4], [36.7, 73.5], [41.3, 43.7]]}, "gal217": {"w": 1200, "h": 750, "pins": [[18.5, 23.3], [40.1, 28.8], [81.9, 7.8]]}, "gd217": {"w": 1200, "h": 750, "pins": [[29.5, 18], [29.5, 27.3], [29.5, 41.7]]}, "aih217": {"w": 1200, "h": 750, "pins": [[51.4, 53.2], [59.3, 53.2], [46.3, 53.2]]}, "ytc217": {"w": 1200, "h": 750, "pins": [[27.5, 71], [27.5, 52.3], [75.3, 63.5]]}, "clip217": {"w": 1200, "h": 750, "pins": [[76.7, 9.9], [76.7, 25.9], [76.7, 41.1]]}, "wid217": {"w": 1200, "h": 750, "pins": [[75.8, 48.6], [76.2, 19.2], [27.3, 26.6]]}, "bas217": {"w": 1200, "h": 750, "pins": [[84.9, 29.3], [93.1, 34], [84.9, 20.8]]}};
+const SHOTS_DATA218 = {"blk218": {"w": 1200, "h": 750, "pins": [[51.4, 21], [63.8, 23.6], [34.4, 94.6]]}, "place218": {"w": 1200, "h": 750, "pins": [[15.7, 16.2], [81.4, 16.2], [51.4, 32.7]]}, "ann218": {"w": 1200, "h": 750, "pins": [[36.8, 33.9], [78.1, 35.2], [84.9, 33.5]]}, "next218": {"w": 1200, "h": 750, "pins": [[61.7, 25.6], [63.2, 29.1], [61.7, 69.8]]}, "focus218": {"w": 1200, "h": 750, "pins": [[8.2, 12.4], [46.9, 53], [89.6, 15.6]]}, "rev218": {"w": 1200, "h": 750, "pins": [[50, 49], [50, 54.3], [66.1, 60.1]]}, "kb218": {"w": 1200, "h": 750, "pins": [[84.9, 32.8], [84.9, 45.3], [84.9, 70.6]]}, "alipov218": {"w": 1200, "h": 750, "pins": [[74.9, 15], [85.5, 38.3], [84.9, 70.6]]}, "coll218": {"w": 1200, "h": 750, "pins": [[84.9, 37.4], [75.2, 19.4], [84.9, 37.4]]}, "dev218": {"w": 1200, "h": 750, "pins": [[50, 8.9], [76.7, 27.1], [50, 27.1]]}, "cols218": {"w": 1200, "h": 750, "pins": [[69.2, 5.3], [81.1, 36.4], [38.9, 5.3]]}, "clip218": {"w": 1200, "h": 750, "pins": [[75.1, 31.0], [75.5, 37.7], [75.1, 45.2]]}};
 /* =========================================================
    v2.14: «Презентация» — the main way to learn.
    A slide per function: the screen focuses on a real picture of Холст in
@@ -30127,7 +30365,7 @@ async function dfrOpen217(url) {
    - the extension keeps its settings and widgets in Холст and gets them back
      after a reinstall; it is updated with one button.
    ========================================================= */
-const EXTV217 = '2.17.0';
+const EXTV217 = '2.18.0';
 LO_CMP.push('imp', 'meta217', 'links217', 'hl217');
 /* ---------- importance 1–10, and 11 — the exceptional case ---------- */
 const IMP217 = [['', '—']].concat(Array.from({ length: 10 }, (_, i) => [String(i + 1), String(i + 1)]), [['11', '11 — исключение']]);
@@ -30335,6 +30573,1028 @@ function ytCards217(videos) {
 }
 /* how it updates — said plainly in «Устройства» */
 { const o = extSteps216; extSteps216 = () => o().concat([`Обновления: браузеры обновляют сами только расширения из магазина (Chrome Web Store). Расширение Холста стоит из папки — поэтому обновление одной кнопкой: «Обновить расширение» здесь же записывает новую версию в ту же папку «Расширение Холста» и перезапускает его. Виджеты, выделения и настройки сохраняются — и ещё хранятся в Холсте, так что вернутся даже после переустановки.`]); }
+/* =========================================================
+   v2.18: the columns of the side panel.
+   · A column fits its panel: when what is inside needs more room and
+     scrolls sideways, the column widens just enough — the board keeps at
+     least 560 px.
+   · A width set by hand is remembered for that panel: it opens again at
+     that width. A double click on the edge returns the fitting.
+   ========================================================= */
+const CW218 = () => LS.get('colw218') || {};
+const BOARDMIN218 = 560;
+function colOver218(root) {
+  let need = 0;
+  const walk = (el, d) => { if (d > 10) return; const cw = el.clientWidth; if (cw && el.scrollWidth > cw + 2) { const ox = getComputedStyle(el).overflowX; if (ox === 'auto' || ox === 'scroll') need = Math.max(need, el.scrollWidth - cw); } for (const c of el.children) if (c.offsetParent !== null || c === root) walk(c, d + 1); };
+  walk(root, 0); return need;
+}
+function colFit218() {
+  const s = s24St(); if (!s.cols.length || innerWidth < 900) return;
+  const total = s.cols.reduce((a, c) => a + (c.col ? 34 : clamp(c.w || 420, 260, Math.max(300, innerWidth - 300))) + 8, 0);
+  let room = innerWidth - BOARDMIN218 - total, ch = 0;
+  for (const colEl of document.querySelectorAll('#side24 .s24col, #side24r .s24col')) {
+    const c = s.cols[+colEl.dataset.ci]; if (!c || c.col || c.man218 || room <= 0) continue;
+    let need = 0; colEl.querySelectorAll(':scope > .s24pane').forEach(p => { need = Math.max(need, colOver218(p)); });
+    if (need > 4) { const add = Math.min(Math.ceil(need) + 12, room); c.w = Math.round((c.w || 420) + add); c.auto218 = 1; room -= add; ch = 1; }
+  }
+  if (ch) { s24Save(s); s24Layout(); }
+}
+let CWT218 = 0, CWT218b = 0;
+{ const o = s24Layout; s24Layout = (...a) => { const r = o(...a); clearTimeout(CWT218); clearTimeout(CWT218b); CWT218 = setTimeout(colFit218, 160); CWT218b = setTimeout(colFit218, 1100); document.querySelectorAll('.s24rz').forEach(h => { h.title = 'Потяните, чтобы изменить ширину — запомнится для этой панели. Двойной щелчок — ширина по содержимому'; }); return r; }; }
+addEventListener('resize', () => { clearTimeout(CWT218); CWT218 = setTimeout(colFit218, 400); });
+/* a width by hand: remembered for the panels of the column */
+document.addEventListener('pointerdown', e => {
+  const h = e.target.closest && e.target.closest('.s24rz'); if (!h) return; const ci = +(h.closest('.s24col') || {}).dataset.ci; if (isNaN(ci)) return;
+  const up = () => { removeEventListener('pointerup', up, true); setTimeout(() => { const s = s24St(), c = s.cols[ci]; if (!c) return; c.man218 = 1; s24Save(s); const M = CW218(); for (const k of [c.top, c.bot]) if (k) M[k] = c.w; LS.set('colw218', M); }, 30); };
+  addEventListener('pointerup', up, true);
+}, true);
+document.addEventListener('dblclick', e => {
+  const h = e.target.closest && e.target.closest('.s24rz'); if (!h) return; e.stopPropagation(); const ci = +(h.closest('.s24col') || {}).dataset.ci, s = s24St(), c = s.cols[ci]; if (!c) return;
+  delete c.man218; c.w = 420; const M = CW218(); for (const k of [c.top, c.bot]) if (k) delete M[k]; LS.set('colw218', M); s24Save(s); s24Layout(); toast('Ширина колонки — по содержимому');
+}, true);
+/* a panel opens at the width it had */
+{ const o = s24Add; s24Add = async (key, mount, title) => {
+  const ok = await o(key, mount, title); if (!ok) return ok;
+  const M = CW218(), s = s24St(), c = s.cols.find(x => x.top === key || x.bot === key); if (!c) return ok;
+  if (!M[key]) { if (c.auto218 && !c.man218) { c.w = 420; delete c.auto218; s24Save(s); s24Layout(); } return ok; }
+  const w = Math.max(M[key], (c.top && c.top !== key && M[c.top]) || 0, (c.bot && c.bot !== key && M[c.bot]) || 0);
+  if (c.w !== w || !c.man218) { c.w = w; c.man218 = 1; s24Save(s); s24Layout(); }
+  return ok;
+}; }
+/* =========================================================
+   v2.18: what comes from the clipper lands as one block of its source.
+   · One standard for every set of options: on the left the card of the
+     page (cover, site, author, date) with the snapshots and «зачем это мне»;
+     on the right the texts — the selection, the text of the page, the
+     transcript, the comments, the summary.
+   · The block cannot be taken apart: its parts are fixed in place and
+     move with it. A part can be copied — the copy is a free object with a
+     link back to its source.
+   · The place: a free spot near what you look at; inside the chosen frame —
+     a free spot in it (the frame grows if needed); or «поверх доски» —
+     the block floats above the board, moves by its six dots and becomes
+     an ordinary object after «Утвердить».
+   ========================================================= */
+Object.assign(ICON, { grip6: '<circle cx="9" cy="6" r="1.4"/><circle cx="15" cy="6" r="1.4"/><circle cx="9" cy="12" r="1.4"/><circle cx="15" cy="12" r="1.4"/><circle cx="9" cy="18" r="1.4"/><circle cx="15" cy="18" r="1.4"/>', srcblk: '<rect x="3.5" y="4" width="17" height="16" rx="2.5"/><path d="M3.5 8.5h17"/><path d="M8 12.5h8M8 16h5"/>' });
+const BK218 = { L: 400, R: 560, P: 28, G: 22 };
+const isBlk218 = it => !!(it && it.type === 'frame' && it.blk218);
+const blkOf218 = it => (it && it.blkOf218 ? byId(it.blkOf218) : null);
+/* ---------- a free place ---------- */
+const rectOf218 = i => (i.type === 'frame' ? { x: i.x, y: i.y - framePad(i), w: i.w, h: i.h + framePad(i) } : bounds(i));
+const hit218 = (a, b, m) => a.x < b.x + b.w + m && a.x + a.w + m > b.x && a.y < b.y + b.h + m && a.y + a.h + m > b.y;
+function freeSpot218(w, h, o = {}) {
+  const skip = o.skip || new Set(), L = items().filter(i => i.type !== 'connector' && !i.arch217 && !skip.has(i.id)).map(rectOf218), M = o.m == null ? 48 : o.m;
+  const c = o.near || viewCenter(), st = o.step || 80, fits = (x, y) => !L.some(r => hit218({ x, y, w, h }, r, M));
+  const x0 = c.x - w / 2, y0 = c.y - h / 2; if (fits(x0, y0)) return { x: r1(x0), y: r1(y0) };
+  for (let k = 1; k < 70; k++) {
+    const cand = []; for (let i = -k; i <= k; i++) cand.push([i, -k], [i, k], [-k, i], [k, i]);
+    cand.sort((a, b) => Math.hypot(a[0], a[1] * 1.3) - Math.hypot(b[0], b[1] * 1.3));
+    for (const [i, j] of cand) { const x = x0 + i * st, y = y0 + j * st; if (fits(x, y)) return { x: r1(x), y: r1(y) }; }
+  }
+  const u = L.length ? unionB(L) : { x: 0, y: 0, w: 0, h: 0 }; return { x: r1(u.x + u.w + 200), y: r1(u.y) };
+}
+/* inside a frame: the first free place from the top left; the frame grows when nothing fits */
+function freeIn218(f, w, h, skip) {
+  const P = 28, inner = withFrameContents([f]).filter(i => i.id !== f.id && i.type !== 'connector' && !(skip && skip.has(i.id))).map(rectOf218);
+  const x1 = f.x + P, y1 = f.y + P, x2 = f.x + f.w - P - w, y2 = f.y + f.h - P - h;
+  for (let y = y1; y <= y2; y += 40) for (let x = x1; x <= x2; x += 40) if (!inner.some(r => hit218({ x, y, w, h }, r, 24))) return { x: r1(x), y: r1(y), grow: false };
+  const bottom = inner.length ? Math.max(...inner.map(r => r.y + r.h)) + 32 : y1;
+  return { x: r1(x1), y: r1(bottom), grow: true };
+}
+/* ---------- the standard layout ---------- */
+const estH218 = (text, w, fs = 15, min = 120, max = 560) => clamp(Math.round(Math.ceil(String(text || '').length / Math.max(20, (w - 48) / (fs * 0.55))) * fs * 1.5 + 96), min, max);
+const imgSize218 = src => new Promise(res => { const m = new Image(); m.onload = () => res([m.naturalWidth || 1, m.naturalHeight || 1]); m.onerror = () => res([4, 3]); m.src = src; });
+const htmlParas218 = t => String(t || '').split(/\n{2,}/).map(p => p.trim()).filter(Boolean).map(p => `<p>${esc(p).replace(/\n/g, '<br>')}</p>`).join('');
+async function blkBuild218(d, parts) {
+  const L = [], R = [], at = Date.now(), url = d.url || '', title = String(d.title || url || 'Источник').slice(0, 200);
+  const put = (arr, it, c, r) => { it.bk218 = { c, r }; arr.push(it); return it; };
+  /* left: the card of the page, the snapshots, «зачем это мне» */
+  if (url && !d.noEmbed) {
+    const sp = parseEmbed(url) || { kind: 'web', provider: 'web', url, src: url };
+    const em = { id: uid(), type: 'embed', kind: sp.kind, provider: sp.provider, url: sp.url || url, src: sp.src || '', title, sub: '', thumb: sp.thumb || '', asset: '' };
+    if (d.meta) { em.meta217 = Object.assign({}, d.meta); if (d.meta.img && !em.thumb) em.thumb = d.meta.img; if (d.meta.yt && d.meta.thumb) em.thumb = d.meta.thumb; if (d.meta.yt && d.meta.ch) em.sub = d.meta.ch; }
+    const v = d.view && VIEW_NAMES[d.view] ? d.view : 'card'; em.view = v; em.vs = v; let [w, h] = viewSize(em, v); if (w !== BK218.L) { h = Math.round(h * BK218.L / w); w = BK218.L; } em.sizes = { [v]: [w, h] }; em.w = w; em.h = h; put(L, em, 'L', 0);
+  }
+  let n = 1; for (const im of parts.imgs || []) {
+    const [nw, nh] = await imgSize218(im.src), aid = 'a' + uid(); S.board.assets[aid] = im.src;
+    put(L, { id: uid(), type: 'image', w: BK218.L, h: Math.round(BK218.L * nh / nw), asset: aid, name: im.name || 'Снимок', srcUrl: url || undefined }, 'L', n++);
+  }
+  if (parts.intent) put(L, { id: uid(), type: 'sticky', w: BK218.L, h: estH218(parts.intent, BK218.L, 16, 120, 260), color: '#fff3a0', text: 'Зачем это мне: ' + parts.intent, fs: 'auto', align: 'left', bold: false, textColor: INK }, 'L', 90);
+  /* right: the texts */
+  if (parts.quote) put(R, blkDoc218('Выделенное', `<h2>Выделенное</h2><blockquote>${parts.quoteHtml || esc(parts.quote).replace(/\n/g, '<br>')}</blockquote>`, estH218(parts.quote, BK218.R, 15, 150, 460), url), 'R', 10);
+  if (parts.page) put(R, blkDoc218('Текст страницы', `<h2>Текст страницы</h2>${htmlParas218(parts.page)}`, 640, url), 'R', 30);
+  if (parts.tr) put(R, blkDoc218('Транскрипт', parts.tr, 760, url, { fixed218: 'tr' }), 'R', 40);
+  let cards = [];
+  if (parts.cm && parts.cm.length) { const cm = cmBuild218(parts.cm, BK218.R); put(R, cm.frame, 'R', 50); cards = cm.cards; for (const c of cards) c.bk218 = { c: 'C', r: c.cm218.n, of: cm.frame.id }; }
+  const f = { id: uid(), type: 'frame', x: 0, y: 0, w: 600, h: 300, title, fill: '#ffffff', blk218: { url, at, site: d.site || '', kind: d.meta && d.meta.yt ? 'yt' : 'page', yt: d.meta && d.meta.yt ? d.meta.id : '', steps: {} }, clip216: { at, url, ok: 0 } };
+  const kids = L.concat(R).concat(cards);
+  for (const k of kids) { k.locked = true; k.blkOf218 = f.id; }
+  blkLay218(f, kids);
+  return { f, kids };
+}
+const blkDoc218 = (ttl, html, h, url, x) => { const dd = mkDoc(0, 0); Object.assign(dd, { w: BK218.R, h, title: ttl, html: docClean(html), srcUrl: url || undefined }, x || {}); dd.text = htmlToText(dd.html); return dd; };
+/* the standard: left column, right column, comments restacked; the frame wraps them */
+function blkLay218(f, kids) {
+  const P = BK218.P, G = BK218.G, rank = (a, b) => a.bk218.r - b.bk218.r;
+  const Lk = kids.filter(k => k.bk218 && k.bk218.c === 'L').sort(rank), Rk = kids.filter(k => k.bk218 && k.bk218.c === 'R').sort(rank);
+  let ly = f.y + P; for (const k of Lk) { k.x = r1(f.x + P); k.y = r1(ly); ly += k.h + G; }
+  const rx = f.x + P + (Lk.length ? BK218.L + G + 4 : 0); let ry = f.y + P;
+  for (const k of Rk) {
+    if (k.type === 'frame') ry += framePad(k) - 8;
+    k.x = r1(rx); k.y = r1(ry);
+    if (k.cm218) { const cs = kids.filter(c => c.bk218 && c.bk218.c === 'C' && c.bk218.of === k.id).sort(rank); let y = k.y + 28; for (const c of cs) { c.x = r1(k.x + 20 + c.cm218.lvl * 40); c.y = r1(y); y += c.h + (c.cm218.last ? 18 : 8); } k.h = r1(Math.max(120, y - k.y + 10)); }
+    ry += k.h + G;
+  }
+  f.w = r1((Rk.length ? rx + BK218.R : f.x + P + BK218.L) + P - f.x);
+  f.h = r1(Math.max(ly, ry, f.y + 200) - G + P - f.y);
+}
+function blkReflow218(fid) { const f = byId(fid); if (!f) return; blkLay218(f, items().filter(i => i.blkOf218 === fid)); }
+/* a part that comes later (the transcript, a summary from the network) joins its block */
+function blkAdd218(fid, it, c, r) {
+  const f = byId(fid); if (!f) return null;
+  it.bk218 = { c, r }; it.locked = true; it.blkOf218 = fid; it.x = f.x; it.y = f.y + f.h;
+  pushHist(); S.board.items.push(it); blkReflow218(fid); changed(); render(); return it;
+}
+/* ---------- placing ---------- */
+async function blkPlace218(d, parts) {
+  const { f, kids } = await blkBuild218(d, parts);
+  const tf = d.frame && byId(d.frame), over = d.place === 'over';
+  let pos; const g0 = tf && !over ? { h: tf.h, w: tf.w } : null;
+  if (tf && !over) {
+    const fp = freeIn218(tf, f.w, f.h + framePad(f)); pos = { x: fp.x, y: fp.y + framePad(f) };
+    if (fp.grow) { const need = pos.y + f.h + 40 - (tf.y + tf.h); if (need > 0) tf.h = r1(tf.h + need); const needW = pos.x + f.w + 28 - (tf.x + tf.w); if (needW > 0) tf.w = r1(tf.w + needW); }
+  } else if (tf && over) { pos = freeSpot218(f.w, f.h + framePad(f), { near: { x: tf.x + tf.w + f.w / 2 + 60, y: tf.y + f.h / 2 }, m: 30 }); pos.y += framePad(f); }
+  else { pos = freeSpot218(f.w, f.h + framePad(f)); pos.y += framePad(f); }
+  f.x = r1(pos.x); f.y = r1(pos.y);
+  for (const k of kids) { k.x = r1(k.x + f.x); k.y = r1(k.y + f.y); }
+  if (over) f.stage218 = 1;
+  pushHist(); S.board.items.push(f, ...kids);
+  S.sel = new Set([f.id]); changed(); render();
+  setTimeout(() => { blkFlow218(f.id); if (g0 && tf.h > g0.h) { tf.h = r1(Math.max(g0.h, f.y + f.h + 40 - tf.y)); tf.w = r1(Math.max(g0.w, f.x + f.w + 28 - tf.x)); changed(); render(); } }, 80);
+  return f;
+}
+/* the texts that set their own height (comment cards) — the block follows them */
+function blkFlow218(fid) { blkReflow218(fid); changed(); render(); }
+/* ---------- the block holds together ---------- */
+{ const o = cloneItems; cloneItems = (src, dx, dy) => {
+  const out = o(src, dx, dy), bl = new Map();
+  src.forEach((s, i) => { const c = out[i]; if (!c) return; const b = s.blkOf218 ? byId(s.blkOf218) : isBlk218(s) ? s : null; if (!b) return;
+    delete c.locked; delete c.blkOf218; delete c.stage218; if (c.blk218) delete c.blk218; delete c.fixed218;
+    c.srcRef218 = { b: b.id, t: b.title || 'Источник', u: (b.blk218 || {}).url || '', i: s.id }; bl.set(c.id, b); });
+  return out;
+}; }
+function blkOut218(copies) {
+  /* copies of parts do not stay inside their block: they move to a free place next to it */
+  const ids = new Set(copies.map(c => c.id)), frames = items().filter(i => isBlk218(i) && !ids.has(i.id));
+  const bb = unionB(copies.filter(c => c.type !== 'connector').map(rectOf218)); if (!bb) return;
+  if (!frames.some(f => hit218(bb, rectOf218(f), 0))) return;
+  const ref = copies.find(c => c.srcRef218), blk = ref && byId(ref.srcRef218.b);
+  const near = blk ? { x: blk.x + blk.w + bb.w / 2 + 80, y: blk.y + bb.h / 2 } : viewCenter();
+  const p = freeSpot218(bb.w, bb.h, { near, skip: ids, m: 40 }), dx = p.x - bb.x, dy = p.y - bb.y;
+  for (const c of copies) { if (c.type === 'connector') { for (const k of ['from', 'to']) if (!c[k].id) { c[k].x += dx; c[k].y += dy; } } else { c.x = r1(c.x + dx); c.y = r1(c.y + dy); } }
+}
+{ const o = duplicateSel; duplicateSel = (...a) => { const before = new Set(items().map(i => i.id)); const r = o(...a); const copies = items().filter(i => !before.has(i.id)); if (copies.some(c => c.srcRef218)) { blkOut218(copies); changed(); render(); toast('Копия — свободный объект со ссылкой на источник'); } return r; }; }
+{ const o = pastePayload; pastePayload = p => { const before = new Set(items().map(i => i.id)); const r = o(p); const copies = items().filter(i => !before.has(i.id)); if (copies.some(c => c.srcRef218)) { blkOut218(copies); changed(); render(); } return r; }; }
+/* deleting a block deletes it whole; its parts alone are not deleted */
+{ const o = deleteSel; deleteSel = (...a) => {
+  const sel = selItems(), blks = sel.filter(isBlk218);
+  if (blks.length) { for (const b of blks) for (const k of items().filter(i => i.blkOf218 === b.id)) { delete k.locked; S.sel.add(k.id); } }
+  else if (sel.length && sel.every(i => i.blkOf218)) { toast('Это часть блока источника: удалите блок целиком — или скопируйте часть (Ctrl+D) и меняйте копию'); return; }
+  return o(...a);
+}; }
+{ const o = toggleLock; toggleLock = (...a) => { if (selItems().some(i => i.blkOf218)) { toast('Части блока источника закреплены всегда: скопируйте часть (Ctrl+D), чтобы её менять'); return; } return o(...a); }; }
+{ const o = startEdit; startEdit = (id, ...a) => { const it = byId(id); if (it && it.blkOf218) { if (typeof focusOpen218 === 'function') focusOpen218(id); else toast('Часть блока источника: скопируйте её (Ctrl+D), чтобы менять'); return; } return o(id, ...a); }; }
+{ const o = docOpen; docOpen = (id, ...a) => { const it = byId(id); if (it && it.blkOf218) { if (typeof focusOpen218 === 'function') focusOpen218(id); return; } return o(id, ...a); }; }
+/* ---------- «поверх доски»: floats above, moves by its six dots, «Утвердить» ---------- */
+{ const o = render; render = (...a) => {
+  const r = o(...a); if (!S.board) return r;
+  const stg = items().filter(i => i.stage218 && isBlk218(i)), on = new Set(stg.map(f => f.id));
+  for (const it of items()) { const el = els.get(it.id); if (!el) continue; const s = !!(on.has(it.id) || (it.blkOf218 && on.has(it.blkOf218))); el.classList.toggle('stage218', s); el.classList.toggle('blk218', isBlk218(it)); el.classList.toggle('blkp218', !!it.blkOf218); el.classList.toggle('srcref218', !!it.srcRef218); if (el._fhead) el._fhead.classList.toggle('stage218', s); }
+  let box = $('#stg218'); if (!stg.length) { if (box) box.remove(); return r; }
+  if (!box) { box = document.createElement('div'); box.id = 'stg218'; box.dataset.app = ''; world.appendChild(box); } else if (box !== world.lastElementChild) world.appendChild(box);
+  const sig = stg.map(f => f.id + ':' + Math.round(f.x) + ',' + Math.round(f.y) + ',' + Math.round(f.w)).join('|'); if (box._sig !== sig) { box._sig = sig;
+    box.innerHTML = stg.map(f => `<div class="stg218b" data-stg="${f.id}" style="left:${f.x}px;top:${f.y - framePad(f) - 8}px"><button class="stg218h" data-stgm="${f.id}" title="Поверх доски: перетащите за точки, куда положить">${icn('grip6')}</button><span>Поверх доски — перетащите за точки</span><span class="p24sp"></span><button class="btn sm" data-stga="ok:${f.id}" title="Положить на доску как обычный объект">${icn('check')}<span>Утвердить</span></button><button class="ib sm" data-stga="no:${f.id}" title="Убрать">${ic('close')}</button></div>`).join(''); }
+  return r;
+}; }
+document.addEventListener('pointerdown', e => {
+  if (e.target.closest && e.target.closest('.stg218b') && !e.target.closest('[data-stgm]')) { e.stopPropagation(); return; }
+  const h = e.target.closest && e.target.closest('[data-stgm]'); if (!h) return; e.stopPropagation(); e.preventDefault();
+  const f = byId(h.dataset.stgm); if (!f) return; const L = withFrameContents([f]); let px0 = e.clientX, py0 = e.clientY; pushHist();
+  const mv = ev => { const z = V().z, dx = (ev.clientX - px0) / z, dy = (ev.clientY - py0) / z; px0 = ev.clientX; py0 = ev.clientY; for (const it of L) { if (it.type === 'connector') continue; it.x = r1(it.x + dx); it.y = r1(it.y + dy); } requestRender(); };
+  const up = () => { removeEventListener('pointermove', mv, true); removeEventListener('pointerup', up, true); changed(); render(); };
+  addEventListener('pointermove', mv, true); addEventListener('pointerup', up, true);
+}, true);
+document.addEventListener('click', e => {
+  const b = e.target.closest && e.target.closest('[data-stga]'); if (!b) return; e.stopPropagation(); e.preventDefault();
+  const [a, id] = b.dataset.stga.split(':'), f = byId(id); if (!f) return;
+  if (a === 'ok') { pushHist(); delete f.stage218; changed(); render(); toast('Блок лёг на доску'); }
+  else { S.sel = new Set([f.id]); deleteSel(); render(); }
+}, true);
+/* ---------- the panel of a part or a copy: back to the source ---------- */
+{ const o = ctx24Extra; ctx24Extra = (sel, single) => { const g = o(sel, single); if (single && (single.srcRef218 || single.blkOf218)) g.push(cbtn('src218', icn('srcblk'), single.srcRef218 ? 'К первоисточнику: блок «' + single.srcRef218.t + '»' : 'Весь блок источника')); return g; }; }
+{ const o = ctx24Act; ctx24Act = (b, sel) => { if ((b.dataset.act || '') === 'src218') { const it = sel[0], bid = it.srcRef218 ? it.srcRef218.b : it.blkOf218, f = byId(bid); if (f) { S.sel = new Set([f.id]); fitAll([f]); render(); } else toast('Блок источника не на этой доске'); return true; } return o(b, sel); }; }
+/* =========================================================
+   v2.18: YouTube in the block of its source.
+   · The transcript: not phrases with timecodes, but whole paragraphs,
+     headings from the chapters of the video (or every few minutes);
+     the heading keeps its time as a link to that moment.
+   · Comments: every comment its own card by one template — the name,
+     the date, likes, the text; replies under it, shifted right.
+   · Both are fixed: they are a record of the source, not a draft.
+   ========================================================= */
+const ytSec218 = s => { s = Math.floor(s || 0); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60; return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + String(x).padStart(2, '0'); };
+/* segments → paragraphs: sentences when there is punctuation, pauses and length when there is not */
+function trParas218(segs) {
+  const out = []; let cur = [], len = 0, sent = 0;
+  const flush = () => { const t = cur.join(' ').replace(/\s+/g, ' ').replace(/\s([,.!?…:;])/g, '$1').trim(); if (t) out.push(t); cur = []; len = 0; sent = 0; };
+  const punct = segs.filter(s => /[.!?…]\s*$/.test(s.t.trim())).length > segs.length * 0.15;
+  for (let i = 0; i < segs.length; i++) {
+    const s = segs[i], t = String(s.t || '').replace(/\[[^\]]{1,20}\]/g, '').trim(); if (!t) continue;
+    const gap = i ? s.s - (segs[i - 1].s + 0) : 0; cur.push(t); len += t.length;
+    if (punct) { sent += (t.match(/[.!?…](\s|$)/g) || []).length; if ((sent >= 4 && len > 380) || len > 900 || (gap > 4 && sent >= 2)) flush(); }
+    else if (len > 560 || (gap > 3.5 && len > 220)) flush();
+  }
+  flush();
+  return out.map(p => { let q = (p.charAt(0).toUpperCase() + p.slice(1)).replace(/([.!?…]\s+)([a-zа-яё])/g, (m, x, y) => x + y.toUpperCase()); if (!/[.!?…»"]$/.test(q)) q += '.'; return q; });
+}
+function trHtml218(segs, chapters, vid, title) {
+  segs = (segs || []).filter(s => s && s.t); if (!segs.length) return '';
+  const end = segs[segs.length - 1].s + 10;
+  let parts = (chapters || []).filter(c => c && c.t).map((c, i, a) => ({ s: +c.s || 0, e: i + 1 < a.length ? +a[i + 1].s : end, t: c.t }));
+  if (!parts.length) { const step = end > 3600 ? 600 : 360; for (let s = 0, n = 1; s < end; s += step, n++) parts.push({ s, e: Math.min(end, s + step), t: 'Часть ' + n }); }
+  const link = s => vid ? `<a href="https://www.youtube.com/watch?v=${esc(vid)}&t=${Math.floor(s)}s">${ytSec218(s)}</a>` : ytSec218(s);
+  let h = `<h1>${esc(title || 'Транскрипт')}</h1>`;
+  for (const p of parts) {
+    const ss = segs.filter(x => x.s >= p.s && x.s < p.e); if (!ss.length) continue;
+    h += `<h2>${esc(p.t)} <small>· ${link(p.s)}</small></h2>` + trParas218(ss).map(t => `<p>${esc(t)}</p>`).join('');
+  }
+  return h;
+}
+/* ---------- comments: one card per comment, replies under it ---------- */
+function cmBuild218(list, W) {
+  const cards = [], frame = { id: uid(), type: 'frame', x: 0, y: 0, w: W, h: 100, title: 'Комментарии · ' + list.length, fill: '#f6f7fa', cm218: 1 };
+  let n = 0, y = 28;
+  const card = (c, lvl, last) => {
+    const w = W - 40 - lvl * 40, meta = [c.t, c.likes ? '♥ ' + c.likes : '', c.owner ? 'автор канала' : ''].filter(Boolean).join(' · ');
+    const txt = String(c.text || '').slice(0, 3000), h = Math.max(84, Math.ceil(txt.length / Math.max(30, (w - 32) / 7.6)) * 21 + 66);
+    const it = { id: uid(), type: 'card', x: 20 + lvl * 40, y, w, h, text: c.a || 'Автор', desc: txt, deschtml: `<p class="cm218m">${esc(meta)}</p><p>${esc(txt).replace(/\n/g, '<br>')}</p>`, tags: [], due: '', who: '', color: c.owner ? '#e5484d' : lvl ? '#c9cdd6' : '#8a90a0', fs: 14, align: 'left', bold: true, textColor: INK, cm218: { a: c.a || '', t: c.t || '', likes: c.likes || '', lvl, n: n++, last: !!last }, fixed218: 'cm' };
+    cards.push(it); y += h + (last ? 18 : 8);
+  };
+  list.forEach(c => { const reps = (c.replies || []).slice(0, 12); card(c, 0, !reps.length); reps.forEach((r, i) => card(r, 1, i === reps.length - 1)); });
+  frame.h = Math.max(120, y + 10);
+  return { frame, cards };
+}
+/* =========================================================
+   v2.18: the clipper — one block per source on the board.
+   The extension sends the parts apart: the selection, the text of the page,
+   the description, the snapshot (screen, page, area or the frame of a video),
+   the transcript, the comments. Холст lays them out by the standard and
+   then lets the network work right on the board.
+   ========================================================= */
+async function clip218(d) {
+  await loLoad();
+  const W = d.where || { lo: 1 }, A = d.ai || {}, Pp = d.parts || {}, out = { ok: true, ids: [], board: [], kb: '' };
+  const lo = W.lo || W.kb ? await clip217(Object.assign({}, d, { v217: 1, where: { lo: W.lo, kb: W.kb, board: 0 }, text: [Pp.sel, Pp.desc, Pp.page].filter(Boolean).join('\n\n'), ai: Object.assign({}, A, { sum: 0, on: A.on && (A.tag || A.form || A.rank || A.tasks || A.kb) ? 1 : 0 }) })) : null;
+  if (lo) Object.assign(out, { ids: lo.ids || [], kb: lo.kb || '' });
+  if (out.ids[0] && (d.st216 || d.act216)) { const r = loGet(out.ids[0]); if (r) loSet(r.id, { p216: Object.assign({}, r.p216 || {}, d.st216 ? { st216: d.st216 } : {}, d.act216 ? { act216: d.act216 } : {}) }, true); }
+  let fid = '';
+  if (W.board) {
+    if (d.board && (!S.board || S.board.id !== d.board)) { await openBoard(d.board); await new Promise(ok => setTimeout(ok, 300)); }
+    if (!S.board) return Object.assign(out, { ok: false, err: 'доска не открыта' });
+    const imgs = []; if (d.image) imgs.push({ src: d.image, name: ({ vis: 'Снимок экрана', full: 'Вся страница', area: 'Снимок области', frame: 'Кадр видео' })[d.shot] || 'Снимок' + (Pp.frameAt != null ? ' · ' + ytSec218(Pp.frameAt) : '') });
+    const parts = { imgs, quote: Pp.sel || '', quoteHtml: Pp.selHtml ? docClean(Pp.selHtml) : '', page: Pp.page || '', intent: String(d.intent || '').trim(), cm: Pp.cm || null };
+    if (Pp.trSegs && Pp.trSegs.length) parts.tr = trHtml218(Pp.trSegs, (d.meta && d.meta.chapters) || Pp.chapters || [], d.meta && d.meta.id, 'Транскрипт: ' + (d.title || ''));
+    const f = await blkPlace218(d, parts); fid = f.id; out.board = [f.id]; out.blk = f.id;
+    if (out.ids[0]) { const r = loGet(out.ids[0]); if (r) loSet(r.id, { links217: (r.links217 || []).concat({ t: 'b', id: S.board.id, n: S.board.name, it: f.id }) }, true); }
+    /* the transcript the extension could not get — Холст asks YouTube itself */
+    if (Pp.tr && !parts.tr && d.meta && d.meta.yt) ytTrLater218(f.id, d).catch(e => toast('Транскрипт: ' + ((e && e.message) || e)));
+  }
+  /* the network: the summary in the chosen form, marks right on the text */
+  if (A.on) aiAfter218(Object.assign({}, out, { fid }), d, A).catch(e => toast('Нейросеть: ' + ((e && e.message) || e)));
+  clipBar216();
+  return out;
+}
+async function ytTrLater218(fid, d) {
+  const r = await ytTranscript214(d.meta.id); if (!r.segs || !r.segs.length) { toast('У этого видео нет субтитров — транскрипта не будет'); return; }
+  const html = trHtml218(r.segs, d.meta.chapters || [], d.meta.id, 'Транскрипт: ' + (d.title || r.info.title || ''));
+  blkAdd218(fid, blkDoc218('Транскрипт', html, 760, d.url, { fixed218: 'tr' }), 'R', 40);
+  toast('Транскрипт — в блоке источника');
+}
+/* the texts of a block that the network reads */
+function blkText218(fid, max = 60000) {
+  return items().filter(i => i.blkOf218 === fid && (i.type === 'doc' || i.type === 'sticky' || i.type === 'card')).sort((a, b) => (a.bk218 ? a.bk218.r : 99) - (b.bk218 ? b.bk218.r : 99)).map(i => (i.type === 'card' ? `${i.text}: ${i.desc}` : i.type === 'doc' ? `## ${i.title}\n${i.text || htmlToText(i.html || '')}` : i.text)).join('\n\n').slice(0, max);
+}
+async function aiAfter218(out, d, A) {
+  const pick = pickOf217(A.pick || ''); if (A.pick === '__main' && !pick) { toast('Личная платная нейросеть не подключена: Меню → «Нейросети»'); return; }
+  const fid = out.fid, text = fid ? blkText218(fid) : [d.parts && d.parts.sel, d.parts && d.parts.page, d.desc].filter(Boolean).join('\n\n');
+  if (A.sum && text) {
+    const s = await aiSum218(text, A.sumForm || 'tldr', pick, { title: d.title, intent: d.intent, url: d.url });
+    if (fid) { blkAdd218(fid, blkDoc218(s.title, s.html, 480, d.url, { ai213: { r: 'clip218', k: 'new', at: Date.now() }, sum218: A.sumForm || 'tldr' }), 'R', 20); blkStep218(fid, 'sum'); }
+    if (out.ids && out.ids[0]) { const n = loNew('note', { title: s.title + ': ' + String(d.title || '').slice(0, 100), notes: htmlToText(s.html) + '\n\n' + (d.url || ''), tags: ['конспект', 'из клиппера'], src: { url: d.url || '', clip: 1, site: d.site || '' }, clip216: { at: Date.now(), url: d.url || '', ok: 0 }, p216: { rel: [out.ids[0]] } }); out.note = n.id; }
+  }
+  const target = fid && (items().find(i => i.blkOf218 === fid && i.fixed218 === 'tr') || items().find(i => i.blkOf218 === fid && i.type === 'doc' && i.title === 'Текст страницы') || items().find(i => i.blkOf218 === fid && i.type === 'doc'));
+  if (target) {
+    if (A.ann) { await annRun218(target.id, 'mark', pick); blkStep218(fid, 'ann'); }
+    if (A.src) { await annRun218(target.id, 'src', pick); blkStep218(fid, 'src'); }
+    if (A.fact) { await annRun218(target.id, 'fact:' + (A.factMode || 'sci'), pick); blkStep218(fid, 'fact'); }
+  }
+}
+/* the standard steps of working with a source: what has been done */
+function blkStep218(fid, k) { const f = byId(fid); if (!f || !f.blk218) return; f.blk218 = Object.assign({}, f.blk218, { steps: Object.assign({}, f.blk218.steps || {}, { [k]: Date.now() }) }); changed(); render(); }
+/* the extension asks */
+{ const o = extHandle; extHandle = async (op, d) => {
+  if (op === 'clip' && d && d.v218) return clip218(d);
+  /* older senders (quick save, the right click, the queue of 2.17) — on the board the same block of a source */
+  if (op === 'clip' && d && d.where && d.where.board) return clip218(Object.assign({}, d, { v218: 1, parts: d.html ? { sel: d.text || '', selHtml: d.html } : { page: d.text || '' } }));
+  if (op === 'ping') { const r = await o(op, d); return Object.assign(r, { v218: 1, forms: SUMF218.map(([k, l, t]) => ({ k, l, t })), facts: FACTM218.map(([k, l, t]) => ({ k, l, t })) }); }
+  if (op === 'yt-many' && d) return ytMany218(d);
+  return o(op, d);
+}; }
+/* many videos from a list page of YouTube: in the task manager as before, on the board — cards in a grid */
+/* the cards of many videos: a free place, not over what is there */
+{ const o = ytCards217; ytCards217 = videos => { const n = o(videos); if (!n) return n; const made = items().filter(i => S.sel.has(i.id)), ids = new Set(made.map(i => i.id)), bb = unionB(made.map(bounds)); const p = freeSpot218(bb.w, bb.h, { skip: ids }), dx = p.x - bb.x, dy = p.y - bb.y; for (const i of made) { i.x = r1(i.x + dx); i.y = r1(i.y + dy); } changed(); render(); return n; }; }
+async function ytMany218(d) {
+  const W = d.where || {}, r = { ok: true, task: 0, kb: 0, board: 0 };
+  if (W.lo || W.kb) { const x = await ytAdd216({ videos: d.videos, task: !!W.lo, kb: !!W.kb, intent: d.intent || '', pick: (d.ai || {}).pick || '', tag: !!(d.ai && d.ai.tag), w: d.imp ? Math.round(+d.imp / 11 * 100) : '', st: d.st216 || '', act: d.act216 || '' }); r.task = x.task; r.kb = x.kb; }
+  if (W.board && S.board) r.board = ytCards217(d.videos || []);
+  return r;
+}
+/* doubles: the parts of a block are reported once — as the block of the source */
+{ const o = dupOf216; dupOf216 = url => {
+  const out = [], seen = new Set();
+  for (let x of o(url)) {
+    if (x.b) { const b = S.board && S.board.id === x.b ? S.board : (S.sCache || {})[x.b], it = b && (b.items || []).find(i => i.id === x.i), f = it && it.blkOf218 && b.items.find(i => i.id === it.blkOf218);
+      if (f) x = { where: x.where, t: 'Блок источника «' + (f.title || 'Источник') + '»', b: x.b, i: f.id };
+      if (seen.has(x.b + ':' + x.i)) continue; seen.add(x.b + ':' + x.i); }
+    out.push(x);
+  }
+  return out;
+}; }
+/* =========================================================
+   v2.18: the network works right on the board — like comments and
+   suggestions in Google Docs: the text is underlined, a note stands on
+   the margin, you accept or dismiss it. One engine for:
+   · «Разметить» — key ideas, questions, actions, notes;
+   · «Сверить с источниками» — where the text contradicts your sources,
+     where they support it, what they add;
+   · «Фактчекинг» in modes — the scientific consensus, the professional
+     community, freshness, logic, numbers;
+   · the summary in forms for what usually comes next.
+   And «Что дальше» — the standard steps of working with information.
+   ========================================================= */
+Object.assign(ICON, { mark: '<path d="M4 20h7"/><path d="M14.5 4.5l5 5L10 19H5v-5z"/>', factc: '<path d="M12 3.5l7 3v5c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9v-5z"/><path d="M9 12l2 2 4-4.5"/>', next: '<path d="M4 12h12"/><path d="M12 6l6 6-6 6"/><path d="M20 5v14"/>' });
+const SUMF218 = [
+  ['tldr', 'Резюме', 'Суть в 5–7 предложениях — понять, стоит ли углубляться'],
+  ['thesis', 'Тезисы', 'Главные утверждения списком — для заметок и обсуждения'],
+  ['chapters', 'По разделам', 'Коротко о каждом разделе или главе — для навигации'],
+  ['ideas', 'Идеи и цитаты', 'Ключевые мысли с дословными цитатами — для источников и текстов'],
+  ['actions', 'План действий', 'Что сделать, с учётом «зачем это мне» — сразу в задачи'],
+  ['questions', 'Вопросы', 'Вопросы для размышления и к автору — для глубины'],
+  ['gloss', 'Глоссарий', 'Термины и определения — для изучения новой темы'],
+  ['lesson', 'Для урока', 'План занятия: цель, шаги, упражнения — для преподавания'],
+  ['cards', 'Карточки', 'Вопрос — ответ, для повторения в режиме фокуса'],
+  ['critique', 'Критический разбор', 'Сильные и слабые места, допущения, чего не хватает']
+];
+const SUMP218 = {
+  tldr: 'Сделай резюме: 5–7 предложений сути, без воды. Последней строкой — кому и зачем это полезно.',
+  thesis: 'Выдели 5–12 главных тезисов — нумерованный список, каждый — одно утверждение.',
+  chapters: 'Сделай конспект по разделам: для каждого раздела — заголовок ## и 2–4 пункта главного.',
+  ideas: 'Выдели 5–10 ключевых идей: каждая — жирная строка-идея и под ней дословная цитата из текста в кавычках-ёлочках.',
+  actions: 'Составь план действий: чек-лист из 3–10 конкретных шагов (- [ ] шаг), учитывая, зачем это человеку. Сначала самое полезное.',
+  questions: 'Составь 6–12 вопросов: для размышления, для обсуждения, к автору — что осталось неясным. Списком, по группам ##.',
+  gloss: 'Составь глоссарий: термины из текста и короткие определения простыми словами, как в тексте. Формат: **термин** — определение.',
+  lesson: 'Составь план урока по материалу: ## Цель, ## Ход занятия (шаги с минутами), ## Упражнения, ## Домашнее задание. Учитывай, что человек — преподаватель.',
+  cards: 'Составь 8–16 карточек для повторения: каждая — строка «В: вопрос» и строка «О: ответ». Вопросы — по сути, не по мелочам.',
+  critique: 'Сделай критический разбор: ## Сильные стороны, ## Слабые места и допущения, ## Чего не хватает, ## Вывод. Честно и по делу.'
+};
+const FACTM218 = [
+  ['sci', 'Научный консенсус', 'Что говорит современная наука: метаанализы и систематические обзоры выше отдельных исследований'],
+  ['prof', 'Позиция профсообщества', 'Клинические рекомендации, позиции профессиональных ассоциаций и признанных школ'],
+  ['fresh', 'Актуальность', 'Не устарели ли данные, цифры и утверждения'],
+  ['logic', 'Логика и манипуляции', 'Логические ошибки, обобщения, подмена понятий, давление на эмоции'],
+  ['num', 'Цифры и статистика', 'Правдоподобны ли числа, есть ли у них источник, корректны ли выводы из них']
+];
+const ANNK218 = {
+  idea: ['Ключевая мысль', 'bulb', '#d9a300'], q: ['Вопрос', 'help', '#2e6fd8'], task: ['Действие', 'check', '#2fa36b'], note: ['Комментарий', 'bubble', '#7c3aed'], sugg: ['Предложение', 'edit', '#7c3aed'],
+  contra: ['Противоречит источникам', 'info', '#e5484d'], support: ['Подтверждают источники', 'check', '#2fa36b'], add: ['Источники добавляют', 'plus', '#2e6fd8'],
+  fact: ['Проверка факта', 'factc', '#7c3aed']
+};
+const FACTV218 = { ok: ['подтверждается', '#2fa36b'], mixed: ['спорно', '#d9a300'], no: ['не подтверждается', '#e5484d'], na: ['нет данных', '#8a90a0'] };
+/* ---------- the summary in a form ---------- */
+async function aiSum218(text, form, pick, ctx = {}) {
+  const F = SUMF218.find(x => x[0] === form) || SUMF218[0];
+  const sys = 'Ты помогаешь человеку работать с материалом: делаешь то, что он сделал бы сам, только быстрее. Пиши по-русски, ясно, без воды, Markdown. ' + SUMP218[F[0]] + ' Опирайся только на текст материала; чего в нём нет — не выдумывай.';
+  const r = await aiRun216(pick, sys, `Материал: ${ctx.title || ''}${ctx.intent ? '\nЗачем это человеку: ' + ctx.intent : ''}\n\n${String(text).slice(0, 60000)}`, { maxTokens: 2200 });
+  const md = String(r.text || '').trim(); if (!md) throw { message: 'нейросеть ничего не ответила' };
+  const body = F[0] === 'cards' ? md.split(/\n(?=В:)/).map(c => { const m = c.match(/В:\s*([\s\S]*?)\n\s*О:\s*([\s\S]*)/); return m ? `<div class="crd218"><p><b>${esc(m[1].trim())}</b></p><p>${esc(m[2].trim())}</p></div>` : ''; }).join('') : mdToHtml(md);
+  return { title: 'Конспект — ' + F[1], html: `<h1>Конспект — ${esc(F[1])}</h1>` + body + `<p class="ai218by">${esc(r.by || '')}</p>`, by: r.by };
+}
+/* ---------- marks on a text: the network finds the places and says what about them ---------- */
+const normW218 = s => String(s || '').replace(/\s+/g, ' ').trim();
+function annFind218(text, q) { const T = normW218(text), Q = normW218(q); if (!Q) return -1; let i = T.indexOf(Q); if (i < 0 && Q.length > 40) i = T.indexOf(Q.slice(0, 40)); if (i < 0) i = T.toLowerCase().indexOf(Q.toLowerCase().slice(0, 30)); return i; }
+async function annRun218(id, mode, pick) {
+  const it = byId(id); if (!it) return 0;
+  const text = it.type === 'doc' ? it.text || htmlToText(it.html || '') : it.type === 'card' ? `${it.text}\n${it.desc}` : String(it.text || '');
+  if (!text.trim()) { toast('В объекте нет текста'); return 0; }
+  const done = toastBusy(mode === 'src' ? 'Сверяю с вашими источниками…' : /^fact/.test(mode) ? 'Проверяю факты…' : 'Нейросеть размечает текст…');
+  try {
+    let sys = '', user = '', refs = [];
+    const base = 'Ответ — только JSON {"a":[{"q":"ДОСЛОВНАЯ цитата из текста, 5–25 слов, без изменений","k":"вид","t":"коротко: что здесь и почему"}]}. Цитата должна точно встречаться в тексте. Не больше 14 пометок, самые важные.';
+    if (mode === 'mark') { const own = !it.blkOf218 && !it.fixed218; sys = 'Ты размечаешь текст для человека, как редактор в Google Docs. Виды: idea — ключевая мысль; q — вопрос, который стоит задать; task — что из этого стоит сделать (t — формулировка задачи); note — важное замечание' + (own ? '; sugg — предложение правки: в "t" — зачем, в "r" — как переписать эту цитату' : '') + '. ' + base; user = text.slice(0, 40000); }
+    else if (mode === 'src') {
+      await kbLoad214(); const paras = text.split(/\n{2,}/).filter(p => p.trim().length > 60).slice(0, 40), seen = new Map();
+      for (const p of paras) for (const h of await kbSearch214(p.slice(0, 600), { n: 2 })) { const k = h.x.id + ':' + (h.c.i || 0); if (!seen.has(k) && seen.size < 24) seen.set(k, h); }
+      refs = [...seen.values()]; if (!refs.length) { toast('В ваших источниках об этом ничего нет'); return 0; }
+      sys = 'Ты сверяешь текст с личной базой источников человека. Виды: contra — текст противоречит фрагментам; support — фрагменты подтверждают; add — фрагменты добавляют важное, чего нет в тексте. У каждой пометки "r":[номера фрагментов]. Учитывай вес источника. ' + base.replace('"t":', '"r":[1],"t":');
+      user = `Текст:\n${text.slice(0, 30000)}\n\nФрагменты источников:\n${refs.map((h, i) => `[${i + 1}] ${h.x.title}${h.x.author ? ', ' + h.x.author : ''} · вес ${h.x.w}: «${h.c.t.slice(0, 700)}»`).join('\n')}`;
+    } else if (/^fact/.test(mode)) {
+      const M = FACTM218.find(x => 'fact:' + x[0] === mode) || FACTM218[0];
+      sys = `Ты проверяешь утверждения текста. Режим: ${M[1]} — ${M[2]}. Для каждого проверяемого утверждения: "v": ok — подтверждается, mixed — спорно или зависит от условий, no — не подтверждается, na — нет данных. В "t" — почему, на что опираешься и насколько уверен. Ты работаешь по своим знаниям, без поиска в интернете, — так и пиши, где не уверен. ` + base.replace('"k":"вид",', '"k":"fact","v":"ok",');
+      user = text.slice(0, 40000);
+    }
+    const r = await aiRun216(pick, sys, user, { json: 1, maxTokens: 2600 }), j = jsonOf214(r.text), list = (j.a || j.items || []).slice(0, 20), now = Date.now(), out = [];
+    for (const a of list) {
+      if (!a || !a.q || annFind218(text, a.q) < 0) continue;
+      const k = /^fact/.test(mode) ? 'fact' : ANNK218[a.k] ? a.k : 'note';
+      const x = { id: 'n' + uid().slice(0, 8), q: String(a.q).slice(0, 400), k, t: String(a.t || '').slice(0, 600), st: 'new', at: now, by: r.by || '', m: mode };
+      if (k === 'fact') x.v = FACTV218[a.v] ? a.v : 'na';
+      if (Array.isArray(a.r)) x.refs = a.r.map(n => refs[+n - 1]).filter(Boolean).map(h => ({ sid: h.x.id, t: h.x.title, u: kbLink214(h.x, h.c) })).slice(0, 4);
+      if (k === 'sugg' && typeof a.r === 'string') x.r = a.r.slice(0, 400);
+      out.push(x);
+    }
+    if (!out.length) { toast('Нейросеть не нашла, что отметить'); return 0; }
+    it.ann218 = (it.ann218 || []).filter(a => a.m !== mode || a.st === 'ok').concat(out); changed(); render();
+    toast(`${out.length} ${plural(out.length, 'пометка', 'пометки', 'пометок')} на полях — принимайте или убирайте · ${r.by || ''}`);
+    return out.length;
+  } finally { done(); }
+}
+/* ---------- drawing: underlines in the text, notes on the margin ---------- */
+function annWrap218(root, q, id, cls) {
+  const Q = normW218(q).slice(0, 160); if (Q.length < 3) return null;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), nodes = [], starts = []; let all = '';
+  for (let n = w.nextNode(); n; n = w.nextNode()) { if (n.parentElement && n.parentElement.closest(`mark[data-ann="${id}"]`)) continue; starts.push(all.length); nodes.push(n); all += n.nodeValue.replace(/\s+/g, ' '); }
+  let at = all.indexOf(Q); if (at < 0 && Q.length > 40) at = all.indexOf(Q.slice(0, 40)); if (at < 0) return null;
+  const end = at + Math.min(Q.length, all.length - at), pos = p => { let i = starts.length - 1; while (i > 0 && starts[i] > p) i--; return [nodes[i], Math.min(nodes[i].nodeValue.length, p - starts[i])]; };
+  const [sn, so] = pos(at), [en, eo] = pos(end);
+  try { const r = document.createRange(); r.setStart(sn, so); r.setEnd(en, eo); const m = document.createElement('mark'); m.className = cls; m.dataset.ann = id; m.appendChild(r.extractContents()); r.insertNode(m); return m; } catch (e) { return null; }
+}
+{ const o = docRender; docRender = (el, it) => {
+  o(el, it); const t = el.querySelector('.dtxt'); if (!t) return;
+  const A = (it.ann218 || []).filter(a => a.st !== 'no'), H = it.hl218 || [], sig = A.map(a => a.id + a.st).join('|') + '#' + H.map(h => h.id + (h.note ? 'n' : '')).join('.') + '|' + t._dsig;
+  if (t._annSig === sig) return;
+  if (t.querySelector('mark.ann218, mark.hl218')) { t._dsig = ''; o(el, it); }
+  t._annSig = sig; annMarks218(t, it);
+}; }
+/* the marks of an object over its text: the highlights of the reader and the notes of the network */
+function annMarks218(root, it) {
+  for (const h of it.hl218 || []) annWrap218(root, h.q, h.id, 'hl218' + (h.note ? ' n' : '') + (h.c ? ' c-' + h.c : ''));
+  for (const a of (it.ann218 || []).filter(x => x.st !== 'no')) annWrap218(root, a.q, a.id, 'ann218 k-' + a.k + (a.v ? ' v-' + a.v : '') + (a.st === 'ok' ? ' done' : ''));
+}
+/* the margin: one column of notes next to each annotated object */
+{ const o = render; render = (...a) => {
+  const r = o(...a); if (!S.board) return r;
+  const L = items().filter(i => (i.ann218 || []).some(x => x.st === 'new') && els.get(i.id));
+  let box = $('#ann218'); if (!L.length) { if (box) box.remove(); return r; }
+  if (!box) { box = document.createElement('div'); box.id = 'ann218'; box.dataset.app = ''; world.appendChild(box); } else if (box !== world.lastElementChild) world.appendChild(box);
+  const sig = L.map(i => i.id + ':' + Math.round(i.x) + ',' + Math.round(i.y) + ',' + Math.round(i.w) + ',' + Math.round(i.h) + ':' + i.ann218.map(x => x.id + x.st).join('.')).join('|') + '|' + (ANN218.open || '');
+  if (box._sig === sig) return r; box._sig = sig;
+  requestAnimationFrame(() => annMargin218(box, L));
+  return r;
+}; }
+const ANN218 = { open: '' };
+function annMargin218(box, L) {
+  let h = '';
+  for (const it of L) {
+    const el = els.get(it.id); if (!el) continue; const top = el.getBoundingClientRect().top, z = V().z;
+    let y = it.y; const bk = blkOf218(it), x = (bk ? bk.x + bk.w : it.x + it.w) + 16;
+    for (const a of it.ann218.filter(x2 => x2.st === 'new')) {
+      const m = el.querySelector(`mark[data-ann="${a.id}"]`); let my = m ? it.y + (m.getBoundingClientRect().top - top) / z : it.y + it.h - 30;
+      my = clamp(my, it.y, it.y + it.h - 24); y = Math.max(y, my);
+      const K = ANNK218[a.k] || ANNK218.note, V2 = a.v && FACTV218[a.v], open = ANN218.open === a.id;
+      h += `<div class="ann218b${open ? ' open' : ''}" data-annb="${it.id}:${a.id}" style="left:${x}px;top:${y}px;--c:${V2 ? V2[1] : K[2]}">
+        <div class="ann218h">${icn(K[1])}<b>${esc(V2 ? 'Факт: ' + V2[0] : K[0])}</b><span class="p24sp"></span>${a.k === 'task' ? `<button class="ib sm" data-anna="task" title="В задачи">${icn('plus')}</button>` : ''}<button class="ib sm" data-anna="ok" title="Принять${a.k === 'sugg' && a.r ? ' — заменить текст' : ''}">${icn('check')}</button><button class="ib sm" data-anna="no" title="Убрать">${ic('close')}</button></div>
+        <p>${esc(open ? a.t : a.t.slice(0, 90) + (a.t.length > 90 ? '…' : ''))}</p>${open && a.refs && a.refs.length ? `<div class="ann218r">${a.refs.map(f => `<a href="${esc(f.u || '#')}" target="_blank" rel="noopener">${icn('book')}${esc(f.t)}</a>`).join('')}</div>` : ''}${open && a.r ? `<p class="ann218s">Предложение: «${esc(a.r)}»</p>` : ''}</div>`;
+      y += open ? 150 : 70;
+    }
+  }
+  box.innerHTML = h;
+  /* the notes never cover each other: each goes under the one above */
+  const B = [...box.querySelectorAll('.ann218b')].sort((a, b) => parseFloat(a.style.top) - parseFloat(b.style.top)); let low = -1e9, lx = null;
+  for (const b of B) { const t = parseFloat(b.style.top), x = parseFloat(b.style.left); if (lx === x && t < low + 8) b.style.top = (low + 8) + 'px'; low = parseFloat(b.style.top) + b.offsetHeight; lx = x; }
+}
+document.addEventListener('pointerdown', e => { const b = e.target.closest && e.target.closest('.ann218b'); if (b) e.stopPropagation(); }, true);
+document.addEventListener('click', e => {
+  const b = e.target.closest && e.target.closest('.ann218b'); if (!b) { const m = e.target.closest && e.target.closest('mark.ann218'); if (m && !S.editing) { ANN218.open = m.dataset.ann; render(); } return; }
+  e.stopPropagation(); e.preventDefault();
+  const [iid, aid] = b.dataset.annb.split(':'), it = byId(iid), a = it && (it.ann218 || []).find(x => x.id === aid); if (!a) return;
+  const act = e.target.closest('[data-anna]');
+  if (!act) { ANN218.open = ANN218.open === aid ? '' : aid; const bx = $('#ann218'); if (bx) bx._sig = ''; render(); return; }
+  const k = act.dataset.anna; pushHist();
+  if (k === 'no') a.st = 'no';
+  else if (k === 'ok') { a.st = 'ok'; if (a.k === 'sugg' && a.r && it.type === 'doc' && !it.blkOf218) { it.html = String(it.html || '').replace(esc(a.q), esc(a.r)); it.text = htmlToText(it.html); } }
+  else if (k === 'task') { loLoad().then(() => { loNew('task', { title: a.t.slice(0, 200), notes: '«' + a.q + '»' + (it.srcUrl ? '\n\n' + it.srcUrl : ''), tags: ['с доски'] }); toast('В задачах'); }); a.st = 'ok'; }
+  it.ann218 = it.ann218.filter(x => x.st !== 'no'); changed(); render();
+}, true);
+/* ---------- «Что дальше»: the standard steps of working with information ---------- */
+const NEXT218 = [['sum', 'Конспект', 'note'], ['mark', 'Разметить нейросетью', 'mark'], ['src', 'Сверить с источниками', 'book'], ['fact', 'Фактчекинг', 'factc'], ['props', 'Свойства: тэгинг, форминг, ранкинг', 'tag'], ['tasks', 'Задачи из текста', 'check'], ['kb', 'В источники', 'book'], ['focus', 'Режим фокуса', 'eye']];
+function nextPop218(anchor, id) {
+  const it = byId(id); if (!it) return; const blk = isBlk218(it) ? it : blkOf218(it), steps = (blk && blk.blk218.steps) || {};
+  const sub = (k, list) => `<div class="nx218s" data-nxs="${k}" hidden>${list.map(([v, l, t]) => `<button class="mi" data-v="${k}:${v}" title="${esc(t)}"><span>${esc(l)}</span></button>`).join('')}</div>`;
+  openPop(anchor, `<div class="menu nx218"><div class="vp-h">Что дальше с этим материалом</div>${NEXT218.map(([k, l, ic2]) => { const grp = k === 'sum' || k === 'fact'; return `<button class="mi${steps[k] ? ' done218' : ''}" ${grp ? `data-nxt="${k}"` : `data-v="${k}"`}>${icn(ic2)}<span>${esc(l)}</span>${steps[k] ? icn('check', 'nx218ok') : ''}${grp ? icn('chevr', 'nx218c') : ''}</button>${k === 'sum' ? sub('sum', SUMF218) : k === 'fact' ? sub('fact', FACTM218) : ''}`; }).join('')}<div class="msep"></div><p class="nx218h">Нейросеть делает работу за вас: всё, что она добавила, отмечено фиолетовым, пока вы не примете.</p></div>`, v => nextRun218(id, v));
+}
+document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('[data-nxt]'); if (!b) return; e.stopPropagation(); e.preventDefault(); const s = pop.querySelector(`[data-nxs="${b.dataset.nxt}"]`); if (s) { s.hidden = !s.hidden; b.classList.toggle('open', !s.hidden); } const r = pop.getBoundingClientRect(); if (r.bottom > innerHeight - 8) pop.style.top = px(Math.max(8, innerHeight - 8 - r.height)); if (pop.getBoundingClientRect().top < 8) pop.style.top = '8px'; }, true);
+async function nextRun218(id, v) {
+  const it = byId(id); if (!it) return; const blk = isBlk218(it) ? it : blkOf218(it), fid = blk ? blk.id : '';
+  const txtItem = blk ? (items().find(i => i.blkOf218 === fid && i.fixed218 === 'tr') || items().find(i => i.blkOf218 === fid && i.type === 'doc' && !i.sum218) || items().find(i => i.blkOf218 === fid && i.type === 'doc')) : it;
+  const text = fid ? blkText218(fid) : it.type === 'doc' ? it.text || htmlToText(it.html || '') : [it.text, it.desc].filter(Boolean).join('\n');
+  const pick = (typeof CLIP218PICK !== 'undefined' && CLIP218PICK.p) || '';
+  try {
+    if (v.startsWith('sum:')) { const s = await aiSum218(text, v.slice(4), pick, { title: blk ? blk.title : '' }); const dd = blkDoc218(s.title, s.html, 480, blk ? blk.blk218.url : it.srcUrl || '', { ai213: { r: 'clip218', k: 'new', at: Date.now() }, sum218: v.slice(4) }); if (fid) { blkAdd218(fid, dd, 'R', 20); blkStep218(fid, 'sum'); } else { const p = freeSpot218(dd.w, dd.h, { near: { x: it.x + it.w + 300, y: it.y + 240 } }); Object.assign(dd, p); pushHist(); S.board.items.push(dd); changed(); render(); } }
+    else if (v === 'mark' || v === 'src' || v.startsWith('fact:')) { if (txtItem) { await annRun218(txtItem.id, v, pick); if (fid) blkStep218(fid, v.startsWith('fact') ? 'fact' : v); } }
+    else if (v === 'props') props216('it:' + S.board.id + ':' + (fid || id));
+    else if (v === 'tasks') { await capAdd214({ t: text.slice(0, 20000), url: blk ? blk.blk218.url : '', src: 'board' }); if (fid) blkStep218(fid, 'tasks'); toast('Текст — на разбор в задачи: результат в задачнике, на согласование'); }
+    else if (v === 'kb') { await kbText218(blk ? blk.title : (it.title || 'С доски'), text, blk ? blk.blk218.url : it.srcUrl || ''); if (fid) blkStep218(fid, 'kb'); }
+    else if (v === 'focus') focusOpen218(txtItem ? txtItem.id : id);
+  } catch (e) { toast(String((e && e.message) || e)); }
+}
+{ const o = ctx24Extra; ctx24Extra = (sel, single) => { const g = o(sel, single); if (single && !S.editing && (isBlk218(single) || single.blkOf218 || ['doc', 'text', 'sticky', 'card'].includes(single.type))) g.push(cbtn('next218', icn('next'), 'Что дальше: конспект, разметка, сверка с источниками, фактчекинг, задачи, источники, фокус')); if (single && !S.editing && ['doc', 'text', 'sticky', 'card', 'shape'].includes(single.type) && (single.text || single.html || single.desc)) g.push(cbtn('kbt218', icn('book'), 'Текст — в источники')); return g; }; }
+{ const o = ctx24Act; ctx24Act = (b, sel) => { const a = b.dataset.act || ''; if (a === 'next218') { nextPop218(b, sel[0].id); return true; } if (a === 'kbt218') { const it = sel[0]; kbText218(it.title || String(it.text || '').slice(0, 60) || 'С доски', it.type === 'doc' ? it.text || htmlToText(it.html || '') : [it.text, it.desc].filter(Boolean).join('\n'), it.srcUrl || (it.srcRef218 && it.srcRef218.u) || ''); return true; } return o(b, sel); }; }
+QUICK213.splice(Math.max(0, QUICK213.indexOf('h:claude') + 1), 0, 'next218');
+/* any text on the board — into the sources; a selection inside a text while editing — just it */
+async function kbText218(title, text, url) {
+  const sel = String(getSelection() || '').trim(), t = sel && sel.length > 20 && S.editing ? sel : String(text || '').trim(); if (!t) { toast('Нет текста'); return; }
+  await kbLoad214(); const x = await kbAddText214(String(title || t).slice(0, 80), t, { type: 'note', url: url || '', note: 'С доски «' + (S.board ? S.board.name : '') + '»' });
+  toast('В источниках: «' + x.title.slice(0, 50) + '» — нейросеть прочитает его'); return x;
+}
+/* =========================================================
+   v2.18: sources.
+   · «Добавить» — one field for everything: a link, several links (one per
+     line), a text, files. Холст recognises each and shows what it will be;
+     the expert, the weight, the competences and the trust are set once
+     for all of them.
+   · YouTube: «Channel not found» — the Google account has no channel of
+     YouTube. Холст says so plainly, keeps what it could get and offers to
+     choose another account (a brand channel) or the extension route.
+   · Владимир Алипов — added once as a filled example: the expert, his
+     channel, Telegram, an interview with theses and accents, videos.
+   ========================================================= */
+/* ---------- YouTube errors that people understand ---------- */
+const YTNOCH218 = 'У выбранного аккаунта Google нет канала YouTube, а подписки и плейлисты YouTube хранит у канала. Если они у другого канала (бренд-аккаунт) — нажмите «Другой аккаунт» и выберите его в окне Google. Или без входа: откройте youtube.com/feed/channels и нажмите кнопку расширения Холста — каналы попадут в источники.';
+{ const o = ytApi214; ytApi214 = async path => {
+  try { return await o(path); }
+  catch (e) { const m = String((e && e.message) || e); if (/channel not found|channelNotFound|subscriber.*not.*found|subscriberNotFound/i.test(m)) { const er = new Error(YTNOCH218); er.nochan = 1; throw er; } if (/^401$|invalid credentials|unauthenticated/i.test(m)) { const K = KBS214(); K.ytTok = null; K.ytExp = 0; kbSave214(K); throw new Error('Вход в YouTube устарел — нажмите «Подключить» ещё раз'); } throw e; }
+}; }
+async function ytAuthAgain218() {
+  const K = KBS214(); K.ytTok = null; K.ytExp = 0; kbSave214(K);
+  if (!Drive.cid) { toast('Сначала подключите Google: облако вверху справа'); throw new Error('нет Client ID'); }
+  await Drive.loadGIS();
+  return new Promise((res, rej) => { const c = google.accounts.oauth2.initTokenClient({ client_id: Drive.cid, scope: YTSC214, include_granted_scopes: true, callback: r => { if (!r || !r.access_token) { rej(new Error('доступ к YouTube не дан')); return; } const K2 = KBS214(); K2.ytTok = r.access_token; K2.ytExp = Date.now() + (+r.expires_in || 3600) * 1000; kbSave214(K2); res(r.access_token); }, error_callback: () => rej(new Error('вход отменён')) }); c.requestAccessToken({ prompt: 'select_account consent' }); });
+}
+/* subscriptions, playlists and likes are asked apart: one that fails does not hide the others */
+async function ytConnect218(again) {
+  KBU214.yt = { err: '', wait: 1 }; kbDraw214();
+  try { if (again) await ytAuthAgain218(); else await ytAuth214(); } catch (e) { KBU214.yt = { err: String((e && e.message) || e) }; kbDraw214(); return; }
+  const Y = { subs: null, pls: null, err: '', nochan: 0 }, errs = [];
+  const tryIt = async f => { try { return await f(); } catch (e) { if (e && e.nochan) Y.nochan = 1; else errs.push(String((e && e.message) || e)); return null; } };
+  const subs = await tryIt(() => ytAll214('subscriptions?part=snippet&mine=true&maxResults=50', 500));
+  const pls = await tryIt(() => ytAll214('playlists?part=snippet,contentDetails&mine=true&maxResults=50', 200));
+  const ch = await tryIt(() => ytApi214('channels?part=contentDetails&mine=true'));
+  const lp = ch && ch.items && ch.items[0] && ch.items[0].contentDetails.relatedPlaylists.likes;
+  if (subs) Y.subs = subs.map(s => ({ id: s.snippet.resourceId.channelId, t: s.snippet.title, img: ((s.snippet.thumbnails || {}).default || {}).url || '' })).sort((p, q) => p.t.localeCompare(q.t));
+  if (pls || lp) Y.pls = (lp ? [{ id: lp, t: 'Понравившиеся', img: '', n: '' }] : []).concat((pls || []).map(p => ({ id: p.id, t: p.snippet.title, img: ((p.snippet.thumbnails || {}).default || {}).url || '', n: (p.contentDetails || {}).itemCount || '' })));
+  if (ch && !(ch.items || []).length) Y.nochan = 1;
+  Y.err = Y.nochan && !(Y.subs || []).length && !(Y.pls || []).length ? YTNOCH218 : errs[0] || '';
+  KBU214.yt = Y; kbDraw214();
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest && e.target.closest('[data-kb="ytcon"],[data-kb218="ytre"]'); if (!b || !b.closest('.kb214')) return;
+  e.stopPropagation(); e.preventDefault(); ytConnect218(b.dataset.kb218 === 'ytre');
+}, true);
+/* ---------- «Добавить»: one field, Холст recognises ---------- */
+const KBA218 = { raw: '', titles: {}, files: [], o: { w: 60, comps: [], expert: '', trust: '', newEx: '' }, drop: new Set() };
+const KBK218 = { video: ['Видео YouTube', 'video'], channel: ['Канал YouTube — видео по очереди', 'channel'], playlist: ['Плейлист YouTube', 'list'], tg: ['Канал Telegram', 'telegram'], article: ['Статья или сайт', 'article'], text: ['Текст — заметка-источник', 'note'], file: ['Файл', 'file'] };
+const isUrl218 = s => /^https?:\/\/\S+$/i.test(s) || /^(www\.)?[\w-]+\.[a-z]{2,}(\/\S*)?$/i.test(s);
+function kbKind218(u) {
+  if (ytId214(u) && /youtu/.test(u)) return 'video';
+  if (/youtube\.com\/(@|c\/|channel\/|user\/)/.test(u)) return 'channel';
+  if (/youtube\.com\/playlist\?list=/.test(u)) return 'playlist';
+  if (/^https?:\/\/t\.me\/(s\/)?\w+\/?$/.test(u)) return 'tg';
+  return 'article';
+}
+function kbParse218(raw) {
+  const lines = String(raw || '').split('\n').map(s => s.trim()).filter(Boolean);
+  if (!lines.length) return [];
+  if (lines.every(isUrl218)) return [...new Set(lines)].map(l => { const u = /^https?:/i.test(l) ? l : 'https://' + l; return { k: kbKind218(u), v: u, id: u }; });
+  const t = String(raw).trim(), first = lines[0].replace(/^#+\s*/, '');
+  return [{ k: 'text', v: t, id: 'text', title: first.length <= 90 ? first : first.slice(0, 80) + '…', words: t.split(/\s+/).length }];
+}
+function kbRecHTML218() {
+  const L = kbParse218(KBA218.raw).filter(x => !KBA218.drop.has(x.id)), F = KBA218.files;
+  if (!L.length && !F.length) return '<p class="sub kb218empty">Холст покажет, что распознал: видео, канал, плейлист, Telegram, статья, текст или файл.</p>';
+  const ex = x => x.k === 'channel' ? 'видео канала встанут в очередь на расшифровку' : x.k === 'video' ? 'расшифровка — через расширение Холста' : x.k === 'playlist' ? 'все видео плейлиста' : x.k === 'tg' ? 'последние посты канала' : x.k === 'text' ? `${x.words} ${plural(x.words, 'слово', 'слова', 'слов')}` : 'текст страницы прочитает расширение';
+  return L.map(x => `<div class="kb218r">${icn(KBK218[x.k][1])}<span class="kb218rt"><small>${esc(KBK218[x.k][0])} · ${esc(ex(x))}</small>${x.k === 'text' ? `<input class="inp sm" data-kb218t value="${esc(KBA218.titles.text || x.title)}" title="Название источника">` : `<b>${esc(x.v.replace(/^https?:\/\/(www\.)?/, '').slice(0, 90))}</b>`}</span><button class="ib sm" data-kb218="drop:${esc(x.id)}" title="Не добавлять">${icn('close')}</button></div>`).join('')
+    + F.map((f, i) => `<div class="kb218r">${icn('file')}<span class="kb218rt"><small>${esc(KBK218.file[0])} · ${Math.max(1, Math.round(f.size / 1024))} КБ</small><b>${esc(f.name)}</b></span><button class="ib sm" data-kb218="fdrop:${i}" title="Не добавлять">${icn('close')}</button></div>`).join('');
+}
+const kbCount218 = () => kbParse218(KBA218.raw).filter(x => !KBA218.drop.has(x.id)).length + KBA218.files.length;
+function kbAddHTML218() {
+  const O = KBA218.o, comps = KBS214().comps, experts = [...KB214.src.values()].filter(x => x.type === 'expert').sort((a, b) => a.title.localeCompare(b.title, 'ru')), n = kbCount218();
+  return `<div class="kb218add">
+    <div class="kb218in" data-kb218drop><textarea class="inp" rows="4" data-kb218in placeholder="Вставьте ссылку — или несколько, по одной в строке; текст; или перетащите сюда файлы">${esc(KBA218.raw)}</textarea><label class="ib kb218f" title="Файлы: PDF, EPUB, Word, TXT, Markdown, HTML, субтитры">${icn('upload')}<input type="file" multiple hidden data-kb218file></label></div>
+    <div class="kb218rec">${kbRecHTML218()}</div>
+    <section class="kb218o"><h4>Для всех добавляемых</h4>
+      <div class="kb218g"><label class="ds-l">Эксперт<select class="inp sm" data-kb218o="expert"><option value="">—</option>${experts.map(x => `<option value="${x.id}"${O.expert === x.id ? ' selected' : ''}>${esc(x.title)}</option>`).join('')}<option value="+"${O.expert === '+' ? ' selected' : ''}>Новый эксперт…</option></select></label>${O.expert === '+' ? `<label class="ds-l">Имя эксперта<input class="inp sm" data-kb218o="newEx" value="${esc(O.newEx)}" placeholder="Например: Андрей Курпатов"></label>` : ''}
+      <label class="ds-l">Вес — насколько доверяете<span class="kb218w"><input type="range" min="0" max="100" step="5" value="${O.w}" data-kb218o="w"><b>${O.w}</b></span></label></div>
+      <div class="ds-l">Компетенции<div class="kb218c">${comps.map(([k, l, c]) => `<button class="chip${O.comps.includes(k) ? ' on' : ''}" data-kb218="comp:${k}" style="--c:${c}">${esc(l)}</button>`).join('')}</div><small class="sub">Не отмечено — определит нейросеть, когда прочитает.</small></div>
+      <div class="ds-l">Доверие<div class="seg24">${[['', 'Как истина'], ['как акценты', 'Как акценты'], ['проверить', 'Проверить']].map(([v, l]) => `<button class="${O.trust === v ? 'on' : ''}" data-kb218="trust:${v}">${l}</button>`).join('')}</div><small class="sub">«Как акценты» — источник подсвечивает аспекты и нюансы, а не диктует ответ.</small></div>
+    </section>
+    <div class="row kb218go"><button class="btn" data-kb218="add"${n ? '' : ' disabled'}>${icn('plus')}<span>${n ? 'Добавить · ' + n : 'Добавить'}</span></button><span class="p24sp"></span><button class="ob sm" data-kbt="yt" title="Подписки и плейлисты вашего YouTube">${icn('video')}<span>Из моего YouTube</span></button></div>
+    <p class="sub">${extOk214() ? 'Расширение Холста установлено: страницы и расшифровки YouTube читаются. На любой странице — кнопка расширения «Взять → Источники».' : 'Чтобы читать страницы и расшифровки YouTube, нужно расширение Холста (меню → «Устройства»). Без него — файлы и вставка текста.'}</p>
+  </div>`;
+}
+function kbRecDraw218() { const r = document.querySelector('.kb218rec'), n = kbCount218(), b = document.querySelector('[data-kb218="add"]'); if (r) r.innerHTML = kbRecHTML218(); if (b) { b.disabled = !n; b.querySelector('span').textContent = n ? 'Добавить · ' + n : 'Добавить'; } }
+{ const o = kbRender214; kbRender214 = box => {
+  o(box); const body = box.querySelector('.kb214b');
+  if (KBU214.tab === 'add' && body) body.innerHTML = kbAddHTML218();
+  /* a channel without its videos yet — load them */
+  if (KBU214.tab === 'src' && KBU214.sel && body) { const x = KB214.src.get(KBU214.sel), row = body.querySelector('.kb214s > .row'); if (x && x.type === 'channel' && row && !row.querySelector('[data-kb218^="chload"]')) row.insertAdjacentHTML('afterbegin', `<button class="btn ghost sm" data-kb218="chload:${x.id}" title="Загрузить видео канала и поставить их в очередь на расшифровку">${icn('download')}</button>`); }
+  /* YouTube: the plain error and the way out */
+  if (KBU214.tab === 'yt' && KBU214.yt && body) { const Y = KBU214.yt, host = body.querySelector('.kb214ytc') || body; if (Y.wait && !host.querySelector('.kb218w8')) host.insertAdjacentHTML('afterbegin', `<p class="sub kb218w8">${icn('clock')} Спрашиваю YouTube…</p>`); if (Y.err && !host.querySelector('[data-kb218="ytre"]')) { const p = host.querySelector('.kb214err'); (p || host).insertAdjacentHTML(p ? 'afterend' : 'afterbegin', `<div class="row"><button class="ob sm" data-kb218="ytre" title="Войти под другим аккаунтом или каналом Google">${icn('user')}<span>Другой аккаунт</span></button></div>`); } }
+}; }
+document.addEventListener('input', e => {
+  const t = e.target; if (!t.closest || !t.closest('.kb218add')) return;
+  if (t.matches('[data-kb218in]')) { KBA218.raw = t.value; KBA218.drop.clear(); clearTimeout(KBA218.tm); KBA218.tm = setTimeout(kbRecDraw218, 150); }
+  else if (t.matches('[data-kb218t]')) KBA218.titles.text = t.value;
+  else if (t.dataset.kb218o === 'w') { KBA218.o.w = +t.value; const b = t.parentElement.querySelector('b'); if (b) b.textContent = t.value; }
+  else if (t.dataset.kb218o === 'newEx') KBA218.o.newEx = t.value;
+});
+document.addEventListener('change', e => {
+  const t = e.target; if (!t.closest || !t.closest('.kb218add')) return;
+  if (t.dataset.kb218o === 'expert') { KBA218.o.expert = t.value; kbDraw214(); }
+  else if (t.matches('[data-kb218file]')) { KBA218.files = KBA218.files.concat([...t.files]); t.value = ''; kbRecDraw218(); }
+});
+document.addEventListener('dragover', e => { const z = e.target.closest && e.target.closest('[data-kb218drop]'); if (!z) return; e.preventDefault(); z.classList.add('over'); }, true);
+document.addEventListener('dragleave', e => { const z = e.target.closest && e.target.closest('[data-kb218drop]'); if (z) z.classList.remove('over'); }, true);
+document.addEventListener('drop', e => {
+  const z = e.target.closest && e.target.closest('[data-kb218drop]'); if (!z) return; e.preventDefault(); e.stopPropagation(); z.classList.remove('over');
+  const F = [...((e.dataTransfer || {}).files || [])]; if (F.length) { KBA218.files = KBA218.files.concat(F); kbRecDraw218(); return; }
+  const t = (e.dataTransfer && (e.dataTransfer.getData('text/uri-list') || e.dataTransfer.getData('text/plain'))) || ''; if (t) { KBA218.raw = (KBA218.raw ? KBA218.raw + '\n' : '') + t.trim(); kbDraw214(); }
+}, true);
+document.addEventListener('click', async e => {
+  const b = e.target.closest && e.target.closest('[data-kb218]'); if (!b || !b.closest('.kb214')) return; e.stopPropagation();
+  const [a, ...rest] = b.dataset.kb218.split(':'), v = rest.join(':'), O = KBA218.o;
+  if (a === 'ytre') return;
+  if (a === 'drop') { KBA218.drop.add(v); kbRecDraw218(); }
+  else if (a === 'fdrop') { KBA218.files.splice(+v, 1); kbRecDraw218(); }
+  else if (a === 'comp') { O.comps = O.comps.includes(v) ? O.comps.filter(k => k !== v) : O.comps.concat(v); b.classList.toggle('on'); }
+  else if (a === 'trust') { O.trust = v; b.parentElement.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); }
+  else if (a === 'add') { b.disabled = true; try { await kbAddAll218(); } finally { b.disabled = false; } }
+  else if (a === 'chload') { const x = KB214.src.get(v); if (!x) return; const done = toastBusy('Читаю канал…'); try { const r = await ytChannelIds214(x.url, 30); for (const id of r.ids) await kbAddVideo214(id, { parent: x.id, expert: x.expert || '', comps: Object.assign({}, x.comps), w: x.w }); toast(`Канал «${x.title}»: ${r.ids.length} видео в очереди на расшифровку`); } catch (er) { toast(String((er && er.message) || er)); } finally { done(); kbDraw214(); } }
+});
+async function kbAddAll218() {
+  await kbLoad214(); const O = KBA218.o, L = kbParse218(KBA218.raw).filter(x => !KBA218.drop.has(x.id)), F = KBA218.files.slice();
+  if (!L.length && !F.length) return;
+  let expert = O.expert === '+' ? '' : O.expert;
+  if (O.expert === '+' && O.newEx.trim()) { const ex = kbNew214('expert', { title: O.newEx.trim(), st: 'ready', w: Math.max(O.w, 60), comps: Object.fromEntries(O.comps.map(k => [k, 80])) }); await kbSet214(ex); expert = ex.id; }
+  const opt = () => Object.assign({ w: O.w }, O.comps.length ? { comps: Object.fromEntries(O.comps.map(k => [k, 80])) } : {}, expert ? { expert } : {}, O.trust ? { p216: { trust216: O.trust } } : {}, O.trust === 'как акценты' ? { acc216: { on: 1, list: [], by: '', at: 0 } } : {});
+  const added = [];
+  for (const x of L) { try { const r = x.k === 'text' ? await kbAddText214(KBA218.titles.text || x.title, x.v, opt()) : await kbAddUrl214(x.v, opt()); if (r) added.push(r); } catch (er) { toast(String((er && er.message) || er)); } }
+  for (const f of F) { try { added.push(await kbAddFile214(f, opt())); } catch (er) { toast(String((er && er.message) || er)); } }
+  Object.assign(KBA218, { raw: '', titles: {}, files: [] }); KBA218.drop.clear(); if (O.expert === '+') { O.expert = expert; O.newEx = ''; }
+  toast(added.length === 1 ? 'Добавлено: ' + ((KBT214[added[0].type] || [''])[0]) + ' «' + String(added[0].title).slice(0, 50) + '»' : 'Добавлено источников: ' + added.length);
+  KBU214.tab = 'src'; KBU214.sel = added.length === 1 ? added[0].id : (expert || ''); kbDraw214();
+  return added;
+}
+/* ---------- Владимир Алипов: a filled example ---------- */
+const ALIPOV218 = {
+  ex: { title: 'Владимир Алипов', author: 'Владимир Иванович Алипов', url: 'https://www.youtube.com/@dysphorra', w: 75, comps: { psy: 85, health: 70, growth: 55 }, tags: ['нейробиология', 'мозг', 'психика', 'популяризатор науки'],
+    summary: 'Нейробиолог и врач-онколог, популяризатор нейронаук. Объясняет, как мозг строит восприятие, память, мотивацию и поведение, и разбирает мифы о «химии мозга». YouTube-канал — с 2019 года.',
+    note: 'Сеченовский университет (2012–2019). Ординатура по онкологии (химиотерапия), Высшая школа онкологии СПбГПМУ (2019–2021). Аспирантура по нейронаукам в ИВНД и НФ РАН (2021–2023), руководители — К. В. Анохин и П. М. Балабан. Работал в NYU, Институте перспективных исследований мозга МГУ, ИВНД РАН. Преподаёт в образовательном центре «Бехтерев».\nКанал: youtube.com/@dysphorra · Telegram: t.me/alipov_shorts.\nДобавлен Холстом как пример: веса и компетенции — меняйте под себя.' },
+  art: { title: 'Владимир Алипов: «Раньше думали, что дофамин — это вещество удовольствия и мотивации. Это вообще не так!»', author: 'Вадим Бондарь, «БИЗНЕС Online»', url: 'https://www.business-gazeta.ru/article/683935', date: '28 сентября 2025' },
+  th: [
+    ['Мозг заранее строит модель мира, а сигналы органов чувств лишь её корректируют.', 'сначала мы представляем, что мы могли бы увидеть и как мог бы выглядеть окружающий мир', 'psy'],
+    ['Цвета, запахи и звуки существуют только в нашем восприятии.', 'в мире не существует цветов, в мире не существует запахов, в мире не существует звука', 'psy'],
+    ['Дофамин — не «вещество удовольствия и мотивации»: это упрощение.', 'Раньше думали, что дофамин – это вещество удовольствия и мотивации.', 'health'],
+    ['Психика определяется сетью связей нейронов, а не уровнем одного вещества.', 'Все определяется не какой-то химией мозга, а определяется сетью', 'psy'],
+    ['Часть поведения врождённая, опыт её настраивает.', 'жесткие чертежи, которые обеспечивают не идеальное, но все же достаточное приспособление', 'growth'],
+    ['Нет психических событий, которые появлялись бы только из обучения.', 'нет ни одного психического события в жизни человека, которое появлялось бы только в результате обучения', 'psy'],
+    ['Смех возникает, когда ожидание расходится с действительностью.', 'Мы смеемся, когда встречаемся с чем-то, что имеет какое-то расхождение с действительностью', 'psy'],
+    ['Чувство юмора требует развитого интеллекта.', 'чувство юмора требует, чтобы у человека был достаточно высокий интеллект', 'growth'],
+    ['Клиническая депрессия неоднородна: разным людям помогает разное.', 'Два человека, у которых клиническая депрессия, подтвержденная многими специалистами, могут сильно отличаться', 'health']
+  ],
+  acc: [
+    ['Психика — свойство сети, а не одного вещества', 'Объяснения через «гормон счастья» или «дофаминовую яму» упрощают: смотрите на связи, контекст и опыт.'],
+    ['Восприятие — модель, которую мозг строит заранее', 'Ожидания меняют то, что мы видим и чувствуем: учитывайте их в решениях и оценках.'],
+    ['Врождённое и выученное работают вместе', 'Ни «всё решают гены», ни «всему можно научиться» — ищите, что настраивается опытом.'],
+    ['Один диагноз — разные механизмы', 'Совет, который помог одному, не обязан помочь другому: проверяйте на себе и со специалистом.']
+  ],
+  vids: [['97NNXuQA96M', 'Нейробиолог Алипов: почему мозг не может оторваться от соцсетей'], ['KPLIo4yAm40', 'Ваш мозг вам врёт: о ложных воспоминаниях и слепых пятнах'], ['TprZ-83fAiE', 'Как не отупеть к 50 годам'], ['PI2mQosKJZk', 'Мозг, исследование сознания, современные нейронауки']]
+};
+async function kbSeed218() {
+  if (LS.get('seed218')) return; await kbLoad214();
+  if ([...KB214.src.values()].some(x => /dysphorra|683935/.test(x.url || ''))) { LS.set('seed218', 1); return; }
+  const A = ALIPOV218, comps = A.ex.comps, now = Date.now();
+  const ex = kbNew214('expert', Object.assign({}, A.ex, { st: 'ready', theses: A.th.slice(0, 6).map(([t, , c]) => ({ t, comp: c })), p216: { trust216: 'как акценты' }, acc216: { on: 1, list: A.acc.map(([t, why]) => ({ t, why, q: '', topic: 'мозг и психика' })), by: 'Холст', at: now }, seed218: 1 }));
+  await kbSet214(ex);
+  await kbSet214(kbNew214('channel', { title: 'Владимир Алипов · YouTube', author: A.ex.author, url: A.ex.url, expert: ex.id, w: 70, comps, st: 'ready', note: 'Кнопка «Загрузить видео канала» внизу — видео встанут в очередь на расшифровку (нужно расширение Холста).', seed218: 1 }));
+  await kbSet214(kbNew214('tg', { title: '@alipov_shorts', author: A.ex.author, url: 'https://t.me/alipov_shorts', tg: 'alipov_shorts', expert: ex.id, w: 60, comps, st: 'new', note: 'Короткие заметки. «Скачать текст заново» — прочитать последние посты.', seed218: 1 }));
+  const text = `${A.art.title}\n${A.art.author}, ${A.art.date}.\n\n` + A.th.map(([t, q]) => `${t}\n«${q}»`).join('\n\n');
+  const ch = chunkText214(text);
+  await kbSet214(kbNew214('article', { title: A.art.title, author: A.art.author, url: A.art.url, expert: ex.id, w: 70, comps, st: 'ready', words: text.split(/\s+/).length, chunks: ch.length, summary: 'Интервью о том, как мозг строит восприятие, почему дофамин — не «вещество удовольствия», что в поведении врождённое, а что выученное, откуда смех и почему депрессия неоднородна.', theses: A.th.map(([t, , c]) => ({ t, comp: c })), note: 'Фрагменты — тезисы и дословные цитаты из интервью. «Скачать текст заново» — прочитать полный текст (нужно расширение Холста).', tags: ['интервью', 'дофамин', 'восприятие'], seed218: 1 }), ch);
+  for (const [id, t] of A.vids) await kbSet214(kbNew214('video', { yt: id, url: 'https://www.youtube.com/watch?v=' + id, title: t, author: A.ex.author, expert: ex.id, w: 65, comps, st: 'new', note: 'Интервью или лекция. «Скачать текст заново» — расшифровать (нужно расширение Холста).', seed218: 1 }));
+  LS.set('seed218', 1); kbDraw214();
+}
+setTimeout(() => kbSeed218().catch(() => {}), 2500);
+/* =========================================================
+   v2.18: guides as collections.
+   · Tabs: «Основы», «Новое», «Все».
+   · «Основы» starts with collections: the basics in slides, the devices,
+     working with material. A collection opens big over a dimmed screen.
+     The devices are a collection now, not a tab.
+   · «Чем вы пользовались раньше?» — two groups: boards and task managers.
+     Холст is both, so each side leads to the hybrid.
+   ========================================================= */
+TABS216.splice(0, TABS216.length, ['start', 'Основы', 'flag'], ['new', 'Новое', 'burst'], ['guides', 'Все', 'steps']);
+/* ---------- the devices: a big panel over a dimmed screen ---------- */
+function devOpen218(focus) {
+  let o = $('#dv218'); if (o) o.remove();
+  o = document.createElement('div'); o.id = 'dv218'; o.dataset.app = ''; o.className = 'col218';
+  o.innerHTML = `<div class="col218box pinfo213" role="dialog" aria-label="Устройства"><header class="col218h"><span class="col218i">${icn('devic')}</span><div><h2>Устройства</h2><p>Где пользоваться Холстом: компьютер, телефон, расширение браузера, офлайн-файл, Диск и нейросети</p></div><span class="p24sp"></span><button class="ib" data-col218="close" title="Закрыть">${ic('close')}</button></header><div class="col218b"><div class="ln216dev"></div></div></div>`;
+  document.body.appendChild(o);
+  lnDevWire216(o, focus || ''); const g = o.querySelector('.w215g'); if (g) g.classList.remove('one');
+  requestAnimationFrame(() => o.classList.add('on'));
+  return o;
+}
+function colClose218() { const o = $('#dv218'); if (o) { o.classList.remove('on'); setTimeout(() => o.remove(), 160); } }
+document.addEventListener('click', e => {
+  const o = $('#dv218'); if (!o) return;
+  if (e.target === o || (e.target.closest && e.target.closest('[data-col218="close"]'))) { e.stopPropagation(); colClose218(); }
+}, true);
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#dv218')) { e.stopPropagation(); e.preventDefault(); colClose218(); } }, true);
+addEventListener('wheel', e => { if (e.target && e.target.closest && e.target.closest('#dv218')) { if (e.ctrlKey || e.metaKey) e.preventDefault(); e.stopImmediatePropagation(); } }, { capture: true, passive: false });
+/* every door to the devices leads to the collection */
+{ const o = learn216; learn216 = (tab, opt = {}) => { if (tab === 'dev') { devOpen218(opt.focus); return null; } return o(tab, opt); }; }
+ways215 = focus => devOpen218(focus);
+{ const o = lnTab216; lnTab216 = t => o(t === 'dev' ? 'start' : t); }
+document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('[data-ln="tab:dev"],[data-ln="col:dev"]'); if (!b) return; e.stopPropagation(); e.preventDefault(); devOpen218(); }, true);
+/* ---------- collections ---------- */
+const COLL218 = () => [
+  { k: 'basics', ic: 'slides', t: 'Основы Холста', d: `${basics217().length} слайдов на настоящих экранах: доска, рамки, документы, задачник, нейросеть, хранение, команда`, n: basics217().length + ' слайдов' },
+  { k: 'dev', ic: 'devic', t: 'Устройства', d: 'Компьютер, телефон, расширение браузера, офлайн-файл, Google Диск, нейросети', n: ways215Cards().length + ' способов' },
+  { k: 'content', ic: 'book', t: 'Работа с материалом', d: 'Клиппер и блок источника, нейросеть на полях, сверка с источниками, фактчекинг, режим фокуса', n: content218().length + ' слайдов' }
+];
+const content218 = () => (typeof SLIDES218 !== 'undefined' ? SLIDES218.filter(s => s.coll === 'content').map(s => SLIDEBY214.get(s.id)).filter(Boolean) : []);
+function collHTML218() {
+  return `<section class="ln218col"><h3>${icn('layers')}Подборки</h3><div class="ln218cg">${COLL218().map(c => `<button class="ln218c" data-ln="col:${c.k}" title="Открыть подборку «${esc(c.t)}»"><span class="ln218ci">${icn(c.ic)}</span><b>${esc(c.t)}</b><p>${esc(c.d)}</p><small>${esc(c.n)}</small></button>`).join('')}</div></section>`;
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest && e.target.closest('[data-ln^="col:"]'); if (!b) return; e.stopPropagation(); e.preventDefault();
+  const k = b.dataset.ln.slice(4);
+  if (k === 'basics') basicsOpen217(); else if (k === 'dev') devOpen218(); else if (k === 'content') { const L = content218(); if (L.length) presOpen214({ list: L, ver: '', mode: 'gal' }); }
+}, true);
+/* ---------- boards and task managers ---------- */
+const BOARDS218 = [['miro', 'Miro'], ['figjam', 'FigJam'], ['whimsical', 'Whimsical'], ['excal', 'Excalidraw'], ['tldraw', 'tldraw'], ['yandex', 'Яндекс Доски'], ['mural', 'Mural'], ['lucid', 'Lucidspark'], ['canva', 'Canva Whiteboards'], ['milanote', 'Milanote'], ['obsidian', 'Obsidian Canvas'], ['freeform', 'Apple Freeform'], ['mswb', 'Microsoft Whiteboard']];
+const TASKS218 = [['ticktick', 'TickTick'], ['notion', 'Notion'], ['todoist', 'Todoist'], ['things', 'Things 3'], ['mstodo', 'Microsoft To Do'], ['gtasks', 'Google Tasks'], ['trello', 'Trello'], ['asana', 'Asana'], ['clickup', 'ClickUp'], ['jira', 'Jira'], ['ytracker', 'Яндекс Трекер'], ['kaiten', 'Kaiten'], ['weeek', 'Weeek'], ['bitrix', 'Битрикс24']];
+for (const [k, l] of BOARDS218.concat(TASKS218)) if (!TOOLS216.some(t => t[0] === k)) TOOLS216.push([k, l, '']);
+const DFB218 = (a, b) => [['Задачник встроен', a], ['Без интернета и на вашем Диске', b || 'Доски хранятся на устройстве и в вашем Google Диске, работают офлайн.']];
+const DFT218 = a => [['Задачи рядом с мыслями', a], ['Доска вместо списка, когда нужно подумать', 'Любой проект можно разложить на доске: рамки, стикеры, схемы — и всё это остаётся задачами.']];
+Object.assign(DIFF216, {
+  tldraw: { ctrl: 'excal', imp: '', impL: '', diff: DFB218('Набросок превращается в задачи: рамки с ячейками, чек-листы, карточки.'), map: [['Frame', 'Рамка'], ['Note', 'Стикер'], ['Arrow', 'Стрелка']] },
+  mural: { ctrl: 'miro', imp: '', impL: '', diff: DFB218('Итоги воркшопа — сразу задачами в задачнике, с ответственными и сроками.'), map: [['Area', 'Рамка'], ['Sticky note', 'Стикер'], ['Outline', 'Вкладки рамок и презентация']] },
+  lucid: { ctrl: 'miro', imp: '', impL: '', diff: DFB218('Схемы и стикеры живут рядом с задачами и документами.'), map: [['Container', 'Рамка'], ['Sticky note', 'Стикер'], ['Collaborative AI', 'Своя нейросеть']] },
+  canva: { ctrl: 'miro', imp: '', impL: '', diff: DFB218('Не дизайн, а работа: рамки, матрицы, задачи и источники.'), map: [['Whiteboard', 'Доска'], ['Sticky', 'Стикер'], ['Elements', 'Фигуры и иконки']] },
+  milanote: { ctrl: '', imp: '', impL: '', diff: DFB218('Мудборд — рядом с планом: карточки задач, сроки, важность 1–11.'), map: [['Board in board', 'Доска — ссылкой и вкладкой'], ['Column', 'Рамка с ячейками'], ['Web clipper', 'Расширение Холста']] },
+  obsidian: { ctrl: 'excal', imp: '', impL: '', diff: DFB218('Канвас и заметки вместе с задачами; источники — с весами и компетенциями.', 'Как у Obsidian — локально, и ещё на вашем Google Диске.'), map: [['Canvas', 'Доска'], ['Note card', 'Документ'], ['Group', 'Рамка']] },
+  freeform: { ctrl: '', imp: '', impL: '', diff: DFB218('Не только iPad и Mac: браузер, телефон, офлайн-файл.'), map: [['Board', 'Доска'], ['Sticky note', 'Стикер'], ['Shape', 'Фигура']] },
+  mswb: { ctrl: '', imp: '', impL: '', diff: DFB218('Без учётной записи Microsoft: ваш Google Диск или только это устройство.'), map: [['Board', 'Доска'], ['Note', 'Стикер'], ['Template', 'Шаблон']] },
+  todoist: { ctrl: '', imp: '', impL: '', diff: DFT218('Задачу можно открыть на доске, где она родилась, — с контекстом вокруг.'), map: [['Project', 'Проект'], ['Section', 'Ячейка рамки'], ['Priority p1–p4', 'Важность 1–11']] },
+  things: { ctrl: '', imp: '', impL: '', diff: DFT218('Сферы, цели и проекты — как Areas и Projects, но с доской у каждого.'), map: [['Area', 'Сфера'], ['Project', 'Проект'], ['Today', 'Сегодня']] },
+  mstodo: { ctrl: '', imp: '', impL: '', diff: DFT218('Списки — с доской, нейросетью и источниками.'), map: [['List', 'Проект'], ['My Day', 'Сегодня'], ['Steps', 'Подзадачи']] },
+  gtasks: { ctrl: '', imp: '', impL: '', diff: DFT218('Не просто список: важность, сферы, повторы, доска.'), map: [['List', 'Проект'], ['Subtask', 'Подзадача'], ['Date', 'Срок']] },
+  trello: { ctrl: '', imp: '', impL: '', diff: DFT218('Канбан — это рамка с колонками на доске; карточки — задачи задачника.'), map: [['Board', 'Рамка-канбан'], ['List', 'Колонка'], ['Card', 'Карточка задачи']] },
+  asana: { ctrl: '', imp: '', impL: '', diff: DFT218('Проект на доске: цели, этапы и риски — схемой, задачи — в задачнике.'), map: [['Project', 'Проект'], ['Section', 'Ячейка рамки'], ['Portfolio', 'Сфера']] },
+  clickup: { ctrl: '', imp: '', impL: '', diff: DFT218('Меньше настроек: задачник уже собран, доска — рядом.'), map: [['Space', 'Сфера'], ['List', 'Проект'], ['Whiteboard', 'Доска']] },
+  jira: { ctrl: '', imp: '', impL: '', diff: DFT218('Для себя и небольшой команды: без схем процессов, но с доской и нейросетью.'), map: [['Epic', 'Проект'], ['Issue', 'Задача'], ['Sprint', 'Неделя']] },
+  ytracker: { ctrl: '', imp: '', impL: '', diff: DFT218('Очереди — проекты; доска — для обсуждения и планирования.'), map: [['Очередь', 'Проект'], ['Задача', 'Задача'], ['Доска задач', 'Рамка-канбан']] },
+  kaiten: { ctrl: '', imp: '', impL: '', diff: DFT218('Канбан на доске рядом со схемами и документами.'), map: [['Пространство', 'Сфера'], ['Доска', 'Рамка-канбан'], ['Карточка', 'Карточка задачи']] },
+  weeek: { ctrl: '', imp: '', impL: '', diff: DFT218('Задачи, доска и база источников — в одном месте.'), map: [['Проект', 'Проект'], ['Доска', 'Рамка-канбан'], ['База знаний', 'Источники']] },
+  bitrix: { ctrl: '', imp: '', impL: '', diff: DFT218('Личный задачник без корпоративного портала.'), map: [['Проект', 'Проект'], ['Канбан', 'Рамка-канбан'], ['Чек-лист', 'Подзадачи']] }
+});
+const BSET218 = new Set(BOARDS218.map(x => x[0])), TSET218 = new Set(TASKS218.map(x => x[0]));
+function usedHTML218() {
+  const E = exp216(), used = new Set(E.used);
+  const chip = (k, l) => `<button class="ln216chip${used.has(k) ? ' on' : ''}" data-ln="exp:${k}" aria-pressed="${used.has(k)}">${used.has(k) ? icn('check') : ''}<span>${esc(l)}</span></button>`;
+  const hb = E.used.some(u => BSET218.has(u)), ht = E.used.some(u => TSET218.has(u));
+  const hy = hb && ht ? 'Вы пользовались и досками, и задачниками. Холст — оба сразу: мысли на доске становятся задачами, задачи открываются на доске, где родились.'
+    : hb ? 'Вы из досок. Холст — доска, в которую встроен задачник: ячейки рамок, чек-листы и карточки становятся задачами со сроками и важностью.'
+    : ht ? 'Вы из задачников. Холст — задачник, у которого есть доска: любой проект можно разложить схемой, а задачи остаются задачами.' : '';
+  return `<div class="ln218grp"><h5>${icn('boards')}Доски</h5><div class="ln216chips">${BOARDS218.map(([k, l]) => chip(k, l)).join('')}</div></div>
+    <div class="ln218grp"><h5>${icn('tasks')}Задачники</h5><div class="ln216chips">${TASKS218.map(([k, l]) => chip(k, l)).join('')}</div></div>
+    <div class="ln216chips ln218none">${chip('none', 'Ничем из этого — впервые')}</div>
+    ${hy ? `<p class="ln218hy">${icn('info')}<span>${esc(hy)}</span></p>` : ''}`;
+}
+/* «Основы»: collections first; the two groups instead of one row */
+function guide218Init() {
+  const o = lnStart216; lnStart216 = () => {
+    let h = o().replace(/<div class="ln217b">[\s\S]*?<\/button><\/div>/, '');
+    h = h.replace('Вы пользовались досками раньше?', 'Чем вы пользовались раньше?').replace('Отметьте всё, чем пользовались, — гайды объяснят либо с нуля, либо чем Холст отличается.', 'Отметьте всё, чем пользовались: гайды объяснят либо с нуля, либо чем Холст отличается. Холст — и доска, и задачник.');
+    h = h.replace(/<div class="ln216chips">[\s\S]*?<\/div>/, usedHTML218());
+    /* the settings stay the first step; the collections go right after them */
+    const i = h.indexOf('</section>'); return i < 0 ? collHTML218() + h : h.slice(0, i + 10) + collHTML218() + h.slice(i + 10);
+  };
+}
+/* the collection goes with the other panels: closing them closes it too */
+{ const o = closeXdlg; closeXdlg = (...a) => { const d = $('#dv218'); if (d) d.remove(); return o(...a); }; }
+/* =========================================================
+   v2.18: «Режим фокуса» — work with material at the speed of thought.
+   Borrowed from Readwise Reader, Kindle, Apple Books, LingQ, Anki:
+   · «Чтение» — understand and keep: clean text in one column, contents on
+     the left, the margin on the right (highlights, notes, the notes of the
+     network). Select a phrase — выделить, заметка, объяснить, в источники,
+     в задачи. Letters, width and light are yours; the place is remembered.
+   · «Видео» — watch and take notes: the player and the transcript side by
+     side; a note keeps its moment; a heading of the transcript jumps there.
+   · «Повторение» — remember: cards from the highlights with notes and from
+     the summary «Карточки»; «Помню» puts a card further away.
+   The texts of a source block stay fixed: highlights and notes lie over them.
+   ========================================================= */
+Object.assign(ICON, {
+  focus: '<path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8"/><path d="M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8"/><path d="M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16"/><path d="M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16"/><circle cx="12" cy="12" r="3"/>',
+  hlt: '<path d="M9 15l-3.5 3.5H3v-2.5L6.5 12.5"/><path d="M6.5 12.5l8-8a2 2 0 0 1 2.8 0l1.2 1.2a2 2 0 0 1 0 2.8l-8 8z"/><path d="M14 20h7"/>',
+  cards: '<rect x="3.5" y="6.5" width="13" height="13" rx="2"/><path d="M7.5 6.5V5a1.5 1.5 0 0 1 1.5-1.5h10A1.5 1.5 0 0 1 20.5 5v10a1.5 1.5 0 0 1-1.5 1.5h-2.5"/>',
+  aa: '<path d="M3 19l5-13 5 13"/><path d="M4.8 14.5h6.4"/><path d="M14.5 19l3.2-8 3.3 8"/><path d="M15.6 16.4h4.3"/>'
+});
+const FC218 = Object.assign({ fs: 18, w: 700, th: 'light' }, LS.get('fc218') || {}, { id: '', mode: 'read', secs: [], ci: 0, yt: '', t: 0 });
+const fcSave218 = () => LS.set('fc218', { fs: FC218.fs, w: FC218.w, th: FC218.th });
+const FCM218 = [['read', 'Чтение', 'book', 'Понять и сохранить: текст, оглавление, поля с выделениями и заметками'], ['video', 'Видео', 'video', 'Смотреть и конспектировать: плеер и транскрипт рядом, заметки с моментом'], ['rev', 'Повторение', 'cards', 'Запомнить: карточки из выделений с заметками и из конспекта «Карточки»']];
+/* what the reader shows: the texts of the block (or of the object) in their order */
+function fcSecs218(it) {
+  const blk = isBlk218(it) ? it : blkOf218(it);
+  if (!blk) return [it];
+  const ord = k => (k.type === 'sticky' ? 0 : k.type === 'image' ? 95 : k.bk218 ? k.bk218.r : 99);
+  return items().filter(i => i.blkOf218 === blk.id && i.bk218 && i.bk218.c !== 'C' && (i.type === 'doc' || i.cm218 || i.type === 'sticky' || i.type === 'image')).sort((a, b) => ord(a) - ord(b));
+}
+function fcSecHTML218(s) {
+  if (s.type === 'doc') return `<section class="fc218s${s.sum218 ? ' ai' : ''}" data-fsec="${s.id}">${docClean(docHtml(s))}</section>`;
+  if (s.type === 'sticky') return `<aside class="fc218why" data-fsec="${s.id}">${icn('target')}<p>${esc(String(s.text || ''))}</p></aside>`;
+  if (s.type === 'image') { const src = S.board.assets[s.asset]; return src ? `<figure class="fc218img"><img src="${esc(src)}" alt=""><figcaption>${esc(s.name || '')}</figcaption></figure>` : ''; }
+  if (s.cm218) { const C = items().filter(c => c.bk218 && c.bk218.of === s.id).sort((a, b) => a.cm218.n - b.cm218.n); return `<section class="fc218s fc218cms" data-fsec="${s.id}"><h2>${esc(s.title || 'Комментарии')}</h2>${C.map(c => `<div class="fc218cm l${c.cm218.lvl}"><b>${esc(c.text)}</b><small>${esc([c.cm218.t, c.cm218.likes ? '♥ ' + c.cm218.likes : ''].filter(Boolean).join(' · '))}</small><p>${esc(c.desc || '')}</p></div>`).join('')}</section>`; }
+  if (s.type === 'card') return `<section class="fc218s" data-fsec="${s.id}"><h1>${esc(s.text || '')}</h1>${s.deschtml ? docClean(s.deschtml) : htmlParas218(s.desc || '')}</section>`;
+  return `<section class="fc218s" data-fsec="${s.id}">${htmlParas218(s.text || '')}</section>`;
+}
+function fcYt218(it) { const blk = isBlk218(it) ? it : blkOf218(it); if (blk && blk.blk218.yt) return blk.blk218.yt; const u = it.srcUrl || (it.srcRef218 && it.srcRef218.u) || it.url || ''; return /youtu/.test(u) ? ytId214(u) : ''; }
+function focusOpen218(id, mode) {
+  const it = byId(id); if (!it) return;
+  const blk = isBlk218(it) ? it : blkOf218(it);
+  FC218.id = id; FC218.blk = blk ? blk.id : ''; FC218.yt = fcYt218(it); FC218.mode = mode || (FC218.mode === 'video' && FC218.yt ? 'video' : 'read'); FC218.ci = 0;
+  let o = $('#fc218'); if (!o) { o = document.createElement('div'); o.id = 'fc218'; o.dataset.app = ''; document.body.appendChild(o); fcWire218(o); }
+  document.body.classList.add('fc218on'); fcDraw218(); requestAnimationFrame(() => o.classList.add('on'));
+}
+function focusClose218() { const o = $('#fc218'); if (!o) return; fcPos218(); o.classList.remove('on'); document.body.classList.remove('fc218on'); setTimeout(() => o.remove(), 160); FC218.id = ''; render(); }
+const fcKey218 = () => FC218.blk || FC218.id;
+function fcPos218() { const m = document.querySelector('#fc218 .fc218main'); if (!m || FC218.mode !== 'read') return; const P = LS.get('fcpos218') || {}; P[fcKey218()] = Math.round(m.scrollTop); const ks = Object.keys(P); if (ks.length > 200) delete P[ks[0]]; LS.set('fcpos218', P); }
+function fcDraw218() {
+  const o = $('#fc218'), it = byId(FC218.id); if (!o || !it) return;
+  const blk = FC218.blk ? byId(FC218.blk) : null, secs = fcSecs218(it); FC218.secs = secs.map(s => s.id);
+  const title = blk ? blk.title : it.type === 'doc' ? docTitle(it) : String(it.text || it.title || 'Материал').slice(0, 120), url = blk ? blk.blk218.url : it.srcUrl || (it.srcRef218 && it.srcRef218.u) || '';
+  o.className = 'th-' + FC218.th + (o.classList.contains('on') ? ' on' : '');
+  const modes = FCM218.filter(([k]) => k !== 'video' || FC218.yt);
+  const head = `<header class="fc218h"><button class="ib" data-fc="close" title="Выйти из режима фокуса (Esc)">${icn('chevl')}</button><div class="fc218tt"><b>${esc(title)}</b>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(url.replace(/^https?:\/\/(www\.)?/, '').slice(0, 60))}</a>` : ''}</div>
+    <div class="seg24 fc218m">${modes.map(([k, l, i, t]) => `<button class="${FC218.mode === k ? 'on' : ''}" data-fc="mode:${k}" title="${esc(t)}">${icn(i)}<span>${l}</span></button>`).join('')}</div><span class="p24sp"></span>
+    ${FC218.mode === 'read' ? `<button class="ib" data-fc="aa" title="Шрифт, ширина, фон">${icn('aa')}</button>` : ''}<button class="ib" data-fc="next" title="Что дальше: конспект, разметка, сверка, фактчекинг, задачи">${icn('next')}</button><button class="ib" data-fc="close" title="Закрыть (Esc)">${ic('close')}</button><i class="fc218pr"><i></i></i></header>`;
+  let body = '';
+  if (FC218.mode === 'read') body = `<div class="fc218rd"><nav class="fc218toc"></nav><div class="fc218main"><article class="fc218a" style="--fs:${FC218.fs}px;--w:${FC218.w}px">${secs.map(fcSecHTML218).join('') || '<p class="sub">Здесь нет текста.</p>'}</article></div><aside class="fc218mg"></aside></div>`;
+  else if (FC218.mode === 'video') body = `<div class="fc218vd"><div class="fc218pl"><div class="fc218fr"><iframe src="https://www.youtube-nocookie.com/embed/${esc(FC218.yt)}?enablejsapi=1&rel=0&origin=${encodeURIComponent(location.origin === 'null' ? 'https://podkindmitry.github.io' : location.origin)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Видео"></iframe></div>
+      <div class="fc218vn"><div class="row"><input class="inp" data-fcvn placeholder="Заметка на этом моменте — Enter"><button class="ib" data-fc="vnote" title="Сохранить заметку с моментом">${icn('plus')}</button></div><div class="fc218vl"></div></div></div>
+      <div class="fc218vt"><article class="fc218a" style="--fs:16px;--w:100%">${secs.filter(s => s.fixed218 === 'tr' || (s.type === 'doc' && !blk)).map(fcSecHTML218).join('') || `<p class="sub">Транскрипта пока нет. В клиппере отметьте «Транскрипт» — или откройте видео в расширении.</p>`}</article></div></div>`;
+  else body = `<div class="fc218rv"></div>`;
+  o.innerHTML = head + body;
+  if (FC218.mode === 'read') { fcMarks218(); fcToc218(); fcMargin218(); const m = o.querySelector('.fc218main'), P = (LS.get('fcpos218') || {})[fcKey218()]; if (m) { if (P) m.scrollTop = P; else if (it.id !== (blk && blk.id)) { const s = o.querySelector(`[data-fsec="${it.id}"]`); if (s) s.scrollIntoView({ block: 'start' }); } m.addEventListener('scroll', fcProg218, { passive: true }); fcProg218(); } }
+  else if (FC218.mode === 'video') { fcMarks218(); fcVList218(); fcYtWire218(); }
+  else fcRev218();
+}
+function fcProg218() { const m = document.querySelector('#fc218 .fc218main'), b = document.querySelector('#fc218 .fc218pr > i'); if (!m || !b) return; const p = m.scrollHeight > m.clientHeight ? m.scrollTop / (m.scrollHeight - m.clientHeight) : 1; b.style.width = Math.round(p * 100) + '%'; const L = [...document.querySelectorAll('#fc218 .fc218toc a')]; let cur = null; for (const a of L) { const h = document.getElementById(a.dataset.to); if (h && h.getBoundingClientRect().top < 140) cur = a; } L.forEach(a => a.classList.toggle('on', a === cur)); }
+function fcMarks218() { document.querySelectorAll('#fc218 [data-fsec]').forEach(sec => { const s = byId(sec.dataset.fsec); if (s) annMarks218(sec, s); }); }
+function fcToc218() {
+  const nav = document.querySelector('#fc218 .fc218toc'); if (!nav) return; let n = 0;
+  const H = [...document.querySelectorAll('#fc218 .fc218a h1, #fc218 .fc218a h2, #fc218 .fc218a h3')];
+  nav.innerHTML = H.length > 1 ? `<b>Содержание</b>` + H.map(h => { h.id = h.id || 'fch' + n++; return `<a class="t${h.tagName[1]}" data-to="${h.id}">${esc(h.textContent.replace(/\s*·\s*\d+:\d+(:\d+)?\s*$/, '').slice(0, 80))}</a>`; }).join('') : '';
+}
+/* the margin: what you kept and what the network noted, in the order of the text */
+function fcMargin218() {
+  const box = document.querySelector('#fc218 .fc218mg'); if (!box) return;
+  const L = []; for (const id of FC218.secs) { const s = byId(id); if (!s) continue; for (const h of s.hl218 || []) L.push(['hl', s, h]); for (const a of (s.ann218 || []).filter(x => x.st !== 'no')) L.push(['ann', s, a]); }
+  const pos = x => { const m = document.querySelector(`#fc218 mark[data-ann="${x[2].id}"]`); return m ? m.getBoundingClientRect().top + (document.querySelector('#fc218 .fc218main') || {}).scrollTop : 1e9; };
+  L.sort((a, b) => pos(a) - pos(b));
+  box.innerHTML = `<b>Поля <small>${L.length}</small></b>` + (L.map(([k, s, x]) => k === 'hl' ? `<div class="fc218n hl" data-fcgo="${x.id}"><q>${esc(x.q.slice(0, 160))}</q>${x.note ? `<p>${esc(x.note)}</p>` : ''}${x.ts != null ? `<small>${ytSec218(x.ts)}</small>` : ''}<span class="fc218na"><button class="ib sm" data-fc="htask:${s.id}:${x.id}" title="В задачи">${icn('check')}</button><button class="ib sm" data-fc="hdel:${s.id}:${x.id}" title="Убрать выделение">${ic('close')}</button></span></div>`
+    : `<div class="fc218n ann k-${x.k}" data-fcgo="${x.id}" style="--c:${(FACTV218[x.v] || [0, (ANNK218[x.k] || ANNK218.note)[2]])[1]}"><small>${esc(x.v ? 'Факт: ' + FACTV218[x.v][0] : (ANNK218[x.k] || ANNK218.note)[0])}${x.st === 'ok' ? ' · принято' : ''}</small><p>${esc(x.t)}</p>${(x.refs || []).map(f => `<a href="${esc(f.u || '#')}" target="_blank" rel="noopener">${icn('book')}${esc(f.t)}</a>`).join('')}${x.st === 'new' ? `<span class="fc218na"><button class="ib sm" data-fc="aok:${s.id}:${x.id}" title="Принять">${icn('check')}</button><button class="ib sm" data-fc="ano:${s.id}:${x.id}" title="Убрать">${ic('close')}</button></span>` : ''}</div>`).join('') || '<p class="sub">Выделите фразу в тексте: выделить, заметка, объяснить, в источники, в задачи. Здесь соберутся выделения и пометки нейросети.</p>');
+}
+/* ---------- the selection: a small bar over it ---------- */
+function fcSelBar218() {
+  let bar = $('#fcsel218'); const sel = getSelection(), t = String(sel || '').trim();
+  const sec = sel.rangeCount && sel.anchorNode && (sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement).closest('#fc218 [data-fsec]');
+  if (!t || t.length < 2 || !sec) { if (bar) bar.remove(); return; }
+  const r = sel.getRangeAt(0).getBoundingClientRect();
+  if (!bar) { bar = document.createElement('div'); bar.id = 'fcsel218'; bar.dataset.app = ''; document.body.appendChild(bar); }
+  bar.dataset.sec = sec.dataset.fsec; bar.dataset.q = t.slice(0, 600); { const an = sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement, blk = an.closest('p, li, blockquote, h1, h2, h3, .fc218cm, aside'); bar.dataset.ctx = blk ? normW218(blk.textContent).slice(0, 500) : ''; }
+  bar.innerHTML = `<button class="ib" data-fcs="hl" title="Выделить (H)">${icn('hlt')}</button><button class="ib" data-fcs="note" title="Заметка (N)">${icn('bubble')}</button><button class="ib" data-fcs="ai" title="Объяснить нейросетью">${icn('ai')}</button><button class="ib" data-fcs="kb" title="В источники">${icn('book')}</button><button class="ib" data-fcs="task" title="В задачи">${icn('check')}</button>`;
+  bar.style.left = px(clamp(r.left + r.width / 2 - 110, 8, innerWidth - 230)); bar.style.top = px(r.top > 60 ? r.top - 48 : r.bottom + 8);
+}
+async function fcSelAct218(a, bar) {
+  const s = byId(bar.dataset.sec), q = normW218(bar.dataset.q); if (!s || !q) return;
+  const blk = FC218.blk ? byId(FC218.blk) : null, url = blk ? blk.blk218.url : s.srcUrl || '', ttl = blk ? blk.title : docTitle(s);
+  if (a === 'note') { bar.innerHTML = `<input class="inp sm" data-fcsn placeholder="Заметка — Enter" style="width:260px"><button class="ib" data-fcs="nsave" title="Сохранить">${icn('check')}</button>`; const i = bar.querySelector('input'); i.focus(); return; }
+  if (a === 'hl' || a === 'nsave') { const note = a === 'nsave' ? (bar.querySelector('[data-fcsn]') || {}).value || '' : ''; pushHist(); s.hl218 = (s.hl218 || []).concat({ id: 'h' + uid().slice(0, 8), q: q.slice(0, 400), note: note.trim(), ctx: bar.dataset.ctx && bar.dataset.ctx !== q ? bar.dataset.ctx : '', at: Date.now() }); changed(); }
+  else if (a === 'kb') { await kbLoad214(); await kbAddText214(q.slice(0, 80), q, { type: 'note', url, note: 'Из «' + ttl + '»' }); toast('Фрагмент — в источниках'); }
+  else if (a === 'task') { await loLoad(); loNew('task', { title: q.slice(0, 200), notes: '«' + q + '»\n\n' + ttl + (url ? '\n' + url : ''), tags: ['из чтения'] }); toast('В задачах'); }
+  else if (a === 'ai') {
+    const done = toastBusy('Объясняю…'); try { const ctx = String(s.text || htmlToText(s.html || '') || '').slice(0, 6000); const r = await aiRun216((typeof CLIP218PICK !== 'undefined' && CLIP218PICK.p) || '', 'Объясни выделенный фрагмент простыми словами, в контексте текста: 2–5 предложений. Если есть термин — определи. Без вступлений.', `Фрагмент: «${q}»\n\nКонтекст:\n${ctx}`, { maxTokens: 600 });
+      pushHist(); s.ann218 = (s.ann218 || []).concat({ id: 'n' + uid().slice(0, 8), q: q.slice(0, 400), k: 'note', t: String(r.text || '').trim().slice(0, 900), st: 'new', at: Date.now(), by: r.by || '', m: 'explain' }); changed(); }
+    catch (e) { toast(String((e && e.message) || e)); } finally { done(); }
+  }
+  bar.remove(); getSelection().removeAllRanges(); fcDraw218Keep218();
+}
+function fcDraw218Keep218() { const m = document.querySelector('#fc218 .fc218main, #fc218 .fc218vt'), y = m ? m.scrollTop : 0; fcDraw218(); const m2 = document.querySelector('#fc218 .fc218main, #fc218 .fc218vt'); if (m2) m2.scrollTop = y; }
+/* ---------- video: the player talks through postMessage ---------- */
+function fcYtWire218() {
+  const fr = document.querySelector('#fc218 iframe'); if (!fr) return;
+  fr.addEventListener('load', () => { try { fr.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: 1, channel: 'widget' }), '*'); } catch (e) { /* the player is not there */ } });
+  document.querySelectorAll('#fc218 .fc218vt a[href*="youtube.com/watch"]').forEach(a => { const m = a.href.match(/[?&]t=(\d+)/); if (m) { a.dataset.seek = m[1]; a.removeAttribute('target'); } });
+}
+addEventListener('message', e => { if (!/youtube/.test(e.origin || '')) return; try { const j = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; if (j && j.info && j.info.currentTime != null) FC218.t = +j.info.currentTime; } catch (er) { /* not ours */ } });
+function fcSeek218(s) { const fr = document.querySelector('#fc218 iframe'); if (!fr) return; fr.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'seekTo', args: [+s, true] }), '*'); fr.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), '*'); }
+function fcVList218() {
+  const box = document.querySelector('#fc218 .fc218vl'); if (!box) return; const L = [];
+  for (const id of FC218.secs) { const s = byId(id); if (s) for (const h of s.hl218 || []) if (h.ts != null) L.push([s, h]); }
+  L.sort((a, b) => a[1].ts - b[1].ts);
+  box.innerHTML = L.map(([s, h]) => `<div class="fc218n hl"><button class="fc218ts" data-seek="${h.ts}">${ytSec218(h.ts)}</button><p>${esc(h.note || h.q)}</p><span class="fc218na"><button class="ib sm" data-fc="hdel:${s.id}:${h.id}" title="Убрать">${ic('close')}</button></span></div>`).join('') || '<p class="sub">Заметки на моментах появятся здесь — по порядку времени.</p>';
+}
+function fcVNote218() {
+  const i = document.querySelector('#fc218 [data-fcvn]'), t = i && i.value.trim(); if (!t) return;
+  const host = byId(FC218.secs.find(id => (byId(id) || {}).fixed218 === 'tr') || FC218.blk || FC218.id); if (!host) return;
+  pushHist(); host.hl218 = (host.hl218 || []).concat({ id: 'h' + uid().slice(0, 8), q: '', note: t, ts: Math.floor(FC218.t || 0), at: Date.now() }); changed(); i.value = ''; fcVList218();
+}
+/* ---------- repetition: cards ---------- */
+function fcCards218() {
+  const out = [], blk = FC218.blk ? byId(FC218.blk) : null, pool = blk ? items().filter(i => i.blkOf218 === blk.id) : [byId(FC218.id)].filter(Boolean);
+  for (const s of pool) {
+    for (const h of s.hl218 || []) if (h.q && h.note) out.push({ id: s.id + ':' + h.id, f: h.note, b: h.q, kind: 'Ваша заметка → цитата' });
+    for (const h of s.hl218 || []) if (h.q && !h.note && h.ctx && h.ctx.includes(h.q)) out.push({ id: s.id + ':' + h.id, f: h.ctx.replace(h.q, '［ … ］'), b: h.q, kind: 'Заполните пропуск' });
+    if (s.type === 'doc' && /class="crd218"/.test(s.html || '')) { const d = document.createElement('div'); d.innerHTML = s.html; d.querySelectorAll('.crd218').forEach((c, i) => { const p = c.querySelectorAll('p'); if (p.length > 1) out.push({ id: s.id + ':c' + i, f: p[0].textContent, b: p[1].textContent, kind: 'Карточка конспекта' }); }); }
+  }
+  const R = (blk || byId(FC218.id)).rv218 || {}, now = Date.now();
+  return out.filter(c => !R[c.id] || R[c.id].due <= now).concat(out.filter(c => R[c.id] && R[c.id].due > now));
+}
+function fcRev218() {
+  const box = document.querySelector('#fc218 .fc218rv'); if (!box) return; const L = fcCards218(), now = Date.now(), host = FC218.blk ? byId(FC218.blk) : byId(FC218.id), R = (host && host.rv218) || {};
+  if (!L.length) { box.innerHTML = `<div class="fc218rv0">${icn('cards')}<b>Карточек пока нет</b><p>Выделяйте важное в режиме «Чтение» (с заметкой — получится вопрос), или сделайте конспект в форме «Карточки».</p><div class="row"><button class="btn" data-fc="mkcards">${icn('ai')}<span>Сделать карточки нейросетью</span></button><button class="ob" data-fc="mode:read">${icn('book')}<span>К чтению</span></button></div></div>`; return; }
+  const due = L.filter(c => !R[c.id] || R[c.id].due <= now).length, c = L[FC218.ci % L.length];
+  box.innerHTML = `<div class="fc218card"><small>${esc(c.kind)} · ${FC218.ci % L.length + 1} из ${L.length}${due ? ' · к повторению ' + due : ''}</small><div class="fc218f">${esc(c.f)}</div><div class="fc218b" hidden>${esc(c.b)}</div>
+    <div class="row fc218ra"><button class="btn" data-fc="flip">${icn('eye')}<span>Показать ответ</span></button></div>
+    <div class="row fc218rb" hidden><button class="ob" data-fc="rv:0:${esc(c.id)}">${icn('repeat')}<span>Повторить скоро</span></button><button class="btn" data-fc="rv:1:${esc(c.id)}">${icn('check')}<span>Помню</span></button></div></div>`;
+}
+function fcRate218(ok, cid) {
+  const host = FC218.blk ? byId(FC218.blk) : byId(FC218.id); if (!host) return; const R = Object.assign({}, host.rv218 || {}), r = R[cid] || { n: 0, due: 0 };
+  r.n = ok ? r.n + 1 : 0; r.due = Date.now() + (ok ? [1, 3, 7, 16, 35, 80][Math.min(5, r.n - 1)] * 864e5 : 6e5); R[cid] = r; host.rv218 = R; changed(); FC218.ci++; fcRev218();
+}
+/* ---------- the wiring ---------- */
+function fcWire218(o) {
+  o.addEventListener('click', async e => {
+    const go = e.target.closest('[data-fcgo]'); if (go && !e.target.closest('button')) { const m = o.querySelector(`mark[data-ann="${go.dataset.fcgo}"]`); if (m) { m.scrollIntoView({ block: 'center', behavior: 'smooth' }); m.classList.add('flash'); setTimeout(() => m.classList.remove('flash'), 1200); } return; }
+    const sk = e.target.closest('[data-seek]'); if (sk) { e.preventDefault(); fcSeek218(sk.dataset.seek); return; }
+    const toc = e.target.closest('.fc218toc a'); if (toc) { const h = document.getElementById(toc.dataset.to); if (h) h.scrollIntoView({ block: 'start', behavior: 'smooth' }); return; }
+    const b = e.target.closest('[data-fc]'); if (!b) return; const [a, x, y] = b.dataset.fc.split(':');
+    if (a === 'close') focusClose218();
+    else if (a === 'mode') { fcPos218(); FC218.mode = x; FC218.ci = 0; fcDraw218(); }
+    else if (a === 'next') nextPop218(b, FC218.blk || FC218.id);
+    else if (a === 'aa') openPop(b, `<div class="menu fc218aa"><div class="vp-h">Чтение</div><div class="row"><button class="ob sm" data-v="fs:-1" title="Мельче">A−</button><b>${FC218.fs}</b><button class="ob sm" data-v="fs:1" title="Крупнее">A+</button></div><div class="row"><button class="ob sm" data-v="w:-1" title="Уже">${icn('arrl')}</button><b>${FC218.w}</b><button class="ob sm" data-v="w:1" title="Шире">${icn('arrr')}</button></div><div class="seg24 sm">${[['light', 'Светлый'], ['sepia', 'Бумага'], ['dark', 'Тёмный']].map(([k, l]) => `<button class="${FC218.th === k ? 'on' : ''}" data-v="th:${k}">${l}</button>`).join('')}</div></div>`, v => { const [k, d] = v.split(':'); if (k === 'fs') FC218.fs = clamp(FC218.fs + +d, 14, 26); else if (k === 'w') FC218.w = clamp(FC218.w + +d * 60, 520, 1000); else FC218.th = d; fcSave218(); fcDraw218Keep218(); });
+    else if (a === 'hdel' || a === 'htask') { const s = byId(x); if (!s) return; const h = (s.hl218 || []).find(z => z.id === y); if (!h) return; if (a === 'htask') { await loLoad(); loNew('task', { title: (h.note || h.q).slice(0, 200), notes: h.q ? '«' + h.q + '»' : '', tags: ['из чтения'] }); toast('В задачах'); return; } pushHist(); s.hl218 = s.hl218.filter(z => z.id !== y); changed(); fcDraw218Keep218(); }
+    else if (a === 'aok' || a === 'ano') { const s = byId(x), n = s && (s.ann218 || []).find(z => z.id === y); if (!n) return; pushHist(); n.st = a === 'aok' ? 'ok' : 'no'; s.ann218 = s.ann218.filter(z => z.st !== 'no'); changed(); fcDraw218Keep218(); }
+    else if (a === 'vnote') fcVNote218();
+    else if (a === 'flip') { o.querySelector('.fc218b').hidden = false; o.querySelector('.fc218ra').hidden = true; o.querySelector('.fc218rb').hidden = false; }
+    else if (a === 'rv') fcRate218(x === '1', b.dataset.fc.split(':').slice(2).join(':'));
+    else if (a === 'mkcards') { await nextRun218(FC218.blk || FC218.id, 'sum:cards'); fcRev218(); }
+  });
+  o.addEventListener('keydown', e => { if (e.target.matches('[data-fcvn]') && e.key === 'Enter') { e.preventDefault(); fcVNote218(); } });
+  o.addEventListener('wheel', e => e.stopPropagation(), { passive: true });
+}
+document.addEventListener('mouseup', e => { if (!$('#fc218') || (e.target.closest && e.target.closest('#fcsel218'))) return; setTimeout(fcSelBar218, 10); });
+document.addEventListener('mousedown', e => { const b = $('#fcsel218'); if (b && !(e.target.closest && e.target.closest('#fcsel218'))) b.remove(); }, true);
+document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('#fcsel218 [data-fcs]'); if (!b) return; e.stopPropagation(); e.preventDefault(); fcSelAct218(b.dataset.fcs, b.closest('#fcsel218')); }, true);
+document.addEventListener('keydown', e => {
+  if (!$('#fc218')) return;
+  const inInp = e.target.matches && e.target.matches('input, textarea');
+  if (e.target.matches && e.target.matches('[data-fcsn]') && e.key === 'Enter') { e.preventDefault(); const bar = $('#fcsel218'); if (bar) fcSelAct218('nsave', bar); return; }
+  if (e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); if ($('#fcsel218')) { $('#fcsel218').remove(); return; } if (!pop.hidden) { closePop(); return; } focusClose218(); return; }
+  if (inInp) return;
+  const bar = $('#fcsel218');
+  if (bar && (e.key === 'h' || e.key === 'р')) { e.preventDefault(); fcSelAct218('hl', bar); }
+  else if (bar && (e.key === 'n' || e.key === 'т')) { e.preventDefault(); fcSelAct218('note', bar); }
+  else if (/^[123]$/.test(e.key)) { const m = FCM218.filter(([k]) => k !== 'video' || FC218.yt)[+e.key - 1]; if (m) { fcPos218(); FC218.mode = m[0]; fcDraw218(); } }
+  e.stopPropagation();
+}, true);
+/* the entry: the panel of a text object, «Что дальше», a double click on a part of a source block */
+{ const o = ctx24Extra; ctx24Extra = (sel, single) => { const g = o(sel, single); if (single && !S.editing && (single.type === 'doc' || isBlk218(single) || (single.blkOf218 && single.type !== 'embed'))) g.push(cbtn('focus218', icn('focus'), 'Режим фокуса: читать, смотреть, повторять')); return g; }; }
+{ const o = ctx24Act; ctx24Act = (b, sel) => { if ((b.dataset.act || '') === 'focus218') { focusOpen218(sel[0].id); return true; } return o(b, sel); }; }
 /* ---------- 2.10 glue ---------- */
 Object.assign(AREAS.ai[2], { chat: 'ИИ в чатах (AI in chats)', sub: 'Claude по подписке (Claude via Drive)' });
 AREAS.team = AREAS.team || ['Команда', 'Team', {}]; Object.assign(AREAS.team[2], { chat: 'Чаты на доске (Board chats)' });
@@ -30555,6 +31815,29 @@ document.addEventListener('click', e => { const b = e.target.closest && e.target
 /* the version presentation shows only its own slides; the basics are not «new» */
 { const o = prList214; prList214 = ver => o(ver).filter(s => !s.basic || !ver || ver === s.v); }
 function wire217() { fix217Setup(); clip217Setup(); }
+/* ---------- 2.18 glue ---------- */
+guide218Init();
+/* the slides of 2.18; «coll: 'content'» — the collection «Работа с материалом» in «Основы» */
+const SLIDES218 = [
+  { id: 'blk218', f: 'f218_blk', sc: 'major', v: '2.18', coll: 'content', t: 'Блок источника — всё со страницы одним блоком', lead: 'Что пришло из клиппера, ложится по одному стандарту: слева карточка страницы, снимки и «Зачем это мне», справа тексты — выделенное, транскрипт абзацами по главам, комментарии карточками. Блок не разъединить; часть можно скопировать — копия помнит первоисточник.', pins: ['Блок — одна рамка: двигается и удаляется целиком.', 'Транскрипт: абзацы, заголовки — главы видео.', '«Зачем это мне» — рядом с карточкой.'] },
+  { id: 'place218', f: 'f218_place', sc: 'new', v: '2.18', coll: 'content', t: 'Свободное место и «поверх доски»', lead: 'Новое не ложится на старое: блок ищет свободное место рядом с тем, что на экране, в выбранной рамке — свободное место в ней. «Поверх доски» — блок висит над доской: подвиньте за шесть точек и нажмите «Утвердить».', pins: ['Шесть точек — перетащить.', '«Утвердить» — положить на доску.', 'Пока висит — подсвечен пунктиром.'] },
+  { id: 'ann218', f: 'f218_ann', sc: 'major', v: '2.18', coll: 'content', t: 'Нейросеть на полях — как в Google Docs', lead: 'Разметка, сверка с вашими источниками и фактчекинг — прямо на тексте на доске: подчёркивание и заметка на полях. Каждую пометку можно принять, убрать или сделать задачей.', pins: ['Подчёркнуто: на что смотреть.', 'Заметка на полях: что и почему, со ссылками на источники.', 'Принять или убрать.'] },
+  { id: 'next218', f: 'f218_next', sc: 'major', v: '2.18', coll: 'content', t: '«Что дальше» — шаги работы с материалом', lead: 'Конспект в нужной форме, разметка, сверка с источниками, фактчекинг в пяти режимах, свойства, задачи из текста, в источники, режим фокуса. Нейросеть делает работу, вы решаете; сделанные шаги отмечены.', pins: ['Конспект — выберите форму.', 'Десять форм: от резюме до карточек.', 'Фактчекинг: научный консенсус, профсообщество, логика…'] },
+  { id: 'focus218', f: 'f218_focus', sc: 'major', v: '2.18', coll: 'content', t: 'Режим фокуса: читать со скоростью мысли', lead: 'Чистый текст в одну колонку, оглавление, поля с выделениями и заметками нейросети. Выделите фразу — выделить, заметка, объяснить, в источники, в задачи. Видео — плеер и транскрипт рядом.', pins: ['Оглавление: где вы сейчас.', 'Выделение и заметка к нему.', 'Поля: всё, что оставили вы и нейросеть.'] },
+  { id: 'rev218', f: 'f218_focus', sc: 'new', v: '2.18', coll: 'content', t: 'Повторение: карточки из прочитанного', lead: 'Выделение с заметкой становится вопросом, выделение без заметки — пропуском во фразе, конспект «Карточки» — карточками. «Помню» отодвигает карточку: через 1, 3, 7, 16 дней.', pins: ['Вопрос — ваша заметка.', 'Ответ — то, что вы выделили.', '«Помню» — показать позже.'] },
+  { id: 'kb218', f: 'f218_kbadd', sc: 'new', v: '2.18', coll: 'content', t: 'Добавить источник — одно поле', lead: 'Вставьте ссылку, несколько ссылок, текст или перетащите файлы — Холст покажет, что распознал. Эксперт, вес, компетенции и доверие — один раз для всех.', pins: ['Одно поле для всего.', 'Что распознано — до добавления.', 'Эксперт, вес, компетенции, доверие.'] },
+  { id: 'alipov218', f: 'f218_alipov', sc: 'new', v: '2.18', t: 'Пример: Владимир Алипов в источниках', lead: 'Эксперт с биографией, весом, компетенциями и акцентами; его канал, Telegram, интервью с тезисами и цитатами, видео. Видно, как источники одного человека собираются вокруг него.', pins: ['Суть эксперта.', 'Тезисы с компетенциями.', 'Его источники — списком.'] },
+  { id: 'coll218', f: 'f218_coll', sc: 'new', v: '2.18', t: 'Подборки гайдов в «Основах»', lead: 'Основы Холста слайдами, «Устройства», «Работа с материалом» — подборки открываются большой панелью над затемнённым экраном. «Чем вы пользовались раньше?» — доски и задачники: Холст — гибрид.', pins: ['Подборка — одной кнопкой.', 'Вкладки: Основы, Новое, Все.', 'Три подборки.'] },
+  { id: 'dev218', f: 'f218_coll', sc: 'imp', v: '2.18', t: 'Устройства — подборкой', lead: 'Компьютер, телефон, расширение браузера, офлайн-файл, Google Диск, нейросети, команда — на одной большой панели. Esc или щелчок мимо — закрыть.', pins: ['Подборка «Устройства».', 'Расширение браузера.', 'Телефон: QR-код.'] },
+  { id: 'cols218', f: 'f218_cols', sc: 'imp', v: '2.18', t: 'Колонки подстраиваются под панель', lead: 'Колонка расширяется так, чтобы не было прокрутки вбок; доске остаётся не меньше 560 пикселей. Ширина, выставленная руками, запоминается для панели; двойной щелчок по краю — по содержимому.', pins: ['Колонка по содержимому.', 'Широкая таблица — без прокрутки вбок.', 'Край: потянуть или дважды щёлкнуть.'] },
+  { id: 'clip218', f: 'f218_clip', sc: 'major', v: '2.18', coll: 'content', t: 'Клиппер: одна панель, универсальное и для сайта', lead: 'Кнопка браузера, кнопка в плеере YouTube, «В Холст» в меню ⋮ и список видео — одна панель. Сверху — для любого сайта, ниже — для YouTube: транскрипт, комментарии, главы. Снимок — экран, страница, область или кадр видео. Выбранное — жёлтым.', pins: ['Для любого сайта.', 'Снимок: экран, страница, область, кадр.', 'Для YouTube.'] }
+];
+function slides218() {
+  for (const s of SLIDES218.slice().reverse()) { if (SLIDEBY214.has(s.id)) continue; SLIDES214.unshift(s); SLIDEBY214.set(s.id, s); SLIDEF214.set(s.f, s); if (s.sc === 'major') MAJOR214.add(s.f); }
+  if (typeof SHOTS_DATA218 !== 'undefined') Object.assign(SHOTS214, SHOTS_DATA218);
+}
+slides218();
+function wire218() { }
 
 /* =========================================================
    Pointer interaction
@@ -31521,7 +32804,7 @@ function wire() {
   fbar.querySelector('[data-fa="reload"]').innerHTML = ic('reload') + '<span>Перезагрузить</span>';
   fbar.querySelector('[data-fa="full"]').innerHTML = ic('fit') + '<span>На весь монитор</span>';
   fbar.querySelector('[data-fa="close"]').innerHTML = ic('close') + '<span>Свернуть (Esc)</span>';
-  buildToolbar(); buildHelp(); wire23(); wire24(); wire24b(); wire25(); wire26(); wire27(); wire28(); wire29(); wire210(); wire211(); wire212(); wire213(); wire214(); wire215(); wire216(); wire217();
+  buildToolbar(); buildHelp(); wire23(); wire24(); wire24b(); wire25(); wire26(); wire27(); wire28(); wire29(); wire210(); wire211(); wire212(); wire213(); wire214(); wire215(); wire216(); wire217(); wire218();
 
   vp.addEventListener('pointerdown', onDown);
   vp.addEventListener('pointermove', onMove);
