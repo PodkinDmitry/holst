@@ -1,0 +1,63 @@
+--- a/v224/base29.html
++++ b/v224/base29.html
+@@ -14098,11 +14098,29 @@
+   body.addEventListener('click', e => { const b = e.target.closest('[data-tourgo]'); if (b) { e.stopPropagation(); e.preventDefault(); tourStart(b.dataset.tourgo); } }, true);
+ }
+ /* ---------- the demo board: every feature live, grouped by topic, with explanations ---------- */
++// Keep generated demo versions independent from user-edited demo boards.
++let demoBoardBusy = false;
+ async function demoBoard() {
+-  if (S.board && dirty) await saveNow();
+-  const id = 'demo24', ex = S.index.find(x => x.id === id);
+-  if (ex && LS.get('demov') === APP_VERSION) { const b = await Backend.loadBoard(id); if (b) { S.board = null; loadBoard(b); fitAll(); return; } }
+-  const b = newBoard('Демо: весь Холст ' + APP_VERSION); b.id = id;
++  if (demoBoardBusy) return;
++  demoBoardBusy = true;
++  try {
++    finishEdit();
++    const previous = S.board;
++    if (!await canLeaveCurrentBoard() || S.board !== previous) return;
++    const previousVersion = previous && previous.updatedAt;
++    const preferredId = LS.get('demobid') || 'demo24';
++    const ex = S.index.find(x => x.id === preferredId);
++    if (ex && LS.get('demov') === APP_VERSION) {
++      const existing = await Backend.loadBoard(preferredId).catch(() => null);
++      if (existing) {
++        if (S.board !== previous || dirty || saving || saveAgain || (previous && previous.updatedAt !== previousVersion)) {
++          toast('Открытая доска изменилась. Повторите открытие демо.'); return;
++        }
++        loadBoard(existing); fitAll(); return;
++      }
++    }
++    const b = newBoard('Демо: весь Холст ' + APP_VERSION);
++    // newBoard() allocates a unique id; never reuse an editable legacy demo id.
+   const out = [], X = { x: 0 }, W = 1500, G = 160;
+   const note = (x, y, t, c) => ({ id: uid(), type: 'sticky', x, y, w: 260, h: 200, color: c || '#fff3a0', text: t, fs: 'auto', align: 'left', bold: false, textColor: INK });
+   const txt = (x, y, md, w) => ({ id: uid(), type: 'text', x, y, w: w || 520, h: 40, html: sanitizeHTML(mdToHtml(md)), text: md.replace(/[#*]/g, ''), fs: 16, align: 'left', textColor: INK });
+@@ -14153,10 +14171,22 @@
+     out.push(note(x + 40, y + 120, 'Кто на доске и их курсоры видны всем. Курсор отошедшего бледнеет, но не пропадает. Можно следовать за человеком.', '#c4e0ff'), note(x + 330, y + 120, 'Меню → «Команда»: участники, роли, свои разделы у каждого, командные доски и задачник, где хранится.', '#c8efc1'), note(x + 620, y + 120, '✦ Claude на доске: спросите или попросите — он сам поставит стикеры, рамки, документы, чек-листы.', '#e2d1ff'), note(x + 910, y + 120, 'Боковая панель — конструктор: до 3 колонок по 2 места, любые панели и объекты.', '#fff3a0'));
+     out.push({ id: uid(), type: 'embed', kind: 'widget', provider: 'holst', wv: 'menu', title: 'Меню Холста на доске (виджет)', url: '', src: '', thumb: '', asset: '', vs: 'live', view: 'live', x: x + 40, y: y + 380, w: 1200, h: 360 });
+   });
+-  b.items = out; b.updatedAt = Date.now();
+-  await Backend.saveBoard(b); S.board = null; loadBoard(b);
+-  const mp = S.demoMx; if (mp) { const m = { id: uid(), type: 'frame', x: mp.x, y: mp.y, w: 1100, h: 620, title: 'Матрица задач' }; S.board.items.push(m); mxCreate(m, ['Срочно', 'Не срочно'], ['Важно', 'Не важно']); mxCells(m).forEach((c, i) => { c.title = ['Сделать', 'Запланировать', 'Делегировать', 'Убрать'][i] || ''; }); changed(); }
+-  LS.set('demov', APP_VERSION); fitAll(); renderDrawer(); toast('Демо-доска: всё, что умеет Холст ' + APP_VERSION + ', по темам');
++    b.items = out; b.updatedAt = Date.now();
++    const result = await Backend.saveBoard(b);
++    if (result?.removed) throw new Error('Демонстрационная доска удалена во время записи');
++    if (S.board !== previous || dirty || saving || saveAgain || (previous && previous.updatedAt !== previousVersion)) {
++      toast('Новая демо-доска сохранена отдельно; открытая доска изменилась и оставлена на экране.'); return;
++    }
++    loadBoard(b);
++    const mp = S.demoMx; if (mp) { const m = { id: uid(), type: 'frame', x: mp.x, y: mp.y, w: 1100, h: 620, title: 'Матрица задач' }; S.board.items.push(m); mxCreate(m, ['Срочно', 'Не срочно'], ['Важно', 'Не важно']); mxCells(m).forEach((c, i) => { c.title = ['Сделать', 'Запланировать', 'Делегировать', 'Убрать'][i] || ''; }); changed(); }
++    LS.set('demobid', b.id); LS.set('demov', APP_VERSION);
++    fitAll(); renderDrawer(); toast('Демо-доска: всё, что умеет Холст ' + APP_VERSION + ', по темам');
++  } catch (err) {
++    console.error(err);
++    toast('Не удалось открыть демо-доску. Текущая доска осталась открытой.');
++  } finally {
++    demoBoardBusy = false;
++  }
+ }
+ /* =========================================================
+    v2.4: embeds from the main services of the world, with their own options
