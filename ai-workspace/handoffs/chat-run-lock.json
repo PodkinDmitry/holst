@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat09-20261121143225-91",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T14:32:25.268Z",
-  "expires_at": "2026-11-21T15:42:25.268Z",
-  "heartbeat_at": "2026-11-21T14:32:25.268Z",
-  "last_completed_at": "2026-11-21T14:19:06.910Z",
-  "last_summary": "CHAT09 distributed CAS safety audit",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T14:40:21.241Z",
+  "last_completed_at": "2026-11-21T14:40:21.241Z",
+  "last_summary": "CHAT09 cross-tab CAS: 14/14 Node, 6/6 Chromium separate pages; 4 files published, journal §19 updated. Actual SOL storage not tested.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
