@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat24-demo-state-20261122-high",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T22:16:03.090Z",
-  "expires_at": "2026-11-21T23:26:03.090Z",
-  "heartbeat_at": "2026-11-21T22:16:03.090Z",
-  "last_completed_at": "2026-11-21T22:13:38.144Z",
-  "last_summary": "CHAT24: source-backed Test13 remaining data loss routes research; no Work/main changes",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T22:21:23.210Z",
+  "last_completed_at": "2026-11-21T22:21:23.210Z",
+  "last_summary": "CHAT24: source-backed Drive background deletion guard, 6 original negative controls, 26/26 Node VM, combined CHAT21–24 90/90 VM, 2 builds PASS, 3 files SHA verified; journal §43; browser/SOL integration OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
