@@ -1,0 +1,168 @@
+--- a/v224/base29.html
++++ b/v224/base29.html
+@@ -5103,17 +5103,96 @@
+   '4': { name: 'Четыре', cols: 2, rows: 2, cells: [[0, 0, 1, 1], [1, 0, 1, 1], [0, 1, 1, 1], [1, 1, 1, 1]] },
+ };
+ const splitOk = () => !S.hosted && !PANE && Backend === Local;
++// A pane is a separate editor: the parent cannot infer its save status from its own dirty flag.
++let splitChangeBusy = false;
++let splitPanePrepared = null;
++if (PANE && window.parent !== window) {
++  for (const type of ['pointerdown', 'keydown', 'beforeinput', 'paste', 'drop']) {
++    window.addEventListener(type, e => {
++      if (splitPanePrepared) { e.preventDefault(); e.stopImmediatePropagation(); }
++    }, true);
++  }
++  window.addEventListener('message', async e => {
++    const m = e.data || {};
++    if (e.source !== window.parent || m.holst !== 'split-save' || typeof m.id !== 'string') return;
++    if (m.action === 'cancel') {
++      if (splitPanePrepared && splitPanePrepared.id === m.id) splitPanePrepared = null;
++      return;
++    }
++    if (m.action !== 'prepare') return;
++    const reply = ok => { try { window.parent.postMessage({ holst: 'split-save-ack', id: m.id, i: +QS.get('i'), bid: S.board?.id || null, ok }, '*'); } catch (e) { /* parent may have closed */ } };
++    if (splitPanePrepared) { reply(false); return; }
++    const request = { id: m.id }; splitPanePrepared = request;
++    let ok = false;
++    try {
++      if (S.board && S.board.id === m.bid && !S.drag) {
++        finishEdit();
++        ok = !!(await canLeaveCurrentBoard()) && splitPanePrepared === request &&
++          S.board?.id === m.bid && !dirty && !saving && !saveAgain;
++      }
++    } catch (e) { ok = false; }
++    if (splitPanePrepared !== request) return; // cancellation arrived while saving
++    reply(ok);
++    if (!ok) splitPanePrepared = null;
++    else setTimeout(() => { if (splitPanePrepared === request) splitPanePrepared = null; }, 15000);
++  });
++}
++function splitReleasePrepared(prepared) {
++  if (!prepared) return;
++  for (const w of prepared.windows) {
++    try { w.postMessage({ holst: 'split-save', action: 'cancel', id: prepared.id }, '*'); } catch (e) { /* pane was removed */ }
++  }
++}
++async function splitPreparePanes(sp) {
++  const grid = $('#splitGrid'), cells = grid._cells || [];
++  const n = SPLITS[sp.layout]?.cells.length;
++  if (!n || cells.length !== n || sp.boards.length !== n) return null;
++  const expected = [...sp.boards], id = uid();
++  const windows = cells.map(c => c.querySelector('iframe')?.contentWindow || null);
++  if (windows.some(w => !w)) return null;
++  const prepared = { id, windows };
++  const results = await Promise.all(windows.map((w, i) => new Promise(resolve => {
++    let finished = false;
++    const done = ok => {
++      if (finished) return;
++      finished = true; clearTimeout(timeout); window.removeEventListener('message', receive); resolve(ok);
++    };
++    const receive = e => {
++      const m = e.data || {};
++      if (e.source === w && m.holst === 'split-save-ack' && m.id === id && m.i === i)
++        done(m.ok === true && m.bid === expected[i]);
++    };
++    window.addEventListener('message', receive);
++    const timeout = setTimeout(() => done(false), 10000);
++    try { w.postMessage({ holst: 'split-save', action: 'prepare', id, bid: expected[i] }, '*'); }
++    catch (e) { done(false); }
++  })));
++  if (!results.every(Boolean) || S.split !== sp || sp.boards.some((bid, i) => bid !== expected[i])) {
++    splitReleasePrepared(prepared);
++    return null;
++  }
++  return prepared;
++}
+ async function enterSplit(layout) {
+-  const L = SPLITS[layout]; if (!L || !splitOk()) return;
+-  finishEdit(); closePop(); drawer.hidden = true;
+-  if (dirty) await saveNow();
+-  const ids = [S.board.id, ...[...S.index].sort((a, b) => b.updatedAt - a.updatedAt).map(x => x.id).filter(id => id !== S.board.id)];
+-  const old = S.split && S.split.boards || [];
+-  const boards = L.cells.map((_, i) => old[i] || ids[i] || S.board.id);
+-  if (old.length) boards[0] = old[0];
+-  S.split = { layout, boards, cols: Array(L.cols).fill(1), rows: Array(L.rows).fill(1) };
+-  LS.set('split', S.split);
+-  showSplit();
++  const L = SPLITS[layout]; if (!L || !splitOk() || splitChangeBusy) return;
++  splitChangeBusy = true;
++  let prepared = null;
++  try {
++    finishEdit(); closePop();
++    if (!(await canLeaveCurrentBoard())) return;
++    if (S.split) {
++      prepared = await splitPreparePanes(S.split);
++      if (!prepared) { toast('Не удалось сохранить все панели. Разделение сохранено.'); return; }
++    }
++    drawer.hidden = true;
++    const ids = [S.board.id, ...[...S.index].sort((a, b) => b.updatedAt - a.updatedAt).map(x => x.id).filter(id => id !== S.board.id)];
++    const old = S.split && S.split.boards || [];
++    const boards = L.cells.map((_, i) => old[i] || ids[i] || S.board.id);
++    if (old.length) boards[0] = old[0];
++    S.split = { layout, boards, cols: Array(L.cols).fill(1), rows: Array(L.rows).fill(1) };
++    LS.set('split', S.split);
++    showSplit();
++  } finally { splitReleasePrepared(prepared); splitChangeBusy = false; }
+ }
+ function showSplit() {
+   document.body.classList.add('splitting');
+@@ -5145,21 +5224,37 @@
+   cx.slice(0, -1).forEach(([s, w], i) => { const g = document.createElement('div'); g.className = 'sgut v'; g.dataset.k = 'c' + i; g.style.left = px(s + w); grid.appendChild(g); });
+   cy.slice(0, -1).forEach(([s, w], i) => { const g = document.createElement('div'); g.className = 'sgut h'; g.dataset.k = 'r' + i; g.style.top = px(s + w); grid.appendChild(g); });
+ }
+-function exitSplit(bid) {
+-  const sp = S.split; S.split = null; LS.set('split', null);
+-  const grid = $('#splitGrid'); grid.innerHTML = ''; grid._cells = [];
+-  $('#split').hidden = true; document.body.classList.remove('splitting');
+-  const target = bid || (sp && sp.boards[0]) || (S.board && S.board.id);
+-  (async () => { const b = target ? await Local.loadBoard(target) : null; if (b) { S.board = null; loadBoard(b); } })();
++async function exitSplit(bid) {
++  const sp = S.split; if (!sp || splitChangeBusy) return;
++  splitChangeBusy = true;
++  let prepared = null;
++  try {
++    if (!(await canLeaveCurrentBoard())) return;
++    prepared = await splitPreparePanes(sp);
++    if (!prepared) { toast('Не удалось сохранить все панели. Разделение сохранено.'); return; }
++    const target = bid || sp.boards[0] || S.board?.id;
++    const b = target ? await Local.loadBoard(target).catch(() => null) : null;
++    if (!b) { toast('Доска недоступна. Разделение сохранено.'); return; }
++    S.split = null; LS.set('split', null);
++    const grid = $('#splitGrid'); grid.innerHTML = ''; grid._cells = [];
++    $('#split').hidden = true; document.body.classList.remove('splitting');
++    S.board = null; loadBoard(b);
++  } finally { splitReleasePrepared(prepared); splitChangeBusy = false; }
+ }
+-function closePane(i) {
+-  const sp = S.split; if (!sp) return;
++async function closePane(i) {
++  const sp = S.split; if (!sp || splitChangeBusy) return;
+   const boards = sp.boards.filter((_, k) => k !== i);
+-  if (boards.length < 2) { exitSplit(boards[0]); return; }
+-  const layout = boards.length === 3 ? '3v' : '2v';
+-  const grid = $('#splitGrid'); grid.innerHTML = ''; grid._cells = [];
+-  S.split = { layout, boards, cols: Array(SPLITS[layout].cols).fill(1), rows: Array(SPLITS[layout].rows).fill(1) };
+-  LS.set('split', S.split); renderSplit();
++  if (boards.length < 2) return exitSplit(boards[0]);
++  splitChangeBusy = true;
++  let prepared = null;
++  try {
++    prepared = await splitPreparePanes(sp);
++    if (!prepared) { toast('Не удалось сохранить все панели. Разделение сохранено.'); return; }
++    const layout = boards.length === 3 ? '3v' : '2v';
++    const grid = $('#splitGrid'); grid.innerHTML = ''; grid._cells = [];
++    S.split = { layout, boards, cols: Array(SPLITS[layout].cols).fill(1), rows: Array(SPLITS[layout].rows).fill(1) };
++    LS.set('split', S.split); renderSplit();
++  } finally { splitReleasePrepared(prepared); splitChangeBusy = false; }
+ }
+ function splitPop(anchor) {
+   openPop(anchor, '<div class="menu">' + Object.entries(SPLITS).map(([k, L]) => `<button class="mi" data-v="${k}"><span class="spic">${'▮'.repeat(L.cells.length)}</span><span>${L.name}</span></button>`).join('') + '</div>', v => enterSplit(v));
+@@ -5177,6 +5272,7 @@
+     else if (b.dataset.sa === 'layout') splitPop(b);
+   });
+   grid.addEventListener('pointerdown', e => {
++    if (splitChangeBusy) return;
+     const g = e.target.closest('.sgut'); if (!g) return;
+     e.preventDefault(); g.setPointerCapture(e.pointerId); $('#split').classList.add('dragging');
+     const kind = g.dataset.k[0], idx = +g.dataset.k.slice(1), arr = kind === 'c' ? S.split.cols : S.split.rows;
