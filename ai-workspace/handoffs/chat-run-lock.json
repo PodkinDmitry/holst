@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat11-20261121145445-73",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T14:54:45.819Z",
-  "expires_at": "2026-11-21T16:13:30.863Z",
-  "heartbeat_at": "2026-11-21T15:03:30.863Z",
-  "last_completed_at": "2026-11-21T14:46:44.480Z",
-  "last_summary": "CHAT11 audit distributed CAS and preset storage lifecycle",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T15:04:58.136Z",
+  "last_completed_at": "2026-11-21T15:04:58.136Z",
+  "last_summary": "CHAT 11: patched lost-ACK CAS reconciliation; 98/98 separate Node/Chromium scenarios PASS; 6 GitHub files and journal §21 updated.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
