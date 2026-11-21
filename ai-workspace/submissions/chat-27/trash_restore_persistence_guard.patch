@@ -1,0 +1,92 @@
+--- a/v224/base29.html
++++ b/v224/base29.html
+@@ -12831,23 +12831,69 @@
+ }
++// Pending restored objects stay in memory if persistence fails: a retry only flushes.
++const trashRestorePending = new Map();
++let trashRestoreBusy = false;
+ async function trashRestore(id) {
+-  const l = trashIdx(), e = l.find(x => x.id === id); if (!e) return;
+-  const data = await Store.get('trash:' + id); if (!data) { toast('Копия не найдена на этом устройстве'); return; }
+-  if (e.kind === 'board') {
+-    const b = data.board; if (S.index.some(x => x.id === b.id)) b.id = uid();
+-    const nb = Object.assign(newBoard(b.name), b);
+-    nb.assets ||= {};
+-    delete nb.space;
+-    delete nb.team;
+-    await Backend.saveBoard(nb); if (data.bm && S.org) bmSet(nb.id, data.bm);
+-    renderDrawer(); toast(`Доска «${b.name}» вернулась`);
+-  } else {
+-    const target = S.board && S.board.id === e.bid ? S.board : await Backend.loadBoard(e.bid).catch(() => null);
+-    const b = target || S.board; if (!b) return;
+-    const have = new Set(b.items.map(i => i.id)), list = data.items.map(i => (have.has(i.id) ? Object.assign(clone(i), { id: uid() }) : i));
+-    b.assets = Object.assign(b.assets || {}, data.assets || {});
+-    if (b === S.board) { pushHist(); S.board.items.push(...list); S.sel = new Set(list.map(i => i.id)); changed(); }
+-    else { b.items.push(...list); await Backend.saveBoard(b); }
+-    toast(`Вернул: ${e.title}${b === S.board ? '' : ' — на доску «' + b.name + '»'}`);
+-  }
+-  await Store.del('trash:' + id).catch(() => {}); trashSaveIdx(trashIdx().filter(x => x.id !== id));
++  if (trashRestoreBusy) { toast('Восстановление уже выполняется'); return false; }
++  trashRestoreBusy = true;
++  try {
++    const e = trashIdx().find(x => x.id === id); if (!e) return false;
++    const data = await Store.get('trash:' + id);
++    if (!data) { toast('Копия не найдена на этом устройстве'); return false; }
++    if (e.kind === 'board') {
++      if (!data.board || !data.board.id || !Array.isArray(data.board.items)) throw new Error('Повреждённая копия доски в корзине');
++      const b = clone(data.board);
++      if (S.index.some(x => x.id === b.id)) {
++        do { b.id = 'b' + uid(); } while (S.index.some(x => x.id === b.id));
++      }
++      const nb = Object.assign(newBoard(b.name), b);
++      nb.assets ||= {};
++      delete nb.space;
++      delete nb.team;
++      const saved = await Backend.saveBoard(nb);
++      if (saved?.removed) throw new Error('Хранилище отклонило восстановление доски');
++      if (data.bm && S.org) bmSet(nb.id, data.bm);
++      renderDrawer(); toast(`Доска «${b.name}» вернулась`);
++    } else if (e.kind === 'obj') {
++      if (!Array.isArray(data.items)) throw new Error('Повреждённая копия объектов в корзине');
++      const target = S.board && S.board.id === e.bid ? S.board : await Backend.loadBoard(e.bid).catch(() => null);
++      // Never silently put deleted items onto a different board if their origin is gone.
++      if (!target) { toast('Исходная доска не найдена: копия осталась в корзине'); return false; }
++      if (target === S.board) {
++        if (target.virtual) { toast('Объекты нельзя восстановить напрямую в умную доску'); return false; }
++        const pending = trashRestorePending.get(id);
++        if (!pending || pending.board !== target || !pending.ids.every(iid => target.items.some(it => it.id === iid))) {
++          const have = new Set(target.items.map(i => i.id));
++          const list = data.items.map(i => have.has(i.id) ? Object.assign(clone(i), { id: uid() }) : clone(i));
++          pushHist();
++          target.assets = Object.assign(target.assets || {}, clone(data.assets || {}));
++          target.items.push(...list);
++          S.sel = new Set(list.map(i => i.id));
++          changed();
++          trashRestorePending.set(id, { board: target, ids: list.map(i => i.id) });
++        }
++        // CHAT18 guard flushes autosave and refuses to discard dirty/saving changes.
++        if (!await canLeaveCurrentBoard() || S.board !== target) {
++          toast('Изменения ещё не сохранены: копия оставлена в корзине'); return false;
++        }
++      } else {
++        // Modify a detached clone, never a loaded board instance before save succeeds.
++        const b = clone(target), have = new Set(b.items.map(i => i.id));
++        const list = data.items.map(i => have.has(i.id) ? Object.assign(clone(i), { id: uid() }) : clone(i));
++        b.assets = Object.assign(b.assets || {}, clone(data.assets || {}));
++        b.items.push(...list); b.updatedAt = Date.now();
++        const saved = await Backend.saveBoard(b);
++        if (saved?.removed) throw new Error('Хранилище отклонило восстановление объектов');
++      }
++      toast(`Вернул: ${e.title}${target === S.board ? '' : ' — на доску «' + target.name + '»'}`);
++    } else throw new Error('Неизвестный тип записи в корзине');
++    // The trash entry is only consumed after the destination save was acknowledged.
++    await Store.del('trash:' + id);
++    trashSaveIdx(trashIdx().filter(x => x.id !== id));
++    trashRestorePending.delete(id);
++    return true;
++  } catch (err) {
++    console.error(err);
++    toast('Не удалось восстановить: копия сохранена в корзине');
++    return false;
++  } finally { trashRestoreBusy = false; }
+ }
