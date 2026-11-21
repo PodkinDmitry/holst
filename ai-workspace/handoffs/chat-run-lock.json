@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T13:21:33.326Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T13:25:26.730Z",
+  "state": "running",
+  "owner": "chat-B-20261121-1629-01",
+  "acquired_at": "2026-11-21T13:29:33.250Z",
+  "expires_at": "2026-11-21T14:29:33.250Z",
+  "heartbeat_at": "2026-11-21T13:29:33.250Z",
   "last_completed_at": "2026-11-21T13:25:26.730Z",
   "last_summary": "CHAT 06: найден 1 воспроизводимый дефект очереди onSaveView после destroy; 4/4 и 37/37 PASS после патча; 3 файла опубликованы и проверены.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
