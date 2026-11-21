@@ -1,0 +1,49 @@
+--- a/v224/base29.html
++++ b/v224/base29.html
+@@ -3064,16 +3064,21 @@
+ }
+ const b64ToBytes = b64 => { const s = atob(String(b64 || '').replace(/\s/g, '')); const u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u; };
+ async function removeBoardLocally(bid) {
+-  await Backend.deleteBoard(bid).catch(() => {});
++  // Background Drive cleanup must not evict an open board: its persisted
++  // revision can be older than unsaved edits in memory.
++  if (saving || saveAgain || (S.board && S.board.id === bid)) return false;
++  try { await Backend.deleteBoard(bid); }
++  catch (err) { console.warn('Drive local cleanup failed', err); return false; }
++  // Navigation may select the board while the asynchronous delete is in flight.
++  // Do not discard its in-memory state even if the local delete just completed.
++  if (S.board && S.board.id === bid) {
++    dirty = true; setStatus('error');
++    toast('Доска изменилась во время синхронизации. Сохраните её в файл перед закрытием.');
++    return false;
++  }
+   S.index = S.index.filter(x => x.id !== bid);
+-  if (S.board && S.board.id === bid) {
+-    const next = [...S.index].sort((a, b) => b.updatedAt - a.updatedAt)[0];
+-    const nb = next ? await Backend.loadBoard(next.id).catch(() => null) : null;
+-    S.board = null; dirty = false;
+-    loadBoard(nb || newBoard('Новая доска'));
+-    if (nb) fitAll(); else await saveNow();
+-  }
+   renderDrawer();
++  return true;
+ }
+ const driveErr = (status, code, msg) => { const e = new Error(msg || code || ('drive ' + status)); e.status = status; e.code = code; return e; };
+ 
+@@ -3496,14 +3501,14 @@
+         if (f && m && m.u === e.updatedAt) continue;
+         const lb = await Backend.loadBoard(bid); if (!lb || lb.driveBranch300) continue;
+         const h = m && m.u === lb.updatedAt && m.hash ? m.hash : boardHash(lb);
+-        if (lb.welcome && h === LS.get('welcome:' + bid)) { if (remote.size) { await removeBoardLocally(bid); changed = true; } continue; }
++        if (lb.welcome && h === LS.get('welcome:' + bid)) { if (remote.size && await removeBoardLocally(bid)) changed = true; continue; }
+         if (f) {
+           if (!m || h !== m.hash) await this.push(lb, h, f); else m.u = lb.updatedAt;
+           continue;
+         }
+         if (m && m.fileId) {
+           const s = await this.status(m.fileId);
+-          if (s.st === 'gone' && h === m.hash && removed < 2) { removed++; delete this.st.meta[bid]; await removeBoardLocally(bid); changed = true; continue; }
++          if (s.st === 'gone' && h === m.hash && removed < 2) { if (await removeBoardLocally(bid)) { removed++; delete this.st.meta[bid]; changed = true; } continue; }
+           delete this.st.meta[bid];
+         }
+         await this.push(lb, h, null);
