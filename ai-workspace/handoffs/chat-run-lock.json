@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T23:46:42.690Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T23:52:05.328Z",
+  "state": "running",
+  "owner": "chat34-full-harness-regression-20261122-high",
+  "acquired_at": "2026-11-21T23:59:52.696Z",
+  "expires_at": "2026-11-22T01:07:52.696Z",
+  "heartbeat_at": "2026-11-21T23:59:52.696Z",
   "last_completed_at": "2026-11-21T23:52:05.328Z",
-  "last_summary": "CHAT33: complete exact Test13 CHAT16–31 source gate 16/16 apply PASS, full build ok 5009092, real inline JS syntax PASS, 338/338 Node VM CHAT21–31; original PATCH16–20 exact Git blobs verified; two public SHA-verified reports; journal §53. CHAT16–20 individual VM and browser/SOL integration remain OPEN.",
+  "last_summary": "CHAT34 source-backed full Test13 CHAT16–31 Node VM harness coverage; no Work/main",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
