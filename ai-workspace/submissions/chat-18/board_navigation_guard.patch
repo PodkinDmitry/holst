@@ -1,0 +1,69 @@
+--- a/v224/base29.html
++++ b/v224/base29.html
+@@ -4240,13 +4240,31 @@
+   b.updatedAt = Date.now();
+   try {
+     const result = await Backend.saveBoard(b, {keepConflict:true});
+-    if (!result?.removed) await Backend.setLast(b.id);
++    if (result?.removed) throw new Error('Доска была удалена в другом окне. Сохраните изменения в файл.');
++    await Backend.setLast(b.id);
+     setStatus('saved');
+   }
+   catch (err) { console.error(err); dirty = true; setStatus(err && err.code === 'quota_exceeded' ? 'full' : 'error'); }
+   saving = false;
+   if (saveAgain) { saveAgain = false; saveNow(); }
+   renderDrawer();
++}
++// A failed or in-flight save must not be discarded by changing boards.
++async function canLeaveCurrentBoard() {
++  const board = S.board;
++  if (!board) return true;
++  if (board.virtual && dirty) {
++    toast('Сначала сохраните правки умной доски, затем смените доску.');
++    return false;
++  }
++  if (dirty) await saveNow();
++  const deadline = Date.now() + 5000;
++  while (saving && Date.now() < deadline) await new Promise(resolve => setTimeout(resolve, 70));
++  if (S.board !== board || dirty || saving || saveAgain) {
++    toast('Не удалось завершить сохранение. Останьтесь на доске и сохраните её в файл.');
++    return false;
++  }
++  return true;
+ }
+ const saveSettings = () => LS.set('settings', { grid: S.settings.grid, opts: S.opts, views: S.settings.views || {}, ctpl: S.settings.ctpl || {}, theme: S.settings.theme || 'auto', ccol: S.settings.ccol || [] });
+ 
+@@ -19770,7 +19788,7 @@
+ async function openBoard(id) {
+   if (S.board && S.board.id === id) { drawer.hidden = true; return; }
+   finishEdit();
+-  if (S.board && dirty) await saveNow();
++  if (!await canLeaveCurrentBoard()) return;
+   setStatus('loading');
+   let b = null;
+   try { b = await Backend.loadBoard(id); } catch (e) { b = null; }
+@@ -19779,14 +19797,14 @@
+ }
+ async function createBoard() {
+   finishEdit();
+-  if (S.board && dirty) await saveNow();
++  if (!await canLeaveCurrentBoard()) return;
+   loadBoard(newBoard('Доска ' + (S.index.length + 1)));
+   await saveNow();
+   drawer.hidden = true;
+   $('#boardName').focus(); $('#boardName').select();
+ }
+ async function duplicateBoard(id) {
+-  if (S.board && S.board.id === id && dirty) await saveNow();
++  if (S.board && S.board.id === id && !await canLeaveCurrentBoard()) return;
+   const src = S.board && S.board.id === id ? S.board : await Backend.loadBoard(id);
+   if (!src) return;
+   const b = clone(src);
+@@ -19798,6 +19816,7 @@
+ async function deleteBoard(id) {
+   const e = S.index.find(x => x.id === id);
+   if (!await uiConfirm(`Удалить доску «${e ? e.name : ''}»? Она попадёт в корзину: вернуть можно в «Хранилище и копии → Корзина»${storeCfg().trash.days ? ` в течение ${storeCfg().trash.days} дней` : ''}.`)) return;
++  if (S.board && S.board.id === id && !await canLeaveCurrentBoard()) return;
+   try { await deleteBoardWithTrash300(id); } catch (err) { toast(err?.message || 'Не удалось удалить доску'); return; }
+   Drive.forget(id);
+   if (S.board && S.board.id === id) {
