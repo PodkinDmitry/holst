@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "setup-high-20261121-mwqhg253",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T14:07:48.184Z",
-  "expires_at": "2026-11-21T14:42:48.186Z",
-  "heartbeat_at": "2026-11-21T14:07:48.186Z",
-  "last_completed_at": "2026-11-21T13:57:16.730Z",
-  "last_summary": "Protocol update for GPT-6 High manual one-click continuation",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T14:09:03.707Z",
+  "last_completed_at": "2026-11-21T14:09:03.707Z",
+  "last_summary": "GPT-6 High manual one-click continuation configured in canonical worker & response protocols; XOD journal §17; five Scheduled tasks remain paused.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
