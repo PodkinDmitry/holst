@@ -81,8 +81,8 @@ async function onSaveView(view) {
 cd ai-workspace/submissions/chat-11
 node --check xod-cas-view-coordinator.js
 node reconciliation-gate.js
-XOD_CAS_MODULE=./xod-cas-view-coordinator.js node ../chat-09/cas-gate.js
-XOD_CAS_MODULE=./xod-cas-view-coordinator.js node ../chat-10/preset-idempotency-gate.js
+XOD_CAS_MODULE="$(pwd)/xod-cas-view-coordinator.js" node ../chat-09/cas-gate.js
+XOD_CAS_MODULE="$(pwd)/xod-cas-view-coordinator.js" node ../chat-10/preset-idempotency-gate.js
 python reconciliation-browser.py --component ../chat-10/xod-youtube-table300-patched.js
 python run-browser-regressions.py --component ../chat-10/xod-youtube-table300-patched.js
 ```
