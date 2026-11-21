@@ -1,0 +1,43 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>XOD CHAT 08 — конкурирующие поверхности</title>
+<style>body{font:16px/1.5 system-ui,sans-serif;padding:1rem}li[data-status=PASS]{color:green}li[data-status=FAIL]{color:#b00020}.surface{margin:1rem 0;max-width:780px}#summary{font-weight:700}</style></head>
+<body><h1>CHAT 08 — конкурентное сохранение видов</h1><p id="summary" data-status="RUNNING">Выполняется…</p><ol id="results"></ol><div class="surface" id="a"></div><div class="surface" id="b"></div>
+<script src="../chat-07/xod-youtube-table300-patched.js"></script><script src="./xod-view-store-coordinator.js"></script>
+<script>
+(async function(){
+ 'use strict';const $=s=>document.querySelector(s),results=$('#results');let passed=0,failed=0;
+ const clone=o=>JSON.parse(JSON.stringify(o));const delay=ms=>new Promise(r=>setTimeout(r,ms));
+ const base=()=>({entries:[{id:'v1',type:'video',title:'Видео',values:{category:'inbox'}}],fields:[{key:'category',label:'Категория',types:['video'],options:[{value:'inbox',label:'Входящие'},{value:'fav',label:'Избранное'}]}],onApply:async()=>({entries:[{id:'v1',type:'video',title:'Видео',values:{category:'inbox'}}],applied:0,skipped:0,failed:0})});
+ function mount(root,onSaveView){return mountYoutubeTable300(root,Object.assign(base(),{onSaveView}));}
+ function group(root,dir){const sel=root.querySelector('.yt-table300__grouping-field');if(!sel)throw Error('нет управления группировкой');sel.value='category';sel.dispatchEvent(new Event('change',{bubbles:true}));if(dir==='desc'){const d=root.querySelector('.yt-table300__grouping-direction');d.value='desc';d.dispatchEvent(new Event('change',{bubbles:true}));}}
+ function assert(condition,msg){if(!condition)throw Error(msg)}
+ async function test(name,fn){$('#a').replaceChildren();$('#b').replaceChildren();try{await fn();passed++;const li=document.createElement('li');li.dataset.status='PASS';li.textContent='PASS · '+name;results.append(li)}catch(err){failed++;const li=document.createElement('li');li.dataset.status='FAIL';li.textContent='FAIL · '+name+' — '+err.message;results.append(li)}finally{$('#a').replaceChildren();$('#b').replaceChildren()}}
+ await test('01: legacy separate writers demonstrably lose one surface',async()=>{
+  let db={views:{}};function unsafe(scope,ms){return async v=>{const old=clone(db);await delay(ms);old.views[scope]=clone(v);db=old}}
+  const a=mount($('#a'),unsafe('main',45)),b=mount($('#b'),unsafe('side',5));group($('#a'));group($('#b'));
+  await delay(110);assert(Object.keys(db.views).length===1,'baseline must show a lost update');a.destroy();b.destroy();
+ });
+ await test('02: shared coordinator serializes real DOM surface changes',async()=>{
+  let db={views:{},presets:[{id:'p',name:'keep'}]};const c=createXodViewStoreCoordinator({read:async()=>{await delay(2);return clone(db)},write:async next=>{await delay(7);db=clone(next)}});
+  const a=mount($('#a'),c.bindView('main')),b=mount($('#b'),c.bindView('side'));group($('#a'));group($('#b'));
+  await delay(100);assert(Object.keys(db.views).length===2,'one table view was lost');assert(db.presets[0].name==='keep','unrelated preset lost');a.destroy();b.destroy();
+ });
+ await test('03: same-scope later user change wins',async()=>{
+  let db={views:{}};const c=createXodViewStoreCoordinator({read:async()=>clone(db),write:async next=>{await delay(3);db=clone(next)}});
+  const a=mount($('#a'),c.bindView('common')),b=mount($('#b'),c.bindView('common'));group($('#a'));await delay(10);group($('#b'),'desc');await delay(100);
+  assert(db.views.common.group.dir==='desc','older save replaced more recent view');a.destroy();b.destroy();
+ });
+ await test('04: failed persistence shows Retry and subsequent success',async()=>{
+  let db={views:{}},fail=true;const c=createXodViewStoreCoordinator({read:async()=>clone(db),write:async next=>{if(fail){fail=false;throw Error('disk disconnected')}db=clone(next)}});
+  const a=mount($('#a'),c.bindView('main'));group($('#a'));await delay(30);
+  const retry=$('#a').querySelector('.yt-table300__view-retry');assert(!retry.hidden,'retry missing after error');assert($('#a').querySelector('.yt-table300__view-status').textContent.includes('disk disconnected'),'error not shown');retry.click();await delay(40);
+  assert(retry.hidden,'retry not cleared');assert(db.views.main.group.key==='category','retry did not commit');a.destroy();
+ });
+ await test('05: a queued preset transaction does not erase a view',async()=>{
+  let db={views:{},presets:[]};const c=createXodViewStoreCoordinator({read:async()=>clone(db),write:async next=>{await delay(3);db=clone(next)}});
+  const a=mount($('#a'),c.bindView('main'));group($('#a'));
+  const p=c.transaction(d=>{d.presets.push({id:'p',name:'New',view:{filter:null,sort:[]}})});await p;await delay(30);
+  assert(db.views.main.group.key==='category','lost table view');assert(db.presets[0].name==='New','lost preset');a.destroy();
+ });
+ const summary=$('#summary');summary.dataset.status=failed?'FAIL':'PASS';summary.textContent=`${passed}/5 PASS · ${failed} FAIL`;
+})().catch(e=>{document.querySelector('#summary').dataset.status='FAIL';document.querySelector('#summary').textContent='Uncaught: '+e.message});
+</script></body></html>
