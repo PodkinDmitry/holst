@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T13:29:33.250Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T13:30:23.871Z",
+  "state": "running",
+  "owner": "chat-research-high-20261121-mwqg4zru",
+  "acquired_at": "2026-11-21T13:31:12.282Z",
+  "expires_at": "2026-11-21T14:41:12.282Z",
+  "heartbeat_at": "2026-11-21T13:31:12.282Z",
   "last_completed_at": "2026-11-21T13:30:23.871Z",
-  "last_summary": "GitHub CAS real concurrent test: 1 success + 1 409 conflict; checkpoint 14 verified.",
+  "last_summary": "Research high-reasoning autonomous alternative, no paid API",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
