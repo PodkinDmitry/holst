@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-sol-awake-handoff-20261121",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T16:16:50.297Z",
-  "expires_at": "2026-11-21T16:36:50.299Z",
-  "heartbeat_at": "2026-11-21T16:16:50.297Z",
-  "last_completed_at": "2026-11-21T15:59:41.317Z",
-  "last_summary": "Sync user report SOL quota is available; prepare Work integration handoff",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T16:17:37.639Z",
+  "last_completed_at": "2026-11-21T16:17:37.639Z",
+  "last_summary": "SOL marked AWAKE; Work not yet started; handoff §23 provides selective integration plan for CHAT04–12.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
