@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T17:48:09.393Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T17:49:18.990Z",
+  "state": "running",
+  "owner": "chat-roadmap-26-20261121180331",
+  "acquired_at": "2026-11-21T18:03:31.534Z",
+  "expires_at": "2026-11-21T18:38:31.534Z",
+  "heartbeat_at": "2026-11-21T18:03:31.534Z",
   "last_completed_at": "2026-11-21T17:49:18.990Z",
-  "last_summary": "Recalibrated XOD Work budget after audit: 44% 5h, 10% weekly; §26 updated; no code/automation changes.",
+  "last_summary": "User-requested reconciliation of 2.6 standard with full XOD roadmap and budget; documentation only",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
