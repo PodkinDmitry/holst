@@ -1,0 +1,134 @@
+/* Scoped styles. All typography and foreground color inherit from the host XOD UI. */
+.yt-table300 {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  color: inherit;
+  font: inherit;
+  line-height: 1.45;
+  --yt300-line: color-mix(in srgb, currentColor 22%, transparent);
+  --yt300-tint: color-mix(in srgb, currentColor 6%, transparent);
+  --yt300-hover: color-mix(in srgb, currentColor 10%, transparent);
+}
+.yt-table300 *, .yt-table300 *::before, .yt-table300 *::after { box-sizing: border-box; }
+.yt-table300__heading { margin: 0 0 .35rem; font-size: 1.25em; font-weight: 700; }
+.yt-table300__selection { margin: 0 0 .65rem; opacity: .85; }
+.yt-table300__scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--yt300-line);
+  border-radius: .55rem;
+  scrollbar-width: thin;
+}
+.yt-table300__table {
+  width: 100%;
+  min-width: 43rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+.yt-table300__caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+.yt-table300__table th, .yt-table300__table td {
+  padding: .65rem .7rem;
+  border-bottom: 1px solid var(--yt300-line);
+  vertical-align: middle;
+  min-width: 5rem;
+}
+.yt-table300__table th:first-child, .yt-table300__table td:first-child {
+  min-width: 3rem;
+  width: 3rem;
+  text-align: center;
+}
+.yt-table300__table thead th { font-weight: 650; background: var(--yt300-tint); white-space: nowrap; }
+.yt-table300__table tbody tr:last-child > * { border-bottom: 0; }
+.yt-table300__table tbody tr:hover { background: var(--yt300-hover); }
+.yt-table300__title { min-width: 11rem !important; max-width: 26rem; overflow-wrap: anywhere; font-weight: 600; }
+.yt-table300__type { white-space: nowrap; }
+.yt-table300__cell { overflow-wrap: anywhere; }
+.yt-table300__cell--na { background: var(--yt300-tint); opacity: .62; text-align: center; }
+.yt-table300__cell--empty { opacity: .72; font-style: italic; }
+.yt-table300__na-symbol { font-weight: 700; }
+.yt-table300__check-label { display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.yt-table300 input[type="checkbox"] { width: 1.1rem; height: 1.1rem; margin: 0; accent-color: currentColor; }
+.yt-table300__editor {
+  margin-top: 1rem;
+  padding: .85rem;
+  border: 1px solid var(--yt300-line);
+  border-radius: .55rem;
+}
+.yt-table300__editor-heading { margin: 0 0 .7rem; font-size: 1.05em; font-weight: 650; }
+.yt-table300__controls {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr) auto;
+  gap: .7rem;
+  align-items: end;
+}
+.yt-table300__control { display: flex; flex-direction: column; min-width: 0; gap: .3rem; font-size: .94em; }
+.yt-table300__field, .yt-table300__value, .yt-table300__apply {
+  width: 100%;
+  min-width: 0;
+  min-height: 2.45rem;
+  padding: .4rem .6rem;
+  color: inherit;
+  font: inherit;
+  border: 1px solid var(--yt300-line);
+  border-radius: .4rem;
+}
+.yt-table300__field, .yt-table300__value { background-color: transparent; }
+.yt-table300__field option, .yt-table300__value option, .yt-table300 optgroup {
+  color: CanvasText;
+  background-color: Canvas;
+}
+.yt-table300__apply { width: auto; min-width: 7.6rem; background: var(--yt300-tint); cursor: pointer; font-weight: 650; }
+.yt-table300__apply:hover:not(:disabled) { background: var(--yt300-hover); }
+.yt-table300 button:disabled, .yt-table300 select:disabled, .yt-table300 input:disabled { opacity: .5; cursor: not-allowed; }
+.yt-table300 :is(input, select, button, .yt-table300__scroll):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+.yt-table300__hint, .yt-table300__progress { margin: .7rem 0 0; font-size: .91em; opacity: .8; }
+.yt-table300__progress:empty, .yt-table300__error:empty { display: none; }
+.yt-table300__feedback { margin-top: .85rem; border-top: 1px solid var(--yt300-line); padding-top: .7rem; }
+.yt-table300__feedback[hidden] { display: none; }
+.yt-table300__feedback-title { margin: 0 0 .55rem; font-weight: 650; }
+.yt-table300__stats { display: flex; flex-wrap: wrap; gap: .55rem; }
+.yt-table300__stat {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .45rem;
+  border: 1px solid var(--yt300-line);
+  border-radius: .4rem;
+  padding: .4rem .65rem;
+  background: var(--yt300-tint);
+}
+.yt-table300__stat-label { font-size: .88em; opacity: .8; }
+.yt-table300__stat strong { font-variant-numeric: tabular-nums; }
+.yt-table300__error { margin: .6rem 0 0; overflow-wrap: anywhere; }
+.yt-table300__sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+@media (max-width: 680px) {
+  .yt-table300__controls { grid-template-columns: minmax(0, 1fr); }
+  .yt-table300__apply { width: 100%; }
+  .yt-table300__editor { padding: .65rem; }
+}
