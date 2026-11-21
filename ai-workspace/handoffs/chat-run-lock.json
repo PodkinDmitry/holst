@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat30-matrix-span-frame-safety-20261122-high",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T23:11:07.898Z",
-  "expires_at": "2026-11-22T00:16:07.898Z",
-  "heartbeat_at": "2026-11-21T23:11:07.898Z",
-  "last_completed_at": "2026-11-21T23:08:26.395Z",
-  "last_summary": "CHAT30: independent Test13 mxSpan / mxDropFrame safety audit, no Work/main changes",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T23:20:37.601Z",
+  "last_completed_at": "2026-11-21T23:20:37.601Z",
+  "last_summary": "CHAT30: mxSpan/mxDropFrame source-backed guard, 8 original negative controls, 46/46 Node VM; combined CHAT21–30 295/295 VM, 3 builds PASS; 3 public SHA-verified files; canonical §50; browser E2E and SOL integration OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
