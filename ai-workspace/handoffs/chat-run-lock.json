@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T16:16:50.297Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T16:17:37.639Z",
+  "state": "running",
+  "owner": "chat-sol-command-handoff-20261121-162340",
+  "acquired_at": "2026-11-21T16:23:40.119Z",
+  "expires_at": "2026-11-21T16:58:40.119Z",
+  "heartbeat_at": "2026-11-21T16:23:40.119Z",
   "last_completed_at": "2026-11-21T16:17:37.639Z",
-  "last_summary": "SOL marked AWAKE; Work not yet started; handoff §23 provides selective integration plan for CHAT04–12.",
+  "last_summary": "Update SOL master orchestrator role/handoff",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
