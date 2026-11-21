@@ -1,0 +1,96 @@
+--- a/v224/base29.html
++++ b/v224/base29.html
+@@ -8093,20 +8093,65 @@
+   toast(`${kind === 'c' ? 'Столбцы' : 'Строки'} отсортированы по ${MX_PROPS[p]}${dir < 0 ? ', в обратном порядке' : ''}`);
+ }
+-function mxSpan(cell, dc, dr) {
+-  const F = mxOf(cell); if (!F) return;
++// A generated empty cell is replaceable only when its properties and references
++// are still pristine; nested data and links must never disappear implicitly.
++function mxAutoBlankCell(cell, ignore = null) {
++  if (!cell || cell.type !== 'frame' || !cell.cell || cell.mx || cell.title ||
++      (cell.fill && cell.fill !== '#ffffff') ||
++      (cell.cell.cs || 1) !== 1 || (cell.cell.rs || 1) !== 1 ||
++      !Object.keys(cell).every(k => ['id', 'type', 'x', 'y', 'w', 'h', 'title', 'fill', 'cell'].includes(k)) ||
++      withFrameContents([cell]).some(it => it !== cell && !(ignore && ignore.has(it.id)))) return false;
++  return !items().some(it => it !== cell &&
++    ((it.type === 'connector' && ((it.from && it.from.id === cell.id) || (it.to && it.to.id === cell.id))) ||
++     (it.pin && it.pin.to === cell.id)));
++}
++let mxSpanBusy = false;
++async function mxSpan(cell, dc, dr) {
++  if (mxSpanBusy || !cell || cell.type !== 'frame' || !cell.cell || !S.board || !items().includes(cell) ||
++      !Number.isInteger(dc) || !Number.isInteger(dr) || Math.abs(dc) > 1 || Math.abs(dr) > 1) return false;
++  const board = S.board, F = mxOf(cell);
++  if (!F || !items().includes(F) || !F.mx) return false;
+   const G = mxGeom(F), a = G.ci.get(cell.cell.c), b = G.ri.get(cell.cell.r);
++  if (a == null || b == null || !Number.isInteger(a) || !Number.isInteger(b)) return false;
+   const cs = clamp((cell.cell.cs || 1) + dc, 1, G.cols.length - a), rs = clamp((cell.cell.rs || 1) + dr, 1, G.rows.length - b);
++  if (!Number.isInteger(cs) || !Number.isInteger(rs) || (cs === (cell.cell.cs || 1) && rs === (cell.cell.rs || 1))) return false;
+   const kill = [];
+   for (const o of mxCells(F)) {
+     if (o === cell) continue;
+     const oa = G.ci.get(o.cell.c), ob = G.ri.get(o.cell.r);
+-    if (oa >= a && oa < a + cs && ob >= b && ob < b + rs) { if (withFrameContents([o]).length > 1) { toast('Соседняя ячейка не пустая: сначала освободите её'); return; } kill.push(o.id); }
+-  }
+-  pushHist();
+-  if (kill.length) S.board.items = items().filter(i => !kill.includes(i.id));
+-  cell.cell.cs = cs; cell.cell.rs = rs;
+-  if (cs === 1) delete cell.cell.cs; if (rs === 1) delete cell.cell.rs;
+-  if (dc < 0 || dr < 0) { const G2 = mxGeom(F); const occ = new Set(); for (const o of mxCells(F)) { const oa = G2.ci.get(o.cell.c), ob = G2.ri.get(o.cell.r); for (let i = oa; i < oa + (o.cell.cs || 1); i++) for (let j = ob; j < ob + (o.cell.rs || 1); j++) occ.add(i + '|' + j); } const add = []; for (let i = 0; i < G2.cols.length; i++) for (let j = 0; j < G2.rows.length; j++) if (!occ.has(i + '|' + j)) add.push(mxNewCell(F, G2.cols[i].id, G2.rows[j].id)); if (add.length) mxInsertCells(F, add); }
+-  changed();
++    if (oa == null || ob == null) { toast('Некорректная сетка матрицы: объединение отменено'); return false; }
++    const ow = o.cell.cs || 1, oh = o.cell.rs || 1;
++    if (oa >= a + cs || oa + ow <= a || ob >= b + rs || ob + oh <= b) continue;
++    // An existing merged cell crossing the boundary cannot be replaced safely.
++    if (oa < a || ob < b || oa + ow > a + cs || ob + oh > b + rs || !mxAutoBlankCell(o)) {
++      toast('Соседняя ячейка содержит данные, настройки или связи: объединение отменено'); return false;
++    }
++    kill.push(o.id);
++  }
++  mxSpanBusy = true;
++  let commitStarted = false;
++  try {
++    if (kill.length) {
++      // A full board snapshot also retains matrix grid, cell IDs and layout.
++      const signature = JSON.stringify(board), selected = JSON.stringify([...S.sel]), matrixSelection = JSON.stringify(S.mxSel), types = {};
++      for (const it of board.items) types[it.type] = (types[it.type] || 0) + 1;
++      const saved = await trashPut({ kind: 'board', bid: board.id, bname: board.name, title: 'До объединения ячеек: ' + (F.title || board.name),
++        types, n: board.items.length, size: signature.length }, { board: clone(board), bm: clone(bmOf(board.id)) });
++      if (!saved) { toast('Объединение отменено: резервная копия не записана'); return false; }
++      if (S.board !== board || !board.items.includes(cell) || !board.items.includes(F) || JSON.stringify(board) !== signature ||
++          JSON.stringify([...S.sel]) !== selected || JSON.stringify(S.mxSel) !== matrixSelection) {
++        toast('Доска изменилась во время сохранения копии: объединение отменено'); return false;
++      }
++    }
++    pushHist(); commitStarted = true;
++    if (kill.length) S.board.items = items().filter(i => !kill.includes(i.id));
++    cell.cell.cs = cs; cell.cell.rs = rs;
++    if (cs === 1) delete cell.cell.cs; if (rs === 1) delete cell.cell.rs;
++    if (dc < 0 || dr < 0) { const G2 = mxGeom(F); const occ = new Set(); for (const o of mxCells(F)) { const oa = G2.ci.get(o.cell.c), ob = G2.ri.get(o.cell.r); for (let i = oa; i < oa + (o.cell.cs || 1); i++) for (let j = ob; j < ob + (o.cell.rs || 1); j++) occ.add(i + '|' + j); } const add = []; for (let i = 0; i < G2.cols.length; i++) for (let j = 0; j < G2.rows.length; j++) if (!occ.has(i + '|' + j)) add.push(mxNewCell(F, G2.cols[i].id, G2.rows[j].id)); if (add.length) mxInsertCells(F, add); }
++    changed(); return true;
++  } catch (er) {
++    console.error(er);
++    toast(commitStarted ? 'Ячейки изменены, но произошла ошибка обновления. Сохраните или экспортируйте доску.'
++      : 'Объединение отменено: ошибка сохранения резервной копии'); return false;
++  } finally { mxSpanBusy = false; }
+ }
+ function mxSlotAt(G, w) {
+@@ -8141,5 +8186,5 @@
+ /* any frame dropped onto an empty slot of a matrix becomes its cell */
+ function mxDropFrame(fr, d, w) {
+-  if (!fr || fr.type !== 'frame' || fr.cell) return false;
++  if (!fr || fr.type !== 'frame' || fr.cell || !S.board || !items().includes(fr) || !d || !Array.isArray(d.list)) return false;
+   const ids = new Set(d.list.map(m => m.it.id));
+   const mats = items().filter(F => F.type === 'frame' && F.mx && !ids.has(F.id) && w.x >= F.x && w.x <= F.x + F.w && w.y >= F.y && w.y <= F.y + F.h).sort((a, b) => a.w * a.h - b.w * b.h);
+@@ -8147,5 +8192,9 @@
+   const G = mxGeom(F), slot = mxSlotAt(G, w); if (!slot) return false;
+   const occ = mxOccupant(F, G, slot);
+-  if (occ && withFrameContents([occ]).length > 1) return false;
++  // A merged cell or a styled, linked or otherwise edited placeholder is data,
++  // even if it has no visible nested objects; never drop that data silently.
++  if (occ && (occ.cell.c !== slot.c || occ.cell.r !== slot.r || !mxAutoBlankCell(occ, ids))) {
++    toast('Ячейка содержит данные, настройки или связи: перетаскивание отменено'); return false;
++  }
+   if (occ) S.board.items = items().filter(i => i !== occ);
+   const to = G.rect({ cell: { c: slot.c, r: slot.r } });
