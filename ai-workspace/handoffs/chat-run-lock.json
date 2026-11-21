@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": null,
+  "last_summary": "",
+  "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
+}
