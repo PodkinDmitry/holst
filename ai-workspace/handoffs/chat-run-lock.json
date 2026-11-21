@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat14-cache-diagnostic-20261121201222377",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T20:12:22.377Z",
-  "expires_at": "2026-11-21T21:12:22.377Z",
-  "heartbeat_at": "2026-11-21T20:12:22.377Z",
-  "last_completed_at": "2026-11-21T20:06:57.252Z",
-  "last_summary": "User-directed XOD Test13 cache cleanup regression diagnostic; CHAT14",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T20:19:40.864Z",
+  "last_completed_at": "2026-11-21T20:19:40.864Z",
+  "last_summary": "CHAT14: strict Test13 cache cleanup diagnostic published (5 files sha-verified), 12 Python + 5 Node PASS, build PASS, browser regression still open; §32 checkpoint.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
