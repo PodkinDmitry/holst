@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat12-presets-20261121-session-2",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T15:58:36.063Z",
-  "expires_at": "2026-11-21T17:08:36.063Z",
-  "heartbeat_at": "2026-11-21T15:58:36.063Z",
-  "last_completed_at": "2026-11-21T15:04:58.136Z",
-  "last_summary": "CHAT12 versioned preset sessions tests 20 Node, 7 Chromium; publishing",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T15:59:41.317Z",
+  "last_completed_at": "2026-11-21T15:59:41.317Z",
+  "last_summary": "CHAT12: 20/20 Node + 7/7 Chromium PASS; four files verified in GitHub; journal §22 updated. Real SOL storage not tested.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
