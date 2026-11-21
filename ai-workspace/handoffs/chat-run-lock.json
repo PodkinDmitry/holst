@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-sol-command-handoff-20261121-162340",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T16:23:40.119Z",
-  "expires_at": "2026-11-21T16:58:40.119Z",
-  "heartbeat_at": "2026-11-21T16:23:40.119Z",
-  "last_completed_at": "2026-11-21T16:17:37.639Z",
-  "last_summary": "Update SOL master orchestrator role/handoff",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T16:25:49.453Z",
+  "last_completed_at": "2026-11-21T16:25:49.453Z",
+  "last_summary": "SOL master orchestrator handoff §24 written and reread; user should resume existing Work chat.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
