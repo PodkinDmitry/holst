@@ -4,8 +4,8 @@
   "owner": "chat-B-20261121-1629-01",
   "acquired_at": "2026-11-21T13:29:33.250Z",
   "expires_at": "2026-11-21T14:29:33.250Z",
-  "heartbeat_at": "2026-11-21T13:29:33.250Z",
+  "heartbeat_at": "2026-11-21T13:30:06.296Z",
   "last_completed_at": "2026-11-21T13:25:26.730Z",
-  "last_summary": "CHAT 06: найден 1 воспроизводимый дефект очереди onSaveView после destroy; 4/4 и 37/37 PASS после патча; 3 файла опубликованы и проверены.",
+  "last_summary": "Concurrent SHA race test race-A under chat-B-20261121-1629-01",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
