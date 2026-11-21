@@ -1,0 +1,19 @@
+--- a/xod-youtube-table300.js
++++ b/xod-youtube-table300.js
+@@ -611,13 +611,15 @@
+     }
+ 
+     function saveView() {
+-      if (typeof config.onSaveView !== 'function') return;
++      if (destroyed || typeof config.onSaveView !== 'function') return;
+       var revision = ++saveRevision;
+       var snapshot = normalizeYoutubeTable300View(view);
+       viewRetry.hidden = true;
+       viewStatus.textContent = 'Сохраняем настройки вида…';
+       // Serialize requests to prevent an old response from overwriting a newer view in the host.
+       saveChain = saveChain.catch(function () {}).then(function () {
++        // Do not dispatch queued writes after the table has been destroyed.
++        if (destroyed) return;
+         return config.onSaveView(snapshot);
+       }).then(function () {
+         if (destroyed || revision !== saveRevision) return;
