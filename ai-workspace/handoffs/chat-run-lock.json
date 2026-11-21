@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T14:32:25.268Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T14:40:21.241Z",
+  "state": "running",
+  "owner": "chat10-20261121144052-41",
+  "acquired_at": "2026-11-21T14:40:52.265Z",
+  "expires_at": "2026-11-21T15:50:52.265Z",
+  "heartbeat_at": "2026-11-21T14:40:52.265Z",
   "last_completed_at": "2026-11-21T14:40:21.241Z",
-  "last_summary": "CHAT09 cross-tab CAS: 14/14 Node, 6/6 Chromium separate pages; 4 files published, journal §19 updated. Actual SOL storage not tested.",
+  "last_summary": "CHAT10 idempotent preset creation audit",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
