@@ -1,0 +1,52 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>XOD CHAT 06 — очередь сохранения после destroy</title><style>body{font:16px/1.5 system-ui,sans-serif;margin:1.5rem;color:CanvasText;background:Canvas}#fixture{position:fixed;left:-300vw;top:0;width:900px}li[data-status="FAIL"]{color:#b33}li[data-status="PASS"]{color:#16854f}</style></head><body>
+<h1>CHAT 06 — регрессии жизненного цикла сохранения вида</h1><p id="summary" data-status="RUNNING">Проверка выполняется…</p><ol id="results"></ol><div id="fixture"></div>
+<!-- Replace this path with SOL's actual component path for integration testing. -->
+<script src="../chat-04/xod-youtube-table300.js"></script>
+<script>
+(async function(){
+'use strict';
+const root=document.getElementById('fixture');
+const fields=[{key:'seen',label:'Просмотрено',types:['video'],options:[{value:'no',label:'Нет'},{value:'yes',label:'Да'}]}];
+const entries=[{id:'V1',type:'video',title:'Видео',values:{seen:'no'}}];
+const tick=()=>new Promise(r=>setTimeout(r,0));
+const flush=async()=>{await tick();await tick();await tick()};
+function assert(condition,message){if(!condition)throw Error(message)}
+function mount(onSaveView){root.replaceChildren();return window.mountYoutubeTable300(root,{entries,fields,onApply:async()=>({entries,applied:0,skipped:0,failed:0}),onSaveView})}
+function setGroup(){const el=root.querySelector('.yt-table300__grouping-field');el.value='seen';el.dispatchEvent(new Event('change',{bubbles:true}))}
+function setDir(value){const el=root.querySelector('.yt-table300__grouping-direction');el.value=value;el.dispatchEvent(new Event('change',{bubbles:true}))}
+let passed=0,failed=0;
+const cases=[
+ ['01 — Не отправлять вторую запись из очереди после destroy',async()=>{
+   const calls=[],pending=[];const inst=mount(v=>new Promise(resolve=>{calls.push(JSON.parse(JSON.stringify(v)));pending.push(resolve)}));
+   setGroup();await flush();setDir('desc');await flush();
+   assert(calls.length===1,'Пока первая запись не завершена, вторая должна ожидать');
+   inst.destroy();pending.shift()();await flush();
+   assert(calls.length===1,'Второй onSaveView запущен после уничтожения компонента');
+ }],
+ ['02 — Не запускать первую запись после немедленного destroy',async()=>{
+   let count=0;const inst=mount(()=>{count++;return Promise.resolve()});
+   setGroup();inst.destroy();await flush();
+   assert(count===0,'onSaveView вызван после немедленного destroy');
+ }],
+ ['03 — Во время работы последовательное сохранение остаётся исправным',async()=>{
+   const calls=[],pending=[];const inst=mount(v=>new Promise(resolve=>{calls.push(JSON.parse(JSON.stringify(v)));pending.push(resolve)}));
+   setGroup();await flush();setDir('desc');await flush();
+   assert(calls.length===1,'Два сохранения идут одновременно');
+   pending.shift()();await flush();
+   assert(calls.length===2&&calls[1].group.dir==='desc','Последняя настройка не попала в очередь');
+   pending.shift()();await flush();
+   assert(root.querySelector('.yt-table300__view-status').textContent.includes('сохранены'),'Нет подтверждения последнего сохранения');
+   inst.destroy();
+ }],
+ ['04 — Ошибка незавершённой записи после destroy не запускает следующие',async()=>{
+   const calls=[],pending=[];const inst=mount(v=>new Promise((resolve,reject)=>{calls.push(v);pending.push({resolve,reject})}));
+   setGroup();await flush();setDir('desc');await flush();
+   inst.destroy();pending.shift().reject(new Error('Сбой хранилища'));await flush();
+   assert(calls.length===1,'После ошибки при destroy очередь отправила следующий запрос');
+   assert(root.children.length===0,'destroy не очистил root');
+ }]
+];
+for(const [title,test] of cases){const li=document.createElement('li');try{await test();li.dataset.status='PASS';li.textContent='PASS: '+title;passed++}catch(e){li.dataset.status='FAIL';li.textContent='FAIL: '+title+' — '+e.message;failed++}document.getElementById('results').appendChild(li)}
+const summary=document.getElementById('summary');summary.dataset.status=failed?'FAIL':'PASS';summary.textContent=`${passed}/${cases.length} PASS, ${failed} FAIL`;
+})();
+</script></body></html>
