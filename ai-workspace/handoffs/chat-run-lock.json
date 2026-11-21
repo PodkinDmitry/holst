@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T20:38:36.799Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T20:44:24.092Z",
+  "state": "running",
+  "owner": "chat17-persistence-20261121204924212",
+  "acquired_at": "2026-11-21T20:49:24.212Z",
+  "expires_at": "2026-11-21T21:59:24.212Z",
+  "heartbeat_at": "2026-11-21T20:49:24.212Z",
   "last_completed_at": "2026-11-21T20:44:24.092Z",
-  "last_summary": "CHAT16: browser blocked by policy, new unsaved-beforeunload risk proven on Test13; patch and 10 tests; 39/39 unit/isolation PASS, patched build exact; §35 journal updated; no Work/main/private source upload",
+  "last_summary": "CHAT17 direct user continuation: inspect Test13 persistence and prepare verified minimal safe patch, no Work",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
