@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat22-source-routes-20261122-high",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T22:02:42.400Z",
-  "expires_at": "2026-11-21T23:12:42.400Z",
-  "heartbeat_at": "2026-11-21T22:02:42.400Z",
-  "last_completed_at": "2026-11-21T22:00:40.022Z",
-  "last_summary": "CHAT22: ongoing source-backed risk exploration on exact Test13, without Work/main changes",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T22:07:36.283Z",
+  "last_completed_at": "2026-11-21T22:07:36.283Z",
+  "last_summary": "CHAT22: source-backed imports guard, 4 original negative controls, 20/20 Node VM, 2 build passes, 3 GitHub files SHA-verified; CHAT16–21 static non-overlap, real browser/SOL integration OPEN; journal §41 updated.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
