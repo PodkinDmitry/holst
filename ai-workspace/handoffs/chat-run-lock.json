@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T23:31:13.131Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T23:41:11.691Z",
+  "state": "running",
+  "owner": "chat33-full-cumulative-test13-20261122-high",
+  "acquired_at": "2026-11-21T23:46:42.690Z",
+  "expires_at": "2026-11-22T00:54:42.690Z",
+  "heartbeat_at": "2026-11-21T23:46:42.690Z",
   "last_completed_at": "2026-11-21T23:41:11.691Z",
-  "last_summary": "CHAT32: cumulative source gate published SHA verified; partial Test13+CHAT19+21–31 apply and build PASS, inline Node --check PASS, 338/338 synthetic Node VM; strict full CHAT16–31 BLOCKED (16–20 not materialized locally); Chromium navigation blocked; journal §52; SOL integration OPEN.",
+  "last_summary": "CHAT33 full Test13 CHAT16–31 source compatibility gate, safe delta only, no Work/main",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
