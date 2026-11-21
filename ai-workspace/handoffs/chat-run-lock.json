@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat32-cumulative-test13-regression-20261122-high",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T23:31:13.131Z",
-  "expires_at": "2026-11-22T00:36:13.131Z",
-  "heartbeat_at": "2026-11-21T23:31:13.131Z",
-  "last_completed_at": "2026-11-21T23:29:16.978Z",
-  "last_summary": "CHAT32 cumulative source-backed verification all CHAT16–31 on private exact Test13; no Work/main",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T23:41:11.691Z",
+  "last_completed_at": "2026-11-21T23:41:11.691Z",
+  "last_summary": "CHAT32: cumulative source gate published SHA verified; partial Test13+CHAT19+21–31 apply and build PASS, inline Node --check PASS, 338/338 synthetic Node VM; strict full CHAT16–31 BLOCKED (16–20 not materialized locally); Chromium navigation blocked; journal §52; SOL integration OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
