@@ -1,0 +1,122 @@
+--- a/xod-cas-view-coordinator.js
++++ b/xod-cas-view-coordinator.js
+@@ -22,6 +22,22 @@
+     error.code = code;
+     return error;
+   }
++  // Canonical JSON equality: key order may change after a storage round-trip.
++  function sameJson(a, b) {
++    if (a === b) return true;
++    if (Array.isArray(a) || Array.isArray(b)) {
++      return Array.isArray(a) && Array.isArray(b) && a.length === b.length &&
++        a.every(function (item, i) { return sameJson(item, b[i]); });
++    }
++    if (plain(a) && plain(b)) {
++      var ak = Object.keys(a).sort();
++      var bk = Object.keys(b).sort();
++      return ak.length === bk.length && ak.every(function (key, i) {
++        return key === bk[i] && sameJson(a[key], b[key]);
++      });
++    }
++    return false;
++  }
+   function setOwn(object, key, value) {
+     // Protect special keys (__proto__/constructor) without changing public scope names.
+     Object.defineProperty(object, key, {value: value, configurable: true, writable: true, enumerable: true});
+@@ -60,7 +76,7 @@
+       throw new TypeError('maxAttempts должен быть целым числом от 1 до 100.');
+     }
+     // Safe only if every writer touching this document honors its atomic CAS.
+-    async function transaction(mutator) {
++    async function transaction(mutator, onUnknownCommit) {
+       if (typeof mutator !== 'function') throw new TypeError('Нужна чистая синхронная функция изменения.');
+       for (var i = 0; i < attempts; i += 1) {
+         var current = validateRead(await adapter.read());
+@@ -70,8 +86,16 @@
+           throw new TypeError('Мутатор должен быть синхронным: он повторяется после CAS-конфликта.');
+         }
+         // Do not retry exceptions here: a write could have actually committed.
+-        var outcome = await adapter.compareAndSwap(current.revision, draft);
++        var outcome;
++        try {
++          outcome = await adapter.compareAndSwap(current.revision, draft);
++        } catch (error) {
++          // A transport failure can happen after the atomic commit has succeeded.
++          if (typeof onUnknownCommit === 'function') onUnknownCommit();
++          throw error;
++        }
+         if (!plain(outcome) || typeof outcome.ok !== 'boolean') {
++          if (typeof onUnknownCommit === 'function') onUnknownCommit();
+           throw fail('XOD_UNKNOWN_COMMIT', 'CAS вернул неопределённый результат. Перечитайте хранилище.');
+         }
+         if (outcome.ok) return result;
+@@ -83,6 +107,7 @@
+       var current = validateRead(await adapter.read());
+       var baseline = revisionFor(current.data, scope);
+       var closed = false;
++      var uncertain = null; // An interrupted CAS may have committed despite a lost reply.
+       var tail = Promise.resolve();
+       function enqueue(fn) {
+         var job = tail.then(function () {
+@@ -99,6 +124,10 @@
+           if (!plain(snapshot)) throw new TypeError('Вид должен быть объектом.');
+         } catch (error) { return Promise.reject(error); }
+         return enqueue(function () {
++          if (uncertain) {
++            throw fail('XOD_RECONCILIATION_REQUIRED',
++              'Предыдущее сохранение имеет неизвестный результат. Сначала проверьте его состояние.');
++          }
+           return transaction(function (draft) {
+             var remoteRevision = revisionFor(draft, scope);
+             if (remoteRevision !== baseline) {
+@@ -116,16 +145,42 @@
+             if (!plain(draft.viewRevisions)) draft.viewRevisions = {};
+             setOwn(draft.views, scope, copy(snapshot));
+             setOwn(draft.viewRevisions, scope, remoteRevision + 1);
++          }, function () {
++            uncertain = {baseline: baseline, view: copy(snapshot)};
+           }).then(function () {
+             baseline += 1;
+           });
+         });
+       }
++      // Reconcile after a lost/invalid CAS acknowledgement, without submitting a new write.
++      // A still-unchanged revision is *unconfirmed*, not proof that the old write failed:
++      // a remote server may still finish an in-flight request.
++      function reconcile() {
++        return enqueue(async function () {
++          if (!uncertain) return {status: 'clear', revision: baseline};
++          var latest = validateRead(await adapter.read());
++          var remoteRevision = revisionFor(latest.data, scope);
++          var remoteView = viewFor(latest.data, scope);
++          if (remoteRevision > uncertain.baseline && sameJson(remoteView, uncertain.view)) {
++            baseline = remoteRevision;
++            uncertain = null;
++            return {status: 'observed', revision: baseline, view: remoteView};
++          }
++          if (remoteRevision > uncertain.baseline) {
++            return {status: 'conflict', revision: remoteRevision,
++              remoteView: remoteView, pendingView: copy(uncertain.view)};
++          }
++          return {status: 'unconfirmed', revision: remoteRevision,
++            pendingView: copy(uncertain.view)};
++        });
++      }
+       function reload() {
+         return enqueue(async function () {
+           var latest = validateRead(await adapter.read());
+           var view = viewFor(latest.data, scope);
+           baseline = revisionFor(latest.data, scope);
++          // Explicit reload is a caller decision to abandon the unresolved local intent.
++          uncertain = null;
+           return {view: view, revision: baseline};
+         });
+       }
+@@ -133,6 +188,7 @@
+         view: viewFor(current.data, scope),
+         revision: baseline,
+         onSaveView: onSaveView,
++        reconcile: reconcile,
+         reload: reload,
+         dispose: function () { closed = true; }
+       };
