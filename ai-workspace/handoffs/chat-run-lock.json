@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-roadmap-26-20261121180331",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T18:03:31.534Z",
-  "expires_at": "2026-11-21T18:38:31.534Z",
-  "heartbeat_at": "2026-11-21T18:03:31.534Z",
-  "last_completed_at": "2026-11-21T17:49:18.990Z",
-  "last_summary": "User-requested reconciliation of 2.6 standard with full XOD roadmap and budget; documentation only",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T18:05:34.783Z",
+  "last_completed_at": "2026-11-21T18:05:34.783Z",
+  "last_summary": "Standard 2.6 reviewed; XOD roadmap §27 source-backed 8 releases/37 substeps, 5 history groups/18 records, hypothetical 222–464h; no local SOL edits.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
