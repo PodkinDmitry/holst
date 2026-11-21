@@ -1,0 +1,37 @@
+--- a/v224/base29.html
++++ b/v224/base29.html
+@@ -6177,19 +6177,29 @@
+   rows.sort((a, b2) => b2.t - a.t);
+   const list = q => rows.filter(r => !q || fmtDate(r.t).toLowerCase().includes(q) || new Date(r.t).toLocaleDateString('ru-RU').includes(q)).map((r, i) => `<div class="krow"><span><b>${esc(fmtDate(r.t))}</b> · ${esc(r.where)}<br><small class="sub">${esc(r.label)}</small></span><button class="kbtn" data-h="${rows.indexOf(r)}">Открыть копию</button></div>`).join('') || '<p class="sub">Версий пока нет. Холст сохраняет состояние доски один раз в день при открытии; с подключённым Google Диском здесь видны и версии из Диска.</p>';
+   const d = xdlg('История версий: ' + b.name, `<p class="sub">Версия открывается отдельной доской, текущая не меняется. Хранятся последние 14 дней и по одной версии в неделю за полгода.${Backend === Db ? ' В версии внутри Claude история ведётся в приложении на компьютере.' : ''}</p><input class="inp" id="hq" placeholder="Поиск по дате, например 05.10 или окт"><div id="hlist">${list('')}</div>`, true);
++  let opening = false;
+   d.querySelector('#hq').addEventListener('input', e => { $('#hlist').innerHTML = list(e.target.value.trim().toLowerCase()); });
+   d.addEventListener('click', async e => {
+-    const btn = e.target.closest('[data-h]'); if (!btn) return;
+-    const r = rows[+btn.dataset.h]; btn.disabled = true; btn.textContent = 'Открываю…';
++    const btn = e.target.closest('[data-h]'); if (!btn || opening) return;
++    const r = rows[+btn.dataset.h]; if (!r) return;
++    opening = true; btn.disabled = true; btn.textContent = 'Открываю…';
+     try {
+       let src;
+       if (r.src === 'local') src = await Store.get(r.key);
+-      else { const res = await fetch(`${GAPI}files/${r.fid}/revisions/${r.rev}?alt=media`, { headers: { Authorization: 'Bearer ' + Drive.token } }); const j = await res.json(); src = j.board || j; }
+-      if (!src) throw new Error('empty');
++      else { const res = await fetch(`${GAPI}files/${r.fid}/revisions/${r.rev}?alt=media`, { headers: { Authorization: 'Bearer ' + Drive.token } }); if (!res.ok) throw new Error('Не удалось прочитать версию из Диска'); const j = await res.json(); src = j.board || j; }
++      if (!src || !Array.isArray(src.items)) throw new Error('Версия повреждена или недоступна');
++      if (S.board !== b || !await canLeaveCurrentBoard()) { btn.textContent = 'Открыть копию'; return; }
+       const nb = newBoard(`${b.name} (версия от ${fmtDate(r.t)})`);
+       nb.items = clone(src.items || []); nb.assets = Object.assign({}, b.assets, src.assets || {});
+-      await Backend.saveBoard(nb); closeXdlg(); S.board = null; loadBoard(nb); fitAll(); renderDrawer(); toast('Версия открыта отдельной доской');
++      const result = await Backend.saveBoard(nb);
++      if (result?.removed) throw new Error('Копия версии не сохранена');
++      if (S.board !== b || !await canLeaveCurrentBoard()) {
++        toast('Копия версии сохранена отдельно. Текущая доска оставлена открытой.');
++        btn.textContent = 'Открыть копию'; return;
++      }
++      closeXdlg(); S.board = null; loadBoard(nb); fitAll(); renderDrawer(); toast('Версия открыта отдельной доской');
+     } catch (err) { btn.textContent = 'Не удалось открыть'; }
++    finally { opening = false; btn.disabled = false; }
+   });
+ }
+ 
