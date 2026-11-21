@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T18:46:19.307Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T18:48:29.827Z",
+  "state": "running",
+  "owner": "chat-work-routing-20261121185415",
+  "acquired_at": "2026-11-21T18:54:15.195Z",
+  "expires_at": "2026-11-21T19:19:15.195Z",
+  "heartbeat_at": "2026-11-21T18:54:15.195Z",
   "last_completed_at": "2026-11-21T18:48:29.827Z",
-  "last_summary": "XOD §28 reconciled 12 Work snapshots: 56pp weekly used; withdrew uncalibrated 222-464h; user 90h stretch to 3.6 with 6/3/1 weekly budget; version 20.",
+  "last_summary": "User-requested role-vs-model routing policy for cheap Work models",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
