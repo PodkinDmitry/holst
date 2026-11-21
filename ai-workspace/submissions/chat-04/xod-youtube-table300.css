@@ -216,20 +216,20 @@
   .yt-table300__preset-actions .yt-table300__preset-button { flex: 1 1 9rem; } }
 
 /* CHAT 04: group headers are table rows, never board blocks. */
-.yt-table300__group-header { background: var(--yt300-tint); }
-.yt-table300__group-cell { padding: 0 !important; text-align: start; border-block-start: 1px solid var(--yt300-line); }
-.yt-table300__group-toggle {
+.yt-table300 .yt-table300__group-header { background: var(--yt300-tint); }
+.yt-table300 .yt-table300__group-cell { padding: 0 !important; text-align: start; border-block-start: 1px solid var(--yt300-line); }
+.yt-table300 .yt-table300__group-toggle {
   display: flex; align-items: center; gap: .6rem; width: 100%; border: 0;
   padding: .55rem .7rem; color: inherit; font: inherit; text-align: start;
   background: transparent; cursor: pointer; min-height: 2.5rem;
 }
-.yt-table300__group-toggle:hover { background: var(--yt300-hover); }
-.yt-table300__group-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: -3px; }
-.yt-table300__group-chevron { width: 1rem; text-align: center; opacity: .8; flex: none; }
-.yt-table300__group-name { font-weight: 650; overflow-wrap: anywhere; }
-.yt-table300__group-count { margin-inline-start: .1rem; opacity: .75; font-size: .88em; font-variant-numeric: tabular-nums; }
-.yt-table300__grouping-editor select { min-width: 9rem; max-width: 100%; font: inherit; color: inherit; background: transparent; }
+.yt-table300 .yt-table300__group-toggle:hover { background: var(--yt300-hover); }
+.yt-table300 .yt-table300__group-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: -3px; }
+.yt-table300 .yt-table300__group-chevron { width: 1rem; text-align: center; opacity: .8; flex: none; }
+.yt-table300 .yt-table300__group-name { font-weight: 650; overflow-wrap: anywhere; }
+.yt-table300 .yt-table300__group-count { margin-inline-start: .1rem; opacity: .75; font-size: .88em; font-variant-numeric: tabular-nums; }
+.yt-table300 .yt-table300__grouping-editor select { min-width: 9rem; max-width: 100%; font: inherit; color: inherit; background: transparent; }
 @media (max-width: 680px) {
-  .yt-table300__grouping-editor .yt-table300__view-row { align-items: stretch; }
-  .yt-table300__grouping-editor select { flex: 1 1 100%; }
+  .yt-table300 .yt-table300__grouping-editor .yt-table300__view-row { align-items: stretch; }
+  .yt-table300 .yt-table300__grouping-editor select { flex: 1 1 100%; }
 }
