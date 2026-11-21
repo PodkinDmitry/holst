@@ -1,12 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "SOL-source-bridge-20261121",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T19:26:34.550Z",
-  "expires_at": "2026-11-21T20:36:19.810Z",
-  "heartbeat_at": "2026-11-21T19:36:19.810Z",
-  "last_completed_at": "2026-11-21T19:08:29.313Z",
-  "last_summary": "One-time XOD Test 13 source code bridge prepared: disclosure gate tested and published, journal §30 updated, xod-live branch still absent; main untouched.",
-  "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "User authorized one-shot Test 13 source-only bridge, no feature development"
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T19:47:17.035Z",
+  "last_completed_at": "2026-11-21T19:47:17.035Z",
+  "last_summary": "SOL one-shot Test 13 source bridge completed via PRIVATE Drive ZIP 1iFua_63vpGrsJw_eR3R6tJusKYQaixda; downloaded SHA256 and 432 files verified. Git push failed authentication; xod-live absent; main unchanged. Gate PASS, MV3 10/10 PASS, app 30 PASS then FAIL at cache equality; CI not configured. Journal §30.5.",
+  "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
