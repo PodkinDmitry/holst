@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-xod-audit-20261121135355-83",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T13:53:55.698Z",
-  "expires_at": "2026-11-21T15:03:55.698Z",
-  "heartbeat_at": "2026-11-21T13:53:55.698Z",
-  "last_completed_at": "2026-11-21T13:31:58.195Z",
-  "last_summary": "Research: GPT-6 High manual + free Antigravity CLI autonomous alternative; official docs verified, journal §15 updated; no local install.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T13:57:16.730Z",
+  "last_completed_at": "2026-11-21T13:57:16.730Z",
+  "last_summary": "CHAT07: original 3/6 FAIL, patched 6/6 PASS + 4/4 CHAT06 + 37/37 CHAT04; 3 files published, journal section 16.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
