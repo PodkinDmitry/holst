@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat16-test13-e2e-20261121203836799",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T20:38:36.799Z",
-  "expires_at": "2026-11-21T21:43:36.801Z",
-  "heartbeat_at": "2026-11-21T20:38:36.799Z",
-  "last_completed_at": "2026-11-21T20:30:29.451Z",
-  "last_summary": "CHAT16 Test13 E2E alternate browser and cache cleanup diagnosis; user-requested no Work",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T20:44:24.092Z",
+  "last_completed_at": "2026-11-21T20:44:24.092Z",
+  "last_summary": "CHAT16: browser blocked by policy, new unsaved-beforeunload risk proven on Test13; patch and 10 tests; 39/39 unit/isolation PASS, patched build exact; §35 journal updated; no Work/main/private source upload",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
