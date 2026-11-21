@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T13:17:13.305Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T13:17:34.507Z",
+  "state": "running",
+  "owner": "chat-B-20261121-1321-rmkpkyur",
+  "acquired_at": "2026-11-21T13:21:33.326Z",
+  "expires_at": "2026-11-21T14:31:33.326Z",
+  "heartbeat_at": "2026-11-21T13:21:33.326Z",
   "last_completed_at": "2026-11-21T13:17:34.507Z",
-  "last_summary": "Статический аудит CHAT 04/05; 1 checkpoint, 0 новых тестов, 0 патчей, 21 секунд",
+  "last_summary": "Аудит контрактов и тестов CHAT04/05",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
