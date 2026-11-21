@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat25-bulk-delete-20261122-high",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T22:28:08.993Z",
-  "expires_at": "2026-11-21T23:38:08.993Z",
-  "heartbeat_at": "2026-11-21T22:28:08.993Z",
-  "last_completed_at": "2026-11-21T22:21:23.210Z",
-  "last_summary": "CHAT25: direct user-requested Test13 bulk board deletion safety audit; Work/main untouched",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T22:34:58.885Z",
+  "last_completed_at": "2026-11-21T22:34:58.885Z",
+  "last_summary": "CHAT25: source-backed bulk delete residual race guard rebased after CHAT19; 6 original controls + 4 CHAT19 residual, 35/35 Node VM, combined CHAT19+CHAT21–25 125/125 VM, two builds PASS, 3 public files SHA verified; journal §44. Browser/SOL integration OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
