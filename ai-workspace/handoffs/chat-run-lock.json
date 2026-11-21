@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T19:26:34.550Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T19:47:17.035Z",
+  "state": "running",
+  "owner": "chat13-zip-verification-20261121200023",
+  "acquired_at": "2026-11-21T20:00:23.932Z",
+  "expires_at": "2026-11-21T20:30:23.932Z",
+  "heartbeat_at": "2026-11-21T20:00:23.932Z",
   "last_completed_at": "2026-11-21T19:47:17.035Z",
-  "last_summary": "SOL one-shot Test 13 source bridge completed via PRIVATE Drive ZIP 1iFua_63vpGrsJw_eR3R6tJusKYQaixda; downloaded SHA256 and 432 files verified. Git push failed authentication; xod-live absent; main unchanged. Gate PASS, MV3 10/10 PASS, app 30 PASS then FAIL at cache equality; CI not configured. Journal §30.5.",
+  "last_summary": "CHAT13 independently verified cleaned Test13 private ZIP; document and publish safe verifier/test",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
