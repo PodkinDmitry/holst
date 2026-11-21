@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "manual-lease-check-20261121",
-  "acquired_at": "2026-11-21T13:02:48.939Z",
-  "expires_at": "2026-11-21T14:12:48.939Z",
-  "heartbeat_at": "2026-11-21T13:02:48.939Z",
-  "last_completed_at": null,
-  "last_summary": "",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-21T13:02:51.361Z",
+  "last_summary": "Проверен протокол захвата и освобождения lease; это тест, не автономная итерация.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
