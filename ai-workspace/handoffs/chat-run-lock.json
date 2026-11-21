@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat28-trash-items-20261122-high",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T22:55:38.095Z",
-  "expires_at": "2026-11-22T00:05:38.095Z",
-  "heartbeat_at": "2026-11-21T22:55:38.095Z",
-  "last_completed_at": "2026-11-21T22:53:53.640Z",
-  "last_summary": "CHAT28: direct Test13 deleteSel/trashItems backup-before-delete audit; no Work/main",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T23:01:01.993Z",
+  "last_completed_at": "2026-11-21T23:01:01.993Z",
+  "last_summary": "CHAT28: original deleteSel/trashItems/trashPut 6 negative controls, backup-before-delete source patch 33/33 Node VM; combined CHAT19+21–28 213/213 Node VM; 2 builds PASS; 3 SHA-verified public text files; journal §48; browser/SOL integration OPEN",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
