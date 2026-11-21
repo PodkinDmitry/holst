@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T23:02:25.898Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T23:08:26.395Z",
+  "state": "running",
+  "owner": "chat30-matrix-span-frame-safety-20261122-high",
+  "acquired_at": "2026-11-21T23:11:07.898Z",
+  "expires_at": "2026-11-22T00:16:07.898Z",
+  "heartbeat_at": "2026-11-21T23:11:07.898Z",
   "last_completed_at": "2026-11-21T23:08:26.395Z",
-  "last_summary": "CHAT29: matrix-track full-board backup before destructive remove; 6 original negatives, 36/36 Node VM, combined CHAT21–29 249/249 VM, two builds PASS; 3 SHA-verified public files; journal §49; browser/SOL integration OPEN.",
+  "last_summary": "CHAT30: independent Test13 mxSpan / mxDropFrame safety audit, no Work/main changes",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
