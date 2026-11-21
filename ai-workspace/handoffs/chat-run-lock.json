@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T21:45:33.617Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T21:51:45.942Z",
+  "state": "running",
+  "owner": "chat21-split-data-guard-20261122-high",
+  "acquired_at": "2026-11-21T21:54:05.253Z",
+  "expires_at": "2026-11-21T23:04:05.253Z",
+  "heartbeat_at": "2026-11-21T21:54:05.253Z",
   "last_completed_at": "2026-11-21T21:51:45.942Z",
-  "last_summary": "CHAT20: FSM enter/rebuild/exit data-loss risks reproduced on Test13; safe patch+18 tests published, 78/78 combined Node PASS, build PASS; Split iframe risk documented, browser QA open; §39 journal updated; no Work/main/private-source publication.",
+  "last_summary": "CHAT21 Split source-backed investigation in progress; no private data publication",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
