@@ -1,0 +1,274 @@
+diff --git a/xod-youtube-table300.css b/xod-youtube-table300.css
+index 0cefd54..8d1c5ca 100644
+--- a/xod-youtube-table300.css
++++ b/xod-youtube-table300.css
+@@ -214,3 +214,22 @@
+ .yt-table300__preset-empty[hidden], .yt-table300__preset-retry[hidden] { display: none; }
+ @media (max-width: 680px) { .yt-table300__preset-controls { grid-template-columns: minmax(0,1fr); }
+   .yt-table300__preset-actions .yt-table300__preset-button { flex: 1 1 9rem; } }
++
++/* CHAT 04: group headers are table rows, never board blocks. */
++.yt-table300__group-header { background: var(--yt300-tint); }
++.yt-table300__group-cell { padding: 0 !important; text-align: start; border-block-start: 1px solid var(--yt300-line); }
++.yt-table300__group-toggle {
++  display: flex; align-items: center; gap: .6rem; width: 100%; border: 0;
++  padding: .55rem .7rem; color: inherit; font: inherit; text-align: start;
++  background: transparent; cursor: pointer; min-height: 2.5rem;
++}
++.yt-table300__group-toggle:hover { background: var(--yt300-hover); }
++.yt-table300__group-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: -3px; }
++.yt-table300__group-chevron { width: 1rem; text-align: center; opacity: .8; flex: none; }
++.yt-table300__group-name { font-weight: 650; overflow-wrap: anywhere; }
++.yt-table300__group-count { margin-inline-start: .1rem; opacity: .75; font-size: .88em; font-variant-numeric: tabular-nums; }
++.yt-table300__grouping-editor select { min-width: 9rem; max-width: 100%; font: inherit; color: inherit; background: transparent; }
++@media (max-width: 680px) {
++  .yt-table300__grouping-editor .yt-table300__view-row { align-items: stretch; }
++  .yt-table300__grouping-editor select { flex: 1 1 100%; }
++}
+diff --git a/xod-youtube-table300.js b/xod-youtube-table300.js
+index 6dac6ba..b28cdc7 100644
+--- a/xod-youtube-table300.js
++++ b/xod-youtube-table300.js
+@@ -64,6 +64,47 @@
+       .map(function (item) { return item.entry; });
+   }
+ 
++  // CHAT 04 — pure grouping engine. The source records and view are never changed.
++  // A group is derived from already-filtered/sorted rows and identified by a stable value key.
++  function computeYoutubeTable300Groups(entries, fields, view) {
++    var ordered = computeYoutubeTable300View(entries, fields, view);
++    var rule = view && view.group;
++    var field = rule && fields.find(function (item) { return item.key === rule.key; });
++    if (!field) {
++      return [{id:'__all__',kind:'all',label:'Все записи',entries:ordered}];
++    }
++    var buckets = new Map();
++    ordered.forEach(function (entry) {
++      var applicable = Array.isArray(field.types) && field.types.indexOf(entry.type) !== -1;
++      var raw = applicable && entry.values && Object.prototype.hasOwnProperty.call(entry.values, field.key)
++        ? entry.values[field.key] : '';
++      var kind = !applicable ? 'na' : (typeof raw !== 'string' || !raw ? 'empty' : 'value');
++      var value = kind === 'value' ? raw : '';
++      var id = JSON.stringify([field.key, kind, value]);
++      if (!buckets.has(id)) {
++        var optionIndex = kind === 'value' ? (field.options || []).findIndex(function (item) {
++          return item.value === value;
++        }) : -1;
++        var option = optionIndex >= 0 ? field.options[optionIndex] : null;
++        buckets.set(id, {id:id,kind:kind,key:field.key,value:value,
++          label:kind === 'na' ? 'Неприменимо' : (kind === 'empty' ? 'Не задано' : (option ? option.label : value)),
++          rank:kind !== 'value' ? 0 : (optionIndex >= 0 ? optionIndex : (field.options || []).length),
++          entries:[]});
++      }
++      buckets.get(id).entries.push(entry);
++    });
++    var descending = rule.dir === 'desc';
++    var groupOrder = {value:0,empty:1,na:2};
++    return Array.from(buckets.values()).sort(function (a,b) {
++      var tier = groupOrder[a.kind] - groupOrder[b.kind];
++      if (tier) return tier;
++      if (a.kind !== 'value') return 0;
++      var index = a.rank - b.rank;
++      if (!index && a.value !== b.value) index = a.value < b.value ? -1 : 1;
++      return descending ? -index : index;
++    });
++  }
++
+   function normalizeYoutubeTable300View(value) {
+     function node(source, depth) {
+       if (!source || typeof source !== 'object' || depth > 16) return null;
+@@ -78,10 +119,17 @@
+     var filter = value && value.filter ? node(value.filter, 0) : null;
+     // Accept a legacy single-condition root by wrapping it into a normal group.
+     if (filter && !Array.isArray(filter.children)) filter = {op:'and',children:[filter]};
+-    return { filter: filter,
++    var result = { filter: filter,
+       sort: value && Array.isArray(value.sort) ? value.sort.filter(function (item) {
+         return item && typeof item.key === 'string';
+       }).map(function (item) { return { key: item.key, dir: item.dir === 'desc' ? 'desc' : 'asc' }; }) : [] };
++    // Optional field. Old consumers without group keep their exact CHAT 03 view shape.
++    if (value && Object.prototype.hasOwnProperty.call(value,'group')) {
++      var group = value.group;
++      result.group = group && typeof group.key === 'string' && group.key
++        ? {key:group.key,dir:group.dir === 'desc' ? 'desc' : 'asc'} : null;
++    }
++    return result;
+   }
+ 
+   function mountYoutubeTable300(root, config) {
+@@ -114,7 +162,12 @@
+     var entries = copyEntries(config.entries);
+     var selectedIds = new Set();
+     var view = normalizeYoutubeTable300View(config.view);
+-    var visibleEntries = computeYoutubeTable300View(entries, fields, view);
++    var collapsedGroupIds = new Set(); // Local UI state, not persisted with the view.
++    var displayedGroups = computeYoutubeTable300Groups(entries, fields, view);
++    var visibleEntries = displayedGroups.reduce(function (list, group) {
++      if (!collapsedGroupIds.has(group.id)) group.entries.forEach(function (entry) { list.push(entry); });
++      return list;
++    }, []);
+     // CHAT 03 — named view presets. Never mix presets with entry.values.
+     var hasPresets = Array.isArray(config.presets) || typeof config.onChangePreset === 'function';
+     var presets = Array.isArray(config.presets) ? config.presets.map(function (item) {
+@@ -191,13 +244,16 @@
+     var filterEditor = element('div', 'yt-table300__filter-editor');
+     var sortHeading = element('h3', 'yt-table300__view-title', 'Сортировка');
+     var sortEditor = element('div', 'yt-table300__sort-editor');
++    var groupingHeading = element('h3', 'yt-table300__view-title', 'Группировка');
++    var groupingEditor = element('div', 'yt-table300__grouping-editor');
+     var viewStatus = element('p', 'yt-table300__view-status', '');
+     viewStatus.setAttribute('role', 'status');
+     viewStatus.setAttribute('aria-live', 'polite');
+     var viewRetry = element('button', 'yt-table300__view-retry', 'Повторить сохранение вида');
+     viewRetry.type = 'button';
+     viewRetry.hidden = true;
+-    viewContent.append(filterHeading, filterEditor, sortHeading, sortEditor, viewStatus, viewRetry);
++    viewContent.append(filterHeading, filterEditor, sortHeading, sortEditor,
++      groupingHeading, groupingEditor, viewStatus, viewRetry);
+     viewPanel.append(viewSummary, viewContent);
+ 
+ 
+@@ -342,6 +398,9 @@
+       if (active === fieldSelect) return { kind: 'field' };
+       if (active === valueSelect) return { kind: 'value' };
+       if (active === applyButton) return { kind: 'apply' };
++      if (active && active.classList && active.classList.contains('yt-table300__group-toggle')) {
++        return {kind:'group',id:active.dataset.groupId};
++      }
+       if (active && active.classList && active.classList.contains('yt-table300__row-select')) {
+         return { kind: 'row', id: active.dataset.entryId };
+       }
+@@ -355,6 +414,11 @@
+       if (where.kind === 'field') target = fieldSelect;
+       if (where.kind === 'value') target = valueSelect;
+       if (where.kind === 'apply') target = applyButton;
++      if (where.kind === 'group') {
++        target = Array.from(tbody.querySelectorAll('.yt-table300__group-toggle')).find(function (button) {
++          return button.dataset.groupId === where.id;
++        });
++      }
+       if (where.kind === 'row') {
+         target = Array.from(tbody.querySelectorAll('.yt-table300__row-select')).find(function (checkbox) {
+           return checkbox.dataset.entryId === where.id;
+@@ -439,7 +503,7 @@
+         if (!validIds.has(id)) selectedIds.delete(id);
+       });
+       var fragment = doc.createDocumentFragment();
+-      visibleEntries.forEach(function (entry) {
++      function renderRecord(entry) {
+         var tr = element('tr', 'yt-table300__row');
+         var selectionCell = element('td');
+         var checkboxLabel = element('label', 'yt-table300__check-label');
+@@ -481,17 +545,67 @@
+           }
+           tr.appendChild(cell);
+         });
+-        fragment.appendChild(tr);
++        return tr;
++      }
++      var activeGroupRule = view.group && fields.some(function (field) {
++        return field.key === view.group.key;
++      });
++      if (activeGroupRule) {
++        displayedGroups.forEach(function (group) {
++          var collapsed = collapsedGroupIds.has(group.id);
++          var header = element('tr', 'yt-table300__group-header');
++          var cell = element('th', 'yt-table300__group-cell');
++          cell.scope = 'row';
++          cell.colSpan = 3 + fields.length;
++          var toggle = element('button', 'yt-table300__group-toggle');
++          toggle.type = 'button';
++          toggle.dataset.groupId = group.id;
++          toggle.setAttribute('aria-expanded', String(!collapsed));
++          toggle.setAttribute('aria-label', (collapsed ? 'Развернуть' : 'Свернуть') +
++            ' группу ' + group.label + ', записей: ' + group.entries.length);
++          toggle.appendChild(element('span', 'yt-table300__group-chevron', collapsed ? '▸' : '▾'));
++          toggle.appendChild(element('span', 'yt-table300__group-name', group.label));
++          toggle.appendChild(element('span', 'yt-table300__group-count', String(group.entries.length)));
++          toggle.addEventListener('click', function () {
++            if (pending || destroyed) return;
++            if (collapsedGroupIds.has(group.id)) collapsedGroupIds.delete(group.id);
++            else collapsedGroupIds.add(group.id);
++            calculateDisplayedGroups();
++            renderRows();
++            rebuildFields();
++            restoreFocus({kind:'group',id:group.id});
++          });
++          cell.appendChild(toggle);
++          header.appendChild(cell);
++          fragment.appendChild(header);
++          if (!collapsed) group.entries.forEach(function (entry) {
++            fragment.appendChild(renderRecord(entry));
++          });
++        });
++      } else visibleEntries.forEach(function (entry) {
++        fragment.appendChild(renderRecord(entry));
+       });
+       tbody.replaceChildren(fragment);
+       updateSelectionState();
+     }
+ 
+ 
++    function calculateDisplayedGroups() {
++      displayedGroups = computeYoutubeTable300Groups(entries, fields, view);
++      var groupIds = new Set(displayedGroups.map(function (group) { return group.id; }));
++      Array.from(collapsedGroupIds).forEach(function (id) {
++        if (!groupIds.has(id)) collapsedGroupIds.delete(id);
++      });
++      visibleEntries = displayedGroups.reduce(function (rows, group) {
++        if (!collapsedGroupIds.has(group.id)) group.entries.forEach(function (entry) { rows.push(entry); });
++        return rows;
++      }, []);
++    }
++
+     function refreshFromView() {
+       var focusBefore = storeFocus();
+-      visibleEntries = computeYoutubeTable300View(entries, fields, view);
+-      renderRows(); // Prunes selected IDs of hidden records.
++      calculateDisplayedGroups();
++      renderRows(); // Prunes selected IDs of hidden or collapsed records.
+       rebuildFields();
+       restoreFocus(focusBefore);
+     }
+@@ -703,6 +817,33 @@
+       });
+       if (view.sort.length >= fields.length) addSort.disabled = true;
+       sortEditor.appendChild(addSort);
++      // Grouping is independent from sorting. Multiple sort keys still order rows inside groups.
++      groupingEditor.replaceChildren();
++      var groupRow = element('div', 'yt-table300__view-row');
++      var groupSelect = makeControl([{value:'',label:'Без группировки'}].concat(fieldChoices()),
++        view.group && fields.some(function (field) { return field.key === view.group.key; })
++          ? view.group.key : '', 'yt-table300__grouping-field', 'Группировать по свойству');
++      groupSelect.dataset.viewFocus = 'grouping-field';
++      groupSelect.addEventListener('change', function () {
++        // Clearing grouping must be saved as explicit null even if initial view lacked the key.
++        view.group = groupSelect.value ? {key:groupSelect.value,dir:'asc'} : null;
++        collapsedGroupIds.clear();
++        updateView('grouping-field');
++      });
++      groupRow.appendChild(groupSelect);
++      if (view.group && view.group.key && fields.some(function (field) {return field.key === view.group.key;})) {
++        var groupDirection = makeControl([
++          {value:'asc',label:'По порядку опций'},
++          {value:'desc',label:'В обратном порядке'}
++        ], view.group.dir, 'yt-table300__grouping-direction', 'Порядок групп');
++        groupDirection.dataset.viewFocus = 'grouping-dir';
++        groupDirection.addEventListener('change', function () {
++          view.group.dir = groupDirection.value;
++          updateView('grouping-dir');
++        });
++        groupRow.appendChild(groupDirection);
++      }
++      groupingEditor.appendChild(groupRow);
+     }
+ 
+     viewRetry.addEventListener('click', saveView);
+@@ -941,5 +1082,6 @@
+   }
+ 
+   mountYoutubeTable300.computeView = computeYoutubeTable300View;
++  mountYoutubeTable300.computeGroups = computeYoutubeTable300Groups;
+   window.mountYoutubeTable300 = mountYoutubeTable300;
+ }());
+\ No newline at end of file
