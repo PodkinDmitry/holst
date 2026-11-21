@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T20:05:49.957Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T20:06:57.252Z",
+  "state": "running",
+  "owner": "chat14-cache-diagnostic-20261121201222377",
+  "acquired_at": "2026-11-21T20:12:22.377Z",
+  "expires_at": "2026-11-21T21:12:22.377Z",
+  "heartbeat_at": "2026-11-21T20:12:22.377Z",
   "last_completed_at": "2026-11-21T20:06:57.252Z",
-  "last_summary": "Plan v26 §31: Test13 real source accepted, app regression #1265 first, private Git/CI parallel, 7% weekly soft Work budget, XOD 3.0–3.6 preserved, no source changes.",
+  "last_summary": "User-directed XOD Test13 cache cleanup regression diagnostic; CHAT14",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
