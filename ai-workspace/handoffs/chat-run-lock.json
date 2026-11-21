@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T16:33:51.034Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T16:52:13.436Z",
+  "state": "running",
+  "owner": "chat-budget-20261121-174809",
+  "acquired_at": "2026-11-21T17:48:09.393Z",
+  "expires_at": "2026-11-21T18:18:09.393Z",
+  "heartbeat_at": "2026-11-21T17:48:09.393Z",
   "last_completed_at": "2026-11-21T16:52:13.436Z",
-  "last_summary": "ASTRA audit complete: §25, test 13 542ddd0; 12 CHAT packages reviewed; foundation backup fixed and tested; next SOL foundation performance.",
+  "last_summary": "Update XOD Work weekly and 5h budget from user latest snapshot; no code changes",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
