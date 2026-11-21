@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-20261121-1617-01",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T13:17:13.305Z",
-  "expires_at": "2026-11-21T14:27:13.305Z",
-  "heartbeat_at": "2026-11-21T13:17:13.305Z",
-  "last_completed_at": "2026-11-21T13:02:51.361Z",
-  "last_summary": "Проверен протокол захвата и освобождения lease; это тест, не автономная итерация.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T13:17:34.507Z",
+  "last_completed_at": "2026-11-21T13:17:34.507Z",
+  "last_summary": "Статический аудит CHAT 04/05; 1 checkpoint, 0 новых тестов, 0 патчей, 21 секунд",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
