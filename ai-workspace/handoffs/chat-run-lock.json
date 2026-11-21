@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T13:53:55.698Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T13:57:16.730Z",
+  "state": "running",
+  "owner": "setup-high-20261121-mwqhg253",
+  "acquired_at": "2026-11-21T14:07:48.184Z",
+  "expires_at": "2026-11-21T14:42:48.186Z",
+  "heartbeat_at": "2026-11-21T14:07:48.186Z",
   "last_completed_at": "2026-11-21T13:57:16.730Z",
-  "last_summary": "CHAT07: original 3/6 FAIL, patched 6/6 PASS + 4/4 CHAT06 + 37/37 CHAT04; 3 files published, journal section 16.",
+  "last_summary": "Protocol update for GPT-6 High manual one-click continuation",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
