@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T14:13:15.656Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T14:19:06.910Z",
+  "state": "running",
+  "owner": "chat09-20261121143225-91",
+  "acquired_at": "2026-11-21T14:32:25.268Z",
+  "expires_at": "2026-11-21T15:42:25.268Z",
+  "heartbeat_at": "2026-11-21T14:32:25.268Z",
   "last_completed_at": "2026-11-21T14:19:06.910Z",
-  "last_summary": "CHAT 08: 9/9 Node + 5/5 Chromium, 1 reproduced lost-update risk, 4 GitHub files verified, journal §18; no real XOD integration.",
+  "last_summary": "CHAT09 distributed CAS safety audit",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
