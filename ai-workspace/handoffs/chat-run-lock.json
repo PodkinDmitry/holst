@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-recalibration-20261121184619",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T18:46:19.307Z",
-  "expires_at": "2026-11-21T19:11:19.307Z",
-  "heartbeat_at": "2026-11-21T18:46:19.307Z",
-  "last_completed_at": "2026-11-21T18:05:34.783Z",
-  "last_summary": "User-directed fast-track target, quota snapshot timeline and invalidation of uncalibrated effort estimate",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T18:48:29.827Z",
+  "last_completed_at": "2026-11-21T18:48:29.827Z",
+  "last_summary": "XOD §28 reconciled 12 Work snapshots: 56pp weekly used; withdrew uncalibrated 222-464h; user 90h stretch to 3.6 with 6/3/1 weekly budget; version 20.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
