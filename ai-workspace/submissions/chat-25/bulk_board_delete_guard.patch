@@ -1,0 +1,86 @@
+--- a/v224/base29.html
++++ b/v224/base29.html
+@@ -12825,8 +12825,10 @@
+   if (!stored) throw new Error('Не удалось сохранить доску в корзину');
+   return localBoardBases300.get(b);
+ }
+-async function deleteBoardWithTrash300(id) {
++async function deleteBoardWithTrash300(id, beforeDelete) {
+   const expected = await trashBoard(id);
++  // A selection can become active or dirty while the trash snapshot is written.
++  if (beforeDelete && !beforeDelete()) throw new Error('Удаление отменено: доска изменилась во время подготовки');
+   await Backend.deleteBoard(id, {expected});
+ }
+ async function trashRestore(id) {
+@@ -18216,6 +18218,7 @@
+   const offAll = [...BSEL].every(syBoardOff);
+   bar.innerHTML = `<b>Выбрано ${BSEL.size}</b><span class="p24sp"></span><button class="ob sm" data-bsa="grp" title="Переложить в группу">В группу…</button><button class="ob sm" data-bsa="col" title="Цвет метки">Цвет…</button><button class="ob sm" data-bsa="sync" title="Синхронизация выбранных досок">${offAll ? '▶ Синхр.' : '⏸ Синхр.'}</button><button class="ob sm danger" data-bsa="del">Удалить</button><button class="ib sm" data-bsa="none" title="Снять выделение (Esc)">${ic('close')}</button>`;
+ }
++let bselDeleteBusy = false;
+ async function bselAct(e) {
+   const b = e.target.closest('[data-bsa]'); if (!b) return; e.stopPropagation(); const a = b.dataset.bsa, ids = [...BSEL];
+   if (a === 'none') { BSEL.clear(); bselDraw(); return; }
+@@ -18223,15 +18226,54 @@
+   if (a === 'col') { colorPop(b, CARD_COLORS, '', c => { for (const id of ids) bmSet(id, { col: c }); bsRender(); bselDraw(); }); return; }
+   if (a === 'sync') { const offAll = ids.every(syBoardOff); for (const id of ids) { if (offAll) { if (syOff('b:' + id)) await syResume('b:' + id, syPolOf('b:' + id) === 'ask' ? 'merge' : syPolOf('b:' + id)); } else if (!syOff('b:' + id)) { SY.off['b:' + id] = Date.now(); } } sySave(); syRefresh(); toast(offAll ? 'Синхронизация досок включена' : `Синхронизация выключена: ${ids.length}`); bselDraw(); return; }
+   if (a === 'del') {
+-    if (!(await uiConfirm(`Удалить ${ids.length} ${plural(ids.length, 'доску', 'доски', 'досок')}? Они попадут в корзину — вернуть можно в «Хранилище и копии → Корзина».`))) return;
+-    const cur = S.board && S.board.id;
+-    // Prevent bulk removal from discarding edits to the selected active board.
+-    if (cur && ids.includes(cur) && !await canLeaveCurrentBoard()) return;
+-    let ok = 0, bad = 0;
+-    for (const id of ids) { try { await deleteBoardWithTrash300(id); Drive.forget(id); S.index = S.index.filter(x => x.id !== id); ok++; } catch (er) { bad++; } }
+-    BSEL.clear();
+-    if (cur && ids.includes(cur) && !S.index.some(x => x.id === cur)) { S.board = null; const next = [...S.index].sort((x, y) => y.updatedAt - x.updatedAt)[0]; const nb = next ? await Backend.loadBoard(next.id).catch(() => null) : null; loadBoard(nb || newBoard('Новая доска')); if (!nb) await saveNow(); }
+-    bsRender(); renderDrawer(); bselDraw(); toast(`Удалено: ${ok}${bad ? ` · не удалось: ${bad} (командные доски удаляет администратор)` : ''}`);
++    if (bselDeleteBusy) return;
++    bselDeleteBusy = true; b.disabled = true;
++    try {
++      const targets = ids.filter(id => S.index.some(x => x.id === id));
++      const boardAtConfirm = S.board;
++      if (!targets.length || !(await uiConfirm(`Удалить ${targets.length} ${plural(targets.length, 'доску', 'доски', 'досок')}? Они попадут в корзину — вернуть можно в «Хранилище и копии → Корзина».`))) return;
++      if (S.board !== boardAtConfirm) { toast('Открытая доска изменилась. Повторите удаление после проверки выбора.'); return; }
++      const originalBoard = boardAtConfirm;
++      const deletingCurrent = !!(originalBoard && targets.includes(originalBoard.id));
++      if (deletingCurrent) {
++        finishEdit();
++        if (!await canLeaveCurrentBoard() || S.board !== originalBoard || dirty || saving || saveAgain) return;
++      }
++      let ok = 0, bad = 0, recover = 0;
++      // Delete the current board last, after checking whether edits appeared during the batch.
++      const ordered = targets.filter(id => !deletingCurrent || id !== originalBoard.id);
++      if (deletingCurrent) ordered.push(originalBoard.id);
++      for (const id of ordered) {
++        if (S.board && S.board.id === id) {
++          if (!deletingCurrent || S.board !== originalBoard) { bad++; continue; }
++          finishEdit();
++          if (!await canLeaveCurrentBoard() || S.board !== originalBoard || dirty || saving || saveAgain) { bad++; continue; }
++        }
++        try {
++          await deleteBoardWithTrash300(id, () => !S.board || S.board.id !== id ||
++            (deletingCurrent && S.board === originalBoard && !dirty && !saving && !saveAgain));
++        } catch (er) { bad++; continue; }
++        if (S.board && S.board.id === id && (S.board !== originalBoard || dirty || saving || saveAgain)) {
++          // Backend deletion may already have finished; never evict a late in-memory edit.
++          recover++; setStatus('error');
++          toast('Доска изменилась во время удаления. Не закрывайте её: сохраните содержимое в файл.');
++          continue;
++        }
++        Drive.forget(id); S.index = S.index.filter(x => x.id !== id); BSEL.delete(id); ok++;
++      }
++      if (deletingCurrent && !S.index.some(x => x.id === originalBoard.id) && S.board === originalBoard) {
++        const next = [...S.index].sort((x, y) => y.updatedAt - x.updatedAt)[0];
++        const nb = next ? await Backend.loadBoard(next.id).catch(() => null) : null;
++        if (S.board === originalBoard && !dirty && !saving && !saveAgain) {
++          S.board = null; loadBoard(nb || newBoard('Новая доска')); if (!nb) await saveNow();
++        } else {
++          setStatus('error');
++          toast('Доска изменилась после удаления. Не закрывайте её: сохраните содержимое в файл.');
++        }
++      }
++      bsRender(); renderDrawer(); bselDraw();
++      toast(`Удалено: ${ok}${bad ? ` · не удалось: ${bad}` : ''}${recover ? ` · нужна ручная копия: ${recover}` : ''}`);
++    } finally { b.disabled = false; bselDeleteBusy = false; }
+   }
+ }
+ document.addEventListener('click', e => {
