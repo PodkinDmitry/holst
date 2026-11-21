@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat33-full-cumulative-test13-20261122-high",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T23:46:42.690Z",
-  "expires_at": "2026-11-22T00:54:42.690Z",
-  "heartbeat_at": "2026-11-21T23:46:42.690Z",
-  "last_completed_at": "2026-11-21T23:41:11.691Z",
-  "last_summary": "CHAT33 full Test13 CHAT16–31 source compatibility gate, safe delta only, no Work/main",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T23:52:05.328Z",
+  "last_completed_at": "2026-11-21T23:52:05.328Z",
+  "last_summary": "CHAT33: complete exact Test13 CHAT16–31 source gate 16/16 apply PASS, full build ok 5009092, real inline JS syntax PASS, 338/338 Node VM CHAT21–31; original PATCH16–20 exact Git blobs verified; two public SHA-verified reports; journal §53. CHAT16–20 individual VM and browser/SOL integration remain OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
