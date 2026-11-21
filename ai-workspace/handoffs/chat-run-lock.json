@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat20-fsm-split-20261121214533617",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T21:45:33.617Z",
-  "expires_at": "2026-11-21T22:45:33.621Z",
-  "heartbeat_at": "2026-11-21T21:45:33.617Z",
-  "last_completed_at": "2026-11-21T21:43:56.915Z",
-  "last_summary": "CHAT20 user-directed audit of Test13 fsmBuild/fsmExit and Split, safe isolated patch, no Work or main",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T21:51:45.942Z",
+  "last_completed_at": "2026-11-21T21:51:45.942Z",
+  "last_summary": "CHAT20: FSM enter/rebuild/exit data-loss risks reproduced on Test13; safe patch+18 tests published, 78/78 combined Node PASS, build PASS; Split iframe risk documented, browser QA open; §39 journal updated; no Work/main/private-source publication.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
