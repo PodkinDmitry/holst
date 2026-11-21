@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>XOD CHAT 05 — интеграционный gate настроек YouTube</title>
+<link rel="stylesheet" href="../chat-04/xod-youtube-table300.css">
+<style>
+:root{color-scheme:light dark;font-family:system-ui,sans-serif}
+body{max-width:1000px;margin:1rem auto;padding:0 1rem;color:CanvasText;background:Canvas}
+#results li{padding:.3rem 0}#results li[data-status="FAIL"]{color:#b33}
+#fixture{position:fixed;left:-9999px;top:0;width:700px}
+</style>
+</head>
+<body>
+<h1>XOD CHAT 05 — интеграционные сценарии</h1>
+<p>Запуск на исходном CHAT 04 либо на интегрированной реализации SOL. Нет сети, хранилища и сторонних библиотек.</p>
+<p id="summary" data-status="RUNNING">Выполняется...</p>
+<ol id="results"></ol>
+<div id="fixture"></div>
+<script src="../chat-04/xod-youtube-table300.js"></script>
+<script>
+(async function(){
+'use strict';
+const root=document.getElementById('fixture');
+const fields=[
+ {key:'category',label:'Категория',types:['video','channel','playlist'],options:[{value:'inbox',label:'Входящие'},{value:'favorite',label:'Избранное'}]},
+ {key:'watched',label:'Просмотрено',types:['video'],options:[{value:'no',label:'Нет'},{value:'yes',label:'Да'}]},
+ {key:'subscribed',label:'Подписка',types:['channel'],options:[{value:'no',label:'Нет'},{value:'yes',label:'Да'}]},
+ {key:'sorting',label:'Сортировка',types:['playlist'],options:[{value:'new',label:'Новые'},{value:'old',label:'Старые'}]}
+];
+const records=[
+ {id:'V1',type:'video',title:'Видео <svg onload=alert(1)>',values:{category:'inbox',watched:'no'}},
+ {id:'V2',type:'video',title:'Видео 2',values:{category:'inbox',watched:'yes'}},
+ {id:'C1',type:'channel',title:'Канал 1',values:{category:'favorite',subscribed:'no'}},
+ {id:'P1',type:'playlist',title:'Плейлист 1',values:{category:'favorite',sorting:'new'}}
+];
+const clone=x=>JSON.parse(JSON.stringify(x));
+const tick=()=>new Promise(r=>setTimeout(r,0));
+async function settle(){await tick();await tick();await tick();}
+function assert(cond,message){if(!cond)throw Error(message);}
+function mount(config={}){root.replaceChildren();return window.mountYoutubeTable300(root,{entries:clone(records),fields,onApply:async()=>({entries:clone(records),applied:0,skipped:0,failed:0}),...config});}
+function changeGroup(key){const n=root.querySelector('.yt-table300__grouping-field');assert(n,'Group selector missing');n.value=key;n.dispatchEvent(new Event('change',{bubbles:true}));}
+function changeDirection(dir){const n=root.querySelector('.yt-table300__grouping-direction');assert(n,'Direction selector missing');n.value=dir;n.dispatchEvent(new Event('change',{bubbles:true}));}
+function checkbox(id){return [...root.querySelectorAll('.yt-table300__row-select')].find(n=>n.dataset.entryId===id);}
+function groupLabels(){return [...root.querySelectorAll('.yt-table300__group-name')].map(n=>n.textContent);}
+let ran=0,failed=0;
+const cases=[
+ ['01 · Старый вид без group остаётся совместимым',async()=>{
+  const prior={filter:null,sort:[]},old=JSON.stringify(prior);
+  const inst=mount({view:prior});
+  assert(root.querySelectorAll('.yt-table300__group-header').length===0,'Добавились группы в старом виде');
+  assert(root.querySelectorAll('.yt-table300__row').length===4,'Потеряны записи');
+  assert(JSON.stringify(prior)===old,'Мутировали исходный вид');inst.destroy();
+ }],
+ ['02 · Полная сериализация group и восстановление после пересоздания',async()=>{
+  let saved={filter:null,sort:[]};
+  const onSaveView=async v=>{saved=clone(v);};
+  let inst=mount({view:clone(saved),onSaveView});
+  changeGroup('watched');changeDirection('desc');await settle();
+  assert(saved.group.key==='watched'&&saved.group.dir==='desc','Не сохранена группа');
+  inst.destroy();inst=mount({view:clone(saved),onSaveView});
+  assert(root.querySelector('.yt-table300__grouping-field').value==='watched','Вид не восстановлен');
+  assert(root.querySelector('.yt-table300__grouping-direction').value==='desc','Направление не восстановлено');
+  assert(groupLabels().join('|')==='Да|Нет|Неприменимо','Группы после восстановления неверны');inst.destroy();
+ }],
+ ['03 · Старое асинхронное сохранение не перезаписывает новое',async()=>{
+  const writes=[],resolvers=[];let stored=null;
+  const onSaveView=v=>new Promise(resolve=>{writes.push(clone(v));resolvers.push(()=>{stored=clone(v);resolve();});});
+  const inst=mount({onSaveView});
+  changeGroup('watched');changeDirection('desc');await settle();
+  assert(writes.length===1,'Сохранения идут одновременно');
+  resolvers.shift()();await settle();
+  assert(writes.length===2,'Последняя редакция не была записана');
+  resolvers.shift()();await settle();
+  assert(stored.group.dir==='desc','Старое значение перезаписало новое');
+  assert(root.querySelector('.yt-table300__view-status').textContent.includes('сохранены'),'Нет подтверждения записи');inst.destroy();
+ }],
+ ['04 · Сбой сохранения вида и повтор',async()=>{
+  let tries=0,saved;
+  const inst=mount({onSaveView:async v=>{tries++;if(tries===1)throw Error('Запись недоступна <FAIL>');saved=clone(v);}});
+  changeGroup('watched');await settle();
+  assert(root.querySelector('.yt-table300__view-status').textContent.includes('Запись недоступна'),'Ошибка не показана');
+  assert(root.querySelector('.yt-table300__view-retry').hidden===false,'Нет повтора');
+  assert(root.querySelector('.yt-table300__view-status').querySelector('FAIL')===null,'HTML-инъекция в ошибке');
+  root.querySelector('.yt-table300__view-retry').click();await settle();
+  assert(tries===2&&saved.group.key==='watched','Повтор не сохранил вид');inst.destroy();
+ }],
+ ['05 · Порядок сохранения вида при удалении группировки',async()=>{
+  const writes=[];const inst=mount({onSaveView:async v=>{writes.push(clone(v));}});
+  changeGroup('watched');await settle();changeGroup('');await settle();
+  assert(writes.length===2&&writes[1].group===null,'Не записано group:null');
+  assert(root.querySelectorAll('.yt-table300__group-header').length===0,'Группировка не снята');inst.destroy();
+ }],
+ ['06 · Сохранённый пресет содержит группировку и очищает скрытое выделение',async()=>{
+  const saved=[];
+  const inst=mount({onSaveView:async v=>saved.push(clone(v)),presets:[
+   {id:'p1',name:'Только просмотрено',view:{filter:{op:'and',children:[{key:'watched',op:'eq',value:'yes'}]},sort:[],group:{key:'watched',dir:'asc'}}}
+  ],onChangePreset:async()=>[]});
+  checkbox('V1').click();assert(checkbox('V1').checked,'Не выбрана начальная строка');
+  const sel=root.querySelector('.yt-table300__preset-select');sel.value='p1';sel.dispatchEvent(new Event('change',{bubbles:true}));
+  root.querySelector('.yt-table300__preset-apply').click();await settle();
+  assert(checkbox('V1')===undefined,'Скрытая запись осталась выделенной/видимой');
+  assert(checkbox('V2')&&groupLabels().join('|')==='Да','Пресет не перестроил таблицу');
+  assert(root.querySelector('.yt-table300__selection').textContent.includes('0 из 1'),'Скрытое выделение не сброшено');
+  assert(saved.at(-1).group.key==='watched','Не сохранена группа из пресета');inst.destroy();
+ }],
+ ['07 · После onApply запись переходит в новую группу, ID сохраняется',async()=>{
+  let current=clone(records),received;
+  const inst=mount({entries:current,view:{filter:null,sort:[],group:{key:'watched',dir:'asc'}},onApply:async op=>{
+   received=op;current=current.map(e=>op.ids.includes(e.id)&&e.type==='video' ? {...e,values:{...e.values,watched:op.value}}:e);
+   return {entries:clone(current),applied:op.ids.length,skipped:0,failed:0};
+  }});
+  checkbox('V1').click();
+  const property=root.querySelector('.yt-table300__field');
+  property.value=[...property.options].find(o=>o.dataset.fieldKey==='watched').value;
+  property.dispatchEvent(new Event('change',{bubbles:true}));
+  const value=root.querySelector('.yt-table300__value');value.value=[...value.options].find(o=>o.dataset.rawValue==='yes').value;
+  value.dispatchEvent(new Event('change',{bubbles:true}));
+  root.querySelector('form').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));await settle();
+  assert(received.ids.join()==='V1'&&current[0].values.watched==='yes','Сохранение неверно');
+  assert(groupLabels().join('|')==='Да|Неприменимо','Не пересчитаны группы после правки');
+  assert(checkbox('V1').checked,'Выделение ID потеряно');inst.destroy();
+ }],
+ ['08 · Разрушение компонента во время onSaveView не восстанавливает DOM',async()=>{
+  let finish;const gate=new Promise(resolve=>finish=resolve);
+  const inst=mount({onSaveView:()=>gate});
+  changeGroup('watched');await tick();
+  inst.destroy();finish();await settle();
+  assert(root.childNodes.length===0,'DOM восстановлен после destroy()');
+ }]
+];
+for(const [name,test] of cases){const li=document.createElement('li');li.textContent=name;document.getElementById('results').appendChild(li);try{await test();li.dataset.status='PASS';ran++;}catch(e){li.dataset.status='FAIL';li.textContent=name+' — '+e.message;failed++;}finally{root.replaceChildren();}}
+const summary=document.getElementById('summary');summary.textContent=`Результат: ${ran} / ${cases.length} PASS, ${failed} FAIL`;summary.dataset.status=failed?'FAIL':'PASS';
+})();
+</script>
+</body></html>
