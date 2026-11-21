@@ -1,0 +1,68 @@
+--- a/v224/base29.html
++++ b/v224/base29.html
+@@ -5668,7 +5668,9 @@
+   }
+   log('Сохраняю доску…');
+   const b = newBoard(ov.title || 'Доска из Whimsical'); b.items = out;
+-  await Backend.saveBoard(b);
++  if (!await canLeaveCurrentBoard()) throw new Error('Не удалось сохранить открытую доску перед импортом');
++  const result = await Backend.saveBoard(b);
++  if (result?.removed) throw new Error('Импортированная доска уже удалена');
+   S.board = null; loadBoard(b); fitAll(); renderDrawer();
+   return { count: out.length, warn };
+ }
+@@ -5976,7 +5978,10 @@
+   if (opt.prog) opt.prog('save', 1, 1);
+   { const byI = new Map(out.map(i => [i.id, i])); for (const [wid, iid] of idMap) { const x = byI.get(iid); if (x && typeof wid === 'string') x.wo = wid; } }
+   b.whim = { url: ov.url || ('https://whimsical.com/' + fileId), at: Date.now(), ox, oy, total: only ? out.length : (total || got), got: only ? out.length : got, failed, cats: out.reduce((m, i) => { if (i.wfix) { const k = wfCatOf(i.wfix); m[k] = (m[k] || 0) + 1; } return m; }, {}), warn };
+-  b.items = out; b.assets = assets; await Backend.saveBoard(b);
++  b.items = out; b.assets = assets;
++  if (!await canLeaveCurrentBoard()) throw new Error('Не удалось сохранить открытую доску перед импортом');
++  const result = await Backend.saveBoard(b);
++  if (result?.removed) throw new Error('Импортированная доска уже удалена');
+   map[skey] = b.id; LS.set('whimsrc', map);
+   { const um = LS.get('whimsrcurl') || {}; um[b.id] = ov.url || ('https://whimsical.com/' + fileId); LS.set('whimsrcurl', um); }
+   { const nf = out.filter(i => i.wfix).length; if (nf) warn.push(`${nf} ${plural(nf, 'объект отмечен', 'объекта отмечены', 'объектов отмечены')} красным: их нужно поправить вручную (выделите → «⚠ Поправить»)`); }
+@@ -13281,7 +13286,7 @@
+   }
+   if (opt.pages && R.pages.length) {
+     log('Страницы → документы на доске «Notion»…');
+-    if (S.board && dirty) await saveNow();
++    if (!await canLeaveCurrentBoard()) throw new Error('Не удалось сохранить открытую доску перед импортом');
+     const b = newBoard('Notion — страницы'), W = 640, H = 760, G = 80; let i = 0;
+     for (const p of R.pages) {
+       const pg = ntPage(await zipText(R.z.get(p))), x = (i % 4) * (W + 420 + G), y = Math.floor(i / 4) * (H + G);
+@@ -13301,7 +13306,10 @@
+       }
+       i++; if (i % 10 === 0) log(`Страницы: ${i} из ${R.pages.length}`);
+     }
+-    await Backend.saveBoard(b); S.board = null; loadBoard(b); fitAll(); renderDrawer();
++    if (!await canLeaveCurrentBoard()) throw new Error('Не удалось сохранить открытую доску перед импортом');
++    const result = await Backend.saveBoard(b);
++    if (result?.removed) throw new Error('Импортированная доска уже удалена');
++    S.board = null; loadBoard(b); fitAll(); renderDrawer();
+   }
+   return { recs, docs, pics };
+ }
+@@ -19865,7 +19873,7 @@
+     }
+     if (!boards.length) throw new Error('empty');
+     finishEdit();
+-    if (S.board && dirty) await saveNow();
++    if (!await canLeaveCurrentBoard()) return;
+     let first = null;
+     for (const src of boards) {
+       const b = newBoard(src.name || 'Доска');
+@@ -19874,9 +19882,11 @@
+       normalizeBoard(b);
+       if (src.assetFiles) b.assetFiles = clone(src.assetFiles);
+       if (src.assetNames) b.assetNames = clone(src.assetNames);
+-      await Backend.saveBoard(b);
++      const result = await Backend.saveBoard(b);
++      if (result?.removed) throw new Error('Импортированная доска уже удалена');
+       first = first || b;
+     }
++    if (!await canLeaveCurrentBoard()) { toast('Импортированные доски сохранены. Текущая доска осталась открытой.'); return; }
+     loadBoard(first); fitAll(); await saveNow();
+     toast(boards.length > 1 ? `Добавлено досок: ${boards.length}` : 'Доска открыта из файла');
+   } catch (e) { console.error(e); toast('Не удалось открыть файл доски XOD'); }
