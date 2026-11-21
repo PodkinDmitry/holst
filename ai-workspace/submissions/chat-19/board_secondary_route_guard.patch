@@ -1,0 +1,41 @@
+--- a/v224/base29.html
++++ b/v224/base29.html
+@@ -7266,7 +7266,7 @@
+   }
+ }
+ async function goToItem(bid, iid) {
+-  if (bid !== S.board.id) { if (dirty) await saveNow(); const b = await Backend.loadBoard(bid); if (!b) return; S.board = null; loadBoard(b); renderDrawer(); }
++  if (bid !== S.board.id) { if (!await canLeaveCurrentBoard()) return; const b = await Backend.loadBoard(bid); if (!b) return; S.board = null; loadBoard(b); renderDrawer(); }
+   const it = byId(iid); if (!it) return;
+   revealItem(it); S.sel = new Set([iid]); render();
+   const b = bounds(it), v = V(), z = clamp(Math.min(innerWidth * 0.6 / Math.max(b.w, 1), innerHeight * 0.6 / Math.max(b.h, 1)), zMin(), 1.2);
+@@ -13492,7 +13492,7 @@
+   const rows = [...Pres.list.entries()].map(([peer, x]) => { const pr = x.p.presence || {}, b = S.index.find(e => e.id === pr.b); return `<div class="strow"><i class="stdot" style="background:${esc(String(pr.c || '#3355ff'))}"></i><span class="stn">${esc(presName(x.p))}${x.p.guest ? ' · гость' : ''}<small>${pr.b === (S.board && S.board.id) ? 'на этой доске' : b ? 'на доске «' + esc(b.name) + '»' : 'в Холсте'}${pr.away ? ' · отошёл' : ''}</small></span>${pr.b && pr.b !== (S.board && S.board.id) && b ? `<button class="ob sm" data-v="go:${pr.b}">Перейти</button>` : `<button class="ob sm" data-v="see:${peer}">Где он</button><button class="ob sm${Pres.follow === peer ? ' on' : ''}" data-v="fol:${peer}">${Pres.follow === peer ? 'Не следовать' : 'Следовать'}</button>`}</div>`; }).join('');
+   openPop(anchor, `<div class="fmpop wide"><b>Сейчас в Холсте</b><div class="stlist">${rows || '<p class="sub">Никого, кроме вас.</p>'}</div><p>Курсоры видны всем на одной доске. Если человек отошёл, его курсор бледнеет, но не пропадает.</p></div>`, async v => {
+     const [k, id] = v.split(':');
+-    if (k === 'go') { const b = await Backend.loadBoard(id); if (b) { if (dirty) await saveNow(); S.board = null; loadBoard(b); } }
++    if (k === 'go') { const b = await Backend.loadBoard(id); if (b) { if (!await canLeaveCurrentBoard()) return; S.board = null; loadBoard(b); } }
+     else if (k === 'see') { const x = Pres.list.get(id), pr = x && x.p.presence; if (pr && pr.x != null) zoomAt ? (() => { const v = V(); v.x = innerWidth / 2 - pr.x * v.z; v.y = innerHeight / 2 - pr.y * v.z; applyView(); })() : 0; }
+     else if (k === 'fol') { Pres.follow = Pres.follow === id ? null : id; toast(Pres.follow ? 'Экран следует за участником. Сдвиньте доску, чтобы перестать' : 'Больше не следую'); presDraw(); }
+   });
+@@ -13530,7 +13530,7 @@
+   d.addEventListener('click', async e => {
+     const b = e.target.closest('[data-tm]'); if (!b) return; const [k, v] = b.dataset.tm.split(':');
+     if (k === 'make') teamMakeBoard(v || (S.board && S.board.id));
+-    else if (k === 'open') { const bb = await Backend.loadBoard(v); if (bb) { if (dirty) await saveNow(); S.board = null; loadBoard(bb); closeXdlg(); } }
++    else if (k === 'open') { const bb = await Backend.loadBoard(v); if (bb) { if (!await canLeaveCurrentBoard()) return; S.board = null; loadBoard(bb); closeXdlg(); } }
+     else if (k === 'store') { if (!Team.can('admin')) return; await Team.setData({ storage: v }); }
+     else if (k === 'dfolder') { const link = await uiPrompt('Ссылка на общую папку Google Диска (владелец даёт участникам доступ «Редактор»)', Team.data.dfolder ? 'https://drive.google.com/drive/folders/' + Team.data.dfolder : ''); if (link == null) return; const m = String(link).match(/folders\/([A-Za-z0-9_-]{10,})/) || String(link).match(/^([A-Za-z0-9_-]{20,})$/); if (!m) { toast('Не похоже на ссылку на папку'); return; } await Team.setData({ dfolder: m[1], storage: 'drive' }); }
+     else if (k === 'name') { const n = await uiPrompt('Название команды', (Team.data && Team.data.name) || 'Команда'); if (n && n.trim()) await Team.setData({ name: n.trim() }); }
+@@ -18224,7 +18224,10 @@
+   if (a === 'sync') { const offAll = ids.every(syBoardOff); for (const id of ids) { if (offAll) { if (syOff('b:' + id)) await syResume('b:' + id, syPolOf('b:' + id) === 'ask' ? 'merge' : syPolOf('b:' + id)); } else if (!syOff('b:' + id)) { SY.off['b:' + id] = Date.now(); } } sySave(); syRefresh(); toast(offAll ? 'Синхронизация досок включена' : `Синхронизация выключена: ${ids.length}`); bselDraw(); return; }
+   if (a === 'del') {
+     if (!(await uiConfirm(`Удалить ${ids.length} ${plural(ids.length, 'доску', 'доски', 'досок')}? Они попадут в корзину — вернуть можно в «Хранилище и копии → Корзина».`))) return;
+-    let ok = 0, bad = 0; const cur = S.board && S.board.id;
++    const cur = S.board && S.board.id;
++    // Prevent bulk removal from discarding edits to the selected active board.
++    if (cur && ids.includes(cur) && !await canLeaveCurrentBoard()) return;
++    let ok = 0, bad = 0;
+     for (const id of ids) { try { await deleteBoardWithTrash300(id); Drive.forget(id); S.index = S.index.filter(x => x.id !== id); ok++; } catch (er) { bad++; } }
+     BSEL.clear();
+     if (cur && ids.includes(cur) && !S.index.some(x => x.id === cur)) { S.board = null; const next = [...S.index].sort((x, y) => y.updatedAt - x.updatedAt)[0]; const nb = next ? await Backend.loadBoard(next.id).catch(() => null) : null; loadBoard(nb || newBoard('Новая доска')); if (!nb) await saveNow(); }
