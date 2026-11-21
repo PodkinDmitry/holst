@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat13-zip-verification-20261121200023",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T20:00:23.932Z",
-  "expires_at": "2026-11-21T20:30:23.932Z",
-  "heartbeat_at": "2026-11-21T20:00:23.932Z",
-  "last_completed_at": "2026-11-21T19:47:17.035Z",
-  "last_summary": "CHAT13 independently verified cleaned Test13 private ZIP; document and publish safe verifier/test",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T20:02:26.701Z",
+  "last_completed_at": "2026-11-21T20:02:26.701Z",
+  "last_summary": "CHAT13 received and SHA-verified private Test13 ZIP (432 files, 431/431 manifest); build PASS, JS 107/107 PASS, verifier 5/5 PASS; browser blocked by managed policy; journal §30.6 updated.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
