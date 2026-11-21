@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>XOD · YouTube Table 300 — автономные проверки</title>
+  <link rel="stylesheet" href="./xod-youtube-table300.css">
+  <style>
+    :root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+    body { color: CanvasText; background: Canvas; margin: 1.3rem auto; padding: 0 1rem; max-width: 1100px; }
+    header { margin-bottom: 1.3rem; }
+    #test-summary { padding: .7rem 0; font-weight: 700; }
+    #test-summary[data-test-status="PASS"] { color: #18834d; }
+    #test-summary[data-test-status="FAIL"] { color: #e14c4c; }
+    #test-results { padding-left: 1.5rem; line-height: 1.6; }
+    #test-results li[data-status="PASS"]::marker { color: #18834d; }
+    #test-results li[data-status="FAIL"]::marker { color: #e14c4c; }
+    .test-area { margin: 1.4rem 0; }
+    #fixture { position: fixed; left: -200vw; top: 0; width: 60rem; }
+    button { font: inherit; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>XOD · YouTube Table 300 — CHAT 03</h1>
+    <p>Локальный автономный тест. Только DOM и контролируемый fake <code>onApply</code>, без сети и хранилища.</p>
+    <button id="rerun" type="button">Запустить проверки заново</button>
+    <div id="test-summary" data-test-status="RUNNING">Проверки выполняются…</div>
+    <ol id="test-results"></ol>
+  </header>
+  <div id="fixture"></div>
+  <section class="test-area">
+    <h2>Интерактивный образец</h2>
+    <p>В образце изменения хранятся только в памяти вкладки и сбрасываются при перезагрузке страницы.</p>
+    <div id="demo"></div>
+  </section>
+  <script src="./xod-youtube-table300.js"></script>
+  <script>
+    (function () {
+    'use strict';
+
+    const fields = [
+      { key: 'category', label: 'Категория', types: ['video','channel','playlist'],
+        options: [{ value:'inbox', label:'Входящие' }, { value:'favorite', label:'Избранное' }] },
+      { key: 'watched', label: 'Просмотрено', types: ['video'],
+        options: [{ value:'no', label:'Нет' }, { value:'yes', label:'Да' }] },
+      { key: 'subscribed', label: 'Подписка', types: ['channel'],
+        options: [{ value:'no', label:'Нет' }, { value:'yes', label:'Да' }] },
+      { key: 'sorting', label: 'Сортировка', types: ['playlist'],
+        options: [{ value:'new', label:'Новые' }, { value:'old', label:'Старые' }] }
+    ];
+
+    const initialEntries = [
+      { id:'V1', type:'video', title:'Видео <img src=x onerror="alert(1)"> & А',
+        values:{ category:'inbox', watched:'no' } },
+      { id:'V2', type:'video', title:'Видео Б', values:{ category:'inbox', watched:'no' } },
+      { id:'C1', type:'channel', title:'Канал А', values:{ category:'inbox', subscribed:'no' } },
+      { id:'P1', type:'playlist', title:'Плейлист А', values:{ category:'inbox', sorting:'new' } }
+    ];
+
+    function cloneEntries(entries) {
+      return entries.map(e => ({ id:e.id, type:e.type, title:e.title, values:{...e.values} }));
+    }
+    function assert(condition, message) {
+      if (!condition) throw new Error(message);
+    }
+    function fakeStore({ rejectFirst=false } = {}) {
+      let entries = cloneEntries(initialEntries);
+      const calls = [];
+      let rejects = rejectFirst ? 1 : 0;
+      const onApply = async operation => {
+        calls.push({ ids:operation.ids.slice(), key:operation.key, value:operation.value });
+        if (rejects-- > 0) throw new Error('Сервис временно недоступен <ошибка>');
+        const field = fields.find(f => f.key === operation.key);
+        let applied = 0, skipped = 0;
+        entries = entries.map(e => {
+          if (!operation.ids.includes(e.id)) return e;
+          if (!field.types.includes(e.type)) { skipped++; return e; }
+          applied++;
+          return { ...e, values:{...e.values, [operation.key]:operation.value} };
+        });
+        return {entries:cloneEntries(entries), applied, skipped, failed:0};
+      };
+      return { get entries() { return cloneEntries(entries); }, calls, onApply };
+    }
+    const root = document.querySelector('#fixture');
+    function mount(store) {
+      root.replaceChildren();
+      return mountYoutubeTable300(root, {entries:store.entries, fields, onApply:store.onApply});
+    }
+    function checkbox(id) {
+      return [...root.querySelectorAll('.yt-table300__row-select')]
+        .find(n => n.dataset.entryId === id);
+    }
+    function chooseRows(ids) {
+      for (const id of ids) {
+        const node = checkbox(id);
+        assert(node, 'Нет строки ' + id);
+        node.checked = true;
+        node.dispatchEvent(new Event('change', {bubbles:true}));
+      }
+    }
+    function selectField(key) {
+      const select = root.querySelector('.yt-table300__field');
+      const option = [...select.options].find(n => n.dataset.fieldKey === key);
+      assert(option && !option.disabled, 'Поле недоступно: ' + key);
+      select.value = option.value;
+      select.dispatchEvent(new Event('change', {bubbles:true}));
+    }
+    function selectValue(value) {
+      const select = root.querySelector('.yt-table300__value');
+      const option = [...select.options].find(n => n.dataset.rawValue === value);
+      assert(option, 'Нет значения: ' + value);
+      select.value = option.value;
+      select.dispatchEvent(new Event('change', {bubbles:true}));
+    }
+    function counts() {
+      return ['applied','skipped','failed'].map(name =>
+        root.querySelector('.yt-table300__' + name).textContent);
+    }
+    function submit() {
+      root.querySelector('form').dispatchEvent(new Event('submit', {bubbles:true, cancelable:true}));
+    }
+    function tick() { return new Promise(resolve => setTimeout(resolve, 0)); }
+    async function apply() { submit(); await tick(); }
+    function cell(id, key) {
+      const fieldIndex = fields.findIndex(f => f.key === key);
+      const rowIndex = initialEntries.findIndex(e => e.id === id);
+      return root.querySelectorAll('tbody tr')[rowIndex].children[3 + fieldIndex];
+    }
+
+    const tests = [
+      ['Одиночная правка V1 и сохранение после повторного открытия', async () => {
+        const store = fakeStore();
+        let instance = mount(store);
+        chooseRows(['V1']);
+        selectField('watched'); selectValue('yes');
+        root.querySelector('.yt-table300__apply').focus();
+        await apply();
+        assert(store.calls.length === 1, 'Ожидался один вызов onApply');
+        assert(JSON.stringify(store.calls[0].ids) === JSON.stringify(['V1']), 'Неверный ID');
+        assert(store.entries[0].values.watched === 'yes' && store.entries[1].values.watched === 'no', 'Изменена неверная запись');
+        assert(counts().join('/') === '1/0/0', 'Неверные счётчики');
+        assert(checkbox('V1').checked, 'Выделение V1 потеряно');
+        assert(document.activeElement === root.querySelector('.yt-table300__apply'), 'Фокус на кнопке не восстановлен');
+        instance.destroy();
+        instance = mount(store);
+        assert(cell('V1','watched').textContent === 'Да', 'После повторного открытия значение не видно');
+        assert(cell('V2','watched').textContent === 'Нет', 'V2 ошибочно изменено');
+        instance.destroy();
+      }],
+      ['Смешанная правка V1/V2/C1/P1 — 2/2/0', async () => {
+        const store = fakeStore(); const instance = mount(store);
+        root.querySelector('.yt-table300__select-all').click();
+        selectField('watched'); selectValue('yes'); await apply();
+        assert(JSON.stringify(store.calls[0].ids) === JSON.stringify(['V1','V2','C1','P1']), 'Не переданы несовместимые ID');
+        assert(counts().join('/') === '2/2/0', 'Ожидалось 2/2/0, получено '+counts().join('/'));
+        assert(store.entries[0].values.watched === 'yes' && store.entries[1].values.watched === 'yes', 'Не сохранены видео');
+        assert(!('watched' in store.entries[2].values) && !('watched' in store.entries[3].values), 'Неприменимое свойство записано');
+        assert(root.querySelector('.yt-table300__select-all').checked, 'Общее выделение потеряно');
+        instance.destroy();
+      }],
+      ['Повтор той же операции допустим и не создаёт дубликатов', async () => {
+        const store = fakeStore(); const instance = mount(store);
+        chooseRows(['V1']); selectField('category'); selectValue('favorite');
+        await apply();
+        assert(!root.querySelector('.yt-table300__apply').disabled, 'Повтор заблокирован');
+        await apply();
+        assert(store.calls.length === 2, 'Повтор не достиг onApply');
+        assert(counts().join('/') === '1/0/0', 'При повторе неверные счётчики');
+        assert(store.entries.length === 4 && store.entries[0].values.category === 'favorite', 'Неправильный снимок');
+        instance.destroy();
+      }],
+      ['Отказ onApply, причина, разблокировка и успешный повтор', async () => {
+        const store = fakeStore({rejectFirst:true}); const instance = mount(store);
+        chooseRows(['C1']); selectField('subscribed'); selectValue('yes');
+        await apply();
+        assert(root.querySelector('.yt-table300__error').textContent.includes('Сервис временно недоступен'), 'Причина ошибки не показана');
+        assert(root.querySelector('.yt-table300__failed').textContent === '—', 'Ошибке ошибочно присвоен счётчик записей');
+        assert(!root.querySelector('.yt-table300__apply').disabled, 'Форма не разблокирована');
+        assert(checkbox('C1').checked, 'Выделение не сохранено после отказа');
+        assert(!root.querySelector('.yt-table300__error').querySelector('ошибка'), 'Текст ошибки вставлен как HTML');
+        await apply();
+        assert(store.calls.length === 2 && counts().join('/') === '1/0/0', 'Повтор после сбоя не сработал');
+        assert(store.entries[2].values.subscribed === 'yes', 'Значение не сохранилось');
+        instance.destroy();
+      }],
+      ['Параллельная отправка запрещена', async () => {
+        let resolve;
+        const pendingResult = new Promise(res => { resolve = res; });
+        let calls = 0;
+        const instance = mount({entries:cloneEntries(initialEntries), onApply:() => { calls++; return pendingResult; }});
+        chooseRows(['P1']); selectField('sorting'); selectValue('old');
+        submit(); submit();
+        assert(calls === 1, 'onApply вызван повторно до завершения');
+        assert(root.querySelector('.yt-table300__apply').disabled, 'Кнопка не заблокирована');
+        assert(root.querySelector('.yt-table300__row-select').disabled, 'Выделение не заблокировано');
+        const snapshot = cloneEntries(initialEntries);
+        snapshot[3].values.sorting = 'old';
+        resolve({entries:snapshot, applied:1, skipped:0, failed:0});
+        await tick();
+        assert(counts().join('/') === '1/0/0', 'Нет результата после завершения');
+        instance.destroy();
+      }],
+      ['Пользовательское название с HTML-символами выводится как текст', async () => {
+        const store = fakeStore(); const instance = mount(store);
+        const title = root.querySelector('tbody tr th[scope="row"]');
+        assert(title.textContent === initialEntries[0].title, 'Заголовок искажён');
+        assert(title.querySelector('img, script, iframe') === null, 'Встроена HTML-разметка');
+        assert(root.querySelectorAll('tbody tr').length === 4, 'Не все записи выведены');
+        instance.destroy();
+      }],
+      ['«Выделить всё»: частичное → полное → частичное → пустое', async () => {
+        const store = fakeStore(); const instance = mount(store);
+        const all = root.querySelector('.yt-table300__select-all');
+        assert(!all.checked && !all.indeterminate, 'Начальное состояние неверно');
+        chooseRows(['V1']);
+        assert(all.indeterminate && !all.checked && all.getAttribute('aria-checked') === 'mixed', 'Нет промежуточного состояния');
+        all.click();
+        assert(all.checked && !all.indeterminate && [...root.querySelectorAll('.yt-table300__row-select')].every(n=>n.checked), 'Не выделено всё');
+        checkbox('V2').click();
+        assert(all.indeterminate && !all.checked, 'Нет промежуточного состояния после снятия');
+        all.click();
+        assert(all.checked, 'Первый клик в промежуточном состоянии должен выделить всё');
+        all.click();
+        assert(!all.checked && !all.indeterminate && [...root.querySelectorAll('.yt-table300__row-select')].every(n=>!n.checked), 'Снятие всех не сработало');
+        assert(root.querySelector('.yt-table300__apply').disabled, 'Без выделения возможно применение');
+        instance.destroy();
+      }],
+      ['Группы полей и доступность по применимости', async () => {
+        const store = fakeStore(); const instance = mount(store);
+        assert(root.querySelector('.yt-table300__field').disabled, 'Поле доступно без выделения');
+        chooseRows(['V1']);
+        const select = root.querySelector('.yt-table300__field');
+        const groups = [...select.querySelectorAll('optgroup')].map(g => g.label);
+        assert(groups.join('/') === 'Общие/Видео/Каналы/Плейлисты', 'Неверная группировка');
+        const byKey = key => [...select.options].find(o=>o.dataset.fieldKey===key);
+        assert(!byKey('category').disabled && !byKey('watched').disabled, 'Совместимое поле недоступно');
+        assert(byKey('subscribed').disabled && byKey('sorting').disabled, 'Несовместимое поле доступно');
+        assert(cell('C1','watched').classList.contains('yt-table300__cell--na'), 'Нет визуального отличия');
+        assert(cell('C1','watched').textContent.includes('Не применяется'), 'Нет доступного описания');
+        instance.destroy();
+      }],
+      ['Счётчик failed из ответа показывается отдельно', async () => {
+        const snapshot = cloneEntries(initialEntries);
+        const instance = mount({entries:snapshot, onApply:async () => ({entries:snapshot, applied:1, skipped:1, failed:2})});
+        chooseRows(['V1','V2','C1','P1']);
+        selectField('category'); selectValue('favorite'); await apply();
+        assert(counts().join('/') === '1/1/2', 'Не показан failed отдельно');
+        assert(root.querySelector('.yt-table300__error').textContent.includes('не удалось'), 'Нет предупреждения о частичной ошибке');
+
+        instance.destroy();
+      }],
+      ['Чистая фильтрация: вложенные И/ИЛИ, no, есть, пусто, неприменимость', async () => {
+        const calculate = mountYoutubeTable300.computeView;
+        const sample = cloneEntries(initialEntries);
+        sample[1].values.watched = '';
+        const original = JSON.stringify(sample);
+        const view = {filter:{op:'or',children:[
+          {op:'and',children:[{key:'watched',op:'eq',value:'no'},{key:'category',op:'eq',value:'inbox'}]},
+          {key:'watched',op:'unset'}
+        ]},sort:[]};
+        assert(calculate(sample,fields,view).map(e=>e.id).join('/') === 'V1/V2', 'Вложенные И/ИЛИ или не задано неверны');
+        assert(calculate(sample,fields,{filter:{key:'watched',op:'set'},sort:[]}).map(e=>e.id).join('/')==='V1', 'no должно считаться заданным');
+        assert(calculate(sample,fields,{filter:{key:'watched',op:'unset'},sort:[]}).map(e=>e.id).join('/')==='V2', 'Не задано включает только применимое пустое поле');
+        assert(calculate(sample,fields,{filter:{key:'watched',op:'eq',value:'no'},sort:[]}).map(e=>e.id).join('/')==='V1', 'eq no не должно включать другие типы');
+        assert(JSON.stringify(sample)===original, 'Движок изменил данные источника');
+      }],
+      ['Сортировка: направления, заданные перед пустыми и неприменимыми, второй ключ и ничья', async () => {
+        const calculate = mountYoutubeTable300.computeView;
+        const sample = cloneEntries(initialEntries);
+        sample[0].values.category='favorite';
+        sample[1].values.category='inbox';
+        const more = [
+          {id:'V3',type:'video',title:'Три',values:{category:'inbox',watched:'yes'}},
+          {id:'V4',type:'video',title:'Четыре',values:{category:'inbox'}}
+        ];
+        const before = JSON.stringify(sample.concat(more));
+        let got = calculate(sample.concat(more),fields,{filter:null,sort:[{key:'watched',dir:'desc'}]});
+        assert(got.map(e=>e.id).join('/')==='V3/V1/V2/V4/C1/P1','Группы определённости или обратный порядок неверны');
+        got = calculate(sample.concat(more),fields,{filter:null,sort:[{key:'watched',dir:'asc'},{key:'category',dir:'asc'}]});
+        assert(got.map(e=>e.id).join('/')==='V2/V1/V3/V4/C1/P1','Второй ключ сортировки неверен');
+        sample[0].values.category='inbox';
+        got = calculate(sample,fields,{filter:null,sort:[{key:'watched',dir:'asc'},{key:'category',dir:'asc'}]});
+        assert(got[0].id==='V1' && got[1].id==='V2','Ничья нарушила исходный порядок');
+        assert(before.includes('V4'), 'Контрольная фикстура повреждена');
+      }],
+      ['Скрытая строка сбрасывает выделение; выделить всё относится только к видимым', async () => {
+        const store=fakeStore();
+        const instance=mountYoutubeTable300(root,{entries:store.entries,fields,onApply:store.onApply,
+          view:{filter:{op:'and',children:[{key:'watched',op:'eq',value:'no'}]},sort:[]}});
+        assert(root.querySelectorAll('tbody tr').length===2,'Должны быть видимы только два видео');
+        chooseRows(['V1','V2']);
+        const value=root.querySelector('.yt-table300__rule-value');
+        value.value='yes'; value.dispatchEvent(new Event('change',{bubbles:true}));
+        assert(root.querySelectorAll('tbody tr').length===0,'Не обновилась видимость');
+        assert(root.querySelector('.yt-table300__selection').textContent==='Выбрано: 0 из 0','Скрытое выделение не снято');
+        assert(root.querySelector('.yt-table300__apply').disabled,'Скрытые записи нельзя править');
+        assert(root.querySelector('.yt-table300__select-all').disabled,'Общее выделение не заблокировано');
+        instance.destroy();
+      }],
+      ['После onApply вид фильтруется заново и скрытое выделение сбрасывается', async () => {
+        const store=fakeStore();
+        const instance=mountYoutubeTable300(root,{entries:store.entries,fields,onApply:store.onApply,
+          view:{filter:{key:'watched',op:'eq',value:'no'},sort:[{key:'category',dir:'asc'}]}});
+        chooseRows(['V1']); selectField('watched'); selectValue('yes'); await apply();
+        assert(store.entries[0].values.watched==='yes','Изменение не применено');
+        assert(root.querySelectorAll('tbody tr').length===1,'Фильтр не пересчитан');
+        assert(checkbox('V1')===undefined,'Изменённая запись осталась видимой');
+        assert(!checkbox('V2').checked && root.querySelector('.yt-table300__apply').disabled,'Невидимое выделение сохранилось');
+        instance.destroy();
+      }],
+      ['Начальный вид, восстановление и совместимость без дополнительных опций', async () => {
+        const store=fakeStore();
+        const initialView={filter:{key:'category',op:'eq',value:'inbox'},sort:[{key:'watched',dir:'desc'}]};
+        const snapshot=JSON.stringify(initialView);
+        let instance=mountYoutubeTable300(root,{entries:store.entries,fields,onApply:store.onApply,view:initialView});
+        assert(root.querySelectorAll('tbody tr').length===4 && root.querySelectorAll('.yt-table300__sort-row').length===1,
+          'Начальный вид не загружен');
+        assert(JSON.stringify(initialView)===snapshot,'Начальный вид был изменён');
+        instance.destroy();
+        instance=mount(store);
+        assert(root.querySelectorAll('tbody tr').length===4,'Совместимость CHAT01 нарушена');
+        assert(root.querySelectorAll('.yt-table300__sort-row').length===0,'Создана лишняя сортировка по умолчанию');
+        instance.destroy();
+      }],
+      ['Неудачное сохранение вида сохраняет настройку и позволяет повторить', async () => {
+        let count=0;
+        const saved=[];
+        const store=fakeStore();
+        const instance=mountYoutubeTable300(root,{entries:store.entries,fields,onApply:store.onApply,
+          onSaveView:async view=>{count++;saved.push(JSON.parse(JSON.stringify(view)));if(count===1)throw Error('Нет доступа <ошибка>');}});
+        root.querySelector('.yt-table300__create-filter').click();
+        await tick(); await tick();
+        assert(root.querySelector('.yt-table300__view-status').textContent.includes('Нет доступа'),'Причина сохранения не показана');
+        assert(!root.querySelector('.yt-table300__view-status').querySelector('ошибка'),'Ошибка введена как HTML');
+        assert(root.querySelector('.yt-table300__view-retry').hidden===false,'Нет кнопки повторения');
+        assert(root.querySelector('.yt-table300__group'), 'Локальный вид пропал после отказа');
+        root.querySelector('.yt-table300__view-retry').click();
+        await tick(); await tick();
+        assert(count===2 && saved[1].filter.op==='and','Повтор не доставил актуальный снимок');
+        assert(root.querySelector('.yt-table300__view-retry').hidden,'Ошибка не скрыта после успеха');
+        instance.destroy();
+      }],
+      ['Редактор групп и сортировки: вложение, приоритет, сохранение JSON', async () => {
+        const store=fakeStore();
+        const saved=[];
+        const instance=mountYoutubeTable300(root,{entries:store.entries,fields,onApply:store.onApply,
+          onSaveView:async view=>saved.push(JSON.parse(JSON.stringify(view)))});
+        root.querySelector('.yt-table300__create-filter').click();
+        root.querySelector('.yt-table300__add-rule').click();
+        let op=root.querySelector('.yt-table300__group-op');
+        op.value='or';op.dispatchEvent(new Event('change',{bubbles:true}));
+        root.querySelector('.yt-table300__add-group').click();
+        root.querySelector('.yt-table300__sort-add').click();
+        root.querySelector('.yt-table300__sort-add').click();
+        const row=root.querySelectorAll('.yt-table300__sort-row')[1];
+        row.querySelectorAll('button')[0].click();
+        await tick();await tick();await tick();await tick();await tick();await tick();
+        assert(root.querySelectorAll('.yt-table300__group').length===2,'Вложенная группа отсутствует');
+        assert(root.querySelectorAll('.yt-table300__sort-row').length===2,'Два ключа сортировки не созданы');
+        assert(saved.length>0,'Вид не передан наружу');
+        assert(saved[saved.length-1].filter.op==='or' && saved[saved.length-1].sort[0].key==='watched',
+          'Неправильный порядок полей или группа');
+        instance.destroy();
+      }],
+      ['Быстрые изменения вида сохраняются строго по порядку; устаревший ответ не отображается', async () => {
+        const store=fakeStore();
+        const snapshots=[];
+        let release;
+        const gate=new Promise(resolve=>{release=resolve;});
+        const instance=mountYoutubeTable300(root,{entries:store.entries,fields,onApply:store.onApply,
+          onSaveView:async view=>{snapshots.push(JSON.stringify(view)); if(snapshots.length===1) await gate;}});
+        root.querySelector('.yt-table300__sort-add').click();
+        await tick();
+        const dir=root.querySelector('.yt-table300__sort-dir');
+        dir.value='desc';dir.dispatchEvent(new Event('change',{bubbles:true}));
+        release();
+        await tick();await tick();await tick();
+        assert(snapshots.length===2,'Ожидалось два последовательных снимка');
+        assert(JSON.parse(snapshots[0]).sort[0].dir==='asc' && JSON.parse(snapshots[1]).sort[0].dir==='desc',
+          'Нарушен порядок сохранения');
+        assert(root.querySelector('.yt-table300__view-status').textContent.includes('сохранены'),
+          'Последняя настройка не подтвердилась');
+        instance.destroy();
+      }],
+      // CHAT 03 acceptance tests; the existing CHAT 01+02 scenarios above are unchanged.
+      ['Пресет: создание из текущего вида, отдельное от свойств записей', async () => {
+        const store=fakeStore(); const commands=[]; let database=[];
+        const initialView={filter:{op:'and',children:[{key:'watched',op:'eq',value:'no'}]},sort:[]};
+        const inst=mountYoutubeTable300(root,{entries:store.entries,fields,onApply:store.onApply,view:initialView,presets:[],
+          onChangePreset:async cmd=>{commands.push(JSON.parse(JSON.stringify(cmd)));
+            database=[...database,{id:'preset-1',name:cmd.name,view:cmd.view}];return structuredClone(database);}});
+        const input=root.querySelector('.yt-table300__preset-name');
+        input.value='Видео: не просмотрены'; input.dispatchEvent(new Event('input',{bubbles:true}));
+        root.querySelector('.yt-table300__preset-create').click(); await tick();await tick();
+        assert(commands.length===1 && commands[0].op==='create','Не создан пресет');
+        assert(commands[0].view.filter.children[0].value==='no','Значение no не сохранено');
+        assert(root.querySelector('.yt-table300__preset-select').value==='preset-1','Новый пресет не выбран');
+        assert(store.entries[0].values.watched==='no','Сохранение вида затронуло свойства записи');
+        input.value='Изменённый ввод';
+        assert(database[0].name==='Видео: не просмотрены','Данные изменены через UI по ссылке');
+        inst.destroy();
+      }],
+      ['Применение пресета: no не пустота, скрытое выделение снимается и вид сохраняется', async () => {
+        const store=fakeStore();const entries=store.entries;
+        entries[1].values.watched='';
+        const saved=[];
+        const presets=[
+          {id:'set',name:'Указано Нет',view:{filter:{op:'and',children:[{key:'watched',op:'eq',value:'no'}]},sort:[]}},
+          {id:'unset',name:'Пустые',view:{filter:{op:'and',children:[{key:'watched',op:'unset'}]},sort:[]}}
+        ];
+        const inst=mountYoutubeTable300(root,{entries,fields,onApply:store.onApply,presets,
+          onSaveView:async x=>{saved.push(structuredClone(x));}});
+        chooseRows(['V1','V2']);
+        let dropdown=root.querySelector('.yt-table300__preset-select');
+        dropdown.value='set';dropdown.dispatchEvent(new Event('change',{bubbles:true}));
+        root.querySelector('.yt-table300__preset-apply').click();await tick();
+        assert(root.querySelectorAll('tbody tr').length===1 && !!checkbox('V1') && !checkbox('V2'),'no должен оставить только V1');
+        assert(root.querySelector('.yt-table300__selection').textContent.includes('1 из 1'),'Скрытое выделение не снято');
+        dropdown.value='unset';dropdown.dispatchEvent(new Event('change',{bubbles:true}));
+        root.querySelector('.yt-table300__preset-apply').click();await tick();
+        assert(root.querySelectorAll('tbody tr').length===1 && !!checkbox('V2') && !checkbox('V1'),'unset должен оставить только V2');
+        assert(root.querySelector('.yt-table300__selection').textContent.includes('0 из 1'),'Скрытый V1 сохранил выделение');
+        assert(saved.length===2 && saved[1].filter.children[0].op==='unset','Вид не передан через onSaveView');
+        inst.destroy();
+      }],
+      ['Переименование пресета: ID и значения фильтра сохраняются', async () => {
+        const store=fakeStore();let list=[{id:'p1',name:'Старое',view:{filter:null,sort:[]}}];
+        const commands=[];
+        const inst=mountYoutubeTable300(root,{entries:store.entries,fields,onApply:store.onApply,presets:list,
+          onChangePreset:async x=>{commands.push(x);list=list.map(p=>p.id===x.id?{...p,name:x.name}:p);return structuredClone(list);}});
+        const select=root.querySelector('.yt-table300__preset-select');select.value='p1';select.dispatchEvent(new Event('change',{bubbles:true}));
+        const name=root.querySelector('.yt-table300__preset-name');
+        name.value='Новое <strong>название</strong>';name.dispatchEvent(new Event('input',{bubbles:true}));
+        root.querySelector('.yt-table300__preset-rename').click();await tick();await tick();
+        assert(commands[0].op==='rename' && commands[0].id==='p1','Операция rename некорректна');
+        assert(root.querySelector('.yt-table300__preset-select').selectedOptions[0].textContent==='Новое <strong>название</strong>','Название не отображено безопасно');
+        assert(!root.querySelector('.yt-table300__preset-select strong'),'HTML-теги были интерпретированы');
+        assert(list[0].view.filter===null,'Переименование изменило сохранённый вид');inst.destroy();
+      }],
+      ['Обновление пресета текущим видом, без изменения записей', async () => {
+        const store=fakeStore();let list=[{id:'p1',name:'Мой вид',view:{filter:null,sort:[]}}];
+        let command;
+        const inst=mountYoutubeTable300(root,{entries:store.entries,fields,onApply:store.onApply,presets:list,
+          onChangePreset:async x=>{command=x;list=[{...list[0],view:x.view}];return structuredClone(list);}});
+        const select=root.querySelector('.yt-table300__preset-select');select.value='p1';select.dispatchEvent(new Event('change',{bubbles:true}));
+        root.querySelector('.yt-table300__sort-add').click();
+        root.querySelector('.yt-table300__preset-update').click();await tick();await tick();
+        assert(command.op==='update' && command.id==='p1' && command.view.sort[0].key==='category','Не передан текущий порядок сортировки');
+        assert(list[0].name==='Мой вид','При update изменено название');
+        assert(store.entries.every(e=>e.values.category==='inbox'),'Изменены свойства записей');inst.destroy();
+      }],
+      ['Удаление пресета и пустой список', async () => {
+        const store=fakeStore();let list=[{id:'p1',name:'Убрать',view:{filter:null,sort:[]}}];
+        let cmd;
+        const inst=mountYoutubeTable300(root,{entries:store.entries,fields,onApply:store.onApply,presets:list,
+          onChangePreset:async x=>{cmd=x;list=[];return list;}});
+        const select=root.querySelector('.yt-table300__preset-select');select.value='p1';select.dispatchEvent(new Event('change',{bubbles:true}));
+        root.querySelector('.yt-table300__preset-delete').click();await tick();await tick();
+        assert(cmd.op==='delete' && cmd.id==='p1','Удалена неверная запись');
+        assert(root.querySelector('.yt-table300__preset-empty').hidden===false,'Пустой список не описан');
+        assert(root.querySelector('.yt-table300__preset-select').value==='','Удалённый пресет остался выбран');
+        assert(root.querySelector('.yt-table300__preset-apply').disabled,'Кнопка применения активна без пресета');
+        assert(root.querySelectorAll('tbody tr').length===4,'Удаление пресета затронуло таблицу');inst.destroy();
+      }],
+      ['Отказ записи, показ причины и точный повтор сохранения', async () => {
+        const store=fakeStore();let attempt=0;const calls=[];
+        const inst=mountYoutubeTable300(root,{entries:store.entries,fields,onApply:store.onApply,presets:[],
+          onChangePreset:async c=>{calls.push(structuredClone(c));if(++attempt===1)throw Error('Диск недоступен');
+            return [{id:'p2',name:c.name,view:c.view}];}});
+        const input=root.querySelector('.yt-table300__preset-name');input.value='Восстановить';input.dispatchEvent(new Event('input',{bubbles:true}));
+        root.querySelector('.yt-table300__preset-create').click();await tick();await tick();
+        assert(root.querySelector('.yt-table300__preset-status').textContent.includes('Диск недоступен'),'Ошибка не показана');
+        assert(root.querySelector('.yt-table300__preset-retry').hidden===false,'Повтор недоступен');
+        assert(!root.querySelector('.yt-table300__preset-create').disabled,'Форма осталась заблокирована');
+        input.value='Новое';input.dispatchEvent(new Event('input',{bubbles:true}));
+        root.querySelector('.yt-table300__preset-retry').click();await tick();await tick();
+        assert(calls.length===2 && JSON.stringify(calls[0])===JSON.stringify(calls[1]),'Повтор изменил снимок команды');
+        assert(root.querySelector('.yt-table300__preset-select').value==='p2','Повтор не завершился');inst.destroy();
+      }],
+      ['Во время записи нельзя запустить ещё одну операцию пресета', async () => {
+        const store=fakeStore();let release;const gate=new Promise(resolve=>release=resolve);let count=0;
+        const inst=mountYoutubeTable300(root,{entries:store.entries,fields,onApply:store.onApply,presets:[],
+          onChangePreset:async c=>{count++;await gate;return [{id:'p3',name:c.name,view:c.view}];}});
+        const input=root.querySelector('.yt-table300__preset-name');input.value='Один раз';input.dispatchEvent(new Event('input',{bubbles:true}));
+        root.querySelector('.yt-table300__preset-create').click();
+        root.querySelector('.yt-table300__preset-create').click();await tick();
+        assert(count===1,'Два параллельных запроса');
+        assert(root.querySelector('.yt-table300__preset-create').disabled,'Не блокируется редактор');
+        release();await tick();await tick();inst.destroy();
+      }],
+      ['Закрытие окна во время записи не обновляет уничтоженный DOM', async () => {
+        const store=fakeStore();let release;
+        const gate=new Promise(resolve=>release=resolve);
+        const inst=mountYoutubeTable300(root,{entries:store.entries,fields,onApply:store.onApply,presets:[],
+          onChangePreset:async c=>{await gate;return [{id:'p4',name:c.name,view:c.view}];}});
+        const input=root.querySelector('.yt-table300__preset-name');input.value='Закрываем';input.dispatchEvent(new Event('input',{bubbles:true}));
+        root.querySelector('.yt-table300__preset-create').click();await tick();
+        inst.destroy();release();await tick();await tick();
+        assert(root.childElementCount===0,'Уничтоженный компонент изменил DOM');
+      }],
+      ['Отсутствие адаптера: применение работает, изменение отключено, CHAT 02 сохранён', async () => {
+        const store=fakeStore();
+        let inst=mountYoutubeTable300(root,{entries:store.entries,fields,onApply:store.onApply});
+        assert(!root.querySelector('.yt-table300__presets'),'Без опций изменился интерфейс CHAT 02');inst.destroy();
+        const presets=[{id:'p5',name:'Только просмотр',view:{filter:{op:'and',children:[{key:'subscribed',op:'set'}]},sort:[]}}];
+        inst=mountYoutubeTable300(root,{entries:store.entries,fields,onApply:store.onApply,presets});
+        assert(root.querySelector('.yt-table300__preset-create').disabled,'Создание доступно без адаптера');
+        const sel=root.querySelector('.yt-table300__preset-select');sel.value='p5';sel.dispatchEvent(new Event('change',{bubbles:true}));
+        root.querySelector('.yt-table300__preset-apply').click();
+        assert(root.querySelectorAll('tbody tr').length===1 && !!checkbox('C1'),'Чтение пресета без адаптера не работает');
+        inst.destroy();
+      }]
+    ];
+
+    async function runTests() {
+      const output = document.querySelector('#test-results');
+      const summary = document.querySelector('#test-summary');
+      const button = document.querySelector('#rerun');
+      output.replaceChildren();
+      summary.dataset.testStatus = 'RUNNING';
+      summary.textContent = 'Проверки выполняются…';
+      button.disabled = true;
+      let passed = 0;
+      for (const [name, fn] of tests) {
+        const item = document.createElement('li');
+        try {
+          await fn();
+          item.dataset.status = 'PASS';
+          item.textContent = 'PASS — ' + name;
+          passed++;
+        } catch (error) {
+          item.dataset.status = 'FAIL';
+          item.textContent = 'FAIL — ' + name + ': ' + error.message;
+        }
+        output.appendChild(item);
+        root.replaceChildren();
+      }
+      summary.dataset.testStatus = passed === tests.length ? 'PASS' : 'FAIL';
+      summary.textContent = 'Результат: ' + passed + ' / ' + tests.length +
+        (passed === tests.length ? ' — все проверки пройдены' : ' — есть ошибки');
+      button.disabled = false;
+    }
+
+    document.querySelector('#rerun').addEventListener('click', runTests);
+    const demoStore = fakeStore();
+    mountYoutubeTable300(document.querySelector('#demo'), {
+      entries:demoStore.entries,
+      fields,
+      onApply:demoStore.onApply
+    });
+    runTests();
+    }());
+  </script>
+</body>
+</html>
