@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat15-cache-work-20261121202523288",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T20:25:23.288Z",
-  "expires_at": "2026-11-21T21:30:23.292Z",
-  "heartbeat_at": "2026-11-21T20:25:23.288Z",
-  "last_completed_at": "2026-11-21T20:19:40.864Z",
-  "last_summary": "User-directed CHAT15 Test13 cache and browser diagnostics; no Work, no main",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T20:30:29.451Z",
+  "last_completed_at": "2026-11-21T20:30:29.451Z",
+  "last_summary": "CHAT15 published strict preflight test gate (8+4 new PASS, CHAT14 12+5 regression PASS), CRLF patch applied on exact Test13, build PASS; browser FAIL #1265 remains open, §33 checkpoint.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
