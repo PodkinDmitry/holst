@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T15:58:36.063Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T15:59:41.317Z",
+  "state": "running",
+  "owner": "chat-sol-awake-handoff-20261121",
+  "acquired_at": "2026-11-21T16:16:50.297Z",
+  "expires_at": "2026-11-21T16:36:50.299Z",
+  "heartbeat_at": "2026-11-21T16:16:50.297Z",
   "last_completed_at": "2026-11-21T15:59:41.317Z",
-  "last_summary": "CHAT12: 20/20 Node + 7/7 Chromium PASS; four files verified in GitHub; journal §22 updated. Real SOL storage not tested.",
+  "last_summary": "Sync user report SOL quota is available; prepare Work integration handoff",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
