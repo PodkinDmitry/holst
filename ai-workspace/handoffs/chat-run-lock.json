@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-work-routing-20261121185415",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T18:54:15.195Z",
-  "expires_at": "2026-11-21T19:19:15.195Z",
-  "heartbeat_at": "2026-11-21T18:54:15.195Z",
-  "last_completed_at": "2026-11-21T18:48:29.827Z",
-  "last_summary": "User-requested role-vs-model routing policy for cheap Work models",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T18:54:57.007Z",
+  "last_completed_at": "2026-11-21T18:54:57.007Z",
+  "last_summary": "XOD §29: cost-aware model routing in one Work chat (Luna/Terra operator, Sol integration, Astra escalation), no code changes.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
