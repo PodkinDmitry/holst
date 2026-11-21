@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T20:49:24.212Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T20:59:23.932Z",
+  "state": "running",
+  "owner": "chat18-storage-20261122-20261121212722465",
+  "acquired_at": "2026-11-21T21:27:22.466Z",
+  "expires_at": "2026-11-21T22:32:22.466Z",
+  "heartbeat_at": "2026-11-21T21:27:22.466Z",
   "last_completed_at": "2026-11-21T20:59:23.932Z",
-  "last_summary": "CHAT17: real Test13 virtual-board save false success reproduced; 4-hunk patch and 8-test public harness published, extended 13/13 PASS; original/patched/combined builds PASS; §36 journal updated; browser E2E still open.",
+  "last_summary": "CHAT18 user-directed Test13 persistence flaw assessment and verified patch; no main/Work/private-source publication",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
