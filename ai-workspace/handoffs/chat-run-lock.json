@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T23:22:30.877Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T23:29:16.978Z",
+  "state": "running",
+  "owner": "chat32-cumulative-test13-regression-20261122-high",
+  "acquired_at": "2026-11-21T23:31:13.131Z",
+  "expires_at": "2026-11-22T00:36:13.131Z",
+  "heartbeat_at": "2026-11-21T23:31:13.131Z",
   "last_completed_at": "2026-11-21T23:29:16.978Z",
-  "last_summary": "CHAT31: matrix detach full-board Trash backup and merged-cell drag guard; 8 original negative, 43/43 VM; combined CHAT21–31 338/338 VM (CHAT29 extraction adapter), 3 isolated builds PASS, 3 SHA-verified safe public files; canonical §51. Browser and SOL integration OPEN.",
+  "last_summary": "CHAT32 cumulative source-backed verification all CHAT16–31 on private exact Test13; no Work/main",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
