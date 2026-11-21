@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>XOD CHAT 07 · повторное монтирование</title>
+<style>body{font:15px/1.5 system-ui,sans-serif;margin:20px}li[data-status=PASS]{color:green}li[data-status=FAIL]{color:#b00020}#fixture{max-width:900px}</style></head>
+<body><h1>CHAT 07 · жизненный цикл DOM-контейнера</h1><p>Тест выполняет реальный JavaScript в браузере. По умолчанию подключён неисправленный CHAT 04 для демонстрации регрессии.</p>
+<p id="summary" data-status="RUNNING">Выполняется…</p><ol id="results"></ol><div id="fixture"></div>
+<script src="../chat-04/xod-youtube-table300.js"></script>
+<script>
+(async function () {
+ 'use strict';
+ const $=sel=>document.querySelector(sel);
+ const results=$('#results'); let passed=0,failed=0;
+ function assert(ok,message){if(!ok)throw new Error(message)}
+ function config(extra={}){return {entries:[{id:'v1',type:'video',title:'Видео 1',values:{category:'inbox'}}],fields:[{key:'category',label:'Категория',types:['video'],options:[{value:'inbox',label:'Входящие'},{value:'saved',label:'Сохранено'}]}],onApply:async ({ids,key,value})=>({entries:[{id:'v1',type:'video',title:'Видео 1',values:{category:value}}],applied:ids.length,skipped:0,failed:0}),...extra}}
+ const root=$('#fixture');
+ async function test(name,callback){root.replaceChildren();root.className='';try{await callback();passed++;const li=document.createElement('li');li.dataset.status='PASS';li.textContent='PASS · '+name;results.append(li)}catch(e){failed++;const li=document.createElement('li');li.dataset.status='FAIL';li.textContent='FAIL · '+name+': '+e.message;results.append(li)}finally{root.replaceChildren();root.className=''}}
+ async function tick(){await Promise.resolve();await Promise.resolve()}
+ await test('01: старый destroy не удаляет новую таблицу',async()=>{
+  const older=mountYoutubeTable300(root,config());const newer=mountYoutubeTable300(root,config());
+  older.destroy();assert(root.querySelectorAll('.yt-table300__row').length===1,'старый destroy уничтожил строки нового компонента');
+  assert(root.querySelectorAll('.yt-table300__heading').length===1,'новый компонент исчез');newer.destroy();
+ });
+ await test('02: новый mount прекращает старые отложенные сохранения',async()=>{
+  let oldWrites=0;const older=mountYoutubeTable300(root,config({onSaveView:()=>{oldWrites++}}));
+  const group=root.querySelector('.yt-table300__grouping-field');group.value='category';group.dispatchEvent(new Event('change',{bubbles:true}));
+  const newer=mountYoutubeTable300(root,config());await tick();
+  assert(oldWrites===0,'отложенный onSaveView прежнего компонента был запущен после замены');
+  assert(root.querySelectorAll('.yt-table300__row').length===1,'новый компонент не работает');
+  older.destroy();newer.destroy();
+ });
+ await test('03: класс контейнера снимается после последнего destroy',async()=>{
+  const older=mountYoutubeTable300(root,config());const newer=mountYoutubeTable300(root,config());
+  older.destroy();newer.destroy();
+  assert(root.children.length===0,'после destroy остались узлы');
+  assert(!root.classList.contains('yt-table300'),'утечка класса после уничтожения новой таблицы');
+ });
+ await test('04: существующий CSS-класс хозяина сохраняется',async()=>{
+  root.classList.add('yt-table300');const a=mountYoutubeTable300(root,config());const b=mountYoutubeTable300(root,config());a.destroy();b.destroy();
+  assert(root.children.length===0,'после destroy остались узлы');assert(root.classList.contains('yt-table300'),'удалён класс, который был задан хостом');
+ });
+ await test('05: некорректный повторный mount не ломает старую таблицу',async()=>{
+  const old=mountYoutubeTable300(root,config());
+  let thrown=false;try{mountYoutubeTable300(root,{entries:[],fields:[]})}catch(e){thrown=true}
+  assert(thrown,'отсутствие обязательного onApply не вызвало ошибку');
+  assert(root.querySelectorAll('.yt-table300__row').length===1,'исходная таблица уничтожена после неудачного mount');old.destroy();
+ });
+ await test('06: три последовательных mount не оставляют дубликатов',async()=>{
+  const a=mountYoutubeTable300(root,config());const b=mountYoutubeTable300(root,config());const c=mountYoutubeTable300(root,config());
+  a.destroy();b.destroy();assert(root.querySelectorAll('.yt-table300__row').length===1,'более старый destroy удалил текущую таблицу');
+  assert(root.querySelectorAll('.yt-table300__view').length===1,'панелей вида больше одной');c.destroy();assert(root.children.length===0,'не очистилось');
+ });
+ const summary=$('#summary');summary.dataset.status=failed?'FAIL':'PASS';summary.textContent=`${passed}/6 PASS, ${failed} FAIL`;
+})().catch(e=>{const summary=document.querySelector('#summary');summary.dataset.status='FAIL';summary.textContent='Непойманная ошибка: '+e.message})
+</script></body></html>
