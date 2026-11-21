@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T22:16:03.090Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T22:21:23.210Z",
+  "state": "running",
+  "owner": "chat25-bulk-delete-20261122-high",
+  "acquired_at": "2026-11-21T22:28:08.993Z",
+  "expires_at": "2026-11-21T23:38:08.993Z",
+  "heartbeat_at": "2026-11-21T22:28:08.993Z",
   "last_completed_at": "2026-11-21T22:21:23.210Z",
-  "last_summary": "CHAT24: source-backed Drive background deletion guard, 6 original negative controls, 26/26 Node VM, combined CHAT21–24 90/90 VM, 2 builds PASS, 3 files SHA verified; journal §43; browser/SOL integration OPEN.",
+  "last_summary": "CHAT25: direct user-requested Test13 bulk board deletion safety audit; Work/main untouched",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
