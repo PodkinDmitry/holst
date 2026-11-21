@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat10-20261121144052-41",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T14:40:52.265Z",
-  "expires_at": "2026-11-21T15:50:52.265Z",
-  "heartbeat_at": "2026-11-21T14:40:52.265Z",
-  "last_completed_at": "2026-11-21T14:40:21.241Z",
-  "last_summary": "CHAT10 idempotent preset creation audit",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T14:46:44.480Z",
+  "last_completed_at": "2026-11-21T14:46:44.480Z",
+  "last_summary": "CHAT10 idempotent preset creation: 13 Node + 5 Chromium + 47 old regression PASS, 6 GitHub files verified, journal §20 updated.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
