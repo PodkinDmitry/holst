@@ -1,0 +1,69 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>XOD CHAT 10 — пресеты с idempotency</title></head>
+<body><h1>CHAT 10 · проверка устойчивых operationId</h1><p id="summary" data-status="RUNNING">RUNNING</p><ol id="results"></ol>
+<script src="../chat-07/xod-youtube-table300.js"></script>
+<script src="../chat-09/xod-cas-view-coordinator.js"></script>
+<script src="./xod-preset-idempotency-adapter.js"></script>
+<script>
+(async function () {
+ const report=document.querySelector('#results');let passed=0,failed=0;
+ function assert(x,text){if(!x)throw Error(text)}
+ async function check(name,fn){const li=document.createElement('li');try{await fn();li.dataset.status='PASS';li.textContent='PASS '+name;passed++;}
+ catch(e){li.dataset.status='FAIL';li.textContent='FAIL '+name+': '+(e&&e.message||e);failed++;}report.appendChild(li)}
+ const wait=async check=>{for(let i=0;i<150;i++){if(check())return;await new Promise(r=>setTimeout(r,0))}throw Error('timeout waiting for UI')};
+ const cfg={entries:[{id:'v1',type:'video',title:'Video 1',values:{category:'inbox'}}],fields:[{key:'category',label:'Категория',types:['video'],options:[{value:'inbox',label:'Входящие'},{value:'favorite',label:'Избранное'}]}],onApply:async()=>({entries:cfg.entries,applied:1,skipped:0,failed:0})};
+ let root;
+ const name=(v)=>{const x=root.querySelector('.yt-table300__preset-name');x.value=v;x.dispatchEvent(new Event('input',{bubbles:true}))};
+ const click=(selector)=>{const x=root.querySelector(selector);if(!x)throw Error('no button: '+selector);x.click();return x};
+ async function fixture({flag=true,loseFirst=false,legacy=false}={}) {
+   if(root)root.remove();root=document.createElement('section');document.body.appendChild(root);
+   let state={views:{},presets:[]},rev=0,seq=0;const calls=[];let lost=false;
+   const storage={read:async()=>({revision:rev,data:JSON.parse(JSON.stringify(state))}),
+     compareAndSwap:async(expected,draft)=>{if(expected!==rev)return{ok:false};state=JSON.parse(JSON.stringify(draft));rev++;return{ok:true}}};
+   const cas=createXodCasViewCoordinator(storage);
+   const base=createXodPresetIdempotencyAdapter({transaction:cas.transaction,makeId:()=>`p${++seq}`});
+   const handler=async command=>{
+     calls.push(JSON.parse(JSON.stringify(command)));
+     let value;
+     if(legacy) {
+       value=state.presets.slice();value.push({id:'legacy'+(value.length+1),name:command.name,view:command.view});state.presets=value;
+     }else value=await base(command);
+     if(loseFirst&&!lost){lost=true;throw Error('Ответ потерян после коммита');}
+     return value;
+   };
+   const mount=mountYoutubeTable300(root,{...cfg,presets:[],onChangePreset:handler,...(flag?{presetOperationIds:true}:{})});
+   return {get state(){return state},calls,root,mount};
+ }
+ await check('01: потерян ответ, Retry сохраняет один пресет с тем же operationId',async()=>{
+   const x=await fixture({loseFirst:true});name('A');click('.yt-table300__preset-create');
+   await wait(()=>x.root.querySelector('.yt-table300__preset-retry')&&!x.root.querySelector('.yt-table300__preset-retry').hidden);
+   assert(x.state.presets.length===1,'already created once');click('.yt-table300__preset-retry');
+   await wait(()=>x.calls.length===2&&x.root.querySelector('.yt-table300__preset-status').textContent.includes('сохранено'));
+   assert(x.state.presets.length===1,'duplicate created');assert(x.calls[0].operationId===x.calls[1].operationId,'operation id changed');x.mount.destroy();
+ });
+ await check('02: Create вместо Retry после потери ответа также повторяет тот же ID',async()=>{
+   const x=await fixture({loseFirst:true});name('A');click('.yt-table300__preset-create');
+   await wait(()=>x.root.querySelector('.yt-table300__preset-status').textContent.includes('Не удалось'));
+   click('.yt-table300__preset-create');
+   await wait(()=>x.calls.length===2&&x.root.querySelector('.yt-table300__preset-status').textContent.includes('сохранено'));
+   assert(x.state.presets.length===1,'created duplicate');assert(x.calls[0].operationId===x.calls[1].operationId,'ID not reused');x.mount.destroy();
+ });
+ await check('03: намеренный второй Create с тем же именем получает новый ID',async()=>{
+   const x=await fixture();name('A');click('.yt-table300__preset-create');
+   await wait(()=>x.calls.length===1&&x.root.querySelector('.yt-table300__preset-status').textContent.includes('сохранено'));
+   name('A');click('.yt-table300__preset-create');
+   await wait(()=>x.calls.length===2&&x.state.presets.length===2);
+   assert(x.calls[0].operationId!==x.calls[1].operationId,'old id reused after success');x.mount.destroy();
+ });
+ await check('04: отсутствие флага сохраняет точный старый формат команды',async()=>{
+   const x=await fixture({flag:false,legacy:true});name('A');click('.yt-table300__preset-create');
+   await wait(()=>x.calls.length===1&&x.root.querySelector('.yt-table300__preset-status').textContent.includes('сохранено'));
+   assert(!Object.prototype.hasOwnProperty.call(x.calls[0],'operationId'),'unexpected operationId in legacy mode');x.mount.destroy();
+ });
+ await check('05: лишний HTML в имени не вставляется как разметка',async()=>{
+   const x=await fixture();name('<img src=x onerror=alert(1)>');click('.yt-table300__preset-create');
+   await wait(()=>x.state.presets.length===1);
+   assert(x.root.querySelectorAll('img').length===0,'HTML injection');x.mount.destroy();
+ });
+ const out=document.querySelector('#summary');out.dataset.status=failed?'FAIL':'PASS';out.textContent=`${passed}/${passed+failed} ${failed?'FAIL':'PASS'}`;
+})().catch(e=>{const s=document.getElementById('summary');s.dataset.status='FAIL';s.textContent='Runtime error: '+e.message;});
+</script></body></html>
