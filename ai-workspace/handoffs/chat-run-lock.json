@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat31-matrix-drop-detach-20261122-high",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T23:22:30.877Z",
-  "expires_at": "2026-11-22T00:27:30.877Z",
-  "heartbeat_at": "2026-11-21T23:22:30.877Z",
-  "last_completed_at": "2026-11-21T23:20:37.601Z",
-  "last_summary": "CHAT31 direct source-backed matrix cell/track detach data loss guard; no Work/main edits",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T23:29:16.978Z",
+  "last_completed_at": "2026-11-21T23:29:16.978Z",
+  "last_summary": "CHAT31: matrix detach full-board Trash backup and merged-cell drag guard; 8 original negative, 43/43 VM; combined CHAT21–31 338/338 VM (CHAT29 extraction adapter), 3 isolated builds PASS, 3 SHA-verified safe public files; canonical §51. Browser and SOL integration OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
