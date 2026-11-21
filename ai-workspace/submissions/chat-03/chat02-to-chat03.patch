@@ -1,0 +1,251 @@
+--- a/xod-youtube-table300.js
++++ b/xod-youtube-table300.js
+@@ -115,6 +115,14 @@
+     var selectedIds = new Set();
+     var view = normalizeYoutubeTable300View(config.view);
+     var visibleEntries = computeYoutubeTable300View(entries, fields, view);
++    // CHAT 03 — named view presets. Never mix presets with entry.values.
++    var hasPresets = Array.isArray(config.presets) || typeof config.onChangePreset === 'function';
++    var presets = Array.isArray(config.presets) ? config.presets.map(function (item) {
++      return { id: item.id, name: item.name, view: normalizeYoutubeTable300View(item.view) };
++    }) : [];
++    var chosenPresetId = '';
++    var presetPending = false;
++    var retryPresetCommand = null;
+     var saveRevision = 0;
+     var saveChain = Promise.resolve();
+     var pending = false;
+@@ -192,6 +200,51 @@
+     viewContent.append(filterHeading, filterEditor, sortHeading, sortEditor, viewStatus, viewRetry);
+     viewPanel.append(viewSummary, viewContent);
+ 
++
++    // Optional presets panel; absent entirely for CHAT 02 consumers.
++    var presetPanel = null;
++    var presetSelect, presetName, presetApply, presetCreate, presetUpdate, presetRename, presetDelete;
++    var presetStatus, presetRetry, presetEmpty;
++    if (hasPresets) {
++      presetPanel = element('section', 'yt-table300__presets');
++      presetPanel.setAttribute('aria-label', 'Сохранённые пресеты вида');
++      presetPanel.appendChild(element('h3', 'yt-table300__preset-heading', 'Пресеты вида'));
++      var presetControls = element('div', 'yt-table300__preset-controls');
++      var presetSelectLabel = element('label', 'yt-table300__preset-control');
++      presetSelectLabel.appendChild(element('span', '', 'Сохранённый пресет'));
++      presetSelect = element('select', 'yt-table300__preset-select');
++      presetSelect.setAttribute('aria-label', 'Сохранённый пресет вида');
++      presetSelectLabel.appendChild(presetSelect);
++      presetControls.appendChild(presetSelectLabel);
++      var presetNameLabel = element('label', 'yt-table300__preset-control');
++      presetNameLabel.appendChild(element('span', '', 'Название пресета'));
++      presetName = element('input', 'yt-table300__preset-name');
++      presetName.type = 'text';
++      presetName.maxLength = 100;
++      presetName.setAttribute('aria-label', 'Название пресета вида');
++      presetNameLabel.appendChild(presetName);
++      presetControls.appendChild(presetNameLabel);
++      var presetButtons = element('div', 'yt-table300__preset-actions');
++      function presetButton(className, label) {
++        var button = element('button', 'yt-table300__preset-button ' + className, label);
++        button.type = 'button';
++        presetButtons.appendChild(button);
++        return button;
++      }
++      presetApply = presetButton('yt-table300__preset-apply', 'Применить');
++      presetCreate = presetButton('yt-table300__preset-create', 'Сохранить новый');
++      presetUpdate = presetButton('yt-table300__preset-update', 'Обновить текущим видом');
++      presetRename = presetButton('yt-table300__preset-rename', 'Переименовать');
++      presetDelete = presetButton('yt-table300__preset-delete', 'Удалить');
++      presetStatus = element('p', 'yt-table300__preset-status', '');
++      presetStatus.setAttribute('role', 'status');
++      presetStatus.setAttribute('aria-live', 'polite');
++      presetEmpty = element('p', 'yt-table300__preset-empty', 'Сохранённых пресетов пока нет.');
++      presetRetry = element('button', 'yt-table300__preset-button yt-table300__preset-retry', 'Повторить запись пресета');
++      presetRetry.type = 'button';
++      presetRetry.hidden = true;
++      presetPanel.append(presetControls, presetButtons, presetEmpty, presetStatus, presetRetry);
++    }
+     var heading = element('h2', 'yt-table300__heading', 'Таблица YouTube');
+     var selectionNote = element('p', 'yt-table300__selection', 'Выбрано: 0');
+     selectionNote.setAttribute('aria-live', 'polite');
+@@ -281,6 +334,7 @@
+     form.appendChild(progress);
+     form.appendChild(feedback);
+     root.replaceChildren(heading, viewPanel, selectionNote, scroll, form);
++    if (presetPanel) root.insertBefore(presetPanel, viewPanel);
+ 
+     function storeFocus() {
+       var active = doc.activeElement;
+@@ -654,6 +708,128 @@
+     viewRetry.addEventListener('click', saveView);
+     renderViewControls();
+ 
++
++
++    // CHAT 03 — reusable preset UI. Only writes to the host through an explicit adapter.
++    function safePresetError(error) {
++      return error && error.message ? error.message : String(error);
++    }
++
++    function renderPresets() {
++      if (!presetPanel || destroyed) return;
++      var previous = chosenPresetId;
++      presetSelect.replaceChildren();
++      var placeholder = element('option', '', 'Выберите пресет');
++      placeholder.value = '';
++      presetSelect.appendChild(placeholder);
++      presets.forEach(function (item) {
++        var option = element('option', '', item.name);
++        option.value = item.id;
++        presetSelect.appendChild(option);
++      });
++      chosenPresetId = presets.some(function (p) { return p.id === previous; }) ? previous : '';
++      presetSelect.value = chosenPresetId;
++      var hasChoice = !!chosenPresetId;
++      var writable = typeof config.onChangePreset === 'function';
++      var nameValid = presetName.value.trim().length > 0;
++      presetSelect.disabled = presetPending || pending || presets.length === 0;
++      presetName.disabled = presetPending || pending || !writable;
++      presetApply.disabled = presetPending || pending || !hasChoice;
++      presetCreate.disabled = presetPending || pending || !writable || !nameValid;
++      presetUpdate.disabled = presetPending || pending || !writable || !hasChoice;
++      presetRename.disabled = presetPending || pending || !writable || !hasChoice || !nameValid;
++      presetDelete.disabled = presetPending || pending || !writable || !hasChoice;
++      presetRetry.hidden = !retryPresetCommand || presetPending || !writable;
++      presetEmpty.hidden = presets.length !== 0;
++      if (!writable) {
++        presetStatus.textContent = 'Редактирование пресетов недоступно: адаптер сохранения не подключён.';
++      }
++    }
++
++    function validatePresetList(list) {
++      if (!Array.isArray(list)) throw new Error('Хранилище должно вернуть полный массив пресетов.');
++      var seen = new Set();
++      return list.map(function (item) {
++        if (!item || typeof item.id !== 'string' || !item.id || seen.has(item.id) ||
++            typeof item.name !== 'string' || !item.name.trim() ||
++            !item.view || typeof item.view !== 'object') {
++          throw new Error('Хранилище вернуло некорректный список пресетов.');
++        }
++        seen.add(item.id);
++        return {id:item.id, name:item.name, view:normalizeYoutubeTable300View(item.view)};
++      });
++    }
++
++    async function writePreset(command) {
++      if (destroyed || presetPending || typeof config.onChangePreset !== 'function') return;
++      // Freeze the command and its view; user edits during async work cannot change it.
++      var snapshot = JSON.parse(JSON.stringify(command));
++      var oldIds = new Set(presets.map(function (item) { return item.id; }));
++      presetPending = true;
++      retryPresetCommand = null;
++      presetStatus.textContent = 'Сохраняем пресет…';
++      renderPresets();
++      try {
++        var updated = validatePresetList(await config.onChangePreset(snapshot));
++        if (destroyed) return;
++        presets = updated;
++        if (snapshot.op === 'create') {
++          var created = updated.find(function (item) { return !oldIds.has(item.id); });
++          chosenPresetId = created ? created.id : '';
++        } else if (snapshot.op === 'delete' && snapshot.id === chosenPresetId) {
++          chosenPresetId = '';
++        }
++        var chosen = presets.find(function (item) { return item.id === chosenPresetId; });
++        if (chosen) presetName.value = chosen.name;
++        if (snapshot.op === 'delete') presetName.value = '';
++        presetStatus.textContent = 'Изменение пресета сохранено.';
++      } catch (error) {
++        if (destroyed) return;
++        retryPresetCommand = snapshot;
++        presetStatus.textContent = 'Не удалось сохранить пресет: ' + safePresetError(error) + '. Повтор доступен.';
++      } finally {
++        presetPending = false;
++        if (!destroyed) renderPresets();
++      }
++    }
++
++    if (presetPanel) {
++      presetSelect.addEventListener('change', function () {
++        chosenPresetId = presetSelect.value;
++        var chosen = presets.find(function (item) { return item.id === chosenPresetId; });
++        presetName.value = chosen ? chosen.name : '';
++        renderPresets();
++      });
++      presetName.addEventListener('input', renderPresets);
++      presetApply.addEventListener('click', function () {
++        if (presetPending || pending || destroyed) return;
++        var chosen = presets.find(function (item) { return item.id === chosenPresetId; });
++        if (!chosen) return;
++        view = normalizeYoutubeTable300View(chosen.view);
++        refreshFromView();
++        renderViewControls();
++        saveView();
++        presetStatus.textContent = 'Пресет «' + chosen.name + '» применён.';
++      });
++      presetCreate.addEventListener('click', function () {
++        var name = presetName.value.trim();
++        if (name) writePreset({op:'create',name:name,view:normalizeYoutubeTable300View(view)});
++      });
++      presetUpdate.addEventListener('click', function () {
++        if (chosenPresetId) writePreset({op:'update',id:chosenPresetId,view:normalizeYoutubeTable300View(view)});
++      });
++      presetRename.addEventListener('click', function () {
++        var name = presetName.value.trim();
++        if (chosenPresetId && name) writePreset({op:'rename',id:chosenPresetId,name:name});
++      });
++      presetDelete.addEventListener('click', function () {
++        if (chosenPresetId) writePreset({op:'delete',id:chosenPresetId});
++      });
++      presetRetry.addEventListener('click', function () {
++        if (retryPresetCommand) writePreset(retryPresetCommand);
++      });
++      renderPresets();
++    }
+     function showResult(title, applied, skipped, failed, error) {
+       feedback.hidden = false;
+       feedbackTitle.textContent = title;
+@@ -722,6 +898,7 @@
+       var focusBefore = storeFocus();
+       pending = true;
+       progress.textContent = 'Сохраняем изменения…';
++      if (presetPanel) renderPresets();
+       feedback.hidden = true;
+       updateSelectionState();
+       try {
+@@ -744,6 +921,7 @@
+         if (!destroyed) {
+           pending = false;
+           progress.textContent = '';
++          if (presetPanel) renderPresets();
+           updateSelectionState();
+           restoreFocus(focusBefore);
+         }
+--- a/xod-youtube-table300.css
++++ b/xod-youtube-table300.css
+@@ -191,3 +191,26 @@
+ }
+ 
+ /* End CHAT 02 style bundle */
++
++
++/* CHAT 03 — optional named view presets. Standalone scoped addition for Sol. */
++.yt-table300__presets { border: 1px solid var(--yt300-line); border-radius: .55rem;
++  background: var(--yt300-tint); padding: .65rem .8rem; margin: .45rem 0 .8rem; min-width: 0; }
++.yt-table300__preset-heading { font-size: 1em; font-weight: 650; margin: 0 0 .55rem; }
++.yt-table300__preset-controls { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .6rem; }
++.yt-table300__preset-control { display: grid; gap: .2rem; min-width: 0; }
++.yt-table300__preset-control > span { font-size: .9em; }
++.yt-table300__presets select, .yt-table300__presets input, .yt-table300__preset-button {
++  font: inherit; color: inherit; background: Canvas; color: CanvasText; border: 1px solid var(--yt300-line);
++  border-radius: .4rem; padding: .4rem .55rem; min-height: 2.3rem; min-width: 0; max-width: 100%; }
++.yt-table300__preset-actions { display: flex; flex-wrap: wrap; gap: .4rem; margin: .6rem 0 .35rem; }
++.yt-table300__preset-button { cursor: pointer; background: var(--yt300-tint); color: inherit; }
++.yt-table300__preset-button:not(:disabled):hover { background: var(--yt300-hover); }
++.yt-table300__preset-button:disabled { cursor: default; opacity: .48; }
++.yt-table300__preset-status { margin: .35rem 0 0; font-size: .92em; overflow-wrap: anywhere; }
++.yt-table300__preset-status:empty { display: none; }
++.yt-table300__preset-empty { margin: .35rem 0; opacity: .75; font-size: .92em; }
++.yt-table300__preset-retry { margin-top: .35rem; }
++.yt-table300__preset-empty[hidden], .yt-table300__preset-retry[hidden] { display: none; }
++@media (max-width: 680px) { .yt-table300__preset-controls { grid-template-columns: minmax(0,1fr); }
++  .yt-table300__preset-actions .yt-table300__preset-button { flex: 1 1 9rem; } }
