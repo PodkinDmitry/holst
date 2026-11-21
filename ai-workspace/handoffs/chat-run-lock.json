@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T22:02:42.400Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T22:07:36.283Z",
+  "state": "running",
+  "owner": "chat23-history-safety-20261122-high",
+  "acquired_at": "2026-11-21T22:09:03.379Z",
+  "expires_at": "2026-11-21T23:19:03.379Z",
+  "heartbeat_at": "2026-11-21T22:09:03.379Z",
   "last_completed_at": "2026-11-21T22:07:36.283Z",
-  "last_summary": "CHAT22: source-backed imports guard, 4 original negative controls, 20/20 Node VM, 2 build passes, 3 GitHub files SHA-verified; CHAT16–21 static non-overlap, real browser/SOL integration OPEN; journal §41 updated.",
+  "last_summary": "CHAT23: investigating source-backed Test13 board-history restore safety; no Work/main changes",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
