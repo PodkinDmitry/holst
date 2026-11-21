@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T20:12:22.377Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T20:19:40.864Z",
+  "state": "running",
+  "owner": "chat15-cache-work-20261121202523288",
+  "acquired_at": "2026-11-21T20:25:23.288Z",
+  "expires_at": "2026-11-21T21:30:23.292Z",
+  "heartbeat_at": "2026-11-21T20:25:23.288Z",
   "last_completed_at": "2026-11-21T20:19:40.864Z",
-  "last_summary": "CHAT14: strict Test13 cache cleanup diagnostic published (5 files sha-verified), 12 Python + 5 Node PASS, build PASS, browser regression still open; §32 checkpoint.",
+  "last_summary": "User-directed CHAT15 Test13 cache and browser diagnostics; no Work, no main",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
