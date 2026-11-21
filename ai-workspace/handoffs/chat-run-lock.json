@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T21:54:05.253Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T22:00:40.022Z",
+  "state": "running",
+  "owner": "chat22-source-routes-20261122-high",
+  "acquired_at": "2026-11-21T22:02:42.400Z",
+  "expires_at": "2026-11-21T23:12:42.400Z",
+  "heartbeat_at": "2026-11-21T22:02:42.400Z",
   "last_completed_at": "2026-11-21T22:00:40.022Z",
-  "last_summary": "CHAT21: source-backed Split iframe persistence guard published and SHA-verified, 21/21 Node VM, build PASS; CHAT16-20 static non-overlap only; browser E2E and SOL integration OPEN; journal §40.",
+  "last_summary": "CHAT22: ongoing source-backed risk exploration on exact Test13, without Work/main changes",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
