@@ -1,0 +1,44 @@
+--- a/xod-youtube-table300.js
++++ b/xod-youtube-table300.js
+@@ -4,6 +4,8 @@
+  */
+ (function () {
+   'use strict';
++  // Track the current owner of each DOM root. A later mount disposes the old one.
++  var mountedRoots = new WeakMap();
+ 
+ 
+   // Pure, DOM-free view engine. The input records, fields and view are never mutated.
+@@ -140,6 +142,11 @@
+         typeof config.onApply !== 'function') {
+       throw new TypeError('Ожидаются entries, fields и функция onApply');
+     }
++
++    // Re-mounting the same container must dispose the previous component,
++    // including its pending callbacks, before the new table takes ownership.
++    var previousInstance = mountedRoots.get(root);
++    if (previousInstance) previousInstance.destroy();
+ 
+     var doc = root.ownerDocument;
+     var typeNames = { video: 'Видео', channel: 'Канал', playlist: 'Плейлист' };
+@@ -1073,14 +1080,19 @@
+ 
+     renderRows();
+     rebuildFields();
+-    return {
++    var instance = {
+       destroy: function () {
+         if (destroyed) return;
+         destroyed = true;
++        // A stale handle may never remove the currently mounted table.
++        if (mountedRoots.get(root) !== instance) return;
++        mountedRoots.delete(root);
+         root.replaceChildren();
+         if (addedClass) root.classList.remove('yt-table300');
+       }
+     };
++    mountedRoots.set(root, instance);
++    return instance;
+   }
+ 
+   mountYoutubeTable300.computeView = computeYoutubeTable300View;
