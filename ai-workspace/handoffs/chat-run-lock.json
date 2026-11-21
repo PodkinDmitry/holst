@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat17-persistence-20261121204924212",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T20:49:24.212Z",
-  "expires_at": "2026-11-21T21:59:24.212Z",
-  "heartbeat_at": "2026-11-21T20:49:24.212Z",
-  "last_completed_at": "2026-11-21T20:44:24.092Z",
-  "last_summary": "CHAT17 direct user continuation: inspect Test13 persistence and prepare verified minimal safe patch, no Work",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T20:59:23.932Z",
+  "last_completed_at": "2026-11-21T20:59:23.932Z",
+  "last_summary": "CHAT17: real Test13 virtual-board save false success reproduced; 4-hunk patch and 8-test public harness published, extended 13/13 PASS; original/patched/combined builds PASS; §36 journal updated; browser E2E still open.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
