@@ -1,0 +1,36 @@
+--- a/xod-youtube-table300.js
++++ b/xod-youtube-table300.js
+@@ -910,10 +910,33 @@
+       });
+     }
+ 
++    // CHAT 10: optional idempotency token on creates only. Legacy command shape stays exact.
++    function presetOperationToken() {
++      var cryptoApi = doc.defaultView && doc.defaultView.crypto;
++      if (cryptoApi && typeof cryptoApi.randomUUID === 'function') {
++        return 'xod-preset-' + cryptoApi.randomUUID();
++      }
++      // Old non-secure hosts: collision-resistant enough for a local retry token,
++      // not a cryptographic identity. SOL should prefer crypto.randomUUID.
++      return 'xod-preset-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2);
++    }
++
+     async function writePreset(command) {
+       if (destroyed || presetPending || typeof config.onChangePreset !== 'function') return;
+       // Freeze the command and its view; user edits during async work cannot change it.
+       var snapshot = JSON.parse(JSON.stringify(command));
++      if (config.presetOperationIds === true && snapshot.op === 'create' && !snapshot.operationId) {
++        // Even clicking "Create" instead of "Retry" after an uncertain response
++        // must reuse the same logical operation when the payload is unchanged.
++        var previous = retryPresetCommand;
++        if (previous && previous.op === 'create' && previous.operationId &&
++            previous.name === snapshot.name &&
++            JSON.stringify(previous.view) === JSON.stringify(snapshot.view)) {
++          snapshot.operationId = previous.operationId;
++        } else {
++          snapshot.operationId = presetOperationToken();
++        }
++      }
+       var oldIds = new Set(presets.map(function (item) { return item.id; }));
+       presetPending = true;
+       retryPresetCommand = null;
