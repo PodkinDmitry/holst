@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T14:07:48.184Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T14:09:03.707Z",
+  "state": "running",
+  "owner": "chat08-20261121141315-kx9vh",
+  "acquired_at": "2026-11-21T14:13:15.656Z",
+  "expires_at": "2026-11-21T15:23:15.656Z",
+  "heartbeat_at": "2026-11-21T14:13:15.656Z",
   "last_completed_at": "2026-11-21T14:09:03.707Z",
   "last_summary": "GPT-6 High manual one-click continuation configured in canonical worker & response protocols; XOD journal §17; five Scheduled tasks remain paused.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
