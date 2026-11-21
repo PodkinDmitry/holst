@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T14:54:45.819Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T15:04:58.136Z",
+  "state": "running",
+  "owner": "chat12-presets-20261121-session-2",
+  "acquired_at": "2026-11-21T15:58:36.063Z",
+  "expires_at": "2026-11-21T17:08:36.063Z",
+  "heartbeat_at": "2026-11-21T15:58:36.063Z",
   "last_completed_at": "2026-11-21T15:04:58.136Z",
-  "last_summary": "CHAT 11: patched lost-ACK CAS reconciliation; 98/98 separate Node/Chromium scenarios PASS; 6 GitHub files and journal §21 updated.",
+  "last_summary": "CHAT12 versioned preset sessions tests 20 Node, 7 Chromium; publishing",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
