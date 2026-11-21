@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T16:23:40.119Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T16:25:49.453Z",
+  "state": "running",
+  "owner": "setup-sol-governance-20261121-mwqmih0j",
+  "acquired_at": "2026-11-21T16:29:38.851Z",
+  "expires_at": "2026-11-21T17:04:38.851Z",
+  "heartbeat_at": "2026-11-21T16:29:38.851Z",
   "last_completed_at": "2026-11-21T16:25:49.453Z",
-  "last_summary": "SOL master orchestrator handoff §24 written and reread; user should resume existing Work chat.",
+  "last_summary": "Fix SOL wake-up orchestration semantics in GitHub protocols",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
