@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T22:47:04.297Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T22:53:53.640Z",
+  "state": "running",
+  "owner": "chat28-trash-items-20261122-high",
+  "acquired_at": "2026-11-21T22:55:38.095Z",
+  "expires_at": "2026-11-22T00:05:38.095Z",
+  "heartbeat_at": "2026-11-21T22:55:38.095Z",
   "last_completed_at": "2026-11-21T22:53:53.640Z",
-  "last_summary": "CHAT27: source-backed Trash restore safety published 3 SHA-verified files; 6 original negative controls, 30/30 Node VM, combined CHAT21–27 180/180 VM, two builds PASS; §46 journal; browser/SOL integration OPEN; next trashItems unawaited backup.",
+  "last_summary": "CHAT28: direct Test13 deleteSel/trashItems backup-before-delete audit; no Work/main",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
