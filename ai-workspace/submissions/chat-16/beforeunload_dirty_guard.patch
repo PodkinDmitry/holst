@@ -1,0 +1,15 @@
+--- a/v224/base29.html
++++ b/v224/base29.html
+@@ -20462,8 +20462,11 @@
+   window.addEventListener('resize', () => { if (S.focus) render(); renderOverlay(); positionCtx(); renderFlyout(); });
+   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden' && dirty) saveNow(); if (document.visibilityState === 'visible') Drive.schedule(400); });
+   window.addEventListener('beforeunload', e => {
++    // Preserve the warning even if saveNow() immediately clears dirty:
++    // persistence may still be asynchronous or fail after navigation.
++    const hadPendingWrite = dirty || saving;
+     if (dirty) saveNow();
+-    if (Backend === Local && Store.mode === 'mem' && S.board && S.board.items.length) { e.preventDefault(); e.returnValue = ''; }
++    if (hadPendingWrite || (Backend === Local && Store.mode === 'mem' && S.board && S.board.items.length)) { e.preventDefault(); e.returnValue = ''; }
+   });
+ }
+ 
