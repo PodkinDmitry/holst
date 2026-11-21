@@ -1,0 +1,74 @@
+--- a/v224/base29.html
++++ b/v224/base29.html
+@@ -4553,4 +4553,8 @@
+ }
+-function deleteSel() {
++let deleteSelBusy = false;
++async function deleteSel() {
++  if (deleteSelBusy) return;
+   if (S.mxSel && mxDeleteSelTrack()) return;
++  const board = S.board;
++  if (!board) return;
+   const ids = new Set([...S.sel].filter(id => !(byId(id) || {}).locked)); if (!ids.size) { if (S.sel.size) toast('Закреплённые объекты не удаляются: сначала снимите замок'); return; }
+@@ -4566,8 +4570,21 @@
+   }
+-  finishEdit(); pushHist();
+-  for (const it of items()) if (it.pin && ids.has(it.pin.to) && !ids.has(it.id)) delete it.pin;
+-  trashItems(items().filter(i => ids.has(i.id) || (i.type === 'connector' && ((i.from.id && ids.has(i.from.id)) || (i.to.id && ids.has(i.to.id))))));
+-  S.board.items = items().filter(i => !ids.has(i.id) && !(i.type === 'connector' && ((i.from.id && ids.has(i.from.id)) || (i.to.id && ids.has(i.to.id)))));
+-  if (ids.has(S.active)) S.active = null;
+-  S.sel.clear(); changed();
++  finishEdit();
++  const removed = items().filter(i => ids.has(i.id) || (i.type === 'connector' && ((i.from.id && ids.has(i.from.id)) || (i.to.id && ids.has(i.to.id)))));
++  if (!removed.length) return;
++  const before = JSON.stringify(board.items), selected = [...S.sel].join('\u0000');
++  deleteSelBusy = true;
++  try {
++    // Never mutate the board or undo history until the Trash payload and index are readable.
++    if (!await trashItems(removed, board)) { toast('Не удалось сохранить объекты в корзину. Удаление отменено.'); return; }
++    // The asynchronous backup may have outlived the user's selection, edits or board navigation.
++    if (S.board !== board || JSON.stringify(board.items) !== before || [...S.sel].join('\u0000') !== selected) {
++      toast('Доска изменилась во время сохранения в корзину. Удаление отменено.'); return;
++    }
++    pushHist();
++    for (const it of items()) if (it.pin && ids.has(it.pin.to) && !ids.has(it.id)) delete it.pin;
++    board.items = items().filter(i => !ids.has(i.id) && !(i.type === 'connector' && ((i.from.id && ids.has(i.from.id)) || (i.to.id && ids.has(i.to.id)))));
++    if (ids.has(S.active)) S.active = null;
++    S.sel.clear(); changed();
++  } catch (err) { console.error(err); toast('Не удалось сохранить объекты в корзину. Удаление отменено.'); }
++  finally { deleteSelBusy = false; }
+ }
+@@ -12806,10 +12823,16 @@
+ async function trashPut(e, data) {
++  // Memory-only storage cannot guarantee a recoverable Trash copy after a reload.
++  if (Store.mode === 'mem') { toast('Корзина недоступна без постоянного хранилища'); return false; }
+   e.id = 'x' + uid(); e.at = Date.now();
+-  try { await Store.set('trash:' + e.id, data); } catch (er) { toast('Корзина: не удалось сохранить копию удалённого'); return; }
+-  const l = trashIdx(); l.unshift(e); trashSaveIdx(l);
+-  return trashIdx().some(entry => entry.id === e.id);
+-}
+-function trashItems(list) {
+-  if (!S.board || !list.length) return;
+-  const assets = {}; for (const a of assetIdsOf(list)) if (S.board.assets && S.board.assets[a] != null) assets[a] = S.board.assets[a];
++  try {
++    await Store.set('trash:' + e.id, data);
++    if (!await Store.get('trash:' + e.id)) throw new Error('Trash payload missing after write');
++    const l = trashIdx(); l.unshift(e); trashSaveIdx(l);
++    if (!trashIdx().some(entry => entry.id === e.id)) throw new Error('Trash index was not persisted');
++    return true;
++  } catch (err) { console.error(err); toast('Корзина: не удалось сохранить копию удалённого'); return false; }
++}
++async function trashItems(list, board = S.board) {
++  if (!board || !list.length) return false;
++  const assets = {}; for (const a of assetIdsOf(list)) if (board.assets && board.assets[a] != null) assets[a] = board.assets[a];
+   const types = {}; for (const i of list) types[i.type] = (types[i.type] || 0) + 1;
+@@ -12817,3 +12840,3 @@
+   const title = list.length === 1 ? (list[0].title || htmlToText(list[0].html || '') || list[0].text || TYPE_NAME[list[0].type] || 'Объект').slice(0, 80) : `${list.length} ${plural(list.length, 'объект', 'объекта', 'объектов')}`;
+-  trashPut({ kind: 'obj', bid: S.board.id, bname: S.board.name, title, types, n: list.length, size, akinds: [...new Set(Object.values(assets).map(assetKind))] }, { items: clone(list), assets });
++  return await trashPut({ kind: 'obj', bid: board.id, bname: board.name, title, types, n: list.length, size, akinds: [...new Set(Object.values(assets).map(assetKind))] }, { items: clone(list), assets });
+ }
+@@ -12911,3 +12934,3 @@
+     else if (k === 'unused') { const sc = S.storeScan; if (!sc || !sc.unused.length) return; if (!await uiConfirm(`Убрать ${sc.unused.length} неиспользуемых файлов (${fmtBytes(sc.unused.reduce((s, x) => s + x.size, 0))})? Их нет ни на одной доске.`)) return; const by = new Map(); for (const u of sc.unused) { if (!by.has(u.bid)) by.set(u.bid, []); by.get(u.bid).push(u.aid); } for (const [bid, ids] of by) { const b = S.board && S.board.id === bid ? S.board : await Backend.loadBoard(bid).catch(() => null); if (!b) continue; for (const a of ids) delete b.assets[a]; if (b === S.board) { dirty = true; await saveNow(); } else await Backend.saveBoard(b); } toast('Неиспользуемые файлы убраны'); await storeScan(); draw(); }
+-    else if (k === 'delfile') { const [bid, aid] = v.split('|'); const b = S.board && S.board.id === bid ? S.board : await Backend.loadBoard(bid).catch(() => null); if (!b) return; const list = b.items.filter(i => i.asset === aid); if (!await uiConfirm(`Убрать в корзину ${list.length} ${plural(list.length, 'объект', 'объекта', 'объектов')} с этим файлом с доски «${b.name}»?`)) return; if (b === S.board) { S.sel = new Set(list.map(i => i.id)); deleteSel(); } else { const prev = S.board; S.board = b; trashItems(list); S.board = prev; b.items = b.items.filter(i => i.asset !== aid); await Backend.saveBoard(b); } await storeScan(); draw(); }
++    else if (k === 'delfile') { const [bid, aid] = v.split('|'); const b = S.board && S.board.id === bid ? S.board : await Backend.loadBoard(bid).catch(() => null); if (!b) return; const list = b.items.filter(i => i.asset === aid); if (!await uiConfirm(`Убрать в корзину ${list.length} ${plural(list.length, 'объект', 'объекта', 'объектов')} с этим файлом с доски «${b.name}»?`)) return; if (b === S.board) { S.sel = new Set(list.map(i => i.id)); deleteSel(); } else { if (!await trashItems(list, b)) { toast('Не удалось сохранить объекты в корзину. Удаление отменено.'); return; } if (S.board && S.board.id === bid) { toast('Доска открыта во время подготовки удаления. Операция отменена.'); return; } const nb = clone(b); nb.items = b.items.filter(i => i.asset !== aid); const saved = await Backend.saveBoard(nb); if (saved?.removed) toast('Доска удалена в другом окне. Копия объектов сохранена в корзине.'); } await storeScan(); draw(); }
+   });
