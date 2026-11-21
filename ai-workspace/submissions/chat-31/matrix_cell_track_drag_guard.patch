@@ -1,0 +1,88 @@
+--- a/v224/base29.html
++++ b/v224/base29.html
+@@ -8061,15 +8061,53 @@
+ }
+-function mxDetachTrack(F, kind, id, w) {
+-  const M = F.mx, arr = kind === 'c' ? M.cols : M.rows, t = arr.find(x => x.id === id); if (!t) return;
+-  pushHist();
++let mxDetachTrackBusy = false;
++async function mxDetachTrack(F, kind, id, w) {
++  if (mxDetachTrackBusy || !S.board || !F || !F.mx || !S.board.items.includes(F) ||
++      !['c', 'r'].includes(kind) || !w || !Number.isFinite(w.x) || !Number.isFinite(w.y)) return false;
++  const board = S.board, M = F.mx, arr = kind === 'c' ? M.cols : M.rows;
++  const t = arr.find(x => x.id === id); if (!t) return false;
+   const cs = mxTrackCells(F, kind, id), G = mxGeom(F);
++  const track = kind === 'c' ? G.ci.get(id) : G.ri.get(id);
++  if (!cs.length || track == null || mxCells(F).some(c => {
++    const pos = kind === 'c' ? G.ci.get(c.cell.c) : G.ri.get(c.cell.r);
++    const span = kind === 'c' ? (c.cell.cs || 1) : (c.cell.rs || 1);
++    return pos == null || (pos <= track && track < pos + span &&
++      ((c.cell.cs || 1) !== 1 || (c.cell.rs || 1) !== 1));
++  })) {
++    toast('Сначала разделите объединённые ячейки затронутой дорожки'); return false;
++  }
+   const ox = kind === 'c' ? G.cx[id] : G.x0, oy = kind === 'c' ? G.y0 : G.ry[id];
+   const dx = w.x - ox, dy = w.y - oy;
++  if (![ox, oy, dx, dy].every(Number.isFinite)) return false;
+   const lists = cs.map(c => withFrameContents([c]));
+-  for (const c of cs) delete c.cell;
+-  for (const l of lists) mxShift(l, dx, dy);
+-  arr.splice(arr.indexOf(t), 1);
+-  if (!arr.length) delete F.mx;
+-  S.mxSel = null; changed();
+-  toast((kind === 'c' ? 'Столбец' : 'Строка') + ' вынесен' + (kind === 'c' ? '' : 'а') + ' из матрицы: ячейки стали обычными рамками');
++  const moved = lists.flat().map(x => x.id);
++  if (new Set(moved).size !== moved.length) { toast('Ячейки пересекаются: вынос отменён'); return false; }
++  const before = JSON.stringify(board), beforeMxSel = JSON.stringify(S.mxSel), beforeSel = [...S.sel].join('\u0000');
++  const stable = () => S.board === board && board.items.includes(F) && F.mx === M &&
++    JSON.stringify(board) === before && JSON.stringify(S.mxSel) === beforeMxSel &&
++    [...S.sel].join('\u0000') === beforeSel && arr.includes(t);
++  mxDetachTrackBusy = true;
++  let committed = false;
++  try {
++    const snapshot = clone(board), types = {};
++    for (const it of snapshot.items || []) types[it.type] = (types[it.type] || 0) + 1;
++    const size = JSON.stringify(snapshot.items || []).length + Object.values(snapshot.assets || {}).reduce((n, d) => n + assetSize(d), 0);
++    const saved = await trashPut({ kind: 'board', bid: board.id, bname: board.name,
++      title: `${board.name} — до выноса ${kind === 'c' ? 'столбца' : 'строки'}`,
++      types, n: (snapshot.items || []).length, size, akinds: [...new Set(Object.values(snapshot.assets || {}).map(assetKind))] },
++      { board: snapshot, bm: clone(bmOf(board.id)) });
++    if (!saved) { toast('Корзина недоступна. Дорожка не вынесена.'); return false; }
++    if (!stable()) { toast('Доска изменилась. Вынос отменён; копия в корзине.'); return false; }
++    pushHist(); committed = true;
++    for (const c of cs) delete c.cell;
++    for (const l of lists) mxShift(l, dx, dy);
++    arr.splice(arr.indexOf(t), 1);
++    if (!arr.length) delete F.mx;
++    S.mxSel = null; changed();
++    toast((kind === 'c' ? 'Столбец' : 'Строка') + ' вынесен' + (kind === 'c' ? '' : 'а') + ' из матрицы: ячейки стали обычными рамками');
++    return true;
++  } catch (err) {
++    console.error(err);
++    toast(committed ? 'Дорожка изменена; проверьте сохранение и экспортируйте доску при ошибке.' : 'Не удалось сохранить резервную копию. Вынос отменён.');
++    return false;
++  } finally { mxDetachTrackBusy = false; }
+ }
+@@ -8123,3 +8161,10 @@
+ function mxDropCell(cell, d, w) {
+-  const F = mxOf(cell); if (!F) return false;
++  if (!S.board || !cell || !cell.cell || !items().includes(cell) || !d || !Array.isArray(d.list) ||
++      !d.list.some(m => m.it === cell) || d.list.some(m => !m.it || !items().includes(m.it)) ||
++      !w || !Number.isFinite(w.x) || !Number.isFinite(w.y)) return false;
++  const F = mxOf(cell); if (!F || !F.mx || !items().includes(F)) return false;
++  // Moving a merged cell destroys its cs/rs and therefore the existing matrix layout.
++  if ((cell.cell.cs || 1) !== 1 || (cell.cell.rs || 1) !== 1) {
++    toast('Сначала разделите объединённую ячейку'); return false;
++  }
+   const inF = w.x >= F.x && w.x <= F.x + F.w && w.y >= F.y && w.y <= F.y + F.h;
+@@ -8130,4 +8175,9 @@
+   const ids = new Set(d.list.map(m => m.it.id)), from = G.rect(cell), to = G.rect({ cell: { c: slot.c, r: slot.r } });
++  if (!from || !to || ![from.x, from.y, to.x, to.y].every(Number.isFinite)) return false;
+   if (other) {
+-    if (other.cell.c !== slot.c || other.cell.r !== slot.r) return false;
++    if (!items().includes(other) || ids.has(other.id) || !other.cell ||
++        other.cell.c !== slot.c || other.cell.r !== slot.r ||
++        (other.cell.cs || 1) !== 1 || (other.cell.rs || 1) !== 1) {
++      toast('Целевая ячейка объединена или занята переносимыми объектами'); return false;
++    }
+     const lst = withFrameContents([other]).filter(x => !ids.has(x.id));
