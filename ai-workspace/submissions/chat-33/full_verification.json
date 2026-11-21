@@ -1,0 +1,168 @@
+{
+  "schema": 1,
+  "gate": "CHAT32 cumulative Test13 source-only",
+  "mode": "FULL_CHAT16_31",
+  "source_zip_sha256": "a7f1f7e7ae1903ab524f19aea450d0329dbcde1bd6fb234ba8fc4be7d40cf9c4",
+  "original_base29_sha256": "3861195fb4ad5b5fd3a64f0eb0954856844feb7146a1e9545d31a53dceb9366c",
+  "patches": {
+    "16": {
+      "file": "beforeunload_dirty_guard.patch",
+      "git_blob": "a58e56aa784a135328c1fd6c59039d97b99269b8",
+      "source": "local_verified",
+      "apply": "PASS"
+    },
+    "17": {
+      "file": "virtual_writeback_guard.patch",
+      "git_blob": "7a6ff3c16f62bdf7200ad8852d05efaa8d054143",
+      "source": "local_verified",
+      "apply": "PASS"
+    },
+    "18": {
+      "file": "board_navigation_guard.patch",
+      "git_blob": "7e35ec332e401afbbfe950f08ca260a543a30e44",
+      "source": "local_verified",
+      "apply": "PASS"
+    },
+    "19": {
+      "file": "board_secondary_route_guard.patch",
+      "git_blob": "3e45d2b14f467bfbb3f394a2948029bd175b0d10",
+      "source": "local_verified",
+      "apply": "PASS"
+    },
+    "20": {
+      "file": "filter_mode_persistence_guard.patch",
+      "git_blob": "5bb40f03b4b78e2e7f6df6d9a904a9af68744e2f",
+      "source": "local_verified",
+      "apply": "PASS"
+    },
+    "21": {
+      "file": "split_iframe_persistence_guard.patch",
+      "git_blob": "9245f8db653725e8cd53acbc67565c35dd8b2172",
+      "source": "local_verified",
+      "apply": "PASS"
+    },
+    "22": {
+      "file": "import_board_navigation_guard.patch",
+      "git_blob": "4a6326917c6442740afc1d8bcc7544eaa9d5a804",
+      "source": "local_verified",
+      "apply": "PASS"
+    },
+    "23": {
+      "file": "history_navigation_guard.patch",
+      "git_blob": "fc3fe2556401bab045d01536b0eb4c5a9de34be8",
+      "source": "local_verified",
+      "apply": "PASS"
+    },
+    "24": {
+      "file": "drive_sync_local_delete_guard.patch",
+      "git_blob": "f2d044713da83053065824b6f4575571f6902931",
+      "source": "local_verified",
+      "apply": "PASS"
+    },
+    "25": {
+      "file": "bulk_board_delete_guard.patch",
+      "git_blob": "7863a89b33936373e51d5db6b0470aeaf63ad8ef",
+      "source": "local_verified",
+      "apply": "PASS"
+    },
+    "26": {
+      "file": "demo_board_persistence_guard.patch",
+      "git_blob": "3f7513cdd1617c1c23852de410342c67c9350358",
+      "source": "local_verified",
+      "apply": "PASS"
+    },
+    "27": {
+      "file": "trash_restore_persistence_guard.patch",
+      "git_blob": "1ae26e70c6766a644a9121c1f31551892937e93a",
+      "source": "local_verified",
+      "apply": "PASS"
+    },
+    "28": {
+      "file": "trash_items_backup_first.patch",
+      "git_blob": "ba4bd38d779283d121daae1ecbf973e8bec9ce0e",
+      "source": "local_verified",
+      "apply": "PASS"
+    },
+    "29": {
+      "file": "matrix_track_backup_before_delete.patch",
+      "git_blob": "1b96f902281f2b80fbf15e25628a91baa0a9566f",
+      "source": "local_verified",
+      "apply": "PASS"
+    },
+    "30": {
+      "file": "matrix_span_drop_guard.patch",
+      "git_blob": "0ec021e73cf65a6888a48a61fc71e596798f5b5b",
+      "source": "local_verified",
+      "apply": "PASS"
+    },
+    "31": {
+      "file": "matrix_cell_track_drag_guard.patch",
+      "git_blob": "639cef147bdcc010f20d009b9c8de9d7e89b0d22",
+      "source": "local_verified",
+      "apply": "PASS"
+    }
+  },
+  "tests": {
+    "21": {
+      "result": "PASS",
+      "count": 21
+    },
+    "22": {
+      "result": "PASS",
+      "count": 20
+    },
+    "23": {
+      "result": "PASS",
+      "count": 23
+    },
+    "24": {
+      "result": "PASS",
+      "count": 26
+    },
+    "25": {
+      "result": "PASS",
+      "count": 35
+    },
+    "26": {
+      "result": "PASS",
+      "count": 25
+    },
+    "27": {
+      "result": "PASS",
+      "count": 30
+    },
+    "28": {
+      "result": "PASS",
+      "count": 33
+    },
+    "29": {
+      "result": "PASS",
+      "count": 36
+    },
+    "30": {
+      "result": "PASS",
+      "count": 46
+    },
+    "31": {
+      "result": "PASS",
+      "count": 43
+    }
+  },
+  "limits": [
+    "Node VM/synthetic dependencies, not browser E2E",
+    "not SOL checkout or integration",
+    "private source and compiled bundles must not be published",
+    "CHAT29 harness marker locally adapted for CHAT31 async function, assertions unchanged"
+  ],
+  "script_syntax": {
+    "result": "PASS",
+    "scripts": 1,
+    "script_bytes": 2209562
+  },
+  "build": {
+    "result": "PASS",
+    "stdout": "ok 5009092"
+  },
+  "total_node_vm_cases": 338,
+  "status": "PASS_SOURCE_ONLY_NOT_INTEGRATED"
+}
