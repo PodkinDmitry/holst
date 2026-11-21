@@ -1,0 +1,29 @@
+--- a/tests/app_regression.py
++++ b/tests/app_regression.py
+@@ -7,6 +7,7 @@
+ from threading import Thread
+ from playwright.sync_api import sync_playwright
+ from board_benchmark import QuietHandler
++from cache_state_diagnostics import assert_cache_state_unchanged
+ 
+ 
+ def check_board_transactions(ctx, ev, base):
+@@ -1255,6 +1256,7 @@
+                 await (await caches.open('other-app')).put('/other', new Response('other'));
+             }""")
+             before_cleanup = ev("JSON.stringify([S.board, S.org, LS.get('pal28')])")
++            before_save_state = ev("({updatedAt:S.board?.updatedAt,dirty,saving,saveAgain,timerPending:!!saveTimer})")
+             page.get_by_role('button', name='Проверить кэш старых версий').click()
+             page.locator('.health-cache li').filter(has_text='holst-v34').wait_for()
+             assert page.evaluate("caches.has('holst-v34')")
+@@ -1262,7 +1264,9 @@
+             page.wait_for_function("caches.has('holst-v34').then(exists => !exists)")
+             assert page.evaluate("caches.has('holst-v36')")
+             assert page.evaluate("caches.has('other-app')")
+-            assert before_cleanup == ev("JSON.stringify([S.board, S.org, LS.get('pal28')])")
++            after_cleanup = ev("JSON.stringify([S.board, S.org, LS.get('pal28')])")
++            after_save_state = ev("({updatedAt:S.board?.updatedAt,dirty,saving,saveAgain,timerPending:!!saveTimer})")
++            assert_cache_state_unchanged(before_cleanup, after_cleanup, before_save_state, after_save_state)
+             print('PASS cache preview and cleanup preserve active cache, board, groups and palette',flush=True)
+             payload = ev("""({videos:[{id:'x0dPr3vYt01',title:'Immediate reload'}],task:true,board:true,
+               delivery300:{id:crypto.randomUUID(),board:S.board.id}})""")
