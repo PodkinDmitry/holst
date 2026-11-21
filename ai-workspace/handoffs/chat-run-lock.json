@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T21:37:51.816Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T21:43:56.915Z",
+  "state": "running",
+  "owner": "chat20-fsm-split-20261121214533617",
+  "acquired_at": "2026-11-21T21:45:33.617Z",
+  "expires_at": "2026-11-21T22:45:33.621Z",
+  "heartbeat_at": "2026-11-21T21:45:33.617Z",
   "last_completed_at": "2026-11-21T21:43:56.915Z",
-  "last_summary": "CHAT19: four unguarded Test13 routes including bulk delete reproduced and patched; 18/18 new and 56/56 integrated Node PASS, build PASS, three Git SHA-verified artifacts, journal §38, no Work/main/private source.",
+  "last_summary": "CHAT20 user-directed audit of Test13 fsmBuild/fsmExit and Split, safe isolated patch, no Work or main",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
