@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T18:03:31.534Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T18:05:34.783Z",
+  "state": "running",
+  "owner": "chat-recalibration-20261121184619",
+  "acquired_at": "2026-11-21T18:46:19.307Z",
+  "expires_at": "2026-11-21T19:11:19.307Z",
+  "heartbeat_at": "2026-11-21T18:46:19.307Z",
   "last_completed_at": "2026-11-21T18:05:34.783Z",
-  "last_summary": "Standard 2.6 reviewed; XOD roadmap §27 source-backed 8 releases/37 substeps, 5 history groups/18 records, hypothetical 222–464h; no local SOL edits.",
+  "last_summary": "User-directed fast-track target, quota snapshot timeline and invalidation of uncalibrated effort estimate",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
