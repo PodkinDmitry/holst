@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-21T20:00:23.932Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-21T20:02:26.701Z",
+  "state": "running",
+  "owner": "chat14-roadmap-adjust-20261121200549",
+  "acquired_at": "2026-11-21T20:05:49.957Z",
+  "expires_at": "2026-11-21T20:40:49.957Z",
+  "heartbeat_at": "2026-11-21T20:05:49.957Z",
   "last_completed_at": "2026-11-21T20:02:26.701Z",
-  "last_summary": "CHAT13 received and SHA-verified private Test13 ZIP (432 files, 431/431 manifest); build PASS, JS 107/107 PASS, verifier 5/5 PASS; browser blocked by managed policy; journal §30.6 updated.",
+  "last_summary": "User-requested Test13-first roadmap correction after verified ZIP and CHAT13 handoff",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
