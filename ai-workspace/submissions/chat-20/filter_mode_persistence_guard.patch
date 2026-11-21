@@ -1,0 +1,68 @@
+--- a/v224/base29.html
++++ b/v224/base29.html
+@@ -13154,27 +13154,57 @@
+   if (!S.board || S.board.virtual) return;
+   const ids = items().filter(i => i.type !== 'connector' && !isHid(i) && !(S.dim && S.dim.has(i.id)) && !(i.type === 'frame' && i.mx)).map(i => i.id);
+   if (!ids.length) { toast('Под фильтр не попал ни один объект'); return; }
++  // Never enter the filter mode with an unacknowledged source-board write.
++  if (!await canLeaveCurrentBoard()) return;
+   S.fhl = false; S.fsmFrom = S.board.id; S.fsmQ = Object.assign({ by: 'type', sort: 'board', layout: 'grid' }, LS.get('fsmq') || {});
+   await fsmBuild(ids);
+ }
+ async function fsmBuild(ids) {
+-  if (S.board && dirty) await saveNow();
++  const current = S.board;
++  // CHAT17 waits for actual writeback of edited virtual boards.
++  if (current && current.virtual && dirty) await saveNow();
++  if (!await canLeaveCurrentBoard()) return false;
+   const vb = await vfBuild({ id: 'fsm', name: 'Из фильтра', q: Object.assign({ off: {}, ids, only: S.fsmFrom }, S.fsmQ) });
++  // Building the preview is async: do not discard edits made during the load.
++  if (S.board !== current || !await canLeaveCurrentBoard()) return false;
+   vb.fsm = true; vb.name = 'Умная доска из фильтра';
+   S.board = null; loadBoard(vb); fitAll(); vfBar(); fsmBar(); document.body.classList.add('fsm');
++  return true;
+ }
+ async function fsmRebuild() {
+-  if (!S.fsmFrom) return;
+-  const src = await Backend.loadBoard(S.fsmFrom).catch(() => null); if (!src) return;
+-  const prev = S.board; S.board = src; S.hid = new Set(); bfApply(); const ids = src.items.filter(i => i.type !== 'connector' && !S.hid.has(i.id) && !(S.dim && S.dim.has(i.id)) && !(i.type === 'frame' && i.mx)).map(i => i.id); S.board = prev;
+-  await fsmBuild(ids);
++  if (!S.fsmFrom) return false;
++  const prev = S.board;
++  if (prev && prev.virtual && dirty) await saveNow();
++  // Read the source board only after the virtual view has written its edits.
++  if (!await canLeaveCurrentBoard()) return false;
++  const src = await Backend.loadBoard(S.fsmFrom).catch(() => null);
++  if (!src || S.board !== prev) return false;
++  let ids;
++  try {
++    S.board = src; S.hid = new Set(); bfApply();
++    ids = src.items.filter(i => i.type !== 'connector' && !S.hid.has(i.id) && !(S.dim && S.dim.has(i.id)) && !(i.type === 'frame' && i.mx)).map(i => i.id);
++  } finally { S.board = prev; }
++  return fsmBuild(ids);
+ }
+ async function fsmExit(clear) {
+-  if (dirty) await saveNow();
+-  const from = S.fsmFrom; S.fsmFrom = null; document.body.classList.remove('fsm');
++  const prev = S.board, from = S.fsmFrom;
++  if (prev && prev.virtual && dirty) await saveNow();
++  if (!await canLeaveCurrentBoard()) return false;
+   const b = from && await Backend.loadBoard(from).catch(() => null);
+-  S.board = null; if (b) { if (clear) { if (LS.get('bfscope:' + b.id) === 'me') LS.set('bfme:' + b.id, { mode: 'hide', off: {}, on: true }); else b.bf = { mode: 'hide', off: {}, on: true }; S.bfMe = null; } loadBoard(b); if (clear) { dirty = true; saveNow(); } }
++  if (!b || S.board !== prev || S.fsmFrom !== from) {
++    toast('Исходная доска недоступна. Останьтесь в фильтре и повторите попытку.');
++    return false;
++  }
++  if (clear) {
++    if (LS.get('bfscope:' + b.id) === 'me') LS.set('bfme:' + b.id, { mode: 'hide', off: {}, on: true });
++    else b.bf = { mode: 'hide', off: {}, on: true };
++    S.bfMe = null;
++  }
++  S.fsmFrom = null; document.body.classList.remove('fsm');
++  S.board = null; loadBoard(b);
++  if (clear) { dirty = true; await saveNow(); }
+   vfBar(); fsmBar(); bsRender(); bfChip();
++  return true;
+ }
+ function fsmBar() {
+   let bar = $('#fsmbar');
