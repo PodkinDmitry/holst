@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "setup-sol-governance-20261121-mwqmih0j",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T16:29:38.851Z",
-  "expires_at": "2026-11-21T17:04:38.851Z",
-  "heartbeat_at": "2026-11-21T16:29:38.851Z",
-  "last_completed_at": "2026-11-21T16:25:49.453Z",
-  "last_summary": "Fix SOL wake-up orchestration semantics in GitHub protocols",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T16:32:46.150Z",
+  "last_completed_at": "2026-11-21T16:32:46.150Z",
+  "last_summary": "Wake-up governance corrected in AGENTS.md, worker protocol §4, response format §10, journal §24.5; §23 archived, SOL AWAKE NOT_STARTED.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
