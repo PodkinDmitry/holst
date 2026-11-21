@@ -1,0 +1,115 @@
+--- a/v224/base29.html
++++ b/v224/base29.html
+@@ -4234,7 +4234,19 @@
+ async function saveNow() {
+   clearTimeout(saveTimer);
+   const b = S.board; if (!b) return;
+-  if (b.virtual) { dirty = false; vfWriteBack(b).catch(e => toast('Правки не дошли до исходных досок: ' + ((e && e.message) || e))); setStatus('saved'); return; }
++  if (b.virtual) {
++    if (saving) { saveAgain = true; return; }
++    saving = true; dirty = false;
++    try { await vfWriteBack(b); setStatus('saved'); }
++    catch (err) {
++      console.error(err); dirty = true; setStatus('error');
++      toast('Не удалось записать все правки умной доски. Останьтесь на ней и повторите сохранение.');
++    }
++    saving = false;
++    if (saveAgain) { saveAgain = false; saveNow(); }
++    renderDrawer();
++    return;
++  }
+   if (saving) { saveAgain = true; return; }
+   saving = true; dirty = false;
+   b.updatedAt = Date.now();
+@@ -11274,7 +11286,10 @@
+ const VF_SKIP = new Set(['id', 'x', 'y', 'rx', 'ry', 'pin', 'ftab', 'grp', 'cell', 'lo', 'tabs', 'tab', 'mx']);
+ function vfStrip(it) { const o = {}; for (const k of Object.keys(it).sort()) if (!VF_SKIP.has(k)) o[k] = it[k]; return o; }
+ async function vfShow(f, log) {
+-  if (S.board && dirty) await saveNow();
++  if (S.board && (dirty || saving)) {
++    await saveNow();
++    if (dirty || saving) { toast('Правки не записаны. Сначала завершите сохранение.'); return; }
++  }
+   toast('Собираю умную доску…');
+   const vb = await vfBuild(f, log);
+   S.board = null; loadBoard(vb); fitAll(); vfBar(); bsRender();
+@@ -11299,7 +11314,16 @@
+   const a = b.dataset.vfa, f = vfList().find(x => x.id === S.board.vfid);
+   if (a === 'edit') vfOpenEditor(f ? clone(f.q) : clone(S.board.vq), f);
+   else if (a === 'save') { const n = await uiPrompt('Название умной доски', 'Умная доска'); if (!n || !n.trim()) return; const nf = { id: 'vf' + uid().slice(0, 6), name: n.trim(), q: clone(S.board.vq) }; vfSave(nf); S.board.vfid = nf.id; vfBar(); }
+-  else if (a === 'close') { if (dirty) await saveNow(); const last = [...S.index].sort((x, y) => y.updatedAt - x.updatedAt)[0]; S.board = null; if (last) { const bb = await Backend.loadBoard(last.id); if (bb) loadBoard(bb); } vfBar(); bsRender(); }
++  else if (a === 'close') {
++    if (dirty || saving) {
++      await saveNow();
++      if (dirty || saving) { toast('Правки не записаны. Сначала завершите сохранение.'); return; }
++    }
++    const last = [...S.index].sort((x, y) => y.updatedAt - x.updatedAt)[0];
++    S.board = null;
++    if (last) { const bb = await Backend.loadBoard(last.id); if (bb) loadBoard(bb); }
++    vfBar(); bsRender();
++  }
+ }
+ function vfMenu(anchor, id) {
+   const f = vfList().find(x => x.id === id); if (!f) return;
+@@ -11348,23 +11372,50 @@
+     const s = JSON.stringify(vfStrip(it)); if (s === vb.vorig[nid]) continue;
+     if (!byBoard.has(src.b)) byBoard.set(src.b, []); byBoard.get(src.b).push([nid, src, it, s]);
+   }
+-  if (gone.length && await uiConfirm(`Удалить ${gone.length} ${plural(gone.length, 'объект', 'объекта', 'объектов')} и на исходных досках?`, { sub: 'Иначе они просто уберутся с умной доски.', ok: 'Удалить и там', no: 'Только здесь' })) for (const [nid, src] of gone) { if (!byBoard.has(src.b)) byBoard.set(src.b, []); byBoard.get(src.b).push([nid, src, null, null]); }
+-  for (const [nid] of gone) { delete vb.vmap[nid]; delete vb.vorig[nid]; }
+-  let n = 0;
++  if (gone.length) {
++    if (await uiConfirm(`Удалить ${gone.length} ${plural(gone.length, 'объект', 'объекта', 'объектов')} и на исходных досках?`, { sub: 'Иначе они просто уберутся с умной доски.', ok: 'Удалить и там', no: 'Только здесь' })) {
++      for (const [nid, src] of gone) {
++        if (!byBoard.has(src.b)) byBoard.set(src.b, []);
++        byBoard.get(src.b).push([nid, src, null, null]);
++      }
++    } else for (const [nid] of gone) { delete vb.vmap[nid]; delete vb.vorig[nid]; }
++  }
++  let failed = 0;
+   for (const [bid, list] of byBoard) {
+-    let b = S.vfCache && S.vfCache.get(bid); if (!b) b = await Backend.loadBoard(bid).catch(() => null); if (!b) continue;
++    const original = (S.vfCache && S.vfCache.get(bid)) || await Backend.loadBoard(bid).catch(() => null);
++    if (!original) { failed++; continue; }
++    // Work on a detached copy: failed persistence must not modify the cached board.
++    const b = clone(original), completed = [];
++    // Local revision snapshots use a WeakMap keyed by the original object.
++    if (localBoardBases300.has(original)) localBoardBases300.set(b, localBoardBases300.get(original));
+     for (const [nid, src, it, s] of list) {
+-      const i = b.items.findIndex(x => x.id === src.id); if (i < 0) continue;
+-      if (!it) { const kill = src.id; b.items = b.items.filter(x => x.id !== kill && !(x.type === 'connector' && ((x.from && x.from.id === kill) || (x.to && x.to.id === kill)))); n++; continue; }
++      const i = b.items.findIndex(x => x.id === src.id);
++      if (i < 0) { failed++; continue; }
++      if (!it) {
++        const kill = src.id;
++        b.items = b.items.filter(x => x.id !== kill && !(x.type === 'connector' && ((x.from && x.from.id === kill) || (x.to && x.to.id === kill))));
++        completed.push([nid, null]); continue;
++      }
+       const o = b.items[i], patch = vfStrip(it);
+       for (const k of Object.keys(o)) if (!VF_SKIP.has(k) && !(k in patch)) delete o[k];
+-      Object.assign(o, clone(patch)); vb.vorig[nid] = s; n++;
++      Object.assign(o, clone(patch)); completed.push([nid, s]);
+     }
++    if (!completed.length) continue;
+     b.updatedAt = Date.now();
+-    try { await Backend.saveBoard(b); upsertIndex(b); if (S.vfCache) S.vfCache.set(bid, b); } catch (e) { toast('Не удалось сохранить доску «' + (b.name || '') + '»'); }
+-  }
+-  if (n) setStatus('saved');
+-}
++    try {
++      const result = await Backend.saveBoard(b);
++      if (result?.removed) { failed++; continue; }
++      upsertIndex(b); if (S.vfCache) S.vfCache.set(bid, b);
++      // An acknowledged write alone advances the retry baseline.
++      for (const [nid, signature] of completed) {
++        if (signature == null) { delete vb.vmap[nid]; delete vb.vorig[nid]; }
++        else vb.vorig[nid] = signature;
++      }
++    } catch (e) { failed++; console.error('Smart-board source save failed', e); }
++  }
++  if (failed) throw new Error(`Не удалось сохранить исходные доски (${failed})`);
++}
++
+ /* =========================================================
+    v2.3: time tracking — a hybrid of RescueTime (automatic, focus score),
+    Toggl (projects and reports), Timing (hierarchy from area down to the
