@@ -1,0 +1,53 @@
+--- a/v224/base29.html
++++ b/v224/base29.html
+@@ -8049,14 +8049,41 @@
+ }
+ function mxTrackCells(F, kind, id) { return mxCells(F).filter(c => (kind === 'c' ? c.cell.c : c.cell.r) === id); }
++let mxRemoveTrackBusy = false;
+ async function mxRemoveTrack(F, kind, id) {
+-  const M = F.mx; if (!M) return;
+-  const arr = kind === 'c' ? M.cols : M.rows; if (arr.length < 2) { toast('Последний ' + (kind === 'c' ? 'столбец' : 'строку') + ' не удалить: уберите матрицу целиком'); return; }
+-  const cs = mxTrackCells(F, kind, id), stuff = new Set(); for (const c of cs) withFrameContents([c]).forEach(x => stuff.add(x.id));
+-  const extra = stuff.size - cs.length;
+-  if (extra > 0 && !await uiConfirm(`Удалить ${kind === 'c' ? 'столбец' : 'строку'} вместе с содержимым (${extra})?`)) return;
+-  pushHist();
+-  S.board.items = items().filter(i => !stuff.has(i.id) && !(i.type === 'connector' && ((i.from.id && stuff.has(i.from.id)) || (i.to.id && stuff.has(i.to.id)))));
+-  const idx = arr.findIndex(t => t.id === id); arr.splice(idx, 1);
+-  S.mxSel = null; changed();
++  if (mxRemoveTrackBusy) return;
++  const board = S.board, M = F && F.mx;
++  if (!board || !board.items.includes(F) || !M || !['c', 'r'].includes(kind)) return;
++  const arr = kind === 'c' ? M.cols : M.rows;
++  if (!arr.some(t => t.id === id)) return; // Stale UI must never splice the last track.
++  if (arr.length < 2) { toast('Последний ' + (kind === 'c' ? 'столбец' : 'строку') + ' не удалить: уберите матрицу целиком'); return; }
++  mxRemoveTrackBusy = true;
++  try {
++    // Capture the entire source board: object-only Trash cannot restore matrix track metadata.
++    const before = JSON.stringify(board), beforeSel = JSON.stringify(S.mxSel), selected = [...S.sel].join('\u0000');
++    const cs = mxTrackCells(F, kind, id), stuff = new Set();
++    for (const c of cs) withFrameContents([c]).forEach(x => stuff.add(x.id));
++    const extra = stuff.size - cs.length;
++    if (extra > 0 && !await uiConfirm(`Удалить ${kind === 'c' ? 'столбец' : 'строку'} вместе с содержимым (${extra})?`)) return;
++    const stable = () => S.board === board && F.mx === M && board.items.includes(F) &&
++      JSON.stringify(board) === before && JSON.stringify(S.mxSel) === beforeSel &&
++      [...S.sel].join('\u0000') === selected && arr.some(t => t.id === id);
++    if (!stable()) { toast('Доска изменилась. Удаление строки или столбца отменено.'); return; }
++    const snapshot = clone(board), types = {};
++    for (const it of snapshot.items || []) types[it.type] = (types[it.type] || 0) + 1;
++    const size = JSON.stringify(snapshot.items || []).length + Object.values(snapshot.assets || {}).reduce((n, d) => n + assetSize(d), 0);
++    const saved = await trashPut({ kind: 'board', bid: board.id, bname: board.name,
++      title: `${board.name} — до удаления ${kind === 'c' ? 'столбца' : 'строки'}`,
++      types, n: (snapshot.items || []).length, size, akinds: [...new Set(Object.values(snapshot.assets || {}).map(assetKind))] },
++      { board: snapshot, bm: clone(bmOf(board.id)) });
++    if (!saved) { toast('Корзина недоступна. Строка или столбец не удалены.'); return; }
++    if (!stable()) { toast('Доска изменилась при сохранении копии. Удаление отменено; копия в корзине.'); return; }
++    const idx = arr.findIndex(t => t.id === id);
++    if (idx < 0) return;
++    pushHist();
++    board.items = items().filter(i => !stuff.has(i.id) && !(i.type === 'connector' && ((i.from.id && stuff.has(i.from.id)) || (i.to.id && stuff.has(i.to.id)))));
++    arr.splice(idx, 1);
++    S.mxSel = null; changed();
++  } catch (err) { console.error(err); toast('Не удалось создать резервную копию. Удаление отменено.'); }
++  finally { mxRemoveTrackBusy = false; }
+ }
+ function mxDetachTrack(F, kind, id, w) {
