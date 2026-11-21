@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat23-history-safety-20261122-high",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T22:09:03.379Z",
-  "expires_at": "2026-11-21T23:19:03.379Z",
-  "heartbeat_at": "2026-11-21T22:09:03.379Z",
-  "last_completed_at": "2026-11-21T22:07:36.283Z",
-  "last_summary": "CHAT23: investigating source-backed Test13 board-history restore safety; no Work/main changes",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-21T22:13:38.144Z",
+  "last_completed_at": "2026-11-21T22:13:38.144Z",
+  "last_summary": "CHAT23: real Test13 openHistory guard published and blob verified; 5 original negative controls, 23/23 Node VM, CHAT21–23 64/64 VM, two builds PASS; browser/real SOL integration OPEN; journal §42.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
