@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat37-compact-roadmap-accuracy-plan-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T00:39:50.032Z",
-  "expires_at": "2026-11-22T01:19:50.032Z",
-  "heartbeat_at": "2026-11-22T00:39:50.032Z",
-  "last_completed_at": "2026-11-22T00:32:59.402Z",
-  "last_summary": "CHAT37 documentation-only compact responsive roadmap hierarchy and measurement precision roadmap",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T00:41:23.770Z",
+  "last_completed_at": "2026-11-22T00:41:23.770Z",
+  "last_summary": "CHAT37: updated XOD response-format v3.1 for CAPS/outdented stage labels, responsive 6-field no horizontal scroll layout, added ranked accuracy measurement actions, journal v52 §31.6.1 §57. No change in scenario numbers or product code; real host validation/calibration open.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
