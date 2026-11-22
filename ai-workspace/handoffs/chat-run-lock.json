@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T00:27:57.614Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T00:32:59.402Z",
+  "state": "running",
+  "owner": "chat37-compact-roadmap-accuracy-plan-20261122",
+  "acquired_at": "2026-11-22T00:39:50.032Z",
+  "expires_at": "2026-11-22T01:19:50.032Z",
+  "heartbeat_at": "2026-11-22T00:39:50.032Z",
   "last_completed_at": "2026-11-22T00:32:59.402Z",
-  "last_summary": "CHAT36: protocol v3.0 and journal §31.6/§56 updated; flat connected chrono, 8 stages+37 child steps, 6 columns with evidence index; scenario route 231–483h, modeled progress 0.8–8.6%, work 4.6–85.7%, accuracy index 17%; no SOL source/Work/main edits.",
+  "last_summary": "CHAT37 documentation-only compact responsive roadmap hierarchy and measurement precision roadmap",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
