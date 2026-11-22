@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "chat-b-video-integrity-journal-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T23:02:58.960Z",
-  "expires_at": "2026-11-22T23:05:58.960Z",
-  "heartbeat_at": "2026-11-22T23:02:58.960Z",
-  "last_completed_at": "2026-11-22T23:02:11.341Z",
-  "last_summary": "CHAT B private code changes 34ca99a07c4442b562ebb34f5866774dcb379fa3, 2e5d709c258ef6cdce607a27a1918814b8018cad, test 15d198d43e0c7a0640193693602daeeb5110ebb1; journal pending; browser/build NOT_RUN",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T23:03:06.771Z",
+  "last_completed_at": "2026-11-22T23:03:06.771Z",
+  "last_summary": "CHAT B source-backed 40/40 PASS (delivery/feed 12/12); private ahead 13; journal §101 61481142b81cc0499b0a151dd42ddb4af41810c5. Build/Chrome/Edge NOT_RUN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "CHAT B canonical journal after verified private video queue, receipts and feed continuation"
+  "task": "Idle. B current source published; coordinator integrates only after native build and browser gates."
 }
