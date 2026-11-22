@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T20:19:29.091Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T20:24:51.892Z",
+  "state": "locked",
+  "owner": "chat-56-local-test13-checkpoint-20261123",
+  "acquired_at": "2026-11-22T21:09:31.713Z",
+  "expires_at": "2026-11-22T21:29:31.717Z",
+  "heartbeat_at": "2026-11-22T21:09:31.713Z",
   "last_completed_at": "2026-11-22T20:24:51.892Z",
   "last_summary": "CHAT55 §89: exact legacy extension 2.27 offline YouTube/context KB-add lost when XOD unavailable. Source-backed 6/14 before -> 14/14 patched PASS, all CHAT48–55 combined in 12 selected orders 104/104 PASS per order identical Git blob d758f794; tampered ZIP rejected. Patch/JS tests/Python gate and journal v86 §89 published/readback exact SHA PASS. Current private integrated Test13 unavailable; real A/B worktrees, beta, browser/Drive E2E not run; XOD release open. No main/Work/SOL/user-data changes.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Next continuation: reread live AGENTS/journal/lock; prioritize obtaining actual integrated private Test13 and beta. Otherwise verified distinct source-only product defect, never infer release completion."
+  "task": "Document user-verified local integrated XOD 3.0 release/xod-3.0 29f4bf9 ancestor c5a310f and tracked-clean state; plan safety audit before private GitHub migration. Docs only, no app/main/user data changes."
 }
