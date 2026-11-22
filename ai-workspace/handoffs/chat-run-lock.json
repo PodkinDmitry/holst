@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-A-20261123-native-camera-gate-97",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T22:48:08.887Z",
-  "expires_at": "2026-11-22T22:55:08.892Z",
-  "heartbeat_at": "2026-11-22T22:48:08.892Z",
-  "last_completed_at": "2026-11-22T22:43:22.007Z",
-  "last_summary": "CHAT B current source published: watch ACK + concurrency PASS 7/7 V8, two private changes, journal commit e5896d581cf9a07a85e8473fb1f5a316d956d22a; Chrome/Edge/build NOT_RUN.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T22:48:15.941Z",
+  "last_completed_at": "2026-11-22T22:48:15.941Z",
+  "last_summary": "CHAT A §98 native Node camera exact-source extracted 3/5 FAIL-before→5/5 PASS-after; current A full source/build browser gates BLOCKED_SOURCE_ACCESS; journal readback=true",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "CAS only for exact native camera test checkpoint §97"
+  "task": "Idle. Coordinator review A/B, native full XOD 3.0 build/Edge redraw+rollback remain OPEN."
 }
