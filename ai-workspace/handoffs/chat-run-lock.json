@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T19:18:53.564Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T19:22:57.394Z",
+  "state": "locked",
+  "owner": "chat-50-youtube-restore-state-local-data-20261122",
+  "acquired_at": "2026-11-22T19:27:13.344Z",
+  "expires_at": "2026-11-22T19:52:13.344Z",
+  "heartbeat_at": "2026-11-22T19:27:13.344Z",
   "last_completed_at": "2026-11-22T19:22:57.394Z",
   "last_summary": "CHAT49 §83: source-only legacy 2.27 ext224/background.js ytWatch/ywFlush progress lost due concurrent per-video writes and stale remote ACK. 9/12 baseline (3 expected FAIL), 12/12 patched PASS, combined queue CHAT48+CHAT49 in both orders 22/22 PASS. Patch/test/runner exact Git blobs and journal v80 §83 verified readback. Current private Test13 unavailable; browser beta, real Chrome/Edge, Drive and release NOT_RUN/OPEN; main/Work/SOL/user data unchanged.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Next user: read fresh AGENTS/journal/lock; prioritize actual integrated private Test13; otherwise independent high-value source-backed product fix, no duplicate infrastructure."
+  "task": "User-approved XOD independent lane B: exact-source 2.27 restoreState stale state/highlight overwrite targeted fail-before/pass-after, compatibility with CHAT48/49, patch/test/journal. No current Test13, main, user data, Work or SOL edits."
 }
