@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T22:40:38.607Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T22:40:49.169Z",
+  "state": "active",
+  "owner": "chat-b-youtube-watch-20261123",
+  "acquired_at": "2026-11-22T22:43:14.055Z",
+  "expires_at": "2026-11-22T22:46:14.055Z",
+  "heartbeat_at": "2026-11-22T22:43:14.055Z",
   "last_completed_at": "2026-11-22T22:40:49.169Z",
   "last_summary": "CHAT A source-verified 4 commits; journal §96; V8 data 8/8 camera 5/5, real browser/build/Drive OPEN",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Coordinator reviews A/B, integrates only after native build/bench/browser gates"
+  "task": "CHAT B private pilot/youtube-beta: write verified source-only watch checkpoint"
 }
