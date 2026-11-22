@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "locked",
-  "owner": "chat-53-area-snapshot-pending-integrity-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T19:59:13.272Z",
-  "expires_at": "2026-11-22T20:34:13.272Z",
-  "heartbeat_at": "2026-11-22T19:59:13.272Z",
-  "last_completed_at": "2026-11-22T19:50:44.149Z",
-  "last_summary": "CHAT52 §86: legacy v2.27 background.js offline state-backup lacked persistent pending/retry. Exact SHA source-only 6/11 baseline (5 FAIL) -> 11/11 after; all 5 CHAT48-52 patches 120/120 application orders byte-identical Git blob, 55/55 VM regressions on 7 orders, tampered ZIP rejected. Patch/test/gate Git blob and journal v83 §86 readback PASS. Private integrated Test13 still inaccessible; product A/B worktrees, real beta and browser/Drive E2E NOT_STARTED; release OPEN. No main/Work/SOL/user-data changes.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T20:08:03.986Z",
+  "last_completed_at": "2026-11-22T20:08:03.986Z",
+  "last_summary": "CHAT53 §87: exact legacy ext224/background.js screenshot area pending lost across tabs/early clear. Source-backed baseline 3/14, patched 14/14; combined 6 CHAT48–53 patches 720/720 orders identical Git blob 511e25b4; 69/69 regressions on 7 representative orders. ZIP tamper rejected; patch/JS test/Python exact blob and journal v84 §87 readback verified. No private Test13, true worktrees, browser E2E or beta; main/Work/SOL/user data untouched; XOD 3.0 release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Direct user continuation. Legacy 2.27 ext224/background.js screenshot area pending per-tab/early-clearing data loss exact-source patch and VM regressions; prior CHAT48-52 compatibility, publish under submissions/chat-53, journal §87, lock release. No main/Work/SOL/user data/private Test13."
+  "task": "Idle. Next user continuation: read live AGENTS, protocols, journal and CAS; prioritize actual integrated private Test13 and two real product worktrees. If still unavailable, distinct exact-source product bug with tested minimal patch; no false release claims."
 }
