@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T00:52:59.746Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T00:59:10.146Z",
+  "state": "running",
+  "owner": "chat-exec-001-cache-regression-20261122",
+  "acquired_at": "2026-11-22T01:03:02.796Z",
+  "expires_at": "2026-11-22T02:08:02.796Z",
+  "heartbeat_at": "2026-11-22T01:03:02.796Z",
   "last_completed_at": "2026-11-22T00:59:10.146Z",
-  "last_summary": "CHAT39: approved roadmap UX v3.2, protocol v3.3, AGENTS planner/executor roles, autonomous-worker v1.3, evidence-gate tool self-tested and published; journal v54 §31.7/§59 EXEC-001 PUBLISHED_NOT_RECEIVED. No executor chat/Work/main integration started.",
+  "last_summary": "CHAT-EXEC accepted EXEC-001: Test13 Drive checksum and real cache-cleanup regression diagnostics; no Work/main",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
