@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-43-focused-delta-reproducer-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T18:21:41.116Z",
-  "expires_at": "2026-11-22T19:11:41.120Z",
-  "heartbeat_at": "2026-11-22T18:21:41.116Z",
-  "last_completed_at": "2026-11-22T18:16:36.905Z",
-  "last_summary": "XOD continuation §76: checked-source-delta.zip exact SHA, 41-path git --numstat, 12 new Git blobs, 5 JS/2 Python syntax, 8 merge/filter Node VM cases: source-only 68/68 PASS; tampered ZIP FAIL. Script published ai-workspace/submissions/chat-42/checked_delta_gates.py commit fd9d56d; journal v73 readback. No original Preview1 baseline, product Test13 checkout/Drive/Win not tested; main/private source untouched. Next focused proven defect in source-only modules, no duplicate preflight.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T18:26:38.047Z",
+  "last_completed_at": "2026-11-22T18:26:38.047Z",
+  "last_summary": "CHAT43 §77 source-only Life OS trash/restoration concurrent edit loss reproduced on checked m_data300.js: fail-before 3/4, minimal patch, after 4/4; exact 569-line Git blob matched; git apply and JS syntax PASS. Patch fbf0bda, regression test d15fc07, journal v74 commit 1751488; readback PASS. Not integrated into private Test13 or product. Work/main/Windows checkout untouched. Next CHAT same conversation via button.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
   "task": "Direct continuation after §76: reproduce high-value defect in available m_data300.js/m_viewport300.js source-only delta, minimal fix and before/after test; publish only safe source-only changes, canonical journal, no Work/SOL/main."
 }
