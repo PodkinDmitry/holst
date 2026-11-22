@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T01:03:02.796Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T01:14:03.782Z",
+  "state": "running",
+  "owner": "chat-plan-exec002-browser-diagnostic-20261122",
+  "acquired_at": "2026-11-22T01:17:54.515Z",
+  "expires_at": "2026-11-22T02:12:54.515Z",
+  "heartbeat_at": "2026-11-22T01:17:54.515Z",
   "last_completed_at": "2026-11-22T01:14:03.782Z",
-  "last_summary": "EXEC-001 CHAT40: Test13 Drive owner-only ZIP SHA/CRC/431 manifest hashes PASS; localhost Chromium ERR_BLOCKED_BY_ADMINISTRATOR, original app_regression:1265 NOT EXECUTED; 8/8 genuine saveNow/scheduleSave Node VM PASS, actual browser root cause UNKNOWN. Metrics exact tool gate UNKNOWN, work usage unobserved; 3 safe SHA-verified files; journal v56 §60; no Work/main/SOL integration.",
+  "last_summary": "CHAT-PLAN prepares browser-enabled, no-Work diagnostic launch of CHAT14 on private Test13 copy; docs and safe runner only",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
