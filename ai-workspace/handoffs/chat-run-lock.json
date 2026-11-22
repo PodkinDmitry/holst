@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T21:09:31.713Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T21:10:05.579Z",
+  "state": "locked",
+  "owner": "chat-57-private-github-migration-safety-20261123",
+  "acquired_at": "2026-11-22T21:19:53.361Z",
+  "expires_at": "2026-11-22T21:39:53.365Z",
+  "heartbeat_at": "2026-11-22T21:19:53.361Z",
   "last_completed_at": "2026-11-22T21:10:05.579Z",
   "last_summary": "CHAT56 §90: user Windows local Git verifies integrated XOD 3.0 Test13 release/xod-3.0 HEAD 29f4bf9 descendant of c5a310f and tracked tree clean. Local source on user's PC, not remotely accessible to CHAT. GitHub journal v87 §90 readback; no product changes. Next gate local untracked/remotes/privacy safety scan, create private GitHub repo and push only vetted history; then real A/B worktrees and beta.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Await local read-only security/remote inspection before private GitHub migration. Do not push to public holst."
+  "task": "Checkpoint private repo and local Git audit, use prior §30.5 sanitized-source findings, plan safe current-HEAD migration; docs only, no product or public main changes."
 }
