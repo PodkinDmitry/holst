@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T23:27:59.102Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T23:28:12.171Z",
+  "state": "active",
+  "owner": "chat-b-kb-contract-journal-20261123",
+  "acquired_at": "2026-11-22T23:28:59.441Z",
+  "expires_at": "2026-11-22T23:31:59.441Z",
+  "heartbeat_at": "2026-11-22T23:28:59.441Z",
   "last_completed_at": "2026-11-22T23:28:12.171Z",
   "last_summary": "CHAT B actual kb-add contract source and tests privately published; 20/20 + security 14/14 PASS pre-publish; full regression and journal pending.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle; source published, final readback and §104 checkpoint pending."
+  "task": "CHAT B verified host kb-add contract, strict receipt and uncertain300 checkpoint"
 }
