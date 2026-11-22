@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "gate": "CHAT34 extended full Test13 Node VM regression",
+  "mode": "FULL_CHAT16_31",
+  "status": "PASS_SOURCE_ONLY_NOT_INTEGRATED",
+  "product_patches_modified": false,
+  "harnesses": {
+    "16": {
+      "status": "PASS",
+      "cases": 10
+    },
+    "17": {
+      "status": "PASS",
+      "cases": 8
+    },
+    "18": {
+      "status": "PASS",
+      "cases": 15
+    },
+    "19": {
+      "status": "PASS",
+      "cases": 18
+    },
+    "20": {
+      "status": "PASS",
+      "cases": 18
+    }
+  },
+  "original_chat19_historical_control": {
+    "status": "PASS",
+    "cases": 18
+  },
+  "chat19_full_stage_adapter": {
+    "mode": "test-only temporary copy",
+    "why": "CHAT25 adds bselDeleteBusy and moves active-board deletion last",
+    "changes": [
+      "declare bselDeleteBusy=false inside Node VM fixture",
+      "replace outdated successful bulk-delete expectation A,B with safety-specific B,A"
+    ],
+    "product_source_modified": false,
+    "published_original_harness_modified": false
+  },
+  "source_limitations": [
+    "synthetic Node VM, not Chrome/Edge E2E",
+    "not a real SOL checkout/IndexedDB/Drive integration"
+  ],
+  "patches": {
+    "count": 16,
+    "status": "PASS",
+    "all_sha_verified": true
+  },
+  "source_sha256": "03957e1e7a0a106c35b2ed5c20de208c101e26011265b2cdc3f0f1d82fdce959",
+  "actual_script": {
+    "result": "PASS",
+    "scripts": 1,
+    "script_bytes": 2209562
+  },
+  "chat16_20_node_cases": 69,
+  "chat21_31_node_cases": 338,
+  "build": {
+    "result": "PASS",
+    "stdout": "ok 5009092"
+  },
+  "full_inline_js_check": {
+    "result": "PASS",
+    "scripts": 1,
+    "script_bytes": 2209562
+  },
+  "total_node_vm_cases": 407
+}
