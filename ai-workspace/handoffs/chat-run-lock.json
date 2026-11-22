@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-plan-windows-patched-e2e-pass-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T12:09:52.787Z",
-  "expires_at": "2026-11-22T12:43:52.787Z",
-  "heartbeat_at": "2026-11-22T12:09:52.787Z",
-  "last_completed_at": "2026-11-22T12:04:13.965Z",
-  "last_summary": "CHAT-PLAN confirms user Windows Edge patched Test13 E2E PASS from actual safe_summary(5).json; updates canonical journal; no Work/main/SOL checkout changes",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T12:10:49.265Z",
+  "last_completed_at": "2026-11-22T12:10:49.265Z",
+  "last_summary": "CHAT-PLAN journal v67 §31.7.10 §70: user safe_summary(5) proves exact patched isolated Test13 real Windows/msedge strict app_regression exit0, changed_paths empty; no re-run needed. SOL checkout/Drive/IndexedDB/release NOT verified; no Work/main edits.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
