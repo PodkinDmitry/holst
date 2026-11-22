@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-exec-001-cache-regression-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T01:03:02.796Z",
-  "expires_at": "2026-11-22T02:08:02.796Z",
-  "heartbeat_at": "2026-11-22T01:03:02.796Z",
-  "last_completed_at": "2026-11-22T00:59:10.146Z",
-  "last_summary": "CHAT-EXEC accepted EXEC-001: Test13 Drive checksum and real cache-cleanup regression diagnostics; no Work/main",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T01:14:03.782Z",
+  "last_completed_at": "2026-11-22T01:14:03.782Z",
+  "last_summary": "EXEC-001 CHAT40: Test13 Drive owner-only ZIP SHA/CRC/431 manifest hashes PASS; localhost Chromium ERR_BLOCKED_BY_ADMINISTRATOR, original app_regression:1265 NOT EXECUTED; 8/8 genuine saveNow/scheduleSave Node VM PASS, actual browser root cause UNKNOWN. Metrics exact tool gate UNKNOWN, work usage unobserved; 3 safe SHA-verified files; journal v56 §60; no Work/main/SOL integration.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
