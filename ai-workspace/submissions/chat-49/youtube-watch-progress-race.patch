@@ -1,0 +1,64 @@
+diff --git a/ext224/background.js b/ext224/background.js
+index e2396d2..f755afb 100644
+--- a/ext224/background.js
++++ b/ext224/background.js
+@@ -263,24 +263,48 @@ async function queued(op, d) {
+ }
+ /* watched zones of videos: kept here, given to Холст */
+ function zMerge(a, b) { const L = (a || []).concat(b || []).map(z => [+z[0], +z[1]]).filter(z => z[1] > z[0]).sort((p, q) => p[0] - q[0]), out = []; for (const z of L) { const l = out[out.length - 1]; if (l && z[0] <= l[1] + 2) l[1] = Math.max(l[1], z[1]); else out.push(z.slice()); } return out; }
++/* A watch update and a remote acknowledgement must not overwrite another
++   update to the same video. Keep writes short; network I/O is outside the lock. */
++const ywWrites224 = new Map();
++function ywLocked224(k, fn) {
++  const prev = ywWrites224.get(k) || Promise.resolve();
++  const run = prev.then(fn, fn), tail = run.then(() => {}, () => {});
++  ywWrites224.set(k, tail);
++  tail.then(() => { if (ywWrites224.get(k) === tail) ywWrites224.delete(k); });
++  return run;
++}
++async function ywAck224(k, revision) {
++  return ywLocked224(k, async () => {
++    const cur = (await chrome.storage.local.get(k))[k];
++    if (cur && cur.dirty && (+cur.rev224 || 0) === revision) {
++      cur.dirty = 0;
++      await chrome.storage.local.set({ [k]: cur });
++    }
++  });
++}
+ async function ytWatch(d) {
+-  if (!d || !d.id) return { ok: false }; const k = 'yw:' + d.id, o = (await chrome.storage.local.get(k))[k] || { d: 0, z: [] };
+-  o.d = Math.max(o.d || 0, +d.d || 0); o.z = zMerge(o.z, d.z); o.at = Date.now(); o.dirty = 1;
+-  /* sessions: the first watch and rewatches — counters that only grow */
+-  if (d.sess) { o.cs = o.cs || {}; const c = o.cs[d.sess] || (o.cs[d.sess] = { ws: 0, rws: 0, at: Date.now() }); c.ws = Math.max(c.ws, +d.ws || 0); const add = Math.max(0, (+d.rws || 0) - c.rws); c.rws = Math.max(c.rws, +d.rws || 0); o.rws = (o.rws || 0) + add;
+-    const need = Math.min(30, (o.d || 60) * 0.5), needR = Math.min(30, (o.d || 60) * 0.3);
+-    if (!c.n && c.ws >= need) { c.n = 1; o.n = (o.n || 0) + 1; if (!o.f) o.f = Date.now(); }
+-    if (!c.r && c.rws >= needR) { c.r = 1; o.rw = (o.rw || 0) + 1; }
+-    const keys = Object.keys(o.cs).sort((a, b) => o.cs[b].at - o.cs[a].at); for (const x of keys.slice(6)) delete o.cs[x]; }
+-  await chrome.storage.local.set({ [k]: o });
++  if (!d || !d.id) return { ok: false }; const k = 'yw:' + d.id;
++  const o = await ywLocked224(k, async () => {
++    const o = (await chrome.storage.local.get(k))[k] || { d: 0, z: [] };
++    o.d = Math.max(o.d || 0, +d.d || 0); o.z = zMerge(o.z, d.z); o.at = Date.now(); o.dirty = 1;
++    /* sessions: the first watch and rewatches — counters that only grow */
++    if (d.sess) { o.cs = o.cs || {}; const c = o.cs[d.sess] || (o.cs[d.sess] = { ws: 0, rws: 0, at: Date.now() }); c.ws = Math.max(c.ws, +d.ws || 0); const add = Math.max(0, (+d.rws || 0) - c.rws); c.rws = Math.max(c.rws, +d.rws || 0); o.rws = (o.rws || 0) + add;
++      const need = Math.min(30, (o.d || 60) * 0.5), needR = Math.min(30, (o.d || 60) * 0.3);
++      if (!c.n && c.ws >= need) { c.n = 1; o.n = (o.n || 0) + 1; if (!o.f) o.f = Date.now(); }
++      if (!c.r && c.rws >= needR) { c.r = 1; o.rw = (o.rw || 0) + 1; }
++      const keys = Object.keys(o.cs).sort((a, b) => o.cs[b].at - o.cs[a].at); for (const x of keys.slice(6)) delete o.cs[x]; }
++    o.rev224 = (+o.rev224 || 0) + 1;
++    await chrome.storage.local.set({ [k]: o });
++    return o;
++  });
+   const pc = o.d ? Math.min(100, Math.round(o.z.reduce((s, z) => s + z[1] - z[0], 0) / o.d * 100)) : 0;
+-  try { const r = await relay('yt-watch', { id: d.id, d: o.d, z: o.z, n: o.n || 0, rw: o.rw || 0, rws: Math.round(o.rws || 0), f: o.f || 0 }, true); if (r && r.ok) { o.dirty = 0; await chrome.storage.local.set({ [k]: o }); } } catch (e) { /* later */ }
++  try { const r = await relay('yt-watch', { id: d.id, d: o.d, z: o.z, n: o.n || 0, rw: o.rw || 0, rws: Math.round(o.rws || 0), f: o.f || 0 }, true); if (r && r.ok) await ywAck224(k, o.rev224); } catch (e) { /* later */ }
+   return { ok: true, data: { pc, z: o.z, d: o.d, n: o.n || 0, rw: o.rw || 0 } };
+ }
+ async function ywFlush() {
+   const all = await chrome.storage.local.get(null), keys = Object.keys(all).filter(k => k.startsWith('yw:') && all[k] && all[k].dirty); if (!keys.length) return;
+   const id = await holstTab(false); if (!id) return;
+-  for (const k of keys.slice(0, 200)) { const o = all[k]; try { const r = await relay('yt-watch', { id: k.slice(3), d: o.d, z: o.z, n: o.n || 0, rw: o.rw || 0, rws: Math.round(o.rws || 0), f: o.f || 0 }, true); if (r && r.ok) { o.dirty = 0; await chrome.storage.local.set({ [k]: o }); } } catch (e) { return; } }
++  for (const k of keys.slice(0, 200)) { const o = all[k]; try { const r = await relay('yt-watch', { id: k.slice(3), d: o.d, z: o.z, n: o.n || 0, rw: o.rw || 0, rws: Math.round(o.rws || 0), f: o.f || 0 }, true); if (r && r.ok) await ywAck224(k, +o.rev224 || 0); } catch (e) { return; } }
+ }
+ 
+ /* ===================== v2.21 ===================== */
