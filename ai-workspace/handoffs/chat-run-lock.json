@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-44-focused-source-regression-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T18:29:11.961Z",
-  "expires_at": "2026-11-22T19:24:11.967Z",
-  "heartbeat_at": "2026-11-22T18:29:11.961Z",
-  "last_completed_at": "2026-11-22T18:26:38.047Z",
-  "last_summary": "CHAT43 §77 source-only Life OS trash/restoration concurrent edit loss reproduced on checked m_data300.js: fail-before 3/4, minimal patch, after 4/4; exact 569-line Git blob matched; git apply and JS syntax PASS. Patch fbf0bda, regression test d15fc07, journal v74 commit 1751488; readback PASS. Not integrated into private Test13 or product. Work/main/Windows checkout untouched. Next CHAT same conversation via button.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T18:33:46.367Z",
+  "last_completed_at": "2026-11-22T18:33:46.367Z",
+  "last_summary": "CHAT44 §78: exact original m_data300.js lost late edits during async Life OS save with no remote divergence. Fail-before 3/4, minimal source-only patch, after 4/4, JS/git apply PASS, combined CHAT43+CHAT44 both 4/4, tampered ZIP denied. Patch 78790bd, test c945302, journal v75 commit 17a207d verified. Not integrated into private Test13, XOD3 release OPEN. Work/SOL/main untouched.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
   "task": "Direct user continuation after §77: find next source-only high-impact reproducible defect in XOD checked delta, fail-before/pass-after minimal source-only patch and test; no Work/SOL/main/private Test13 write."
 }
