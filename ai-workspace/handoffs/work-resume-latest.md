@@ -2242,3 +2242,11 @@ Build требует Python 3.9+ и пустой/отсутствующий `dis
 CHAT41 exact target original `m_mark224.js` SHA256 `16bd12345b0477cf0fca0e601c382ca5786a92f1542cb199ed1065eea1627c3c` совпал; patch затрагивает другой файл и ещё не применён. Все 4 публичных файла CHAT41 и runner v4 получены заново с GitHub. Lease owner `sol-chat41-integration-20261122`, начало 2026-11-22T12:21:46.825Z.
 
 **Текущий шаг 1.0.2.2 · SOL:** отдельная reversible integration stage → exact apply/source gates → fast-forward в реальный checkout при отсутствии новых изменений → новая сборка/строгий browser gate уже на интегрированном коде → оставшиеся критерии 3.0 по §31.5/локальному ТЗ. CHAT16–31 остаются отдельными source-only кандидатами: их принятие не предполагается из факта CHAT41 PASS. Main и публичный полный source не изменяются; итог/риски/следующий владелец будут записаны здесь.
+
+### 71.1. Фактическая интеграция CHAT41 и полный browser gate — PASS
+
+На отдельном Git worktree `integration/chat41-20261122` exact patch проверен SHA256 и `git apply --check/apply/-R --check`. Локальный повтор CHAT41: **30/30 PASS** (5 исходных negative, 25 patched); сборка PASS. Сравнение tracked inputs: изменён только `v224/m_mark224.js`, итоговый SHA256 `026f89ba371720f6f5d01ddd6e829c5a5abcbb582d260e0516ddffd147cab810`; `tests/app_regression.py`, `v224/base29.html` и модуль с двумя SOL guards побайтно неизменны.
+
+После повторного чтения своей GitHub lease и проверки отсутствия новых tracked правок **реальная ветка `release/xod-3.0` fast-forward merge**: `542ddd0 → c5a310fa7c938d14aa77e68dbd564f39921b39b2`. Это локальный private commit, не опубликованный в GitHub. Новый build выполнен **после merge** из реального checkout: `ok 4983154`.
+
+**На этом интегрированном build реально выполнены** полный `app_regression.py` в Windows Edge (строгая CHAT14 диагностика только в отдельной тестовой копии) и Chrome (исходный byte-identical тест без диагностики): оба процесса **exit 0**, включая все проверки после cache assert. В тестах используются изолированные профили, synthetic board и clean legacy 2.24 fixture. Продуктовый assert не ослаблен и не изменён. Это больше, чем исходный isolated PASS §70, но пока НЕ release acceptance: продолжаются extension/recovery/camera/прочие ворота 3.0. Фактическая интеграция других CHAT16–31 не заявлена.
