@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T23:02:58.960Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T23:03:06.771Z",
+  "state": "active",
+  "owner": "chat-b-block-area-20261123",
+  "acquired_at": "2026-11-22T23:06:54.863Z",
+  "expires_at": "2026-11-22T23:10:54.867Z",
+  "heartbeat_at": "2026-11-22T23:06:54.863Z",
   "last_completed_at": "2026-11-22T23:03:06.771Z",
   "last_summary": "CHAT B source-backed 40/40 PASS (delivery/feed 12/12); private ahead 13; journal §101 61481142b81cc0499b0a151dd42ddb4af41810c5. Build/Chrome/Edge NOT_RUN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. B current source published; coordinator integrates only after native build and browser gates."
+  "task": "CHAT B private scoped block and area capture integrity"
 }
