@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T19:33:51.379Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T19:37:40.696Z",
+  "state": "locked",
+  "owner": "chat-52-extension-state-backup-persistence-20261122",
+  "acquired_at": "2026-11-22T19:42:38.301Z",
+  "expires_at": "2026-11-22T20:22:38.301Z",
+  "heartbeat_at": "2026-11-22T19:42:38.301Z",
   "last_completed_at": "2026-11-22T19:37:40.696Z",
   "last_summary": "CHAT51 §85: legacy v2.27 ext224/background.js ytBlock221 concurrent RMW and remote non-ok/ordering defect verified on exact SHA. Before 4/11 PASS (7 FAIL), after 11/11 PASS; all four CHAT48–51 source-only patches 24 orders * 44/44 PASS; changed ZIP rejected. Patch/test/gate exact published Git blobs and journal v82 §85 readback verified. Actual private integrated Test13 remains unavailable; real beta/browser E2E NOT_RUN; main/Work/SOL/user data unchanged; XOD 3.0 release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Next user action: fresh GitHub AGENTS/journal/lease; actual private Test13 if accessible; otherwise new verified high-value product-only source fix without repeat."
+  "task": "User-requested XOD continuation: exact legacy v2.27 background.js persisted extension state backup on offline/late ack, fail-before/pass-after, verify compatibility CHAT48-51, publish minimal patch+tests/journal, no main, Work/SOL, private Test13, user data"
 }
