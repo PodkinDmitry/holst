@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-A-20261123-foundation-checkpoint",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T22:40:38.607Z",
-  "expires_at": "2026-11-22T22:46:38.612Z",
-  "heartbeat_at": "2026-11-22T22:40:38.612Z",
-  "last_completed_at": "2026-11-22T22:36:14.576Z",
-  "last_summary": "Coordinator journal v91 §95 readback; user launched both chats, private A ahead 1 code commit, private B unchanged at observation; 8/37 roadmap updated and Claude audit v1.9 confirmed. No product code edited; lock released.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T22:40:49.169Z",
+  "last_completed_at": "2026-11-22T22:40:49.169Z",
+  "last_summary": "CHAT A source-verified 4 commits; journal §96; V8 data 8/8 camera 5/5, real browser/build/Drive OPEN",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Short exclusive journal checkpoint for private A commits"
+  "task": "Idle. Coordinator reviews A/B, integrates only after native build/bench/browser gates"
 }
