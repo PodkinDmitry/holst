@@ -1,0 +1,42 @@
+diff --git a/ext224/background.js b/ext224/background.js
+index e2396d2..919d5f9 100644
+--- a/ext224/background.js
++++ b/ext224/background.js
+@@ -384,12 +384,32 @@ async function ctxMenu221(id, info, tab, host) {
+   return false;
+ }
+ /* hiding a channel in the feed: here at once, in Холст for keeps */
++/* Multiple tabs can block/unblock together. Commit each local change before reading
++   the next state; preserve the order of remote actions for the same channel. */
++let ybWriteTail221 = Promise.resolve();
++const ybDeliveryTails221 = new Map();
++function ybLocalWrite221(d) {
++  const write = async () => {
++    const B = (await chrome.storage.local.get('yb221')).yb221 || {};
++    if (d.off) delete B[d.ch]; else B[d.ch] = { n: d.n || d.ch, until: +d.until || 0, at: Date.now(), url: d.url || '' };
++    await chrome.storage.local.set({ yb221: B });
++  };
++  const result = ybWriteTail221.then(write, write);
++  ybWriteTail221 = result.then(() => {}, () => {});
++  return result;
++}
++function ybDeliverOrdered221(ch, op, d) {
++  const previous = ybDeliveryTails221.get(ch) || Promise.resolve();
++  const result = previous.then(() => queued(op, d), () => queued(op, d));
++  const tail = result.then(() => {}, () => {});
++  ybDeliveryTails221.set(ch, tail);
++  tail.then(() => { if (ybDeliveryTails221.get(ch) === tail) ybDeliveryTails221.delete(ch); });
++  return result;
++}
+ async function ytBlock221(d) {
+-  if (!d || !d.ch) return { ok: false }; const B = (await chrome.storage.local.get('yb221')).yb221 || {};
+-  if (d.off) delete B[d.ch]; else B[d.ch] = { n: d.n || d.ch, until: +d.until || 0, at: Date.now(), url: d.url || '' };
+-  await chrome.storage.local.set({ yb221: B });
+-  try { await relay(d.off ? 'yt-unblock' : 'yt-block', d, true); } catch (e) { await queued(d.off ? 'yt-unblock' : 'yt-block', d); }
+-  return { ok: true };
++  if (!d || !d.ch) return { ok: false };
++  await ybLocalWrite221(d);
++  return ybDeliverOrdered221(d.ch, d.off ? 'yt-unblock' : 'yt-block', d);
+ }
+ 
+ /* v2.23: the formatting of a Whimsical board — the board opens in a background tab, whim.js takes the copy */
