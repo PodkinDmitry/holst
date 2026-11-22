@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T19:59:13.272Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T20:08:03.986Z",
+  "state": "locked",
+  "owner": "chat-54-bridge-fetch-sender-validation-20261122",
+  "acquired_at": "2026-11-22T20:12:27.686Z",
+  "expires_at": "2026-11-22T20:47:27.686Z",
+  "heartbeat_at": "2026-11-22T20:12:27.686Z",
   "last_completed_at": "2026-11-22T20:08:03.986Z",
   "last_summary": "CHAT53 §87: exact legacy ext224/background.js screenshot area pending lost across tabs/early clear. Source-backed baseline 3/14, patched 14/14; combined 6 CHAT48–53 patches 720/720 orders identical Git blob 511e25b4; 69/69 regressions on 7 representative orders. ZIP tamper rejected; patch/JS test/Python exact blob and journal v84 §87 readback verified. No private Test13, true worktrees, browser E2E or beta; main/Work/SOL/user data untouched; XOD 3.0 release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Next user continuation: read live AGENTS, protocols, journal and CAS; prioritize actual integrated private Test13 and two real product worktrees. If still unavailable, distinct exact-source product bug with tested minimal patch; no false release claims."
+  "task": "Source-backed v2.27 ext224/background.js xfetch/kbfetch sender URL hostname/path validation; exact-source fail-before/after, verify CHAT48-53 patch compatibility, journal §88, release; no Work/SOL/main/Test13/user data."
 }
