@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T11:16:08.664Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T11:16:55.156Z",
+  "state": "running",
+  "owner": "chat-plan-playwright-install-20261122",
+  "acquired_at": "2026-11-22T11:28:31.240Z",
+  "expires_at": "2026-11-22T11:46:31.240Z",
+  "heartbeat_at": "2026-11-22T11:28:31.240Z",
   "last_completed_at": "2026-11-22T11:16:55.156Z",
-  "last_summary": "CHAT-PLAN journal v61 §31.7.6 §65: verified user Windows runner v3 schema3 ZIP+strict diagnostics PASS, preflight MISSING_PLAYWRIGHT; single official pip dependency step before rerun; no Windows work, Work, main, SOL checkout changed.",
+  "last_summary": "CHAT-PLAN: user screenshot shows pip successfully installed Playwright 1.65.2 on Windows; document as reported, browser E2E not yet run",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
