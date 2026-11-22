@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "locked",
-  "owner": "chat-49-youtube-watch-pending-race-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T19:18:53.564Z",
-  "expires_at": "2026-11-22T19:43:53.564Z",
-  "heartbeat_at": "2026-11-22T19:18:53.564Z",
-  "last_completed_at": "2026-11-22T19:16:34.563Z",
-  "last_summary": "CHAT48 §82: ext224/background.js (verified legacy 2.27 devkit) source-only queue RMW/flush race fix; 5/10 baseline, 10/10 after; exact zip SHA and Git blob, patch, VM test and reproducible runner published/readback PASS. Integration into current private Test13, real YouTube beta, browser/Drive E2E NOT_RUN; main/Work/SOL/user data untouched. Release open.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T19:22:57.394Z",
+  "last_completed_at": "2026-11-22T19:22:57.394Z",
+  "last_summary": "CHAT49 §83: source-only legacy 2.27 ext224/background.js ytWatch/ywFlush progress lost due concurrent per-video writes and stale remote ACK. 9/12 baseline (3 expected FAIL), 12/12 patched PASS, combined queue CHAT48+CHAT49 in both orders 22/22 PASS. Patch/test/runner exact Git blobs and journal v80 §83 verified readback. Current private Test13 unavailable; browser beta, real Chrome/Edge, Drive and release NOT_RUN/OPEN; main/Work/SOL/user data unchanged.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Source-only fix legacy 2.27 ext224/background.js YouTube watch progress RMW and late-ACK overwrite; fail-before/pass-after test, patch, existing journal; no Work/SOL/main/Test13/user data."
+  "task": "Idle. Next user: read fresh AGENTS/journal/lock; prioritize actual integrated private Test13; otherwise independent high-value source-backed product fix, no duplicate infrastructure."
 }
