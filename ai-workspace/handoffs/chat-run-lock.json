@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "chat-b-youtube-labels-presets-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T22:49:42.975Z",
-  "expires_at": "2026-11-22T22:52:42.980Z",
-  "heartbeat_at": "2026-11-22T22:49:42.975Z",
-  "last_completed_at": "2026-11-22T22:48:15.941Z",
-  "last_summary": "CHAT A §98 native Node camera exact-source extracted 3/5 FAIL-before→5/5 PASS-after; current A full source/build browser gates BLOCKED_SOURCE_ACCESS; journal readback=true",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T22:49:50.766Z",
+  "last_completed_at": "2026-11-22T22:49:50.766Z",
+  "last_summary": "CHAT B verified labels 12/12 and watch 7/7 source V8; private branch ahead 6; journal §99 commit 0b3e0300e64029f71aa0aee4b81e1a670bec4c60; browser/build NOT_RUN",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "CHAT B source-based labels and presets verification checkpoint"
+  "task": "Idle; B continues privately with preset UI/none semantics; coordinator integration and browser gates remain open."
 }
