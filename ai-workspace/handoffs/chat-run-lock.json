@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "locked",
-  "owner": "chat-56-local-test13-checkpoint-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T21:09:31.713Z",
-  "expires_at": "2026-11-22T21:29:31.717Z",
-  "heartbeat_at": "2026-11-22T21:09:31.713Z",
-  "last_completed_at": "2026-11-22T20:24:51.892Z",
-  "last_summary": "CHAT55 §89: exact legacy extension 2.27 offline YouTube/context KB-add lost when XOD unavailable. Source-backed 6/14 before -> 14/14 patched PASS, all CHAT48–55 combined in 12 selected orders 104/104 PASS per order identical Git blob d758f794; tampered ZIP rejected. Patch/JS tests/Python gate and journal v86 §89 published/readback exact SHA PASS. Current private integrated Test13 unavailable; real A/B worktrees, beta, browser/Drive E2E not run; XOD release open. No main/Work/SOL/user-data changes.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T21:10:05.579Z",
+  "last_completed_at": "2026-11-22T21:10:05.579Z",
+  "last_summary": "CHAT56 §90: user Windows local Git verifies integrated XOD 3.0 Test13 release/xod-3.0 HEAD 29f4bf9 descendant of c5a310f and tracked tree clean. Local source on user's PC, not remotely accessible to CHAT. GitHub journal v87 §90 readback; no product changes. Next gate local untracked/remotes/privacy safety scan, create private GitHub repo and push only vetted history; then real A/B worktrees and beta.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Document user-verified local integrated XOD 3.0 release/xod-3.0 29f4bf9 ancestor c5a310f and tracked-clean state; plan safety audit before private GitHub migration. Docs only, no app/main/user data changes."
+  "task": "Idle. Await local read-only security/remote inspection before private GitHub migration. Do not push to public holst."
 }
