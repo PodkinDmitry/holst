@@ -116,5 +116,40 @@ class PilotTest(unittest.TestCase):
         self.assertEqual((rc,data["status"]),(2,"NO_PRODUCT_CHANGES"))
 
 
+    def test_audit_blocks_uncommitted_app_change(self):
+        self.prepare(apply=True,sha=self.sha)
+        self.change("youtube","v224/xod-youtube-table300.js","youtube\n")
+        (self.out/"app"/"v224/m_data300.js").write_text("uncommitted work\n")
+        rc,data=self.audit()
+        self.assertEqual((rc,data["status"]),(2,"BLOCKED"))
+        self.assertIn("dirty", data["error"].lower())
+
+    def test_audit_blocks_untracked_youtube_change(self):
+        self.prepare(apply=True,sha=self.sha)
+        self.change("app","v224/m_data300.js","app\n")
+        (self.out/"youtube"/"new-untracked.js").write_text("uncommitted work\n")
+        rc,data=self.audit()
+        self.assertEqual((rc,data["status"]),(2,"BLOCKED"))
+        self.assertIn("dirty", data["error"].lower())
+
+    def test_audit_blocks_diverged_baseline(self):
+        self.prepare(apply=True,sha=self.sha)
+        # Independent root commit (no shared ancestor), only on synthetic repo.
+        t=cmd("git","-C",str(self.repo),"rev-parse","HEAD^{tree}").stdout.strip()
+        new=cmd("git","-C",str(self.repo),"commit-tree",t,"-m","orphan").stdout.strip()
+        self.assertEqual(cmd("git","-C",str(self.repo),"branch","orphan",new).returncode,0)
+        rc,data=self.runscript("audit","--repo",str(self.repo),"--base",self.sha,"--app-ref","orphan","--youtube-ref","pilot/youtube-beta")
+        self.assertEqual((rc,data["status"]),(2,"BLOCKED"))
+        self.assertIn("ancestor",data["error"].lower())
+
+    def test_audit_blocks_missing_worktree(self):
+        self.prepare(apply=True,sha=self.sha)
+        self.assertEqual(cmd("git","-C",str(self.repo),"worktree","remove",str(self.out/"youtube")).returncode,0)
+        rc,data=self.audit()
+        self.assertEqual((rc,data["status"]),(2,"BLOCKED"))
+        self.assertIn("worktree",data["error"].lower())
+
+
+
 if __name__ == "__main__":
     unittest.main()
