@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T00:13:44.322Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T00:14:52.832Z",
+  "state": "running",
+  "owner": "chat36-xod-flat-timeline-metrics-20261122",
+  "acquired_at": "2026-11-22T00:27:57.614Z",
+  "expires_at": "2026-11-22T01:32:57.614Z",
+  "heartbeat_at": "2026-11-22T00:27:57.614Z",
   "last_completed_at": "2026-11-22T00:14:52.832Z",
-  "last_summary": "CHAT35 documentation-only: canonical §31.5 and §55 recalculated 3.0 A–G 22–47 active hr + risk reserve; XOD3.0–3.6 231–483h scenario; CHAT default, Sol 0–2 conditional, Astra 0–1 conditional; journal v50; implementation/browser/acceptance open.",
+  "last_summary": "CHAT36 protocol/roadmap presentation: flat connected chronology and evidence-scored scenario estimates; no app code Work/main",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
