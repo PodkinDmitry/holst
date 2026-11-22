@@ -203,7 +203,7 @@ def analyze(payload):
     evidence_weights['calibration'] = 0 if best_n < 3 else (.5 if best_n < 10 else 1.)
     idx = round(sum(WEIGHTS[k] * evidence_weights[k] for k in WEIGHTS), 1)
     accepted = (g['result'] == 'TARGET_ALL_PASS' and evidence_weights['scope'] == 1
-                and g['required_total'] > 0)
+                and g['required_total'] > 0 and g['target_e2e_coverage'] > 0)
     return {'schema': SCHEMA, 'scope_version': scope, 'gate_status': g['result'],
             'target_progress_confirmed_pct': g['progress_confirmed_pct'],
             'target_progress_upper_bound_pct': g['progress_upper_bound_pct'],
@@ -234,6 +234,14 @@ def self_test():
     r = analyze(b)
     assert (r['target_progress_confirmed_pct'], r['target_progress_upper_bound_pct']) == (37.5, 87.5)
     assert not r['release_gates_all_pass']
+    # All target PASS without a single real E2E gate must not become release-ready.
+    no_e2e = {'schema': 1, 'scope_version': 'synthetic-test',
+              'evidence': {'scope': {'evidence_ref': 'synthetic:approved'}},
+              'gates': [{'id': 'only-target-unit', 'weight': 1, 'status': 'PASS',
+                         'environment': 'target', 'evidence_ref': 'synthetic:target-unit'}]}
+    assert analyze(no_e2e)['release_gates_all_pass'] is False
+    no_e2e['gates'][0]['e2e'] = True
+    assert analyze(no_e2e)['release_gates_all_pass'] is True
     b['work_events'] = [
         {'mode': 'WORK_SOL', 'reset_between': False,
          'before': {'observed_at': '2026-11-22T12:00:00+03:00', 'weekly_remaining_pct': 80.,
