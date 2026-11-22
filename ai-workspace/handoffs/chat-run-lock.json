@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat36-xod-flat-timeline-metrics-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T00:27:57.614Z",
-  "expires_at": "2026-11-22T01:32:57.614Z",
-  "heartbeat_at": "2026-11-22T00:27:57.614Z",
-  "last_completed_at": "2026-11-22T00:14:52.832Z",
-  "last_summary": "CHAT36 protocol/roadmap presentation: flat connected chronology and evidence-scored scenario estimates; no app code Work/main",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T00:32:59.402Z",
+  "last_completed_at": "2026-11-22T00:32:59.402Z",
+  "last_summary": "CHAT36: protocol v3.0 and journal §31.6/§56 updated; flat connected chrono, 8 stages+37 child steps, 6 columns with evidence index; scenario route 231–483h, modeled progress 0.8–8.6%, work 4.6–85.7%, accuracy index 17%; no SOL source/Work/main edits.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
