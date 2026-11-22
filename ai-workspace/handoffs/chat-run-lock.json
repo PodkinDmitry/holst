@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-plan-user-directed-system-simplification-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T15:12:43.809Z",
-  "expires_at": "2026-11-22T15:56:43.809Z",
-  "heartbeat_at": "2026-11-22T15:12:43.809Z",
-  "last_completed_at": "2026-11-22T12:10:49.265Z",
-  "last_summary": "Direct user correction: SOL unavailable because premium weekly quota exhausted. Reclaim expired SOL lease for documentation-only safe standards update, no product checkout/main edits.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T15:15:36.195Z",
+  "last_completed_at": "2026-11-22T15:15:36.195Z",
+  "last_summary": "User-confirmed SOL unavailable due premium quota exhausted. Docs-only approved simplification published: AGENTS.md ACTIVE, worker v1.4, response format v3.6 §4.15, journal v69 §31.7.11 & §72. Roadmap scenario 3.0 9–23h +5–10 reserve, full 218–459h. XOD 3.0 release OPEN, Work checkout untouched, 0% quota user-reported.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
   "task": "User-directly approved XOD simplification, quota standards, 6-min CHAT constraint, pending approvals, updated roadmap. Documentation-only; user reports SOL unavailable/quota exhausted; existing SOL lease expired."
 }
