@@ -150,6 +150,5 @@ class PilotTest(unittest.TestCase):
         self.assertIn("worktree",data["error"].lower())
 
 
-
 if __name__ == "__main__":
     unittest.main()
