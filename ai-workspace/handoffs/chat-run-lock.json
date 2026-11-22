@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-plan-browser-diag-v2-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T10:22:50.557Z",
-  "expires_at": "2026-11-22T11:07:50.557Z",
-  "heartbeat_at": "2026-11-22T10:22:50.557Z",
-  "last_completed_at": "2026-11-22T10:12:25.167Z",
-  "last_summary": "CHAT-PLAN: repair Windows diagnostic launcher PRECONDITION_FAILED/FileNotFoundError from user safe_summary; no Work/main",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T10:24:59.182Z",
+  "last_completed_at": "2026-11-22T10:24:59.182Z",
+  "last_summary": "CHAT-PLAN v59 §31.7.4/§63: user Windows safe_summary source PASS, FileNotFoundError before browser; offline Git-free browser diag v2 published SHA-verified, strict source/test/build PASS, cloud browser localhost blocked, Windows rerun NOT_STARTED. No Work/main changes.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
