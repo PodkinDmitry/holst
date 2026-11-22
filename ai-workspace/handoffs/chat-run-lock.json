@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "chat-b-kb-contract-journal-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T23:28:59.441Z",
-  "expires_at": "2026-11-22T23:31:59.441Z",
-  "heartbeat_at": "2026-11-22T23:28:59.441Z",
-  "last_completed_at": "2026-11-22T23:28:12.171Z",
-  "last_summary": "CHAT B actual kb-add contract source and tests privately published; 20/20 + security 14/14 PASS pre-publish; full regression and journal pending.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T23:29:07.507Z",
+  "last_completed_at": "2026-11-22T23:29:07.507Z",
+  "last_summary": "CHAT B 86/86 PASS source-backed; private ahead 26; journal §104 8eefeecf01e17924e2c2bcf444f943544648f2f4; host read-only kb lookup BLOCKED, build/MV3 NOT_RUN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "CHAT B verified host kb-add contract, strict receipt and uncertain300 checkpoint"
+  "task": "Idle. B source and tests published; kb-add exact reconciliation blocked by existing host contract."
 }
