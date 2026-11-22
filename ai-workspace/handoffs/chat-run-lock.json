@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-20261123-private-push-readback-01",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T22:22:22.462Z",
-  "expires_at": "2026-11-22T22:34:22.462Z",
-  "heartbeat_at": "2026-11-22T22:22:22.462Z",
-  "last_completed_at": "2026-11-22T21:53:39.992Z",
-  "last_summary": "CHAT58 §92: public ai-workspace/tools/xod-publish-sanitized.ps1 published verified blob e71220feb6505b70196545c863aedb94cb9e13dc; one-line authenticated Windows execution after download Git SHA check. Owner-only cleaned baseline ZIP hash matched 431/431 manifest. User local export ready, no remote source push or runtime test yet. Journal v89 §92 readback.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T22:22:50.914Z",
+  "last_completed_at": "2026-11-22T22:22:50.914Z",
+  "last_summary": "CHAT verified private xod-private release/xod-3.0 push c6cfb259; GitHub commit and 432-row checksum manifest readback, journal §93 commit ddceb9a6 verified. Local Test13 and holst/main untouched. Release/Drive gates remain open.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Verify xod-private baseline push c6cfb259 and append factual record to canonical journal; no product code changes."
+  "task": "Idle. Private migration done. Next: inspect private repo, plan safe A/B worktrees, test build/E2E and remaining Drive gate; check journal and lock before changes."
 }
