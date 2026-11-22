@@ -1,0 +1,13 @@
+diff --git a/ext224/background.js b/ext224/background.js
+--- a/ext224/background.js
++++ b/ext224/background.js
+@@ -30,3 +30,3 @@ chrome.runtime.onMessage.addListener((msg, sender, reply) => {
+   if (QUEUED.includes(msg.op)) { queued(msg.op, msg.data).then(reply, e => reply({ ok: false, data: String(e && e.message || e) })); return true; }
+-  if (msg.op === 'kb-add') { relay('kb-add', msg.data).then(async r => { const id = await holstTab(false); if (id) { const t = await chrome.tabs.update(id, { active: true }); chrome.windows.update(t.windowId, { focused: true }).catch(() => {}); } reply(r); }, e => reply({ ok: false, data: String(e && e.message || e) })); return true; }
++  if (msg.op === 'kb-add') { queued('kb-add', msg.data).then(async r => { if (r && r.ok && !r.queued) { const id = await holstTab(false); if (id) { const t = await chrome.tabs.update(id, { active: true }); chrome.windows.update(t.windowId, { focused: true }).catch(() => {}); } } reply(r); }, e => reply({ ok: false, data: String(e && e.message || e) })); return true; }
+   relay(msg.op, msg.data).then(reply, e => reply({ ok: false, data: String(e && e.message || e) }));
+@@ -372,3 +372,3 @@ async function ctxMenu221(id, info, tab, host) {
+   if (id === 'link-task') { mark(tab.id, await clip(Object.assign({}, base, { title: 'Прочитать: ' + (text || info.linkUrl), url: info.linkUrl, where: { lo: 1 }, ek: 'task' }))); return true; }
+-  if (id === 'link-kb') { let r; try { r = await relay('kb-add', { url: info.linkUrl }); } catch (e) { r = { ok: false }; } mark(tab.id, r); return true; }
++  if (id === 'link-kb') { let r; try { r = await queued('kb-add', { url: info.linkUrl }); } catch (e) { r = { ok: false, data: String(e && e.message || e) }; } mark(tab.id, r); return true; }
+   if (id === 'img-lo') { let image = ''; try { image = await img64221(info.srcUrl); } catch (e) { image = ''; } mark(tab.id, await clip(Object.assign({}, base, { noEmbed: 1, image, where: { lo: 1 }, ek: 'resource' }))); return true; }
