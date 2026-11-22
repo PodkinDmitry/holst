@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T11:28:31.240Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T11:29:08.858Z",
+  "state": "running",
+  "owner": "chat-plan-browser-opt224-rootcause-20261122",
+  "acquired_at": "2026-11-22T11:34:58.204Z",
+  "expires_at": "2026-11-22T12:08:58.204Z",
+  "heartbeat_at": "2026-11-22T11:34:58.204Z",
   "last_completed_at": "2026-11-22T11:29:08.858Z",
-  "last_summary": "CHAT-PLAN journal v62 §31.7.7 §66: user Windows pip success playwright 1.65.2 greenlet 3.5.6; Windows Edge/localhost browser retest not yet run; await fresh safe_summary.json, no Work/main changes.",
+  "last_summary": "CHAT-PLAN: latest Windows real browser diff opt224 vs missing; source-backed proof getter mutation, prepare bounded CHAT-EXEC root cause fix; no main/Work",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
