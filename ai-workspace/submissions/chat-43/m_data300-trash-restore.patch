@@ -1,0 +1,18 @@
+diff --git a/v224/m_data300.js b/v224/m_data300.js
+--- a/v224/m_data300.js
++++ b/v224/m_data300.js
+@@ -73,7 +73,13 @@
+     }
+     const active = b.record || c.record, removal = b.record ? c : b;
+     // Clearing the trash in a stale tab must not undo an already committed restore.
+-    if (!a.record && c.record) return c;
++    if (!a.record && c.record) {
++      // A restore from another tab must not silently discard newer edits
++      // to the trashed version still open in this tab.
++      if (b.trash && !sameBoardValue300(a.trash, b.trash))
++        copies.push({title:b.trash.title || id, value:b.trash});
++      return c;
++    }
+     const deleted = Math.max(removal.deleted || 0, (active.u || 0) + 1);
+     if (removal.trash) return {deleted, trash:mergeRecord(before, b.record || b.trash, c.record || c.trash)};
+     copies.push({title:active.title || id, value:active});
