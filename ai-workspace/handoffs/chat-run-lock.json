@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-exec-003-mkopt-readonly-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T11:40:11.050Z",
-  "expires_at": "2026-11-22T12:48:11.050Z",
-  "heartbeat_at": "2026-11-22T11:40:11.050Z",
-  "last_completed_at": "2026-11-22T11:36:09.929Z",
-  "last_summary": "EXEC-003: read-only mkOpt224 and pointerup source-backed fix; no main/Work/SOL checkout",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T11:47:34.478Z",
+  "last_completed_at": "2026-11-22T11:47:34.478Z",
+  "last_summary": "EXEC-003 CHAT41: genuine Test13 mkOpt224 pure getter + no-drag pointerup guard + explicit checkbox writes, 5 original negative and 25 patched source Node VM PASS (30/30); 3 apply checks PASS, isolated build PASS, strict browser assert unchanged; 4 safe SHA-verified files; journal v65 §68. Chromium localhost BLOCKED; Windows Edge target E2E NOT VERIFIED; no Work/main/SOL integration.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
