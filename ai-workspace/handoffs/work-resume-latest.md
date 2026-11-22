@@ -2,7 +2,7 @@
 
 **Состояние агентного цикла:** `SOL_STATE=SLEEPING` (недоступен по исчерпанию квоты — прямое сообщение пользователя 22.11.2026) · `WORK_EXECUTION=COMPLETED` (**сеанс SOL прекращён по квоте, НЕ означает, что задачи/релиз завершены**) · `CURRENT_AGENT=CHAT` · `NEXT_AGENT=CHAT`. Последнее выполненное SOL — фактический локальный checkpoint §71; дальнейшее исполнение Work не подтверждено. По прямому поручению пользователя текущий CHAT назначен единственным ответственным исполнителем документационной реорганизации. Код локального checkout SOL и main не изменялись. Прежний SOL lease истёк 14:54:16 UTC, захвачен по CAS в 15:12:43 UTC для docs-only; не считать expired lease доказательством закрытия продуктовой работы.
 
-**Версия журнала 86, 22.11.2026.** Тест 13: исходный локальный SHA `542ddd0`, очищенный приватный ZIP commit `6429ad6`. **Актуальные инженерные результаты — §§32–33, §35–71; новый операционный план — §31.7.12 / §§72–89, прежние сценарии §§31.5–31.7 как история**; полный состав 3.0–3.6 — §27; историческая цель/бюджет до получения источника — §28; модельная маршрутизация — §29; передача и тесты — §30.5–30.6. Сведения §§2–23 относятся к моменту каждой из исторических записей.
+**Версия журнала 87, 23.11.2026.** Тест 13: исходный локальный SHA `542ddd0`, очищенный приватный ZIP commit `6429ad6`. **Актуальные инженерные результаты — §§32–33, §35–71; новый операционный план — §31.7.12 / §§72–90, прежние сценарии §§31.5–31.7 как история**; полный состав 3.0–3.6 — §27; историческая цель/бюджет до получения источника — §28; модельная маршрутизация — §29; передача и тесты — §30.5–30.6. Сведения §§2–23 относятся к моменту каждой из исторических записей.
 
 ## 1. Каскад и текущий шаг
 
@@ -2751,3 +2751,26 @@ CHAT41 exact target original `m_mark224.js` SHA256 `16bd12345b0477cf0fca0e601c38
 **Фактические статусы:** `B_LEGACY_2_27_SOURCE_ONLY=VERIFIED_PUBLISHED`; `CURRENT_PRIVATE_TEST13=NOT_AVAILABLE_HERE`; `A/B_PRODUCT_WORKTREES=NOT_CREATED`; `PRODUCT_INTEGRATED=NO`; `CHROME_EDGE_MV3_E2E=NOT_RUN`; `YOUTUBE_BETA=NOT_BUILT`; `DRIVE_LIVE_E2E=OPEN_GATE`; `XOD_3_0_RELEASE=OPEN`. Уже утверждённый двухпоточный пилот не отменён. Патч не применялся к приватной 3.0 без проверки фактического текущего HEAD, SOL fixes и возможного нового исходного кода.
 
 **Следующий шаг/владелец:** следующий доступный 🟦 CHAT после прямого пользовательского действия. Сначала свежие AGENTS/journal/lease; при появлении real Test13 сравнить SHA и сохранить SOL изменения, безопасно интегрировать релевантные патчи, затем build и отдельный test profile Chrome/Edge, backup/rollback и beta. Если source остаётся недоступным, только новый independently validated product bug на verified legacy source, НЕ имитация интеграции или дублирующая инфраструктура. После readback публикации и журнала освободить CAS.
+
+## 90. CHAT56 — ПОДТВЕРЖДЁН НАСТОЯЩИЙ ЛОКАЛЬНЫЙ ИНТЕГРИРОВАННЫЙ XOD 3.0 НА WINDOWS ПК (23.11.2026)
+
+**Новое прямое свидетельство пользователя, не удалённое чтение CHAT:** обнаружена папка **\`C:\Users\дима\Documents\Codex\2026-11-18\xod-holst\work\xod-3.0-release\`**, PowerShell \`Test-Path=True\`, \`v224\m_data300.js=True\`, \`.git/HEAD=ref: refs/heads/release/xod-3.0\`, ref SHA \`29f4bf9a2b6655f60d8877cf21fe604e51254ca7\`. Пользователь установил Git for Windows 2.56.1 через winget (SHA установщика проверен). Git предупредил \`dubious ownership\`: владелец папки — \`CodexSandboxOffline\`; текущий Windows пользователь имеет другой SID. Без глобального ослабления безопасности повторен read-only \`git -c safe.directory=<exact-path> -C <path>\` и пользователь предоставил действительные результаты:
+
+\`\`\`
+29f4bf9 (HEAD -> release/xod-3.0) Add isolated MV3 delivery crash and markup persistence acceptance
+c5a310f (integration/chat41-20261122) Integrate CHAT41 pure markup reads and guarded pointerup
+542ddd0 Exercise backup and delivery in branded Chrome and Edge
+9a16cb7 Preserve and retry extension settings backups after a failed write
+3915d1b Group YouTube table rows by saved view property
+git status --short --branch --untracked-files=no: ## release/xod-3.0
+git cat-file -t c5a310fa7c938d14aa77e68dbd564f39921b39b2: commit
+git merge-base --is-ancestor c5a310fa7c938d14aa77e68dbd564f39921b39b2 HEAD: exit 0 / True
+\`\`\`
+
+**Фактическое изменение по сравнению с §§71/80–89:** текущая интегрированная Test13 **существует на реальном Windows ПК пользователя**, HEAD 29f4bf9 (после SOL integration c5a310f). ЧАТ и GitHub коннектор всё ещё **не имеют прямого доступа** к \`C:\Users\...\` в этой среде. Это **локально подтверждённый пользователем Git**, не независимый fetch всех файлов: tracked files нет изменений согласно \`status -uno\`; **untracked files, remotes, полная история на приватные данные/секреты и текущая сборка остаются НЕПРОВЕРЕННЫ**. Проводившиеся ранее реальные Windows browser PASS относятся к §71, а не автоматически к новому HEAD 29f4bf9.
+
+**Проверка целевого GitHub:** подключённый \`PodkinDmitry/holst\` имеет visibility \`public\`, \`main\` не содержит integrated source. По поиску подключённых репозиториев \`xod\` приватного репозитория не видно; действие create private repository доступным текущему CHAT GitHub-коннектором не подтверждено. **Не push в публичный holst; не заливать всю 1.5 GB рабочую папку с потенциальными профилями и данными.** Известен исторический проверенный очищенный snapshot в owner-only Drive \`XOD-Test13-source-6429ad6.zip\`, но он **старее** c5a310f/29f4bf9 и не должен заменять текущий checkout.
+
+**Следующий обязательный gate перед приватной публикацией:** read-only \`git status\` с untracked, список Git remotes без возможных токенов, проверка файлов в HEAD и всей переносимой истории на секреты/личные данные/объём; при необходимости подготовить изолированный sanitized Git snapshot без порчи исходного checkout. После проверки — GitHub PRIVATE repo, один подтверждённый baseline, две независимые product worktrees (A foundation / B YouTube beta), реальные тесты/build/rollback. Не создавать фиктивные параллельные чаты и не считать опубликованные source-only исправления автоматически интегрированными. Владелец следующего шага: пользователь только для локальных CLI команд/создания приватного repo, CHAT — подготовка и readback/audit в доступных инструментах.
+
+**Статус:** \`LOCAL_CURRENT_INTEGRATED_TEST13=USER_VERIFIED_PATH_SHA_ANCESTRY\`; \`CHAT_DIRECT_LOCAL_SOURCE_ACCESS=NO\`; \`GIT_HISTORY_SOL_ANCESTRY=TRUE\`; \`TRACKED_WORKTREE_CHANGES=NONE_REPORTED\`; \`UNTRACKED/SECURITY_AUDIT/REMOTE=UNKNOWN\`; \`PRIVATE_GITHUB_REPO=NOT_CREATED\`; \`A/B_WORKTREES=NOT_CREATED\`; \`BETA=NOT_BUILT\`; \`XOD_3_0_RELEASE=OPEN\`. Текущий ход — только документальный checkpoint; Work/SOL/main/локальные product files/пользовательские данные не изменены.
