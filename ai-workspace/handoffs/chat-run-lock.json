@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "chat-b-kb-contract-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T23:27:59.102Z",
-  "expires_at": "2026-11-22T23:31:59.107Z",
-  "heartbeat_at": "2026-11-22T23:27:59.102Z",
-  "last_completed_at": "2026-11-22T23:22:31.466Z",
-  "last_summary": "CHAT B source 80/80 PASS; private ahead 23/behind 0; journal §103 commit e9a21b531872a5ffc31dd91616070b7d479cf649. Node/build/MV3 NOT_RUN.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T23:28:12.171Z",
+  "last_completed_at": "2026-11-22T23:28:12.171Z",
+  "last_summary": "CHAT B actual kb-add contract source and tests privately published; 20/20 + security 14/14 PASS pre-publish; full regression and journal pending.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "B kb-add actual host ACK contract and uncertain300 source patch"
+  "task": "Idle; source published, final readback and §104 checkpoint pending."
 }
