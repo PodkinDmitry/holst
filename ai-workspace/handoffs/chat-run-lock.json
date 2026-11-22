@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T19:12:13.323Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T19:16:34.563Z",
+  "state": "locked",
+  "owner": "chat-49-youtube-watch-pending-race-20261122",
+  "acquired_at": "2026-11-22T19:18:53.564Z",
+  "expires_at": "2026-11-22T19:43:53.564Z",
+  "heartbeat_at": "2026-11-22T19:18:53.564Z",
   "last_completed_at": "2026-11-22T19:16:34.563Z",
   "last_summary": "CHAT48 §82: ext224/background.js (verified legacy 2.27 devkit) source-only queue RMW/flush race fix; 5/10 baseline, 10/10 after; exact zip SHA and Git blob, patch, VM test and reproducible runner published/readback PASS. Integration into current private Test13, real YouTube beta, browser/Drive E2E NOT_RUN; main/Work/SOL/user data untouched. Release open.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. On next user continuation first re-read AGENTS/journal/lock and try actual private Test13; source-only legacy fixes require exact provenance and porting, not presumed integrated."
+  "task": "Source-only fix legacy 2.27 ext224/background.js YouTube watch progress RMW and late-ACK overwrite; fail-before/pass-after test, patch, existing journal; no Work/SOL/main/Test13/user data."
 }
