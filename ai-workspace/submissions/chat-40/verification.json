@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "task": "EXEC-001",
+  "executor": "CHAT-EXEC",
+  "observed_utc": "2026-11-22T01:11:05+00:00",
+  "status": "BLOCKED_BROWSER_WITH_SOURCE_EVIDENCE",
+  "private_test13": {
+    "source": "authenticated Google Drive owner-only file; content not published",
+    "access_verified": true,
+    "shared": false,
+    "zip_bytes": 6036778,
+    "zip_sha256": "a7f1f7e7ae1903ab524f19aea450d0329dbcde1bd6fb234ba8fc4be7d40cf9c4",
+    "zip_crc": "PASS",
+    "zip_entries": 449,
+    "manifest_sha256_entries_verified": 431,
+    "manifest_result": "PASS",
+    "base29_sha256": "3861195fb4ad5b5fd3a64f0eb0954856844feb7146a1e9545d31a53dceb9366c"
+  },
+  "browser_probe": {
+    "binary": "/usr/bin/chromium",
+    "playwright_python_available": true,
+    "about_blank": "PASS",
+    "loopback_url": "net::ERR_BLOCKED_BY_ADMINISTRATOR",
+    "app_regression_line_1265": "NOT_EXECUTED",
+    "root_cause_of_original_browser_failure": "UNKNOWN"
+  },
+  "new_source_gate": {
+    "file": "cache_save_race_source_gate.js",
+    "sha256": "8f6970f2705b9f747c24c5bc458d7fef477ef3eb8a183a62a16be70987ca5cee",
+    "node_check": "PASS",
+    "source_backed_synthetic_cases_passed": 8,
+    "source_backed_synthetic_cases_total": 8,
+    "actual_functions": [
+      "scheduleSave",
+      "saveNow"
+    ],
+    "finding": "actual saveNow changes board.updatedAt synchronously before awaiting storage, making strict board snapshot differ if a previously scheduled save fires during cache operations; not proof this occurred in original browser FAIL",
+    "diagnostics_note": "CHAT14 timerPending:!!saveTimer can remain true after the timer fired because original saveNow does not set saveTimer to zero; nonzero handle is not proof of a pending timeout",
+    "browser_e2e": false
+  },
+  "prior_evidence_not_rerun": {
+    "CHAT14": "12 Python + 5 synthetic Node checks in earlier checkpoint",
+    "CHAT34": "407 synthetic Node VM checks in earlier checkpoint"
+  },
+  "metrics": {
+    "tool_git_blob": "3fef19a28becb2c9ff81571c972ac04415bc1c61",
+    "self_test": "PASS",
+    "gate_status": "UNKNOWN",
+    "release_gates_all_pass": false,
+    "target_progress_confirmed_pct": null,
+    "work_usage_observed_events": 0,
+    "work_usage": "UNKNOWN; no before/after quota observations",
+    "evidence_coverage_index_pct_not_readiness": 50.0
+  },
+  "product_patch": "NONE: root cause of actual browser FAIL unconfirmed",
+  "github_branch": "ai-workspace",
+  "main_edited": false,
+  "work_used": false,
+  "codex_used": false,
+  "sol_integrated": false,
+  "next_required_action": "authorized operator with unblocked Chrome/Edge localhost runs CHAT14 diagnostic app_regression.patch on exact source, obtains JSON Pointer paths/types/hashes and save state only, then resolves actual difference; SOL decides integration"
+}
