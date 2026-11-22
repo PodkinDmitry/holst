@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coordinator-roadmap-refresh-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T22:35:27.543Z",
-  "expires_at": "2026-11-22T22:50:27.543Z",
-  "heartbeat_at": "2026-11-22T22:35:27.543Z",
-  "last_completed_at": "2026-11-22T22:28:33.591Z",
-  "last_summary": "Current CHAT coordinator audited XOD source, 18 context docs, original plan, 93 prior journal sections; established private parallel pilot branches A/B at same c6cfb259 baseline with verified 0 diff; §94 journal updated/read back; automations 7/7 paused, no product code touched.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T22:36:14.576Z",
+  "last_completed_at": "2026-11-22T22:36:14.576Z",
+  "last_summary": "Coordinator journal v91 §95 readback; user launched both chats, private A ahead 1 code commit, private B unchanged at observation; 8/37 roadmap updated and Claude audit v1.9 confirmed. No product code edited; lock released.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Update canonical XOD roadmap after user launched A and B, audit Claude lessons and current private branch status; docs-only, no product edits."
+  "task": "Idle. A/B autonomous private pilot work; coordinator verify branch diffs, tests and integration readiness at next user request; release gates 3.0 remain open."
 }
