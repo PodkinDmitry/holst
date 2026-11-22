@@ -1,0 +1,55 @@
+diff --git a/ext224/background.js b/ext224/background.js
+index e2396d2..ad0bd84 100644
+--- a/ext224/background.js
++++ b/ext224/background.js
+@@ -50,16 +50,35 @@ async function ensureBridge(tabId) {
+   try { await chrome.scripting.executeScript({ target: { tabId }, files: ['bridge.js'] }); } catch (e) { /* already there or not allowed */ }
+ }
+ /* ---------- the queue: nothing is lost when Холст is closed or not answering ---------- */
++/* Chrome MV3 handles concurrent messages in one service worker. Serialize the
++   entire queue read/modify/write (and flush) so no request overwrites another. */
++let queueTx224 = Promise.resolve();
++function queueLocked224(fn) {
++  const run = queueTx224.then(fn, fn);
++  queueTx224 = run.then(() => {}, () => {});
++  return run;
++}
++function queuePut224(item) {
++  return queueLocked224(async () => {
++    const q = (await chrome.storage.local.get('queue')).queue || [];
++    if (q.length >= 200) throw new Error('Очередь Холста заполнена (200): новое действие не сохранено');
++    q.push(item);
++    await chrome.storage.local.set({ queue: q });
++    badgeQ(q.length);
++  });
++}
+ async function clip(d) {
+   try { const r = await relay('clip', d); if (r && r.ok) return r; throw new Error((r && r.data) || 'нет ответа'); }
+-  catch (e) { const q = (await chrome.storage.local.get('queue')).queue || []; q.push({ d, at: Date.now() }); await chrome.storage.local.set({ queue: q.slice(-200) }); badgeQ(q.length); return { ok: true, queued: true, data: { ok: true } }; }
++  catch (e) { await queuePut224({ d, at: Date.now() }); return { ok: true, queued: true, data: { ok: true } }; }
+ }
+ async function flushQueue() {
+-  const q = (await chrome.storage.local.get('queue')).queue || []; if (!q.length) return;
+-  const id = await holstTab(false); if (!id) return;
+-  const left = [];
+-  for (const x of q) { try { const r = await relay(x.op || 'clip', x.d, true); if (!(r && r.ok)) left.push(x); } catch (e) { left.push(x); } }
+-  await chrome.storage.local.set({ queue: left }); badgeQ(left.length);
++  return queueLocked224(async () => {
++    const q = (await chrome.storage.local.get('queue')).queue || []; if (!q.length) return;
++    const id = await holstTab(false); if (!id) return;
++    const left = [];
++    for (const x of q) { try { const r = await relay(x.op || 'clip', x.d, true); if (!(r && r.ok)) left.push(x); } catch (e) { left.push(x); } }
++    await chrome.storage.local.set({ queue: left }); badgeQ(left.length);
++  });
+ }
+ const badgeQ = n => { chrome.action.setBadgeBackgroundColor({ color: '#d97706' }); chrome.action.setBadgeText({ text: n ? String(n) : '' }); };
+ chrome.alarms && chrome.alarms.onAlarm.addListener(a => { if (a.name === 'queue') { flushQueue(); sysPull(false); ywFlush(); } });
+@@ -259,7 +278,7 @@ async function cached(op, d) {
+ async function queued(op, d) {
+   try { const r = await relay(op, d, true); if (r && r.ok) return r; } catch (e) { /* closed */ }
+   try { const r = await relay(op, d); if (r && r.ok) return r; } catch (e) { /* not answering */ }
+-  const q = (await chrome.storage.local.get('queue')).queue || []; q.push({ op, d, at: Date.now() }); await chrome.storage.local.set({ queue: q.slice(-200) }); badgeQ(q.length); return { ok: true, queued: true, data: { ok: true, queued: 1 } };
++  await queuePut224({ op, d, at: Date.now() }); return { ok: true, queued: true, data: { ok: true, queued: 1 } };
+ }
+ /* watched zones of videos: kept here, given to Холст */
+ function zMerge(a, b) { const L = (a || []).concat(b || []).map(z => [+z[0], +z[1]]).filter(z => z[1] > z[0]).sort((p, q) => p[0] - q[0]), out = []; for (const z of L) { const l = out[out.length - 1]; if (l && z[0] <= l[1] + 2) l[1] = Math.max(l[1], z[1]); else out.push(z.slice()); } return out; }
