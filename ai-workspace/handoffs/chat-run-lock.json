@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T10:22:50.557Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T10:24:59.182Z",
+  "state": "running",
+  "owner": "chat-plan-browser-diagnostic-v3-20261122",
+  "acquired_at": "2026-11-22T10:47:53.412Z",
+  "expires_at": "2026-11-22T11:32:53.412Z",
+  "heartbeat_at": "2026-11-22T10:47:53.412Z",
   "last_completed_at": "2026-11-22T10:24:59.182Z",
-  "last_summary": "CHAT-PLAN v59 §31.7.4/§63: user Windows safe_summary source PASS, FileNotFoundError before browser; offline Git-free browser diag v2 published SHA-verified, strict source/test/build PASS, cloud browser localhost blocked, Windows rerun NOT_STARTED. No Work/main changes.",
+  "last_summary": "CHAT-PLAN: Windows v2 safe_summary RuntimeError at Python syntax subprocess; v3 in-process syntax check, safe telemetry and test kit; no main/Work",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
