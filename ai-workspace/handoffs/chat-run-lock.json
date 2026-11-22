@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "chat-b-preset-none-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T22:56:00.069Z",
-  "expires_at": "2026-11-22T22:58:30.073Z",
-  "heartbeat_at": "2026-11-22T22:56:00.069Z",
-  "last_completed_at": "2026-11-22T22:49:50.766Z",
-  "last_summary": "CHAT B verified labels 12/12 and watch 7/7 source V8; private branch ahead 6; journal §99 commit 0b3e0300e64029f71aa0aee4b81e1a670bec4c60; browser/build NOT_RUN",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T22:56:07.284Z",
+  "last_completed_at": "2026-11-22T22:56:07.284Z",
+  "last_summary": "CHAT B: presets 6/6, category 15/15, watch 7/7; current source published, journal §100; browser/build NOT_RUN",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "CHAT B short CAS journal checkpoint for current source presets and negative/positive category"
+  "task": "Idle; B next duplicate/infinite feed/receipt. Coordinator integrates only after native build/browser gates."
 }
