@@ -1,0 +1,53 @@
+diff --git a/ext224/background.js b/ext224/background.js
+index e2396d2..bcbe86d 100644
+--- a/ext224/background.js
++++ b/ext224/background.js
+@@ -99,9 +99,28 @@ async function tabsAll(d) {
+ }
+ /* ---------- a snapshot of an area: the page lets you draw a rectangle ---------- */
+ async function areaStart(tabId) { await chrome.scripting.executeScript({ target: { tabId }, files: ['area.js'] }); return { ok: true }; }
++let areaStorageTail224 = Promise.resolve();
++function areaStorageLocked224(task) {
++  const run = areaStorageTail224.then(task, task);
++  areaStorageTail224 = run.then(() => {}, () => {});
++  return run;
++}
+ async function areaDone(rect, tab) {
+-  const st = await chrome.storage.local.get('pending'), d = st.pending; await chrome.storage.local.remove('pending'); if (!d || !rect) return { ok: false };
+-  if (rect.scroll) { d.image = await stitch221(tab.id, tab.windowId, { el: rect.el, x: rect.x, w: rect.w, y0: rect.y0, h: rect.h }); const r = await clip(d); mark(tab.id, r); return r; }
++  const perTab = 'pendingArea:' + (tab && tab.id);
++  const st = await areaStorageLocked224(() => chrome.storage.local.get([perTab, 'pending']));
++  const savedKey = st[perTab] ? perTab : 'pending', saved = st[savedKey];
++  if (!saved) return { ok: false };
++  const d = Object.assign({}, saved); delete d.__areaRequestId;
++  /* Keep the request until the clip is durably delivered or queued. A newer
++     request for this tab must never be cleared by an older in-flight capture. */
++  const snapshot = JSON.stringify(saved);
++  const clearOriginal = () => areaStorageLocked224(async () => {
++    const latest = (await chrome.storage.local.get(savedKey))[savedKey];
++    if (latest && JSON.stringify(latest) === snapshot) await chrome.storage.local.remove(savedKey);
++  });
++  if (!rect) { await clearOriginal(); return { ok: false }; }
++  const finish = async r => { if (r && r.ok) await clearOriginal(); mark(tab.id, r); return r; };
++  if (rect.scroll) { d.image = await stitch221(tab.id, tab.windowId, { el: rect.el, x: rect.x, w: rect.w, y0: rect.y0, h: rect.h }); return finish(await clip(d)); }
+   const url = await chrome.tabs.captureVisibleTab(tab.windowId, { format: 'png' });
+   const bmp = await createImageBitmap(await (await fetch(url)).blob()), k = rect.dpr || 1;
+   const w = Math.max(1, Math.round(rect.w * k)), h = Math.max(1, Math.round(rect.h * k)), c = new OffscreenCanvas(w, h);
+@@ -109,7 +128,7 @@ async function areaDone(rect, tab) {
+   const blob = await c.convertToBlob({ type: 'image/jpeg', quality: 0.86 }), buf = new Uint8Array(await blob.arrayBuffer());
+   let bin = ''; for (let i = 0; i < buf.length; i += 0x8000) bin += String.fromCharCode.apply(null, buf.subarray(i, i + 0x8000));
+   d.image = 'data:image/jpeg;base64,' + btoa(bin);
+-  const r = await clip(d); mark(tab.id, r); return r;
++  return finish(await clip(d));
+ }
+ /* ---------- right click ---------- */
+ /* v2.19: one build at a time — two quick calls (install + startup) used to create the same items twice
+@@ -379,7 +398,7 @@ async function ctxMenu221(id, info, tab, host) {
+     mark(tab.id, await clip(Object.assign({}, base, { noEmbed: 1, image, where: { board: 1 }, parts: { frameAt: r && r.at } }))); return true;
+   }
+   if (id === 'page-full') { let image = ''; try { image = await stitch221(tab.id, tab.windowId, { full: 1 }); } catch (e) { mark(tab.id, { ok: false }); return true; } mark(tab.id, await clip(Object.assign({}, base, { image, shot: 'full', where: { board: 1 } }))); return true; }
+-  if (id === 'page-area') { await chrome.storage.local.set({ pending: Object.assign({}, base, { shot: 'area', where: { board: 1 } }) }); await areaStart(tab.id); return true; }
++  if (id === 'page-area') { await areaStorageLocked224(() => chrome.storage.local.set({ ['pendingArea:' + tab.id]: Object.assign({}, base, { shot: 'area', where: { board: 1 }, __areaRequestId: Date.now().toString(36) + '-' + Math.random().toString(36).slice(2) }) })); await areaStart(tab.id); return true; }
+   if (id === 'page-claude') { try { const C = await claude221(tab.id); mark(tab.id, await clip(Object.assign({}, base, { title: C.title, url: C.url, claude221: C, where: { board: 1 } }))); } catch (e) { mark(tab.id, { ok: false }); } return true; }
+   return false;
+ }
