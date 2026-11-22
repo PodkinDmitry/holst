@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T23:06:54.863Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T23:07:03.338Z",
+  "state": "active",
+  "owner": "chat-b-security-kb-20261123",
+  "acquired_at": "2026-11-22T23:08:52.983Z",
+  "expires_at": "2026-11-22T23:12:52.983Z",
+  "heartbeat_at": "2026-11-22T23:08:52.983Z",
   "last_completed_at": "2026-11-22T23:07:03.338Z",
   "last_summary": "B block/area source published; test 12/12 PASS; journal checkpoint pending; commits 1d7a09171ba7270af471906792cf44962631dc11,1ea0d3d5eb9a319321d6d2b9dff8c78d42e413d9",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle; next B security and kb-add fixes"
+  "task": "B trusted sender and durable kb-add publication"
 }
