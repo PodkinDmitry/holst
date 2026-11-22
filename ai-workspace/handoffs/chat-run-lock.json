@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T23:22:22.407Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T23:22:31.466Z",
+  "state": "active",
+  "owner": "chat-b-kb-contract-20261123",
+  "acquired_at": "2026-11-22T23:27:59.102Z",
+  "expires_at": "2026-11-22T23:31:59.107Z",
+  "heartbeat_at": "2026-11-22T23:27:59.102Z",
   "last_completed_at": "2026-11-22T23:22:31.466Z",
   "last_summary": "CHAT B source 80/80 PASS; private ahead 23/behind 0; journal §103 commit e9a21b531872a5ffc31dd91616070b7d479cf649. Node/build/MV3 NOT_RUN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. B source published; uncertain kb-add cannot be automatically retried without reconciliation."
+  "task": "B kb-add actual host ACK contract and uncertain300 source patch"
 }
