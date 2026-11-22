@@ -50,7 +50,11 @@ def safe_failure_hint(exc: BaseException, stage: str) -> str:
     if stage == "CHECK_ZIP":
         return "Проверьте локальный архив Test 13: размер и контрольные суммы."
     if stage == "PREPARE_DIAGNOSTIC":
-        return "Проверьте файлы набора: xod_browser_diag.py и cache_state_diagnostics.py. Git не требуется."
+        if isinstance(exc, SyntaxError):
+            return "Проверка синтаксиса временного теста не прошла; не повторяйте запуск. Отправьте safe_summary.json в CHAT-PLAN."
+        if isinstance(exc, PermissionError):
+            return "Нет доступа к временным файлам. Проверьте уведомления Comodo; не отключайте защиту. Отправьте safe_summary.json."
+        return "Подготовка диагностического теста не удалась. Не запускайте повторно; отправьте safe_summary.json."
     if stage == "BROWSER_PREFLIGHT":
         return "Проверьте Microsoft Edge и Python Playwright; Comodo может блокировать запуск. Не отключайте защиту."
     if stage == "BUILD":
@@ -210,13 +214,17 @@ def apply_diagnostics(source: Path, offline: Path | None) -> dict:
         patched=patched.replace(original, modified)
     if patched == before or b'            assert before_cleanup == ev(' in patched:
         raise ValueError("Strict diagnostic not activated")
+    # Python child process + .pyc output caused Windows v2 PREPARE_DIAGNOSTIC
+    # to return RuntimeError (the private report did not capture child stderr).
+    # Compile in this already-running Python process: syntax-check exactly the
+    # same bytes but do not spawn a second Python or write __pycache__ files.
+    # This is validation only: compiled objects are NEVER executed here.
+    compile(patched, "<XOD-Test13 diagnostic regression test>", "exec", dont_inherit=True)
+    compile(helper_data, "<XOD CHAT14 diagnostic helper>", "exec", dont_inherit=True)
     helper_target.write_bytes(helper_data)
     script.write_bytes(patched)
-    p=subprocess.run([sys.executable,"-m","py_compile",str(script),str(helper_target)],
-                     cwd=source,capture_output=True,timeout=45)
-    if p.returncode:
-        raise RuntimeError("Diagnostic Python syntax failed")
     return {"method":"CHAT14_EQUIVALENT_STRICT_CRLF_REPLACEMENT",
+            "syntax_validation":"IN_PROCESS_COMPILE_NO_PYC_NO_CHILD",
             "helper_sha256":LOCAL_HELPER_SHA256,"original_test_sha256":sha256(before),
             "patched_test_sha256":sha256(patched),"strict_original_assert":"PRESERVED_WITH_STRICT_DIAGNOSTICS",
             "syntax":"PASS","git_required":False,"network_required":False}
@@ -371,7 +379,8 @@ def self_test() -> None:
     assert sha256(b"test") == "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
     bundled = Path(__file__).resolve().with_name(LOCAL_HELPER)
     assert bundled.is_file() and sha256(bundled.read_bytes()) == LOCAL_HELPER_SHA256
-    print("SELF_TEST PASS (hashes, ZIP paths, manifest, redaction, diagnostics, bundled helper)")
+    compile(bundled.read_bytes(), "<CHAT14 bundled helper>", "exec", dont_inherit=True)
+    print("SELF_TEST PASS (hashes, ZIP paths, manifest, redaction, diagnostics, bundled helper, in-process syntax)")
 
 
 def main() -> int:
@@ -386,7 +395,7 @@ def main() -> int:
     if args.self_test:
         self_test();return 0
     out=Path(args.report_dir).expanduser() if args.report_dir else Path.home()/"Downloads"/"XOD-browser-diag-result"
-    summary={"schema":2,"task":"EXEC-002/CHAT14-browser-1265","created_utc":datetime.now(timezone.utc).isoformat(),
+    summary={"schema":3,"runner_version":"3.0","task":"EXEC-002/CHAT14-browser-1265","created_utc":datetime.now(timezone.utc).isoformat(),
              "environment":{"os":platform.system(),"python":platform.python_version(),"channel":args.channel},
              "status":"NOT_STARTED","step":"INITIALIZE","work_used":"NOT_OBSERVED",
              "sol_checkout_modified":False,"main_modified":False,"private_source_published":False,"test_fixture":"synthetic-only"}
@@ -459,10 +468,24 @@ def main() -> int:
                                next_action="Тест остановился на другой проверке. Отправьте safe_summary.json, не передавайте полный лог с данными")
                 result=6
             return result
-    except (OSError,ValueError,RuntimeError,zipfile.BadZipFile,subprocess.SubprocessError) as e:
+    except (OSError,ValueError,SyntaxError,RuntimeError,zipfile.BadZipFile,subprocess.SubprocessError) as e:
         stage=summary["step"]
         summary.update(status="PRECONDITION_FAILED",error_type=type(e).__name__,
                        failed_step=stage,next_action=safe_failure_hint(e,stage))
+        # Only bounded safe codes: do not serialize raw tracebacks, paths or data.
+        if isinstance(e,SyntaxError):
+            summary["error_code"]="IN_PROCESS_PYTHON_SYNTAX_ERROR"
+            summary["syntax_line"] = e.lineno if isinstance(e.lineno,int) else None
+        elif isinstance(e,PermissionError):
+            summary["error_code"]="OS_PERMISSION_DENIED"
+        elif isinstance(e,FileNotFoundError):
+            summary["error_code"]="REQUIRED_LOCAL_FILE_NOT_FOUND"
+        elif isinstance(e,RuntimeError):
+            summary["error_code"]="RUNTIME_OPERATION_FAILURE"
+        elif isinstance(e,ValueError):
+            summary["error_code"]="VALIDATION_FAILURE"
+        else:
+            summary["error_code"]="ENVIRONMENT_FAILURE"
         if isinstance(e,FileNotFoundError):
             summary["suspected_missing_component"]=("python_dependency_or_blocked_file" if stage not in ("PREPARE_DIAGNOSTIC","BROWSER_PREFLIGHT") else "bundled_helper_or_browser")
         return 7
