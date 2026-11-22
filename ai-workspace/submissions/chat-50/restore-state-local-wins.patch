@@ -1,0 +1,20 @@
+diff --git a/ext224/background.js b/ext224/background.js
+index e2396d2..a807460 100644
+--- a/ext224/background.js
++++ b/ext224/background.js
+@@ -184,8 +184,13 @@ async function restoreState() {
+   if (st.restored217 && st.widgets && Object.keys(st.widgets).length) return;
+   let r; try { r = await relay('state-get', {}, true); } catch (e) { return; }
+   const S = r && r.ok && r.data; if (!S) { chrome.storage.local.set({ restored217: 1 }); return; }
+-  const put = { restored217: 1 }; for (const k of KEEP) if (S[k] != null && (st[k] == null || (k === 'widgets' && !Object.keys(st[k] || {}).length))) put[k] = S[k];
+-  if (S.hl) for (const [k, v] of Object.entries(S.hl)) put[k] = v;
++  /* The remote snapshot can be older than edits made while state-get was in flight.
++     Restore only missing entries; do not let a remote hl map write arbitrary local keys. */
++  const highlightKeys = Object.keys(S.hl || {}).filter(k => k.startsWith('hl:'));
++  const current = await chrome.storage.local.get(KEEP.concat('restored217', highlightKeys));
++  if (current.restored217 && current.widgets && Object.keys(current.widgets).length) return;
++  const put = { restored217: 1 }; for (const k of KEEP) if (S[k] != null && (current[k] == null || (k === 'widgets' && !Object.keys(current[k] || {}).length))) put[k] = S[k];
++  for (const k of highlightKeys) if (current[k] == null) put[k] = S.hl[k];
+   await chrome.storage.local.set(put);
+   const tabs = await chrome.tabs.query({ url: ['http://*/*', 'https://*/*'] }).catch(() => []);
+   for (const t of tabs) chrome.tabs.sendMessage(t.id, { op: 'widget-refresh' }).catch(() => {});
