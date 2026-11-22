@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T22:27:12.631Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T22:28:33.591Z",
+  "state": "running",
+  "owner": "chat-coordinator-roadmap-refresh-20261123",
+  "acquired_at": "2026-11-22T22:35:27.543Z",
+  "expires_at": "2026-11-22T22:50:27.543Z",
+  "heartbeat_at": "2026-11-22T22:35:27.543Z",
   "last_completed_at": "2026-11-22T22:28:33.591Z",
   "last_summary": "Current CHAT coordinator audited XOD source, 18 context docs, original plan, 93 prior journal sections; established private parallel pilot branches A/B at same c6cfb259 baseline with verified 0 diff; §94 journal updated/read back; automations 7/7 paused, no product code touched.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. User to launch two normal non-Work chats A/B using §94 handoffs; they must check fresh GitHub canonical state/lease and work only on separate private branches."
+  "task": "Update canonical XOD roadmap after user launched A and B, audit Claude lessons and current private branch status; docs-only, no product edits."
 }
