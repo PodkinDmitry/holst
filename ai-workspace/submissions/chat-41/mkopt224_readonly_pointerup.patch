@@ -1,0 +1,31 @@
+--- a/v224/m_mark224.js
++++ b/v224/m_mark224.js
+@@ -9,7 +9,7 @@
+    · По умолчанию контент ячеек двигается вместе с лучами и остаётся в своей
+      зоне; если объект заходит за луч — луч сам отодвигается, как у рамок.
+    ========================================================= */
+-const mkOpt224 = () => { const m = mkOf222(); const o = (m && (m.opt224 = m.opt224 || {})) || {}; return { move: o.move !== 0, push: o.push !== 0, keep: !!o.keep, raw: o }; };
++const mkOpt224 = () => { const m = S.board && S.board.mk222, o = (m && m.opt224) || {}; return { move: o.move !== 0, push: o.push !== 0, keep: !!o.keep, raw: { ...o } }; };
+ { const o = mkDraw222; mkDraw222 = function () { o.apply(this, arguments); try { mkLabels224(); } catch (e) { /* the labels stay as drawn */ } }; }
+ function mkLabels224() {
+   if (!S.board || mkMode223() !== 'zones') return; const tl = $('#mk222t'); if (!tl) return;
+@@ -55,7 +55,9 @@
+   if (e.target.closest && e.target.closest('#board, .it, #stage, .stage')) MKS224.items = new Map(items().filter(i => i.type !== 'connector').map(i => [i.id, { x: i.x, y: i.y, w: i.w || 0, h: i.h || 0 }]));
+ }, true);
+ window.addEventListener('pointerup', () => setTimeout(() => {
+-  if (!S.board) return; const O = mkOpt224();
++  if (!MKS224.lines && !MKS224.items) return;
++  if (!S.board) { MKS224.lines = MKS224.items = null; return; }
++  const O = mkOpt224();
+   if (MKS224.lines) { const before = MKS224.lines; MKS224.lines = null; if (O.move) { const n = mkFollow224('v', before) + mkFollow224('h', before); if (n) { changed(); render(); } } return; }
+   const snap = MKS224.items; MKS224.items = null; if (!snap || !O.push) return;
+   let moved = 0; const L = mkLines222().filter(l => !l.lock && !l._stk), G = 24;
+@@ -87,7 +89,7 @@
+   (ax || p.querySelector('.vp-h')).insertAdjacentHTML('beforebegin', lay);
+   p.addEventListener('change', e => {
+     const k = e.target.dataset.mk224; if (!k) return; e.stopPropagation(); pushHist();
+-    if (k === 'sz' || k === 'sr') A[k] = e.target.checked ? 1 : 0; else if (k === 'arr') A.arr = e.target.checked ? 1 : 0; else O.raw[k] = e.target.checked ? 1 : 0;
++    if (k === 'sz' || k === 'sr') A[k] = e.target.checked ? 1 : 0; else if (k === 'arr') A.arr = e.target.checked ? 1 : 0; else { const raw = m.opt224 || (m.opt224 = {}); raw[k] = e.target.checked ? 1 : 0; }
+     changed(); render();
+   });
+   p.addEventListener('pointerdown', e => { if (e.target.dataset && e.target.dataset.mk224r) { MKP224.base = mkSnap224(); MKP224.items = new Map(items().map(i => [i.id, [i.x, i.y]])); pushHist(); } });
