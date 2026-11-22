@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T23:21:21.344Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T23:21:30.361Z",
+  "state": "active",
+  "owner": "chat-b-channel-kb-verified-20261123",
+  "acquired_at": "2026-11-22T23:22:22.407Z",
+  "expires_at": "2026-11-22T23:25:22.407Z",
+  "heartbeat_at": "2026-11-22T23:22:22.407Z",
   "last_completed_at": "2026-11-22T23:21:30.361Z",
   "last_summary": "B source additional kb preflight published; channel tests 14/14, security 14/14; journal pending.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle; B final full regression and canonical §103 pending"
+  "task": "CHAT B final canonical §103: source-backed channel ordering and source replay"
 }
