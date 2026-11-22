@@ -1,0 +1,23 @@
+diff --git a/v224/m_data300.js b/v224/m_data300.js
+index 12d61b13c9c7f05b35a3ae2b1b4d9fa9b2b9450f..328555feedfb80e1a319548a96081b2579acb9a6 100644
+--- a/v224/m_data300.js
++++ b/v224/m_data300.js
+@@ -123,14 +123,15 @@
+     else await write();
+   }
+   lifeBase300 = result.data;
++  const pending = !sameBoardValue300(live,draft);
+   if (!sameBoardValue300(draft,result.data)) {
+-    const pending = !sameBoardValue300(live,draft);
+     const published = pending ? mergeLife300(draft, live, result.data) : result;
+     for (const key of Object.keys(live)) if (!Object.hasOwn(published.data,key)) delete live[key];
+     Object.assign(live,structuredClone(published.data));
+     if (result.conflicts || published.conflicts) toast('Life OS: обе версии сохранены. Найдите заметку «Конфликт правок».');
+-    if (pending && !S.loT) S.loT = setTimeout(loWrite,300);
+-  }
++  }
++  // A local edit can arrive during an otherwise conflict-free asynchronous write.
++  if (pending && !S.loT) S.loT = setTimeout(loWrite,300);
+   return result.data;
+ }
+ 
