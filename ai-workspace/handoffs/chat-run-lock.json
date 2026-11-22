@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-plan-ux-continuity-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T10:10:57.930Z",
-  "expires_at": "2026-11-22T10:46:57.930Z",
-  "heartbeat_at": "2026-11-22T10:10:57.930Z",
-  "last_completed_at": "2026-11-22T01:23:48.428Z",
-  "last_summary": "CHAT-PLAN documents user-journey continuity standard for XOD based on failed local diagnostic handoff; no app code/Work/main",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T10:12:25.167Z",
+  "last_completed_at": "2026-11-22T10:12:25.167Z",
+  "last_summary": "CHAT-PLAN: documented continuous user journey standard v3.5 §4.14 and UX feedback §31.7.3/§62 in journal v58. Existing Windows kit unchanged; HAO global Library files identified but not edited (raw bytes inaccessible); Test13 browser result/root cause unknown. No Work/main.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
