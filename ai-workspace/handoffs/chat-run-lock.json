@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T23:08:52.983Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T23:09:01.645Z",
+  "state": "active",
+  "owner": "chat-b-final-worker-integrity-20261123",
+  "acquired_at": "2026-11-22T23:10:20.088Z",
+  "expires_at": "2026-11-22T23:13:20.088Z",
+  "heartbeat_at": "2026-11-22T23:10:20.088Z",
   "last_completed_at": "2026-11-22T23:09:01.645Z",
   "last_summary": "B security kb source published 14/14 PASS; checkpoint pending bf5de10b35700439c97bf750c33cc0b630cf8bb3,833addbae60eacec241a1f5023870cc5aeb7fac3",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle; B next regression and journal"
+  "task": "CHAT B final source-backed journal checkpoint for block, area, fetch and kb-add"
 }
