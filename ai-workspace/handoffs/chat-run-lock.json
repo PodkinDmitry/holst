@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-plan-exec003-windows-v4-kit-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T12:02:33.632Z",
-  "expires_at": "2026-11-22T12:47:33.632Z",
-  "heartbeat_at": "2026-11-22T12:02:33.632Z",
-  "last_completed_at": "2026-11-22T11:47:34.478Z",
-  "last_summary": "CHAT-PLAN: independently verify CHAT41 patch exact SHA/source/build, prepare audited v4 Windows Edge strict E2E kit and journal transition; no Work/main",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T12:04:13.965Z",
+  "last_completed_at": "2026-11-22T12:04:13.965Z",
+  "last_summary": "CHAT-PLAN reviewed CHAT41 source; exact Test13 + patch pinned check/apply/node/build PASS; v4 safe Windows Edge strict patched E2E kit validated local 11 gates; GitHub runner v4, journal v66 §31.7.9 §69; Windows E2E PENDING. No Work/main/SOL checkout edits.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
