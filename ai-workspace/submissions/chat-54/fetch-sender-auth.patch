@@ -1,0 +1,32 @@
+diff --git a/ext224/background.js b/ext224/background.js
+index e2396d2..169250a 100644
+--- a/ext224/background.js
++++ b/ext224/background.js
+@@ -202,2 +202,13 @@ chrome.storage.onChanged.addListener((ch, area) => {
+ 
++/* Verify the actual sending frame URL, not a string-prefix of a tab URL.
++   A sibling path (e.g. /holst-evil) or localhost.attacker is not Холст. */
++function trustedHolstSender224(sender, base) {
++  const from = sender && (sender.url || (sender.tab && sender.tab.url)) || '';
++  let page, app;
++  try { page = new URL(from); app = new URL(base); } catch (e) { return false; }
++  if (page.protocol === 'http:' && (page.hostname === 'localhost' || page.hostname === '127.0.0.1' || page.hostname === '[::1]')) return true;
++  if (page.origin !== app.origin) return false;
++  const prefix = app.pathname.replace(/\/+$/, '');
++  return !prefix || page.pathname === prefix || page.pathname.startsWith(prefix + '/');
++}
+ /* v2.13: a request for the Холст page — only from the Холст tab, only to AI services and Google */
+@@ -205,4 +216,4 @@ const XOK = [/^https:\/\/api\.anthropic\.com\//, /^https:\/\/[a-z0-9.-]+\.(opena
+ async function xfetch(d, sender) {
+-  const base = await holstUrl(), from = (sender && sender.tab && sender.tab.url) || '';
+-  if (!from.startsWith(base) && !/^http:\/\/localhost/.test(from)) return { ok: false, err: 'запрос не из вкладки Холста' };
++  const base = await holstUrl();
++  if (!trustedHolstSender224(sender, base)) return { ok: false, err: 'запрос не из вкладки Холста' };
+   if (!XOK.some(r => r.test(d.url))) return { ok: false, err: 'этот адрес расширение не пропускает' };
+@@ -217,4 +228,4 @@ async function xfetch(d, sender) {
+ async function kbfetch(d, sender) {
+-  const base = await holstUrl(), from = (sender && sender.tab && sender.tab.url) || '';
+-  if (!from.startsWith(base) && !/^http:\/\/localhost/.test(from)) return { ok: false, err: 'запрос не из вкладки Холста' };
++  const base = await holstUrl();
++  if (!trustedHolstSender224(sender, base)) return { ok: false, err: 'запрос не из вкладки Холста' };
+   const u = String(d.url || ''), m = ((d.init && d.init.method) || 'GET').toUpperCase();
