@@ -82,7 +82,7 @@ def main():
     a = ap.parse_args()
     base = Path(__file__).resolve().parent
     try:
-        result = verify(a.source_zip, base / "queue-integrity.patch", base / "test_queue_concurrency.js")
+        result = verify(a.source_zip, base / "background-queue-integrity.patch", base / "test_queue_concurrency.js")
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
     except (OSError, ValueError, RuntimeError, AssertionError, zipfile.BadZipFile, KeyError) as exc:
