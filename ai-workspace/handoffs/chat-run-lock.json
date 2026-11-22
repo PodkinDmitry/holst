@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T19:06:53.054Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T19:08:39.303Z",
+  "state": "locked",
+  "owner": "chat-48-extension-queue-race-20261122",
+  "acquired_at": "2026-11-22T19:12:13.323Z",
+  "expires_at": "2026-11-22T19:42:13.323Z",
+  "heartbeat_at": "2026-11-22T19:12:13.323Z",
   "last_completed_at": "2026-11-22T19:08:39.303Z",
   "last_summary": "CHAT47 §81: xod-parallel-pilot.py audit fail-closed for dirty/untracked worktrees, missing checkout and divergent history. 4 fail-before, 14/14 PASS after on isolated synthetic Git. Published exact local-tested Git blobs 974fc327 / 7c4615f7 and journal v78 §81 (readback PASS). Test13 private source unavailable; product A/B worktrees and YouTube beta NOT_STARTED; main/Work/SOL/user data untouched.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Next user continuation: read latest AGENTS/journal/lease, find actual verified Test13 source without replacing it with legacy, and only then instantiate two worktrees."
+  "task": "Continue user-approved XOD pilot; source-only ext224/background.js queue race fail-before/pass-after in supplied legacy 2.27 devkit; patch/test under chat-48, journal and release. No main, current private Test13, Work/SOL or user data."
 }
