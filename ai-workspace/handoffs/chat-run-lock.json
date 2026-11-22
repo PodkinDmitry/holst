@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "locked",
-  "owner": "chat-46-approved-parallel-pilot-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T18:57:11.585Z",
-  "expires_at": "2026-11-22T19:22:11.585Z",
-  "heartbeat_at": "2026-11-22T18:57:11.585Z",
-  "last_completed_at": "2026-11-22T18:44:20.617Z",
-  "last_summary": "CHAT45 §79: regular XOD board async-write race reproduced 2/4 before and 4/4 after. Three compatible source-only patches CHAT43+CHAT44+CHAT45, both orders 12/12 PASS; changed ZIP rejected. GitHub trailing-newline transfer corrupted prior patch files; repaired actual Git blob SHA for all 3. New patch b5a10dc, test 38d1fb7, worker v1.8, journal v76 commit 848177d. No private Test13 integration, main/Work/SOL untouched. XOD 3.0 RELEASE OPEN.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T19:01:17.221Z",
+  "last_completed_at": "2026-11-22T19:01:17.221Z",
+  "last_summary": "CHAT46 §80: approved two-lane XOD 3.0 / YouTube beta pilot. Local-only worktree prepare+scope audit tool published (blob 2062efbe); 10/10 synthetic Git tests PASS (blob 94fd9fc2); protocol v1.9 §0.5 and journal v77 §80 published/readback PASS. No current private Test13 checkout available, no real worktrees/beta/product integration, main/Work/SOL/user data untouched. RELEASE OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "User-approved two-lane XOD 3.0 + YouTube beta pilot: safety planning, local tooling and tests, journal update; no main, premium Work, private Test13 or user data changes."
+  "task": "No active editing; next agent must re-read current GitHub state and acquire own CAS lease before any changes."
 }
