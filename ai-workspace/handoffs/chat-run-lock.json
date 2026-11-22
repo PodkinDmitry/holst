@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T01:17:54.515Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T01:23:48.428Z",
+  "state": "running",
+  "owner": "chat-plan-ux-continuity-20261122",
+  "acquired_at": "2026-11-22T10:10:57.930Z",
+  "expires_at": "2026-11-22T10:46:57.930Z",
+  "heartbeat_at": "2026-11-22T10:10:57.930Z",
   "last_completed_at": "2026-11-22T01:23:48.428Z",
-  "last_summary": "CHAT-PLAN: BROWSER-001 prepared not executed; safe Windows Edge diagnostic kit for CHAT14 Test13 source; tool verified SHA; original private ZIP SHA/CRC/431 manifest PASS; local browser ERR_BLOCKED_BY_ADMINISTRATOR, Windows E2E UNKNOWN; journal v57 §31.7.2 §61. No Work/main changes.",
+  "last_summary": "CHAT-PLAN documents user-journey continuity standard for XOD based on failed local diagnostic handoff; no app code/Work/main",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
