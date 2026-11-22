@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-plan-missing-playwright-checkpoint-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T11:16:08.664Z",
-  "expires_at": "2026-11-22T11:46:08.664Z",
-  "heartbeat_at": "2026-11-22T11:16:08.664Z",
-  "last_completed_at": "2026-11-22T10:51:01.173Z",
-  "last_summary": "CHAT-PLAN: observed v3 Windows MISSING_PLAYWRIGHT; source/strict patch pass; log exact blocker and one secure dependency step, no Work/main",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T11:16:55.156Z",
+  "last_completed_at": "2026-11-22T11:16:55.156Z",
+  "last_summary": "CHAT-PLAN journal v61 §31.7.6 §65: verified user Windows runner v3 schema3 ZIP+strict diagnostics PASS, preflight MISSING_PLAYWRIGHT; single official pip dependency step before rerun; no Windows work, Work, main, SOL checkout changed.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
