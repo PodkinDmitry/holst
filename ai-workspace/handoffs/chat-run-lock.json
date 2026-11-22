@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat34-full-harness-regression-20261122-high",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-21T23:59:52.696Z",
-  "expires_at": "2026-11-22T01:07:52.696Z",
-  "heartbeat_at": "2026-11-21T23:59:52.696Z",
-  "last_completed_at": "2026-11-21T23:52:05.328Z",
-  "last_summary": "CHAT34 source-backed full Test13 CHAT16–31 Node VM harness coverage; no Work/main",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T00:10:41.941Z",
+  "last_completed_at": "2026-11-22T00:10:41.941Z",
+  "last_summary": "CHAT34: all 5 original CHAT16–20 source-backed harnesses SHA verified; 69/69 VM (CHAT19 temporary fixture/order adapter after CHAT25), historical CHAT19 raw 18/18; prior CHAT21–31 338/338 VM; full 407/407, 16/16 apply, build and inline JS PASS. Three public SHA-verified files; §54. Browser/SOL integration OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
