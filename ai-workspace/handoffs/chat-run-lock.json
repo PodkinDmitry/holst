@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T22:48:08.887Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T22:48:15.941Z",
+  "state": "active",
+  "owner": "chat-b-youtube-labels-presets-20261123",
+  "acquired_at": "2026-11-22T22:49:42.975Z",
+  "expires_at": "2026-11-22T22:52:42.980Z",
+  "heartbeat_at": "2026-11-22T22:49:42.975Z",
   "last_completed_at": "2026-11-22T22:48:15.941Z",
   "last_summary": "CHAT A §98 native Node camera exact-source extracted 3/5 FAIL-before→5/5 PASS-after; current A full source/build browser gates BLOCKED_SOURCE_ACCESS; journal readback=true",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Coordinator review A/B, native full XOD 3.0 build/Edge redraw+rollback remain OPEN."
+  "task": "CHAT B source-based labels and presets verification checkpoint"
 }
