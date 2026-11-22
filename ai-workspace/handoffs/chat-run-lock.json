@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "chat-b-youtube-watch-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T22:43:14.055Z",
-  "expires_at": "2026-11-22T22:46:14.055Z",
-  "heartbeat_at": "2026-11-22T22:43:14.055Z",
-  "last_completed_at": "2026-11-22T22:40:49.169Z",
-  "last_summary": "CHAT A source-verified 4 commits; journal §96; V8 data 8/8 camera 5/5, real browser/build/Drive OPEN",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T22:43:22.007Z",
+  "last_completed_at": "2026-11-22T22:43:22.007Z",
+  "last_summary": "CHAT B current source published: watch ACK + concurrency PASS 7/7 V8, two private changes, journal commit e5896d581cf9a07a85e8473fb1f5a316d956d22a; Chrome/Edge/build NOT_RUN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "CHAT B private pilot/youtube-beta: write verified source-only watch checkpoint"
+  "task": "Idle. B next labels/presets safety; coordinator integrates only after release gates."
 }
