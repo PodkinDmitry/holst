@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T15:12:43.809Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T15:15:36.195Z",
+  "state": "running",
+  "owner": "chat-claude-history-evidence-audit-20261122",
+  "acquired_at": "2026-11-22T15:24:08.923Z",
+  "expires_at": "2026-11-22T15:59:08.926Z",
+  "heartbeat_at": "2026-11-22T15:24:08.923Z",
   "last_completed_at": "2026-11-22T15:15:36.195Z",
   "last_summary": "User-confirmed SOL unavailable due premium quota exhausted. Docs-only approved simplification published: AGENTS.md ACTIVE, worker v1.4, response format v3.6 §4.15, journal v69 §31.7.11 & §72. Roadmap scenario 3.0 9–23h +5–10 reserve, full 218–459h. XOD 3.0 release OPEN, Work checkout untouched, 0% quota user-reported.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "User-directly approved XOD simplification, quota standards, 6-min CHAT constraint, pending approvals, updated roadmap. Documentation-only; user reports SOL unavailable/quota exhausted; existing SOL lease expired."
+  "task": "User-requested historical Claude raw export empirical workflow audit; update existing XOD standards and journal with evidence only."
 }
