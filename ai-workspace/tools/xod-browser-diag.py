@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""One-shot, private, synthetic-fixture XOD Test13 browser diagnostic (EXEC-002).
+"""One-shot, private, synthetic-fixture XOD Test13 patched browser diagnostic (EXEC-003).
 
 On the user's computer: verify an existing PRIVATE Test13 ZIP, unpack in a
-throwaway temporary folder, apply a strict, byte-exact equivalent of CHAT14 test diagnostics,
+throwaway temporary folder, apply the exact CHAT41 source patch and strict CHAT14 test diagnostics,
 preflight real localhost in the chosen Playwright browser, build and run the
 strict app_regression suite with only test diagnostics inserted. Produce ONLY a bounded safe summary;
 never upload private sources, full console logs or board/organizer values.
@@ -39,6 +39,10 @@ SOURCE_MANIFEST_ENTRIES = 431
 # Offline, audited diagnostics shipped next to this launcher. No Git or network needed.
 LOCAL_HELPER = "cache_state_diagnostics.py"
 LOCAL_HELPER_SHA256 = "85acc541fb0d83f1b70fc105320bd622afc536beb7728fab50578a30cb017206"
+EXEC003_PATCH = "mkopt224_readonly_pointerup.patch"
+EXEC003_PATCH_SHA256 = "9df5874174a19f3499a51e2936d9c99e7e3191d15396bcdb678cae717dff88af"
+EXEC003_ORIGINAL_SHA256 = "16bd12345b0477cf0fca0e601c382ca5786a92f1542cb199ed1065eea1627c3c"
+EXEC003_PATCHED_SHA256 = "026f89ba371720f6f5d01ddd6e829c5a5abcbb582d260e0516ddffd147cab810"
 
 
 def status_message(message: str) -> None:
@@ -172,6 +176,70 @@ def unpack_verified_zip(zpath: Path, dest: Path) -> Path:
         return root
 
 
+
+
+def apply_exec003_product_patch(source: Path, bundled_dir: Path | None = None) -> dict:
+    """Apply the exact pinned CHAT41 patch, safely without git or network.
+
+    This parser intentionally supports only the single-module, 3-hunk patch
+    checked by its full SHA-256. It refuses any source other than the exact
+    private Test13 original. Never operates on the user's checkout.
+    """
+    target = source / "v224" / "m_mark224.js"
+    original = target.read_bytes()
+    if sha256(original) != EXEC003_ORIGINAL_SHA256:
+        raise ValueError("EXEC003 original source SHA256 mismatch; no patch applied")
+    p = (bundled_dir or Path(__file__).resolve().parent) / EXEC003_PATCH
+    if not p.is_file():
+        raise FileNotFoundError("Bundled CHAT41 patch missing")
+    patch_bytes = p.read_bytes()
+    if sha256(patch_bytes) != EXEC003_PATCH_SHA256:
+        raise ValueError("EXEC003 pinned patch SHA256 mismatch")
+    patch_lines = patch_bytes.decode("utf-8").splitlines(keepends=True)
+    if patch_lines[:2] != ["--- a/v224/m_mark224.js\n", "+++ b/v224/m_mark224.js\n"]:
+        raise ValueError("EXEC003 patch target not the expected single source file")
+    base = original.decode("utf-8").splitlines(keepends=True)
+    output = []
+    cursor = 0
+    i = 2
+    hunks = 0
+    while i < len(patch_lines):
+        m = re.fullmatch(r"@@ -(\d+),(\d+) \+(\d+),(\d+) @@\n",patch_lines[i])
+        if not m:
+            raise ValueError("Unrecognized EXEC003 unified hunk header")
+        old_start, old_count, new_start, new_count = map(int, m.groups())
+        i += 1
+        before = []
+        after = []
+        while i < len(patch_lines) and not patch_lines[i].startswith("@@ "):
+            line = patch_lines[i]
+            if not line or line[0] not in (" ","+","-") or not line.endswith("\n"):
+                raise ValueError("Unexpected EXEC003 patch body line")
+            if line[0] in (" ","-"):
+                before.append(line[1:])
+            if line[0] in (" ","+"):
+                after.append(line[1:])
+            i += 1
+        if len(before)!=old_count or len(after)!=new_count:
+            raise ValueError("EXEC003 hunk line counts mismatch")
+        pos=old_start-1
+        if pos < cursor or base[pos:pos+old_count] != before:
+            raise ValueError("EXEC003 patch context mismatch")
+        output.extend(base[cursor:pos])
+        output.extend(after)
+        cursor=pos+old_count
+        hunks+=1
+    if hunks!=3:
+        raise ValueError("EXEC003 patch requires exactly three verified hunks")
+    output.extend(base[cursor:])
+    patched=''.join(output).encode("utf-8")
+    if sha256(patched) != EXEC003_PATCHED_SHA256:
+        raise ValueError("EXEC003 output SHA256 mismatch; no source written")
+    target.write_bytes(patched)
+    return {"status":"PINNED_SOURCE_PATCH_PASS","hunks":hunks,"target":"v224/m_mark224.js",
+            "original_module_sha256":EXEC003_ORIGINAL_SHA256,
+            "patch_sha256":EXEC003_PATCH_SHA256,"patched_module_sha256":EXEC003_PATCHED_SHA256,
+            "scope":"ISOLATED_TEMPORARY_COPY_ONLY","strict_browser_assert_unchanged":True}
 
 
 def apply_diagnostics(source: Path, offline: Path | None) -> dict:
@@ -379,8 +447,10 @@ def self_test() -> None:
     assert sha256(b"test") == "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
     bundled = Path(__file__).resolve().with_name(LOCAL_HELPER)
     assert bundled.is_file() and sha256(bundled.read_bytes()) == LOCAL_HELPER_SHA256
+    patch = Path(__file__).resolve().with_name(EXEC003_PATCH)
+    assert patch.is_file() and sha256(patch.read_bytes()) == EXEC003_PATCH_SHA256
     compile(bundled.read_bytes(), "<CHAT14 bundled helper>", "exec", dont_inherit=True)
-    print("SELF_TEST PASS (hashes, ZIP paths, manifest, redaction, diagnostics, bundled helper, in-process syntax)")
+    print("SELF_TEST PASS (hashes, ZIP, redaction, strict diagnostics, pinned CHAT41 patch)")
 
 
 def main() -> int:
@@ -395,12 +465,12 @@ def main() -> int:
     if args.self_test:
         self_test();return 0
     out=Path(args.report_dir).expanduser() if args.report_dir else Path.home()/"Downloads"/"XOD-browser-diag-result"
-    summary={"schema":3,"runner_version":"3.0","task":"EXEC-002/CHAT14-browser-1265","created_utc":datetime.now(timezone.utc).isoformat(),
+    summary={"schema":4,"runner_version":"4.0","task":"EXEC-003/CHAT41-patched-browser-1265","created_utc":datetime.now(timezone.utc).isoformat(),
              "environment":{"os":platform.system(),"python":platform.python_version(),"channel":args.channel},
              "status":"NOT_STARTED","step":"INITIALIZE","work_used":"NOT_OBSERVED",
              "sol_checkout_modified":False,"main_modified":False,"private_source_published":False,"test_fixture":"synthetic-only"}
     result=7
-    status_message("ДИАГНОСТИКА XOD: начало. Это не установка и не изменение рабочего XOD.")
+    status_message("ДИАГНОСТИКА XOD v4: исправленный Test13 (CHAT41), строгий браузерный тест.")
     status_message("Понадобится локальный архив Test13 ZIP; он остаётся на вашем ПК.")
     status_message("Результат появится в Загрузки/XOD-browser-diag-result/safe_summary.json.")
     status_message("При долгом ожидании будут появляться сообщения. Comodo может блокировать Python/Edge: не отключайте защиту.")
@@ -417,10 +487,11 @@ def main() -> int:
         status_message("Шаг 2/5: PASS. Архив подлинный, 431/431 контрольных сумм совпали.")
         with tempfile.TemporaryDirectory(prefix="xod-browser-diagnostic-") as tmp:
             summary["step"]="PREPARE_DIAGNOSTIC"
-            status_message("Шаг 3/5. Распаковка во временную папку и добавление строгой диагностики. Git и интернет не нужны.")
+            status_message("Шаг 3/5. Временная копия: применяю патч CHAT41 + строгую диагностику CHAT14. Git не нужен.")
             src=unpack_verified_zip(zpath,Path(tmp))
+            summary["product_patch"]=apply_exec003_product_patch(src, Path(args.support_dir) if args.support_dir else None)
             summary["diagnostic_patch"]=apply_diagnostics(src,Path(args.support_dir) if args.support_dir else None)
-            status_message("Шаг 3/5: PASS. Исходный XOD на ПК не изменён; диагностика добавлена во временную копию.")
+            status_message("Шаг 3/5: PASS. Патч CHAT41 и строгий тест добавлены. Оригинальный ZIP/рабочий XOD не изменены.")
             summary["step"]="BROWSER_PREFLIGHT"
             status_message("Шаг 4/5. Проверка Edge и localhost. При блокировке Comodo тест остановится безопасно.")
             preflight=localhost_browser_probe(args.channel)
@@ -440,7 +511,7 @@ def main() -> int:
                 return 4
             status_message("Сборка PASS.")
             summary["step"]="BROWSER_TEST"
-            status_message("Шаг 5/5 (2/2). Запуск настоящего app_regression.py в Edge; он может выполняться несколько минут.")
+            status_message("Шаг 5/5 (2/2). Строгий app_regression.py на ИСПРАВЛЕННОМ XOD в Edge.")
             test=src/"tests/app_regression.py"
             app=src/"dist/app"
             previous=src/"tests/fixtures/legacy224"
@@ -454,11 +525,11 @@ def main() -> int:
             summary["browser_test"]={"exit_code":code,**safe}
             if code==0:
                 summary.update(status="BROWSER_REGRESSION_PASS_ONE_RUN",
-                               next_action="Отправьте safe_summary.json в чат XOD; один прогон не означает приёмку релиза")
+                               next_action="Отправьте safe_summary.json в CHAT-PLAN: браузерный прогон исправленного Test13 прошёл, интеграция SOL ещё не подтверждена")
                 result=0
             elif safe["saw_strict_cache_comparison_failure"]:
                 summary.update(status="BROWSER_CACHE_STATE_DIFF_OBSERVED",
-                               next_action="Отправьте safe_summary.json: по JSON-путям нужно определить реальную причину; строгая проверка не ослаблена")
+                               next_action="Отправьте safe_summary.json: изменившиеся JSON-пути в исправленном Test13; строгая проверка не ослаблена")
                 result=5
             elif safe["saw_browser_admin_block"]:
                 summary.update(status="BLOCKED_BROWSER",next_action="Comodo/браузер запретил localhost; не обходите политику; передайте safe_summary.json")
