@@ -58,6 +58,42 @@ def changed_paths(repo, base, ref):
     return [x.decode("utf-8", "surrogateescape") for x in raw.stdout.split(b"\x00") if x]
 
 
+def ensure_ancestor(repo, base, tip):
+    # A two-dot diff alone can show an unrelated branch as an empty change.
+    # Requiring a common, retained baseline prevents false boundary PASS.
+    if git(repo, "merge-base", "--is-ancestor", base, tip, check=False).returncode:
+        raise ValueError("Pilot base commit must be ancestor of both lane tips")
+
+
+def registered_worktrees(repo):
+    raw = subprocess.run(["git", "-C", str(repo), "worktree", "list", "--porcelain", "-z"], capture_output=True)
+    if raw.returncode:
+        raise RuntimeError("Cannot enumerate local Git worktrees")
+    result = {}
+    for entry in raw.stdout.split(b"\x00\x00"):
+        fields = entry.split(b"\x00")
+        path, branch = None, None
+        for field in fields:
+            if field.startswith(b"worktree "):
+                path = Path(field[len(b"worktree "):].decode("utf-8", "surrogateescape"))
+            elif field.startswith(b"branch refs/heads/"):
+                branch = field[len(b"branch refs/heads/"):].decode("utf-8", "surrogateescape")
+        if path and branch:
+            result[branch] = path
+    return result
+
+
+def require_clean_lane(repo, ref, tip, worktrees):
+    path = worktrees.get(ref)
+    if path is None or not path.is_dir():
+        raise ValueError(f"Missing active local worktree for pilot lane {ref}")
+    if sha_of(path, "HEAD") != tip:
+        raise ValueError(f"Local worktree HEAD differs from lane branch tip: {ref}")
+    raw = subprocess.run(["git", "-C", str(path), "status", "--porcelain", "-z"], capture_output=True)
+    if raw.returncode or raw.stdout:
+        raise ValueError(f"Dirty worktree: {ref}; commit or safely preserve all tracked/untracked changes first")
+
+
 def repo_guard(repo):
     if not repo.is_dir() or not (repo / ".git").exists():
         raise ValueError("--repo must point to an existing checkout/worktree")
@@ -107,8 +143,14 @@ def audit(ns):
     source_guard(repo, base)
     if ns.app_ref == ns.youtube_ref or ns.app_ref == ns.base or ns.youtube_ref == ns.base:
         raise ValueError("Lanes must have independent refs")
-    app = changed_paths(repo, base, sha_of(repo, ns.app_ref))
-    yt = changed_paths(repo, base, sha_of(repo, ns.youtube_ref))
+    app_tip, yt_tip = sha_of(repo, ns.app_ref), sha_of(repo, ns.youtube_ref)
+    ensure_ancestor(repo, base, app_tip)
+    ensure_ancestor(repo, base, yt_tip)
+    worktrees = registered_worktrees(repo)
+    require_clean_lane(repo, ns.app_ref, app_tip, worktrees)
+    require_clean_lane(repo, ns.youtube_ref, yt_tip, worktrees)
+    app = changed_paths(repo, base, app_tip)
+    yt = changed_paths(repo, base, yt_tip)
     overlap = sorted(set(app) & set(yt))
     bad_app, bad_yt = [p for p in app if not allowed(p, "app")], [p for p in yt if not allowed(p, "youtube")]
     # Shared files are always an integration task, never a lane's unilateral change.
