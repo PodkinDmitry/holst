@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T11:34:58.204Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T11:36:09.929Z",
+  "state": "running",
+  "owner": "chat-exec-003-mkopt-readonly-20261122",
+  "acquired_at": "2026-11-22T11:40:11.050Z",
+  "expires_at": "2026-11-22T12:48:11.050Z",
+  "heartbeat_at": "2026-11-22T11:40:11.050Z",
   "last_completed_at": "2026-11-22T11:36:09.929Z",
-  "last_summary": "CHAT-PLAN journal v63 §31.7.8 §67: Windows real Edge preflight 200, build PASS, strict app_regression 1265 FAIL, only /0/mk222/opt224 empty object appeared, no updatedAt change; source-backed getter mutation 3/3; EXEC-003 PUBLISHED NOT_RECEIVED. No Work/main/product edits.",
+  "last_summary": "EXEC-003: read-only mkOpt224 and pointerup source-backed fix; no main/Work/SOL checkout",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
