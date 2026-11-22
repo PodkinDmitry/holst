@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T22:56:00.069Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T22:56:07.284Z",
+  "state": "active",
+  "owner": "chat-b-video-duplicates-continuation-20261123",
+  "acquired_at": "2026-11-22T23:02:00.502Z",
+  "expires_at": "2026-11-22T23:07:00.504Z",
+  "heartbeat_at": "2026-11-22T23:02:00.502Z",
   "last_completed_at": "2026-11-22T22:56:07.284Z",
   "last_summary": "CHAT B: presets 6/6, category 15/15, watch 7/7; current source published, journal §100; browser/build NOT_RUN",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle; B next duplicate/infinite feed/receipt. Coordinator integrates only after native build/browser gates."
+  "task": "CHAT B source-backed duplicate video, feed pagination and XOD receipt publish"
 }
