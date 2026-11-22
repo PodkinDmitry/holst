@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "assignment": "EXEC-003",
+  "branch": "ai-workspace",
+  "status": "SOURCE_VERIFIED_TARGET_E2E_NOT_VERIFIED",
+  "source": {
+    "private_zip_sha256": "a7f1f7e7ae1903ab524f19aea450d0329dbcde1bd6fb234ba8fc4be7d40cf9c4",
+    "private_zip_entries": 449,
+    "private_zip_crc": "PASS",
+    "private_source_manifest_entries": 431,
+    "private_source_manifest_mismatches": 0,
+    "m_mark222_js_original_sha256": "9ce975a194cf5adbe3d153b3842159ec104fadf32a7b195e4e4aa8064462a753",
+    "m_mark224_js_original_sha256": "16bd12345b0477cf0fca0e601c382ca5786a92f1542cb199ed1065eea1627c3c",
+    "m_mark224_js_patched_sha256": "026f89ba371720f6f5d01ddd6e829c5a5abcbb582d260e0516ddffd147cab810"
+  },
+  "patch": {
+    "name": "mkopt224_readonly_pointerup.patch",
+    "bytes": 2691,
+    "sha256": "9df5874174a19f3499a51e2936d9c99e7e3191d15396bcdb678cae717dff88af",
+    "git_blob_sha": null,
+    "files_touched": [
+      "v224/m_mark224.js"
+    ],
+    "hunks": 3,
+    "git_apply_check": "PASS",
+    "git_apply_actual": "PASS",
+    "git_apply_reverse_check": "PASS",
+    "clean_stage_matches_tested_source": true
+  },
+  "tests": {
+    "harness_name": "mkopt224_source_gate.js",
+    "harness_bytes": 13651,
+    "harness_sha256": "12e980203ed8fe66614792473647ac00a9328602f9e9bcb4434c88f340b96534",
+    "original_negative_controls": 5,
+    "patched_positive_and_safety_controls": 25,
+    "node_vm_total": 30,
+    "node_vm_passed": 30,
+    "harness_node_check": "PASS",
+    "patched_module_node_check": "PASS",
+    "strict_test_file_unmodified": true,
+    "strict_browser_assert_unmodified": true,
+    "build_py": "PASS",
+    "build_output_line": "ok 4983169",
+    "built_app_contains_fixed_getter_and_explicit_write": true
+  },
+  "browser": {
+    "local_test_server": "RUNNING_AND_RESPONDING",
+    "headless_chromium_about_blank": "PASS",
+    "headless_chromium_localhost": "BLOCKED_BY_ADMINISTRATOR",
+    "xod_strict_app_regression_retest": "NOT_EXECUTED",
+    "windows_edge_retest": "NOT_EXECUTED",
+    "sol_integration": "NOT_EXECUTED"
+  },
+  "scope": "Isolated source-only Test13 with patch. Does not assert combined CHAT16–31/EXEC003 integration or Windows E2E.",
+  "work_usage": "UNKNOWN_NOT_OBSERVED"
+}
