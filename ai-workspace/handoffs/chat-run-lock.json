@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-45-source-data-integrity-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T18:35:57.278Z",
-  "expires_at": "2026-11-22T19:28:57.280Z",
-  "heartbeat_at": "2026-11-22T18:35:57.278Z",
-  "last_completed_at": "2026-11-22T18:33:46.367Z",
-  "last_summary": "CHAT44 §78: exact original m_data300.js lost late edits during async Life OS save with no remote divergence. Fail-before 3/4, minimal source-only patch, after 4/4, JS/git apply PASS, combined CHAT43+CHAT44 both 4/4, tampered ZIP denied. Patch 78790bd, test c945302, journal v75 commit 17a207d verified. Not integrated into private Test13, XOD3 release OPEN. Work/SOL/main untouched.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T18:44:20.617Z",
+  "last_completed_at": "2026-11-22T18:44:20.617Z",
+  "last_summary": "CHAT45 §79: regular XOD board async-write race reproduced 2/4 before and 4/4 after. Three compatible source-only patches CHAT43+CHAT44+CHAT45, both orders 12/12 PASS; changed ZIP rejected. GitHub trailing-newline transfer corrupted prior patch files; repaired actual Git blob SHA for all 3. New patch b5a10dc, test 38d1fb7, worker v1.8, journal v76 commit 848177d. No private Test13 integration, main/Work/SOL untouched. XOD 3.0 RELEASE OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
   "task": "User-requested XOD 3.0 next verified data-integrity issue after §78; source-only fail-before/pass-after, safe patch and test, no Work/SOL/main or private Test13 checkout."
 }
