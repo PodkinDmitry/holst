@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "locked",
-  "owner": "chat-55-kb-add-offline-preservation-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T20:19:29.091Z",
-  "expires_at": "2026-11-22T20:54:29.091Z",
-  "heartbeat_at": "2026-11-22T20:19:29.091Z",
-  "last_completed_at": "2026-11-22T20:17:17.865Z",
-  "last_summary": "CHAT54 §88: exact legacy v2.27 xfetch/kbfetch sender origin/path authorization patch. Node VM 9/20 baseline -> 20/20 after; combined CHAT48–54 selected 9 application orders 89/89 PASS per order, identical combined blob 0e694c9b; tampered ZIP rejected. Source-only patch/test/repro runner Git blob readback + journal v85 §88 PASS. Current private integrated Test13 remains unavailable; A/B worktrees/beta/browser E2E NOT_STARTED, main/Work/SOL/user data unchanged; XOD release OPEN.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T20:24:51.892Z",
+  "last_completed_at": "2026-11-22T20:24:51.892Z",
+  "last_summary": "CHAT55 §89: exact legacy extension 2.27 offline YouTube/context KB-add lost when XOD unavailable. Source-backed 6/14 before -> 14/14 patched PASS, all CHAT48–55 combined in 12 selected orders 104/104 PASS per order identical Git blob d758f794; tampered ZIP rejected. Patch/JS tests/Python gate and journal v86 §89 published/readback exact SHA PASS. Current private integrated Test13 unavailable; real A/B worktrees, beta, browser/Drive E2E not run; XOD release open. No main/Work/SOL/user-data changes.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "User-approved source-only legacy extension 2.27 kb-add from YouTube and context-menu lost when XOD offline, exact source regression and patch, verify CHAT48-54 compatibility, journal §89, release lock. No Work/SOL/main/private Test13/user data."
+  "task": "Idle. Next continuation: reread live AGENTS/journal/lock; prioritize obtaining actual integrated private Test13 and beta. Otherwise verified distinct source-only product defect, never infer release completion."
 }
