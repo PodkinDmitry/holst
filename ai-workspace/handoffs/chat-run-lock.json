@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T20:12:27.686Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T20:17:17.865Z",
+  "state": "locked",
+  "owner": "chat-55-kb-add-offline-preservation-20261122",
+  "acquired_at": "2026-11-22T20:19:29.091Z",
+  "expires_at": "2026-11-22T20:54:29.091Z",
+  "heartbeat_at": "2026-11-22T20:19:29.091Z",
   "last_completed_at": "2026-11-22T20:17:17.865Z",
   "last_summary": "CHAT54 §88: exact legacy v2.27 xfetch/kbfetch sender origin/path authorization patch. Node VM 9/20 baseline -> 20/20 after; combined CHAT48–54 selected 9 application orders 89/89 PASS per order, identical combined blob 0e694c9b; tampered ZIP rejected. Source-only patch/test/repro runner Git blob readback + journal v85 §88 PASS. Current private integrated Test13 remains unavailable; A/B worktrees/beta/browser E2E NOT_STARTED, main/Work/SOL/user data unchanged; XOD release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Next user continuation: reread AGENTS/journal/lock; priority actual private integrated Test13 and real dual worktrees/beta. Otherwise distinct source-backed product fix with no false beta claims."
+  "task": "User-approved source-only legacy extension 2.27 kb-add from YouTube and context-menu lost when XOD offline, exact source regression and patch, verify CHAT48-54 compatibility, journal §89, release lock. No Work/SOL/main/private Test13/user data."
 }
