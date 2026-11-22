@@ -1,0 +1,24 @@
+diff --git a/v224/m_data300.js b/v224/m_data300.js
+index 12d61b13c9c7f05b35a3ae2b1b4d9fa9b2b9450f..eeec888691cfb4de8096bad06140b717c6848eca 100644
+--- a/v224/m_data300.js
++++ b/v224/m_data300.js
+@@ -322,6 +322,11 @@
+     return result;
+   }
+   const {saved, draft, merged, forked} = result;
++  // Changes made while storage was committing must be saved after this snapshot.
++  // A tab's view, updatedAt and revision are not content edits.
++  const pending = !sameBoardValue300(
++    {...draft, view:null, updatedAt:0, revision300:null},
++    {...board, view:null, updatedAt:0, revision300:null});
+   if (forked) {
+     const name = board.name === draft.name ? saved.name : board.name + ' (правки из другой вкладки)';
+     updateLiveLocalBoard300(board, {...board, id:saved.id, name, conflictOf300:id});
+@@ -342,6 +347,7 @@
+   localBoardBases300.set(board, saved);
+   upsertIndex(saved);
+   bcPost({t:'saved', bid:saved.id});
++  if (pending && S.board === board) scheduleSave();
+   return result;
+ }
+ 
