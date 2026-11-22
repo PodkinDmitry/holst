@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "locked",
-  "owner": "chat-52-extension-state-backup-persistence-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T19:42:38.301Z",
-  "expires_at": "2026-11-22T20:22:38.301Z",
-  "heartbeat_at": "2026-11-22T19:42:38.301Z",
-  "last_completed_at": "2026-11-22T19:37:40.696Z",
-  "last_summary": "CHAT51 §85: legacy v2.27 ext224/background.js ytBlock221 concurrent RMW and remote non-ok/ordering defect verified on exact SHA. Before 4/11 PASS (7 FAIL), after 11/11 PASS; all four CHAT48–51 source-only patches 24 orders * 44/44 PASS; changed ZIP rejected. Patch/test/gate exact published Git blobs and journal v82 §85 readback verified. Actual private integrated Test13 remains unavailable; real beta/browser E2E NOT_RUN; main/Work/SOL/user data unchanged; XOD 3.0 release OPEN.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T19:50:44.149Z",
+  "last_completed_at": "2026-11-22T19:50:44.149Z",
+  "last_summary": "CHAT52 §86: legacy v2.27 background.js offline state-backup lacked persistent pending/retry. Exact SHA source-only 6/11 baseline (5 FAIL) -> 11/11 after; all 5 CHAT48-52 patches 120/120 application orders byte-identical Git blob, 55/55 VM regressions on 7 orders, tampered ZIP rejected. Patch/test/gate Git blob and journal v83 §86 readback PASS. Private integrated Test13 still inaccessible; product A/B worktrees, real beta and browser/Drive E2E NOT_STARTED; release OPEN. No main/Work/SOL/user-data changes.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "User-requested XOD continuation: exact legacy v2.27 background.js persisted extension state backup on offline/late ack, fail-before/pass-after, verify compatibility CHAT48-51, publish minimal patch+tests/journal, no main, Work/SOL, private Test13, user data"
+  "task": "Idle. On next user continuation: re-read AGENTS/journal/CAS, prioritize real integrated Test13 and beta; otherwise distinct exact-source high-value product regression only."
 }
