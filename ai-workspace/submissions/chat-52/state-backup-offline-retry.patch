@@ -1,0 +1,63 @@
+diff --git a/ext224/background.js b/ext224/background.js
+--- a/ext224/background.js
++++ b/ext224/background.js
+@@ -192,11 +192,54 @@
+ }
++/* Settings are backed up only after a real acknowledgement from Холст.
++   Persist a pending token so an offline change survives MV3 worker restarts. */
+ let saveT = 0;
++let backupTokenSeq224 = 0;
++let backupMarkerTail224 = Promise.resolve(), backupSending224 = false;
++async function syncBackupFlush224() {
++  if (backupSending224) return { ok: false, busy: true };
++  backupSending224 = true;
++  let sentToken = null;
++  try {
++    await backupMarkerTail224;
++    const all = await chrome.storage.local.get(null);
++    sentToken = all.stateBackupPending224;
++    if (!sentToken) return { ok: true, noop: true };
++    const out = {};
++    for (const k of KEEP) if (all[k] != null) out[k] = all[k];
++    out.hl = {}; for (const k of Object.keys(all)) if (k.startsWith('hl:')) out.hl[k] = all[k];
++    out.v = chrome.runtime.getManifest().version;
++    const ack = await relay('state-set', out, true);
++    if (!(ack && ack.ok)) return { ok: false };
++    /* Serialize acknowledgement with pending-marker writes: a stale ACK cannot
++       clear a marker for a newer local change. */
++    const completed = backupMarkerTail224.then(async () => {
++      const latest = (await chrome.storage.local.get('stateBackupPending224')).stateBackupPending224;
++      if (latest === sentToken) await chrome.storage.local.remove('stateBackupPending224');
++    });
++    backupMarkerTail224 = completed.catch(() => {});
++    await completed;
++    return { ok: true };
++  } catch (e) { return { ok: false, error: String(e) }; }
++  finally {
++    backupSending224 = false;
++    try {
++      await backupMarkerTail224;
++      const latest = (await chrome.storage.local.get('stateBackupPending224')).stateBackupPending224;
++      if (latest && latest !== sentToken) {
++        clearTimeout(saveT); saveT = setTimeout(syncBackupFlush224, 0);
++      }
++    } catch (e) { /* the next alarm or bridge-ready will retry */ }
++  }
++}
+ chrome.storage.onChanged.addListener((ch, area) => {
+   if (area !== 'local' || !Object.keys(ch).some(k => KEEP.includes(k) || k.startsWith('hl:'))) return;
+-  clearTimeout(saveT); saveT = setTimeout(async () => {
+-    const all = await chrome.storage.local.get(null), out = {}; for (const k of KEEP) if (all[k] != null) out[k] = all[k];
+-    out.hl = {}; for (const k of Object.keys(all)) if (k.startsWith('hl:')) out.hl[k] = all[k];
+-    out.v = chrome.runtime.getManifest().version; relay('state-set', out, true).catch(() => {});
+-  }, 1500);
++  const token = Date.now().toString(36) + '-' + (++backupTokenSeq224).toString(36);
++  const pending = backupMarkerTail224.then(() => chrome.storage.local.set({ stateBackupPending224: token }));
++  backupMarkerTail224 = pending.catch(() => {});
++  clearTimeout(saveT); saveT = setTimeout(syncBackupFlush224, 1500);
+ });
++/* Independent listeners leave the existing queue handler and bridge registration
++   unchanged; order of CHAT48 and this patch must remain arbitrary. */
++chrome.alarms && chrome.alarms.onAlarm.addListener(a => { if (a.name === 'queue') syncBackupFlush224(); });
++chrome.runtime.onMessage.addListener(msg => { if (msg && msg.op === 'bridge-ready') setTimeout(syncBackupFlush224, 3500); });
+ 
