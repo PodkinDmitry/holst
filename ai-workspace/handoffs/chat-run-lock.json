@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "locked",
-  "owner": "chat-58-powershell-script-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T21:51:56.342Z",
-  "expires_at": "2026-11-22T22:36:56.346Z",
-  "heartbeat_at": "2026-11-22T21:51:56.342Z",
-  "last_completed_at": "2026-11-22T21:21:19.145Z",
-  "last_summary": "CHAT57 §91: user local Git audit 429 tracked, 5 pycache, 0 tracked changes, 34 commits regex secrets 0, four suspicious history paths. GitHub xod-private verified private/admin; prior §30.5 sanitized baseline documented additional 100 screenshots/exports/contacts. Recommend only sanitized current HEAD snapshot; full history unsafe to push unreviewed. Journal v88 §91 verified readback. No app/main/workspace mutation.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T21:53:39.992Z",
+  "last_completed_at": "2026-11-22T21:53:39.992Z",
+  "last_summary": "CHAT58 §92: public ai-workspace/tools/xod-publish-sanitized.ps1 published verified blob e71220feb6505b70196545c863aedb94cb9e13dc; one-line authenticated Windows execution after download Git SHA check. Owner-only cleaned baseline ZIP hash matched 431/431 manifest. User local export ready, no remote source push or runtime test yet. Journal v89 §92 readback.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Build vetted one-command PowerShell publisher to private GitHub from user's already created sanitized XOD snapshot; stage in ai-workspace tools, journal readback; no local user source access."
+  "task": "Idle. Await user execution result. If successful verify private branch release/xod-3.0; if failure diagnose printed STOP and do not rerun blindly."
 }
