@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T10:10:57.930Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T10:12:25.167Z",
+  "state": "running",
+  "owner": "chat-plan-browser-diag-v2-20261122",
+  "acquired_at": "2026-11-22T10:22:50.557Z",
+  "expires_at": "2026-11-22T11:07:50.557Z",
+  "heartbeat_at": "2026-11-22T10:22:50.557Z",
   "last_completed_at": "2026-11-22T10:12:25.167Z",
-  "last_summary": "CHAT-PLAN: documented continuous user journey standard v3.5 §4.14 and UX feedback §31.7.3/§62 in journal v58. Existing Windows kit unchanged; HAO global Library files identified but not edited (raw bytes inaccessible); Test13 browser result/root cause unknown. No Work/main.",
+  "last_summary": "CHAT-PLAN: repair Windows diagnostic launcher PRECONDITION_FAILED/FileNotFoundError from user safe_summary; no Work/main",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
