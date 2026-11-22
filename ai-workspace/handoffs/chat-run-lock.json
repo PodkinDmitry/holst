@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-plan-browser-diagnostic-v3-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T10:47:53.412Z",
-  "expires_at": "2026-11-22T11:32:53.412Z",
-  "heartbeat_at": "2026-11-22T10:47:53.412Z",
-  "last_completed_at": "2026-11-22T10:24:59.182Z",
-  "last_summary": "CHAT-PLAN: Windows v2 safe_summary RuntimeError at Python syntax subprocess; v3 in-process syntax check, safe telemetry and test kit; no main/Work",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T10:51:01.173Z",
+  "last_completed_at": "2026-11-22T10:51:01.173Z",
+  "last_summary": "CHAT-PLAN v60 §31.7.5 §64: user Windows v2 schema2 safe_summary PREPARE_DIAGNOSTIC RuntimeError from child py_compile; v3 in-process compile no child/cache, 10/10 local gates PASS, exact Test13 SHA/CRC/431/build PASS; Windows Edge E2E not run. Uploaded v3 kit, no Work/main changes.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
