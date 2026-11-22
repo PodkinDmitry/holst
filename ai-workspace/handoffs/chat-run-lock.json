@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-plan-browser-opt224-rootcause-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T11:34:58.204Z",
-  "expires_at": "2026-11-22T12:08:58.204Z",
-  "heartbeat_at": "2026-11-22T11:34:58.204Z",
-  "last_completed_at": "2026-11-22T11:29:08.858Z",
-  "last_summary": "CHAT-PLAN: latest Windows real browser diff opt224 vs missing; source-backed proof getter mutation, prepare bounded CHAT-EXEC root cause fix; no main/Work",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T11:36:09.929Z",
+  "last_completed_at": "2026-11-22T11:36:09.929Z",
+  "last_summary": "CHAT-PLAN journal v63 §31.7.8 §67: Windows real Edge preflight 200, build PASS, strict app_regression 1265 FAIL, only /0/mk222/opt224 empty object appeared, no updatedAt change; source-backed getter mutation 3/3; EXEC-003 PUBLISHED NOT_RECEIVED. No Work/main/product edits.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
