@@ -2,9 +2,9 @@
 """One-shot, private, synthetic-fixture XOD Test13 browser diagnostic (EXEC-002).
 
 On the user's computer: verify an existing PRIVATE Test13 ZIP, unpack in a
-throwaway temporary folder, apply exact public CHAT14 diagnostic patch,
+throwaway temporary folder, apply a strict, byte-exact equivalent of CHAT14 test diagnostics,
 preflight real localhost in the chosen Playwright browser, build and run the
-unchanged strict app_regression suite. Produce ONLY a bounded safe summary;
+strict app_regression suite with only test diagnostics inserted. Produce ONLY a bounded safe summary;
 never upload private sources, full console logs or board/organizer values.
 
 This script does NOT remove or work around browser administrator policy.
@@ -26,7 +26,6 @@ import sys
 import tempfile
 import threading
 import time
-import urllib.request
 import zipfile
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
@@ -37,11 +36,30 @@ SOURCE_MANIFEST_SHA256 = "3e22adde6bf966bf1fe5d3c5cb784053dddea77253db875a697c80
 SOURCE_APP_SHA256 = "3861195fb4ad5b5fd3a64f0eb0954856844feb7146a1e9545d31a53dceb9366c"
 SOURCE_ZIP_ENTRIES = 449
 SOURCE_MANIFEST_ENTRIES = 431
-PUBLIC_BASE = "https://raw.githubusercontent.com/PodkinDmitry/holst/ai-workspace/ai-workspace/submissions/chat-14/"
-SUPPORT = {
-    "app_regression.patch": "58333077ed9ad6425d80e9dc463520d2a5e11732",
-    "cache_state_diagnostics.py": "f797264cddfac36617423660555769e24fac49f3",
-}
+# Offline, audited diagnostics shipped next to this launcher. No Git or network needed.
+LOCAL_HELPER = "cache_state_diagnostics.py"
+LOCAL_HELPER_SHA256 = "85acc541fb0d83f1b70fc105320bd622afc536beb7728fab50578a30cb017206"
+
+
+def status_message(message: str) -> None:
+    print("[XOD] " + message, flush=True)
+
+
+def safe_failure_hint(exc: BaseException, stage: str) -> str:
+    """Never disclose private filenames, user paths, board contents or raw output."""
+    if stage == "CHECK_ZIP":
+        return "Проверьте локальный архив Test 13: размер и контрольные суммы."
+    if stage == "PREPARE_DIAGNOSTIC":
+        return "Проверьте файлы набора: xod_browser_diag.py и cache_state_diagnostics.py. Git не требуется."
+    if stage == "BROWSER_PREFLIGHT":
+        return "Проверьте Microsoft Edge и Python Playwright; Comodo может блокировать запуск. Не отключайте защиту."
+    if stage == "BUILD":
+        return "Не удалось собрать временную копию: исходники пользователя не изменены."
+    if stage == "BROWSER_TEST":
+        return "Тест прервался; нужен безопасный JSON-отчёт с текущим этапом, а не повторный запуск старого набора."
+    return "Проверка прервана. Не отключайте Comodo; сообщите статус из safe_summary.json."
+
+
 DIFF_PATTERN = re.compile(r"^(/[^\s:]{1,180}):\s+(missing|null|boolean|number|string|array|object):([0-9a-f]{12}|missing)\s+->\s+(missing|null|boolean|number|string|array|object):([0-9a-f]{12}|missing)$")
 EXCEPTIONS = re.compile(r"^(?P<error>[A-Za-z][A-Za-z_]*(?:Error|Exception))(?::|$)")
 
@@ -111,13 +129,15 @@ def verify_source_zip(zip_path: Path) -> dict:
         if len(checks) != SOURCE_MANIFEST_ENTRIES:
             raise ValueError("Unexpected number of manifest hashes")
         seen = set()
-        for relative, expected in checks:
+        for index, (relative, expected) in enumerate(checks, 1):
             absolute = relative if relative in names else prefix + relative
             if absolute in seen or absolute not in names:
                 raise ValueError("Manifest entry absent/duplicate")
             seen.add(absolute)
             if sha256(z.read(absolute)) != expected:
                 raise ValueError("Manifest file SHA256 mismatch")
+            if index % 50 == 0:
+                status_message(f"Проверка контрольных сумм: {index}/{SOURCE_MANIFEST_ENTRIES} файлов.")
         app = prefix + "v224/base29.html"
         if app not in names or sha256(z.read(app)) != SOURCE_APP_SHA256:
             raise ValueError("Original v224/base29.html SHA256 mismatch")
@@ -148,43 +168,58 @@ def unpack_verified_zip(zpath: Path, dest: Path) -> Path:
         return root
 
 
-def get_support(name: str, offline_dir: Path | None) -> bytes:
-    if name not in SUPPORT:
-        raise ValueError("Unknown public support artifact")
-    if offline_dir:
-        data = (offline_dir/name).read_bytes()
-    else:
-        req=urllib.request.Request(PUBLIC_BASE+name,headers={"User-Agent":"XOD-Test13-Diag/1.0"})
-        with urllib.request.urlopen(req,timeout=25) as f:
-            data = f.read(150000)
-    if git_blob_sha(data) != SUPPORT[name]:
-        raise ValueError("CHAT14 support Git blob SHA mismatch: "+name)
-    return data
 
 
 def apply_diagnostics(source: Path, offline: Path | None) -> dict:
-    patch = get_support("app_regression.patch",offline)
-    helper = get_support("cache_state_diagnostics.py",offline)
-    helper_target = source/"tests/cache_state_diagnostics.py"
+    """Apply a byte-exact equivalent of CHAT14's strictly failing assertion.
+
+    On pinned source only; does not require Git, internet, or user browser profile.
+    Refuses any unexpected source line and preserves CRLF encoding.
+    """
+    script = source / "tests" / "app_regression.py"
+    helper_target = source / "tests" / "cache_state_diagnostics.py"
     if helper_target.exists():
-        raise ValueError("Diagnostic destination already exists: refuse overwrite")
-    helper_target.write_bytes(helper)
-    patch_path = source/"CHAT14-app_regression.patch"
-    patch_path.write_bytes(patch)
-    try:
-        for args in (["git","apply","--check",str(patch_path)],
-                     ["git","apply",str(patch_path)]):
-            p=subprocess.run(args,cwd=source,capture_output=True,timeout=30)
-            if p.returncode:
-                raise RuntimeError("CHAT14 diagnostic git apply check/application FAILED; Test13 copy abandoned")
-        p=subprocess.run([sys.executable,"-m","py_compile",str(source/"tests/app_regression.py"),
-                          str(helper_target)],cwd=source,capture_output=True,timeout=30)
-        if p.returncode:
-            raise RuntimeError("CHAT14 Python syntax check failed")
-    finally:
-        patch_path.unlink(missing_ok=True)
-    return {"patch_sha":SUPPORT["app_regression.patch"],"helper_sha":SUPPORT["cache_state_diagnostics.py"],
-            "strict_original_assert":"PRESERVED_WITH_STRICT_DIAGNOSTICS","syntax":"PASS"}
+        raise ValueError("Diagnostic helper destination already exists")
+    bundled = Path(__file__).resolve().with_name(LOCAL_HELPER)
+    if offline is not None:
+        bundled = offline / LOCAL_HELPER
+    if not bundled.is_file():
+        raise FileNotFoundError("Offline diagnostic helper missing")
+    helper_data = bundled.read_bytes()
+    if sha256(helper_data) != LOCAL_HELPER_SHA256:
+        raise ValueError("Offline diagnostic helper SHA256 mismatch")
+    before = script.read_bytes()
+    if b'\r\n' not in before or before.count(b'\n') != before.count(b'\r\n'):
+        raise ValueError("Test13 app_regression.py is not the expected CRLF original")
+    replacements = [
+       (b'from board_benchmark import QuietHandler\r\n',
+        b'from board_benchmark import QuietHandler\r\n'
+        b'from cache_state_diagnostics import assert_cache_state_unchanged\r\n'),
+       (b'            before_cleanup = ev("JSON.stringify([S.board, S.org, LS.get(\'pal28\')])")\r\n',
+        b'            before_cleanup = ev("JSON.stringify([S.board, S.org, LS.get(\'pal28\')])")\r\n'
+        b'            before_save_state = ev("({updatedAt:S.board?.updatedAt,dirty,saving,saveAgain,timerPending:!!saveTimer})")\r\n'),
+       (b'            assert before_cleanup == ev("JSON.stringify([S.board, S.org, LS.get(\'pal28\')])")\r\n',
+        b'            after_cleanup = ev("JSON.stringify([S.board, S.org, LS.get(\'pal28\')])")\r\n'
+        b'            after_save_state = ev("({updatedAt:S.board?.updatedAt,dirty,saving,saveAgain,timerPending:!!saveTimer})")\r\n'
+        b'            assert_cache_state_unchanged(before_cleanup, after_cleanup, before_save_state, after_save_state)\r\n')
+    ]
+    patched=before
+    for original, modified in replacements:
+        if patched.count(original) != 1:
+            raise ValueError("Unexpected app_regression.py diagnostic anchor; no source change")
+        patched=patched.replace(original, modified)
+    if patched == before or b'            assert before_cleanup == ev(' in patched:
+        raise ValueError("Strict diagnostic not activated")
+    helper_target.write_bytes(helper_data)
+    script.write_bytes(patched)
+    p=subprocess.run([sys.executable,"-m","py_compile",str(script),str(helper_target)],
+                     cwd=source,capture_output=True,timeout=45)
+    if p.returncode:
+        raise RuntimeError("Diagnostic Python syntax failed")
+    return {"method":"CHAT14_EQUIVALENT_STRICT_CRLF_REPLACEMENT",
+            "helper_sha256":LOCAL_HELPER_SHA256,"original_test_sha256":sha256(before),
+            "patched_test_sha256":sha256(patched),"strict_original_assert":"PRESERVED_WITH_STRICT_DIAGNOSTICS",
+            "syntax":"PASS","git_required":False,"network_required":False}
 
 
 class ProbeHandler(BaseHTTPRequestHandler):
@@ -269,13 +304,24 @@ def extract_safe_diagnostic(output: str) -> dict:
             "test_output_bytes":len(output.encode("utf-8",errors="replace"))}
 
 
-def run_command(args: list[str],cwd: Path,timeout: int) -> tuple[int,str]:
+def run_command(args: list[str], cwd: Path, timeout: int) -> tuple[int, str]:
+    """Run without printing confidential stdout; show heartbeat every 15 seconds."""
     try:
-        cp=subprocess.run(args,cwd=cwd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,
-                          timeout=timeout,text=True,encoding="utf-8",errors="replace")
-        return cp.returncode, cp.stdout
-    except subprocess.TimeoutExpired:
-        return 124,"Timed out (raw process output not retained)"
+        proc=subprocess.Popen(args,cwd=cwd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+    except FileNotFoundError:
+        raise FileNotFoundError("A required executable is not installed or is blocked") from None
+    started=time.monotonic()
+    while True:
+        try:
+            stdout,_=proc.communicate(timeout=15)
+            return proc.returncode, stdout.decode("utf-8",errors="replace")
+        except subprocess.TimeoutExpired:
+            elapsed=int(time.monotonic()-started)
+            status_message(f"Операция продолжается ({elapsed} сек). Окно можно оставить открытым, закрывать не нужно.")
+            if elapsed >= timeout:
+                proc.kill()
+                proc.communicate()
+                return 124, "Timed out; private subprocess output discarded"
 
 
 def find_source_zip(explicit: str | None) -> Path | None:
@@ -323,84 +369,115 @@ def self_test() -> None:
     assert safe["save_state_before_after"]==[{'updatedAt':123,'dirty':True},{'updatedAt':124,'saving':False}]
     assert "SECRET" not in json.dumps(safe) and "PRIVATE" not in json.dumps(safe)
     assert sha256(b"test") == "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
-    print("SELF_TEST PASS (hashes, ZIP paths, manifest, redaction, diagnostics)")
+    bundled = Path(__file__).resolve().with_name(LOCAL_HELPER)
+    assert bundled.is_file() and sha256(bundled.read_bytes()) == LOCAL_HELPER_SHA256
+    print("SELF_TEST PASS (hashes, ZIP paths, manifest, redaction, diagnostics, bundled helper)")
 
 
 def main() -> int:
     cli=argparse.ArgumentParser(description=__doc__)
-    cli.add_argument("--zip",help="Private verified Test13 ZIP on this host. If absent, a file picker opens.")
-    cli.add_argument("--support-dir",help="Offline CHAT14 support directory (public patch and helper)")
+    cli.add_argument("--zip",help="Private Test13 ZIP saved locally; otherwise use file picker")
+    cli.add_argument("--support-dir",help="Optional offline helper directory; default is this kit")
     cli.add_argument("--channel",choices=("msedge","chrome","chromium"),
                      default="msedge" if sys.platform.startswith("win") else "chromium")
-    cli.add_argument("--report-dir",help="Output folder for SAFE JSON only (no raw stdout)")
-    cli.add_argument("--self-test",action="store_true",help="Test script helpers without private data or browser")
+    cli.add_argument("--report-dir",help="SAFE output folder, default Downloads/XOD-browser-diag-result")
+    cli.add_argument("--self-test",action="store_true")
     args=cli.parse_args()
     if args.self_test:
         self_test();return 0
-    local_time=time.strftime("%Y%m%d-%H%M%S")
-    out=Path(args.report_dir).expanduser() if args.report_dir else Path.home()/"Downloads"/("XOD-browser-diag-"+local_time)
-    summary={"schema":1,"task":"EXEC-002/CHAT14-browser-1265","created_utc":datetime.now(timezone.utc).isoformat(),
+    out=Path(args.report_dir).expanduser() if args.report_dir else Path.home()/"Downloads"/"XOD-browser-diag-result"
+    summary={"schema":2,"task":"EXEC-002/CHAT14-browser-1265","created_utc":datetime.now(timezone.utc).isoformat(),
              "environment":{"os":platform.system(),"python":platform.python_version(),"channel":args.channel},
-             "status":"NOT_STARTED","work_used":"NOT_OBSERVED","sol_checkout_modified":False,
-             "main_modified":False,"private_source_published":False,"test_fixture":"synthetic-only"}
-    status=2
+             "status":"NOT_STARTED","step":"INITIALIZE","work_used":"NOT_OBSERVED",
+             "sol_checkout_modified":False,"main_modified":False,"private_source_published":False,"test_fixture":"synthetic-only"}
+    result=7
+    status_message("ДИАГНОСТИКА XOD: начало. Это не установка и не изменение рабочего XOD.")
+    status_message("Понадобится локальный архив Test13 ZIP; он остаётся на вашем ПК.")
+    status_message("Результат появится в Загрузки/XOD-browser-diag-result/safe_summary.json.")
+    status_message("При долгом ожидании будут появляться сообщения. Comodo может блокировать Python/Edge: не отключайте защиту.")
     try:
+        summary["step"]="SELECT_SOURCE"
+        status_message("Шаг 1/5. Поиск архива. Если открылось окно выбора, укажите скачанный из Drive ZIP.")
         zpath=find_source_zip(args.zip)
         if not zpath or not zpath.is_file():
-            summary.update(status="MISSING_PRIVATE_ZIP",next_action="Download owner-only Test13 ZIP from connected Drive; select it locally; no public upload")
+            summary.update(status="MISSING_PRIVATE_ZIP",next_action="Скачайте приватный ZIP Test13 из Google Drive и выберите его локально; не загружайте в публичный GitHub")
             return 2
+        summary["step"]="CHECK_ZIP"
+        status_message("Шаг 2/5. Проверка Test13: контрольные суммы, CRC, все 431 исходных файла. Не закрывайте окно.")
         summary["source_integrity"]=verify_source_zip(zpath)
+        status_message("Шаг 2/5: PASS. Архив подлинный, 431/431 контрольных сумм совпали.")
         with tempfile.TemporaryDirectory(prefix="xod-browser-diagnostic-") as tmp:
+            summary["step"]="PREPARE_DIAGNOSTIC"
+            status_message("Шаг 3/5. Распаковка во временную папку и добавление строгой диагностики. Git и интернет не нужны.")
             src=unpack_verified_zip(zpath,Path(tmp))
             summary["diagnostic_patch"]=apply_diagnostics(src,Path(args.support_dir) if args.support_dir else None)
+            status_message("Шаг 3/5: PASS. Исходный XOD на ПК не изменён; диагностика добавлена во временную копию.")
+            summary["step"]="BROWSER_PREFLIGHT"
+            status_message("Шаг 4/5. Проверка Edge и localhost. При блокировке Comodo тест остановится безопасно.")
             preflight=localhost_browser_probe(args.channel)
             summary["localhost_browser_preflight"]=preflight
             if preflight["status"] != "PASS":
                 summary.update(status="BLOCKED_BROWSER" if preflight["status"]=="BLOCKED_BROWSER" else "ENVIRONMENT_BLOCKED",
-                               next_action="Use an authorized local Chrome/Edge with localhost + Python Playwright; do not bypass administrator policies")
+                               next_action="Проверьте Edge, Playwright и сообщения Comodo; не отключайте защиту. Прикрепите safe_summary.json")
+                status_message("Шаг 4/5: не пройден — браузерный тест не запускался.")
                 return 3
+            status_message("Шаг 4/5: PASS. Edge может открыть localhost.")
+            summary["step"]="BUILD"
+            status_message("Шаг 5/5 (1/2). Сборка временной копии XOD. Сообщения о ходе — каждые 15 секунд.")
             code,log=run_command([sys.executable,"build.py","dist"],src,600)
             summary["build"]={"exit_code":code,"log_sha256":sha256(log.encode("utf-8",errors="replace"))}
             if code!=0:
-                summary.update(status="BUILD_FAILED",next_action="Inspect private build output locally; source not changed")
+                summary.update(status="BUILD_FAILED",next_action="Сборка временной копии не удалась. Не повторяйте старый запуск: прикрепите safe_summary.json")
                 return 4
+            status_message("Сборка PASS.")
+            summary["step"]="BROWSER_TEST"
+            status_message("Шаг 5/5 (2/2). Запуск настоящего app_regression.py в Edge; он может выполняться несколько минут.")
             test=src/"tests/app_regression.py"
             app=src/"dist/app"
             previous=src/"tests/fixtures/legacy224"
             board=src/"tests/fixtures/synthetic-board.json"
-            for file in (test,previous,board):
-                if not file.exists():
-                    raise ValueError("Missing required synthetic app regression input")
+            for input_path in (test,app,previous,board):
+                if not input_path.exists():
+                    raise ValueError("Missing synthetic regression fixture or build output")
             cmd=[sys.executable,str(test),str(app),str(previous),str(board),"--channel",args.channel]
             code,log=run_command(cmd,src,1800)
             safe=extract_safe_diagnostic(log)
             summary["browser_test"]={"exit_code":code,**safe}
             if code==0:
                 summary.update(status="BROWSER_REGRESSION_PASS_ONE_RUN",
-                               next_action="Report exact test run as PASS; do not claim SOL integration or full release E2E")
-                status=0
+                               next_action="Отправьте safe_summary.json в чат XOD; один прогон не означает приёмку релиза")
+                result=0
             elif safe["saw_strict_cache_comparison_failure"]:
                 summary.update(status="BROWSER_CACHE_STATE_DIFF_OBSERVED",
-                               next_action="Correlate safe changed paths with save-state/timing; no content patch without confirmed cause")
-                status=5
+                               next_action="Отправьте safe_summary.json: по JSON-путям нужно определить реальную причину; строгая проверка не ослаблена")
+                result=5
             elif safe["saw_browser_admin_block"]:
-                summary.update(status="BLOCKED_BROWSER",next_action="Use authorized browser host; do not bypass policy")
-                status=3
+                summary.update(status="BLOCKED_BROWSER",next_action="Comodo/браузер запретил localhost; не обходите политику; передайте safe_summary.json")
+                result=3
             else:
                 summary.update(status="BROWSER_TEST_FAILED_ELSEWHERE",
-                               next_action="Review raw logs locally only; do not expose private values or claim 1265 reproduced")
-                status=6
-            return status
+                               next_action="Тест остановился на другой проверке. Отправьте safe_summary.json, не передавайте полный лог с данными")
+                result=6
+            return result
     except (OSError,ValueError,RuntimeError,zipfile.BadZipFile,subprocess.SubprocessError) as e:
+        stage=summary["step"]
         summary.update(status="PRECONDITION_FAILED",error_type=type(e).__name__,
-                       next_action="Check source ZIP integrity, permitted browser and public pinned support files")
+                       failed_step=stage,next_action=safe_failure_hint(e,stage))
+        if isinstance(e,FileNotFoundError):
+            summary["suspected_missing_component"]=("python_dependency_or_blocked_file" if stage not in ("PREPARE_DIAGNOSTIC","BROWSER_PREFLIGHT") else "bundled_helper_or_browser")
         return 7
     finally:
         target=write_summary(out,summary)
-        print("STATUS:",summary["status"])
-        print("SAFE JSON REPORT:",target)
-        print("No raw stdout, private ZIP or board content was exported by this launcher.")
-        print("Only share safe_summary.json after checking that it contains no unexpected private paths.")
+        status_message("ГОТОВО: "+summary["status"]+" (этап: "+summary["step"]+").")
+        status_message("ОТЧЁТ: "+str(target))
+        status_message("ЧТО ДЕЛАТЬ: "+summary.get("next_action","Прикрепите safe_summary.json в чат планирования XOD."))
+        status_message("Окно можно закрывать; после нажатия клавиши командное окно закроется — это нормально.")
+        status_message("Не отправляйте другие файлы, полный лог или приватные исходники.")
+        if sys.platform.startswith("win"):
+            try:
+                os.startfile(str(out))  # type: ignore[attr-defined]
+            except OSError:
+                status_message("Не удалось открыть папку автоматически; она указана в строке ОТЧЁТ.")
 
 
 if __name__=="__main__":
