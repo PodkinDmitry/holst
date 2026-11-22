@@ -1,11 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T12:09:52.787Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T12:10:49.265Z",
+  "state": "running",
+  "owner": "sol-chat41-integration-20261122",
+  "acquired_at": "2026-11-22T12:21:46.825Z",
+  "expires_at": "2026-11-22T13:26:46.825Z",
+  "heartbeat_at": "2026-11-22T12:21:46.825Z",
   "last_completed_at": "2026-11-22T12:10:49.265Z",
   "last_summary": "CHAT-PLAN journal v67 §31.7.10 §70: user safe_summary(5) proves exact patched isolated Test13 real Windows/msedge strict app_regression exit0, changed_paths empty; no re-run needed. SOL checkout/Drive/IndexedDB/release NOT verified; no Work/main edits.",
-  "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
+  "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
+  "task": "User-authorized CHAT41 integration and XOD 3.0 target acceptance in real SOL checkout"
 }
