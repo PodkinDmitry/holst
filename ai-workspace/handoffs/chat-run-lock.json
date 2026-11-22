@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T23:19:35.973Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T23:19:55.698Z",
+  "state": "active",
+  "owner": "chat-b-kb-ping-preflight-20261123",
+  "acquired_at": "2026-11-22T23:21:21.344Z",
+  "expires_at": "2026-11-22T23:24:21.344Z",
+  "heartbeat_at": "2026-11-22T23:21:21.344Z",
   "last_completed_at": "2026-11-22T23:19:55.698Z",
   "last_summary": "CHAT B private source/test published: channel replay 13/13 PASS; previous source suites 66/66 PASS. Journal checkpoint pending.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle; final B GitHub regression and canonical journal pending."
+  "task": "B safe kb-add readiness preflight, tests/source isolated"
 }
