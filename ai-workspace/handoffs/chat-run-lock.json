@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T22:22:22.462Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T22:22:50.914Z",
+  "state": "running",
+  "owner": "chat-xod-coordinator-parallel-onboarding-20261123",
+  "acquired_at": "2026-11-22T22:27:12.631Z",
+  "expires_at": "2026-11-22T22:52:12.631Z",
+  "heartbeat_at": "2026-11-22T22:27:12.631Z",
   "last_completed_at": "2026-11-22T22:22:50.914Z",
   "last_summary": "CHAT verified private xod-private release/xod-3.0 push c6cfb259; GitHub commit and 432-row checksum manifest readback, journal §93 commit ddceb9a6 verified. Local Test13 and holst/main untouched. Release/Drive gates remain open.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Private migration done. Next: inspect private repo, plan safe A/B worktrees, test build/E2E and remaining Drive gate; check journal and lock before changes."
+  "task": "Current CHAT coordinator: verify XOD source/context and initialize approved two independent private coding branches, update canonical handoff with explicit ownership."
 }
