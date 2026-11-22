@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T10:47:53.412Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T10:51:01.173Z",
+  "state": "running",
+  "owner": "chat-plan-missing-playwright-checkpoint-20261122",
+  "acquired_at": "2026-11-22T11:16:08.664Z",
+  "expires_at": "2026-11-22T11:46:08.664Z",
+  "heartbeat_at": "2026-11-22T11:16:08.664Z",
   "last_completed_at": "2026-11-22T10:51:01.173Z",
-  "last_summary": "CHAT-PLAN v60 §31.7.5 §64: user Windows v2 schema2 safe_summary PREPARE_DIAGNOSTIC RuntimeError from child py_compile; v3 in-process compile no child/cache, 10/10 local gates PASS, exact Test13 SHA/CRC/431/build PASS; Windows Edge E2E not run. Uploaded v3 kit, no Work/main changes.",
+  "last_summary": "CHAT-PLAN: observed v3 Windows MISSING_PLAYWRIGHT; source/strict patch pass; log exact blocker and one secure dependency step, no Work/main",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md"
 }
