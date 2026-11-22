@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "locked",
-  "owner": "chat-47-parallel-audit-fail-closed-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T19:06:53.054Z",
-  "expires_at": "2026-11-22T19:26:53.054Z",
-  "heartbeat_at": "2026-11-22T19:06:53.054Z",
-  "last_completed_at": "2026-11-22T19:01:17.221Z",
-  "last_summary": "CHAT46 §80: approved two-lane XOD 3.0 / YouTube beta pilot. Local-only worktree prepare+scope audit tool published (blob 2062efbe); 10/10 synthetic Git tests PASS (blob 94fd9fc2); protocol v1.9 §0.5 and journal v77 §80 published/readback PASS. No current private Test13 checkout available, no real worktrees/beta/product integration, main/Work/SOL/user data untouched. RELEASE OPEN.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T19:08:39.303Z",
+  "last_completed_at": "2026-11-22T19:08:39.303Z",
+  "last_summary": "CHAT47 §81: xod-parallel-pilot.py audit fail-closed for dirty/untracked worktrees, missing checkout and divergent history. 4 fail-before, 14/14 PASS after on isolated synthetic Git. Published exact local-tested Git blobs 974fc327 / 7c4615f7 and journal v78 §81 (readback PASS). Test13 private source unavailable; product A/B worktrees and YouTube beta NOT_STARTED; main/Work/SOL/user data untouched.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "User-requested continue approved pilot: fix audit fail-open on dirty or unrelated worktrees, publish tested minimal changes and checkpoint; no main/Work/SOL or product data."
+  "task": "Idle. Next user continuation: read latest AGENTS/journal/lease, find actual verified Test13 source without replacing it with legacy, and only then instantiate two worktrees."
 }
