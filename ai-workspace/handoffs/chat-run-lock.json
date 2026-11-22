@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "locked",
-  "owner": "chat-51-youtube-channel-block-integrity-20261122",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-22T19:33:51.379Z",
-  "expires_at": "2026-11-22T20:03:51.379Z",
-  "heartbeat_at": "2026-11-22T19:33:51.379Z",
-  "last_completed_at": "2026-11-22T19:31:20.514Z",
-  "last_summary": "CHAT50 §84: exact legacy 2.27 ext224/background.js restoreState overwrote local hl and in-flight KEEP using older backup; source-only patch verified: 5/11 baseline, 11/11 after, CHAT48+49+50 all 6 patch orders 33/33 PASS each; malformed ZIP rejected. Patch/test/runner + canonical journal v81 published exact SHA readback. Actual integrated Test13 absent; no Chrome beta or product integration; main/Work/SOL/user data untouched; XOD 3.0 release OPEN.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-22T19:37:40.696Z",
+  "last_completed_at": "2026-11-22T19:37:40.696Z",
+  "last_summary": "CHAT51 §85: legacy v2.27 ext224/background.js ytBlock221 concurrent RMW and remote non-ok/ordering defect verified on exact SHA. Before 4/11 PASS (7 FAIL), after 11/11 PASS; all four CHAT48–51 source-only patches 24 orders * 44/44 PASS; changed ZIP rejected. Patch/test/gate exact published Git blobs and journal v82 §85 readback verified. Actual private integrated Test13 remains unavailable; real beta/browser E2E NOT_RUN; main/Work/SOL/user data unchanged; XOD 3.0 release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Direct user continuation XOD: exact legacy v2.27 ext224/background.js ytBlock221 concurrent RMW and failed remote delivery; separate fail-before/pass-after source-only patch; verify CHAT48-50 compatibility; no main/Work/SOL/user data/private Test13"
+  "task": "Idle. Next user action: fresh GitHub AGENTS/journal/lease; actual private Test13 if accessible; otherwise new verified high-value product-only source fix without repeat."
 }
