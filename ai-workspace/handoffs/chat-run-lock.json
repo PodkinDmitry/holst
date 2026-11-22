@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-22T18:57:11.585Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-22T19:01:17.221Z",
+  "state": "locked",
+  "owner": "chat-47-parallel-audit-fail-closed-20261122",
+  "acquired_at": "2026-11-22T19:06:53.054Z",
+  "expires_at": "2026-11-22T19:26:53.054Z",
+  "heartbeat_at": "2026-11-22T19:06:53.054Z",
   "last_completed_at": "2026-11-22T19:01:17.221Z",
   "last_summary": "CHAT46 §80: approved two-lane XOD 3.0 / YouTube beta pilot. Local-only worktree prepare+scope audit tool published (blob 2062efbe); 10/10 synthetic Git tests PASS (blob 94fd9fc2); protocol v1.9 §0.5 and journal v77 §80 published/readback PASS. No current private Test13 checkout available, no real worktrees/beta/product integration, main/Work/SOL/user data untouched. RELEASE OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "No active editing; next agent must re-read current GitHub state and acquire own CAS lease before any changes."
+  "task": "User-requested continue approved pilot: fix audit fail-open on dirty or unrelated worktrees, publish tested minimal changes and checkpoint; no main/Work/SOL or product data."
 }
