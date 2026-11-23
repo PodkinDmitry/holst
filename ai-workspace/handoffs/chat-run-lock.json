@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T18:18:55.363Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T18:20:04.996Z",
+  "state": "running",
+  "owner": "chat-infra-20261123-c4pass-c5partial-pr1journal",
+  "acquired_at": "2026-11-23T18:22:47.059Z",
+  "expires_at": "2026-11-23T18:37:47.059Z",
+  "heartbeat_at": "2026-11-23T18:22:47.059Z",
   "last_completed_at": "2026-11-23T18:20:04.996Z",
   "last_summary": "C4 PASS verified run #45236188200. First C5 run #45236669152 failed in real Chrome app_regression.py:1077 style --bf213 expected Arial; earlier IndexedDB/migration/rollback scenarios PASS; remaining C5 suites unrun due fail-fast. Infra-only workflow diagnostic commit b2ca451c runs all 5 C5 browser suites separately on exact integration SHA and must fail if any fail. Run #45237170399 started; NO product/release changes, no paid budget increase.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. GitHub Actions C5 full-suite diagnostic run #45237170399 active in external runner. On next trigger read actual job logs, record outcome under fresh CAS lease in canonical journal; preserve PR #1 and private release source unchanged. C5 not accepted until 5/5 browser suites PASS."
+  "task": "Record exact GitHub Actions C4 PASS, C5 3/5 browser suite PASS + 2 FAIL in current integration PR #1 and canonical journal, update infrastructure draft PR #2 description; no product/release/code changes."
 }
