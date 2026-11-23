@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coordinator2-atr-handoff-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T18:42:19.044Z",
-  "expires_at": "2026-11-23T18:57:19.044Z",
-  "heartbeat_at": "2026-11-23T18:42:19.044Z",
-  "last_completed_at": "2026-11-23T18:25:59.158Z",
-  "last_summary": "Verified GitHub cloud test runner real pinned XOD 021520f3: C4 PASS run 45236188200 (443 tracked, 442 SHA checks, 10 JS test scripts, native app/extension ZIP), C5 full browser 3 of 5 suites PASS and two FAIL run 45237170399 (app_regression.py:1077 Arial #world --bf213, extension_regression.py:108 queue after storage full). Integration PR #1 evidence comment 7110092477 readback, infra PR #2 body updated and readback, journal v102 §131 readback commit 491d352. Fixed acceptance 4/5=80%, C5 FAIL, product branches/release unmerged, paid Actions budget not increased.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T18:42:29.274Z",
+  "last_completed_at": "2026-11-23T18:42:29.274Z",
+  "last_summary": "Coordinator2 restored oversized canonical journal read via fetch_blob; published scoped C5 fail triage to existing PR #1 and updated AGENTS entrypoint. A/B user-paused; assignments not received. C4 PASS, C5 3/5 suites PASS 2 FAIL, integration acceptance 4/5=80% Δ0. No product changes or new CI runs.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Update AGENTS for oversized journal Git blob reading and publish scoped C5 A/B incident handoff; no product edits."
+  "task": "Idle. Await actual A/B activation for scoped triage, or coordinator executes a verified safe alternative. Canonical journal §131 unchanged; new PR1 handoff is published."
 }
