@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T13:00:58.622Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T13:08:41.732Z",
+  "state": "active",
+  "owner": "chat-A-guard-unsaved-navigation-20261123",
+  "acquired_at": "2026-11-23T13:11:12.826Z",
+  "expires_at": "2026-11-23T13:17:12.829Z",
+  "heartbeat_at": "2026-11-23T13:11:12.829Z",
   "last_completed_at": "2026-11-23T13:08:41.732Z",
   "last_summary": "CHAT coordinator created pinned private 2-parent A+B test integration candidate 80224ee090f2cb368184c7c961be3a4089f9205e; exact 15 changed JS V8 parse PASS, 0 path overlaps, updated manifest 442/442 paths for 443 blob files, journal §120 readback edf1f206 verified. No release merge, build/Chrome/MV3/Drive still NOT_RUN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Integrated candidate frozen in private integration/xod3-ab-smoke-20261123. Coordinator next user trigger to assess current infra/testing status separately without duplicating cloud work, run exact 80224ee0 candidate build+browser when available; B kb-add shared contract remains OPEN."
+  "task": "CHAT A protect local board navigation from swallowed save failure / in-flight writes. New 34/34 source+base test cases."
 }
