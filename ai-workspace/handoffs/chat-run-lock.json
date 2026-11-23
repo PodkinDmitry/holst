@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T11:23:13.383Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T11:30:54.439Z",
+  "state": "active",
+  "owner": "chat-b-feed-sync-journal-20261123",
+  "acquired_at": "2026-11-23T11:31:24.213Z",
+  "expires_at": "2026-11-23T11:34:24.213Z",
+  "heartbeat_at": "2026-11-23T11:31:24.213Z",
   "last_completed_at": "2026-11-23T11:30:54.439Z",
   "last_summary": "CHAT B feed-sync source+test privately published, source regressions 94/94 PASS, candidate task B-FEED-107 C1-C4 done; journal pending; native/Edge E2E NOT_RUN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle; B requires canonical acceptance checkpoint."
+  "task": "CHAT B TASK-B-FEED-107 5-level verified acceptance and source checkpoint"
 }
