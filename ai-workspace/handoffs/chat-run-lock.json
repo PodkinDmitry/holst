@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-20261123-p0-native-runner-attempt-021520f3",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T17:41:32.067Z",
-  "expires_at": "2026-11-23T17:51:32.067Z",
-  "heartbeat_at": "2026-11-23T17:41:32.067Z",
-  "last_completed_at": "2026-11-23T17:32:32.100Z",
-  "last_summary": "XOD ATR RED_STOP governance recorded/readback: AGENTS new ACTIVE, response v4.0 §4.18, worker v2.2 §0.8, journal v98 §127 commit 6fc8772e; user reports infrastructure GitHub Actions chat paused, no active runner, C4/C5 NOT_RUN, coordinator acceptance 3/5 60% Δ0. No product/CI/Work execution, no repeat CTA when blocked.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T17:43:16.206Z",
+  "last_completed_at": "2026-11-23T17:43:16.206Z",
+  "last_summary": "Infra verified available local sandbox Node/Python/Chromium/Playwright, but exact private integration 021520f3 cannot be cloned: sandbox DNS github.com unavailable (git exit 128), source ZIP absent. C4/C5 NOT_RUN, 3/5=60% Δ0. PR #1 comment 7109073842 published/readback. Canonical §128 write attempted but failed remote disconnect on 732k content; journal SHA unchanged. One user action: attach ZIP for exact private commit. No paid runner initiated.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Record verified XOD exact integration source access blocker after actual local runner preflight; no product or CI writes; §128 journal under CAS."
+  "task": "Idle. XOD P0 integration C4/C5 blocked on exact private source ZIP in runnable sandbox; user action one archive upload. Do not re-run without source or explicitly approved safe alternative."
 }
