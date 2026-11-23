@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T19:31:26.112Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T19:38:56.254Z",
+  "state": "running",
+  "owner": "chat-coordinator2-kb-v2-browser-safe-gate-20261123",
+  "acquired_at": "2026-11-23T19:42:45.079Z",
+  "expires_at": "2026-11-23T20:07:45.079Z",
+  "heartbeat_at": "2026-11-23T19:42:45.079Z",
   "last_completed_at": "2026-11-23T19:38:56.254Z",
   "last_summary": "Coordinator C4+C5 exact SHA bc2772ac run 45250155253 completed PASS (442 SHA hashes, 10 Node, build, Chrome 5/5), new PERF synthetic 32/1000/1407 camera/zoom/redraw preflight PASS, 1000 frames p95=33.3ms; 30min Windows Preview1 comparative performance OPEN; no release merge. PR#1/#2 evidence updated and remain DRAFT. Canonical journal §138 v107 exact fetch_blob readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Next coordinator user-trigger: prioritize next feasible independent XOD 3.0 data-safety gate (kb-add-v2 receipt/IDB rollback per §126 or watch session eviction) and seek exact Preview1 benchmark source; real Drive test account and Windows Edge remain OPEN. No release merge."
+  "task": "Safe independent XOD data-integrity gate: baseline reproducer and Chrome IndexedDB/MV3 acceptance for coordinator-owned kb-add-v2; no release or B branch writes; report verified result to existing PR/journal and release lease."
 }
