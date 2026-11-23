@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T11:38:15.084Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T11:38:24.555Z",
+  "state": "active",
+  "owner": "chat-b-feed-alarm-20261123",
+  "acquired_at": "2026-11-23T11:47:34.775Z",
+  "expires_at": "2026-11-23T11:52:34.776Z",
+  "heartbeat_at": "2026-11-23T11:47:34.775Z",
   "last_completed_at": "2026-11-23T11:38:24.555Z",
   "last_summary": "CHAT A §111 2-tab localStorage no-Web-Locks lost update reproduces; serialized Web Locks control preserves both. Journal readback true, A unchanged ahead9, 3/5, Δ0",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Coordinator owns shared storage semantics and native browser/CI; A read-only save/reload lifecycle next."
+  "task": "CHAT B TASK-B-FEED-107 out-of-baseline MV3 queue alarm recovery and restart regression"
 }
