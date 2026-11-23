@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T19:06:38.912Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T19:09:54.988Z",
+  "state": "running",
+  "owner": "chat-coordinator2-c5-merge-rerun-20261123",
+  "acquired_at": "2026-11-23T19:14:29.330Z",
+  "expires_at": "2026-11-23T19:34:29.330Z",
+  "heartbeat_at": "2026-11-23T19:14:29.330Z",
   "last_completed_at": "2026-11-23T19:09:54.988Z",
   "last_summary": "CHAT A C5 Arial style patch private A HEAD 07e6d22f: 2 scoped files, GitHub exact readback true, JS parse PASS + 6 source-extracted IDB synthetic scenarios PASS. Canonical journal §136 SHA 4c6818b5 readback true; new integrated C4/C5 real Chrome NOT_RUN; coordinator next.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Coordinator to inspect A 07e6d22f and B 379fa691, create NEW pinned AB integration+manifest, run actual C4 and 5 browser C5 suites on exact SHA; do not auto-merge release."
+  "task": "Integrate verified A 07e6d22f and B 379fa691 in isolated XOD integration PR, update manifest, test exact SHA C4+C5 via existing private GitHub Actions runner; journal evidence. No release merge."
 }
