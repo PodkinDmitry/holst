@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T17:29:04.447Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T17:32:32.100Z",
+  "state": "running",
+  "owner": "chat-20261123-p0-native-runner-attempt-021520f3",
+  "acquired_at": "2026-11-23T17:41:32.067Z",
+  "expires_at": "2026-11-23T17:51:32.067Z",
+  "heartbeat_at": "2026-11-23T17:41:32.067Z",
   "last_completed_at": "2026-11-23T17:32:32.100Z",
   "last_summary": "XOD ATR RED_STOP governance recorded/readback: AGENTS new ACTIVE, response v4.0 §4.18, worker v2.2 §0.8, journal v98 §127 commit 6fc8772e; user reports infrastructure GitHub Actions chat paused, no active runner, C4/C5 NOT_RUN, coordinator acceptance 3/5 60% Δ0. No product/CI/Work execution, no repeat CTA when blocked.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. XOD P0 XOD-REL-C4-C5-RUNNER activation_status=PAUSED_USER_REPORTED. Wait for user to resume stopped infrastructure conversation or evidence of a safe executable alternative; next response should show RED_STOP with one action, not repeat source-only reports."
+  "task": "Record verified XOD exact integration source access blocker after actual local runner preflight; no product or CI writes; §128 journal under CAS."
 }
