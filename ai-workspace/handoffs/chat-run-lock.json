@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T12:52:35.737Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T12:52:53.337Z",
+  "state": "active",
+  "owner": "chat-B-ci-gate-20261123-118",
+  "acquired_at": "2026-11-23T12:53:13.110Z",
+  "expires_at": "2026-11-23T12:59:13.110Z",
+  "heartbeat_at": "2026-11-23T12:53:13.110Z",
   "last_completed_at": "2026-11-23T12:52:53.337Z",
   "last_summary": "CHAT A remote unsaved refresh guard §117, 23/26 fail-before→26/26 pass-after V8, branch A ahead11, source/test Git readback and journal readback true; browser C4/C5 coordinator OPEN",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Coordinator owns C4/C5 and shared storage fallback; A independent safe source audit only if triggered."
+  "task": "B read-only CI availability audit and §118 checkpoint"
 }
