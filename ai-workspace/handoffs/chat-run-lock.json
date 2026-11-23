@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T17:41:32.067Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T17:43:16.206Z",
+  "state": "running",
+  "owner": "chat-infra-20261123-github-actions-safe-setup",
+  "acquired_at": "2026-11-23T17:58:40.525Z",
+  "expires_at": "2026-11-23T18:23:40.525Z",
+  "heartbeat_at": "2026-11-23T17:58:40.525Z",
   "last_completed_at": "2026-11-23T17:43:16.206Z",
   "last_summary": "Infra verified available local sandbox Node/Python/Chromium/Playwright, but exact private integration 021520f3 cannot be cloned: sandbox DNS github.com unavailable (git exit 128), source ZIP absent. C4/C5 NOT_RUN, 3/5=60% Δ0. PR #1 comment 7109073842 published/readback. Canonical §128 write attempted but failed remote disconnect on 732k content; journal SHA unchanged. One user action: attach ZIP for exact private commit. No paid runner initiated.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. XOD P0 integration C4/C5 blocked on exact private source ZIP in runnable sandbox; user action one archive upload. Do not re-run without source or explicitly approved safe alternative."
+  "task": "Set up manual-only CI definition on isolated private infra branch for XOD C4/C5 exact 021520f3; no runner activation or fees, no product/release changes; record canonical journal under CAS."
 }
