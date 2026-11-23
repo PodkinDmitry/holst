@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T18:22:47.059Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T18:25:59.158Z",
+  "state": "running",
+  "owner": "chat-coordinator2-atr-handoff-20261123",
+  "acquired_at": "2026-11-23T18:42:19.044Z",
+  "expires_at": "2026-11-23T18:57:19.044Z",
+  "heartbeat_at": "2026-11-23T18:42:19.044Z",
   "last_completed_at": "2026-11-23T18:25:59.158Z",
   "last_summary": "Verified GitHub cloud test runner real pinned XOD 021520f3: C4 PASS run 45236188200 (443 tracked, 442 SHA checks, 10 JS test scripts, native app/extension ZIP), C5 full browser 3 of 5 suites PASS and two FAIL run 45237170399 (app_regression.py:1077 Arial #world --bf213, extension_regression.py:108 queue after storage full). Integration PR #1 evidence comment 7110092477 readback, infra PR #2 body updated and readback, journal v102 §131 readback commit 491d352. Fixed acceptance 4/5=80%, C5 FAIL, product branches/release unmerged, paid Actions budget not increased.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. CI runner infrastructure DONE_VERIFIED; XOD C5 real browser assertions FAIL, owner coordinator to assign product A style and B MV3 negative-ACK contract triage from pinned PR #1. Re-run C4+C5 only after new verified integration candidate. No user intervention needed for cloud infra."
+  "task": "Update AGENTS for oversized journal Git blob reading and publish scoped C5 A/B incident handoff; no product edits."
 }
