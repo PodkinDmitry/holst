@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coordinator2-bwatch-chrome-downgrade-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T20:39:49.438Z",
-  "expires_at": "2026-11-23T21:07:49.438Z",
-  "heartbeat_at": "2026-11-23T20:39:49.438Z",
-  "last_completed_at": "2026-11-23T20:35:01.652Z",
-  "last_summary": "Coordinator published NEW isolated B-watch branch integration/xod3-bwatch-evict-20261123 at exact SHA dd85052f, scoped 3 B paths + 442 SHA256 manifest. Draft PR#3 base old isolated integration; PR#2 CI pin updated; A/main/release/shared kb untouched. Real GitHub run 45259920471 job 137991649691 SUCCESS: native C4 442 hashes, 10 Node, clean builds PASS; Chrome/Playwright C5 5/5 PASS incl real MV3 watch eviction/replay; 32/1000/1407 synthetic smoke PASS. B bounded 6+32 receipts /30d confirmed. Independent exact-old-source V8 rollback after B receipt returns n/rw/rws 7/7/140 -> 8/8/160: semantic old binary rollback FAIL, real Chrome downgrade NOT_RUN. Journal §142 v110 exact readback verified, PR3/PR2 DRAFT, release OPEN.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T21:02:58.875Z",
+  "last_completed_at": "2026-11-23T21:02:58.875Z",
+  "last_summary": "Coordinator isolated private B-watch integration HEAD 6d0af80b, exact Chrome run 45264579383 C4 443/443 SHA256 + 10 Node + build PASS, C5 6/6 real Chrome PASS including old B binary restored-snapshot negative and quota injection; short synthetic perf PASS. Old binary exact Git blob 7cacaeb1 Chrome MV3 snapshot replay 7/7/140->8/8/160 (semantic rollback FAIL), same-profile in-place downgrade NOT_VERIFIED due cached new worker. Real Chrome 10MiB overflow rejection preserved watch, 100 96char sessions stored 6+32 receipts (5999 bytes). Earlier 3 runs C5 5/6 test harness failures transparently logged. Product/A/B/main/release/shared KB untouched; PR2/3 DRAFT, journal §143 v111 exact fetch_blob readback. B assignment COPY_ONLY not received.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Chrome MV3 actual legacy B extension rollback with persisted synthetic chrome.storage.local, quota boundary and mitigation evidence, no A/B/main/release/shared kb changes; update existing PR3/2 and canonical journal §143, release CAS."
+  "task": "Idle; next owner CHAT B upon explicit user copy/paste handoff about real Chrome old-binary semantic rollback failure, bound 6+32/30d compatibility; coordinator may resume after B publishes verified solution/explicit downgrade restriction. Real in-place Chrome downgrade, aggregate quota, KB-v2, Drive, Edge, 30min Preview1 remain OPEN; NO release merge."
 }
