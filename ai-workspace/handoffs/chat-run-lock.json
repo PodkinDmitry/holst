@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T11:16:14.898Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T11:16:31.211Z",
+  "state": "running",
+  "owner": "chat-A-detached-conflict-20261123",
+  "acquired_at": "2026-11-23T11:20:03.780Z",
+  "expires_at": "2026-11-23T11:26:03.780Z",
+  "heartbeat_at": "2026-11-23T11:20:03.780Z",
   "last_completed_at": "2026-11-23T11:16:31.211Z",
   "last_summary": "CHAT A TASK-A-DATA-DETACHED-01 source-verified 12/12 and branch ahead6, journal §107 readback true; full build/browser coordinator open",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Coordinator owns full XOD3 build/CI and branch integration; CHAT A next independent IDB/detached conflict checks."
+  "task": "CHAT A second independent detached-conflict source regression, same four paths, §108 journal short CAS"
 }
