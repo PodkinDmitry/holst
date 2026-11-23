@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coordinator2-kb-migration-rollback-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T20:00:20.982Z",
-  "expires_at": "2026-11-23T20:30:20.982Z",
-  "heartbeat_at": "2026-11-23T20:00:20.982Z",
-  "last_completed_at": "2026-11-23T19:53:46.808Z",
-  "last_summary": "Coordinator real Chrome KB negative fail-before: identical legacy kb-add replay stores 2 distinct source IDs (expected defect). Narrow KB src rollback fix 1-line durable-before-memory in isolated private candidate 6ebc5908; browser aborted IDB write leaves no phantom, successful source persisted. Native C4 PASS and real Chrome C5 5/5 PASS on GitHub Actions 45252782834, synthetic perf preflight PASS. Earlier zoom test intermittent FAIL at a08af76c not concealed. PR#1/#2 DRAFT unmerged, canonical journal §139 v108 exact fetch_blob verified. KB-ADD-V2 atomic receipt/IDB migration remains OPEN due rollback compatibility and full acceptance gates.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T20:08:52.973Z",
+  "last_completed_at": "2026-11-23T20:08:52.973Z",
+  "last_summary": "Coordinator exact private integration SHA 6a5536e4 real Chrome C4 PASS (442 SHA256,10 Node,build), C5 5/5 PASS, synthetic performance smoke PASS in Actions run 45255354758. Experimental v1→v2 holst-kb ops receipts, atomic transactions, replay/conflict/concurrency, abort, deletion tombstone, real isolated browser crash PASS model only; old XOD v1 direct downgrade FAIL VersionError VERIFIED = RELEASE BLOCKER. Product KB-v2 NOT implemented, no release merge; PR#1/#2 updated DRAFT, journal §140 v109 exact readback. B-WATCH-SESSION-EVICT-01 selected next, assignment PUBLISHED_NOT_RECEIVED (copy/paste in B chat required).",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "XOD coordinator: test synthetic real Chrome indexedDB holst-kb v1→v2 downgrade/legacy host compatibility and atomic receipt acceptance in isolated candidate, then stop unsafe migration or assign B alternative; keep PR draft and journal exact evidence, release lease."
+  "task": "Idle; next productive owner B upon actual receipt of a copy-only self-contained assignment for B-WATCH-SESSION-EVICT-01 (§125/§140). Coordinator watches evidence and lock, optional feasibility study of v1-compatible reserved chunk receipt requires separate strict acceptance. All release gates remain OPEN; no automatic Work/main/release merge."
 }
