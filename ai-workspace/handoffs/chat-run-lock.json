@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-infra-20261123-c5-failure-diagnostic",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T18:18:55.363Z",
-  "expires_at": "2026-11-23T18:36:55.363Z",
-  "heartbeat_at": "2026-11-23T18:18:55.363Z",
-  "last_completed_at": "2026-11-23T18:16:16.995Z",
-  "last_summary": "Exact private XOD 021520f3017a native C4 PASS verified GitHub Actions run 45236188200; 443 tracked/442 SHA, 10 Node scripts, built app+extension ZIP; journal v101 §130 verified (commit 53243c3). Fixed integration task 4/5=80%, Δ+20 pp. Infra branch only, release and product PR unchanged. Next C5 run gated to same SHA.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T18:20:04.996Z",
+  "last_completed_at": "2026-11-23T18:20:04.996Z",
+  "last_summary": "C4 PASS verified run #45236188200. First C5 run #45236669152 failed in real Chrome app_regression.py:1077 style --bf213 expected Arial; earlier IndexedDB/migration/rollback scenarios PASS; remaining C5 suites unrun due fail-fast. Infra-only workflow diagnostic commit b2ca451c runs all 5 C5 browser suites separately on exact integration SHA and must fail if any fail. Run #45237170399 started; NO product/release changes, no paid budget increase.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "XOD C5 exact browser run #45236669152 source-backed FAIL in app style Arial check. Stage one isolated infra-only diagnostic run that continues all real C5 suites and preserves truthful failing status; journal evidence, no product changes or extra budget."
+  "task": "Idle. GitHub Actions C5 full-suite diagnostic run #45237170399 active in external runner. On next trigger read actual job logs, record outcome under fresh CAS lease in canonical journal; preserve PR #1 and private release source unchanged. C5 not accepted until 5/5 browser suites PASS."
 }
