@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T12:44:32.653Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T12:45:27.598Z",
+  "state": "running",
+  "owner": "chat-B-20261123-CI-followup-116",
+  "acquired_at": "2026-11-23T12:49:02.718Z",
+  "expires_at": "2026-11-23T13:07:02.718Z",
+  "heartbeat_at": "2026-11-23T12:49:02.718Z",
   "last_completed_at": "2026-11-23T12:45:27.598Z",
   "last_summary": "CHAT B §115 CI critical-path reviewed; private B ahead32, source 105/105 from §114; C5 NOT_RUN 4/5=80% Δ0; coordinator owns Actions billing+runner setup.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle; coordinator verifies private Actions no-charge cap and enables exact-source native MV3/XOD E2E; B may resume after next trigger."
+  "task": "B §116 CI availability and high-value independent QA"
 }
