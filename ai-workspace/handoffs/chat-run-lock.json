@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T18:13:45.357Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T18:16:16.995Z",
+  "state": "running",
+  "owner": "chat-infra-20261123-c5-failure-diagnostic",
+  "acquired_at": "2026-11-23T18:18:55.363Z",
+  "expires_at": "2026-11-23T18:36:55.363Z",
+  "heartbeat_at": "2026-11-23T18:18:55.363Z",
   "last_completed_at": "2026-11-23T18:16:16.995Z",
   "last_summary": "Exact private XOD 021520f3017a native C4 PASS verified GitHub Actions run 45236188200; 443 tracked/442 SHA, 10 Node scripts, built app+extension ZIP; journal v101 §130 verified (commit 53243c3). Fixed integration task 4/5=80%, Δ+20 pp. Infra branch only, release and product PR unchanged. Next C5 run gated to same SHA.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Current CHAT-INFRA may start isolated C5 on same exact candidate with $0 paid-budget and included GitHub Free compute. New CAS lease only for shared journal write; no product modifications."
+  "task": "XOD C5 exact browser run #45236669152 source-backed FAIL in app style Arial check. Stage one isolated infra-only diagnostic run that continues all real C5 suites and preserves truthful failing status; journal evidence, no product changes or extra budget."
 }
