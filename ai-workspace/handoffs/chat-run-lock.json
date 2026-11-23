@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T20:39:49.438Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T21:02:58.875Z",
+  "state": "running",
+  "owner": "chat-B-oldbinary-semantic-rollback-proof-20261124",
+  "acquired_at": "2026-11-23T21:07:34.273Z",
+  "expires_at": "2026-11-23T21:27:34.273Z",
+  "heartbeat_at": "2026-11-23T21:07:34.273Z",
   "last_completed_at": "2026-11-23T21:02:58.875Z",
   "last_summary": "Coordinator isolated private B-watch integration HEAD 6d0af80b, exact Chrome run 45264579383 C4 443/443 SHA256 + 10 Node + build PASS, C5 6/6 real Chrome PASS including old B binary restored-snapshot negative and quota injection; short synthetic perf PASS. Old binary exact Git blob 7cacaeb1 Chrome MV3 snapshot replay 7/7/140->8/8/160 (semantic rollback FAIL), same-profile in-place downgrade NOT_VERIFIED due cached new worker. Real Chrome 10MiB overflow rejection preserved watch, 100 96char sessions stored 6+32 receipts (5999 bytes). Earlier 3 runs C5 5/6 test harness failures transparently logged. Product/A/B/main/release/shared KB untouched; PR2/3 DRAFT, journal §143 v111 exact fetch_blob readback. B assignment COPY_ONLY not received.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle; next owner CHAT B upon explicit user copy/paste handoff about real Chrome old-binary semantic rollback failure, bound 6+32/30d compatibility; coordinator may resume after B publishes verified solution/explicit downgrade restriction. Real in-place Chrome downgrade, aggregate quota, KB-v2, Drive, Edge, 30min Preview1 remain OPEN; NO release merge."
+  "task": "B old binary semantic rollback proof and safe recovery decision only; journal checkpoint; no product branch edits"
 }
