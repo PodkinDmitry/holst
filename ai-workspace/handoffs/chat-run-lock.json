@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coordinator2-board-load-preflight-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T19:31:26.112Z",
-  "expires_at": "2026-11-23T19:55:26.112Z",
-  "heartbeat_at": "2026-11-23T19:31:26.112Z",
-  "last_completed_at": "2026-11-23T19:25:51.406Z",
-  "last_summary": "Coordinator integrated A/B browser fixes into isolated private PR#1 HEAD 9580225c with SHA256 manifest, isolated C4 native PASS 442 hashes/10 Node/build, C5 real Chrome Playwright 5/5 PASS on GitHub run 45248119152. TASK-COORD-AB-001 now 5/5=100% (+20pp), NOT release ready. PR#1/#2 updated and remain DRAFT unmerged. Canonical journal §137 v106 exact readback. ATR v4.3 requires every coordinator reply show other chats PLAN vs FACT and copy-only cross-chat CTA. No paid budget change.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T19:38:56.254Z",
+  "last_completed_at": "2026-11-23T19:38:56.254Z",
+  "last_summary": "Coordinator C4+C5 exact SHA bc2772ac run 45250155253 completed PASS (442 SHA hashes, 10 Node, build, Chrome 5/5), new PERF synthetic 32/1000/1407 camera/zoom/redraw preflight PASS, 1000 frames p95=33.3ms; 30min Windows Preview1 comparative performance OPEN; no release merge. PR#1/#2 evidence updated and remain DRAFT. Canonical journal §138 v107 exact fetch_blob readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Run lowest-risk native browser heavy-board redraw 1407 synthetic + 1000-frame stress preflight on exact candidate 9580225c in isolated free GitHub CI; preserve release and data; publish evidence to existing PRs and canonical journal; no release acceptance without 30min Preview1 comparison."
+  "task": "Idle. Next coordinator user-trigger: prioritize next feasible independent XOD 3.0 data-safety gate (kb-add-v2 receipt/IDB rollback per §126 or watch session eviction) and seek exact Preview1 benchmark source; real Drive test account and Windows Edge remain OPEN. No release merge."
 }
