@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coordinator2-journal-verified-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T18:43:41.957Z",
-  "expires_at": "2026-11-23T19:01:41.957Z",
-  "heartbeat_at": "2026-11-23T18:43:41.957Z",
-  "last_completed_at": "2026-11-23T18:42:29.274Z",
-  "last_summary": "Coordinator2 restored oversized canonical journal read via fetch_blob; published scoped C5 fail triage to existing PR #1 and updated AGENTS entrypoint. A/B user-paused; assignments not received. C4 PASS, C5 3/5 suites PASS 2 FAIL, integration acceptance 4/5=80% Δ0. No product changes or new CI runs.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T18:43:51.542Z",
+  "last_completed_at": "2026-11-23T18:43:51.542Z",
+  "last_summary": "Coordinator2 read full canonical journal by blob, updated AGENTS and PR #1 C5 triage assignment; attempted preservation-safe §132 journal append (verify separately). No A/B activation, product merge, or new CI.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "One exact preservation-safe journal append §132; prior full-size write failed; no product changes."
+  "task": "Idle; A/B user-paused, scoped browser triage published/not received. Coordinator oversees gate C5."
 }
