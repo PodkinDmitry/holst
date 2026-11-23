@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "chat-a-idb-fault-checkpoint-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T11:35:20.592Z",
-  "expires_at": "2026-11-23T11:39:20.593Z",
-  "heartbeat_at": "2026-11-23T11:35:20.593Z",
-  "last_completed_at": "2026-11-23T11:32:33.438Z",
-  "last_summary": "CHAT B TASK-B-FEED-107 source-backed 4/5 (80%, Δ+80pp), 94/94 PASS; private ahead 28; journal §109 dd19d2f3716de67d9a27de2bff04f05dcc0f226b verified, browser C5 NOT_RUN",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T11:35:29.784Z",
+  "last_completed_at": "2026-11-23T11:35:29.784Z",
+  "last_summary": "CHAT A §110 published 21/21 simulated IDB fault tests, exact A SHA confirmed, checkpoint readback PASS, stable 3/5",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "CHAT A §110 short checkpoint: 21/21 synthetic IDB failure tests, one test-only private commit"
+  "task": "Idle. Coordinator owns full build / browser IDB acceptance. A independent recovery source assessment."
 }
