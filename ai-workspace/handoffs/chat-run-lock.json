@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T16:40:03.170Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T16:43:45.881Z",
+  "state": "running",
+  "owner": "chat-coordinator-atr-red-stop-20261123",
+  "acquired_at": "2026-11-23T17:29:04.447Z",
+  "expires_at": "2026-11-23T17:49:04.447Z",
+  "heartbeat_at": "2026-11-23T17:29:04.447Z",
   "last_completed_at": "2026-11-23T16:43:45.881Z",
   "last_summary": "Coordinator source verified kb-add-v2 risks in private code: IDB v1 one-store kbTx, in-memory kbSet before commit, delete removes source; clarified atomic src+ops receipt v2 with durable tombstones and typed ACK (DESIGN ONLY). Canonical journal §126 commit 4187c8c1 readback, 3/5 60% Δ0; C4/C5 no runnable CI/real browser. GitHub draft PR #1 unchanged, A/B unchanged. GitHub fetch_file large journal empty content symptom resolved with GitHub contents GET, not corruption.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Coordinator next trigger only with genuine new runner/evidence or new high-impact source issue; read fresh AGENTS/journal/CAS. Infra owns native build/browser gate; B owns watch-session eviction bug. No repeated mock/checkpoint-only loops."
+  "task": "User-approved XOD ATR P0 stop indicators, short-screen executive UX, stalled external-infrastructure status and acceptance-based progress; modify only AGENTS/protocols/canonical journal; no product code or cloud CI."
 }
