@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-infra-20261123-actions-included-2000-c4-probe",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T18:13:45.357Z",
-  "expires_at": "2026-11-23T18:33:45.357Z",
-  "heartbeat_at": "2026-11-23T18:13:45.357Z",
-  "last_completed_at": "2026-11-23T18:09:51.799Z",
-  "last_summary": "User shared GitHub Actions account budget $0/$0 100% usage blocked; zero billable overage guard observed, included monthly compute remaining UNKNOWN; no run/merge. Read-back verified journal v100 §129 commit 8f5ce4a0. Draft infra PR #2 remains open; source candidate PR #1 unchanged.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T18:16:16.995Z",
+  "last_completed_at": "2026-11-23T18:16:16.995Z",
+  "last_summary": "Exact private XOD 021520f3017a native C4 PASS verified GitHub Actions run 45236188200; 443 tracked/442 SHA, 10 Node scripts, built app+extension ZIP; journal v101 §130 verified (commit 53243c3). Fixed integration task 4/5=80%, Δ+20 pp. Infra branch only, release and product PR unchanged. Next C5 run gated to same SHA.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "User confirmed GitHub Free 2000 included Actions minutes and account Actions $0 blocked overage. Execute one isolated C4 probe using narrow push trigger on private infra branch only; inspect actual Actions run, log exact outcome in canonical journal. No product/release changes, no paid upgrade."
+  "task": "Idle. Current CHAT-INFRA may start isolated C5 on same exact candidate with $0 paid-budget and included GitHub Free compute. New CAS lease only for shared journal write; no product modifications."
 }
