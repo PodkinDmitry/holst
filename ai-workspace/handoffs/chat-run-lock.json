@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T18:43:41.957Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T18:43:51.542Z",
+  "state": "running",
+  "owner": "chat-B-c5-negative-ack-18undefined47undefined54",
+  "acquired_at": "2026-11-23T18:47:54.501Z",
+  "expires_at": "2026-11-23T19:07:54.501Z",
+  "heartbeat_at": "2026-11-23T18:47:54.501Z",
   "last_completed_at": "2026-11-23T18:43:51.542Z",
   "last_summary": "Coordinator2 read full canonical journal by blob, updated AGENTS and PR #1 C5 triage assignment; attempted preservation-safe §132 journal append (verify separately). No A/B activation, product merge, or new CI.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle; A/B user-paused, scoped browser triage published/not received. Coordinator oversees gate C5."
+  "task": "B assigned C5 MV3 negative ACK invariant: modify only extension_regression.py; journal checkpoint; no product behavior changes"
 }
