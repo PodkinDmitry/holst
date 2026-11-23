@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-A-detached-conflict-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T11:20:03.780Z",
-  "expires_at": "2026-11-23T11:26:03.780Z",
-  "heartbeat_at": "2026-11-23T11:20:03.780Z",
-  "last_completed_at": "2026-11-23T11:16:31.211Z",
-  "last_summary": "CHAT A TASK-A-DATA-DETACHED-01 source-verified 12/12 and branch ahead6, journal §107 readback true; full build/browser coordinator open",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T11:20:18.329Z",
+  "last_completed_at": "2026-11-23T11:20:18.329Z",
+  "last_summary": "CHAT A §108 detached merge-conflict source regression 13/14 before ->14/14 after, branch ahead8, same allowed 4 paths; journal readback true",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "CHAT A second independent detached-conflict source regression, same four paths, §108 journal short CAS"
+  "task": "Idle. Coordinator owns full build; CHAT A next independent IDB/fault-injection evidence, no user ZIP."
 }
