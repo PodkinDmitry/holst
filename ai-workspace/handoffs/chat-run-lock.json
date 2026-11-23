@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-B-watch-recount-20261123-163858",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T16:38:58.528Z",
-  "expires_at": "2026-11-23T16:58:58.528Z",
-  "heartbeat_at": "2026-11-23T16:38:58.528Z",
-  "last_completed_at": "2026-11-23T16:33:09.454Z",
-  "last_summary": "CHAT B TASK-B-FEED-107 CI readiness readback_verified; 4/5=80%, C5 NOT_RUN; exact private runner quota+workflow coordinator-owned",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T16:39:06.588Z",
+  "last_completed_at": "2026-11-23T16:39:06.588Z",
+  "last_summary": "CHAT B watch-session recount source-reproduced; journal FAILED_READBACK; TASK-B-FEED-107 4/5 80% C5 NOT_RUN",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "B independent exact-source ytWatch repeat-session counter after eviction repro; journal checkpoint only"
+  "task": "Idle; B watch session eviction dedup remediation optional, coordinator-owned safe private CI/rollback open"
 }
