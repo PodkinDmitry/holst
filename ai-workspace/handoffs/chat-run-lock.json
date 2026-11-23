@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T12:53:13.110Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T12:54:01.115Z",
+  "state": "active",
+  "owner": "chat-B-CI-blocker-after118-20261123",
+  "acquired_at": "2026-11-23T12:55:19.505Z",
+  "expires_at": "2026-11-23T13:01:19.505Z",
+  "heartbeat_at": "2026-11-23T12:55:19.505Z",
   "last_completed_at": "2026-11-23T12:54:01.115Z",
   "last_summary": "CHAT-B §118 private HEAD b0613813, no configured free bill-capped CI, C5 NOT_RUN, task 4/5=80% Δ0, checkpoint readback verified.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle; coordinator owns private CI budget+runner; B waits for new trigger or material new independent risk."
+  "task": "CHAT B exact-head CI gate preflight and §119 checkpoint"
 }
