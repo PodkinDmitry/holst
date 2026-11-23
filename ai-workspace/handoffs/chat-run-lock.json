@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coordinator2-atr-footer-ui-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T18:56:34.043Z",
-  "expires_at": "2026-11-23T19:16:34.043Z",
-  "heartbeat_at": "2026-11-23T18:56:34.043Z",
-  "last_completed_at": "2026-11-23T18:49:22.021Z",
-  "last_summary": "CHAT B C5 queue test invariant patched in private B HEAD 379fa691; source diagnosis PASS, §133 exact fetch_blob readback PASS; C5 real browser retest pending A+coordinator",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T19:00:02.897Z",
+  "last_completed_at": "2026-11-23T19:00:02.897Z",
+  "last_summary": "ATR v4.1 published and verified in canonical format §4.19, worker §0.9, AGENTS active override, journal §134. All user-facing key content in one bottom panel, optional CTA or red/orange stall status, progress last for all workers. No product/CI changes; 4/5=80%, Δ0.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Publish ATR active declaration + actionable CTA/colored blocked surface + final user-facing summary/progress panel across agents and protocols; journal §134."
+  "task": "Idle. Next coordinator user-trigger: inspect A/B current HEAD, integrate verified C5 fixes, rerun pinned C4+C5; continue ATR v4.1 layout."
 }
