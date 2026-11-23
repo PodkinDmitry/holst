@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-infra-20261123-c4pass-c5partial-pr1journal",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T18:22:47.059Z",
-  "expires_at": "2026-11-23T18:37:47.059Z",
-  "heartbeat_at": "2026-11-23T18:22:47.059Z",
-  "last_completed_at": "2026-11-23T18:20:04.996Z",
-  "last_summary": "C4 PASS verified run #45236188200. First C5 run #45236669152 failed in real Chrome app_regression.py:1077 style --bf213 expected Arial; earlier IndexedDB/migration/rollback scenarios PASS; remaining C5 suites unrun due fail-fast. Infra-only workflow diagnostic commit b2ca451c runs all 5 C5 browser suites separately on exact integration SHA and must fail if any fail. Run #45237170399 started; NO product/release changes, no paid budget increase.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T18:25:59.158Z",
+  "last_completed_at": "2026-11-23T18:25:59.158Z",
+  "last_summary": "Verified GitHub cloud test runner real pinned XOD 021520f3: C4 PASS run 45236188200 (443 tracked, 442 SHA checks, 10 JS test scripts, native app/extension ZIP), C5 full browser 3 of 5 suites PASS and two FAIL run 45237170399 (app_regression.py:1077 Arial #world --bf213, extension_regression.py:108 queue after storage full). Integration PR #1 evidence comment 7110092477 readback, infra PR #2 body updated and readback, journal v102 §131 readback commit 491d352. Fixed acceptance 4/5=80%, C5 FAIL, product branches/release unmerged, paid Actions budget not increased.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Record exact GitHub Actions C4 PASS, C5 3/5 browser suite PASS + 2 FAIL in current integration PR #1 and canonical journal, update infrastructure draft PR #2 description; no product/release/code changes."
+  "task": "Idle. CI runner infrastructure DONE_VERIFIED; XOD C5 real browser assertions FAIL, owner coordinator to assign product A style and B MV3 negative-ACK contract triage from pinned PR #1. Re-run C4+C5 only after new verified integration candidate. No user intervention needed for cloud infra."
 }
