@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-B-runner-review-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T12:44:32.653Z",
-  "expires_at": "2026-11-23T12:56:32.653Z",
-  "heartbeat_at": "2026-11-23T12:44:32.653Z",
-  "last_completed_at": "2026-11-23T12:29:23.275Z",
-  "last_summary": "CHAT B §114 legacy feed queue A→B regression repaired, source 17/19→19/19, full 105/105 V8 PASS; private ahead32; TASK-B-FEED-107 4/5=80% Δ0, C5 real MV3 NOT_RUN; coordinator owns exact runner/kb-add.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T12:45:27.598Z",
+  "last_completed_at": "2026-11-23T12:45:27.598Z",
+  "last_summary": "CHAT B §115 CI critical-path reviewed; private B ahead32, source 105/105 from §114; C5 NOT_RUN 4/5=80% Δ0; coordinator owns Actions billing+runner setup.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "B runner CI review after §114; journal checkpoint"
+  "task": "Idle; coordinator verifies private Actions no-charge cap and enables exact-source native MV3/XOD E2E; B may resume after next trigger."
 }
