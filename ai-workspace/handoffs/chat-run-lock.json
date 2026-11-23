@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coordinator-triggered-mode-governance-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T10:36:42.159Z",
-  "expires_at": "2026-11-23T11:06:42.159Z",
-  "heartbeat_at": "2026-11-23T10:36:42.159Z",
-  "last_completed_at": "2026-11-22T23:29:07.507Z",
-  "last_summary": "CHAT B 86/86 PASS source-backed; private ahead 26; journal §104 8eefeecf01e17924e2c2bcf444f943544648f2f4; host read-only kb lookup BLOCKED, build/MV3 NOT_RUN.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T10:40:28.092Z",
+  "last_completed_at": "2026-11-23T10:40:28.092Z",
+  "last_summary": "XOD cloud-first governance completed: AGENTS ACTIVE 23.11 commit 3aa36682, autonomous-worker v2.0 §0.6 e247138b, response-format v3.8 §4.16 7348e956, journal §105 commit 77748f6a readback. A=4 ahead, B=26 ahead at snapshot; source-only pass not release. No product commits, no browser/CI, all premiums unused.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "User-approved XOD governance update: autonomous triggered mode, evidence progress bars, cloud-first/no Windows default, source/tool preflight, Chat coordinator retains authority over optional Work; canonical protocols and journal only."
+  "task": "Idle. User to send short progress-format synchronization message once in both existing A/B chats; coordinator next inspect cloud CI $0 budget before deploying and plan integration. No chat auto-wake."
 }
