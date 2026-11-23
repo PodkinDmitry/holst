@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T10:36:42.159Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T10:40:28.092Z",
+  "state": "running",
+  "owner": "chat-coordinator-triggered-mode-unblock-A-B-20261123",
+  "acquired_at": "2026-11-23T11:03:35.521Z",
+  "expires_at": "2026-11-23T11:18:35.521Z",
+  "heartbeat_at": "2026-11-23T11:03:35.521Z",
   "last_completed_at": "2026-11-23T10:40:28.092Z",
   "last_summary": "XOD cloud-first governance completed: AGENTS ACTIVE 23.11 commit 3aa36682, autonomous-worker v2.0 §0.6 e247138b, response-format v3.8 §4.16 7348e956, journal §105 commit 77748f6a readback. A=4 ahead, B=26 ahead at snapshot; source-only pass not release. No product commits, no browser/CI, all premiums unused.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. User to send short progress-format synchronization message once in both existing A/B chats; coordinator next inspect cloud CI $0 budget before deploying and plan integration. No chat auto-wake."
+  "task": "Coordinator resolve A/B handoff failure, update mandatory actual same-chat continuation buttons and internal escalation in existing XOD protocols and journal only"
 }
