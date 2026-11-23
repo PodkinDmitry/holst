@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T11:35:20.592Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T11:35:29.784Z",
+  "state": "active",
+  "owner": "chat-a-ls-multitab-negative-20261123",
+  "acquired_at": "2026-11-23T11:38:15.084Z",
+  "expires_at": "2026-11-23T11:42:15.084Z",
+  "heartbeat_at": "2026-11-23T11:38:15.084Z",
   "last_completed_at": "2026-11-23T11:35:29.784Z",
   "last_summary": "CHAT A §110 published 21/21 simulated IDB fault tests, exact A SHA confirmed, checkpoint readback PASS, stable 3/5",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Coordinator owns full build / browser IDB acceptance. A independent recovery source assessment."
+  "task": "CHAT A source-backed localStorage two-tab lock fallback negative evidence §111"
 }
