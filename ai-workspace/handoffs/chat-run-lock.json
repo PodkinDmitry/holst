@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-B-c5-negative-ack-18undefined47undefined54",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T18:47:54.501Z",
-  "expires_at": "2026-11-23T19:07:54.501Z",
-  "heartbeat_at": "2026-11-23T18:47:54.501Z",
-  "last_completed_at": "2026-11-23T18:43:51.542Z",
-  "last_summary": "Coordinator2 read full canonical journal by blob, updated AGENTS and PR #1 C5 triage assignment; attempted preservation-safe §132 journal append (verify separately). No A/B activation, product merge, or new CI.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T18:49:22.021Z",
+  "last_completed_at": "2026-11-23T18:49:22.021Z",
+  "last_summary": "CHAT B C5 queue test invariant patched in private B HEAD 379fa691; source diagnosis PASS, §133 exact fetch_blob readback PASS; C5 real browser retest pending A+coordinator",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "B assigned C5 MV3 negative ACK invariant: modify only extension_regression.py; journal checkpoint; no product behavior changes"
+  "task": "Idle; coordinator to inspect B C5 test-only patch and A style resolution, pin NEW integration, rerun C4+C5."
 }
