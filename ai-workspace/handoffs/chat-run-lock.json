@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "chat-b-feed-sync-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T11:23:13.383Z",
-  "expires_at": "2026-11-23T11:33:32.331Z",
-  "heartbeat_at": "2026-11-23T11:29:32.330Z",
-  "last_completed_at": "2026-11-23T11:20:18.329Z",
-  "last_summary": "CHAT A §108 detached merge-conflict source regression 13/14 before ->14/14 after, branch ahead8, same allowed 4 paths; journal readback true",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T11:30:54.439Z",
+  "last_completed_at": "2026-11-23T11:30:54.439Z",
+  "last_summary": "CHAT B feed-sync source+test privately published, source regressions 94/94 PASS, candidate task B-FEED-107 C1-C4 done; journal pending; native/Edge E2E NOT_RUN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "CHAT B feed-save negative ACK, snapshot coalescing and reconnect reliability"
+  "task": "Idle; B requires canonical acceptance checkpoint."
 }
