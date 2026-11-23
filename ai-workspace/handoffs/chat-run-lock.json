@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coord-ab-refresh-kb-contract-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T16:17:46.882Z",
-  "expires_at": "2026-11-23T16:37:46.882Z",
-  "heartbeat_at": "2026-11-23T16:17:46.882Z",
-  "last_completed_at": "2026-11-23T13:11:31.797Z",
-  "last_summary": "CHAT A §121 exact base saveNow navigation guard 30/34 old ->34/34 new V8; private A ahead13; source/test/journal readback true, C4/C5 coordinator open",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T16:22:23.945Z",
+  "last_completed_at": "2026-11-23T16:22:23.945Z",
+  "last_summary": "Coordinator AB candidate safely fast-forwarded to 021520f3 (includes A13+B32; release untouched); 442-row manifest updated, current integration git tree/sha/readback verified. kb-add v2 operationId/atomic IDB design documented but not implemented absent E2E; journal §122 720255f1 readback; C4/C5 NOT_RUN, 3/5 60% Δ0.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Pinned A/B integration candidate fast-forward after A §121; exact source/checksum readback; kb-add shared contract design and journal, no cloud infra, no release branch."
+  "task": "Idle. Coordinator next read fresh XOD refs/journal, resume exact-integrated build+browser E2E when infra reports available; avoid duplicating CI planning, no new mock work; kb-add v2 host+extension design coordinator-owned pending browser acceptance."
 }
