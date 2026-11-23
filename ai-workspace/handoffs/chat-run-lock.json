@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T16:25:44.362Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T16:28:05.835Z",
+  "state": "running",
+  "owner": "chat-B-feed107-ci-gate-20261123-163301",
+  "acquired_at": "2026-11-23T16:33:01.055Z",
+  "expires_at": "2026-11-23T16:53:01.055Z",
+  "heartbeat_at": "2026-11-23T16:33:01.055Z",
   "last_completed_at": "2026-11-23T16:28:05.835Z",
   "last_summary": "CHAT coordinator created private draft PR #1 (head 021520f3, release base c6cfb259, 16 changed paths; draft open not merged); independent GitHub PR readback PASS, journal §123 readback commit 3a4165fb; C4/C5 NOT_RUN, 3/5 60% Δ0; no workflows/CI code changes, no product merge.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Next coordinator trigger inspect current GitHub A/B/PR refs and separately provided infrastructure runner result, focus on exact-HEAD native build+real Chromium/MV3/rollback. Do not duplicate cloud infra, do not falsely raise acceptance metrics."
+  "task": "TASK-B-FEED-107 review exact private CI runner; journal checkpoint only; no product/host changes"
 }
