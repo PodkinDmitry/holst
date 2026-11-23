@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "chat-b-feed-sync-journal-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T11:31:24.213Z",
-  "expires_at": "2026-11-23T11:34:24.213Z",
-  "heartbeat_at": "2026-11-23T11:31:24.213Z",
-  "last_completed_at": "2026-11-23T11:30:54.439Z",
-  "last_summary": "CHAT B feed-sync source+test privately published, source regressions 94/94 PASS, candidate task B-FEED-107 C1-C4 done; journal pending; native/Edge E2E NOT_RUN.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T11:32:33.438Z",
+  "last_completed_at": "2026-11-23T11:32:33.438Z",
+  "last_summary": "CHAT B TASK-B-FEED-107 source-backed 4/5 (80%, Δ+80pp), 94/94 PASS; private ahead 28; journal §109 dd19d2f3716de67d9a27de2bff04f05dcc0f226b verified, browser C5 NOT_RUN",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "CHAT B TASK-B-FEED-107 5-level verified acceptance and source checkpoint"
+  "task": "Idle; B feed sync published, coordinator owns host kb-add and browser integration gate"
 }
