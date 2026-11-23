@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coordinator2-atr-v42-cascade-footer-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T19:03:30.854Z",
-  "expires_at": "2026-11-23T19:21:30.854Z",
-  "heartbeat_at": "2026-11-23T19:03:30.854Z",
-  "last_completed_at": "2026-11-23T19:00:02.897Z",
-  "last_summary": "ATR v4.1 published and verified in canonical format §4.19, worker §0.9, AGENTS active override, journal §134. All user-facing key content in one bottom panel, optional CTA or red/orange stall status, progress last for all workers. No product/CI changes; 4/5=80%, Δ0.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T19:05:49.798Z",
+  "last_completed_at": "2026-11-23T19:05:49.798Z",
+  "last_summary": "ATR v4.2 canonical format §4.19, AGENTS active, worker §0.9, journal §135 updated and exact readbacks verified. Adaptive cascade depth to actual progress/stall, important user sections visually emphasized, CTA/stall banner bottommost. XOD C1-C4 PASS C5 FAIL 4/5 Δ0; no product/CI change.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Apply user-approved ATR v4.2 adaptive cascade progress and emphasized user decisions, with the CTA or stall banner as the absolute final element; verify standards and journal."
+  "task": "Idle. Next coordinator ATR trigger: re-read live GitHub, inspect A/B C5 patches, create validated integrated candidate and rerun C4/C5."
 }
