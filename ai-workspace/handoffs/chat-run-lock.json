@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T16:38:58.528Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T16:39:06.588Z",
+  "state": "running",
+  "owner": "chat-coord-kb-v2-acceptance-review-20261123",
+  "acquired_at": "2026-11-23T16:40:03.170Z",
+  "expires_at": "2026-11-23T16:55:03.170Z",
+  "heartbeat_at": "2026-11-23T16:40:03.170Z",
   "last_completed_at": "2026-11-23T16:39:06.588Z",
   "last_summary": "CHAT B watch-session recount source-reproduced; journal FAILED_READBACK; TASK-B-FEED-107 4/5 80% C5 NOT_RUN",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle; B watch session eviction dedup remediation optional, coordinator-owned safe private CI/rollback open"
+  "task": "Coordinator source-backed kb-add-v2 contract safety review: ensure IDB op receipt survives deletion and crashes, define exact acceptance and stop; document canonical journal only, no product code/CI."
 }
