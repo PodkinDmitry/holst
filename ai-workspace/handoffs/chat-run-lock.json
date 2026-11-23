@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "chat-A-guard-unsaved-navigation-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T13:11:12.826Z",
-  "expires_at": "2026-11-23T13:17:12.829Z",
-  "heartbeat_at": "2026-11-23T13:11:12.829Z",
-  "last_completed_at": "2026-11-23T13:08:41.732Z",
-  "last_summary": "CHAT coordinator created pinned private 2-parent A+B test integration candidate 80224ee090f2cb368184c7c961be3a4089f9205e; exact 15 changed JS V8 parse PASS, 0 path overlaps, updated manifest 442/442 paths for 443 blob files, journal §120 readback edf1f206 verified. No release merge, build/Chrome/MV3/Drive still NOT_RUN.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T13:11:31.797Z",
+  "last_completed_at": "2026-11-23T13:11:31.797Z",
+  "last_summary": "CHAT A §121 exact base saveNow navigation guard 30/34 old ->34/34 new V8; private A ahead13; source/test/journal readback true, C4/C5 coordinator open",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "CHAT A protect local board navigation from swallowed save failure / in-flight writes. New 34/34 source+base test cases."
+  "task": "Idle; COORDINATOR refreshes pinned §120 integration candidate and owns native build/browser gate; A next only truly independent new task."
 }
