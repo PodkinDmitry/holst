@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T18:56:34.043Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T19:00:02.897Z",
+  "state": "running",
+  "owner": "chat-coordinator2-atr-v42-cascade-footer-20261123",
+  "acquired_at": "2026-11-23T19:03:30.854Z",
+  "expires_at": "2026-11-23T19:21:30.854Z",
+  "heartbeat_at": "2026-11-23T19:03:30.854Z",
   "last_completed_at": "2026-11-23T19:00:02.897Z",
   "last_summary": "ATR v4.1 published and verified in canonical format §4.19, worker §0.9, AGENTS active override, journal §134. All user-facing key content in one bottom panel, optional CTA or red/orange stall status, progress last for all workers. No product/CI changes; 4/5=80%, Δ0.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Next coordinator user-trigger: inspect A/B current HEAD, integrate verified C5 fixes, rerun pinned C4+C5; continue ATR v4.1 layout."
+  "task": "Apply user-approved ATR v4.2 adaptive cascade progress and emphasized user decisions, with the CTA or stall banner as the absolute final element; verify standards and journal."
 }
