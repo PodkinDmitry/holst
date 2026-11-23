@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T17:58:40.525Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T18:04:33.945Z",
+  "state": "running",
+  "owner": "chat-infra-20261123-actions-zero-budget-confirmation",
+  "acquired_at": "2026-11-23T18:08:56.021Z",
+  "expires_at": "2026-11-23T18:20:56.021Z",
+  "heartbeat_at": "2026-11-23T18:08:56.021Z",
   "last_completed_at": "2026-11-23T18:04:33.945Z",
   "last_summary": "CI infra manual-only PR #2 open/draft, one YAML path on isolated private infra branch; exact integration SHA 021520f3, C4 native build+Node+manifest and optional C5 Chrome/Chromium/MV3/IndexedDB/rollback; zero runs, billing account setting UNKNOWN. Journal v99 §128 readback (commit 8a595f9). Product branches/PR #1 untouched. One owner action: verify Actions budget incl stop usage and available included quota; no runner until confirmed.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle; XOD C4/C5 P0 billing gate PENDING_USER_CHECK. Review and coordinator-merge infra PR #2 only after explicit proof that GitHub Actions can operate within user's zero-extra-cost requirement; then manual C4, optionally C5, report logs/hashes to canonical journal. Keep release/product unchanged until review."
+  "task": "Journal current user-confirmed Actions account $0/$0 budget usage blocked; included monthly compute unknown; preserve manual-only draft PR #2 and prohibit runner until safe verification; no product writes."
 }
