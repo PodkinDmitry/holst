@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coordinator-atr-red-stop-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T17:29:04.447Z",
-  "expires_at": "2026-11-23T17:49:04.447Z",
-  "heartbeat_at": "2026-11-23T17:29:04.447Z",
-  "last_completed_at": "2026-11-23T16:43:45.881Z",
-  "last_summary": "Coordinator source verified kb-add-v2 risks in private code: IDB v1 one-store kbTx, in-memory kbSet before commit, delete removes source; clarified atomic src+ops receipt v2 with durable tombstones and typed ACK (DESIGN ONLY). Canonical journal §126 commit 4187c8c1 readback, 3/5 60% Δ0; C4/C5 no runnable CI/real browser. GitHub draft PR #1 unchanged, A/B unchanged. GitHub fetch_file large journal empty content symptom resolved with GitHub contents GET, not corruption.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T17:32:32.100Z",
+  "last_completed_at": "2026-11-23T17:32:32.100Z",
+  "last_summary": "XOD ATR RED_STOP governance recorded/readback: AGENTS new ACTIVE, response v4.0 §4.18, worker v2.2 §0.8, journal v98 §127 commit 6fc8772e; user reports infrastructure GitHub Actions chat paused, no active runner, C4/C5 NOT_RUN, coordinator acceptance 3/5 60% Δ0. No product/CI/Work execution, no repeat CTA when blocked.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "User-approved XOD ATR P0 stop indicators, short-screen executive UX, stalled external-infrastructure status and acceptance-based progress; modify only AGENTS/protocols/canonical journal; no product code or cloud CI."
+  "task": "Idle. XOD P0 XOD-REL-C4-C5-RUNNER activation_status=PAUSED_USER_REPORTED. Wait for user to resume stopped infrastructure conversation or evidence of a safe executable alternative; next response should show RED_STOP with one action, not repeat source-only reports."
 }
