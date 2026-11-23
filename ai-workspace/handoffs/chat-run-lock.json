@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-B-feed107-ci-gate-20261123-163301",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T16:33:01.055Z",
-  "expires_at": "2026-11-23T16:53:01.055Z",
-  "heartbeat_at": "2026-11-23T16:33:01.055Z",
-  "last_completed_at": "2026-11-23T16:28:05.835Z",
-  "last_summary": "CHAT coordinator created private draft PR #1 (head 021520f3, release base c6cfb259, 16 changed paths; draft open not merged); independent GitHub PR readback PASS, journal §123 readback commit 3a4165fb; C4/C5 NOT_RUN, 3/5 60% Δ0; no workflows/CI code changes, no product merge.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T16:33:09.454Z",
+  "last_completed_at": "2026-11-23T16:33:09.454Z",
+  "last_summary": "CHAT B TASK-B-FEED-107 CI readiness readback_verified; 4/5=80%, C5 NOT_RUN; exact private runner quota+workflow coordinator-owned",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "TASK-B-FEED-107 review exact private CI runner; journal checkpoint only; no product/host changes"
+  "task": "Idle. Coordinator/infra to verify free Actions budget + hard cap and executable isolated private runner; B awaits C5."
 }
