@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-A-c5-font-20261123-1906",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T19:06:38.912Z",
-  "expires_at": "2026-11-23T19:18:38.912Z",
-  "heartbeat_at": "2026-11-23T19:06:38.912Z",
-  "last_completed_at": "2026-11-23T19:05:49.798Z",
-  "last_summary": "ATR v4.2 canonical format §4.19, AGENTS active, worker §0.9, journal §135 updated and exact readbacks verified. Adaptive cascade depth to actual progress/stall, important user sections visually emphasized, CTA/stall banner bottommost. XOD C1-C4 PASS C5 FAIL 4/5 Δ0; no product/CI change.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T19:09:54.988Z",
+  "last_completed_at": "2026-11-23T19:09:54.988Z",
+  "last_summary": "CHAT A C5 Arial style patch private A HEAD 07e6d22f: 2 scoped files, GitHub exact readback true, JS parse PASS + 6 source-extracted IDB synthetic scenarios PASS. Canonical journal §136 SHA 4c6818b5 readback true; new integrated C4/C5 real Chrome NOT_RUN; coordinator next.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "A-C5-STYLE-FONT-ASSERT-01: narrow private A style + regression and GitHub journal checkpoint"
+  "task": "Idle. Coordinator to inspect A 07e6d22f and B 379fa691, create NEW pinned AB integration+manifest, run actual C4 and 5 browser C5 suites on exact SHA; do not auto-merge release."
 }
