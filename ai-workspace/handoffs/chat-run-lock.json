@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T19:14:29.330Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T19:25:51.406Z",
+  "state": "running",
+  "owner": "chat-coordinator2-board-load-preflight-20261123",
+  "acquired_at": "2026-11-23T19:31:26.112Z",
+  "expires_at": "2026-11-23T19:55:26.112Z",
+  "heartbeat_at": "2026-11-23T19:31:26.112Z",
   "last_completed_at": "2026-11-23T19:25:51.406Z",
   "last_summary": "Coordinator integrated A/B browser fixes into isolated private PR#1 HEAD 9580225c with SHA256 manifest, isolated C4 native PASS 442 hashes/10 Node/build, C5 real Chrome Playwright 5/5 PASS on GitHub run 45248119152. TASK-COORD-AB-001 now 5/5=100% (+20pp), NOT release ready. PR#1/#2 updated and remain DRAFT unmerged. Canonical journal §137 v106 exact readback. ATR v4.3 requires every coordinator reply show other chats PLAN vs FACT and copy-only cross-chat CTA. No paid budget change.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Coordinator next active task: evaluate remaining XOD 3.0 release-critical gates (heavy board performance/redraw, Windows Edge, real Drive test-account OPEN, kb-add-v2 receipt risk), choose cheapest safe runnable gate. No automatic release merge; user acceptance pending."
+  "task": "Run lowest-risk native browser heavy-board redraw 1407 synthetic + 1000-frame stress preflight on exact candidate 9580225c in isolated free GitHub CI; preserve release and data; publish evidence to existing PRs and canonical journal; no release acceptance without 30min Preview1 comparison."
 }
