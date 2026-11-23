@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T18:08:56.021Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T18:09:51.799Z",
+  "state": "running",
+  "owner": "chat-infra-20261123-actions-included-2000-c4-probe",
+  "acquired_at": "2026-11-23T18:13:45.357Z",
+  "expires_at": "2026-11-23T18:33:45.357Z",
+  "heartbeat_at": "2026-11-23T18:13:45.357Z",
   "last_completed_at": "2026-11-23T18:09:51.799Z",
   "last_summary": "User shared GitHub Actions account budget $0/$0 100% usage blocked; zero billable overage guard observed, included monthly compute remaining UNKNOWN; no run/merge. Read-back verified journal v100 §129 commit 8f5ce4a0. Draft infra PR #2 remains open; source candidate PR #1 unchanged.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. User check only GitHub Billing & Licensing Overview/Usage: remaining included Actions compute quota. Do not run Actions or merge infra workflow until runner eligibility/zero-overage confirmed, coordinator authorization. C4/C5 remain NOT_RUN, 3/5=60% Δ0."
+  "task": "User confirmed GitHub Free 2000 included Actions minutes and account Actions $0 blocked overage. Execute one isolated C4 probe using narrow push trigger on private infra branch only; inspect actual Actions run, log exact outcome in canonical journal. No product/release changes, no paid upgrade."
 }
