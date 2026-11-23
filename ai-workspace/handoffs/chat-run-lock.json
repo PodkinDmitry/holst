@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T12:24:29.582Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T12:24:39.867Z",
+  "state": "active",
+  "owner": "chat-b-feed-legacy-migration-20261123",
+  "acquired_at": "2026-11-23T12:25:57.955Z",
+  "expires_at": "2026-11-23T12:30:17.956Z",
+  "heartbeat_at": "2026-11-23T12:25:57.955Z",
   "last_completed_at": "2026-11-23T12:24:39.867Z",
   "last_summary": "CHAT A §113 21/21 existing source suite confirmed; Chromium nav/admin policy blocks actual isolated IDB, C4/C5 remain coordinator-owned, 3/5 Δ0; journal readback=true",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Coordinator owns exact-source build/browser runner. A next independent read-only save/reload/error policy audit if triggered."
+  "task": "B TASK-B-FEED-107 legacy multi-feed replay last-intent; source & UI path 17/19 before, 19/19 after"
 }
