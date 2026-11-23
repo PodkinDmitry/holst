@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coordinator2-kb-v2-browser-safe-gate-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T19:42:45.079Z",
-  "expires_at": "2026-11-23T20:07:45.079Z",
-  "heartbeat_at": "2026-11-23T19:42:45.079Z",
-  "last_completed_at": "2026-11-23T19:38:56.254Z",
-  "last_summary": "Coordinator C4+C5 exact SHA bc2772ac run 45250155253 completed PASS (442 SHA hashes, 10 Node, build, Chrome 5/5), new PERF synthetic 32/1000/1407 camera/zoom/redraw preflight PASS, 1000 frames p95=33.3ms; 30min Windows Preview1 comparative performance OPEN; no release merge. PR#1/#2 evidence updated and remain DRAFT. Canonical journal §138 v107 exact fetch_blob readback PASS.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T19:53:46.808Z",
+  "last_completed_at": "2026-11-23T19:53:46.808Z",
+  "last_summary": "Coordinator real Chrome KB negative fail-before: identical legacy kb-add replay stores 2 distinct source IDs (expected defect). Narrow KB src rollback fix 1-line durable-before-memory in isolated private candidate 6ebc5908; browser aborted IDB write leaves no phantom, successful source persisted. Native C4 PASS and real Chrome C5 5/5 PASS on GitHub Actions 45252782834, synthetic perf preflight PASS. Earlier zoom test intermittent FAIL at a08af76c not concealed. PR#1/#2 DRAFT unmerged, canonical journal §139 v108 exact fetch_blob verified. KB-ADD-V2 atomic receipt/IDB migration remains OPEN due rollback compatibility and full acceptance gates.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Safe independent XOD data-integrity gate: baseline reproducer and Chrome IndexedDB/MV3 acceptance for coordinator-owned kb-add-v2; no release or B branch writes; report verified result to existing PR/journal and release lease."
+  "task": "Idle. Next coordinator trigger: assess safe v1→v2 IndexedDB rollback-compatible atomic kb receipt/ops protocol §126 with isolated real Chrome fail-before/recovery, OR explicitly assign B watch session overcount §125. Do not merge release; real Drive/Edge/30min Preview1 perf OPEN."
 }
