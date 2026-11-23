@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coordinator2-c5-merge-rerun-20261123",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-23T19:14:29.330Z",
-  "expires_at": "2026-11-23T19:34:29.330Z",
-  "heartbeat_at": "2026-11-23T19:14:29.330Z",
-  "last_completed_at": "2026-11-23T19:09:54.988Z",
-  "last_summary": "CHAT A C5 Arial style patch private A HEAD 07e6d22f: 2 scoped files, GitHub exact readback true, JS parse PASS + 6 source-extracted IDB synthetic scenarios PASS. Canonical journal §136 SHA 4c6818b5 readback true; new integrated C4/C5 real Chrome NOT_RUN; coordinator next.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-23T19:25:51.406Z",
+  "last_completed_at": "2026-11-23T19:25:51.406Z",
+  "last_summary": "Coordinator integrated A/B browser fixes into isolated private PR#1 HEAD 9580225c with SHA256 manifest, isolated C4 native PASS 442 hashes/10 Node/build, C5 real Chrome Playwright 5/5 PASS on GitHub run 45248119152. TASK-COORD-AB-001 now 5/5=100% (+20pp), NOT release ready. PR#1/#2 updated and remain DRAFT unmerged. Canonical journal §137 v106 exact readback. ATR v4.3 requires every coordinator reply show other chats PLAN vs FACT and copy-only cross-chat CTA. No paid budget change.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Integrate verified A 07e6d22f and B 379fa691 in isolated XOD integration PR, update manifest, test exact SHA C4+C5 via existing private GitHub Actions runner; journal evidence. No release merge."
+  "task": "Idle. Coordinator next active task: evaluate remaining XOD 3.0 release-critical gates (heavy board performance/redraw, Windows Edge, real Drive test-account OPEN, kb-add-v2 receipt risk), choose cheapest safe runnable gate. No automatic release merge; user acceptance pending."
 }
