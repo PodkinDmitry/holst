@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-23T12:49:02.718Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-23T12:50:22.805Z",
+  "state": "active",
+  "owner": "chat-A-remote-refresh-dirty-20261123",
+  "acquired_at": "2026-11-23T12:52:35.737Z",
+  "expires_at": "2026-11-23T12:57:35.737Z",
+  "heartbeat_at": "2026-11-23T12:52:35.737Z",
   "last_completed_at": "2026-11-23T12:50:22.805Z",
   "last_summary": "CHAT-B §116 exact HEAD b0613813, no private Actions configured, isolated host routing requirement documented; TASK-B-FEED-107 4/5=80% Δ0 C5 NOT_RUN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. Coordinator enables bill-capped exact-private source browser CI; B resumes on next same-chat trigger."
+  "task": "CHAT A remote refresh loss prevention, exact private source 23/26 before vs 26/26 after, journal checkpoint"
 }
