@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "held",
-  "owner": "chat-coord-173-20261124",
-  "acquired_at": "2026-11-24T17:32:35.706Z",
-  "expires_at": "2026-11-24T17:52:35.706Z",
-  "heartbeat_at": "2026-11-24T17:32:35.706Z",
-  "last_completed_at": "2026-11-24T17:29:43.617Z",
-  "last_summary": "§172 063abd53 raw trusted archive 7/7 and FS 22/22 PASS; native XDG chooser request/response/load completion no error, CSP test failure before registration. 1fb9bd31 bounded polling + strengthened saved backup/exact rollback tests published, CI 45448991153/job 138640563010 running. Shipping updater/full rollback OPEN. Journal e65a9ff2609b675fcc8b61344559b3af298455e7 exact readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T17:34:56.033Z",
+  "last_summary": "§173 1fb9bd31 raw archive 7/7 FS22/22 PASS, first normal install same ID/path UNPACKED PASS; post-crash registration absent. 45100fe0 durable registration baseline/read-only diagnostics + reverse swap corrupt backup guard. CI 45449968106 Linux job 138644016782 and Windows native FS job 138644016297 active/pending. Shipping updater/full rollback OPEN. Journal f33d9b37ad9fdb74191df6a93a9e20720028c69e exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§173 persistent registration before crash, exact raw and Windows filesystem gate"
+  "task": null
 }
