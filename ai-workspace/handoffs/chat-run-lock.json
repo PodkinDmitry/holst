@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coord-recovery-floor-150-20261124",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-24T12:43:18.987Z",
-  "expires_at": "2026-11-24T13:13:18.987Z",
-  "heartbeat_at": "2026-11-24T12:43:18.987Z",
-  "last_completed_at": "2026-11-24T12:31:07.661Z",
-  "last_summary": "§149 independent context recovery PASS (not blind-memory isolated); six private refs and three draft/unmerged PRs verified, exact candidate CI rollback FAIL confirmed. Journal commit 2155463841d0bdc18e7d3dba39d470935eaf4a73 blob 321f5504130427f8ad60ab08e9a180bcc39b0fdf exact readback/history preservation/unique live/checkpoint=149 PASS. No product/CI/PR/automation/billing changes.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-24T12:47:42.942Z",
+  "last_completed_at": "2026-11-24T12:47:42.942Z",
+  "last_summary": "§150 COORD: B §144 received, exact compatible floor proposal; KB v1 and Watch compatible restart test-only candidate e2ded721002e2897857e8cc27367650e481f4413; CI run 45396558781 job 138453788283 completed, C4 steps PASS, release OPEN. Journal commit 2aa0aed47bb63feda497d68a6fd14c895aad1f33 blob f336c59062fa93be93f1ff5e101a74a6fd7359a6 exact readback PASS; no product/release merge, no changed user guarantee.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§150 compatible rollback floor, KB v1 isolated test model, pinned CI; no release merge"
+  "task": "Idle. COORD: read run 45396558781 exact logs; next safe KB v1 protocol and B paired recovery/host counters/global quota; no unverified downgrade."
 }
