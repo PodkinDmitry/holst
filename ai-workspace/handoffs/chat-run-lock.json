@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "CHAT-COORD-ATR-188",
-  "acquired_at": "2026-11-24T21:17:39.642Z",
-  "expires_at": "2026-11-24T21:32:39.642Z",
-  "heartbeat_at": "2026-11-24T21:17:39.642Z",
-  "last_completed_at": "2026-11-24T21:13:57.699Z",
-  "last_summary": "§187 raw C5 5/7 persisted fence and missed-event PASS; dcea61aa native23/23 both OS PASS; 7ce75805 irreversible commit/resume candidate CI 45488806178 in progress; journal 0e796fed91b86b73fa98e8383f5adb169befb53e exact CAS/readback PASS. Release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T21:21:12.035Z",
+  "last_summary": "§188 C5 6/7, managed install and full profile backup real PASS; joint completion activation barrier 7a2099ef Windows29/29 PASS, CI 45489984545 Linux in progress; journal dbcee6f18100d121a7f5363b9c0ccaa1e842a10a exact CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§187 raw CI and two-stage activation barrier"
+  "task": null
 }
