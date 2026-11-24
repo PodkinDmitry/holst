@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-24T12:30:18.244Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-24T12:31:07.661Z",
+  "state": "running",
+  "owner": "chat-coord-recovery-floor-150-20261124",
+  "acquired_at": "2026-11-24T12:43:18.987Z",
+  "expires_at": "2026-11-24T13:13:18.987Z",
+  "heartbeat_at": "2026-11-24T12:43:18.987Z",
   "last_completed_at": "2026-11-24T12:31:07.661Z",
   "last_summary": "§149 independent context recovery PASS (not blind-memory isolated); six private refs and three draft/unmerged PRs verified, exact candidate CI rollback FAIL confirmed. Journal commit 2155463841d0bdc18e7d3dba39d470935eaf4a73 blob 321f5504130427f8ad60ab08e9a180bcc39b0fdf exact readback/history preservation/unique live/checkpoint=149 PASS. No product/CI/PR/automation/billing changes.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Idle. COORD: §144 rollback floor/recovery contract, pinned acceptance gates. Work takeover §§146.4,147.5,148.5 only after actual availability and user launch; no new start."
+  "task": "§150 compatible rollback floor, KB v1 isolated test model, pinned CI; no release merge"
 }
