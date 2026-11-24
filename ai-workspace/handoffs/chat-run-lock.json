@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "held",
+  "owner": "chat-coord-176-20261124",
+  "acquired_at": "2026-11-24T17:49:29Z",
+  "expires_at": "2026-11-24T18:09:29Z",
+  "heartbeat_at": "2026-11-24T17:49:29Z",
   "last_completed_at": "2026-11-24T17:43:00Z",
   "last_summary": "§175 exact 5fff8b8f Windows FS25/25 PASS, Linux C5 freshness refusal, final pair NOT_RUN. Test-only 33ea1997 + CI 45452168255 launched; journal fb4a6858d5e8360f72083d781c76ecb64116e275 full readback PASS. Shipping installer OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§176 exact CI result and independent rollback package preflight validation"
 }
