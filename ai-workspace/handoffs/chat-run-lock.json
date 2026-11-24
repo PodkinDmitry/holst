@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coord-kb-watch-153-20261124",
-  "acquired_at": "2026-11-24T13:07:29.126Z",
-  "expires_at": "2026-11-24T13:37:29.126Z",
-  "heartbeat_at": "2026-11-24T13:07:29.126Z",
-  "last_completed_at": "2026-11-24T13:05:05.372Z",
-  "last_summary": "§152 KB v1 real model PASS, prior C5 5/6; actual host-only candidate 842bfef6bec0fb89cab14764efecf717c5afc481, new run 45399577502/job 138464319316 in_progress, release OPEN. Journal commit d635db18a2645eea68777f647b5a00a171e2c961 blob ba07451fd7815f59c3206a9f4cfcf29f9cd52055 exact readback PASS. No guarantee change.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T13:11:59.612Z",
+  "last_summary": "§153 actual KB host commit/reopen PASS on 842bfef6, C5 5/6; bound queue+durable Watch candidate 93b23e6222d161fe73b1e0c8896ba82eaccdc999, run 45400743842 completed, release OPEN. Journal 261d2e23b96d38b27aee3cd2f7ee96717fd7130a blob 1edb3e655f87790cb66d0bdb060617c42d4986bc exact readback PASS. No guarantee change.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§153 KB database-bound extension delivery and durable Watch host ACK"
+  "task": null
 }
