@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "CHAT-COORD-ATR-189",
-  "acquired_at": "2026-11-24T21:25:13.025Z",
-  "expires_at": "2026-11-24T21:40:13.025Z",
-  "heartbeat_at": "2026-11-24T21:25:13.025Z",
-  "last_completed_at": "2026-11-24T21:21:12.035Z",
-  "last_summary": "§188 C5 6/7, managed install and full profile backup real PASS; joint completion activation barrier 7a2099ef Windows29/29 PASS, CI 45489984545 Linux in progress; journal dbcee6f18100d121a7f5363b9c0ccaa1e842a10a exact CAS/readback PASS. Release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T21:29:29.729Z",
+  "last_summary": "§189 raw C5 6/7 native29/29 both OS, pre-crash partial fence assertions PASS, MV3 wake and TRUSTED_CONTEXTS candidate 3cd3d56d CI 45491447920 in progress; journal ca7375be818c6b6502fcf3df29ff27d57984c919 exact CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§188 raw CI, worker wakeup, content storage isolation"
+  "task": null
 }
