@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "held",
-  "owner": "chat-coord-175-20261124",
-  "acquired_at": "2026-11-24T17:43:00Z",
-  "expires_at": "2026-11-24T18:03:00Z",
-  "heartbeat_at": "2026-11-24T17:43:00Z",
-  "last_completed_at": "2026-11-24T17:40:05.024Z",
-  "last_summary": "§174 Linux 45100fe0 raw FS23/23, durable registration/crash import resume/replay, fresh pair, offline swap and exact historical worker PASS; last-tab error before historical host/semantic proof. Windows exact SHA/module PASS but rb fsync Errno9 FAIL. 38df6601 Windows flush fix, 5fff8b8f page-order fix, CI 45450847136 Linux 138647192166 Windows 138647193718 running. Shipping updater/full rollback OPEN. Journal dd2597043e99c0e4140593edf2e2b7724e5c27eb exact readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T17:43:00Z",
+  "last_summary": "§175 exact 5fff8b8f Windows FS25/25 PASS, Linux C5 freshness refusal, final pair NOT_RUN. Test-only 33ea1997 + CI 45452168255 launched; journal fb4a6858d5e8360f72083d781c76ecb64116e275 full readback PASS. Shipping installer OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§175 exact CI 45450847136, diagnose fresh pair refusal, preserve fail-closed, checkpoint"
+  "task": null
 }
