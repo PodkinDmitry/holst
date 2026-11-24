@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "active",
+  "owner": "CHAT-COORD-ATR-193",
+  "acquired_at": "2026-11-24T21:52:10.866Z",
+  "expires_at": "2026-11-24T22:07:10.866Z",
+  "heartbeat_at": "2026-11-24T21:52:10.866Z",
   "last_completed_at": "2026-11-24T21:49:20.755Z",
   "last_summary": "§192 raw C5 6/7, actual host admission and KB IndexedDB write/readback PASS; scoped broker write ACK/direct denial PASS, readback assertion false, new 9c76f0bb CI 45494769524 in progress. Journal 7f1dd982d761f68bc433407694ab339723b4c1ef CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§193 raw CI and independent Edge acceptance feasibility"
 }
