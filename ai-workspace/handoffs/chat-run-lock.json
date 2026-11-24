@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "held",
+  "owner": "chat-coord-178-20261124",
+  "acquired_at": "2026-11-24T18:04:30.106Z",
+  "expires_at": "2026-11-24T18:19:30.106Z",
+  "heartbeat_at": "2026-11-24T18:04:30.106Z",
   "last_completed_at": "2026-11-24T18:00:30Z",
   "last_summary": "§177 c23011ea exact raw C4/C5/full pair/tamper PASS; actual Pages deployment source confirmed. Trusted pair metadata and host archive pin c0114001 published; Windows metadata 13/13 and FS25/25 PASS, Linux CI 45454590051 ongoing. Global old/offline client maintenance and shipping installer OPEN. Journal 7070c467a155c34ecd4df5ecac93f43b9ce29a5b full readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§178 exact CI verification and deployment/maintenance gate audit"
 }
