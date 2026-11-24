@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coord-paired-rollback-156-20261124",
-  "acquired_at": "2026-11-24T13:20:38.466Z",
-  "expires_at": "2026-11-24T13:50:38.466Z",
-  "heartbeat_at": "2026-11-24T13:20:38.466Z",
-  "last_completed_at": "2026-11-24T13:18:28.475Z",
-  "last_summary": "§155 all native fixture audit, duplicate status restored, C4 all three steps PASS on a2a8279e82a847522f011975e25a935746b30d66, run 45401874176/job 138472273581 in_progress. Journal 5db7ad8ce6b55c028f223f2b52c92ad45c2c517c exact readback PASS; RELEASE OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T13:23:56.620Z",
+  "last_summary": "§156 C4/C5 10/10+6/6 PASS on a2a8279e, bound KB/Watch actual PASS. Paired test-only 684c8511bf4add7ffc95a1b3273cf28072d6248f, actual run 45402862666 in_progress, conclusion pending; job 138475715652 in_progress; C4 - assert source SHA, complete manifest and content hashes:completed/success; C4 - execute all native Node source-integrity tests:completed/success; C4 - build XOD from exact source into clean output and hash ZIPs:completed/success; C5 - install pinned Python Playwright and isolated browsers:in_progress/-; C5 - execute all isolated browser suites and report ea. Journal 7682dfe05edc2efab476ccb3153c63b1f0934530 exact readback PASS; release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§156 verify completed C5, distinct compatible binary paired recovery test"
+  "task": null
 }
