@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coord-native-all-155-20261124",
-  "acquired_at": "2026-11-24T13:16:10.295Z",
-  "expires_at": "2026-11-24T13:46:10.295Z",
-  "heartbeat_at": "2026-11-24T13:16:10.295Z",
-  "last_completed_at": "2026-11-24T13:14:08.150Z",
-  "last_summary": "§154 C4 fixture mismatch diagnosed, test-only candidate 39e0950336c00d879dcee1448042dfa1a31568f1, actual run 45401201837 completed, conclusion failure; job 138469954410 completed; C4 steps C4 - assert source SHA, complete manifest and content hashes:completed/success; C4 - execute all native Node source-integrity tests:completed/failure; C4 - build XOD from exact source into clean output and hash ZIPs:completed/skipped. Journal 4b30192a06fb9f1cd788ae358a572f2e487e771f exact readback PASS; RELEASE OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T13:18:28.475Z",
+  "last_summary": "§155 all native fixture audit, duplicate status restored, C4 all three steps PASS on a2a8279e82a847522f011975e25a935746b30d66, run 45401874176/job 138472273581 in_progress. Journal 5db7ad8ce6b55c028f223f2b52c92ad45c2c517c exact readback PASS; RELEASE OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§155 full native fixture audit, duplicate result contract, aggregate C4 evidence and C5"
+  "task": null
 }
