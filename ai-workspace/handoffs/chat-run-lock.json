@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "held",
+  "owner": "chat-coord-173-20261124",
+  "acquired_at": "2026-11-24T17:32:35.706Z",
+  "expires_at": "2026-11-24T17:52:35.706Z",
+  "heartbeat_at": "2026-11-24T17:32:35.706Z",
   "last_completed_at": "2026-11-24T17:29:43.617Z",
   "last_summary": "§172 063abd53 raw trusted archive 7/7 and FS 22/22 PASS; native XDG chooser request/response/load completion no error, CSP test failure before registration. 1fb9bd31 bounded polling + strengthened saved backup/exact rollback tests published, CI 45448991153/job 138640563010 running. Shipping updater/full rollback OPEN. Journal e65a9ff2609b675fcc8b61344559b3af298455e7 exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§173 persistent registration before crash, exact raw and Windows filesystem gate"
 }
