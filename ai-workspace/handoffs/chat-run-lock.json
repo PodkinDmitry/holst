@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "held",
+  "owner": "chat-coord-watch-160-20261124",
+  "acquired_at": "2026-11-24T13:48:29.691Z",
+  "expires_at": "2026-11-24T14:08:29.691Z",
+  "heartbeat_at": "2026-11-24T13:48:29.691Z",
   "last_completed_at": "2026-11-24T13:41:27.420Z",
   "last_summary": "§159 exact global quota PASS; b1a5c067 pending retry source 15/15 PASS; CI trigger published f6cae518 START unconfirmed; durable fallback and actual UI acceptance OPEN. Journal 1a29bc25f64f9b400005248cf112e0747755736b exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§160 durable Watch overflow"
 }
