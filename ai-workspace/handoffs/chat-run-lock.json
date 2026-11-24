@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coord-kb-native-154-20261124",
-  "acquired_at": "2026-11-24T13:12:26.364Z",
-  "expires_at": "2026-11-24T13:42:26.364Z",
-  "heartbeat_at": "2026-11-24T13:12:26.364Z",
-  "last_completed_at": "2026-11-24T13:11:59.612Z",
-  "last_summary": "§153 actual KB host commit/reopen PASS on 842bfef6, C5 5/6; bound queue+durable Watch candidate 93b23e6222d161fe73b1e0c8896ba82eaccdc999, run 45400743842 completed, release OPEN. Journal 261d2e23b96d38b27aee3cd2f7ee96717fd7130a blob 1edb3e655f87790cb66d0bdb060617c42d4986bc exact readback PASS. No guarantee change.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T13:14:08.150Z",
+  "last_summary": "§154 C4 fixture mismatch diagnosed, test-only candidate 39e0950336c00d879dcee1448042dfa1a31568f1, actual run 45401201837 completed, conclusion failure; job 138469954410 completed; C4 steps C4 - assert source SHA, complete manifest and content hashes:completed/success; C4 - execute all native Node source-integrity tests:completed/failure; C4 - build XOD from exact source into clean output and hash ZIPs:completed/skipped. Journal 4b30192a06fb9f1cd788ae358a572f2e487e771f exact readback PASS; RELEASE OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§154 fix native fixture to actual legacy capability protocol, extend versioned regression coverage"
+  "task": null
 }
