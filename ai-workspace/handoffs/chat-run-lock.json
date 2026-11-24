@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "held",
-  "owner": "chat-coord-watch-166-20261124",
-  "acquired_at": "2026-11-24T15:00:52.809Z",
-  "expires_at": "2026-11-24T15:20:52.809Z",
-  "heartbeat_at": "2026-11-24T15:00:52.809Z",
-  "last_completed_at": "2026-11-24T14:58:45.782Z",
-  "last_summary": "§165 0ad16b12 actual product import interruption/reopen/resume PASS, 3001 PASS; C5 5/6 popup hidden. 7ca9b34a real file UI/hard crash/replay/guard/full exact pair tests staged, exact native18/18/C4/floor build PASS; CI 45419872172 running; UI and full rollback OPEN. Journal 254bf5c5b1b74ec59dc0dea5325a45f001727998 exact readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T15:05:44.667Z",
+  "last_summary": "§166 7ca9b34a actual popup PASS, C5 5/6 live-rollback fixture pending false before file UI. ad91f0c6 deterministic paired capture + temporary fail-closed installer, guard model8/8 C4/floor build PASS; CI 45421201396 running; safe updater/full rollback OPEN. Journal f9c3a830588d37dfff58bdb75ed5345db79c349a exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§166 isolate paired delivery fixture; audit update path"
+  "task": null
 }
