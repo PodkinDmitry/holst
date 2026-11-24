@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "running",
+  "owner": "chat-coord-179-20261124",
+  "acquired_at": "2026-11-24T19:01:46.444Z",
+  "expires_at": "2026-11-24T19:21:46.444Z",
+  "heartbeat_at": "2026-11-24T19:01:46.444Z",
   "last_completed_at": "2026-11-24T18:05:42.140Z",
   "last_summary": "§178 c0114001 exact raw Linux/Windows C4/C5, trusted pair metadata13/13, filesystem25/25, full exact rollback PASS. Vault drift cause confirmed first write 0→3003. Actual legacy deployment source confirms no global fence; shipping installer blocked, mixed-version matrix next. Journal 819d6305b2ac1bce8dbf090bac6ef53999fd3b18 full readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§178 mixed-version compatibility and maintenance/install safety"
 }
