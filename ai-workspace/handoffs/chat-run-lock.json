@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "held",
-  "owner": "CHAT-COORD-ATR-208",
-  "acquired_at": "2026-11-24T22:51:33.470Z",
-  "expires_at": "2026-11-24T23:01:33.470Z",
-  "heartbeat_at": "2026-11-24T22:51:33.470Z",
-  "last_completed_at": "2026-11-24T22:50:14.761Z",
-  "last_summary": "§207 raw EDGE_MANAGED_REPEAT_REVERSE PASS, same-profile B-C-B-C both cuts, archives and isolation; C unchanged. Windows synthetic perf CI 45504518381/job138836140763 in progress; comparative Preview1 remains blocked. Journal 057ee10b43c4b786d8f4c40bdb0aef663649d4cd exact readback PASS. Release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T22:52:18.905Z",
+  "last_summary": "§208 raw Windows Edge synthetic perf 32/1000/1407 PASS, 1407 redraw3.5ms/p95 16.7ms; C unchanged. Comparative Preview1 blocked on original local commit verification, historic FAIL retained, Drive OPEN. Journal 2dfa00e85a4a5309a804e6f9654dabf86c83b31a exact readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§208 Windows Edge perf raw and local Preview1 recovery blocker; C frozen"
+  "task": null
 }
