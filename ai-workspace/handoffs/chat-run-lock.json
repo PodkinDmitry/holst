@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "held",
+  "owner": "CHAT-COORD-ATR-206",
+  "acquired_at": "2026-11-24T22:46:12.067Z",
+  "expires_at": "2026-11-24T22:56:12.067Z",
+  "heartbeat_at": "2026-11-24T22:46:12.067Z",
   "last_completed_at": "2026-11-24T22:44:18.470Z",
   "last_summary": "§205 exact C Edge 4/4 raw PASS; native picker not found, managed repeat NOT_RUN. Targeted diagnostic CI 45503574848 in progress. Journal d0f73ac33dee52736e5b68bcfaf17f4953010528 CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§206 exact native Edge folder picker ID 1152, targeted repeat reverse, C unchanged"
 }
