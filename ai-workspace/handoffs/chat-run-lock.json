@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coord-recovery-worker-151-20261124",
-  "acquired_at": "2026-11-24T12:48:24.494Z",
-  "expires_at": "2026-11-24T13:13:24.494Z",
-  "heartbeat_at": "2026-11-24T12:48:24.494Z",
-  "last_completed_at": "2026-11-24T12:47:42.942Z",
-  "last_summary": "§150 COORD: B §144 received, exact compatible floor proposal; KB v1 and Watch compatible restart test-only candidate e2ded721002e2897857e8cc27367650e481f4413; CI run 45396558781 job 138453788283 completed, C4 steps PASS, release OPEN. Journal commit 2aa0aed47bb63feda497d68a6fd14c895aad1f33 blob f336c59062fa93be93f1ff5e101a74a6fd7359a6 exact readback PASS; no product/release merge, no changed user guarantee.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T12:51:50.535Z",
+  "last_summary": "§151 COORD: exact d77e698d test-only harness + host counters, CI 45397494337 job 138457033982 C4 steps PASS, C5 in progress at observation. Journal commit 5a588b55a5196467ceb539cce52b21c90d337d96 blob 478e7f878289f26b51b1e1a59426bcfe666501dc exact readback PASS. RELEASE OPEN, no guarantee change.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§151 one bounded test harness correction: exact MV3 worker identity + paired host counters, no product changes"
+  "task": null
 }
