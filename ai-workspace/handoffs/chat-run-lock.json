@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "held",
+  "owner": "chat-coord-174-20261124",
+  "acquired_at": "2026-11-24T17:36:33.765Z",
+  "expires_at": "2026-11-24T17:56:33.765Z",
+  "heartbeat_at": "2026-11-24T17:36:33.765Z",
   "last_completed_at": "2026-11-24T17:34:56.033Z",
   "last_summary": "§173 1fb9bd31 raw archive 7/7 FS22/22 PASS, first normal install same ID/path UNPACKED PASS; post-crash registration absent. 45100fe0 durable registration baseline/read-only diagnostics + reverse swap corrupt backup guard. CI 45449968106 Linux job 138644016782 and Windows native FS job 138644016297 active/pending. Shipping updater/full rollback OPEN. Journal f33d9b37ad9fdb74191df6a93a9e20720028c69e exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§174 Windows flush defect and exact Linux rollback acceptance"
 }
