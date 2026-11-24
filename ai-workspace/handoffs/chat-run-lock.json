@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "CHAT-COORD-ATR-194",
-  "acquired_at": "2026-11-24T21:56:58.617Z",
-  "expires_at": "2026-11-24T22:11:58.617Z",
-  "heartbeat_at": "2026-11-24T21:56:58.617Z",
-  "last_completed_at": "2026-11-24T21:54:53.526Z",
-  "last_summary": "§193 raw C5 6/7; structural broker + separate-document durable readback PASS; clean process reopen load timeout; candidate 79575c61 CI 45495694160 pending; independent Edge 45495501367 in progress. Journal 185eee4c8b619d671b932546caca7726391bd978 CAS/readback PASS. Release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T21:57:48.529Z",
+  "last_summary": "§194 Edge hosted Windows 4/4 PASS exact 9c76f0bb; unchanged product in 79575c61; current C5 45495694160 in progress. Legacy rollback UI incompatible with trusted-only storage; Preview1 baseline absent. Journal 80a061d720e712fcec98d8234e390ea7a75d67fb CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§194 raw Windows Edge acceptance and rollback compatibility evidence"
+  "task": null
 }
