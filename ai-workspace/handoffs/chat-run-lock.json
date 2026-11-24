@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "CHAT-COORD-ATR-186",
-  "acquired_at": "2026-11-24T21:02:19.303Z",
-  "expires_at": "2026-11-24T21:17:19.303Z",
-  "heartbeat_at": "2026-11-24T21:02:19.303Z",
-  "last_completed_at": "2026-11-24T20:57:33.370Z",
-  "last_summary": "§185 raw C4 restored on 9b6b9924; C5 45485807745 in progress at checkpoint; remaining persisted-import guard and completion open; journal 1c2c765771fd1b32a427fa98f5d42b9ae9b0a4ef exact CAS/readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T21:07:48.938Z",
+  "last_summary": "§186 raw C5 6/7, 31085b57 persisted import/backup digest fixes CI 45487244554, dcea61aa native commitment predecessor C4 45487753880; journal 7f003d2c4207056f2cdf504f00926487d9fb3d94 exact CAS/readback PASS after stale first read; completion unlock remains open.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§185 raw C5, resumed import fence and dirty marker, managed pair retest"
+  "task": null
 }
