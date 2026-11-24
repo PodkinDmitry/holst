@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "held",
+  "owner": "CHAT-COORD-ATR-210",
+  "acquired_at": "2026-11-24T22:57:30.637Z",
+  "expires_at": "2026-11-24T23:07:30.637Z",
+  "heartbeat_at": "2026-11-24T22:57:30.637Z",
   "last_completed_at": "2026-11-24T22:55:22.911Z",
   "last_summary": "§209 user verified exact local Preview1 11adaefadb05039fb800727aa063f781ab6c7428. Original harness/fixture recovery pending; C unchanged. Journal e1a9b91e8f908adf11b9eb17db7a546cb8a92941 exact readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§210 record original local fixture hashes and comparator path; inspect actual harness before execution"
 }
