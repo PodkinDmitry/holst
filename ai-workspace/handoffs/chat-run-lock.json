@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "held",
+  "owner": "chat-coord-167-20261124",
+  "acquired_at": "2026-11-24T15:10:04.072Z",
+  "expires_at": "2026-11-24T15:30:04.072Z",
+  "heartbeat_at": "2026-11-24T15:10:04.072Z",
   "last_completed_at": "2026-11-24T15:05:44.667Z",
   "last_summary": "§166 7ca9b34a actual popup PASS, C5 5/6 live-rollback fixture pending false before file UI. ad91f0c6 deterministic paired capture + temporary fail-closed installer, guard model8/8 C4/floor build PASS; CI 45421201396 running; safe updater/full rollback OPEN. Journal f9c3a830588d37dfff58bdb75ed5345db79c349a exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§167 exact ad91f0c6 CI and rollback runtime identity"
 }
