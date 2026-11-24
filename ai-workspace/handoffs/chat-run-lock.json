@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "held",
-  "owner": "chat-coord-170-20261124",
-  "acquired_at": "2026-11-24T15:50:28.728Z",
-  "expires_at": "2026-11-24T16:10:28.728Z",
-  "heartbeat_at": "2026-11-24T15:50:28.728Z",
-  "last_completed_at": "2026-11-24T15:36:47.114Z",
-  "last_summary": "§169 23056b04 FS 7/7, actual disable and swap PASS; CDP installation missing on restart. a062c5a2 corrupt-stage original recovery + paired file binding + normal UI install fixture published; CI 45427290236/job 138562631485 C4 steps SUCCESS, C5 pending; raw logs unavailable running. Shipping updater/full rollback OPEN. Journal 17d4784a61e8eaa1a70f8bb7c70f1f31fb941668 exact readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T15:52:41.019Z",
+  "last_summary": "§170 a062c5a2 raw FS 15/15 PASS, first normal install missing expected ID; 92376b22 trusted ZIP staging and normal directory-drop diagnostics published, CI 45430397502/job 138573775977 queued; shipping updater/full rollback OPEN. Journal ad87d866a00fb337ac7ed2559f835dcc1c5ede12 exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§170 exact raw evidence, normal registration and trusted staging"
+  "task": null
 }
