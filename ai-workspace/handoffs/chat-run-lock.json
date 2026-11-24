@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coord-184-20261124",
-  "acquired_at": "2026-11-24T20:45:48.147Z",
-  "expires_at": "2026-11-24T21:05:48.147Z",
-  "heartbeat_at": "2026-11-24T20:45:48.147Z",
-  "last_completed_at": "2026-11-24T20:43:40.030Z",
-  "last_summary": "§183 joint seal raw PASS, C5 5/7; 21f480c9 normal registration retest 45483227579, 1fdc960c full managed profile backup CI 45483661139 pending; journal ae26b23e8dc840a7381f439eb33dda9d0c08ca37 readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T20:51:03.974Z",
+  "last_summary": "§184 native profile20/20 Linux Windows raw PASS, C5 6/7; b150fced8 current writer admission and portal CI 45484864161; completion not implemented; journal 223220bbfae011b5866d836d66e09ee0bf0bc9fa readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§184 exact raw CI; isolated managed portal fix and complete writer admission"
+  "task": null
 }
