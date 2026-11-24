@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coord-183-20261124",
-  "acquired_at": "2026-11-24T20:37:50.584Z",
-  "expires_at": "2026-11-24T20:57:50.584Z",
-  "heartbeat_at": "2026-11-24T20:37:50.584Z",
-  "last_completed_at": "2026-11-24T20:28:58.538Z",
-  "last_summary": "§182 exact maintenance 5408bd11 PASS; b734c36a Windows native14/14 raw PASS; Linux CI 45480985411 browser pending; journal 257f3cb0e282ebc2d2839d83f54deb1862408cfb readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T20:43:40.030Z",
+  "last_summary": "§183 joint seal raw PASS, C5 5/7; 21f480c9 normal registration retest 45483227579, 1fdc960c full managed profile backup CI 45483661139 pending; journal ae26b23e8dc840a7381f439eb33dda9d0c08ca37 readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§183 raw C5 failures, managed persistent registration, full-fence audit and safe next slice"
+  "task": null
 }
