@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "held",
+  "owner": "chat-coord-watch-163-20261124",
+  "acquired_at": "2026-11-24T14:33:12.132Z",
+  "expires_at": "2026-11-24T14:53:12.132Z",
+  "heartbeat_at": "2026-11-24T14:33:12.132Z",
   "last_completed_at": "2026-11-24T14:31:10.295Z",
   "last_summary": "§162 dcf3baec C4 PASS C5 5/6 harness FAIL, real permission/>10MiB/warning/abort/reopen PASS; e5293266 actual popup/compatible promoted rollback tests and paired export published; exact CI 45414776977 running; host 3000 eviction, staged import/full rollback OPEN. Journal f6de6a4dbb6ed9ebdc0d4d0924a7b5fbd21dec0e exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§163 host Watch durable no-eviction"
 }
