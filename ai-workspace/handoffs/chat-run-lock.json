@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "CHAT-COORD-ATR-197",
-  "acquired_at": "2026-11-24T22:10:13.464Z",
-  "expires_at": "2026-11-24T22:25:13.464Z",
-  "heartbeat_at": "2026-11-24T22:10:13.464Z",
-  "last_completed_at": "2026-11-24T22:07:19.951Z",
-  "last_summary": "§196 exact Windows native29/29 PASS, C5 45497067887 in progress; independent mixed 45497612924 pending; repeated managed rollback transaction blocker verified. Journal 5db27b9b55d06fee419c0c111b5df88dba7b41c9 CAS/readback PASS. Release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T22:13:12.950Z",
+  "last_summary": "§197 C5 6/7; full online process restart and legacy rollback public block PASS, mixed7/7 PASS; portal and native archive candidate 35bf8248 CI 45498662542 in progress. Journal 04557b88b6f3aedf422a2dd11fd60c3a7bf736a2 CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§197 raw C5/mixed, isolated portal and crash-safe terminal archive"
+  "task": null
 }
