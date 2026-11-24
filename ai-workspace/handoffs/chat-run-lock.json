@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "held",
+  "owner": "chat-coord-177-20261124",
+  "acquired_at": "2026-11-24T17:56:01Z",
+  "expires_at": "2026-11-24T18:16:01Z",
+  "heartbeat_at": "2026-11-24T17:56:01Z",
   "last_completed_at": "2026-11-24T17:52:00Z",
   "last_summary": "§176 33ea1997 raw exact compatible pair rollback PASS 3003 records, 7/7/140 unchanged, C5 6/6 and Windows FS25/25. Proven drift host.watch, specific writer unconfirmed. c23011ea selected-file validation published; CI 45453195690 ongoing. Journal 5ff563d576e135c9cee84a08f9e9dbe0193635c9 full readback PASS. Shipping installer OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§177 verify c23011ea and source-backed actual Pages deployment, trusted artifact pair manifest and negative tests"
 }
