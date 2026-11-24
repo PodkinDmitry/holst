@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "CHAT-COORD-191",
-  "acquired_at": "2026-11-24T21:39:52.277Z",
-  "expires_at": "2026-11-24T21:54:52.277Z",
-  "heartbeat_at": "2026-11-24T21:39:52.277Z",
-  "last_completed_at": "2026-11-24T21:36:19.322Z",
-  "last_summary": "§190 raw C5 6/7 native29/29 both OS; actual crash worker wake, stale storage isolation and partial completion fence PASS; final admission fixture repair a7ff3287 CI 45492610362 in progress; journal 5ac352bf86e42711d52ce57afa2e8dafe60f4c30 exact CAS/readback PASS. Release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T21:42:54.918Z",
+  "last_summary": "§191 raw C5 6/7, safe notifications and TRUSTED_CONTEXTS disk persistence PASS; final host admission timeout; exact candidate 81962ee4 CI 45493737102 in progress. Journal 22b099d8a8903059645fe84ceb1c191d7f61d95e CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§191 raw CI 45492610362 and storage client compatibility audit"
+  "task": null
 }
