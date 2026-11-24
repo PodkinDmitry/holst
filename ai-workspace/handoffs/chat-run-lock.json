@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "held",
-  "owner": "chat-coord-watch-164-20261124",
-  "acquired_at": "2026-11-24T14:42:17.784Z",
-  "expires_at": "2026-11-24T15:02:17.784Z",
-  "heartbeat_at": "2026-11-24T14:42:17.784Z",
-  "last_completed_at": "2026-11-24T14:37:12.728Z",
-  "last_summary": "§163 e5293266 C4 PASS C5 5/6 popup hidden; actual SPA retry/reopen, promoted compatible floor, paired product export PASS. f2e244e7 host durable cap removed, C4 PASS, exact CI 45415858880 running; staged import/full host rollback OPEN. Journal 6901ddb459d354acc78e376b3578036f48a7b945 exact readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T14:47:43.897Z",
+  "last_summary": "§164 f2e244e7 actual 3001 commit/crash/reopen PASS; C4 PASS C5 5/6 popup CSP test. 0ad16b12 staged additive importer and final presence guard published, exact Watch native18/18 and C4 PASS; CI 45417809293 running; import UI/resume/full host rollback OPEN. Journal 5e02801735b03f9696440a6cd637b44a0151009c exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§164 paired recovery staged import"
+  "task": null
 }
