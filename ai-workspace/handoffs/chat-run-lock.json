@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coord-kb-v1-watch-152-20261124",
-  "acquired_at": "2026-11-24T13:02:20.739Z",
-  "expires_at": "2026-11-24T13:32:20.739Z",
-  "heartbeat_at": "2026-11-24T13:02:20.739Z",
-  "last_completed_at": "2026-11-24T12:51:50.535Z",
-  "last_summary": "§151 COORD: exact d77e698d test-only harness + host counters, CI 45397494337 job 138457033982 C4 steps PASS, C5 in progress at observation. Journal commit 5a588b55a5196467ceb539cce52b21c90d337d96 blob 478e7f878289f26b51b1e1a59426bcfe666501dc exact readback PASS. RELEASE OPEN, no guarantee change.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T13:05:05.372Z",
+  "last_summary": "§152 KB v1 real model PASS, prior C5 5/6; actual host-only candidate 842bfef6bec0fb89cab14764efecf717c5afc481, new run 45399577502/job 138464319316 in_progress, release OPEN. Journal commit d635db18a2645eea68777f647b5a00a171e2c961 blob ba07451fd7815f59c3206a9f4cfcf29f9cd52055 exact readback PASS. No guarantee change.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§152 narrow KB v1 host receipt endpoint, real MV3 test; Watch actual ACK diagnostics; no automatic legacy replay"
+  "task": null
 }
