@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "CHAT-COORD-ATR-204",
-  "acquired_at": "2026-11-24T22:39:22.845Z",
-  "expires_at": "2026-11-24T22:45:22.845Z",
-  "heartbeat_at": "2026-11-24T22:39:22.845Z",
-  "last_completed_at": "2026-11-24T22:36:57.934Z",
-  "last_summary": "§203 C5 7/7 raw PASS, B-C-B-C 2/2 repeat cuts PASS, two archives and trusted-only isolation. Offline counters CI 45502484115 queued. Journal 562521e2516e43be7a4ee57ecf429ba8a5082e19 CAS/readback PASS. Release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T22:40:40.355Z",
+  "last_summary": "§204 mixed 8/8 and OFFLINE_COUNTER_DURABILITY raw PASS; C unchanged. Edge native managed test CI 45503035207 in progress. Journal 1ca75ea57dd4848ead8fd95dae5dfcaf197bc0de CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§204 offline raw PASS; bounded managed Edge native picker test"
+  "task": null
 }
