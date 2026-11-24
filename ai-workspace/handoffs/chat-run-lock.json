@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-strategy-memory-migration-20261124",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-24T12:03:57Z",
-  "expires_at": "2026-11-24T13:03:57Z",
-  "heartbeat_at": "2026-11-24T12:03:57Z",
-  "last_completed_at": "2026-11-23T21:09:03.207Z",
-  "last_summary": "§145 strategic governance / Work transition proposal published and exact historical prefix readback PASS; no operational rules or product changes",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-24T12:07:43Z",
+  "last_completed_at": "2026-11-24T12:07:43Z",
+  "last_summary": "GOVERNANCE-146 ACTIVE. Journal live state, worker and AGENTS exact readback PASS, original history intact, stale/duplicate/missing marker checks PASS; six private refs unchanged. Work packet prepared, not sent. Fresh-chat test NOT_RUN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Docs-only governance §146, atomic memory migration; no private code, CI or release writes."
+  "task": "Idle. Operational coordinator: §144 rollback floor/recovery and independent release gates. Strategic CHAT: verify fresh-chat recovery and prepare Work transition; no new product changes or Work start."
 }
