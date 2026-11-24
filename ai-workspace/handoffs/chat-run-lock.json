@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "held",
-  "owner": "chat-coord-watch-159-20261124",
-  "acquired_at": "2026-11-24T13:38:24.809Z",
-  "expires_at": "2026-11-24T13:58:24.809Z",
-  "heartbeat_at": "2026-11-24T13:38:24.809Z",
-  "last_completed_at": "2026-11-24T13:34:24.949Z",
-  "last_summary": "§158 paired logical recovery PASS and C5 6/6 on 9cb84ca8. Global quota test 02f671c957d4a42f11d47364d99e288b5048def0, actual run 45404646777 in_progress, conclusion pending; job 138481941915 in_progress; C4 - assert source SHA, complete manifest and content hashes:completed/success; C4 - execute all native Node source-integrity tests:completed/success; C4 - build XOD from exact source into clean output and hash ZIPs:completed/success; C5 - install pinned Python Playwright and isolated browsers:in_progress/-; C5 - execute all isolated browser suites and report ea. Journal 66985197d738b98319ea8812efc43b4b530e1f2b exact readback PASS; release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T13:41:27.420Z",
+  "last_summary": "§159 exact global quota PASS; b1a5c067 pending retry source 15/15 PASS; CI trigger published f6cae518 START unconfirmed; durable fallback and actual UI acceptance OPEN. Journal 1a29bc25f64f9b400005248cf112e0747755736b exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§159 Watch quota failure UI and retry"
+  "task": null
 }
