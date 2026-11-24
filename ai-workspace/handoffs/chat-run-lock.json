@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "active",
+  "owner": "CHAT-COORD-ATR-192",
+  "acquired_at": "2026-11-24T21:46:29.208Z",
+  "expires_at": "2026-11-24T22:01:29.208Z",
+  "heartbeat_at": "2026-11-24T21:46:29.208Z",
   "last_completed_at": "2026-11-24T21:42:54.918Z",
   "last_summary": "§191 raw C5 6/7, safe notifications and TRUSTED_CONTEXTS disk persistence PASS; final host admission timeout; exact candidate 81962ee4 CI 45493737102 in progress. Journal 22b099d8a8903059645fe84ceb1c191d7f61d95e CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§192 raw CI 45493737102, host activation, client compatibility"
 }
