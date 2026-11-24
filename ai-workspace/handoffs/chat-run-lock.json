@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-strategy-xod-governance-review-20261124",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-24T11:31:00Z",
-  "expires_at": "2026-11-24T12:31:00Z",
+  "expires_at": null,
   "heartbeat_at": "2026-11-24T11:31:00Z",
   "last_completed_at": "2026-11-23T21:09:03.207Z",
-  "last_summary": "B-WATCH old exact binary semantic rollback incompatible with bounded dedup; §144 proof published exact fetch_blob readback PASS, no B/product changes; B HEAD 88285180; coordinator responsible for rollback floor/policy",
+  "last_summary": "§145 strategic governance / Work transition proposal published and exact historical prefix readback PASS; no operational rules or product changes",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Documentation-only append of strategic audit proposal; no operational policy activation or product changes."
+  "task": "Idle. Coordinator retains existing scope; strategic proposal §145 pending implementation; no Work start or release merge."
 }
