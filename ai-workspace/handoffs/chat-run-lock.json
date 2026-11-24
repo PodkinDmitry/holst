@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "held",
-  "owner": "CHAT-COORD-ATR-209",
-  "acquired_at": "2026-11-24T22:54:50.002Z",
-  "expires_at": "2026-11-24T23:04:50.002Z",
-  "heartbeat_at": "2026-11-24T22:54:50.002Z",
-  "last_completed_at": "2026-11-24T22:52:18.905Z",
-  "last_summary": "§208 raw Windows Edge synthetic perf 32/1000/1407 PASS, 1407 redraw3.5ms/p95 16.7ms; C unchanged. Comparative Preview1 blocked on original local commit verification, historic FAIL retained, Drive OPEN. Journal 2dfa00e85a4a5309a804e6f9654dabf86c83b31a exact readback PASS. Release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T22:55:22.911Z",
+  "last_summary": "§209 user verified exact local Preview1 11adaefadb05039fb800727aa063f781ab6c7428. Original harness/fixture recovery pending; C unchanged. Journal e1a9b91e8f908adf11b9eb17db7a546cb8a92941 exact readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§209 record user-verified Preview1 exact SHA and locate historical benchmark inputs without publishing local history"
+  "task": null
 }
