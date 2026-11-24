@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "active",
+  "owner": "CHAT-COORD-ATR-201",
+  "acquired_at": "2026-11-24T22:30:13.940Z",
+  "expires_at": "2026-11-24T22:36:13.940Z",
+  "heartbeat_at": "2026-11-24T22:30:13.940Z",
   "last_completed_at": "2026-11-24T22:28:41.900Z",
   "last_summary": "§200 exact B CI C5 7/7, epoch CAS and A-B-A reverse PASS. C 63686f77 published with fresh commitment guard and B-C-B-C test; infra 42c304a6 [c5] published, run ID/start unconfirmed. Journal a79952dafeba492aa58b895ff6e3d8a557250cfc CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§201 exact C CI discovery, Windows raw evidence, journal only"
 }
