@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "active",
+  "owner": "CHAT-COORD-ATR-199",
+  "acquired_at": "2026-11-24T22:23:44.821Z",
+  "expires_at": "2026-11-24T22:29:44.821Z",
+  "heartbeat_at": "2026-11-24T22:23:44.821Z",
   "last_completed_at": "2026-11-24T22:20:15.921Z",
   "last_summary": "§198 C5 7/7 and first install real UI, native archive6/6 Linux/Windows PASS exact 35bf8248. Repeated epoch candidate baf6a094 and real reverse CI 45499792207 in progress. Journal 9abd06ebc2dfe5c2e45bbeb7656eab3c9a63c4bd CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§199 raw Windows and source audit, CI 45499792207; journal only"
 }
