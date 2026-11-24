@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "CHAT-COORD-ATR-196",
-  "acquired_at": "2026-11-24T22:05:34.048Z",
-  "expires_at": "2026-11-24T22:20:34.048Z",
-  "heartbeat_at": "2026-11-24T22:05:34.048Z",
-  "last_completed_at": "2026-11-24T22:03:33.452Z",
-  "last_summary": "§195 C5 6/7, separate-document durable readback PASS, full restart network assertion FAIL; new 6ed13e5f strict online attestation and legacy rollback public block; CI 45497067887 in progress. Journal 0c4f6add628f2a79334cc716e6e2c0a4c7ab67a5 CAS/readback PASS. Release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T22:07:19.951Z",
+  "last_summary": "§196 exact Windows native29/29 PASS, C5 45497067887 in progress; independent mixed 45497612924 pending; repeated managed rollback transaction blocker verified. Journal 5db27b9b55d06fee419c0c111b5df88dba7b41c9 CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§196 raw C5 and independent mixed diagnostic"
+  "task": null
 }
