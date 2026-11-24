@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "held",
-  "owner": "chat-coord-168-20261124",
-  "acquired_at": "2026-11-24T15:16:11.498Z",
-  "expires_at": "2026-11-24T15:36:11.498Z",
-  "heartbeat_at": "2026-11-24T15:16:11.498Z",
-  "last_completed_at": "2026-11-24T15:13:22.776Z",
-  "last_summary": "§167 ad91f0c6 6/7 requested gates PASS actual paired file recovery/crash/replay; full binary rollback failed runtime identity line855. 8cf2e6d0 test-only activated exact worker/host verification, CI 45422628567 in_progress; safe updater OPEN. Journal 16c76b3447a3ceb44b23cfd00b0c55af56aa1e61 exact readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T15:19:14.288Z",
+  "last_summary": "§168 8cf2e6d0 exact old resource SHA but stale active MV3 worker after reload; 23056b04 offline swap component + explicit disable/enable acceptance published, CI 45423912396/job 138550549030 queued; safe updater/full rollback OPEN. Journal 10507f1aca26d3b025985c5d8834879e7bbf4e35 exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§168 actual stale MV3 activation and recoverable swap"
+  "task": null
 }
