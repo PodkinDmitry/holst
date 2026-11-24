@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "CHAT-COORD-ATR-203",
-  "acquired_at": "2026-11-24T22:35:59.969Z",
-  "expires_at": "2026-11-24T22:41:59.969Z",
-  "heartbeat_at": "2026-11-24T22:35:59.969Z",
-  "last_completed_at": "2026-11-24T22:34:33.254Z",
-  "last_summary": "§202 C5 C aggregate step success 7/7; repeat B-C-B-C in progress last observation, raw Linux not available. Journal 154b4dcd55d667d4db9d75b0851523ed1f0d974d CAS/readback PASS. Release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T22:36:57.934Z",
+  "last_summary": "§203 C5 7/7 raw PASS, B-C-B-C 2/2 repeat cuts PASS, two archives and trusted-only isolation. Offline counters CI 45502484115 queued. Journal 562521e2516e43be7a4ee57ecf429ba8a5082e19 CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§203 repeat raw PASS; targeted offline counters mixed CI"
+  "task": null
 }
