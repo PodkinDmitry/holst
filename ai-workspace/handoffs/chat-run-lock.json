@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "held",
+  "owner": "chat-coord-watch-161-20261124",
+  "acquired_at": "2026-11-24T14:18:13.000Z",
+  "expires_at": "2026-11-24T14:38:13.000Z",
+  "heartbeat_at": "2026-11-24T14:18:13.000Z",
   "last_completed_at": "2026-11-24T13:52:43.409Z",
   "last_summary": "§160 b1a5c067 exact CI SUCCESS C4 10/10 C5 6/6; strict IDB overflow 7cb9be6b source model 17/17, C4 steps PASS, actual run 45407693738 in progress; new UI/overflow reopen pending, eviction/mixed version/rollback OPEN. Journal 8d0b0e67f27a8a990d2e12d1736156e72cb1b1a0 exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§161 Watch persistence and mixed-version browser acceptance"
 }
