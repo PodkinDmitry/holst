@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "CHAT-COORD-ATR-190",
-  "acquired_at": "2026-11-24T21:31:22.509Z",
-  "expires_at": "2026-11-24T21:46:22.509Z",
-  "heartbeat_at": "2026-11-24T21:31:22.509Z",
-  "last_completed_at": "2026-11-24T21:29:29.729Z",
-  "last_summary": "§189 raw C5 6/7 native29/29 both OS, pre-crash partial fence assertions PASS, MV3 wake and TRUSTED_CONTEXTS candidate 3cd3d56d CI 45491447920 in progress; journal ca7375be818c6b6502fcf3df29ff27d57984c919 exact CAS/readback PASS. Release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T21:36:19.322Z",
+  "last_summary": "§190 raw C5 6/7 native29/29 both OS; actual crash worker wake, stale storage isolation and partial completion fence PASS; final admission fixture repair a7ff3287 CI 45492610362 in progress; journal 5ac352bf86e42711d52ce57afa2e8dafe60f4c30 exact CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§189 raw CI, root-cause crash recovery and storage isolation acceptance"
+  "task": null
 }
