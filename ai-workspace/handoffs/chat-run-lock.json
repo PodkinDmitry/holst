@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "running",
+  "owner": "chat-coord-181-20261124",
+  "acquired_at": "2026-11-24T19:25:22.074Z",
+  "expires_at": "2026-11-24T19:45:22.074Z",
+  "heartbeat_at": "2026-11-24T19:25:22.074Z",
   "last_completed_at": "2026-11-24T19:16:52.851Z",
   "last_summary": "§180 raw mixed CI 45466645350 7/7 bounded PASS; legacy race and offline counters remain open. Scoped paired worker fence a12b7069 published CAS/readback; model 23/23; full CI 45468319231 pending. Shipping installer/global maintenance OPEN. Journal 531517c41abce67a69b6dc61e899c4e3853fb310 readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§181 raw CI and deterministic legacy Watch race / maintenance installation"
 }
