@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "held",
+  "owner": "chat-coord-169-20261124",
+  "acquired_at": "2026-11-24T15:30:57.911Z",
+  "expires_at": "2026-11-24T15:50:57.911Z",
+  "heartbeat_at": "2026-11-24T15:30:57.911Z",
   "last_completed_at": "2026-11-24T15:19:14.288Z",
   "last_summary": "§168 8cf2e6d0 exact old resource SHA but stale active MV3 worker after reload; 23056b04 offline swap component + explicit disable/enable acceptance published, CI 45423912396/job 138550549030 queued; safe updater/full rollback OPEN. Journal 10507f1aca26d3b025985c5d8834879e7bbf4e35 exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§169 exact CI, corrupt stage recovery and Chrome activation"
 }
