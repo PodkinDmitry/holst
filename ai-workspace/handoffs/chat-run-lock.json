@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coord-paired-157-20261124",
-  "acquired_at": "2026-11-24T13:27:16.348Z",
-  "expires_at": "2026-11-24T13:57:16.348Z",
-  "heartbeat_at": "2026-11-24T13:27:16.348Z",
-  "last_completed_at": "2026-11-24T13:23:56.620Z",
-  "last_summary": "§156 C4/C5 10/10+6/6 PASS on a2a8279e, bound KB/Watch actual PASS. Paired test-only 684c8511bf4add7ffc95a1b3273cf28072d6248f, actual run 45402862666 in_progress, conclusion pending; job 138475715652 in_progress; C4 - assert source SHA, complete manifest and content hashes:completed/success; C4 - execute all native Node source-integrity tests:completed/success; C4 - build XOD from exact source into clean output and hash ZIPs:completed/success; C5 - install pinned Python Playwright and isolated browsers:in_progress/-; C5 - execute all isolated browser suites and report ea. Journal 7682dfe05edc2efab476ccb3153c63b1f0934530 exact readback PASS; release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T13:29:17.191Z",
+  "last_summary": "§157 exact paired test startup shadowing fixed; candidate 9cb84ca8439a3ad1ae51ec2e0bc228cb07121422, actual run 45403791224 in_progress, conclusion pending; job 138478974629 in_progress; C4 - assert source SHA, complete manifest and content hashes:completed/success; C4 - execute all native Node source-integrity tests:completed/success; C4 - build XOD from exact source into clean output and hash ZIPs:completed/success; C5 - install pinned Python Playwright and isolated browsers:in_progress/-; C5 - execute all isolated browser suites and report ea. Prior product C4/C5 PASS on a2a8279e. Journal bddd552619cb17b03571c716162a034038031576 exact readback PASS; release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§157 paired logical rollback test runtime correction"
+  "task": null
 }
