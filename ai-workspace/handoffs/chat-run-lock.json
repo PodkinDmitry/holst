@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "held",
+  "owner": "CHAT-COORD-ATR-211",
+  "acquired_at": "2026-11-24T23:03:30.260Z",
+  "expires_at": "2026-11-24T23:13:30.260Z",
+  "heartbeat_at": "2026-11-24T23:03:30.260Z",
   "last_completed_at": "2026-11-24T22:58:01.566Z",
   "last_summary": "§210 user verified both historical fixture SHA256 matches 2/2 and performance_gate.py path. Actual harness review and comparative run pending; C unchanged. Journal 905a78724ab66480211820d30dc63ec0ba79e9ef exact readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§211 review exact original comparator and prepare isolated local Windows execution; C frozen"
 }
