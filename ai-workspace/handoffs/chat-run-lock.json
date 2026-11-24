@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "active",
+  "owner": "CHAT-COORD-ATR-200",
+  "acquired_at": "2026-11-24T22:26:04.088Z",
+  "expires_at": "2026-11-24T22:32:04.088Z",
+  "heartbeat_at": "2026-11-24T22:26:04.088Z",
   "last_completed_at": "2026-11-24T22:24:19.248Z",
   "last_summary": "§199 raw Windows exact baf6a094 native29/29 archive6/6 PASS; Linux C5 in progress, reverse pending; exact A host/worker cannot rearm after reverse, repeat-capable pair required. Journal 7fe7cd785225d33ba50b10912c800ba9db6cbd13 CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§200 exact CI result, repeated rollback candidate and scoped CI"
 }
