@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "held",
-  "owner": "chat-coord-172-20261124",
-  "acquired_at": "2026-11-24T17:27:18.443Z",
-  "expires_at": "2026-11-24T17:47:18.443Z",
-  "heartbeat_at": "2026-11-24T17:27:18.443Z",
-  "last_completed_at": "2026-11-24T17:25:00.060Z",
-  "last_summary": "§171 92376b22 raw trusted archive 6/6 and FS 21/21 PASS, CDP drop No dragged path/empty registration. 063abd53 isolated native XDG chooser + hidden ZIP filename rejection published; CI 45448132747/job 138637446807 C4 steps SUCCESS, C5 pending. Shipping updater/full rollback OPEN. Journal 3fd3ada8b6b2cd123db6814b6c46d94704366315 exact readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T17:29:43.617Z",
+  "last_summary": "§172 063abd53 raw trusted archive 7/7 and FS 22/22 PASS; native XDG chooser request/response/load completion no error, CSP test failure before registration. 1fb9bd31 bounded polling + strengthened saved backup/exact rollback tests published, CI 45448991153/job 138640563010 running. Shipping updater/full rollback OPEN. Journal e65a9ff2609b675fcc8b61344559b3af298455e7 exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§172 exact final logs, CSP-safe native registration test and fresh pair preflight"
+  "task": null
 }
