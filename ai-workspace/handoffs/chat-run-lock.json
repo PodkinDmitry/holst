@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "held",
-  "owner": "chat-coord-watch-162-20261124",
-  "acquired_at": "2026-11-24T14:26:05.287Z",
-  "expires_at": "2026-11-24T14:46:05.287Z",
-  "heartbeat_at": "2026-11-24T14:26:05.287Z",
-  "last_completed_at": "2026-11-24T14:22:26.792Z",
-  "last_summary": "§161 7cb9be6b C4 PASS C5 5/6 UI FAIL; real quota spill/reopen PASS. dcf3baec protected/versioned recovery published, exact CI 45413164007 running, C4 manifest/native PASS; full paired rollback OPEN. Journal 0525e69db7eca5c773c1e8c1190bdc524554e583 exact readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T14:31:10.295Z",
+  "last_summary": "§162 dcf3baec C4 PASS C5 5/6 harness FAIL, real permission/>10MiB/warning/abort/reopen PASS; e5293266 actual popup/compatible promoted rollback tests and paired export published; exact CI 45414776977 running; host 3000 eviction, staged import/full rollback OPEN. Journal f6de6a4dbb6ed9ebdc0d4d0924a7b5fbd21dec0e exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§162 Watch browser recovery and paired backup design"
+  "task": null
 }
