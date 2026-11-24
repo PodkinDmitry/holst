@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "running",
+  "owner": "chat-coord-paired-rollback-156-20261124",
+  "acquired_at": "2026-11-24T13:20:38.466Z",
+  "expires_at": "2026-11-24T13:50:38.466Z",
+  "heartbeat_at": "2026-11-24T13:20:38.466Z",
   "last_completed_at": "2026-11-24T13:18:28.475Z",
   "last_summary": "§155 all native fixture audit, duplicate status restored, C4 all three steps PASS on a2a8279e82a847522f011975e25a935746b30d66, run 45401874176/job 138472273581 in_progress. Journal 5db7ad8ce6b55c028f223f2b52c92ad45c2c517c exact readback PASS; RELEASE OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§156 verify completed C5, distinct compatible binary paired recovery test"
 }
