@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "active",
+  "owner": "CHAT-COORD-ATR-198",
+  "acquired_at": "2026-11-24T22:15:32.976Z",
+  "expires_at": "2026-11-24T22:30:32.976Z",
+  "heartbeat_at": "2026-11-24T22:15:32.976Z",
   "last_completed_at": "2026-11-24T22:13:12.950Z",
   "last_summary": "§197 C5 6/7; full online process restart and legacy rollback public block PASS, mixed7/7 PASS; portal and native archive candidate 35bf8248 CI 45498662542 in progress. Journal 04557b88b6f3aedf422a2dd11fd60c3a7bf736a2 CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§198 C5 raw and browser repeated epoch CAS"
 }
