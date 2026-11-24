@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "held",
-  "owner": "CHAT-COORD-ATR-207",
-  "acquired_at": "2026-11-24T22:49:24.627Z",
-  "expires_at": "2026-11-24T22:59:24.627Z",
-  "heartbeat_at": "2026-11-24T22:49:24.627Z",
-  "last_completed_at": "2026-11-24T22:47:59.038Z",
-  "last_summary": "§206 raw root cause native folder Edit automation ID1152; exact selector fix CAS/readback PASS, C unchanged; targeted CI 45504040930/job138834469825 in progress; Preview1 baseline absent; journal 6172d87ed2bd0e4f2f3205bcfe73f5a8fb29ca13 exact readback PASS. Release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T22:50:14.761Z",
+  "last_summary": "§207 raw EDGE_MANAGED_REPEAT_REVERSE PASS, same-profile B-C-B-C both cuts, archives and isolation; C unchanged. Windows synthetic perf CI 45504518381/job138836140763 in progress; comparative Preview1 remains blocked. Journal 057ee10b43c4b786d8f4c40bdb0aef663649d4cd exact readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§207 raw Edge managed PASS; separate Windows synthetic performance diagnostic; C frozen"
+  "task": null
 }
