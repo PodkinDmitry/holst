@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "running",
+  "owner": "chat-coord-kb-watch-153-20261124",
+  "acquired_at": "2026-11-24T13:07:29.126Z",
+  "expires_at": "2026-11-24T13:37:29.126Z",
+  "heartbeat_at": "2026-11-24T13:07:29.126Z",
   "last_completed_at": "2026-11-24T13:05:05.372Z",
   "last_summary": "§152 KB v1 real model PASS, prior C5 5/6; actual host-only candidate 842bfef6bec0fb89cab14764efecf717c5afc481, new run 45399577502/job 138464319316 in_progress, release OPEN. Journal commit d635db18a2645eea68777f647b5a00a171e2c961 blob ba07451fd7815f59c3206a9f4cfcf29f9cd52055 exact readback PASS. No guarantee change.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§153 KB database-bound extension delivery and durable Watch host ACK"
 }
