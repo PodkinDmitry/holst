@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "CHAT-COORD-ATR-187",
-  "acquired_at": "2026-11-24T21:09:21.747Z",
-  "expires_at": "2026-11-24T21:24:21.747Z",
-  "heartbeat_at": "2026-11-24T21:09:21.747Z",
-  "last_completed_at": "2026-11-24T21:07:48.938Z",
-  "last_summary": "§186 raw C5 6/7, 31085b57 persisted import/backup digest fixes CI 45487244554, dcea61aa native commitment predecessor C4 45487753880; journal 7f003d2c4207056f2cdf504f00926487d9fb3d94 exact CAS/readback PASS after stale first read; completion unlock remains open.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T21:13:57.699Z",
+  "last_summary": "§187 raw C5 5/7 persisted fence and missed-event PASS; dcea61aa native23/23 both OS PASS; 7ce75805 irreversible commit/resume candidate CI 45488806178 in progress; journal 0e796fed91b86b73fa98e8383f5adb169befb53e exact CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§186 raw CI, fix persistent quiescence, irreversible native commit and completion"
+  "task": null
 }
