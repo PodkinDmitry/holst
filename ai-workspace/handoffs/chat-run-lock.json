@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "CHAT-COORD-ATR-185",
-  "acquired_at": "2026-11-24T20:53:32.563Z",
-  "expires_at": "2026-11-24T21:05:32.563Z",
-  "heartbeat_at": "2026-11-24T20:53:32.563Z",
-  "last_completed_at": "2026-11-24T20:51:03.974Z",
-  "last_summary": "§184 native profile20/20 Linux Windows raw PASS, C5 6/7; b150fced8 current writer admission and portal CI 45484864161; completion not implemented; journal 223220bbfae011b5866d836d66e09ee0bf0bc9fa readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T20:57:33.370Z",
+  "last_summary": "§185 raw C4 restored on 9b6b9924; C5 45485807745 in progress at checkpoint; remaining persisted-import guard and completion open; journal 1c2c765771fd1b32a427fa98f5d42b9ae9b0a4ef exact CAS/readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§184 raw CI, fix C4 preset/sync harness, managed pair acceptance and completion audit"
+  "task": null
 }
