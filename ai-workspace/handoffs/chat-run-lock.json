@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "CHAT-COORD-ATR-192",
-  "acquired_at": "2026-11-24T21:46:29.208Z",
-  "expires_at": "2026-11-24T22:01:29.208Z",
-  "heartbeat_at": "2026-11-24T21:46:29.208Z",
-  "last_completed_at": "2026-11-24T21:42:54.918Z",
-  "last_summary": "§191 raw C5 6/7, safe notifications and TRUSTED_CONTEXTS disk persistence PASS; final host admission timeout; exact candidate 81962ee4 CI 45493737102 in progress. Journal 22b099d8a8903059645fe84ceb1c191d7f61d95e CAS/readback PASS. Release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T21:49:20.755Z",
+  "last_summary": "§192 raw C5 6/7, actual host admission and KB IndexedDB write/readback PASS; scoped broker write ACK/direct denial PASS, readback assertion false, new 9c76f0bb CI 45494769524 in progress. Journal 7f1dd982d761f68bc433407694ab339723b4c1ef CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§192 raw CI 45493737102, host activation, client compatibility"
+  "task": null
 }
