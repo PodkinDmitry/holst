@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "held",
+  "owner": "chat-coord-168-20261124",
+  "acquired_at": "2026-11-24T15:16:11.498Z",
+  "expires_at": "2026-11-24T15:36:11.498Z",
+  "heartbeat_at": "2026-11-24T15:16:11.498Z",
   "last_completed_at": "2026-11-24T15:13:22.776Z",
   "last_summary": "§167 ad91f0c6 6/7 requested gates PASS actual paired file recovery/crash/replay; full binary rollback failed runtime identity line855. 8cf2e6d0 test-only activated exact worker/host verification, CI 45422628567 in_progress; safe updater OPEN. Journal 16c76b3447a3ceb44b23cfd00b0c55af56aa1e61 exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§168 actual stale MV3 activation and recoverable swap"
 }
