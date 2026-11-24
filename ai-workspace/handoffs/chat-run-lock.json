@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-coord-182-20261124",
-  "acquired_at": "2026-11-24T20:26:01.146Z",
-  "expires_at": "2026-11-24T20:46:01.146Z",
-  "heartbeat_at": "2026-11-24T20:26:01.146Z",
-  "last_completed_at": "2026-11-24T19:33:26.156Z",
-  "last_summary": "§181 raw 45470400104 C5 6/6 and forced legacy Watch race PASS exact 51b61656; host maintenance 5408bd11 pending raw 45471128781; integrated installer OPEN; journal fe8c038f26316e2becea26e2a6190da777c69b59 readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-24T20:28:58.538Z",
+  "last_summary": "§182 exact maintenance 5408bd11 PASS; b734c36a Windows native14/14 raw PASS; Linux CI 45480985411 browser pending; journal 257f3cb0e282ebc2d2839d83f54deb1862408cfb readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§182 recover interrupted checkpoint, fix exact CI 45472842417"
+  "task": null
 }
