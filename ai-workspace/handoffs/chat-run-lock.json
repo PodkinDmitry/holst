@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "held",
+  "owner": "chat-coord-watch-165-20261124",
+  "acquired_at": "2026-11-24T14:52:49.765Z",
+  "expires_at": "2026-11-24T15:12:49.765Z",
+  "heartbeat_at": "2026-11-24T14:52:49.765Z",
   "last_completed_at": "2026-11-24T14:47:43.897Z",
   "last_summary": "§164 f2e244e7 actual 3001 commit/crash/reopen PASS; C4 PASS C5 5/6 popup CSP test. 0ad16b12 staged additive importer and final presence guard published, exact Watch native18/18 and C4 PASS; CI 45417809293 running; import UI/resume/full host rollback OPEN. Journal 5e02801735b03f9696440a6cd637b44a0151009c exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§165 real paired UI and rollback compatibility"
 }
