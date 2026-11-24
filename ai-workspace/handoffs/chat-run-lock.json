@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "active",
+  "owner": "CHAT-COORD-ATR-205",
+  "acquired_at": "2026-11-24T22:43:06.404Z",
+  "expires_at": "2026-11-24T22:49:06.404Z",
+  "heartbeat_at": "2026-11-24T22:43:06.404Z",
   "last_completed_at": "2026-11-24T22:40:40.355Z",
   "last_summary": "§204 mixed 8/8 and OFFLINE_COUNTER_DURABILITY raw PASS; C unchanged. Edge native managed test CI 45503035207 in progress. Journal 1ca75ea57dd4848ead8fd95dae5dfcaf197bc0de CAS/readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§205 Edge raw 4/4, native picker root cause diagnostic"
 }
