@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "held",
+  "owner": "chat-coord-watch-164-20261124",
+  "acquired_at": "2026-11-24T14:42:17.784Z",
+  "expires_at": "2026-11-24T15:02:17.784Z",
+  "heartbeat_at": "2026-11-24T14:42:17.784Z",
   "last_completed_at": "2026-11-24T14:37:12.728Z",
   "last_summary": "§163 e5293266 C4 PASS C5 5/6 popup hidden; actual SPA retry/reopen, promoted compatible floor, paired product export PASS. f2e244e7 host durable cap removed, C4 PASS, exact CI 45415858880 running; staged import/full host rollback OPEN. Journal 6901ddb459d354acc78e376b3578036f48a7b945 exact readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§164 paired recovery staged import"
 }
