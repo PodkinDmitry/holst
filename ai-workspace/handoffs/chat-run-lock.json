@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-strategy-product-audit-147-20261124",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-24T12:12:18Z",
-  "expires_at": "2026-11-24T13:12:18Z",
-  "heartbeat_at": "2026-11-24T12:12:18Z",
-  "last_completed_at": "2026-11-24T12:07:43Z",
-  "last_summary": "GOVERNANCE-146 ACTIVE. Journal live state, worker and AGENTS exact readback PASS, original history intact, stale/duplicate/missing marker checks PASS; six private refs unchanged. Work packet prepared, not sent. Fresh-chat test NOT_RUN.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-24T12:14:06Z",
+  "last_completed_at": "2026-11-24T12:14:06Z",
+  "last_summary": "§147 published, exact readback and history preservation PASS, six private refs unchanged; product architecture audit/reuse/dependency overlay and Work supplement; roadmap unchanged.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Documentation-only product architecture/roadmap audit §147, no source/CI/release changes."
+  "task": "Idle. Coordinator: §144 rollback and release gates. Work: §146.4 + §147.5 when explicitly started. Strategic CHAT: review evidence and continuity; no product edits."
 }
