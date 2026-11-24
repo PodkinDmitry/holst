@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "running",
+  "owner": "chat-coord-182-20261124",
+  "acquired_at": "2026-11-24T19:35:59.425Z",
+  "expires_at": "2026-11-24T19:55:59.425Z",
+  "heartbeat_at": "2026-11-24T19:35:59.425Z",
   "last_completed_at": "2026-11-24T19:33:26.156Z",
   "last_summary": "§181 raw 45470400104 C5 6/6 and forced legacy Watch race PASS exact 51b61656; host maintenance 5408bd11 pending raw 45471128781; integrated installer OPEN; journal fe8c038f26316e2becea26e2a6190da777c69b59 readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§182 raw maintenance CI and durable paired installation transaction"
 }
