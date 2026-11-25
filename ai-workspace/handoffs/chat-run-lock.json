@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "SOL-WORK-STRATEGY-222-20261125",
-  "acquired_at": "2026-11-25T12:49:02.872Z",
-  "expires_at": "2026-11-25T13:09:02.872Z",
-  "heartbeat_at": "2026-11-25T12:49:02.872Z",
-  "last_completed_at": "2026-11-25T10:55:40.351Z",
-  "last_summary": "§220 Preview1 ZIP identity/CRC and build exit0; expected output assertion failed; stop manual loop per §219. Journal eb67c1c084fa75ca13108be7a97e1884ff90e3fd readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-25T12:59:03.273Z",
+  "last_summary": "§222 SOL cycle verified: local redraw mixed, exact legacy backup and isolated beta lab pass, Comodo preflight; release OPEN. Journal a7f395a7ecd93c7699fea4acb9124dc900c580c9 readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Resume SOL after stopped §221, diagnose Comodo, run targeted paired Windows metrics and verify legacy/beta isolation"
+  "task": null
 }
