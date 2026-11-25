@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "active",
+  "owner": "SOL-XOD-TEST-OAUTH-237",
+  "acquired_at": "2026-11-25T22:21:57.499Z",
+  "expires_at": "2026-11-25T22:51:57.499Z",
+  "heartbeat_at": "2026-11-25T22:21:57.499Z",
   "last_completed_at": "2026-11-25T22:16:18.832Z",
   "last_summary": "§236 Drive API Enabled in XOD Test. OAuth awaits Google API Services policy acceptance. Journal readback PASS. No billing or production changes.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "Finish isolated OAuth Testing config on XOD Test"
 }
