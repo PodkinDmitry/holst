@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "locked",
-  "owner": "CHAT-COORD-ATR-213",
-  "acquired_at": "2026-11-25T10:22:22.216Z",
-  "expires_at": "2026-11-25T10:32:22.216Z",
-  "heartbeat_at": "2026-11-25T10:22:22.216Z",
-  "last_completed_at": "2026-11-25T00:36:05.881Z",
-  "last_summary": "§212 local comparative motion 4/4 and 30-min sessions 2/2 completed. Postprocessor file not found; recover raw redraw results without rerun. C frozen. Journal 6900633ecbd320f5bb9a4a7098cc5a6999948363 readback PASS. Release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-25T10:22:54.985Z",
+  "last_summary": "§213 new coordinator received/start; RESULT_NOT_FOUND exact-name recovery miss, targeted path/schema diagnosis next, no long rerun. C frozen, release OPEN. Journal 8fe26eb3026b7d9968f45b5c86815616d1ee5de8 readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§213 coordinator takeover; RESULT_NOT_FOUND recovery decision"
+  "task": null
 }
