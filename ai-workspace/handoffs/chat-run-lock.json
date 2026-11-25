@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "active",
+  "owner": "SOL-CONTEXT-226-LONG-20261125",
+  "acquired_at": "2026-11-25T17:00:01.613Z",
+  "expires_at": "2026-11-25T17:25:01.613Z",
+  "heartbeat_at": "2026-11-25T17:00:01.613Z",
   "last_completed_at": "2026-11-25T14:53:24Z",
   "last_summary": "§228 quota observation and pilot review verified. 27/89→23/88%, net −4/−1 pp, within soft targets; §227 physical display PASS 3/3, no archive fetched or context exhaustion reported. SOL remains owner; no new Work launch. Journal 19774490.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§228 long-run/heap evidence recovery on pinned 4675588; no accepted test reruns"
 }
