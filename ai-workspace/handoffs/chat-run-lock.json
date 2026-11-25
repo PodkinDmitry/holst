@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "SOL Work",
-  "acquired_at": "2026-11-25T23:19:25.412Z",
-  "expires_at": "2026-11-25T23:54:25.412Z",
-  "heartbeat_at": "2026-11-25T23:19:25.412Z",
-  "last_completed_at": "2026-11-25T23:18:15.215Z",
-  "last_summary": "§240 dedicated test writer verified, pending manual OAuth review; journal readback passed.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-25T23:27:30.281Z",
+  "last_summary": "§241 Drive Save PASS, duplicate assets refusal/recovery partial; Incognito reader sign-in pending; journal readback passed.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "XOD isolated live Drive acceptance §241"
+  "task": null
 }
