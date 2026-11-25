@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "active",
+  "owner": "SOL Work",
+  "acquired_at": "2026-11-25T23:05:48.975Z",
+  "expires_at": "2026-11-25T23:45:48.975Z",
+  "heartbeat_at": "2026-11-25T23:05:48.975Z",
   "last_completed_at": "2026-11-25T23:01:41.242Z",
   "last_summary": "§238 Drive acceptance blocked by unverified shared metadata/writer provenance; journal readback passed.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "XOD 3.0 isolated live Drive acceptance §239"
 }
