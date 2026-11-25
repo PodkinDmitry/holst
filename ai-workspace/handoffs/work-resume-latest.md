@@ -1,7 +1,7 @@
 # XOD · current canonical handoff (CONTEXT-226)
 
 <!-- XOD_LIVE_START -->
-**CHECKPOINT_SECTION=236 · SCHEMA=2 · 25.11.2026 · GOVERNANCE-146.** CONTEXT-226: compact hot journal; verify physical last, archive index, relevant refs and lease. Strategy/PROMPTS §219.
+**CHECKPOINT_SECTION=237 · SCHEMA=2 · 25.11.2026 · GOVERNANCE-146.** CONTEXT-226: compact hot journal; verify physical last, archive index, relevant refs and lease. Strategy/PROMPTS §219.
 
 **Власть:** USER owner. STRATEGIC_OWNER=SOL Work (model/effort is a resource, not authority), OPERATIONAL_OWNER=SOL local acceptance. Appointment §221; user authorized continuation after prior context exhaustion; §225 receipt/START verified by own CAS and Windows work. SOL_STATE=AWAKE last confirmed; WORK_EXECUTION=COMPLETED for §225, user reports context exhausted; §227 SOL Work receipt/START verified by own CAS; one-gate pilot COMPLETED; review §228 confirms observed quota delta within target; §230 SOL Work receipt/START CAS-verified; endurance INCOMPLETE after Windows tool-session change; Preview1 60/60, candidate 19/60; paused pending usable Windows runtime. SOL authority unchanged. 3.0 OPEN. §233 user quota at trigger: 70% 5h / 83% week; resets in 58m / 6d14h. §235 user quota 57% 5h / 81% week / 0 credits; final UNKNOWN; $0 extra.
 
@@ -47,3 +47,7 @@ Cloud Console in the same chat IAB and user-designated account slot 1 reached ge
 ## 236. SOL — Drive API enabled in user-created test project (26.11.2026 MSK)
 
 User reported Google required 2FA and created XOD Test (xod-test-515822). Confirmed that exact project in the authorized isolated Cloud session. Google Drive API enabled and read back as Enabled. No billing operation or production activity. OAuth wizard prepared app name XOD Beta Test, External audience, and test-account contact. Google requires acceptance of Google API Services: User Data Policy before saving configuration; user takeover requested. Testing, test-user list, web client and live sync not yet complete. Next SOL resumes OAuth wizard and verifies Testing, loopback origin 127.0.0.1:8733 and isolated account before live sync. Last reported quota 57%/81%, 0 credits, current unknown. Own CAS bcc943bf834ec4354d0a31b188dcdca2f7bb2745 read back.
+
+## 237. SOL — web OAuth client created, beta awaits consent (26.11.2026 MSK)
+
+User completed Google Auth Platform wizard manually. Verified exact XOD Test project shows External and Testing. Added only designated test account, readback 1 test / 0 other. Created Web application XOD Beta Loopback with sole JavaScript origin http://127.0.0.1:8733, confirmed creation and Client ID present. Exact loopback beta reachable in IAB; Client ID entered via UI, beta now displays sign-in required. Google consent popup not observed through automation; no grant made, no live board sync attempted. User completes OAuth consent for test account only; next SOL confirms account and pinned root before §233 sync. No client secret, ID or account identifier persisted here. Billing and production untouched. Latest known quota 57%/81% from §235; current unknown. Own CAS ab764ae9ea7344af0eb992c634cab804dd21b3b8 read back.
