@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "locked",
+  "owner": "CHAT-COORD-ATR-217",
+  "acquired_at": "2026-11-25T10:42:21.134Z",
+  "expires_at": "2026-11-25T10:52:21.134Z",
+  "heartbeat_at": "2026-11-25T10:42:21.134Z",
   "last_completed_at": "2026-11-25T10:33:04.329Z",
   "last_summary": "§216 wrapper build path assertion unsupported; corrected original harness invocation prepared. No new test yet. Journal bc9d9e352435a22ddae74656062a79a52f33fbdd readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§217 restore isolated build prerequisites from pinned sources"
 }
