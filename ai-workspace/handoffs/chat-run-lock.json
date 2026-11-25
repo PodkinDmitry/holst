@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "SOL-CONTEXT-226-20261125",
-  "acquired_at": "2026-11-25T14:46:46.281Z",
-  "expires_at": "2026-11-25T15:11:46.281Z",
-  "heartbeat_at": "2026-11-25T14:46:46.281Z",
-  "last_completed_at": "2026-11-25T14:42:25Z",
-  "last_summary": "§226 CONTEXT-226 ACTIVE: exact old journal archive same blob d4369748; direct hot 13770 chars/live4854; AGENTS8709 chars and worker override readback PASS; filtered archive excerpt and bounded protocol ranges verified; five relevant product refs unchanged. SOL authority retained; Work pilot NOT_STARTED; last user quota 27%/89%, 0 credits.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-25T14:50:45.287Z",
+  "last_summary": "§227 exact journal readback PASS (f47d4034bf4ac8f70abb9fc5824b4696383408ff): 4675588 physical display gate PASS 3/3, native Edge DPR 1→1.25→1, focus/input/node identity retained. One gate only; 3.0 OPEN, quota delta UNKNOWN, paused for user efficiency review.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§226 one gate on 4675588: physical-display acceptance, isolated synthetic data only"
+  "task": null
 }
