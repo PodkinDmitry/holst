@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "running",
+  "owner": "chat-strategy-work-prep-219-20261125",
+  "acquired_at": "2026-11-25T10:52:35Z",
+  "expires_at": "2026-11-25T11:52:35Z",
+  "heartbeat_at": "2026-11-25T10:52:35Z",
   "last_completed_at": "2026-11-25T10:47:59.862Z",
   "last_summary": "§218 wrong checkout path; restore from existing source ZIPs with identity/integrity checks; no new measurements. Journal bebce0fcebdc88cda9f6c0de95c23bc40895ebe7 readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "Strategic Work readiness / PROMPTS prioritization / compact current journal; no product, CI, billing or schedule changes."
 }
