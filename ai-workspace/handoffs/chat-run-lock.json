@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "locked",
-  "owner": "CHAT-COORD-ATR-216",
-  "acquired_at": "2026-11-25T10:32:34.147Z",
-  "expires_at": "2026-11-25T10:42:34.147Z",
-  "heartbeat_at": "2026-11-25T10:32:34.147Z",
-  "last_completed_at": "2026-11-25T10:30:31.568Z",
-  "last_summary": "§215 recovery exhausted; short comparator durable capture prepared, no hour rerun; C frozen. Journal fbae1d7dd7c5ccdb23e93a27f38b932a926a93a6 readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-25T10:33:04.329Z",
+  "last_summary": "§216 wrapper build path assertion unsupported; corrected original harness invocation prepared. No new test yet. Journal bc9d9e352435a22ddae74656062a79a52f33fbdd readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§216 remove unsupported build path assumption"
+  "task": null
 }
