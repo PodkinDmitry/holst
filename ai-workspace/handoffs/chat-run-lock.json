@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "active",
+  "owner": "SOL Work",
+  "acquired_at": "2026-11-25T22:58:38.146Z",
+  "expires_at": "2026-11-25T23:23:38.146Z",
+  "heartbeat_at": "2026-11-25T22:58:38.146Z",
   "last_completed_at": "2026-11-25T22:24:20.081Z",
   "last_summary": "§237 Testing/sole test user verified; loopback OAuth web client created and configured in beta. Consent/live sync pending; journal readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "XOD 3.0 isolated live Drive acceptance §238"
 }
