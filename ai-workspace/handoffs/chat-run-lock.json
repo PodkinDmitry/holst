@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "SOL-CONTEXT-226-CANDIDATE-231",
-  "acquired_at": "2026-11-25T20:35:42.062Z",
-  "expires_at": "2026-11-25T21:35:42.062Z",
-  "heartbeat_at": "2026-11-25T20:35:42.062Z",
-  "last_completed_at": "2026-11-25T20:23:17.286Z",
-  "last_summary": "§230 INCOMPLETE, exact journal readback PASS (cac80731fa793e4a5cc43df90fed112f3b8f62cd); Preview1 60/60 baseline retained, 4675588 19/60 before Windows runtime became unavailable. Paired memory/UX OPEN. Resume candidate only when environment is verified comparable.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-25T20:39:12.414Z",
+  "last_summary": "§231 exact journal readback PASS (67d035706bf502610132e3b889187aba3c622a65); Preview1 62 raw records revalidated; independent candidate launch blocked. Exact 4675588 same-account parent isolation FAIL 4/6 across REST/MCP; 3.0 OPEN. Input quota 87%/86%, final UNKNOWN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§230 verify retained Preview1 then launch exact 4675588 only independent Windows job; observed quota 87% 5h / 86% weekly"
+  "task": null
 }
