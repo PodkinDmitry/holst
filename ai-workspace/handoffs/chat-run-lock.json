@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "SOL-XOD-TEST-OAUTH-236",
-  "acquired_at": "2026-11-25T22:14:18.212Z",
-  "expires_at": "2026-11-25T22:44:18.212Z",
-  "heartbeat_at": "2026-11-25T22:14:18.212Z",
-  "last_completed_at": "2026-11-25T21:52:58.655Z",
-  "last_summary": "§235 journal exact readback PASS (48feee2b0dc5a65c70fc1c7bc57438b1ccfd2f85); test Cloud account gates setup on mandatory Country and Terms acceptance. OAuth/project/API not configured; billing/production untouched. User quota 57%/81%, 0 credits; final unknown.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-25T22:16:18.832Z",
+  "last_summary": "§236 Drive API Enabled in XOD Test. OAuth awaits Google API Services policy acceptance. Journal readback PASS. No billing or production changes.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§235 isolated XOD Test Drive API and OAuth setup"
+  "task": null
 }
