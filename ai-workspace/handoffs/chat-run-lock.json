@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "CHAT-BUDGET-243-20261126",
-  "acquired_at": "2026-11-25T23:49:43Z",
-  "expires_at": "2026-11-26T00:09:43Z",
-  "heartbeat_at": "2026-11-25T23:49:43Z",
-  "last_completed_at": "2026-11-25T23:34:34.583Z",
-  "last_summary": "§242 reader displayed saved board and PNG; full sync failed deterministically at metadata PATCH; journal readback passed.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-25T23:50:33.521Z",
+  "last_summary": "§243 BUDGET-243 ACTIVE: 15 pp weekly per owner-allocated budget day, two days consumed, Work paused; ordinary CHAT execution under GATE-0; AGENTS and journal exact readback PASS; no product changes or Work launch.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Owner-directed daily Work quota ceiling and temporary ordinary CHAT execution; documentation only; no Work launch or product edits."
+  "task": null
 }
