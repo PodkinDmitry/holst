@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "active",
+  "owner": "CHAT-ROUTER-PROPOSAL-244",
+  "acquired_at": "2026-11-25T23:55:56.192Z",
+  "expires_at": "2026-11-26T00:10:56.192Z",
+  "heartbeat_at": "2026-11-25T23:55:56.192Z",
   "last_completed_at": "2026-11-25T23:50:33.521Z",
   "last_summary": "§243 BUDGET-243 ACTIVE: 15 pp weekly per owner-allocated budget day, two days consumed, Work paused; ordinary CHAT execution under GATE-0; AGENTS and journal exact readback PASS; no product changes or Work launch.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "Document proposed Work routing calibration and branch scope; no product or Work launch."
 }
