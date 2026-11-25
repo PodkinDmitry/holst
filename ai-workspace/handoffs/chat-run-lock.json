@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "CHAT-CONTEXT-MIGRATION-226-20261125",
-  "acquired_at": "2026-11-25T14:38:44Z",
-  "expires_at": "2026-11-25T15:08:44Z",
-  "heartbeat_at": "2026-11-25T14:38:44Z",
-  "last_completed_at": "2026-11-25T14:29:35.263Z",
-  "last_summary": "§225 exact readback PASS: 4675588 active acceptance candidate; 452 source hashes and 114 rebuilt files match, native Windows isolated scheduled backup PASS, release open; journal d4369748800237e83564088807d8511a485fa6eb.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-25T14:42:25Z",
+  "last_summary": "§226 CONTEXT-226 ACTIVE: exact old journal archive same blob d4369748; direct hot 13770 chars/live4854; AGENTS8709 chars and worker override readback PASS; filtered archive excerpt and bounded protocol ranges verified; five relevant product refs unchanged. SOL authority retained; Work pilot NOT_STARTED; last user quota 27%/89%, 0 credits.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "User-authorized documentation-only compact context migration; SOL remains strategic/operational owner; no Work launch or product changes."
+  "task": null
 }
