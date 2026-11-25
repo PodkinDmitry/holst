@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "SOL-XOD-DRIVE-ACCEPTANCE-233",
-  "acquired_at": "2026-11-25T21:02:49.117Z",
-  "expires_at": "2026-11-25T21:42:49.117Z",
-  "heartbeat_at": "2026-11-25T21:02:49.117Z",
-  "last_completed_at": "2026-11-25T20:56:00.116Z",
-  "last_summary": "§232 exact journal readback PASS (36aa76f3dc054829cb7474fa247bf460f7fe5cd2); 9131a967 private beta Drive scoped isolation synthetic PASS, pair 13/13, app 43 PASS with local wait guard. MCP/delete blocked, live acceptance/3.0 OPEN; endurance 1/2. Input quota 82%/85%, final UNKNOWN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-25T21:06:04.827Z",
+  "last_summary": "§233 exact journal readback PASS (20b1536dc6f32e85b73a92e6964710b359855a99); archived §§226–232 first. ef782903 exact private child, official app suite 43 PASS, byte-identical app/extension, live Drive blocked pending authorized disposable session, release limitations explicit. Input 70%/83%, final UNKNOWN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§232 test reproducibility, isolated Drive acceptance prerequisites and CONTEXT-226 rollover; quota 70%/83%"
+  "task": null
 }
