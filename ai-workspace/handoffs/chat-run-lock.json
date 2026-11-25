@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "locked",
-  "owner": "CHAT-COORD-ATR-215",
-  "acquired_at": "2026-11-25T10:29:54.260Z",
-  "expires_at": "2026-11-25T10:39:54.260Z",
-  "heartbeat_at": "2026-11-25T10:29:54.260Z",
-  "last_completed_at": "2026-11-25T10:27:09.870Z",
-  "last_summary": "§214 temp/harness exists; ROOT output location unresolved; broaden targeted read-only recovery once, then short-only rerun if necessary. C frozen. Journal 1f283f50c351c9592ee1f406ebe3e298eca0387b readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-25T10:30:31.568Z",
+  "last_summary": "§215 recovery exhausted; short comparator durable capture prepared, no hour rerun; C frozen. Journal fbae1d7dd7c5ccdb23e93a27f38b932a926a93a6 readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§215 recovery exhausted; short paired redraw rerun plan"
+  "task": null
 }
