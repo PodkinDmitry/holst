@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "locked",
+  "owner": "CHAT-COORD-ATR-214",
+  "acquired_at": "2026-11-25T10:26:42.143Z",
+  "expires_at": "2026-11-25T10:36:42.143Z",
+  "heartbeat_at": "2026-11-25T10:26:42.143Z",
   "last_completed_at": "2026-11-25T10:22:54.985Z",
   "last_summary": "§213 new coordinator received/start; RESULT_NOT_FOUND exact-name recovery miss, targeted path/schema diagnosis next, no long rerun. C frozen, release OPEN. Journal 8fe26eb3026b7d9968f45b5c86815616d1ee5de8 readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§214 result path root diagnostic"
 }
