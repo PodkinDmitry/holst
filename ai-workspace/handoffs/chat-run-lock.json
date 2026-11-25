@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "held",
-  "owner": "CHAT-COORD-ATR-212",
-  "acquired_at": "2026-11-25T00:35:22.585Z",
-  "expires_at": "2026-11-25T00:45:22.585Z",
-  "heartbeat_at": "2026-11-25T00:35:22.585Z",
-  "last_completed_at": "2026-11-24T23:04:15.481Z",
-  "last_summary": "§211 exact historical performance harness SHA verified and source parsed; isolated local comparison command prepared, execution pending. C frozen. Journal ed7c1093db4be365812fbed9ee49488bdc1702e5 readback PASS. Release OPEN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-25T00:36:05.881Z",
+  "last_summary": "§212 local comparative motion 4/4 and 30-min sessions 2/2 completed. Postprocessor file not found; recover raw redraw results without rerun. C frozen. Journal 6900633ecbd320f5bb9a4a7098cc5a6999948363 readback PASS. Release OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§212 record completed comparative Windows motion and long-run evidence; recover existing raw result without rerun"
+  "task": null
 }
