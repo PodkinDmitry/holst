@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "active",
+  "owner": "SOL-XOD-DRIVE-P0-232",
+  "acquired_at": "2026-11-25T20:45:48.621Z",
+  "expires_at": "2026-11-25T21:35:48.621Z",
+  "heartbeat_at": "2026-11-25T20:45:48.621Z",
   "last_completed_at": "2026-11-25T20:39:12.414Z",
   "last_summary": "§231 exact journal readback PASS (67d035706bf502610132e3b889187aba3c622a65); Preview1 62 raw records revalidated; independent candidate launch blocked. Exact 4675588 same-account parent isolation FAIL 4/6 across REST/MCP; 3.0 OPEN. Input quota 87%/86%, final UNKNOWN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§231 P0 synthetic Drive beta root/account isolation fix on separate private branch; start quota 82%/85%"
 }
