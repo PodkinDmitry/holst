@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "active",
+  "owner": "SOL-WORK-STRATEGY-224-20261125",
+  "acquired_at": "2026-11-25T13:43:07.395Z",
+  "expires_at": "2026-11-25T14:28:07.395Z",
+  "heartbeat_at": "2026-11-25T13:43:07.395Z",
   "last_completed_at": "2026-11-25T13:36:34.841Z",
   "last_summary": "§223 SOL continuation verified: Windows redraw 7/8 MIXED, startup and active iframe measured, pinned offline beta isolation PASS. Release OPEN. Journal 5ea816c960a5708f048304e28719d8987c47c2db readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§224 Windows redraw attribution and offline beta installation/backup acceptance"
 }
