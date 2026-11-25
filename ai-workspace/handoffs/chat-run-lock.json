@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "SOL-WORK-STRATEGY-225-20261125",
-  "acquired_at": "2026-11-25T14:23:16.101Z",
-  "expires_at": "2026-11-25T14:45:16.101Z",
-  "heartbeat_at": "2026-11-25T14:23:16.101Z",
-  "last_completed_at": "2026-11-25T14:18:06.006Z",
-  "last_summary": "§224 exact readback PASS: Windows Edge redraw 8/8 on source fix 4675588, app 43 PASS and zoom PASS, synthetic backup exports isolated, release open, journal 751cac5bc1f9947bcbdbf00b2bee6c052b1832a4.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-25T14:29:35.263Z",
+  "last_summary": "§225 exact readback PASS: 4675588 active acceptance candidate; 452 source hashes and 114 rebuilt files match, native Windows isolated scheduled backup PASS, release open; journal d4369748800237e83564088807d8511a485fa6eb.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "XOD 3.0 exact fixed candidate integration and native isolated Windows backup acceptance"
+  "task": null
 }
