@@ -1,7 +1,7 @@
 # XOD · current canonical handoff (CONTEXT-226)
 
 <!-- XOD_LIVE_START -->
-**CHECKPOINT_SECTION=235 · SCHEMA=2 · 25.11.2026 · GOVERNANCE-146.** CONTEXT-226: compact hot journal; verify physical last, archive index, relevant refs and lease. Strategy/PROMPTS §219.
+**CHECKPOINT_SECTION=236 · SCHEMA=2 · 25.11.2026 · GOVERNANCE-146.** CONTEXT-226: compact hot journal; verify physical last, archive index, relevant refs and lease. Strategy/PROMPTS §219.
 
 **Власть:** USER owner. STRATEGIC_OWNER=SOL Work (model/effort is a resource, not authority), OPERATIONAL_OWNER=SOL local acceptance. Appointment §221; user authorized continuation after prior context exhaustion; §225 receipt/START verified by own CAS and Windows work. SOL_STATE=AWAKE last confirmed; WORK_EXECUTION=COMPLETED for §225, user reports context exhausted; §227 SOL Work receipt/START verified by own CAS; one-gate pilot COMPLETED; review §228 confirms observed quota delta within target; §230 SOL Work receipt/START CAS-verified; endurance INCOMPLETE after Windows tool-session change; Preview1 60/60, candidate 19/60; paused pending usable Windows runtime. SOL authority unchanged. 3.0 OPEN. §233 user quota at trigger: 70% 5h / 83% week; resets in 58m / 6d14h. §235 user quota 57% 5h / 81% week / 0 credits; final UNKNOWN; $0 extra.
 
@@ -43,3 +43,7 @@
 §234 and exact private ef782903 verified. User explicitly authorized XOD Beta Test project, Google Drive API, Testing and Web OAuth JS origin http://127.0.0.1:8733 in the disposable Google account only, no billing. Input quota 57%/81%, 0 credits; final unknown. Own CAS 8ea186afcd9372e31fb9ac7eacf33c6c9e44a0e7 acquired and read back.
 
 Cloud Console in the same chat IAB and user-designated account slot 1 reached getting-started with mandatory Country and unaccepted Google Cloud Platform Terms of Service. Agree and continue disabled pending inputs. Legal agreement acceptance requires action-time user authorization; hand off that single onboarding step for user completion, using the same test session, without entering billing. No project, API enablement, consent configuration, client or live sync created yet; no production settings or billing touched. Next owner SOL when user returns control: confirm exact test account, create/select XOD Beta Test under no billing, enable Drive API, configure External/Testing for test account only and Web client at the exact loopback origin. Then recheck §234 root/account and proceed with §233 if consent is authorized. Continue CAS/readback on next trigger.
+
+## 236. SOL — Drive API enabled in user-created test project (26.11.2026 MSK)
+
+User reported Google required 2FA and created XOD Test (xod-test-515822). Confirmed that exact project in the authorized isolated Cloud session. Google Drive API enabled and read back as Enabled. No billing operation or production activity. OAuth wizard prepared app name XOD Beta Test, External audience, and test-account contact. Google requires acceptance of Google API Services: User Data Policy before saving configuration; user takeover requested. Testing, test-user list, web client and live sync not yet complete. Next SOL resumes OAuth wizard and verifies Testing, loopback origin 127.0.0.1:8733 and isolated account before live sync. Last reported quota 57%/81%, 0 credits, current unknown. Own CAS bcc943bf834ec4354d0a31b188dcdca2f7bb2745 read back.
