@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "SOL-XOD-DRIVE-LIVE-PREFLIGHT-234",
-  "acquired_at": "2026-11-25T21:28:59.581Z",
-  "expires_at": "2026-11-25T21:58:59.581Z",
-  "heartbeat_at": "2026-11-25T21:28:59.581Z",
-  "last_completed_at": "2026-11-25T21:06:04.827Z",
-  "last_summary": "§233 exact journal readback PASS (20b1536dc6f32e85b73a92e6964710b359855a99); archived §§226–232 first. ef782903 exact private child, official app suite 43 PASS, byte-identical app/extension, live Drive blocked pending authorized disposable session, release limitations explicit. Input 70%/83%, final UNKNOWN.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-25T21:32:14.815Z",
+  "last_summary": "§234 exact journal readback PASS (edbd15efe73465e38a1cec04319e742b690ddfde); authorized test Drive root/assets verified; exact beta visible at isolated loopback 8733, waiting for test OAuth client ID; no live sync, production untouched. Latest quota 70%/83% from §233; current UNKNOWN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§233 narrow preflight for explicitly authorized isolated IAB Google test session only; actual quota not exposed"
+  "task": null
 }
