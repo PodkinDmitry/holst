@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "locked",
-  "owner": "CHAT-COORD-ATR-218",
-  "acquired_at": "2026-11-25T10:47:22.418Z",
-  "expires_at": "2026-11-25T10:57:22.418Z",
-  "heartbeat_at": "2026-11-25T10:47:22.418Z",
-  "last_completed_at": "2026-11-25T10:43:09.793Z",
-  "last_summary": "§217 exact harness path confirmed, startup timeout before measurements; persistent pinned rebuild plan. Journal 3976ecb25ead143ef4bc5123c580b9a207e8aeac readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-25T10:47:59.862Z",
+  "last_summary": "§218 wrong checkout path; restore from existing source ZIPs with identity/integrity checks; no new measurements. Journal bebce0fcebdc88cda9f6c0de95c23bc40895ebe7 readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§218 restore from preserved source archives rather than incorrect checkout path"
+  "task": null
 }
