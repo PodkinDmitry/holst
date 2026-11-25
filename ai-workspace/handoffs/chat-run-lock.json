@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "chat-strategy-work-prep-219-20261125",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-25T10:52:35Z",
-  "expires_at": "2026-11-25T11:52:35Z",
-  "heartbeat_at": "2026-11-25T10:52:35Z",
-  "last_completed_at": "2026-11-25T10:47:59.862Z",
-  "last_summary": "§218 wrong checkout path; restore from existing source ZIPs with identity/integrity checks; no new measurements. Journal bebce0fcebdc88cda9f6c0de95c23bc40895ebe7 readback PASS.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-25T10:54:34Z",
+  "last_completed_at": "2026-11-25T10:54:34Z",
+  "last_summary": "§219 PROMPTS prioritized; live compacted 178562→5775 chars; previous live and history preserved exactly; journal 7f54a8cc and AGENTS b069e229 exact readback PASS. Work expected later, not started. Six private refs checked, no product/CI/automation/billing changes.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Strategic Work readiness / PROMPTS prioritization / compact current journal; no product, CI, billing or schedule changes."
+  "task": "Idle. COORD safe checkpoint on §218 result; Work startup §219.4 + §§146–148 only after actual availability and explicit assignment."
 }
