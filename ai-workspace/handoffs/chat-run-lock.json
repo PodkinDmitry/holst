@@ -4,9 +4,9 @@
   "owner": "SOL-CONTEXT-226-ENDURANCE-20261125",
   "acquired_at": "2026-11-25T19:14:56.870Z",
   "expires_at": "2026-11-25T20:59:56.870Z",
-  "heartbeat_at": "2026-11-25T19:14:56.870Z",
+  "heartbeat_at": "2026-11-25T19:49:27.803Z",
   "last_completed_at": "2026-11-25T17:07:04.667Z",
   "last_summary": "§229 journal (224755d4f30996caed7351bef178c67e7431d5b0) exact readback PASS. Raw 1800s unrecovered; exact 4675588 31.61s post-GC 34.57 MB (+0.04% vs C, +45.49% vs Preview1), 0 page errors; long-memory acceptance OPEN. Quota delta UNKNOWN. Paused after one evidence gate.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§229 exact 1800s comparative endurance Preview1 vs 4675588 with validated raw checkpointing"
+  "task": "§230 Preview1 completed (60/60 windows, 1800.656s); raw fsync/readback in TEMP xod-230-evidence/long/preview1; same 4675588 script session running"
 }
