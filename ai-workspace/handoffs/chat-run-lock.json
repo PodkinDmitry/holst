@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "running",
+  "owner": "SOL-WORK-STRATEGY-221-20261125",
+  "acquired_at": "2026-11-25T11:48:42.898Z",
+  "expires_at": "2026-11-25T12:48:42.898Z",
+  "heartbeat_at": "2026-11-25T11:48:42.898Z",
   "last_completed_at": "2026-11-25T10:55:40.351Z",
   "last_summary": "§220 Preview1 ZIP identity/CRC and build exit0; expected output assertion failed; stop manual loop per §219. Journal eb67c1c084fa75ca13108be7a97e1884ff90e3fd readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "Explicit Work takeover, exact local performance evidence, safe parallel beta acceptance"
 }
