@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "running",
+  "owner": "SOL-WORK-STRATEGY-223-20261125",
+  "acquired_at": "2026-11-25T13:25:08.119Z",
+  "expires_at": "2026-11-25T13:50:08.119Z",
+  "heartbeat_at": "2026-11-25T13:25:08.119Z",
   "last_completed_at": "2026-11-25T12:59:03.273Z",
   "last_summary": "§222 SOL cycle verified: local redraw mixed, exact legacy backup and isolated beta lab pass, Comodo preflight; release OPEN. Journal a7f395a7ecd93c7699fea4acb9124dc900c580c9 readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "Resume §222; close repeatable Windows redraw/boot evidence and validate safe isolated beta package feasibility"
 }
