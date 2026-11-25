@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "SOL Work",
-  "acquired_at": "2026-11-25T23:16:31.885Z",
-  "expires_at": "2026-11-25T23:51:31.885Z",
-  "heartbeat_at": "2026-11-25T23:16:31.885Z",
-  "last_completed_at": "2026-11-25T23:09:50.292Z",
-  "last_summary": "§239 clean disposable root and isolated profiles prepared; blocked on Google sign-in; journal readback passed.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-25T23:18:15.215Z",
+  "last_summary": "§240 dedicated test writer verified, pending manual OAuth review; journal readback passed.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "XOD 3.0 clean Drive acceptance §240"
+  "task": null
 }
