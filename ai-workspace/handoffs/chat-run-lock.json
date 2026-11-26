@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "CHAT-MAIN-245-20261126",
+  "state": "idle",
+  "owner": null,
   "acquired_at": "2026-11-26T12:37:59Z",
-  "expires_at": "2026-11-26T13:37:59Z",
-  "heartbeat_at": "2026-11-26T12:37:59Z",
-  "last_completed_at": "2026-11-25T23:56:02.237Z",
-  "last_summary": "§244 proposed ROUTER v0.1 and specialized branch scope, exact readback PASS; scoring NOT ACTIVE, BUDGET-243 active, Work paused, no product edits.",
+  "expires_at": null,
+  "heartbeat_at": "2026-11-26T12:41:54Z",
+  "last_completed_at": "2026-11-26T12:41:54Z",
+  "last_summary": "§245 MAIN: baseline 2/2 reproduced; scoped metadata candidate source-isolated Node 20/20 PASS. Private candidate b7dca57d exact changed blobs/manifest readback; parent ef782903 unchanged. Hot §§233–244 archived exact; live 5446 chars, journal 13688 chars, checkpoint245 readback PASS. No Work, CI, live Drive, production or billing changes. Full assembly/browser and live gate OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§245 ordinary CHAT scoped metadata PATCH candidate, isolated regression, no Work or live Drive, no production changes"
+  "task": null
 }
