@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": "2026-11-26T12:37:59Z",
-  "expires_at": null,
-  "heartbeat_at": "2026-11-26T12:41:54Z",
+  "state": "running",
+  "owner": "CHAT-MAIN-246-roadmap-20261126",
+  "acquired_at": "2026-11-26T12:49:22Z",
+  "expires_at": "2026-11-26T13:19:22Z",
+  "heartbeat_at": "2026-11-26T12:49:22Z",
   "last_completed_at": "2026-11-26T12:41:54Z",
   "last_summary": "§245 MAIN: baseline 2/2 reproduced; scoped metadata candidate source-isolated Node 20/20 PASS. Private candidate b7dca57d exact changed blobs/manifest readback; parent ef782903 unchanged. Hot §§233–244 archived exact; live 5446 chars, journal 13688 chars, checkpoint245 readback PASS. No Work, CI, live Drive, production or billing changes. Full assembly/browser and live gate OPEN.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "Update approved roadmap metrics and chat organization in existing journal §246; no product/CI/Work/automation changes."
 }
