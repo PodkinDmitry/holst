@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "CHAT-MAIN-2-251-20261127",
-  "acquired_at": "2026-11-27T14:24:34.921Z",
-  "expires_at": "2026-11-27T14:39:34.921Z",
-  "heartbeat_at": "2026-11-27T14:24:34.921Z",
-  "last_completed_at": "2026-11-27T14:15:52.791Z",
-  "last_summary": "§250 owner-confirmed Actions $10.22 included remaining, hard $0 stop; evidence published/readback PASS. MAIN-2 retains sole operational role §249; no duplicate CI, Work, product, billing or live Drive changes. Next MAIN-2 bounded exact-SHA CI.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-27T14:27:38.269Z",
+  "last_summary": "§251 exact hosted CI started 46015737800, job 140562260624, 457 manifest hashes/inventory and build step SUCCESS; source/Edge regression IN_PROGRESS, other four jobs skipped. No Work/Codex/live Drive/product changes; journal readback PASS. Next read existing run, no duplicate launch.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§251 bounded exact SHA hosted Edge Drive preflight/CI"
+  "task": null
 }
