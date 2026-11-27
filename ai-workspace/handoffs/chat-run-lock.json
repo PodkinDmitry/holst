@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "CHAT-MAIN-2-249-20261127",
-  "acquired_at": "2026-11-27T14:13:35.478Z",
-  "expires_at": "2026-11-27T14:23:35.478Z",
-  "heartbeat_at": "2026-11-27T14:13:35.478Z",
-  "last_completed_at": "2026-11-27T13:58:54Z",
-  "last_summary": "§248 MAIN receipt confirmed, Work Router active/no Work. Exact REST transport source regression 12/12 PASS, tested file and manifest457 published test-only descendant 0076663a; journal readback PASS, history preserved. Full browser gate OPEN (local policy blocks loopback, exact archive absent; CI allowance not confirmed). No CI/Work/live Drive/production/billing changes.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-27T14:14:11.120Z",
+  "last_summary": "§249 MAIN-2 receipt, exact 457/457 source inventory PASS, managed Chromium URLBlocklist * confirmed; full assembly/browser NOT_RUN, current included CI allowance and $0 stop unconfirmed. No Work/CI/live Drive/product changes; journal readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§249 MAIN-2 exact source inventory and GATE-0 checkpoint, no Work/CI"
+  "task": null
 }
