@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "CHAT-MAIN-1-BUDGET-HANDOFF-250-20261127",
-  "acquired_at": "2026-11-27T14:14:42Z",
-  "expires_at": "2026-11-27T15:14:42Z",
-  "heartbeat_at": "2026-11-27T14:14:42Z",
-  "last_completed_at": "2026-11-27T14:14:11.120Z",
-  "last_summary": "§249 MAIN-2 receipt, exact 457/457 source inventory PASS, managed Chromium URLBlocklist * confirmed; full assembly/browser NOT_RUN, current included CI allowance and $0 stop unconfirmed. No Work/CI/live Drive/product changes; journal readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-27T14:15:52.791Z",
+  "last_summary": "§250 owner-confirmed Actions $10.22 included remaining, hard $0 stop; evidence published/readback PASS. MAIN-2 retains sole operational role §249; no duplicate CI, Work, product, billing or live Drive changes. Next MAIN-2 bounded exact-SHA CI.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Documentation-only handoff of owner-confirmed Actions budget to MAIN-2; no CI or product changes"
+  "task": null
 }
