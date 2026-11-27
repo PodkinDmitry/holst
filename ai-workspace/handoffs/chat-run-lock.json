@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "active",
-  "owner": "CHAT-OPT-ROUTER-247",
-  "acquired_at": "2026-11-27T10:54:22Z",
-  "expires_at": "2026-11-27T11:14:22Z",
-  "heartbeat_at": "2026-11-27T10:54:22Z",
-  "last_completed_at": "2026-11-26T12:50:58Z",
-  "last_summary": "§246 full 8/37 roadmap, 5 metrics, role map; 3.0 11–27h scoped estimate, total 220–463h +5–10 reserve, Drive feature parity unpriced. 45 rows and arithmetic verified, history preserved, live6153/hot30814 chars, exact readback PASS; rollover before next append if >32k. Work paused, no source/CI/automation/chat changes.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-27T10:55:21.450Z",
+  "last_summary": "§247 Work Router v0.1 and chat topology ACTIVE; owner-approved experimental rules, exact AGENTS/hot/archive readback PASS; Work paused, SOL authority retained, MAIN receipt unconfirmed; no product changes.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "Owner-approved experimental Work Router and chat topology; archive rollover; no Work or product changes."
+  "task": null
 }
