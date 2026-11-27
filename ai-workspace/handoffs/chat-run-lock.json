@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "CHAT-MAIN-248-20261127",
-  "acquired_at": "2026-11-27T13:57:18Z",
-  "expires_at": "2026-11-27T14:57:18Z",
-  "heartbeat_at": "2026-11-27T13:57:18Z",
-  "last_completed_at": "2026-11-27T10:55:21.450Z",
-  "last_summary": "§247 Work Router v0.1 and chat topology ACTIVE; owner-approved experimental rules, exact AGENTS/hot/archive readback PASS; Work paused, SOL authority retained, MAIN receipt unconfirmed; no product changes.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-27T13:58:54Z",
+  "last_summary": "§248 MAIN receipt confirmed, Work Router active/no Work. Exact REST transport source regression 12/12 PASS, tested file and manifest457 published test-only descendant 0076663a; journal readback PASS, history preserved. Full browser gate OPEN (local policy blocks loopback, exact archive absent; CI allowance not confirmed). No CI/Work/live Drive/production/billing changes.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§248 MAIN receipt of router; tested transport regression only, no Work, no CI or live Drive."
+  "task": null
 }
