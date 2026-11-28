@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "CHAT-MAIN-2-255-20261128",
-  "acquired_at": "2026-11-28T14:36:24.948Z",
-  "expires_at": "2026-11-28T14:51:24.948Z",
-  "heartbeat_at": "2026-11-28T14:36:24.948Z",
-  "last_completed_at": "2026-11-28T14:31:42.408Z",
-  "last_summary": "§254 exact private app artifact CI 46154812251 success 20s; downloaded archive verified, local preflight kit tested in container. Windows/browser/real Drive not run; user readiness+fresh isolated scope needed. Product unchanged, Work/Codex0. Journal readback PASS.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-28T14:37:07.005Z",
+  "last_summary": "§255 owner authorized fresh isolated synthetic test; Comodo blocked/unblocked per owner, warning omission recorded HAO-OBS. READY unconfirmed, live Drive NOT_RUN. Await local startup evidence, no Work/Codex/CI. Journal verified.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§255 owner live scope approval and Comodo feedback; local READY evidence pending"
+  "task": null
 }
