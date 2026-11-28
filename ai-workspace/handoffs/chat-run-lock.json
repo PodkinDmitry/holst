@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "CHAT-MAIN-2-254-20261128",
-  "acquired_at": "2026-11-28T14:27:53.008Z",
-  "expires_at": "2026-11-28T14:42:53.008Z",
-  "heartbeat_at": "2026-11-28T14:27:53.008Z",
-  "last_completed_at": "2026-11-28T14:25:51.425Z",
-  "last_summary": "§253 exact candidate synthetic Drive lifecycle 8/8 PASS, mock contract 20/20 PASS, CI 46154471578 success 48s, source457/build/HTML identity confirmed. Product unchanged, Work/Codex0, no live data. Journal readback PASS. Next live GATE-0 and explicit isolated scope.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-28T14:31:42.408Z",
+  "last_summary": "§254 exact private app artifact CI 46154812251 success 20s; downloaded archive verified, local preflight kit tested in container. Windows/browser/real Drive not run; user readiness+fresh isolated scope needed. Product unchanged, Work/Codex0. Journal readback PASS.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§254 exact private delivery artifact and isolated live acceptance preflight"
+  "task": null
 }
