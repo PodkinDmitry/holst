@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "running",
+  "owner": "CHAT-OPT-257-20261128",
+  "acquired_at": "2026-11-28T15:04:56.316Z",
+  "expires_at": "2026-11-28T15:19:56.316Z",
+  "heartbeat_at": "2026-11-28T15:04:56.316Z",
   "last_completed_at": "2026-11-28T14:39:12.557Z",
   "last_summary": "§256 READY confirmed by owner; exact guard/OAuth configuration verified. Fresh test root and isolated writer setup pending user; no live Drive mutation, Work/Codex/CI0. Journal verified; next append needs rollover.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§257 owner-approved ATR forecast calibration and route UX; no engineering/Work"
 }
