@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "running",
-  "owner": "CHAT-MAIN-2-256-20261128",
-  "acquired_at": "2026-11-28T14:38:00.910Z",
-  "expires_at": "2026-11-28T14:53:00.910Z",
-  "heartbeat_at": "2026-11-28T14:38:00.910Z",
-  "last_completed_at": "2026-11-28T14:37:07.005Z",
-  "last_summary": "§255 owner authorized fresh isolated synthetic test; Comodo blocked/unblocked per owner, warning omission recorded HAO-OBS. READY unconfirmed, live Drive NOT_RUN. Await local startup evidence, no Work/Codex/CI. Journal verified.",
+  "state": "idle",
+  "owner": null,
+  "acquired_at": null,
+  "expires_at": null,
+  "heartbeat_at": null,
+  "last_completed_at": "2026-11-28T14:39:12.557Z",
+  "last_summary": "§256 READY confirmed by owner; exact guard/OAuth configuration verified. Fresh test root and isolated writer setup pending user; no live Drive mutation, Work/Codex/CI0. Journal verified; next append needs rollover.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": "§256 READY receipt and scoped browser preflight instructions"
+  "task": null
 }
