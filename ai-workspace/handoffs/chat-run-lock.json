@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "running",
+  "owner": "CHAT-MAIN-2-253-20261128",
+  "acquired_at": "2026-11-28T14:23:12.619Z",
+  "expires_at": "2026-11-28T14:38:12.619Z",
+  "heartbeat_at": "2026-11-28T14:23:12.619Z",
   "last_completed_at": "2026-11-28T14:21:14.273Z",
   "last_summary": "§252 exact prior CI 4/4 suites PASS, 43 app regressions, 457 manifest hashes; shared lifecycle harness 3 bounded runs, latest 46154083268 FAIL fixture assertion foreign create after scoped Life OS backup folder create, no lifecycle PASS marker yet. No product/live/Work changes. Archive+hot readback PASS. Next diagnose nested scoped multipart create against actual source and correct harness.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§253 faithful nested multipart and isolated browser lifecycle"
 }
