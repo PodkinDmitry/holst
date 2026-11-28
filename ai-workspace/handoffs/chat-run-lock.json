@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "state": "idle",
-  "owner": null,
-  "acquired_at": null,
-  "expires_at": null,
-  "heartbeat_at": null,
+  "state": "running",
+  "owner": "CHAT-MAIN-2-252-20261128",
+  "acquired_at": "2026-11-28T14:14:44.507Z",
+  "expires_at": "2026-11-28T14:29:44.507Z",
+  "heartbeat_at": "2026-11-28T14:14:44.507Z",
   "last_completed_at": "2026-11-27T14:27:38.269Z",
   "last_summary": "§251 exact hosted CI started 46015737800, job 140562260624, 457 manifest hashes/inventory and build step SUCCESS; source/Edge regression IN_PROGRESS, other four jobs skipped. No Work/Codex/live Drive/product changes; journal readback PASS. Next read existing run, no duplicate launch.",
   "checkpoint": "ai-workspace/handoffs/work-resume-latest.md",
-  "task": null
+  "task": "§252 CI result and two-profile synthetic Drive lifecycle"
 }
